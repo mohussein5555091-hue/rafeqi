@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/styles.css">
+<link rel="stylesheet" href="rafeqi.css">
+<script src="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/_ds_bundle.js"></script>
+<script src="icons.js"></script>
+</helmet>
+<div style="padding:56px;display:flex;flex-direction:column;gap:64px;max-width:1360px;background:var(--color-bg);min-height:100vh">
+  <header style="display:flex;flex-direction:column;gap:10px;max-width:760px">
+    <span class="card-kicker" style="font-size:12px;font-weight:700;color:var(--color-accent-700)">Rafeqi · رفيقي — design system</span>
+    <h1 style="font-size:56px;margin:0">A calm companion, in two scripts.</h1>
+    <p style="font-size:17px;color:var(--color-neutral-700);margin:0;text-wrap:pretty">Built on Organic: cream ground, terracotta for action, sage for progress. One status language everywhere, one chart style, and a type pairing that holds up in Arabic and English.</p>
+  </header>
+
+  <section id="color" style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0">Colour</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px">
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:88px;border-radius:var(--radius-lg);background:var(--color-bg);box-shadow:inset 0 0 0 1px var(--color-divider)"></div><strong style="font-size:14px">Ground</strong><span style="font-size:12px;color:var(--color-neutral-700)">--color-bg · page</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:88px;border-radius:var(--radius-lg);background:var(--color-surface)"></div><strong style="font-size:14px">Surface</strong><span style="font-size:12px;color:var(--color-neutral-700)">--color-surface · cards, nav</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:88px;border-radius:var(--radius-lg);background:var(--color-text)"></div><strong style="font-size:14px">Ink</strong><span style="font-size:12px;color:var(--color-neutral-700)">--color-text · body copy</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:88px;border-radius:var(--radius-lg);background:var(--color-accent)"></div><strong style="font-size:14px">Terracotta</strong><span style="font-size:12px;color:var(--color-neutral-700)">--color-accent · actions</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div style="height:88px;border-radius:var(--radius-lg);background:var(--color-accent-2)"></div><strong style="font-size:14px">Sage</strong><span style="font-size:12px;color:var(--color-neutral-700)">--color-accent-2 · progress, data</span></div>
+    </div>
+    <h4 style="margin:12px 0 0">Status language</h4>
+    <p style="margin:0;max-width:680px;color:var(--color-neutral-700)">Three states, used identically on cards, badges, body maps and charts. Colour is always paired with an icon and a word — never colour alone.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:20px;border-radius:var(--radius-lg);background:var(--color-accent-2-100)">
+        <span style="width:44px;height:44px;border-radius:50%;background:var(--color-accent-2-600);color:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="check" size="22"></r-icon></span>
+        <div><strong style="color:var(--color-accent-2-800);font-size:16px">On track</strong><p style="margin:4px 0 0;font-size:13.5px;color:var(--color-accent-2-800)">Sage 100 fill · 600 icon · 800 text. Goals met, injury resolved, plan followed.</p></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:20px;border-radius:var(--radius-lg);background:var(--color-accent-100)">
+        <span style="width:44px;height:44px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="circle-alert" size="22"></r-icon></span>
+        <div><strong style="color:var(--color-accent-800);font-size:16px">Needs attention</strong><p style="margin:4px 0 0;font-size:13.5px;color:var(--color-accent-800)">Terracotta 100 · 500 · 800. Check-in due, recovering injury, a missed session.</p></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:20px;border-radius:var(--radius-lg);background:var(--color-warn-100)">
+        <span style="width:44px;height:44px;border-radius:50%;background:var(--color-warn-600);color:#fff;display:grid;place-items:center;flex:none"><r-icon name="triangle-alert" size="22"></r-icon></span>
+        <div><strong style="color:var(--color-warn-800);font-size:16px">Warning</strong><p style="margin:4px 0 0;font-size:13.5px;color:var(--color-warn-800)">Clay red 100 · 600 · 800. Active injury, pain ≥ 6, health flags, stop-and-see-a-doctor.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="type" style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0">Type</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:24px">
+      <div class="card" style="padding:28px;gap:14px">
+        <span class="card-kicker" style="color:var(--color-accent-700)">English · Caprasimo / Figtree</span>
+        <span style="font-family:var(--font-heading);font-size:40px;line-height:1.1">Your plan is ready</span>
+        <span style="font-family:var(--font-heading);font-size:25px">Upper body A</span>
+        <span style="font-family:var(--font-heading);font-size:18px">Breakfast · Ful &amp; eggs</span>
+        <span style="font-size:15px">Body 15/1.55 — Keep your elbows under the bar and exhale as you press.</span>
+        <span style="font-size:12px;color:var(--color-neutral-700)">Caption 12 — Last session: 3 × 10 @ 22.5 kg</span>
+        <span style="font-family:var(--font-heading);font-size:44px;font-variant-numeric:tabular-nums">2,200 <span style="font-size:18px">kcal</span></span>
+      </div>
+      <div class="card" dir="rtl" style="padding:28px;gap:14px">
+        <span class="card-kicker" style="color:var(--color-accent-700)">عربي · لالزار / ريدكس برو</span>
+        <span style="font-family:var(--font-heading);font-size:40px;line-height:1.25">خطتك جاهزة</span>
+        <span style="font-family:var(--font-heading);font-size:25px">الجزء العلوي أ</span>
+        <span style="font-family:var(--font-heading);font-size:18px">الفطار · فول وبيض</span>
+        <span style="font-size:15px;line-height:1.75">نص ١٥ — خلّي كوعك تحت البار واطرد النفس وأنت بتدفع.</span>
+        <span style="font-size:12px;color:var(--color-neutral-700)">تعليق ١٢ — آخر تمرين: 3 × 10 بوزن 22.5 كجم</span>
+        <span style="font-family:var(--font-heading);font-size:44px">2,200 <span style="font-size:18px">سعرة</span></span>
+      </div>
+    </div>
+    <p style="margin:0;max-width:720px;color:var(--color-neutral-700);font-size:13.5px">Arabic swaps in automatically under <code>dir="rtl"</code>. Lalezar matches Caprasimo's soft, heavy display voice; Readex Pro pairs with Figtree's open forms. Arabic body line-height rises to 1.75. Numbers stay Western for plans and prices.</p>
+  </section>
+
+  <section id="space" style="display:flex;flex-direction:column;gap:20px">
+    <h2 style="margin:0">Spacing, radius, touch</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-end">
+      <div style="display:flex;gap:14px;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:4.4px;height:40px;background:var(--color-accent-300);border-radius:4px"></div><span style="font-size:11px">1</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:8.8px;height:40px;background:var(--color-accent-300);border-radius:4px"></div><span style="font-size:11px">2</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:13.2px;height:40px;background:var(--color-accent-300);border-radius:4px"></div><span style="font-size:11px">3</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:17.6px;height:40px;background:var(--color-accent-300);border-radius:4px"></div><span style="font-size:11px">4</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:26.4px;height:40px;background:var(--color-accent-300);border-radius:4px"></div><span style="font-size:11px">6</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:35.2px;height:40px;background:var(--color-accent-300);border-radius:4px"></div><span style="font-size:11px">8</span></div>
+      </div>
+      <div style="display:flex;gap:16px;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:72px;height:72px;background:var(--color-surface);border-radius:8px"></div><span style="font-size:11px">sm 8</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:72px;height:72px;background:var(--color-surface);border-radius:16px"></div><span style="font-size:11px">md 16</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:72px;height:72px;background:var(--color-surface);border-radius:32px"></div><span style="font-size:11px">card 32</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:110px;height:44px;background:var(--color-surface);border-radius:999px"></div><span style="font-size:11px">pill</span></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;padding:16px 20px;border-radius:var(--radius-lg);background:var(--color-neutral-100)">
+        <div style="width:44px;height:44px;border-radius:50%;outline:2px dashed var(--color-accent);display:grid;place-items:center"><r-icon name="plus" size="18"></r-icon></div>
+        <div style="font-size:13px;max-width:220px">Every tap target ≥ 44 px. Logger set buttons are 56 px; primary CTAs 52 px.</div>
+      </div>
+    </div>
+  </section>
+
+  <sc-for list="{{ themes }}" as="th" hint-placeholder-count="2">
+  <section data-theme="{{ th.theme }}" style="display:flex;flex-direction:column;gap:28px;padding:40px;border-radius:40px;background:var(--color-bg);color:var(--color-text);box-shadow:inset 0 0 0 1px var(--color-divider)">
+    <div style="display:flex;align-items:baseline;gap:14px"><h2 style="margin:0">Components</h2><span class="tag tag-neutral" style="font-size:12px">{{ th.label }}</span></div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h6 style="margin:0">Buttons</h6>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+          <button class="btn btn-primary" style="white-space:nowrap;height:52px;padding:0 26px;font-size:16px">Start session</button>
+          <button class="btn btn-secondary" style="white-space:nowrap;height:44px;padding:0 20px">Swap meal</button>
+          <button class="btn btn-ghost" style="height:44px;padding:0 12px">Skip</button>
+          <button class="btn btn-secondary" aria-label="Add" style="width:44px;height:44px;padding:0"><r-icon name="plus" size="20"></r-icon></button>
+          <button class="btn btn-primary" disabled="{{ true }}" style="height:44px;padding:0 20px">Disabled</button>
+        </div>
+        <h6 style="margin:8px 0 0">Chips — pick any</h6>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <button style="min-height:44px;padding:0 16px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-accent);background:var(--color-accent-100);color:var(--color-accent-800);font:inherit;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer"><r-icon name="check" size="16"></r-icon>Work</button>
+          <button style="min-height:44px;padding:0 16px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);background:transparent;color:var(--color-text);font:inherit;cursor:pointer">Travel</button>
+          <button style="min-height:44px;padding:0 16px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);background:transparent;color:var(--color-text);font:inherit;cursor:pointer">Ramadan / fasting</button>
+        </div>
+        <h6 style="margin:8px 0 0">Badges</h6>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+          <span class="tag" style="gap:5px;font-weight:700;font-size:12px;padding:5px 11px;background:var(--color-accent-2-100);color:var(--color-accent-2-800)"><r-icon name="check" size="13"></r-icon>On track</span>
+          <span class="tag" style="gap:5px;font-weight:700;font-size:12px;padding:5px 11px;background:var(--color-accent-100);color:var(--color-accent-800)"><r-icon name="circle-alert" size="13"></r-icon>Needs attention</span>
+          <span class="tag" style="gap:5px;font-weight:700;font-size:12px;padding:5px 11px;background:var(--color-warn-100);color:var(--color-warn-800)"><r-icon name="triangle-alert" size="13"></r-icon>Warning</span>
+          <span class="tag" style="gap:5px;font-weight:700;font-size:12px;padding:5px 11px;background:var(--color-warn-100);color:var(--color-warn-800)"><r-icon name="shield" size="13"></r-icon>Swapped for your left shoulder</span>
+          <span class="tag" style="gap:5px;font-size:12px;padding:5px 11px;background:var(--color-neutral-200);color:var(--color-neutral-800)"><r-icon name="book-open" size="13"></r-icon>Schoenfeld · Science &amp; Development of Muscle Hypertrophy</span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h6 style="margin:0">Inputs</h6>
+        <div class="field"><label>Email</label><input class="input" value="omar.hassan@gmail.com" style="height:48px;font-size:15px"></div>
+        <div class="field"><label>Password</label>
+          <div style="position:relative"><input class="input" type="password" value="nilecorniche" style="height:48px;font-size:15px;padding-inline-end:52px;border-color:var(--color-warn-600);box-shadow:0 0 0 1px var(--color-warn-600)"><button aria-label="Show password" style="position:absolute;inset-inline-end:2px;top:2px;width:44px;height:44px;border:0;background:transparent;color:var(--color-text);cursor:pointer;display:grid;place-items:center"><r-icon name="eye" size="18"></r-icon></button></div>
+          <span style="display:flex;gap:6px;align-items:center;font-size:12.5px;color:var(--color-warn-700);margin-top:6px"><r-icon name="circle-alert" size="14"></r-icon>Use at least 8 characters with one number.</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="field" style="flex:1"><label>Weight</label>
+            <div style="display:flex;align-items:center;height:48px;border-radius:999px;background:var(--color-surface);border:1px solid var(--color-divider)">
+              <button aria-label="Decrease" style="width:48px;height:46px;border:0;background:transparent;color:var(--color-text);cursor:pointer;display:grid;place-items:center"><r-icon name="minus" size="18"></r-icon></button>
+              <span style="flex:1;text-align:center;font-weight:700;font-size:17px;font-variant-numeric:tabular-nums">88.0 <span style="font-weight:400;font-size:13px;color:var(--color-neutral-700)">kg</span></span>
+              <button aria-label="Increase" style="width:48px;height:46px;border:0;background:transparent;color:var(--color-text);cursor:pointer;display:grid;place-items:center"><r-icon name="plus" size="18"></r-icon></button>
+            </div>
+          </div>
+          <div class="field"><label>Sex</label><div class="seg" style="height:48px"><label class="seg-opt" style="padding:0 18px"><input type="radio" name="{{ th.seg }}" defaultChecked="{{ true }}">Male</label><label class="seg-opt" style="padding:0 18px"><input type="radio" name="{{ th.seg }}">Female</label></div></div>
+        </div>
+        <div class="field"><label>How closely did you follow your meals? · 80%</label>
+          <div style="position:relative;height:44px;display:flex;align-items:center"><div style="height:10px;width:100%;border-radius:999px;background:var(--color-neutral-300)"><div style="height:10px;width:80%;border-radius:999px;background:var(--color-accent-2-600)"></div></div><span style="position:absolute;left:calc(80% - 14px);width:28px;height:28px;border-radius:50%;background:var(--color-bg);border:3px solid var(--color-accent-2-600);box-shadow:var(--shadow-md)"></span></div>
+        </div>
+        <div class="field"><label>Energy this week (1–5)</label>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px">
+            <span style="height:48px;border-radius:999px;display:grid;place-items:center;background:var(--color-surface);font-weight:600">1</span><span style="height:48px;border-radius:999px;display:grid;place-items:center;background:var(--color-surface);font-weight:600">2</span><span style="height:48px;border-radius:999px;display:grid;place-items:center;background:var(--color-surface);font-weight:600">3</span><span style="height:48px;border-radius:999px;display:grid;place-items:center;background:var(--color-accent);color:var(--color-bg);font-weight:700">4</span><span style="height:48px;border-radius:999px;display:grid;place-items:center;background:var(--color-surface);font-weight:600">5</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h6 style="margin:0">Tabs &amp; progress</h6>
+        <div role="tablist" style="display:flex;padding:4px;border-radius:999px;background:var(--color-surface)">
+          <button role="tab" aria-selected="true" style="flex:1;height:44px;border:0;border-radius:999px;background:var(--color-bg);box-shadow:var(--shadow-sm);color:var(--color-text);font:inherit;font-weight:700;cursor:pointer">This week</button>
+          <button role="tab" style="flex:1;height:44px;border:0;border-radius:999px;background:transparent;color:var(--color-neutral-700);font:inherit;font-weight:600;cursor:pointer">This month</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:600"><span>Step 4 of 7 · Injuries</span><span style="color:var(--color-neutral-700)">~2 min left</span></div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div style="width:92px;height:92px;border-radius:50%;background:conic-gradient(var(--color-accent-2-600) 0 58%, var(--color-neutral-300) 58% 100%);display:grid;place-items:center;flex:none"><div style="width:72px;height:72px;border-radius:50%;background:var(--color-bg);display:grid;place-items:center;text-align:center;line-height:1.05"><span style="font-family:var(--font-heading);font-size:20px">920</span><span style="font-size:10px;color:var(--color-neutral-700);margin-top:-8px">kcal left</span></div></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:8px;font-size:12px">
+            <div><div style="display:flex;justify-content:space-between"><span>Protein</span><strong>102 / 175 g</strong></div><div style="height:8px;border-radius:9px;background:var(--color-neutral-300);margin-top:3px"><div style="height:8px;width:58%;border-radius:9px;background:var(--color-accent-2-600)"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between"><span>Carbs</span><strong>131 / 225 g</strong></div><div style="height:8px;border-radius:9px;background:var(--color-neutral-300);margin-top:3px"><div style="height:8px;width:58%;border-radius:9px;background:var(--color-accent-500)"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between"><span>Fat</span><strong>38 / 67 g</strong></div><div style="height:8px;border-radius:9px;background:var(--color-neutral-300);margin-top:3px"><div style="height:8px;width:57%;border-radius:9px;background:var(--color-neutral-600)"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h6 style="margin:0">Cards</h6>
+        <div class="card elev-sm" style="padding:20px;gap:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span class="card-kicker" style="color:var(--color-accent-700);font-weight:700">Today · Monday</span><span class="tag" style="gap:5px;font-weight:700;background:var(--color-accent-2-100);color:var(--color-accent-2-800)"><r-icon name="check" size="12"></r-icon>On track</span></div>
+          <span class="card-title" style="font-size:21px">Upper body A</span>
+          <span class="card-body" style="font-size:13.5px">6 exercises · 55 min · 1 swapped for your shoulder</span>
+          <button class="btn btn-primary" style="white-space:nowrap;height:48px;align-self:flex-start;padding:0 22px">Start session</button>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;padding:16px 18px;border-radius:var(--radius-lg);background:var(--color-warn-100);color:var(--color-warn-800)">
+          <r-icon name="octagon-alert" size="22"></r-icon>
+          <div style="font-size:13.5px"><strong style="display:block;font-size:15px">Stop and see a doctor or physiotherapist</strong>Sharp pain, swelling, numbness, or pain that keeps getting worse needs a professional look.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h6 style="margin:0">Toasts</h6>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 12px 12px 18px;border-radius:999px;background:var(--color-text);color:var(--color-bg);box-shadow:var(--shadow-lg)"><r-icon name="circle-check" size="20"></r-icon><span style="flex:1;font-size:14px">Set saved · 10 × 25 kg</span><button class="btn" style="color:var(--color-accent-300);height:36px">Undo</button></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-radius:999px;background:var(--color-accent-2-200);color:var(--color-accent-2-900)"><r-icon name="copy-check" size="20"></r-icon><span style="font-size:14px">List copied — paste it into WhatsApp</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 12px 12px 18px;border-radius:999px;background:var(--color-warn-100);color:var(--color-warn-800)"><r-icon name="wifi-off" size="20"></r-icon><span style="flex:1;font-size:14px">Couldn't save. We'll retry when you're online.</span><button class="btn" style="color:var(--color-warn-800);height:36px;text-decoration:underline">Retry</button></div>
+        <h6 style="margin:8px 0 0">Disclaimer</h6>
+        <p style="margin:0;display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--color-neutral-700)"><r-icon name="info" size="15"></r-icon>Rafeqi gives general fitness guidance and is not medical advice.</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h6 style="margin:0">States</h6>
+        <div style="display:flex;flex-direction:column;gap:10px;padding:18px;border-radius:var(--radius-lg);background:var(--color-surface)">
+          <span style="height:14px;width:40%;border-radius:9px;background:var(--color-neutral-300);animation:rq-pulse 1.6s ease-in-out infinite"></span>
+          <span style="height:22px;width:70%;border-radius:9px;background:var(--color-neutral-300);animation:rq-pulse 1.6s ease-in-out infinite"></span>
+          <span style="height:14px;width:55%;border-radius:9px;background:var(--color-neutral-300);animation:rq-pulse 1.6s ease-in-out infinite"></span>
+        </div>
+        <div style="display:flex;gap:14px;align-items:center;padding:18px;border-radius:var(--radius-lg);background:var(--color-neutral-100);box-shadow:inset 0 0 0 1.5px var(--color-divider)">
+          <span style="width:52px;height:52px;border-radius:50%;background:var(--color-accent-2-200);color:var(--color-accent-2-700);display:grid;place-items:center;flex:none"><r-icon name="sprout" size="24"></r-icon></span>
+          <div style="font-size:13.5px"><strong style="display:block;font-size:15px">Nothing here yet</strong>Your first weekly review appears after your first check-in.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px">
+      <div class="card" style="padding:22px;gap:14px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="card-title">Weight</span><span style="font-size:13px;color:var(--color-accent-2-800);font-weight:700">−1.9 kg in 8 weeks</span></div>
+        <dc-import name="LineChart" unit="" hint-size="100%,210px"></dc-import>
+      </div>
+      <div class="card" style="padding:22px;gap:14px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="card-title">Left shoulder pain</span><span class="tag" style="font-weight:700;background:var(--color-accent-100);color:var(--color-accent-800)">Recovering</span></div>
+        <dc-import name="LineChart" series="{{ painSeries }}" labels="{{ painLabels }}" min="{{ 0 }}" max="{{ 10 }}" threshold="{{ painTh }}" hint-size="100%,210px"></dc-import>
+      </div>
+      <div class="card" style="padding:22px;gap:10px;flex-direction:row;align-items:flex-start;justify-content:space-around">
+        <dc-import name="BodyMap" view="front" marks="{{ bmFront }}" width="{{ 130 }}" hint-size="130px,290px"></dc-import>
+        <dc-import name="BodyMap" view="back" marks="{{ bmBack }}" width="{{ 130 }}" hint-size="130px,290px"></dc-import>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;align-self:center">
+          <span style="display:flex;gap:6px;align-items:center"><span style="width:14px;height:14px;border-radius:50%;background:var(--color-warn-200);box-shadow:inset 0 0 0 2px var(--color-warn-600)"></span>Active injury</span>
+          <span style="display:flex;gap:6px;align-items:center"><span style="width:14px;height:14px;border-radius:50%;background:var(--color-accent-200);box-shadow:inset 0 0 0 2px var(--color-accent-500)"></span>Recovering</span>
+          <span style="display:flex;gap:6px;align-items:center"><span style="width:14px;height:14px;border-radius:50%;background:var(--color-accent-2-200);box-shadow:inset 0 0 0 2px var(--color-accent-2-600)"></span>Resolved</span>
+          <span style="display:flex;gap:6px;align-items:center"><span style="width:14px;height:14px;border-radius:50%;background:var(--color-accent-300);box-shadow:inset 0 0 0 2px var(--color-accent-600)"></span>Selected</span>
+          <span style="display:flex;gap:6px;align-items:center"><span style="width:14px;height:14px;border-radius:50%;background:var(--color-accent-2-400);box-shadow:inset 0 0 0 2px var(--color-accent-2-700)"></span>Muscle worked</span>
+        </div>
+      </div>
+    </div>
+    <p style="margin:0;font-size:13px;color:var(--color-neutral-700);max-width:760px">Chart style: 3 dashed gridlines, raw entries as hollow dots, the trend as a 3 px sage line with a 14% area wash, targets and limits as dashed clay-red rules. Time runs left→right in both languages.</p>
+  </section>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      themes: [{ theme: 'light', label: 'Light', seg: 'sx-l' }, { theme: 'dark', label: 'Dark', seg: 'sx-d' }],
+      painSeries: [{ values: [6, 5, 5, 4, 4, 3, 3, 2], tone: 'warn', dots: true, label: 'Pain after session (0–10)' }],
+      painLabels: ['Aug 4', 'Aug 18', 'Sep 1', 'Sep 15', 'Sep 28'],
+      painTh: { value: 6, label: 'See a professional' },
+      bmFront: { shoulderL: 'warn', kneeR: 'ok' }, bmBack: { shoulderL: 'warn', lowerBack: 'attn' }
+    };
+  }
+}
+</script>
+</body>
+</html>

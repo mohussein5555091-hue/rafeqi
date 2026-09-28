@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/styles.css">
+<link rel="stylesheet" href="rafeqi.css">
+</helmet>
+<div dir="ltr" style="display:flex;flex-direction:column;gap:8px;width:100%;min-width:0">
+  <sc-if value="{{ hasLegend }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--color-neutral-700)">
+      <sc-for list="{{ legend }}" as="l"><span style="display:inline-flex;align-items:center;gap:6px"><span style="{{ l.sw }}"></span>{{ l.label }}</span></sc-for>
+    </div>
+  </sc-if>
+  <div style="display:flex;gap:8px;min-width:0">
+    <div style="{{ axisStyle }}">
+      <sc-for list="{{ ticks }}" as="t"><span style="{{ t.style }}">{{ t.label }}</span></sc-for>
+    </div>
+    <div style="{{ plotStyle }}">
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">
+        <sc-for list="{{ ticks }}" as="t"><line x1="0" x2="100" y1="{{ t.y }}" y2="{{ t.y }}" style="stroke:var(--color-divider);stroke-width:1;stroke-dasharray:3 4" vector-effect="non-scaling-stroke"></line></sc-for>
+        <sc-if value="{{ hasThreshold }}"><line x1="0" x2="100" y1="{{ thY }}" y2="{{ thY }}" style="stroke:var(--color-warn-600);stroke-width:1.5;stroke-dasharray:6 4" vector-effect="non-scaling-stroke"></line></sc-if>
+        <sc-for list="{{ lines }}" as="l">
+          <sc-if value="{{ l.hasArea }}"><path d="{{ l.area }}" style="{{ l.areaStyle }}"></path></sc-if>
+          <path d="{{ l.d }}" style="{{ l.lineStyle }}" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"></path>
+        </sc-for>
+      </svg>
+      <sc-if value="{{ hasThreshold }}"><span style="{{ thLabelStyle }}">{{ thLabel }}</span></sc-if>
+      <sc-for list="{{ dots }}" as="d"><span style="{{ d }}"></span></sc-for>
+    </div>
+  </div>
+  <div style="{{ xStyle }}">
+    <sc-for list="{{ labels }}" as="x"><span>{{ x }}</span></sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:360,&quot;height&quot;:230},&quot;series&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{values:(number|null)[],tone?:'ok'|'accent'|'warn'|'muted'|'attn',dashed?:boolean,dots?:boolean,area?:boolean,line?:boolean,label?:string}[]&quot;},&quot;labels&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string[]&quot;},&quot;min&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;},&quot;max&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;},&quot;unit&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;height&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:160,&quot;tsType&quot;:&quot;number&quot;},&quot;ticks&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:3,&quot;tsType&quot;:&quot;number&quot;},&quot;threshold&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{value:number,label:string}&quot;},&quot;legend&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props;
+    const series = p.series ?? [
+      { values: [88, 87.8, 88.1, 87.5, 87.2, 87.4, 86.9, 86.7, 86.8, 86.3, 86.4, 86.1], tone: 'muted', dots: true, label: 'Daily weigh-ins', line: false },
+      { values: [null, null, null, null, null, null, 87.6, 87.3, 87.1, 86.9, 86.7, 86.5], tone: 'ok', label: '7-day average', area: true }];
+    const all = series.flatMap(s => s.values.filter(v => v != null));
+    let min = p.min ?? Math.floor(Math.min(...all)), max = p.max ?? Math.ceil(Math.max(...all));
+    if (max <= min) max = min + 1;
+    const tones = { ok: 'var(--color-accent-2-600)', accent: 'var(--color-accent)', warn: 'var(--color-warn-600)', muted: 'var(--color-neutral-500)', attn: 'var(--color-accent-500)' };
+    const n = Math.max(...series.map(s => s.values.length));
+    const X = i => n < 2 ? 50 : i / (n - 1) * 100, Y = v => 100 - (v - min) / (max - min) * 100;
+    const dots = [];
+    const lines = series.filter(s => s.line !== false || s.dots).map(s => {
+      const c = tones[s.tone || 'ok'];
+      const pts = s.values.map((v, i) => v == null ? null : [X(i), Y(v)]).filter(Boolean);
+      if (s.dots) pts.forEach(q => dots.push({ position: 'absolute', left: q[0] + '%', top: q[1] + '%', width: 8, height: 8, marginLeft: -4, marginTop: -4, borderRadius: '50%', background: s.line === false ? 'var(--color-bg)' : c, border: `2px solid ${c}` }));
+      const d = s.line === false ? '' : pts.map((q, i) => (i ? 'L' : 'M') + q[0].toFixed(2) + ' ' + q[1].toFixed(2)).join(' ');
+      return { d, hasArea: !!s.area && pts.length > 1, area: pts.length > 1 ? d + ` L${pts[pts.length - 1][0]} 100 L${pts[0][0]} 100 Z` : '',
+        lineStyle: { stroke: c, strokeWidth: s.dashed ? 2 : 3, strokeDasharray: s.dashed ? '5 5' : 'none', fill: 'none' },
+        areaStyle: { fill: `color-mix(in srgb, ${c} 14%, transparent)` } };
+    });
+    const tickN = p.ticks ?? 3, unit = p.unit ?? '';
+    const ticks = Array.from({ length: tickN }, (_, i) => { const v = max - (max - min) * i / (tickN - 1); const y = Y(v);
+      return { y, label: (Math.round(v * 10) / 10) + unit, style: { position: 'absolute', right: 0, top: y + '%', transform: 'translateY(-50%)', whiteSpace: 'nowrap' } }; });
+    const h = p.height ?? 160, aw = p.axisWidth ?? 40;
+    const th = p.threshold;
+    return {
+      hasLegend: series.some(s => s.label) && p.legend !== false,
+      legend: series.filter(s => s.label).map(s => ({ label: s.label, sw: { width: s.line === false ? 10 : 16, height: s.line === false ? 10 : (s.dashed ? 2 : 4), borderRadius: 999, background: s.line === false ? 'transparent' : tones[s.tone || 'ok'], border: s.line === false ? `2px solid ${tones[s.tone || 'ok']}` : 'none' } })),
+      ticks, lines, dots, labels: p.labels ?? ['Aug 4', 'Aug 18', 'Sep 1', 'Sep 15', 'Sep 28'],
+      axisStyle: { position: 'relative', width: aw, flex: 'none', height: h, fontSize: 11, color: 'var(--color-neutral-700)', fontVariantNumeric: 'tabular-nums' },
+      plotStyle: { position: 'relative', flex: 1, minWidth: 0, height: h },
+      xStyle: { display: 'flex', justifyContent: 'space-between', whiteSpace: 'nowrap', gap: 6, paddingLeft: aw + 8, fontSize: 11, color: 'var(--color-neutral-700)' },
+      hasThreshold: !!th, thY: th ? Y(th.value) : 0, thLabel: th ? th.label : '',
+      thLabelStyle: th ? { position: 'absolute', right: 0, top: Y(th.value) + '%', transform: 'translateY(-120%)', whiteSpace: 'nowrap', fontSize: 10.5, fontWeight: 700, color: 'var(--color-warn-700)' } : {}
+    };
+  }
+}
+</script>
+</body>
+</html>

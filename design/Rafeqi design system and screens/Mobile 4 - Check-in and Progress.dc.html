@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/styles.css">
+<link rel="stylesheet" href="rafeqi.css">
+<script src="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/_ds_bundle.js"></script>
+<script src="icons.js"></script>
+</helmet>
+<div data-theme="{{ theme }}" style="padding:56px;display:flex;flex-direction:column;gap:56px;background:var(--color-neutral-200);min-height:100vh">
+<header style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Rafeqi · Mobile 4 of 4</span><h1 style="margin:0">Check-in, review, progress &amp; profile</h1></header>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<h3 style="margin:0">Weekly check-in · 6 steps, about 3 minutes</h3>
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">33 · a. Body</span>
+<div data-screen-label="33 Check-in body" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Body" sub="Check-in · step 1 of 6" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(6,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px;padding:0 20px 16px">
+    <div class="field"><label style="font-size:13px">This week's weight · morning, before eating</label>
+      <div style="display:flex;align-items:center;height:60px;border-radius:999px;background:var(--color-surface);border:1px solid var(--color-divider)"><button aria-label="Decrease" style="width:60px;height:58px;border:0;background:transparent;color:var(--color-text);display:grid;place-items:center"><r-icon name="minus" size="20"></r-icon></button><span style="flex:1;text-align:center;font-family:var(--font-heading);font-size:26px">86.1 <span style="font-family:var(--font-body);font-size:14px;color:var(--color-neutral-700)">kg</span></span><button aria-label="Increase" style="width:60px;height:58px;border:0;background:transparent;color:var(--color-text);display:grid;place-items:center"><r-icon name="plus" size="20"></r-icon></button></div>
+      <span style="font-size:12px;color:var(--color-neutral-700);margin-top:6px;display:block">Last week 86.8 kg</span></div>
+    <div class="field"><label style="font-size:13px">Measurements · cm, optional</label>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+        <sc-for list="{{ measures }}" as="m" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;gap:0;padding:8px 14px;border-radius:22px;background:var(--color-surface);min-height:60px"><span style="font-size:11.5px;color:var(--color-neutral-700)">{{ m.n }}</span><strong style="font-size:17px">{{ m.v }}</strong><span style="font-size:10.5px;color:var(--color-neutral-700)">was {{ m.was }}</span></div></sc-for>
+      </div></div>
+    <div class="field"><label style="font-size:13px">Progress photos · optional</label>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+        <sc-for list="{{ photoSlots }}" as="p" hint-placeholder-count="3"><button style="height:104px;border-radius:24px;border:2px dashed var(--color-neutral-400);background:var(--color-neutral-100);color:var(--color-text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font:inherit;font-size:13px;font-weight:600;cursor:pointer"><r-icon name="camera" size="20"></r-icon>{{ p }}</button></sc-for>
+      </div>
+      <span style="font-size:12px;color:var(--color-neutral-700);margin-top:8px;display:flex;gap:6px"><r-icon name="lock" size="14"></r-icon>Stored privately. Only you can see them.</span></div>
+  </div>
+  <div style="flex:none;display:flex;gap:10px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-secondary" style="height:52px;padding:0 22px;white-space:nowrap">Save for later</button><button class="btn btn-primary" style="flex:1;height:52px;font-size:16px;white-space:nowrap">Next</button></div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">34 · b. Training</span>
+<div data-screen-label="34 Check-in training" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Training" sub="Check-in · step 2 of 6" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(6,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px;padding:0 20px 16px">
+    <div class="field"><label style="font-size:13px">Sessions done · 4 planned</label><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px"><sc-for list="{{ sess }}" as="s"><span style="{{ s.st }}">{{ s.n }}</span></sc-for></div></div>
+    <div class="field"><label style="font-size:13px">How hard did sessions feel? · 3 — about right</label><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px"><sc-for list="{{ hard }}" as="s"><span style="{{ s.st }}">{{ s.n }}</span></sc-for></div></div>
+    <div class="field"><label style="font-size:13px">Muscle soreness · 2 — a little</label><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px"><sc-for list="{{ sore }}" as="s"><span style="{{ s.st }}">{{ s.n }}</span></sc-for></div></div>
+    <div class="field"><label style="font-size:13px">Any exercise that felt off?</label>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ exFeedback }}" as="e" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:6px;padding:10px 12px;border-radius:24px;background:var(--color-surface)"><strong style="font-size:14px;padding:0 4px">{{ e.n }}</strong><div style="display:flex;gap:6px"><sc-for list="{{ e.opts }}" as="o"><span style="{{ o.st }}">{{ o.l }}</span></sc-for></div></div></sc-for>
+        <button class="btn btn-ghost" style="align-self:flex-start;height:44px;white-space:nowrap;gap:6px"><r-icon name="plus" size="16"></r-icon>Pick another exercise</button>
+      </div></div>
+  </div>
+  <div style="flex:none;display:flex;gap:10px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-secondary" style="height:52px;padding:0 22px;white-space:nowrap">Back</button><button class="btn btn-primary" style="flex:1;height:52px;font-size:16px;white-space:nowrap">Next</button></div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">35 · c. Injuries</span>
+<div data-screen-label="35 Check-in injuries" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Injuries" sub="Check-in · step 3 of 6" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(6,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:12px;padding:0 20px 16px">
+    <div style="display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:28px;background:var(--color-surface)">
+      <strong style="font-size:15px;display:flex;gap:8px;align-items:center"><r-icon name="bandage" size="18" style="color:var(--color-accent-600)"></r-icon>Left shoulder · pain this week</strong>
+      <div style="display:grid;grid-template-columns:repeat(11,1fr);gap:3px"><sc-for list="{{ pain }}" as="p"><span style="{{ p.st }}">{{ p.n }}</span></sc-for></div>
+      <div class="seg" style="display:flex;height:44px"><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="c-bsw" defaultChecked="{{ true }}">Better</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="c-bsw">Same</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="c-bsw">Worse</label></div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;padding:10px 16px;border-radius:28px;background:var(--color-surface)">
+      <dc-import name="BodyMap" view="front" marks="{{ newPainMarks }}" interactive="{{ true }}" width="{{ 64 }}" show-labels="{{ false }}" hint-size="64px,136px"></dc-import>
+      <dc-import name="BodyMap" view="back" marks="{{ newPainMarks }}" interactive="{{ true }}" width="{{ 64 }}" show-labels="{{ false }}" hint-size="64px,136px"></dc-import>
+      <div style="flex:1;font-size:13.5px"><strong style="display:block;font-size:14.5px">Any new pain?</strong>Tap the area. Nothing new? Skip it.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:var(--color-neutral-700)">Safety questions</span>
+      <sc-for list="{{ flags }}" as="f" hint-placeholder-count="3"><div style="display:flex;align-items:center;gap:10px;padding:6px 6px 6px 16px;border-radius:999px;background:var(--color-surface)"><span style="flex:1;font-size:14px">{{ f.q }}</span><div class="seg" style="display:flex;height:44px;flex:none"><label class="seg-opt" style="padding:0 14px"><input type="radio" name="{{ f.id }}" defaultChecked="{{ true }}">No</label><label class="seg-opt" style="padding:0 14px"><input type="radio" name="{{ f.id }}">Yes</label></div></div></sc-for>
+      <span style="font-size:12px;color:var(--color-neutral-700)">A "yes" pauses affected exercises and asks you to see a doctor or physio.</span>
+    </div>
+  </div>
+  <div style="flex:none;display:flex;gap:10px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-secondary" style="height:52px;padding:0 22px;white-space:nowrap">Back</button><button class="btn btn-primary" style="flex:1;height:52px;font-size:16px;white-space:nowrap">Next</button></div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">36 · d. Nutrition</span>
+<div data-screen-label="36 Check-in nutrition" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Nutrition" sub="Check-in · step 4 of 6" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(6,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px;padding:0 20px 16px">
+    <div class="field"><label style="font-size:13px;display:flex;justify-content:space-between"><span>How closely did you follow your meals?</span><strong style="font-size:15px;color:var(--color-text)">80%</strong></label>
+      <div style="position:relative;height:44px;display:flex;align-items:center"><div style="height:10px;width:100%;border-radius:999px;background:var(--color-neutral-300)"><div style="height:10px;width:80%;border-radius:999px;background:var(--color-accent-2-600)"></div></div><span style="position:absolute;inset-inline-start:calc(80% - 14px);width:28px;height:28px;border-radius:50%;background:var(--color-bg);border:3px solid var(--color-accent-2-600);box-shadow:var(--shadow-md)"></span></div>
+      <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--color-neutral-700)"><span>0%</span><span>100%</span></div></div>
+    <div class="field"><label style="font-size:13px">Hunger · 4 — often hungry</label><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px"><sc-for list="{{ hunger }}" as="s"><span style="{{ s.st }}">{{ s.n }}</span></sc-for></div></div>
+    <div class="field"><label style="font-size:13px">Meals you'd like to change</label><div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ mealChips }}" as="c"><span style="{{ c.st }}">{{ c.l }}</span></sc-for></div></div>
+    <div class="field"><label style="font-size:13px">More of</label><div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ moreChips }}" as="c"><span style="{{ c.st }}">{{ c.l }}</span></sc-for></div></div>
+    <div class="field"><label style="font-size:13px">Less of</label><div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ lessChips }}" as="c"><span style="{{ c.st }}">{{ c.l }}</span></sc-for></div></div>
+  </div>
+  <div style="flex:none;display:flex;gap:10px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-secondary" style="height:52px;padding:0 22px;white-space:nowrap">Back</button><button class="btn btn-primary" style="flex:1;height:52px;font-size:16px;white-space:nowrap">Next</button></div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">37 · e. Life</span>
+<div data-screen-label="37 Check-in life" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Life this week" sub="Check-in · step 5 of 6" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(6,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px;padding:0 20px 16px">
+    <sc-for list="{{ lifeScales }}" as="l" hint-placeholder-count="3"><div class="field"><label style="font-size:13px">{{ l.q }}</label><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px"><sc-for list="{{ l.opts }}" as="s"><span style="{{ s.st }}">{{ s.n }}</span></sc-for></div></div></sc-for>
+    <div class="field"><label style="font-size:13px">Days you can train next week</label><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px"><sc-for list="{{ nextDays }}" as="s"><span style="{{ s.st }}">{{ s.n }}</span></sc-for></div></div>
+    <div class="field"><label style="font-size:13px">Anything get in the way?</label><div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ obstacles }}" as="c"><span style="{{ c.st }}">{{ c.l }}</span></sc-for></div></div>
+  </div>
+  <div style="flex:none;display:flex;gap:10px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-secondary" style="height:52px;padding:0 22px;white-space:nowrap">Back</button><button class="btn btn-primary" style="flex:1;height:52px;font-size:16px;white-space:nowrap">Next</button></div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">38 · f. Optional note (live counter)</span>
+<div data-screen-label="38 Check-in note" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="One last thing" sub="Check-in · step 6 of 6" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(6,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span></div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding:0 20px 16px">
+    <div class="field"><label for="ci-note" style="font-size:14px;color:var(--color-text);font-weight:600">Anything else your coach should know? <span style="font-weight:400;color:var(--color-neutral-700)">· optional</span></label>
+      <textarea id="ci-note" class="input" maxLength="300" value="{{ note }}" onChange="{{ onNote }}" style="min-height:168px;border-radius:28px;padding:16px 18px;font-size:15.5px;line-height:1.5;resize:none"></textarea>
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--color-neutral-700);margin-top:6px"><span>Short notes only — no chat.</span><span style="{{ noteCountStyle }}">{{ noteCount }} / 300</span></div></div>
+    <div style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;border-radius:28px;background:var(--color-surface);font-size:13.5px">
+      <strong style="font-size:14.5px">Summary</strong>
+      <span>86.1 kg · 3 of 4 sessions · shoulder 2/10, better</span>
+      <span>Meals 80% · hunger 4/5 · sleep 3/5 · work got in the way</span>
+    </div>
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:8px"><button class="btn btn-primary" style="height:56px;font-size:17px;white-space:nowrap;gap:8px"><r-icon name="send" size="18" flip=""></r-icon>Submit check-in</button><span style="font-size:12px;text-align:center;color:var(--color-neutral-700)">Your review takes about a minute to write.</span></div>
+  </div>
+</div></div>
+</div></section>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<h3 style="margin:0">Weekly review</h3>
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">39 · Writing your review (30–90 s)</span>
+<div data-screen-label="39 Review wait" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="flex:1;display:flex;flex-direction:column;gap:26px;padding:10px 28px 32px">
+    <div style="display:grid;place-items:center;height:200px">{{ breath }}</div>
+    <div><h2 style="margin:0 0 8px;font-size:30px">Writing your week 3 review</h2><p style="margin:0;font-size:15px;color:var(--color-neutral-800)">Usually 30–90 seconds. Your check-in is saved — you can close the app.</p></div>
+    <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px">
+      <li style="display:flex;align-items:center;gap:14px;font-size:15px"><span style="width:32px;height:32px;border-radius:50%;background:var(--color-accent-2-600);color:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="check" size="17"></r-icon></span>Reading your check-in</li>
+      <li style="display:flex;align-items:center;gap:14px;font-size:15px"><span style="width:32px;height:32px;border-radius:50%;background:var(--color-accent-2-600);color:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="check" size="17"></r-icon></span>Comparing with last week</li>
+      <li style="display:flex;align-items:center;gap:14px;font-size:15px;font-weight:700"><span style="width:32px;height:32px;border-radius:50%;border:3px solid var(--color-accent-300);border-top-color:var(--color-accent);flex:none;animation:rq-spin 1s linear infinite"></span>Adjusting your plan</li>
+      <li style="display:flex;align-items:center;gap:14px;font-size:15px;color:var(--color-neutral-700)"><span style="width:32px;height:32px;border-radius:50%;border:2px dashed var(--color-neutral-400);flex:none"></span>Writing your review</li>
+    </ol>
+  </div>
+</div></div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">40 · Weekly review (full scroll)</span>
+<div data-screen-label="40 Weekly review" style="width:390px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Week 3 review" sub="22 – 28 September" back="{{ true }}" hint-size="100%,106px"></dc-import>
+  <div style="display:flex;flex-direction:column;gap:18px;padding:0 16px 28px">
+    <div style="display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:32px;background:var(--color-accent-2-100)">
+      <span class="tag" style="align-self:flex-start;gap:5px;font-weight:700;font-size:12px;padding:5px 11px;background:var(--color-bg);color:var(--color-accent-2-800)"><r-icon name="check" size="13"></r-icon>On track</span>
+      <p style="margin:0;font-size:16px;line-height:1.6;color:var(--color-accent-2-900)">A solid week, Omar. You're down 0.7 kg — a little faster than planned — and your shoulder is clearly settling. Work cost you Thursday's session, and you were hungry most evenings. We've eased the deficit slightly and moved things around so next week is easier to hit.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center">
+      <div style="padding:12px 4px;border-radius:24px;background:var(--color-surface)"><span style="font-family:var(--font-heading);font-size:22px;display:block">−0.7</span><span style="font-size:11.5px">kg this week</span></div>
+      <div style="padding:12px 4px;border-radius:24px;background:var(--color-accent-100)"><span style="font-family:var(--font-heading);font-size:22px;display:block">3/4</span><span style="font-size:11.5px">sessions</span></div>
+      <div style="padding:12px 4px;border-radius:24px;background:var(--color-surface)"><span style="font-family:var(--font-heading);font-size:22px;display:block">2/10</span><span style="font-size:11.5px">shoulder pain</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px"><h4 style="margin:0">What changed and why</h4>
+      <sc-for list="{{ changes }}" as="c" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:8px;padding:16px 18px;border-radius:28px;background:var(--color-surface)">
+          <div style="display:flex;gap:10px;align-items:center"><span style="width:36px;height:36px;border-radius:50%;background:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="{{ c.icon }}" size="18"></r-icon></span><span style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-700)">{{ c.kind }}</span></div>
+          <strong style="font-size:15.5px;line-height:1.35">{{ c.what }}</strong>
+          <span style="font-size:13.5px;line-height:1.5;color:var(--color-neutral-800)">{{ c.why }}</span>
+          <span class="tag" style="align-self:flex-start;gap:5px;font-size:11.5px;background:var(--color-bg);color:var(--color-neutral-800)"><r-icon name="book-open" size="12"></r-icon>{{ c.cite }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:32px;background:var(--color-accent-100)"><h4 style="margin:0;color:var(--color-accent-900)">Next week's focus</h4>
+      <sc-for list="{{ focus }}" as="f" hint-placeholder-count="3"><div style="display:flex;gap:12px;font-size:14.5px;line-height:1.5;color:var(--color-accent-900)"><span style="width:26px;height:26px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none">{{ f.n }}</span><span>{{ f.t }}</span></div></sc-for>
+    </div>
+    <a href="#" style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 18px 8px 8px;border-radius:999px;background:var(--color-surface);color:var(--color-text);text-decoration:none"><span style="width:44px;height:44px;border-radius:50%;background:var(--color-accent-2-600);color:var(--color-bg);display:grid;place-items:center"><r-icon name="shopping-basket" size="20"></r-icon></span><span style="flex:1;line-height:1.3"><strong style="display:block;font-size:15px">Updated grocery list</strong><span style="font-size:12.5px;color:var(--color-neutral-700)">Fish fillet added · EGP 1,685 this week</span></span><r-icon name="chevron-right" size="20" flip=""></r-icon></a>
+    <p style="margin:0;font-size:12px;color:var(--color-neutral-700);display:flex;gap:6px"><r-icon name="info" size="14"></r-icon>Recommendations cite published coaching books. Rafeqi gives general fitness guidance, not medical advice.</p>
+  </div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">41 · Past reviews</span>
+<div data-screen-label="41 Past reviews" style="width:390px;height:620px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Weekly reviews" back="{{ true }}" hint-size="100%,106px"></dc-import>
+  <div style="flex:1;display:flex;flex-direction:column;gap:10px;padding:0 16px 16px">
+    <sc-for list="{{ pastReviews }}" as="r" hint-placeholder-count="3">
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;border-radius:28px;background:var(--color-surface)">
+        <div style="width:52px;flex:none;display:flex;flex-direction:column;align-items:center;padding:6px 0;border-radius:18px;background:var(--color-bg);line-height:1.1"><span style="font-size:10.5px">Week</span><strong style="font-family:var(--font-heading);font-size:22px;font-weight:400">{{ r.w }}</strong></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span style="font-size:12px;color:var(--color-neutral-700)">{{ r.d }}</span><span style="{{ r.tag }}">{{ r.s }}</span></div><span style="font-size:13.5px;line-height:1.45">{{ r.t }}</span></div>
+      </div>
+    </sc-for>
+  </div>
+</div></div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">42 · Review — error / empty</span>
+<div data-screen-label="42 Review error" style="width:390px;height:520px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Week 3 review" back="{{ true }}" hint-size="100%,106px"></dc-import>
+  <div style="flex:1;display:flex;flex-direction:column;gap:14px;padding:16px 24px">
+    <span style="width:72px;height:72px;border-radius:50%;background:var(--color-accent-200);color:var(--color-accent-700);display:grid;place-items:center"><r-icon name="hourglass" size="30"></r-icon></span>
+    <h3 style="margin:0;font-size:24px">Your review is taking longer than usual</h3>
+    <p style="margin:0;font-size:14.5px;color:var(--color-neutral-800)">Your check-in is saved and your current plan stays the same until the review is ready. We'll notify you.</p>
+    <div style="display:flex;gap:10px"><button class="btn btn-primary" style="height:48px;padding:0 20px;white-space:nowrap">Try again</button><button class="btn btn-secondary" style="height:48px;padding:0 20px;white-space:nowrap">Back to home</button></div>
+  </div>
+</div></div>
+</div>
+</div></section>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<h3 style="margin:0">Progress &amp; profile</h3>
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">43 · Progress (full scroll)</span>
+<div data-screen-label="43 Progress" style="width:390px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Progress" sub="Since 11 September" hint-size="100%,106px"></dc-import>
+  <div style="display:flex;flex-direction:column;gap:16px;padding:0 16px 24px">
+    <div class="card" style="padding:20px;gap:12px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="card-title">Weight</span><span style="font-size:13px;font-weight:700;color:var(--color-accent-2-800)">88.0 → 86.1 kg</span></div>
+      <dc-import name="LineChart" series="{{ wSeries }}" labels="{{ wLabels }}" height="{{ 150 }}" axis-width="{{ 30 }}" hint-size="100%,210px"></dc-import>
+    </div>
+    <div class="card" style="padding:20px;gap:10px">
+      <span class="card-title">Measurements</span>
+      <dc-import name="LineChart" series="{{ waistSeries }}" labels="{{ mLabels }}" height="{{ 110 }}" axis-width="{{ 30 }}" hint-size="100%,170px"></dc-import>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ measureTable }}" as="m" hint-placeholder-count="5"><div style="display:flex;align-items:center;min-height:44px;font-size:14px;border-bottom:1px solid var(--color-divider)"><span style="flex:1">{{ m.n }}</span><span style="width:110px;color:var(--color-neutral-700)">{{ m.range }}</span><strong style="{{ m.st }}">{{ m.d }}</strong></div></sc-for>
+      </div>
+    </div>
+    <div class="card" style="padding:20px;gap:12px">
+      <span class="card-title">Strength</span>
+      <div style="display:flex;gap:6px;overflow:hidden"><span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;background:var(--color-accent);color:var(--color-bg);display:inline-flex;align-items:center;font-size:13.5px;font-weight:700">Floor press</span><span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:13.5px">Romanian deadlift</span><span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:13.5px">Leg press</span></div>
+      <dc-import name="LineChart" series="{{ sSeries }}" labels="{{ sLabels }}" height="{{ 120 }}" axis-width="{{ 30 }}" unit="" hint-size="100%,180px"></dc-import>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px"><h4 style="margin:0">Personal records</h4>
+      <sc-for list="{{ prs }}" as="p" hint-placeholder-count="3"><div style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 18px 8px 8px;border-radius:999px;background:var(--color-surface)"><span style="width:44px;height:44px;border-radius:50%;background:var(--color-accent-200);color:var(--color-accent-800);display:grid;place-items:center;flex:none"><r-icon name="trophy" size="19"></r-icon></span><div style="flex:1;line-height:1.3"><strong style="display:block;font-size:14.5px">{{ p.n }}</strong><span style="font-size:12px;color:var(--color-neutral-700)">{{ p.d }}</span></div><strong style="font-size:15px;white-space:nowrap">{{ p.v }}</strong></div></sc-for>
+    </div>
+    <div class="card" style="padding:20px;gap:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><span class="card-title">Before &amp; after</span><span style="display:flex;gap:4px;align-items:center;font-size:12px;color:var(--color-neutral-700)"><r-icon name="lock" size="13"></r-icon>Private</span></div>
+      <div style="position:relative;height:280px;border-radius:26px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr">
+        <div class="washed" style="background:var(--color-neutral-300);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--color-neutral-800);font-size:12.5px"><r-icon name="image" size="22"></r-icon>Front · 11 Sep</div>
+        <div class="washed" style="background:var(--color-accent-2-300);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--color-accent-2-900);font-size:12.5px"><r-icon name="image" size="22"></r-icon>Front · 28 Sep</div>
+        <span style="position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:var(--color-bg)"></span>
+        <span aria-label="Drag to compare" style="position:absolute;top:50%;left:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:var(--color-bg);box-shadow:var(--shadow-md);display:grid;place-items:center"><r-icon name="chevrons-left-right" size="20"></r-icon></span>
+      </div>
+      <div class="seg" style="display:flex;height:44px"><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="p-v" defaultChecked="{{ true }}">Front</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="p-v">Side</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="p-v">Back</label></div>
+    </div>
+  </div>
+  <dc-import name="TabBar" active="progress" due="{{ true }}" hint-size="100%,82px"></dc-import>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">44 · Profile &amp; settings (full scroll)</span>
+<div data-screen-label="44 Profile" style="width:390px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Profile &amp; settings" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="display:flex;flex-direction:column;gap:18px;padding:0 16px 28px">
+    <div style="display:flex;align-items:center;gap:14px;padding:16px;border-radius:32px;background:var(--color-surface)"><span style="width:60px;height:60px;border-radius:50%;background:var(--color-accent-2-200);color:var(--color-accent-2-800);display:grid;place-items:center;font-family:var(--font-heading);font-size:26px">O</span><div style="line-height:1.35"><strong style="display:block;font-size:17px">Omar Hassan</strong><span style="font-size:13px;color:var(--color-neutral-700)">omar.hassan@gmail.com · member since Sep 2026</span></div></div>
+    <div style="display:flex;flex-direction:column;gap:6px"><h6 style="margin:0 0 2px 6px">Plan</h6>
+      <div style="display:flex;flex-direction:column;border-radius:28px;background:var(--color-surface);overflow:hidden">
+        <sc-for list="{{ planRows }}" as="r" hint-placeholder-count="4"><a href="#" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:0 16px;border-bottom:1px solid var(--color-divider);color:var(--color-text);text-decoration:none"><r-icon name="{{ r.icon }}" size="19"></r-icon><span style="flex:1;font-size:14.5px">{{ r.t }}</span><span style="font-size:12.5px;color:var(--color-neutral-700)">{{ r.v }}</span><r-icon name="chevron-right" size="18" flip=""></r-icon></a></sc-for>
+      </div>
+      <button class="btn btn-primary" style="height:52px;margin-top:6px;gap:8px;white-space:nowrap"><r-icon name="sparkles" size="17"></r-icon>Regenerate my plan</button>
+      <span style="font-size:12px;color:var(--color-neutral-700);padding:0 6px">Uses your current answers. Your history and progress are kept.</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px"><h6 style="margin:0 0 2px 6px">Preferences</h6>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 8px 8px 16px;border-radius:999px;background:var(--color-surface)"><span style="font-size:14.5px">Units</span><div class="seg" style="display:flex;height:44px"><label class="seg-opt" style="padding:0 14px"><input type="radio" name="s-u" defaultChecked="{{ true }}">kg · cm</label><label class="seg-opt" style="padding:0 14px"><input type="radio" name="s-u">lb · in</label></div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 8px 8px 16px;border-radius:999px;background:var(--color-surface)"><span style="font-size:14.5px">Language</span><div class="seg" style="display:flex;height:44px"><label class="seg-opt" style="padding:0 14px"><input type="radio" name="s-l" defaultChecked="{{ true }}">English</label><label class="seg-opt" style="padding:0 14px;font-family:var(--font-ar-body)"><input type="radio" name="s-l">العربية</label></div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 8px 8px 16px;border-radius:999px;background:var(--color-surface)"><span style="font-size:14.5px">Theme</span><div class="seg" style="display:flex;height:44px"><label class="seg-opt" style="padding:0 12px"><input type="radio" name="s-t">Light</label><label class="seg-opt" style="padding:0 12px"><input type="radio" name="s-t">Dark</label><label class="seg-opt" style="padding:0 12px"><input type="radio" name="s-t" defaultChecked="{{ true }}">System</label></div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px"><h6 style="margin:0 0 2px 6px">Account</h6>
+      <div style="display:flex;flex-direction:column;border-radius:28px;background:var(--color-surface);overflow:hidden">
+        <a href="#" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:0 16px;border-bottom:1px solid var(--color-divider);color:var(--color-text);text-decoration:none"><r-icon name="key-round" size="19"></r-icon><span style="flex:1;font-size:14.5px">Change password</span><r-icon name="chevron-right" size="18" flip=""></r-icon></a>
+        <a href="#" style="display:flex;align-items:center;gap:12px;min-height:56px;padding:0 16px;color:var(--color-text);text-decoration:none"><r-icon name="log-out" size="19" flip=""></r-icon><span style="flex:1;font-size:14.5px">Log out</span></a>
+      </div>
+      <button class="btn btn-secondary" style="height:52px;margin-top:6px;gap:8px;white-space:nowrap;color:var(--color-warn-700);border-color:var(--color-warn-300)"><r-icon name="trash-2" size="17"></r-icon>Delete my data</button>
+      <span style="font-size:12px;color:var(--color-neutral-700);padding:0 6px">Permanently removes your answers, logs, photos and reviews. We'll ask you to confirm.</span>
+    </div>
+    <p style="margin:0;font-size:12px;color:var(--color-neutral-700);display:flex;gap:6px"><r-icon name="info" size="14"></r-icon>Rafeqi gives general fitness guidance and is not medical advice.</p>
+  </div>
+</div></div>
+</div></section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light'|'dark'&quot;}}">
+class Component extends DCLogic {
+  state = { note: 'Work was crazy on Thursday so I missed Upper B. Shoulder felt fine on the landmine press but a bit tight on lat pulldowns.' };
+  renderVals() {
+    const pillN = (n, on, h = 48) => ({ n, st: { height: h, borderRadius: 999, display: 'grid', placeItems: 'center', fontWeight: on ? 700 : 600, fontSize: 15, background: on ? 'var(--color-accent)' : 'var(--color-surface)', color: on ? 'var(--color-bg)' : 'var(--color-text)' } });
+    const scale = (arr, sel) => arr.map(n => pillN(n, n === sel));
+    const chip = (l, on) => ({ l, st: { minHeight: 44, padding: '0 14px', whiteSpace: 'nowrap', borderRadius: 999, display: 'inline-flex', alignItems: 'center', fontSize: 14, fontWeight: on ? 700 : 400, border: on ? '1.5px solid var(--color-accent)' : '1.5px solid var(--color-divider)', background: on ? 'var(--color-accent-100)' : 'transparent', color: on ? 'var(--color-accent-800)' : 'var(--color-text)' } });
+    const small = (l, on) => ({ l, st: { flex: 1, minHeight: 44, whiteSpace: 'nowrap', padding: '0 8px', borderRadius: 999, display: 'grid', placeItems: 'center', fontSize: 12.5, fontWeight: on ? 700 : 500, background: on ? 'var(--color-accent)' : 'var(--color-bg)', color: on ? 'var(--color-bg)' : 'var(--color-text)' } });
+    const tag = (bg, fg) => ({ fontSize: 11, fontWeight: 700, padding: '3px 9px', borderRadius: 999, background: bg, color: fg, whiteSpace: 'nowrap' });
+    // weight data 11 Sep → 28 Sep
+    const w = [88.0, 87.8, 88.1, 87.6, 87.7, 87.4, 87.5, 87.2, 87.3, 86.9, 87.0, 86.8, 86.9, 86.5, 86.6, 86.3, 86.4, 86.1];
+    const avg = w.map((_, i) => i < 6 ? null : Math.round(w.slice(i - 6, i + 1).reduce((a, b) => a + b, 0) / 7 * 100) / 100);
+    const n = this.state.note.length;
+    return {
+      theme: this.props.theme ?? 'light',
+      measures: [{ n: 'Waist', v: '93', was: '94' }, { n: 'Hips', v: '102', was: '102.5' }, { n: 'Chest', v: '106', was: '106' }, { n: 'Arm', v: '36', was: '36' }, { n: 'Thigh', v: '60', was: '60.5' }],
+      photoSlots: ['Front', 'Side', 'Back'],
+      sess: scale([0, 1, 2, 3, 4], 3), hard: scale([1, 2, 3, 4, 5], 3), sore: scale([1, 2, 3, 4, 5], 2), hunger: scale([1, 2, 3, 4, 5], 4),
+      exFeedback: [
+        { n: 'Dumbbell floor press', opts: [small('Too easy', true), small('Too hard', false), small('Uncomfortable', false)] },
+        { n: 'Neutral-grip lat pulldown', opts: [small('Too easy', false), small('Too hard', false), small('Uncomfortable', true)] }],
+      pain: Array.from({ length: 11 }, (_, i) => ({ n: i, st: { height: 44, borderRadius: 999, display: 'grid', placeItems: 'center', fontSize: 13.5, fontWeight: i === 2 ? 700 : 600, background: i === 2 ? 'var(--color-accent)' : 'var(--color-bg)', color: i === 2 ? 'var(--color-bg)' : (i >= 6 ? 'var(--color-warn-700)' : 'var(--color-text)') } })),
+      newPainMarks: { shoulderL: 'attn' },
+      flags: [{ id: 'f1', q: 'Sharp or stabbing pain' }, { id: 'f2', q: 'Swelling' }, { id: 'f3', q: 'Numbness or tingling' }],
+      mealChips: [chip('Ful & eggs', false), chip('Koshary', false), chip('Fish sayadeya', true), chip('Beef kofta', false), chip('Zabadi & oats', false)],
+      moreChips: [chip('Chicken', true), chip('Eggs', true), chip('Fruit', false), chip('Potatoes', false)],
+      lessChips: [chip('Fish', true), chip('Lentils', false), chip('Tahini', false)],
+      lifeScales: [{ q: 'Sleep quality · 3', opts: scale([1, 2, 3, 4, 5], 3) }, { q: 'Energy · 4', opts: scale([1, 2, 3, 4, 5], 4) }, { q: 'Stress · 3', opts: scale([1, 2, 3, 4, 5], 3) }],
+      nextDays: scale([2, 3, 4, 5, 6], 4),
+      obstacles: [chip('Work', true), chip('Travel', false), chip('Illness', false), chip('Motivation', false), chip('Ramadan / fasting', false), chip('Other', false)],
+      note: this.state.note, onNote: e => this.setState({ note: e.target.value.slice(0, 300) }), noteCount: n,
+      noteCountStyle: { fontWeight: 700, color: n > 270 ? 'var(--color-accent-700)' : 'var(--color-neutral-700)' },
+      breath: React.createElement('div', { style: { position: 'relative', width: 180, height: 180 } },
+        React.createElement('span', { style: { position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--color-accent-200)', animation: 'rq-breathe 5s ease-in-out infinite' } }),
+        React.createElement('span', { style: { position: 'absolute', inset: 30, borderRadius: '50%', background: 'var(--color-accent-2-300)', animation: 'rq-breathe 5s ease-in-out .6s infinite' } }),
+        React.createElement('span', { style: { position: 'absolute', inset: 62, borderRadius: '50%', background: 'var(--color-accent-2-600)', display: 'grid', placeItems: 'center', color: 'var(--color-bg)', fontFamily: 'var(--font-heading)', fontSize: 26 } }, 'R')),
+      changes: [
+        { kind: 'Calories', icon: 'flame', what: '2,200 → 2,300 kcal on training days', why: 'You lost 0.7 kg (goal 0.5) and felt hungry most evenings. The extra 100 kcal is carbs around your sessions, so rest days stay at 2,200.', cite: 'Helms · Muscle & Strength Pyramid: Nutrition' },
+        { kind: 'Exercise', icon: 'dumbbell', what: 'Floor press: 24 → 26 kg dumbbells', why: 'You marked it "too easy" and hit the top of the rep range at RPE 7 with no shoulder pain.', cite: 'Israetel · Scientific Principles of Hypertrophy' },
+        { kind: 'Exercise', icon: 'shield', what: 'Lat pulldown → half-kneeling single-arm cable pulldown', why: 'It felt uncomfortable on your left shoulder. One arm at a time lets you choose a pain-free angle.', cite: 'NSCA · Essentials of Strength Training' },
+        { kind: 'Meals', icon: 'utensils', what: 'Fish sayadeya → grilled chicken & potatoes (Wed)', why: 'You asked for less fish and more chicken. Same calories, +6 g protein.', cite: 'Helms · Muscle & Strength Pyramid: Nutrition' }],
+      focus: [{ n: 1, t: 'Train Sat, Mon, Tue, Thu — Upper B moves to Tuesday so a busy Thursday doesn\'t cost a session.' }, { n: 2, t: 'Aim for 7 hours of sleep on at least 4 nights.' }, { n: 3, t: 'Keep the shoulder easy: stop any set that goes above 3/10 pain.' }],
+      pastReviews: [
+        { w: 3, d: '22 – 28 Sep', s: 'On track', t: 'Down 0.7 kg, shoulder settling. +100 kcal on training days.', tag: tag('var(--color-accent-2-100)', 'var(--color-accent-2-800)') },
+        { w: 2, d: '15 – 21 Sep', s: 'On track', t: '4 of 4 sessions. Floor press +2.5 kg, koshary moved to training days.', tag: tag('var(--color-accent-2-100)', 'var(--color-accent-2-800)') },
+        { w: 1, d: '11 – 14 Sep', s: 'Needs attention', t: 'Shoulder at 6/10 after pressing. Added face pulls, lowered pressing effort.', tag: tag('var(--color-accent-100)', 'var(--color-accent-800)') }],
+      wSeries: [{ values: w, tone: 'muted', dots: true, line: false, label: 'Weigh-ins' }, { values: avg, tone: 'ok', area: true, label: '7-day average' }],
+      wLabels: ['11 Sep', '17 Sep', '22 Sep', '28 Sep'],
+      waistSeries: [{ values: [96, 95, 94, 93], tone: 'ok', dots: true, label: 'Waist, cm' }],
+      mLabels: ['11 Sep', '15 Sep', '22 Sep', '28 Sep'],
+      measureTable: [
+        { n: 'Waist', range: '96 → 93 cm', d: '−3', st: { width: 44, textAlign: 'end', color: 'var(--color-accent-2-800)' } },
+        { n: 'Hips', range: '103.5 → 102', d: '−1.5', st: { width: 44, textAlign: 'end', color: 'var(--color-accent-2-800)' } },
+        { n: 'Chest', range: '107 → 106', d: '−1', st: { width: 44, textAlign: 'end', color: 'var(--color-accent-2-800)' } },
+        { n: 'Arm', range: '36 → 36', d: '0', st: { width: 44, textAlign: 'end', color: 'var(--color-neutral-700)' } },
+        { n: 'Thigh', range: '61 → 60', d: '−1', st: { width: 44, textAlign: 'end', color: 'var(--color-accent-2-800)' } }],
+      sSeries: [{ values: [20, 20, 22.5, 22.5, 22.5, 24], tone: 'accent', dots: true, label: 'Top set, kg per dumbbell' }],
+      sLabels: ['13 Sep', '20 Sep', '28 Sep'],
+      prs: [{ n: 'Dumbbell floor press', d: '28 Sep · 10 reps', v: '2 × 24 kg' }, { n: 'Romanian deadlift', d: '26 Sep · 8 reps', v: '90 kg' }, { n: 'Leg press', d: '19 Sep · 12 reps', v: '180 kg' }],
+      planRows: [{ icon: 'user', t: 'About you', v: '29 · 180 cm' }, { icon: 'target', t: 'Goal', v: 'Lose fat · steady' }, { icon: 'dumbbell', t: 'Training', v: '4 days · gym' }, { icon: 'bandage', t: 'Injuries', v: '1 recovering' }, { icon: 'heart-pulse', t: 'Health check', v: 'Clear' }, { icon: 'utensils', t: 'Food', v: '4 meals · EGP 1,800' }]
+    };
+  }
+}
+</script>
+</body>
+</html>

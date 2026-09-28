@@ -1,0 +1,84 @@
+# Controlled vocabulary for movement and joint tags.
+#
+# Every tag used on an exercise (movement_pattern, joints_loaded, range_of_motion, equipment)
+# and on an injury (painful_movements, restrictions) must be an id from this file.
+# The backend checks this when saving an injury and when loading the exercise catalogue,
+# and the tests check that the frontend's option lists (frontend/src/constants.ts) only use these ids.
+#
+# To add a tag: add it here with English and Arabic labels. Ids are camelCase and never change once used.
+version: 1
+
+# What kind of movement an exercise is. Each exercise has exactly one.
+# Substitutions stay within the same pattern.
+movement_patterns:
+  horizontalPush:           { en: Horizontal push, ar: دفع أفقي }
+  verticalPush:             { en: Vertical push, ar: دفع رأسي }
+  dip:                      { en: Dip, ar: ديبس }
+  horizontalPull:           { en: Horizontal pull, ar: سحب أفقي }
+  verticalPull:             { en: Vertical pull, ar: سحب رأسي }
+  squat:                    { en: Squat, ar: سكوات }
+  hinge:                    { en: Hip hinge, ar: ثني الوسط }
+  lunge:                    { en: Lunge / single leg, ar: طعنة / رجل واحدة }
+  carry:                    { en: Carry, ar: حمل ومشي }
+  core:                     { en: Core, ar: عضلات البطن والجذع }
+  elbowFlexion:             { en: Elbow bend (curls), ar: ثني الكوع }
+  elbowExtension:           { en: Elbow straighten (triceps), ar: فرد الكوع }
+  shoulderAbduction:        { en: Arm raise to the side, ar: رفع الدراع للجنب }
+  shoulderExternalRotation: { en: Shoulder outward rotation, ar: لف الكتف لبرّه }
+  kneeExtension:            { en: Knee straighten, ar: فرد الركبة }
+  kneeFlexion:              { en: Knee bend (hamstrings), ar: ثني الركبة }
+  plantarFlexion:           { en: Calf raise, ar: رفع السمانة }
+  locomotion:               { en: Walking / running, ar: مشي / جري }
+  jump:                     { en: Jumping, ar: نط }
+
+# Joints an exercise puts meaningful load on. An exercise lists one or more.
+joints:
+  neck:     { en: Neck, ar: الرقبة }
+  shoulder: { en: Shoulder, ar: الكتف }
+  elbow:    { en: Elbow, ar: الكوع }
+  wrist:    { en: Wrist, ar: الرسغ }
+  spine:    { en: Back / spine, ar: الظهر / العمود الفقري }
+  hip:      { en: Hip, ar: الحوض }
+  knee:     { en: Knee, ar: الركبة }
+  ankle:    { en: Ankle, ar: الكاحل }
+
+# How far the loaded joint travels. Each exercise has exactly one.
+ranges_of_motion:
+  full:     { en: Full range, ar: مدى كامل }
+  partial:  { en: Partial range, ar: مدى جزئي }
+  overhead: { en: Arms overhead, ar: الدراع فوق الراس }
+
+equipment:
+  bodyweight: { en: Bodyweight, ar: وزن الجسم }
+  dumbbells:  { en: Dumbbells, ar: دمبلز }
+  barbell:    { en: Barbell, ar: بار }
+  bench:      { en: Bench, ar: بنش }
+  cable:      { en: Cable machine, ar: جهاز كابل }
+  machine:    { en: Machine, ar: جهاز }
+  landmine:   { en: Landmine, ar: لاندماين }
+  bands:      { en: Resistance bands, ar: أستك مقاومة }
+  pullUpBar:  { en: Pull-up bar, ar: بار عقلة }
+
+# Injury: "which movements hurt?" (the onboarding chips).
+# `excludes` says which exercises that movement rules out: every listed field must match.
+painful_movements:
+  overheadPress: { en: Overhead press, ar: ضغط فوق الراس, excludes: { movement_patterns: [verticalPush], ranges_of_motion: [overhead] } }
+  benchPress:    { en: Bench press, ar: بنش بريس, excludes: { movement_patterns: [horizontalPush], ranges_of_motion: [full] } }
+  dips:          { en: Dips, ar: ديبس, excludes: { movement_patterns: [dip] } }
+  pullUps:       { en: Pull-ups, ar: عقلة, excludes: { movement_patterns: [verticalPull], ranges_of_motion: [full, overhead] } }
+  lateralRaise:  { en: Lateral raise, ar: رفرفة جانبي, excludes: { movement_patterns: [shoulderAbduction] } }
+  pushUps:       { en: Push-ups, ar: ضغط, excludes: { movement_patterns: [horizontalPush], ranges_of_motion: [full] } }
+  squat:         { en: Squat, ar: سكوات, excludes: { movement_patterns: [squat] } }
+  deadlift:      { en: Deadlift, ar: رفعة ميتة, excludes: { movement_patterns: [hinge] } }
+  lunges:        { en: Lunges, ar: طعنات, excludes: { movement_patterns: [lunge] } }
+  running:       { en: Running, ar: جري, excludes: { movement_patterns: [locomotion, jump] } }
+
+# Injury: restrictions from a doctor or physio.
+# `excludes` works as above; `joint_of_injury: true` means "only exercises that load the injured joint".
+# `load_factor` reduces the weight instead of removing exercises.
+restrictions:
+  noOverhead:  { en: No overhead lifting, ar: ممنوع الرفع فوق الراس, excludes: { ranges_of_motion: [overhead] } }
+  limitRange:  { en: Limit range, ar: مدى حركة محدود, excludes: { ranges_of_motion: [full, overhead], joint_of_injury: true } }
+  noImpact:    { en: No jumping or running, ar: ممنوع النط والجري, excludes: { movement_patterns: [jump, locomotion] } }
+  noHeavyLoad: { en: No heavy loads, ar: ممنوع الأوزان التقيلة, load_factor: 0.7 }
+  noneSeen:    { en: "Haven't seen anyone", ar: ماروحتش لحد }

@@ -1,0 +1,27 @@
+/* Rafeqi layer on top of Organic: status tokens, dark theme, Arabic type. */
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&family=Readex+Pro:wght@300;400;500;600;700&display=swap');
+:root{
+  --color-warn-100:#fdebe6;--color-warn-200:#f9d2c7;--color-warn-300:#f0ab99;--color-warn-600:#b4432f;--color-warn-700:#93321f;--color-warn-800:#6e2416;
+  --font-ar-heading:"Lalezar",system-ui,sans-serif;--font-ar-body:"Readex Pro",system-ui,sans-serif;
+}
+[data-theme="dark"]{
+  color-scheme:dark;
+  --color-bg:#1c1916;--color-surface:#2a2520;--color-text:#f4e9d7;--color-divider:rgba(244,233,215,.16);
+  --color-accent:#e08c58;--color-accent-2:#a5b585;
+  --color-neutral-100:#26221e;--color-neutral-200:#332e28;--color-neutral-300:#474238;--color-neutral-400:#645c50;--color-neutral-500:#82796a;--color-neutral-600:#a19786;--color-neutral-700:#c0b6a5;--color-neutral-800:#dcd3c4;--color-neutral-900:#eee7db;
+  --color-accent-100:#3a2213;--color-accent-200:#4f2d16;--color-accent-300:#643312;--color-accent-400:#8c491a;--color-accent-500:#b2622d;--color-accent-600:#d67f48;--color-accent-700:#f6a06b;--color-accent-800:#ffc6a5;--color-accent-900:#ffe1d0;
+  --color-accent-2-100:#232a19;--color-accent-2-200:#2e3721;--color-accent-2-300:#3d472b;--color-accent-2-400:#56633f;--color-accent-2-500:#728157;--color-accent-2-600:#9aab7c;--color-accent-2-700:#b6c69a;--color-accent-2-800:#ccdbb2;--color-accent-2-900:#e1eecc;
+  --color-warn-100:#3b1b15;--color-warn-200:#552820;--color-warn-300:#7a3527;--color-warn-600:#e57a65;--color-warn-700:#f2998a;--color-warn-800:#f8bdb1;
+  --shadow-sm:0 0 0 1px rgba(244,233,215,.06),0 1px 2px rgba(0,0,0,.4);
+  --shadow-md:0 0 0 1px rgba(244,233,215,.07),0 4px 12px rgba(0,0,0,.45);
+  --shadow-lg:0 0 0 1px rgba(244,233,215,.08),0 14px 36px rgba(0,0,0,.55);
+  background:var(--color-bg);color:var(--color-text);
+}
+[dir="rtl"]{--font-heading:var(--font-ar-heading);--font-body:var(--font-ar-body);font-family:var(--font-ar-body)}
+[dir="rtl"] r-icon[flip]{transform:scaleX(-1)}
+r-icon{display:inline-flex;flex:none;line-height:0}
+a{color:var(--color-accent-700)}a:hover{color:var(--color-accent-800)}
+body{margin:0}
+@keyframes rq-spin{to{transform:rotate(360deg)}}
+@keyframes rq-pulse{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes rq-breathe{0%,100%{transform:scale(.92)}50%{transform:scale(1.04)}}

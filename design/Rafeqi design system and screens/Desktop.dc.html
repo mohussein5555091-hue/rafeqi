@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/styles.css">
+<link rel="stylesheet" href="rafeqi.css">
+<script src="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/_ds_bundle.js"></script>
+<script src="icons.js"></script>
+</helmet>
+<div data-theme="{{ theme }}" style="padding:56px;display:flex;flex-direction:column;gap:56px;background:var(--color-neutral-200);min-height:100vh">
+<header style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Rafeqi · Desktop · 1440 × 900</span><h1 style="margin:0">Desktop</h1></header>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">D1 · Log in</span>
+<div data-screen-label="D1 Log in" style="width:1440px;height:900px;border-radius:28px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:grid;grid-template-columns:1fr 1fr">
+  <div style="position:relative;overflow:hidden;background:var(--color-surface);padding:56px 64px;display:flex;flex-direction:column;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:12px"><span style="width:48px;height:48px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;font-family:var(--font-heading);font-size:26px">R</span><span style="font-family:var(--font-heading);font-size:28px">Rafeqi <span style="font-family:var(--font-ar-heading);font-size:26px;color:var(--color-neutral-700)">· رفيقي</span></span></div>
+    <span style="position:absolute;width:520px;height:520px;border-radius:50%;background:var(--color-accent-2-300);inset-inline-end:-160px;top:170px"></span>
+    <span style="position:absolute;width:300px;height:300px;border-radius:50%;background:var(--color-accent-200);inset-inline-end:220px;top:420px"></span>
+    <span style="position:absolute;width:120px;height:120px;border-radius:50%;background:var(--color-accent);inset-inline-end:160px;top:250px"></span>
+    <div style="position:relative;max-width:480px"><h1 style="font-size:60px;margin:0 0 16px">Your companion for training and food.</h1><p style="margin:0;font-size:18px;color:var(--color-neutral-800);text-wrap:pretty">An AI coach that builds your workouts and Egyptian meal plan around your body, your goals and your injuries — then adjusts it every week.</p></div>
+    <p style="position:relative;margin:0;font-size:13px;color:var(--color-neutral-700);display:flex;gap:6px"><r-icon name="info" size="15"></r-icon>General fitness guidance, not medical advice.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;padding:40px 64px">
+    <div style="display:flex;justify-content:flex-end"><button class="btn btn-secondary" style="height:44px;padding:0 18px;font-family:var(--font-ar-body);font-weight:600;white-space:nowrap">عربي</button></div>
+    <div style="margin:auto 0;width:100%;max-width:420px;align-self:center;display:flex;flex-direction:column;gap:18px">
+      <div><h2 style="margin:0 0 6px;font-size:38px">Log in</h2><p style="margin:0;color:var(--color-neutral-800)">New to Rafeqi? <a href="#" style="font-weight:600">Create an account</a></p></div>
+      <div class="field"><label style="font-size:13px">Email</label><input class="input" value="omar.hassan@gmail.com" style="height:52px;font-size:16px"></div>
+      <div class="field"><label style="font-size:13px">Password</label><div style="position:relative"><input class="input" type="password" value="Corniche2026" style="height:52px;font-size:16px;padding-inline-end:56px"><button aria-label="Show password" style="position:absolute;inset-inline-end:4px;top:4px;width:44px;height:44px;border:0;background:transparent;color:var(--color-text);display:grid;place-items:center"><r-icon name="eye" size="20"></r-icon></button></div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center"><label style="display:flex;gap:10px;align-items:center;font-size:14px;min-height:44px"><span style="width:22px;height:22px;border-radius:7px;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center"><r-icon name="check" size="14"></r-icon></span>Keep me logged in</label><a href="#" style="font-size:14px;font-weight:600">Forgot password?</a></div>
+      <button class="btn btn-primary" style="height:54px;font-size:17px;white-space:nowrap">Log in</button>
+    </div>
+  </div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">D2 · Dashboard — check-in due</span>
+<div data-screen-label="D2 Dashboard" style="width:1440px;height:900px;border-radius:28px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex">
+  <dc-import name="Sidebar" active="home" due="{{ true }}" hint-size="248px,100%" style="height:100%;flex:none"></dc-import>
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column;gap:22px;padding:32px 40px;overflow:hidden">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between"><div><span style="font-size:14px;color:var(--color-neutral-700)">Monday 28 September · week 3 of 8</span><h1 style="margin:2px 0 0;font-size:40px">Good morning, Omar</h1></div>
+      <div style="display:flex;gap:12px;align-items:center;padding:10px 10px 10px 20px;border-radius:999px;background:var(--color-accent-100);box-shadow:inset 0 0 0 2px var(--color-accent-300)"><r-icon name="clipboard-check" size="20" style="color:var(--color-accent-700)"></r-icon><span style="font-size:14.5px;color:var(--color-accent-900);white-space:nowrap"><strong>Weekly check-in is due</strong> · about 3 min</span><button class="btn btn-primary" style="height:44px;padding:0 20px;white-space:nowrap">Start check-in</button></div></div>
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:1.25fr 1fr 0.9fr;gap:20px">
+      <div class="card" style="padding:24px;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span class="card-kicker" style="font-weight:700;color:var(--color-accent-700)">Today's session</span><span style="font-size:13px;color:var(--color-neutral-700)">2 of 4 this week</span></div>
+        <span class="card-title" style="font-size:28px">Upper body A</span>
+        <span style="font-size:14px;color:var(--color-neutral-800)">7 exercises · about 58 min · 20 sets</span>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px">
+          <sc-for list="{{ exercises }}" as="e" hint-placeholder-count="7"><div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:0 14px;border-radius:999px;background:var(--color-bg);font-size:14px"><span style="width:22px;color:var(--color-neutral-700);font-weight:700">{{ e.n }}</span><span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ e.name }}</span><sc-if value="{{ e.swapped }}"><r-icon name="shield" size="15" style="color:var(--color-warn-600)"></r-icon></sc-if><span style="color:var(--color-neutral-800);white-space:nowrap">{{ e.sets }} × {{ e.reps }}</span></div></sc-for>
+        </div>
+        <span style="font-size:12.5px;color:var(--color-warn-800);display:flex;gap:6px;align-items:center"><r-icon name="shield" size="14"></r-icon>Adjusted for your left shoulder</span>
+        <button class="btn btn-primary" style="height:50px;margin-top:auto;white-space:nowrap">Start session</button>
+      </div>
+      <div class="card" style="padding:24px;gap:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span class="card-kicker" style="font-weight:700;color:var(--color-accent-700)">Today's meals</span><a href="#" style="font-size:13px;font-weight:600">Meal plan</a></div>
+        <div style="display:flex;align-items:center;gap:18px">
+          <div style="width:120px;height:120px;border-radius:50%;background:conic-gradient(var(--color-accent-2-600) 0 23%, var(--color-neutral-300) 23% 100%);display:grid;place-items:center;flex:none"><div style="width:96px;height:96px;border-radius:50%;background:var(--color-surface);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1"><span style="font-family:var(--font-heading);font-size:25px">1,685</span><span style="font-size:11.5px;color:var(--color-neutral-700)">kcal left</span></div></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:10px;font-size:13px">
+            <div><div style="display:flex;justify-content:space-between"><span>Protein</span><strong>137 g left</strong></div><div style="height:8px;border-radius:9px;background:var(--color-neutral-300);margin-top:3px"><div style="height:8px;width:22%;border-radius:9px;background:var(--color-accent-2-600)"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between"><span>Carbs</span><strong>173 g left</strong></div><div style="height:8px;border-radius:9px;background:var(--color-neutral-300);margin-top:3px"><div style="height:8px;width:23%;border-radius:9px;background:var(--color-accent-500)"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between"><span>Fat</span><strong>50 g left</strong></div><div style="height:8px;border-radius:9px;background:var(--color-neutral-300);margin-top:3px"><div style="height:8px;width:25%;border-radius:9px;background:var(--color-neutral-600)"></div></div></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <sc-for list="{{ mealsToday }}" as="m" hint-placeholder-count="4"><div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 16px 6px 6px;border-radius:999px;background:var(--color-bg)"><span style="{{ m.check }}"><r-icon name="{{ m.icon }}" size="17"></r-icon></span><div style="flex:1;min-width:0;line-height:1.3"><span style="display:block;font-size:11.5px;color:var(--color-neutral-700)">{{ m.slot }}</span><strong style="font-size:14px">{{ m.name }}</strong></div><span style="font-size:13px;font-weight:600;white-space:nowrap">{{ m.kcal }}</span></div></sc-for>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px;min-height:0">
+        <div class="card" style="padding:20px;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-size:16px">Left shoulder</strong><span class="tag" style="gap:4px;font-weight:700;background:var(--color-accent-100);color:var(--color-accent-800)"><r-icon name="circle-alert" size="12"></r-icon>Recovering</span></div>
+          <dc-import name="LineChart" series="{{ painSeries }}" labels="{{ painLabels }}" min="{{ 0 }}" max="{{ 10 }}" height="{{ 80 }}" axis-width="{{ 20 }}" legend="{{ false }}" hint-size="100%,110px"></dc-import>
+          <span style="font-size:13px;color:var(--color-neutral-800)">Pain 3/10 last session, down from 6</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:32px;background:var(--color-accent-2-100)">
+          <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-2-800);display:flex;gap:6px;align-items:center"><r-icon name="notebook-pen" size="14"></r-icon>Coach note · week 2</span>
+          <p style="margin:0;font-size:14.5px;line-height:1.55;color:var(--color-accent-2-900)">Four of four sessions — great consistency. Your shoulder is calming down, so we added 2.5 kg to the floor press. Koshary moved to training days.</p>
+          <span class="tag" style="align-self:flex-start;gap:5px;background:var(--color-bg);color:var(--color-neutral-800)"><r-icon name="book-open" size="12"></r-icon>Helms · Muscle &amp; Strength Pyramid</span>
+          <a href="#" style="margin-top:auto;font-size:13.5px;font-weight:600;color:var(--color-accent-2-800)">Read the full review</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">D3 · Workout plan</span>
+<div data-screen-label="D3 Workout plan" style="width:1440px;height:900px;border-radius:28px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex">
+  <dc-import name="Sidebar" active="workouts" due="{{ true }}" hint-size="248px,100%" style="height:100%;flex:none"></dc-import>
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column;gap:20px;padding:32px 40px;overflow:hidden">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between"><div><span style="font-size:14px;color:var(--color-neutral-700)">Upper / Lower · 4 days · week 3 of 8</span><h1 style="margin:2px 0 0;font-size:40px">Workouts</h1></div>
+      <div style="display:flex;gap:8px;align-items:center"><button class="btn btn-secondary" aria-label="Previous week" style="width:44px;height:44px;padding:0"><r-icon name="chevron-left" size="20" flip=""></r-icon></button><strong style="min-width:130px;text-align:center">26 Sep – 2 Oct</strong><button class="btn btn-secondary" aria-label="Next week" style="width:44px;height:44px;padding:0"><r-icon name="chevron-right" size="20" flip=""></r-icon></button></div></div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px">
+      <sc-for list="{{ weekCols }}" as="d" hint-placeholder-count="7"><div style="{{ d.style }}"><span style="font-size:12.5px">{{ d.d }}</span><strong style="font-size:15.5px">{{ d.name }}</strong><span style="font-size:12px">{{ d.meta }}</span></div></sc-for>
+    </div>
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 340px;gap:20px">
+      <div class="card" style="padding:24px 28px;gap:14px;overflow:hidden">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start"><div><span class="card-kicker" style="font-weight:700;color:var(--color-accent-700)">Monday · today</span><h2 style="margin:4px 0 0;font-size:30px">Upper body A</h2></div><button class="btn btn-primary" style="height:50px;padding:0 26px;white-space:nowrap">Start session</button></div>
+        <table class="table" style="font-size:14.5px">
+          <thead><tr><th style="width:32px">#</th><th>Exercise</th><th>Sets × reps</th><th>Rest</th><th>RPE</th><th></th></tr></thead>
+          <tbody><sc-for list="{{ exercises }}" as="e" hint-placeholder-count="7"><tr style="height:60px"><td style="font-weight:700;color:var(--color-neutral-700)">{{ e.n }}</td><td><strong style="display:block">{{ e.name }}</strong><sc-if value="{{ e.swapped }}"><span class="tag" style="gap:5px;font-weight:700;font-size:11.5px;margin-top:4px;background:var(--color-warn-100);color:var(--color-warn-800)"><r-icon name="shield" size="12"></r-icon>{{ e.badge }}</span></sc-if></td><td>{{ e.sets }} × {{ e.reps }}</td><td>{{ e.rest }}</td><td>{{ e.rpe }}</td><td style="text-align:end"><a href="#" style="font-weight:600;font-size:13px">How to</a></td></tr></sc-for></tbody>
+        </table>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:32px;background:var(--color-warn-100)">
+          <strong style="font-size:15px;color:var(--color-warn-800);display:flex;gap:8px;align-items:center"><r-icon name="shield" size="17"></r-icon>Your left shoulder</strong>
+          <span style="font-size:13.5px;color:var(--color-warn-800)">4 changes this session. Stop any set that goes above 3/10 pain.</span>
+          <a href="#" style="font-size:13.5px;font-weight:600;color:var(--color-warn-800)">Injury details</a>
+        </div>
+        <div class="card" style="padding:22px;gap:10px"><strong style="font-size:15px">This week</strong>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px"><div style="flex:1;height:8px;border-radius:9px;background:var(--color-neutral-300)"><div style="width:25%;height:8px;border-radius:9px;background:var(--color-accent-2-600)"></div></div><span style="font-weight:600">1 of 4</span></div>
+          <span style="font-size:13px;color:var(--color-neutral-800)">Week 5 is a lighter recovery week.</span></div>
+        <div class="card" style="padding:22px;gap:6px"><strong style="font-size:15px">What's RPE?</strong><span style="font-size:13.5px;color:var(--color-neutral-800)">How hard a set feels, 1–10. RPE 8 means you could do about 2 more reps.</span></div>
+      </div>
+    </div>
+  </main>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">D4 · Nutrition plan</span>
+<div data-screen-label="D4 Nutrition" style="width:1440px;height:900px;border-radius:28px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex">
+  <dc-import name="Sidebar" active="nutrition" due="{{ true }}" hint-size="248px,100%" style="height:100%;flex:none"></dc-import>
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column;gap:20px;padding:32px 40px;overflow:hidden">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between"><div><span style="font-size:14px;color:var(--color-neutral-700)">Week 3 · Egyptian home food · EGP 1,800/week</span><h1 style="margin:2px 0 0;font-size:40px">Nutrition</h1></div>
+      <div role="tablist" style="display:flex;padding:4px;border-radius:999px;background:var(--color-surface)"><sc-for list="{{ dayTabs }}" as="t" hint-placeholder-count="7"><button role="tab" style="{{ t.st }}">{{ t.l }}</button></sc-for></div></div>
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 320px;gap:20px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:16px;min-height:0">
+        <sc-for list="{{ meals }}" as="m" hint-placeholder-count="4">
+          <div style="display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:32px;background:var(--color-surface);min-height:0">
+            <div style="display:flex;gap:14px"><div class="washed" style="{{ m.photo }}"><r-icon name="{{ m.icon }}" size="28"></r-icon></div>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;color:var(--color-neutral-700)">{{ m.slot }}</span><strong style="font-size:17px;line-height:1.3">{{ m.name }}</strong><span style="font-size:13px;color:var(--color-neutral-800);line-height:1.45">{{ m.portions }}</span></div></div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag" style="font-weight:700;font-size:12px;background:var(--color-bg);color:var(--color-text)">{{ m.kcal }} kcal</span><span class="tag tag-neutral" style="font-size:12px">P {{ m.p }} g</span><span class="tag tag-neutral" style="font-size:12px">C {{ m.c }} g</span><span class="tag tag-neutral" style="font-size:12px">F {{ m.f }} g</span></div>
+            <div style="display:flex;gap:8px;margin-top:auto"><button class="btn btn-secondary" style="flex:1;height:44px;gap:6px;white-space:nowrap"><r-icon name="repeat" size="16"></r-icon>Swap</button><a href="#d-recipe" class="btn btn-secondary" style="flex:1;height:44px;gap:6px;white-space:nowrap;text-decoration:none"><r-icon name="chef-hat" size="16"></r-icon>Recipe</a></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card" style="padding:22px;gap:12px"><span style="font-size:13px;color:var(--color-neutral-700)">Monday total · training day</span><span><span style="font-family:var(--font-heading);font-size:40px">2,200</span> kcal</span>
+          <sc-for list="{{ macroBars }}" as="b" hint-placeholder-count="3"><div style="font-size:13px"><div style="display:flex;justify-content:space-between"><span>{{ b.n }}</span><strong>{{ b.v }}</strong></div><div style="height:8px;border-radius:9px;background:var(--color-neutral-300);margin-top:4px"><div style="{{ b.bar }}"></div></div></div></sc-for></div>
+        <div class="card" style="padding:22px;gap:10px"><strong style="font-size:15px">This week</strong>
+          <sc-for list="{{ weekMini }}" as="d" hint-placeholder-count="7"><div style="display:flex;gap:10px;font-size:13px;align-items:baseline"><strong style="width:34px">{{ d.d }}</strong><span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--color-neutral-800)">{{ d.main }}</span></div></sc-for></div>
+        <a href="#" style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 18px 8px 8px;border-radius:999px;background:var(--color-surface);color:var(--color-text);text-decoration:none"><span style="width:44px;height:44px;border-radius:50%;background:var(--color-accent-2-600);color:var(--color-bg);display:grid;place-items:center"><r-icon name="shopping-basket" size="20"></r-icon></span><strong style="flex:1;font-size:14.5px">Grocery list · EGP 1,685</strong><r-icon name="chevron-right" size="18" flip=""></r-icon></a>
+      </div>
+    </div>
+  </main>
+</div></div>
+
+<div id="d-recipe" style="display:flex;flex-direction:column;gap:12px;scroll-margin-top:40px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">D4b · Recipe detail</span>
+<div data-screen-label="D4b Recipe" style="width:1440px;height:900px;border-radius:28px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex">
+  <dc-import name="Sidebar" active="nutrition" due="{{ true }}" hint-size="248px,100%" style="height:100%;flex:none"></dc-import>
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column;gap:20px;padding:32px 40px;overflow:hidden">
+    <div style="display:flex;align-items:center;gap:16px"><a href="#" class="btn btn-secondary" aria-label="Back to nutrition" style="width:44px;height:44px;padding:0;flex:none"><r-icon name="arrow-left" size="20" flip=""></r-icon></a><div><span style="font-size:14px;color:var(--color-neutral-700)">Nutrition · Monday dinner</span><h1 style="margin:2px 0 0;font-size:40px">Chicken, rice &amp; molokhia</h1></div></div>
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:360px minmax(0,1fr);gap:28px">
+      <div style="display:flex;flex-direction:column;gap:16px;min-height:0">
+        <div class="washed" style="position:relative;height:230px;border-radius:32px;overflow:hidden;background:var(--color-accent-2-300);display:grid;place-items:center;flex:none">
+          <span style="position:absolute;width:280px;height:280px;border-radius:50%;background:var(--color-accent-2-400);inset-inline-start:-70px;bottom:-110px"></span>
+          <span style="position:absolute;width:140px;height:140px;border-radius:50%;background:var(--color-accent-300);inset-inline-end:40px;top:-40px"></span>
+          <span style="position:relative;display:flex;gap:8px;align-items:center;font-size:13px;font-weight:600;color:var(--color-accent-2-900)"><r-icon name="image" size="18"></r-icon>Dish photo</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center">
+          <div style="padding:12px 2px;border-radius:22px;background:var(--color-surface)"><r-icon name="timer" size="18"></r-icon><span style="display:block;font-weight:700;font-size:14.5px">20 min</span><span style="font-size:11.5px">Prep</span></div>
+          <div style="padding:12px 2px;border-radius:22px;background:var(--color-surface)"><r-icon name="flame" size="18"></r-icon><span style="display:block;font-weight:700;font-size:14.5px">30 min</span><span style="font-size:11.5px">Cook</span></div>
+          <div style="padding:12px 2px;border-radius:22px;background:var(--color-surface)"><r-icon name="refrigerator" size="18"></r-icon><span style="display:block;font-weight:700;font-size:14.5px">3 days</span><span style="font-size:11.5px">Fridge</span></div>
+          <div style="padding:12px 2px;border-radius:22px;background:var(--color-surface)"><r-icon name="zap" size="18"></r-icon><span style="display:block;font-weight:700;font-size:14.5px">750</span><span style="font-size:11.5px">kcal</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;padding:18px 20px;border-radius:28px;background:var(--color-accent-2-100);color:var(--color-accent-2-900);font-size:14px">
+          <strong style="display:flex;gap:8px;align-items:center"><r-icon name="refrigerator" size="18"></r-icon>Storing &amp; reheating</strong>
+          <span>Chicken and rice keep 3 days in the fridge; molokhia 2 days.</span>
+          <span>Reheat rice covered with a splash of water, 2 min in the microwave. Warm molokhia gently on the stove — don't let it boil or it separates.</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><h4 style="margin:0">Ingredients</h4><div class="seg" style="height:44px"><label class="seg-opt" style="padding:0 14px;white-space:nowrap"><input type="radio" name="dr-p" defaultChecked="{{ true }}">1 portion</label><label class="seg-opt" style="padding:0 14px;white-space:nowrap"><input type="radio" name="dr-p">Prep 3</label></div></div>
+          <span style="font-size:12.5px;color:var(--color-neutral-700)">Scaled to your 750 kcal dinner</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr;column-gap:28px;border-radius:28px;background:var(--color-surface);padding:6px 22px">
+            <sc-for list="{{ ingredients }}" as="i" hint-placeholder-count="8"><div style="display:flex;justify-content:space-between;gap:10px;min-height:44px;align-items:center;font-size:14.5px;border-bottom:1px solid var(--color-divider)"><span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ i.n }}</span><strong style="white-space:nowrap">{{ i.q }}</strong></div></sc-for>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px"><span class="tag tag-neutral" style="font-size:12px">P 80 g</span><span class="tag tag-neutral" style="font-size:12px">C 35 g</span><span class="tag tag-neutral" style="font-size:12px">F 33 g</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h4 style="margin:0">Steps</h4>
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="6">
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <span style="width:34px;height:34px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;font-weight:700;font-size:14px;flex:none">{{ s.n }}</span>
+              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:14px;min-height:34px"><span style="flex:1;min-width:0;font-size:14.5px;line-height:1.45">{{ s.t }}</span>
+                <sc-if value="{{ s.timer }}"><button class="btn btn-secondary" style="height:44px;padding:0 16px;gap:6px;white-space:nowrap;font-family:var(--font-body);font-weight:700;flex:none"><r-icon name="timer" size="16"></r-icon>{{ s.timer }}</button></sc-if></div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </main>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">D5 · Grocery list</span>
+<div data-screen-label="D5 Groceries" style="width:1440px;height:900px;border-radius:28px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex">
+  <dc-import name="Sidebar" active="groceries" due="{{ true }}" hint-size="248px,100%" style="height:100%;flex:none"></dc-import>
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column;gap:18px;padding:32px 40px;overflow:hidden">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between"><div><span style="font-size:14px;color:var(--color-neutral-700)">Built from your week 3 meal plan</span><h1 style="margin:2px 0 0;font-size:40px">Groceries</h1></div>
+      <div role="tablist" style="display:flex;padding:4px;border-radius:999px;background:var(--color-surface);width:340px"><button role="tab" aria-selected="true" style="flex:1;height:44px;border:0;border-radius:999px;background:var(--color-bg);box-shadow:var(--shadow-sm);color:var(--color-text);font:inherit;font-weight:700">This week</button><button role="tab" style="flex:1;height:44px;border:0;border-radius:999px;background:transparent;color:var(--color-neutral-700);font:inherit;font-weight:600">This month</button></div></div>
+    <div style="display:flex;gap:12px;align-items:center;padding:12px 18px;border-radius:999px;background:var(--color-accent-100);color:var(--color-accent-900);font-size:14px"><r-icon name="refresh-cw" size="18" style="color:var(--color-accent-700)"></r-icon><span><strong>Updated after your weekly review.</strong> Fish fillet added; beef mince down from 1 kg to 0.5 kg.</span></div>
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr 320px;gap:18px">
+      <sc-for list="{{ groceryCols }}" as="col" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:14px;min-height:0">
+          <sc-for list="{{ col }}" as="g">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;padding:0 6px"><h5 style="margin:0">{{ g.name }}</h5><span style="font-size:12px;color:var(--color-neutral-700)">{{ g.sub }}</span></div>
+              <div style="display:flex;flex-direction:column;border-radius:26px;background:var(--color-surface);overflow:hidden">
+                <sc-for list="{{ g.items }}" as="i"><div style="{{ i.row }}"><span style="{{ i.box }}"><sc-if value="{{ i.checked }}"><r-icon name="check" size="14"></r-icon></sc-if></span><span style="{{ i.label }}">{{ i.name }} · <strong>{{ i.qty }}</strong></span><span style="font-size:11.5px;color:var(--color-neutral-700);display:inline-flex;gap:5px;align-items:center;white-space:nowrap"><span style="{{ i.sw }}"><span style="{{ i.knob }}"></span></span>Have it</span><span style="font-size:13px;font-weight:600;width:72px;text-align:end;white-space:nowrap">{{ i.price }}</span></div></sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-for>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:32px;background:var(--color-text);color:var(--color-bg)"><span style="font-size:13px;opacity:.8">This week · estimated</span><span style="font-family:var(--font-heading);font-size:38px">EGP 1,685</span><span style="font-size:13px;opacity:.8">16 items · 1 already at home · budget EGP 1,800</span><button class="btn" style="height:50px;background:var(--color-bg);color:var(--color-text);gap:8px;white-space:nowrap"><r-icon name="copy" size="18"></r-icon>Copy list as text</button></div>
+        <div class="card" style="padding:22px;gap:8px"><div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-size:15px">My pantry</strong><a href="#" style="font-size:13px;font-weight:600">Edit</a></div><span style="font-size:13px;color:var(--color-neutral-800)">Left off your list until you mark them low.</span>
+          <div style="display:flex;flex-wrap:wrap;gap:6px"><span class="tag tag-accent-2" style="font-size:12px">Olive oil</span><span class="tag tag-accent-2" style="font-size:12px">Salt</span><span class="tag tag-accent-2" style="font-size:12px">Black pepper</span><span class="tag tag-accent-2" style="font-size:12px">Garlic</span><span class="tag tag-accent" style="font-size:12px">Cumin · low</span><span class="tag tag-accent" style="font-size:12px">Rice · low</span></div></div>
+        <p style="margin:0;font-size:12px;color:var(--color-neutral-700)">Prices are rough estimates for Cairo markets and supermarkets.</p>
+      </div>
+    </div>
+  </main>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">D6 · Weekly review</span>
+<div data-screen-label="D6 Weekly review" style="width:1440px;height:900px;border-radius:28px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex">
+  <dc-import name="Sidebar" active="reviews" hint-size="248px,100%" style="height:100%;flex:none"></dc-import>
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column;gap:18px;padding:32px 40px;overflow:hidden">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between"><div><span style="font-size:14px;color:var(--color-neutral-700)">22 – 28 September</span><h1 style="margin:2px 0 0;font-size:40px">Week 3 review</h1></div><span class="tag" style="gap:6px;font-weight:700;font-size:13px;padding:8px 14px;background:var(--color-accent-2-100);color:var(--color-accent-2-800)"><r-icon name="check" size="14"></r-icon>On track</span></div>
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 340px;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:16px;min-height:0">
+        <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:24px 28px;border-radius:32px;background:var(--color-accent-2-100)">
+          <p style="margin:0;font-size:16.5px;line-height:1.6;color:var(--color-accent-2-900);max-width:640px">A solid week, Omar. You're down 0.7 kg — a little faster than planned — and your shoulder is clearly settling. Work cost you Thursday's session, and you were hungry most evenings. We've eased the deficit slightly and moved things around so next week is easier to hit.</p>
+          <div style="display:flex;gap:10px"><div style="padding:14px 18px;border-radius:24px;background:var(--color-bg);text-align:center"><span style="font-family:var(--font-heading);font-size:24px;display:block">−0.7</span><span style="font-size:12px">kg</span></div><div style="padding:14px 18px;border-radius:24px;background:var(--color-accent-100);text-align:center"><span style="font-family:var(--font-heading);font-size:24px;display:block">3/4</span><span style="font-size:12px">sessions</span></div><div style="padding:14px 18px;border-radius:24px;background:var(--color-bg);text-align:center"><span style="font-family:var(--font-heading);font-size:24px;display:block">2/10</span><span style="font-size:12px">pain</span></div></div>
+        </div>
+        <h4 style="margin:4px 0 0">What changed and why</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <sc-for list="{{ changes }}" as="c" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:8px;padding:18px 20px;border-radius:28px;background:var(--color-surface)"><div style="display:flex;gap:10px;align-items:center"><span style="width:36px;height:36px;border-radius:50%;background:var(--color-bg);display:grid;place-items:center"><r-icon name="{{ c.icon }}" size="18"></r-icon></span><span style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-accent-700)">{{ c.kind }}</span></div><strong style="font-size:15.5px;line-height:1.35">{{ c.what }}</strong><span style="font-size:13.5px;line-height:1.5;color:var(--color-neutral-800)">{{ c.why }}</span><span class="tag" style="align-self:flex-start;gap:5px;font-size:11.5px;margin-top:auto;background:var(--color-bg);color:var(--color-neutral-800)"><r-icon name="book-open" size="12"></r-icon>{{ c.cite }}</span></div></sc-for>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:32px;background:var(--color-accent-100)"><h4 style="margin:0;color:var(--color-accent-900)">Next week's focus</h4>
+          <sc-for list="{{ focus }}" as="f" hint-placeholder-count="3"><div style="display:flex;gap:12px;font-size:14px;line-height:1.5;color:var(--color-accent-900)"><span style="width:26px;height:26px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none">{{ f.n }}</span><span>{{ f.t }}</span></div></sc-for></div>
+        <a href="#" style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 18px 8px 8px;border-radius:999px;background:var(--color-surface);color:var(--color-text);text-decoration:none"><span style="width:44px;height:44px;border-radius:50%;background:var(--color-accent-2-600);color:var(--color-bg);display:grid;place-items:center"><r-icon name="shopping-basket" size="20"></r-icon></span><strong style="flex:1;font-size:14.5px">Updated grocery list</strong><r-icon name="chevron-right" size="18" flip=""></r-icon></a>
+        <div class="card" style="padding:20px;gap:8px"><strong style="font-size:15px">Past reviews</strong>
+          <sc-for list="{{ pastReviews }}" as="r" hint-placeholder-count="3"><a href="#" style="{{ r.row }}"><strong style="width:64px">Week {{ r.w }}</strong><span style="flex:1;font-size:12.5px;color:var(--color-neutral-800)">{{ r.d }}</span><span style="{{ r.tag }}">{{ r.s }}</span></a></sc-for></div>
+      </div>
+    </div>
+  </main>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">D7 · Progress</span>
+<div data-screen-label="D7 Progress" style="width:1440px;height:900px;border-radius:28px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex">
+  <dc-import name="Sidebar" active="progress" due="{{ true }}" hint-size="248px,100%" style="height:100%;flex:none"></dc-import>
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column;gap:20px;padding:32px 40px;overflow:hidden">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between"><div><span style="font-size:14px;color:var(--color-neutral-700)">Since 11 September · 18 days</span><h1 style="margin:2px 0 0;font-size:40px">Progress</h1></div>
+      <div class="seg" style="display:flex;height:44px"><label class="seg-opt" style="padding:0 18px;white-space:nowrap"><input type="radio" name="d-r">4 weeks</label><label class="seg-opt" style="padding:0 18px;white-space:nowrap"><input type="radio" name="d-r">3 months</label><label class="seg-opt" style="padding:0 18px;white-space:nowrap"><input type="radio" name="d-r" defaultChecked="{{ true }}">All</label></div></div>
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:auto 1fr;gap:20px">
+      <div class="card" style="padding:24px;gap:12px"><div style="display:flex;justify-content:space-between;align-items:baseline"><span class="card-title" style="font-size:20px">Weight</span><span style="font-size:14px;font-weight:700;color:var(--color-accent-2-800)">88.0 → 86.1 kg · −1.9</span></div>
+        <dc-import name="LineChart" series="{{ wSeries }}" labels="{{ wLabels }}" height="{{ 220 }}" axis-width="{{ 34 }}" hint-size="100%,280px"></dc-import></div>
+      <div class="card" style="padding:24px;gap:10px"><span class="card-title" style="font-size:20px">Measurements</span>
+        <dc-import name="LineChart" series="{{ waistSeries }}" labels="{{ mLabels }}" height="{{ 110 }}" axis-width="{{ 30 }}" hint-size="100%,160px"></dc-import>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center"><sc-for list="{{ measureTable }}" as="m" hint-placeholder-count="5"><div style="padding:8px 2px;border-radius:18px;background:var(--color-bg)"><span style="display:block;font-size:11.5px;color:var(--color-neutral-700)">{{ m.n }}</span><strong style="{{ m.st2 }}">{{ m.d }}</strong></div></sc-for></div></div>
+      <div class="card" style="padding:24px;gap:12px"><div style="display:flex;justify-content:space-between;align-items:center"><span class="card-title" style="font-size:20px">Strength · main lifts</span><div style="display:flex;gap:6px"><span class="tag" style="font-size:12.5px;padding:6px 12px;background:var(--color-accent);color:var(--color-bg);font-weight:700">Floor press</span><span class="tag tag-neutral" style="font-size:12.5px;padding:6px 12px">Romanian deadlift</span><span class="tag tag-neutral" style="font-size:12.5px;padding:6px 12px">Leg press</span></div></div>
+        <dc-import name="LineChart" series="{{ sSeries }}" labels="{{ sLabels }}" height="{{ 150 }}" axis-width="{{ 30 }}" hint-size="100%,200px"></dc-import></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;min-height:0">
+        <div class="card" style="padding:22px;gap:8px"><span class="card-title">Personal records</span>
+          <sc-for list="{{ prs }}" as="p" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;padding:10px 14px;border-radius:20px;background:var(--color-bg)"><span style="font-size:12px;color:var(--color-neutral-700)">{{ p.n }}</span><strong style="font-size:15px">{{ p.v }}</strong></div></sc-for></div>
+        <div class="card" style="padding:22px;gap:10px"><div style="display:flex;justify-content:space-between;align-items:center"><span class="card-title">Photos</span><r-icon name="lock" size="15" style="color:var(--color-neutral-600)"></r-icon></div>
+          <div style="flex:1;position:relative;border-radius:22px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;min-height:160px"><div class="washed" style="background:var(--color-neutral-300);display:grid;place-items:center;font-size:12px">11 Sep</div><div class="washed" style="background:var(--color-accent-2-300);display:grid;place-items:center;font-size:12px">28 Sep</div><span style="position:absolute;top:50%;left:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:var(--color-bg);box-shadow:var(--shadow-md);display:grid;place-items:center"><r-icon name="chevrons-left-right" size="18"></r-icon></span></div></div>
+      </div>
+    </div>
+  </main>
+</div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light'|'dark'&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const circ = (bg, fg, s) => ({ width: s, height: s, borderRadius: '50%', background: bg, color: fg, display: 'grid', placeItems: 'center', flex: 'none' });
+    const photo = bg => ({ width: 96, height: 96, borderRadius: 28, background: bg, display: 'grid', placeItems: 'center', flex: 'none', color: 'var(--color-neutral-800)' });
+    const tag = (bg, fg) => ({ fontSize: 11, fontWeight: 700, padding: '3px 9px', borderRadius: 999, background: bg, color: fg, whiteSpace: 'nowrap' });
+    const w = [88.0, 87.8, 88.1, 87.6, 87.7, 87.4, 87.5, 87.2, 87.3, 86.9, 87.0, 86.8, 86.9, 86.5, 86.6, 86.3, 86.4, 86.1];
+    const avg = w.map((_, i) => i < 6 ? null : Math.round(w.slice(i - 6, i + 1).reduce((a, b) => a + b, 0) / 7 * 100) / 100);
+    const WC = [['Sat 26', 'Lower A', 'Done · 52 min', 'done'], ['Sun 27', 'Rest', '', 'rest'], ['Mon 28', 'Upper A', 'Today · 58 min', 'today'], ['Tue 29', 'Rest', '', 'rest'], ['Wed 30', 'Lower B', '55 min', 'plan'], ['Thu 1', 'Upper B', '58 min', 'plan'], ['Fri 2', 'Rest', '', 'rest']];
+    const gItem = ([n, q, p, checked, have]) => ({ name: n, qty: q, price: have ? '—' : 'EGP ' + p, checked: !!checked,
+      row: { display: 'flex', alignItems: 'center', gap: 10, minHeight: 48, padding: '0 14px', borderBottom: '1px solid var(--color-divider)', opacity: have ? 0.55 : 1 },
+      box: { width: 22, height: 22, borderRadius: 7, display: 'grid', placeItems: 'center', flex: 'none', border: checked ? '0' : '2px solid var(--color-neutral-500)', background: checked ? 'var(--color-accent-2-600)' : 'transparent', color: 'var(--color-bg)' },
+      label: { flex: 1, minWidth: 0, fontSize: 14, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', textDecoration: checked ? 'line-through' : 'none', color: checked ? 'var(--color-neutral-700)' : 'var(--color-text)' },
+      sw: { width: 26, height: 16, borderRadius: 999, background: have ? 'var(--color-accent-2-600)' : 'var(--color-neutral-400)', position: 'relative' },
+      knob: { position: 'absolute', top: 2, insetInlineStart: have ? 12 : 2, width: 12, height: 12, borderRadius: '50%', background: 'var(--color-bg)' } });
+    const grp = (name, sub, items) => ({ name, sub, items: items.map(gItem) });
+    return {
+      theme: this.props.theme ?? 'light',
+      exercises: [
+        { n: 1, name: 'Neutral-grip dumbbell floor press', sets: 3, reps: '8–10', rest: '2 min', rpe: 7, swapped: true, badge: 'Swapped for your left shoulder' },
+        { n: 2, name: 'Chest-supported dumbbell row', sets: 3, reps: '10–12', rest: '90 s', rpe: 8 },
+        { n: 3, name: 'Half-kneeling landmine press', sets: 3, reps: '10 each', rest: '90 s', rpe: 7, swapped: true, badge: 'Swapped for your left shoulder' },
+        { n: 4, name: 'Neutral-grip lat pulldown', sets: 3, reps: '10–12', rest: '90 s', rpe: 8 },
+        { n: 5, name: 'Cable face pull', sets: 3, reps: '15', rest: '60 s', rpe: 7, swapped: true, badge: 'Added to support your left shoulder' },
+        { n: 6, name: 'Cable triceps pushdown', sets: 3, reps: '12', rest: '60 s', rpe: 8, swapped: true, badge: 'Swapped for your left shoulder' },
+        { n: 7, name: 'Incline dumbbell curl', sets: 2, reps: '12', rest: '60 s', rpe: 8 }],
+      mealsToday: [
+        { slot: 'Breakfast · eaten', name: 'Ful, eggs & baladi bread', kcal: '515 kcal', icon: 'check', check: circ('var(--color-accent-2-600)', 'var(--color-bg)', 44) },
+        { slot: 'Lunch · 2:30 pm', name: 'Koshary, lighter plate', kcal: '630 kcal', icon: 'soup', check: circ('var(--color-surface)', 'var(--color-text)', 44) },
+        { slot: 'After the gym', name: 'Zabadi, banana & oats', kcal: '305 kcal', icon: 'apple', check: circ('var(--color-surface)', 'var(--color-text)', 44) },
+        { slot: 'Dinner · 9 pm', name: 'Chicken, rice & molokhia', kcal: '750 kcal', icon: 'drumstick', check: circ('var(--color-surface)', 'var(--color-text)', 44) }],
+      painSeries: [{ values: [6, 5, 5, 4, 4, 4, 3, 2, 3], tone: 'warn', dots: true }], painLabels: ['13 Sep', '29 Sep'],
+      weekCols: WC.map(([d, name, meta, s]) => ({ d, name, meta, style: { display: 'flex', flexDirection: 'column', gap: 2, padding: '14px 16px', borderRadius: 26, minHeight: 88,
+        background: s === 'today' ? 'var(--color-accent)' : s === 'done' ? 'var(--color-accent-2-100)' : s === 'rest' ? 'var(--color-neutral-100)' : 'var(--color-surface)',
+        color: s === 'today' ? 'var(--color-bg)' : s === 'rest' ? 'var(--color-neutral-700)' : 'var(--color-text)' } })),
+      dayTabs: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map(l => ({ l, st: { height: 44, minWidth: 58, padding: '0 14px', border: 0, borderRadius: 999, font: 'inherit', fontWeight: l === 'Mon' ? 700 : 600, background: l === 'Mon' ? 'var(--color-bg)' : 'transparent', boxShadow: l === 'Mon' ? 'var(--shadow-sm)' : 'none', color: l === 'Mon' ? 'var(--color-text)' : 'var(--color-neutral-700)' } })),
+      meals: [
+        { slot: 'Breakfast · 8:30', name: 'Ful medames, eggs & baladi bread', portions: '1 plate ful · 2 eggs + 2 whites · 1 baladi bread · tomato & cucumber', kcal: 515, p: 38, c: 52, f: 17, icon: 'egg', photo: photo('var(--color-accent-200)') },
+        { slot: 'Lunch · 2:30', name: 'Koshary, lighter plate', portions: '1 medium plate · extra lentils · less fried onion · 1 cup zabadi', kcal: 630, p: 30, c: 100, f: 12, icon: 'soup', photo: photo('var(--color-accent-300)') },
+        { slot: 'After the gym · 6:30', name: 'Zabadi, banana & oats', portions: '1 cup thick zabadi · 1 banana · 3 tbsp oats · 1 tsp honey', kcal: 305, p: 27, c: 38, f: 5, icon: 'apple', photo: photo('var(--color-accent-2-200)') },
+        { slot: 'Dinner · 9:00', name: 'Grilled chicken, rice & molokhia', portions: '250 g chicken · ½ cup rice · 1 ladle molokhia · lemon', kcal: 750, p: 80, c: 35, f: 33, icon: 'drumstick', photo: photo('var(--color-accent-2-300)') }],
+      macroBars: [['Protein', '175 g', 'var(--color-accent-2-600)'], ['Carbs', '225 g', 'var(--color-accent-500)'], ['Fat', '67 g', 'var(--color-neutral-600)']].map(([n, v, c]) => ({ n, v, bar: { height: 8, width: '100%', borderRadius: 9, background: c } })),
+      weekMini: [['Sat', 'Grilled fish, rice & salad'], ['Sun', 'Beef kofta, bread & tahini'], ['Mon', 'Chicken, rice & molokhia'], ['Tue', 'Lentil soup & shawarma bowl'], ['Wed', 'Chicken & potatoes (swapped)'], ['Thu', 'Macarona with beef mince'], ['Fri', 'Mahshi & grilled chicken']].map(([d, main]) => ({ d, main })),
+      groceryCols: [
+        [grp('Vegetables & fruit', 'EGP 350', [['Tomatoes', '2 kg', 50, 1], ['Cucumbers', '1 kg', 25], ['Onions', '1.5 kg', 35], ['Potatoes', '2 kg', 45], ['Lemons', '0.5 kg', 30], ['Garlic', '250 g', 25, 0, 1], ['Molokhia, frozen', '1.4 kg', 105], ['Bananas', '1.5 kg', 60]]),
+         grp('Bread & bakery', 'EGP 40', [['Baladi bread', '20 loaves', 40, 1]])],
+        [grp('Meat, chicken & fish', 'EGP 870', [['Chicken breast', '1.5 kg', 495], ['Fish fillet', '0.6 kg', 150], ['Beef mince', '0.5 kg', 225]]),
+         grp('Dairy & eggs', 'EGP 425', [['Eggs', '18', 120, 1], ['Milk', '3 L', 150], ['Plain yogurt', '7 cups', 105], ['White cheese', '250 g', 50]])]],
+      changes: [
+        { kind: 'Calories', icon: 'flame', what: '2,200 → 2,300 kcal on training days', why: 'You lost 0.7 kg (goal 0.5) and felt hungry most evenings. The extra 100 kcal is carbs around your sessions.', cite: 'Helms · Muscle & Strength Pyramid: Nutrition' },
+        { kind: 'Exercise', icon: 'dumbbell', what: 'Floor press: 24 → 26 kg dumbbells', why: 'Marked "too easy", top of the rep range at RPE 7, no shoulder pain.', cite: 'Israetel · Scientific Principles of Hypertrophy' },
+        { kind: 'Exercise', icon: 'shield', what: 'Lat pulldown → single-arm cable pulldown', why: 'It felt uncomfortable on your left shoulder. One arm at a time lets you pick a pain-free angle.', cite: 'NSCA · Essentials of Strength Training' },
+        { kind: 'Meals', icon: 'utensils', what: 'Fish sayadeya → chicken & potatoes (Wed)', why: 'You asked for less fish and more chicken. Same calories, +6 g protein.', cite: 'Helms · Muscle & Strength Pyramid: Nutrition' }],
+      focus: [{ n: 1, t: 'Train Sat, Mon, Tue, Thu — Upper B moves to Tuesday.' }, { n: 2, t: 'Aim for 7 hours of sleep on at least 4 nights.' }, { n: 3, t: 'Stop any set that goes above 3/10 shoulder pain.' }],
+      pastReviews: [
+        { w: 3, d: '22 – 28 Sep', s: 'On track', tag: tag('var(--color-accent-2-100)', 'var(--color-accent-2-800)'), row: { display: 'flex', alignItems: 'center', gap: 8, minHeight: 48, padding: '0 12px', borderRadius: 999, background: 'var(--color-accent-100)', color: 'var(--color-text)', textDecoration: 'none', fontSize: 13.5 } },
+        { w: 2, d: '15 – 21 Sep', s: 'On track', tag: tag('var(--color-accent-2-100)', 'var(--color-accent-2-800)'), row: { display: 'flex', alignItems: 'center', gap: 8, minHeight: 48, padding: '0 12px', borderRadius: 999, background: 'var(--color-bg)', color: 'var(--color-text)', textDecoration: 'none', fontSize: 13.5 } },
+        { w: 1, d: '11 – 14 Sep', s: 'Attention', tag: tag('var(--color-accent-100)', 'var(--color-accent-800)'), row: { display: 'flex', alignItems: 'center', gap: 8, minHeight: 48, padding: '0 12px', borderRadius: 999, background: 'var(--color-bg)', color: 'var(--color-text)', textDecoration: 'none', fontSize: 13.5 } }],
+      wSeries: [{ values: w, tone: 'muted', dots: true, line: false, label: 'Weigh-ins' }, { values: avg, tone: 'ok', area: true, label: '7-day average' }],
+      wLabels: ['11 Sep', '15 Sep', '19 Sep', '24 Sep', '28 Sep'],
+      waistSeries: [{ values: [96, 95, 94, 93], tone: 'ok', dots: true, label: 'Waist, cm' }], mLabels: ['11 Sep', '15 Sep', '22 Sep', '28 Sep'],
+      measureTable: [['Waist', '−3'], ['Hips', '−1.5'], ['Chest', '−1'], ['Arm', '0'], ['Thigh', '−1']].map(([n, d]) => ({ n, d: d + ' cm', st2: { fontSize: 14, color: d === '0' ? 'var(--color-neutral-700)' : 'var(--color-accent-2-800)' } })),
+      sSeries: [{ values: [20, 20, 22.5, 22.5, 22.5, 24], tone: 'accent', dots: true, label: 'Top set, kg per dumbbell' }], sLabels: ['13 Sep', '20 Sep', '28 Sep'],
+      ingredients: [{ n: 'Chicken breast, raw', q: '250 g' }, { n: 'Egyptian rice, dry', q: '40 g' }, { n: 'Molokhia, frozen', q: '200 g' }, { n: 'Chicken stock', q: '250 ml' }, { n: 'Garlic', q: '3 cloves · 12 g' }, { n: 'Ground coriander', q: '2 g · 1 tsp' }, { n: 'Olive oil or ghee', q: '10 g · 2 tsp' }, { n: 'Lemon, cumin, salt', q: 'to taste' }],
+      steps: [
+        { n: 1, t: 'Rub the chicken with lemon, cumin, half the coriander and salt. Leave to marinate.', timer: '15:00' },
+        { n: 2, t: 'Rinse the rice, add 90 ml water and a pinch of salt, cover and cook on low.', timer: '18:00' },
+        { n: 3, t: 'Grill or pan-cook the chicken, 6 minutes each side, until the juices run clear.', timer: '12:00' },
+        { n: 4, t: 'Bring the stock to a simmer, add the molokhia and stir. Keep it below a boil.', timer: '5:00' },
+        { n: 5, t: "Fry the garlic and remaining coriander in the oil until golden (the ta'leya), then stir into the molokhia.", timer: '1:00' },
+        { n: 6, t: 'Slice the chicken, serve with the rice, molokhia and a squeeze of lemon.' }],
+      prs: [{ n: 'Dumbbell floor press', v: '2 × 24 kg × 10' }, { n: 'Romanian deadlift', v: '90 kg × 8' }, { n: 'Leg press', v: '180 kg × 12' }]
+    };
+  }
+}
+</script>
+</body>
+</html>

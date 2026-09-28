@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/styles.css">
+<link rel="stylesheet" href="rafeqi.css">
+<script src="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/_ds_bundle.js"></script>
+<script src="icons.js"></script>
+</helmet>
+<div data-theme="{{ theme }}" style="padding:56px;display:flex;flex-direction:column;gap:56px;background:var(--color-neutral-200);min-height:100vh">
+<header style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Rafeqi · Mobile 1 of 4</span><h1 style="margin:0">Access &amp; onboarding</h1></header>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<h3 style="margin:0">Log in / Sign up</h3>
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">01 · Log in (interactive password)</span>
+<div data-screen-label="01 Log in" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="flex:1;display:flex;flex-direction:column;gap:22px;padding:8px 24px 28px">
+    <div style="position:relative;height:150px">
+      <span style="position:absolute;inset-inline-start:0;top:0;width:120px;height:120px;border-radius:50%;background:var(--color-accent-200)"></span>
+      <span style="position:absolute;inset-inline-start:84px;top:40px;width:84px;height:84px;border-radius:50%;background:var(--color-accent-2-300)"></span>
+      <span style="position:absolute;inset-inline-start:28px;top:28px;width:64px;height:64px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;font-family:var(--font-heading);font-size:34px">R</span>
+    </div>
+    <div><h1 style="font-size:38px;margin:0 0 8px">Rafeqi</h1><p style="margin:0;font-size:16px;color:var(--color-neutral-800);text-wrap:pretty">Your AI coach for training and Egyptian home food — built around your body, goals and injuries.</p></div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="field"><label style="font-size:13px">Email</label><input class="input" type="email" value="omar.hassan@gmail.com" style="height:52px;font-size:16px"></div>
+      <div class="field"><label style="font-size:13px">Password</label>
+        <div style="position:relative"><input class="input" type="{{ pwType }}" value="Corniche2026" style="height:52px;font-size:16px;padding-inline-end:56px"><button aria-label="{{ pwLabel }}" onClick="{{ togglePw }}" style="position:absolute;inset-inline-end:4px;top:4px;width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:var(--color-text);cursor:pointer;display:grid;place-items:center"><r-icon name="{{ pwIcon }}" size="20"></r-icon></button></div>
+      </div>
+      <a href="#" style="align-self:flex-end;font-size:14px;font-weight:600;min-height:44px;display:flex;align-items:center">Forgot password?</a>
+    </div>
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
+      <button class="btn btn-primary" style="height:54px;font-size:17px;white-space:nowrap">Log in</button>
+      <button class="btn btn-secondary" style="height:54px;font-size:16px;white-space:nowrap">Create an account</button>
+      <p style="margin:6px 0 0;font-size:12px;color:var(--color-neutral-700);display:flex;gap:6px;align-items:flex-start"><r-icon name="info" size="14"></r-icon>General fitness guidance, not medical advice.</p>
+    </div>
+  </div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">02 · Log in — validation errors</span>
+<div data-screen-label="02 Log in errors" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="flex:1;display:flex;flex-direction:column;gap:20px;padding:8px 24px 28px">
+    <div><h1 style="font-size:38px;margin:0 0 8px">Welcome back</h1><p style="margin:0;font-size:16px;color:var(--color-neutral-800)">Log in to see today's plan.</p></div>
+    <div role="alert" style="display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:24px;background:var(--color-warn-100);color:var(--color-warn-800);font-size:14px"><r-icon name="circle-alert" size="20"></r-icon><span>That email and password don't match. Check them and try again, or reset your password.</span></div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="field"><label style="font-size:13px">Email</label><input class="input" type="email" value="omar.hassan@gmail" style="height:52px;font-size:16px;border-color:var(--color-warn-600);box-shadow:0 0 0 1px var(--color-warn-600)">
+        <span style="display:flex;gap:6px;align-items:center;font-size:13px;color:var(--color-warn-700);margin-top:6px"><r-icon name="circle-alert" size="14"></r-icon>Enter a full email, like name@gmail.com</span></div>
+      <div class="field"><label style="font-size:13px">Password</label>
+        <div style="position:relative"><input class="input" type="password" value="" placeholder="Your password" style="height:52px;font-size:16px;padding-inline-end:56px;border-color:var(--color-warn-600);box-shadow:0 0 0 1px var(--color-warn-600)"><button aria-label="Show password" style="position:absolute;inset-inline-end:4px;top:4px;width:44px;height:44px;border:0;background:transparent;color:var(--color-text);display:grid;place-items:center"><r-icon name="eye" size="20"></r-icon></button></div>
+        <span style="display:flex;gap:6px;align-items:center;font-size:13px;color:var(--color-warn-700);margin-top:6px"><r-icon name="circle-alert" size="14"></r-icon>Enter your password</span></div>
+      <a href="#" style="align-self:flex-end;font-size:14px;font-weight:600;min-height:44px;display:flex;align-items:center">Forgot password?</a>
+    </div>
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
+      <button class="btn btn-primary" style="height:54px;font-size:17px;white-space:nowrap">Log in</button>
+      <button class="btn btn-ghost" style="height:48px;font-size:15px;white-space:nowrap">New here? Create an account</button>
+    </div>
+  </div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">03 · Sign up</span>
+<div data-screen-label="03 Sign up" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="flex:1;display:flex;flex-direction:column;gap:18px;padding:4px 24px 28px">
+    <div><h1 style="font-size:34px;margin:0 0 8px">Create your account</h1><p style="margin:0;font-size:15px;color:var(--color-neutral-800)">Two minutes of questions, then your plan.</p></div>
+    <div class="field"><label style="font-size:13px">First name</label><input class="input" value="Omar" style="height:52px;font-size:16px"></div>
+    <div class="field"><label style="font-size:13px">Email</label><input class="input" type="email" value="omar.hassan@gmail.com" style="height:52px;font-size:16px"></div>
+    <div class="field"><label style="font-size:13px">Password</label>
+      <div style="position:relative"><input class="input" type="text" value="Corniche2026" style="height:52px;font-size:16px;padding-inline-end:56px"><button aria-label="Hide password" style="position:absolute;inset-inline-end:4px;top:4px;width:44px;height:44px;border:0;background:transparent;color:var(--color-text);display:grid;place-items:center"><r-icon name="eye-off" size="20"></r-icon></button></div>
+      <div style="display:flex;gap:14px;margin-top:8px;font-size:12.5px;color:var(--color-accent-2-800)"><span style="display:flex;gap:4px;align-items:center"><r-icon name="check" size="14"></r-icon>8+ characters</span><span style="display:flex;gap:4px;align-items:center"><r-icon name="check" size="14"></r-icon>One number</span></div>
+    </div>
+    <label style="display:flex;gap:12px;align-items:flex-start;font-size:14px;min-height:44px;cursor:pointer"><span style="width:24px;height:24px;border-radius:8px;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="check" size="16"></r-icon></span><span>I'm 18 or older and I understand Rafeqi gives general guidance, not medical advice.</span></label>
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
+      <button class="btn btn-primary" style="height:54px;font-size:17px;white-space:nowrap">Create account</button>
+      <button class="btn btn-ghost" style="height:48px;font-size:15px;white-space:nowrap">I already have an account</button>
+    </div>
+  </div>
+</div></div>
+</div></section>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<h3 style="margin:0">Questionnaire · 7 steps, answers kept between steps</h3>
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">04 · a. About you</span>
+<div data-screen-label="04 About you" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="About you" sub="Step 1 of 7" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:18px;padding:6px 20px 20px">
+    <p style="margin:0;font-size:15px;color:var(--color-neutral-800)">We use these to estimate your calorie needs.</p>
+    <div class="field"><label style="font-size:13px">Sex</label><div class="seg" style="display:flex;height:52px"><label class="seg-opt" style="flex:1;justify-content:center;font-size:15px"><input type="radio" name="o-sex" defaultChecked="{{ true }}">Male</label><label class="seg-opt" style="flex:1;justify-content:center;font-size:15px"><input type="radio" name="o-sex">Female</label></div></div>
+    <div class="field"><label style="font-size:13px">Age</label>
+      <div style="display:flex;align-items:center;height:52px;border-radius:999px;background:var(--color-surface);border:1px solid var(--color-divider)"><button aria-label="Decrease" style="width:52px;height:50px;border:0;background:transparent;color:var(--color-text);display:grid;place-items:center"><r-icon name="minus" size="18"></r-icon></button><span style="flex:1;text-align:center;font-weight:700;font-size:18px">29 <span style="font-weight:400;font-size:13px;color:var(--color-neutral-700)">years</span></span><button aria-label="Increase" style="width:52px;height:50px;border:0;background:transparent;color:var(--color-text);display:grid;place-items:center"><r-icon name="plus" size="18"></r-icon></button></div>
+      <span style="font-size:12px;color:var(--color-neutral-700);margin-top:6px;display:block">Rafeqi is for adults 18 and over.</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="field"><label style="font-size:13px">Height</label><div style="display:flex;align-items:center;height:52px;border-radius:999px;background:var(--color-surface);border:1px solid var(--color-divider);padding:0 18px"><span style="flex:1;font-weight:700;font-size:18px">180</span><span style="font-size:13px;color:var(--color-neutral-700)">cm</span></div></div>
+      <div class="field"><label style="font-size:13px">Weight</label><div style="display:flex;align-items:center;height:52px;border-radius:999px;background:var(--color-surface);border:1px solid var(--color-divider);padding:0 18px"><span style="flex:1;font-weight:700;font-size:18px">88.0</span><span style="font-size:13px;color:var(--color-neutral-700)">kg</span></div></div>
+    </div>
+    <div class="field"><label style="font-size:13px">Waist <span style="color:var(--color-neutral-600)">· optional</span></label><div style="display:flex;align-items:center;height:52px;border-radius:999px;background:var(--color-surface);border:1px solid var(--color-divider);padding:0 18px"><span style="flex:1;font-weight:700;font-size:18px">96</span><span style="font-size:13px;color:var(--color-neutral-700)">cm</span></div>
+      <span style="font-size:12px;color:var(--color-neutral-700);margin-top:6px;display:flex;gap:6px"><r-icon name="ruler" size="14"></r-icon>Measure at your belly button, relaxed.</span></div>
+  </div>
+  <div style="flex:none;display:flex;gap:10px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-secondary" style="height:52px;padding:0 22px;white-space:nowrap">Back</button><button class="btn btn-primary" style="flex:1;height:52px;font-size:16px;white-space:nowrap">Next</button></div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">05 · b. Goal</span>
+<div data-screen-label="05 Goal" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="Your goal" sub="Step 2 of 7" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:10px;padding:6px 20px 20px">
+    <label style="display:flex;align-items:center;gap:14px;min-height:68px;padding:10px 16px;border-radius:26px;background:var(--color-accent-100);border:2px solid var(--color-accent)"><span style="width:44px;height:44px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="flame" size="20"></r-icon></span><span style="flex:1"><strong style="display:block;font-size:16px">Lose fat</strong><span style="font-size:13px;color:var(--color-neutral-800)">Drop weight, keep muscle</span></span><r-icon name="circle-check" size="22" style="color:var(--color-accent-700)"></r-icon></label>
+    <label style="display:flex;align-items:center;gap:14px;min-height:68px;padding:10px 16px;border-radius:26px;background:var(--color-surface);border:2px solid transparent"><span style="width:44px;height:44px;border-radius:50%;background:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="biceps-flexed" size="20"></r-icon></span><span style="flex:1"><strong style="display:block;font-size:16px">Build muscle</strong><span style="font-size:13px;color:var(--color-neutral-800)">Gain size with a small surplus</span></span></label>
+    <label style="display:flex;align-items:center;gap:14px;min-height:68px;padding:10px 16px;border-radius:26px;background:var(--color-surface);border:2px solid transparent"><span style="width:44px;height:44px;border-radius:50%;background:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="refresh-cw" size="20"></r-icon></span><span style="flex:1"><strong style="display:block;font-size:16px">Body recomposition</strong><span style="font-size:13px;color:var(--color-neutral-800)">Lose fat and build muscle slowly</span></span></label>
+    <label style="display:flex;align-items:center;gap:14px;min-height:68px;padding:10px 16px;border-radius:26px;background:var(--color-surface);border:2px solid transparent"><span style="width:44px;height:44px;border-radius:50%;background:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="dumbbell" size="20"></r-icon></span><span style="flex:1"><strong style="display:block;font-size:16px">Get stronger</strong><span style="font-size:13px;color:var(--color-neutral-800)">Lift more on the main lifts</span></span></label>
+    <h5 style="margin:12px 0 0">Preferred pace</h5>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+      <span style="min-height:64px;border-radius:22px;background:var(--color-surface);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14px;font-weight:600">Gentle<span style="font-size:11.5px;font-weight:400;color:var(--color-neutral-700)">0.25 kg/wk</span></span>
+      <span style="min-height:64px;border-radius:22px;background:var(--color-accent);color:var(--color-bg);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14px;font-weight:700">Steady<span style="font-size:11.5px;font-weight:500">0.5 kg/wk</span></span>
+      <span style="min-height:64px;border-radius:22px;background:var(--color-surface);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14px;font-weight:600">Faster<span style="font-size:11.5px;font-weight:400;color:var(--color-neutral-700)">0.75 kg/wk</span></span>
+    </div>
+    <p style="margin:4px 0 0;font-size:12.5px;color:var(--color-neutral-700)">Steady is easiest to stick with — about 8 kg over 4 months.</p>
+  </div>
+  <div style="flex:none;display:flex;gap:10px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-secondary" style="height:52px;padding:0 22px;white-space:nowrap">Back</button><button class="btn btn-primary" style="flex:1;height:52px;font-size:16px;white-space:nowrap">Next</button></div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">06 · c. Training</span>
+<div data-screen-label="06 Training" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="Your training" sub="Step 3 of 7" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:18px;padding:6px 20px 20px">
+    <div class="field"><label style="font-size:13px">Experience</label><div class="seg" style="display:flex;height:52px"><label class="seg-opt" style="flex:1;justify-content:center;font-size:14px;padding:0 6px"><input type="radio" name="o-exp">Beginner</label><label class="seg-opt" style="flex:1;justify-content:center;font-size:14px;padding:0 6px"><input type="radio" name="o-exp" defaultChecked="{{ true }}">Intermediate</label><label class="seg-opt" style="flex:1;justify-content:center;font-size:14px;padding:0 6px"><input type="radio" name="o-exp">Advanced</label></div>
+      <span style="font-size:12px;color:var(--color-neutral-700);margin-top:6px;display:block">1–3 years of regular lifting.</span></div>
+    <div class="field"><label style="font-size:13px">Days per week</label><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px"><span style="height:52px;border-radius:999px;display:grid;place-items:center;background:var(--color-surface);font-weight:600;font-size:16px">2</span><span style="height:52px;border-radius:999px;display:grid;place-items:center;background:var(--color-surface);font-weight:600;font-size:16px">3</span><span style="height:52px;border-radius:999px;display:grid;place-items:center;background:var(--color-accent);color:var(--color-bg);font-weight:700;font-size:16px">4</span><span style="height:52px;border-radius:999px;display:grid;place-items:center;background:var(--color-surface);font-weight:600;font-size:16px">5</span><span style="height:52px;border-radius:999px;display:grid;place-items:center;background:var(--color-surface);font-weight:600;font-size:16px">6</span></div></div>
+    <div class="field"><label style="font-size:13px">Session length</label><div class="seg" style="display:flex;height:52px"><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-len">45 min</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-len" defaultChecked="{{ true }}">60 min</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-len">75 min</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-len">90 min</label></div></div>
+    <div class="field"><label style="font-size:13px">Where do you train?</label>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="display:flex;align-items:center;gap:12px;min-height:56px;padding:0 16px;border-radius:999px;background:var(--color-accent-100);border:2px solid var(--color-accent);font-weight:700"><r-icon name="building-2" size="20"></r-icon>Full gym<r-icon name="circle-check" size="20" style="margin-inline-start:auto;color:var(--color-accent-700)"></r-icon></span>
+        <span style="display:flex;align-items:center;gap:12px;min-height:56px;padding:0 16px;border-radius:999px;background:var(--color-surface);border:2px solid transparent;font-weight:600"><r-icon name="house" size="20"></r-icon>Home with dumbbells</span>
+        <span style="display:flex;align-items:center;gap:12px;min-height:56px;padding:0 16px;border-radius:999px;background:var(--color-surface);border:2px solid transparent;font-weight:600"><r-icon name="person-standing" size="20"></r-icon>Bodyweight only</span>
+      </div></div>
+  </div>
+  <div style="flex:none;display:flex;gap:10px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-secondary" style="height:52px;padding:0 22px;white-space:nowrap">Back</button><button class="btn btn-primary" style="flex:1;height:52px;font-size:16px;white-space:nowrap">Next</button></div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">07 · d. Injuries — body map (tap to try)</span>
+<div data-screen-label="07 Injuries map" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="Any injuries?" sub="Step 4 of 7" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px;padding:6px 20px 20px">
+    <p style="margin:0;font-size:15px;color:var(--color-neutral-800)">Tap anywhere that hurts or has been injured. We'll adjust your exercises around it.</p>
+    <div style="display:flex;justify-content:space-around;padding:14px 0;border-radius:32px;background:var(--color-surface)">
+      <dc-import name="BodyMap" view="front" marks="{{ obMarks }}" interactive="{{ true }}" width="{{ 138 }}" hint-size="138px,310px"></dc-import>
+      <dc-import name="BodyMap" view="back" marks="{{ obMarks }}" interactive="{{ true }}" width="{{ 138 }}" hint-size="138px,310px"></dc-import>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:13px;color:var(--color-neutral-700)">Selected</span>
+      <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="min-height:44px;padding:0 8px 0 16px;border-radius:999px;background:var(--color-accent-100);border:1.5px solid var(--color-accent);color:var(--color-accent-800);display:inline-flex;align-items:center;gap:6px;font-weight:700">Left shoulder<button aria-label="Remove" style="width:32px;height:32px;border:0;background:transparent;color:inherit;display:grid;place-items:center"><r-icon name="x" size="16"></r-icon></button></span></div>
+      <button class="btn btn-ghost" style="align-self:flex-start;height:44px;white-space:nowrap">No injuries — skip this step</button>
+    </div>
+  </div>
+  <div style="flex:none;display:flex;gap:10px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-secondary" style="height:52px;padding:0 22px;white-space:nowrap">Back</button><button class="btn btn-primary" style="flex:1;height:52px;font-size:16px;white-space:nowrap">Describe left shoulder</button></div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">08 · d. Injury details</span>
+<div data-screen-label="08 Injury details" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="Left shoulder" sub="Step 4 of 7 · area 1 of 1" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:12px;padding:0 20px 16px">
+    <div class="field"><label style="font-size:13px">Side</label><div class="seg" style="display:flex;height:48px"><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-side" defaultChecked="{{ true }}">Left</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-side">Right</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-side">Both</label></div></div>
+    <div class="field"><label style="font-size:13px">Type</label><div style="display:flex;flex-wrap:wrap;gap:8px">
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Joint pain</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-accent);background:var(--color-accent-100);color:var(--color-accent-800);display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700"><r-icon name="check" size="15"></r-icon>Tendon / impingement</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Muscle strain</span>
+            <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">After surgery</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Not sure</span></div></div>
+    <div class="field"><label style="font-size:13px">Severity · 3 of 5 — hurts during some lifts</label><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px"><span style="height:48px;border-radius:999px;display:grid;place-items:center;background:var(--color-surface);font-weight:600">1</span><span style="height:48px;border-radius:999px;display:grid;place-items:center;background:var(--color-surface);font-weight:600">2</span><span style="height:48px;border-radius:999px;display:grid;place-items:center;background:var(--color-accent);color:var(--color-bg);font-weight:700">3</span><span style="height:48px;border-radius:999px;display:grid;place-items:center;background:var(--color-surface);font-weight:600">4</span><span style="height:48px;border-radius:999px;display:grid;place-items:center;background:var(--color-surface);font-weight:600">5</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--color-neutral-700);margin-top:4px"><span>Mild</span><span>Stops me training</span></div></div>
+    <div class="field"><label style="font-size:13px">Movements that hurt</label><div style="display:flex;flex-wrap:wrap;gap:8px">
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-accent);background:var(--color-accent-100);color:var(--color-accent-800);display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700"><r-icon name="check" size="15"></r-icon>Overhead press</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-accent);background:var(--color-accent-100);color:var(--color-accent-800);display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700"><r-icon name="check" size="15"></r-icon>Bench press</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-accent);background:var(--color-accent-100);color:var(--color-accent-800);display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700"><r-icon name="check" size="15"></r-icon>Dips</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Pull-ups</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Lateral raise</span></div></div>
+    <div class="field"><label style="font-size:13px">Restrictions from a doctor or physio</label><div style="display:flex;flex-wrap:wrap;gap:8px">
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-accent);background:var(--color-accent-100);color:var(--color-accent-800);display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700"><r-icon name="check" size="15"></r-icon>No overhead lifting</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Limit range</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Haven't seen anyone</span></div></div>
+  </div>
+  <div style="flex:none;display:flex;gap:10px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-secondary" style="height:52px;padding:0 22px;white-space:nowrap">Back</button><button class="btn btn-primary" style="flex:1;height:52px;font-size:16px;white-space:nowrap">Next</button></div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">09 · e. Health check — a "yes" answer</span>
+<div data-screen-label="09 Health check" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="Health check" sub="Step 5 of 7" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:10px;padding:6px 20px 20px">
+    <p style="margin:0 0 4px;font-size:15px;color:var(--color-neutral-800)">A few quick safety questions. Your answers stay private.</p>
+    <sc-for list="{{ health }}" as="h" hint-placeholder-count="5">
+      <div style="display:flex;align-items:center;gap:12px;padding:10px 10px 10px 18px;border-radius:26px;background:var(--color-surface)">
+        <span style="flex:1;font-size:14.5px;line-height:1.35">{{ h.q }}</span>
+        <div class="seg" style="display:flex;height:44px;flex:none"><label class="seg-opt" style="padding:0 14px"><input type="radio" name="{{ h.id }}" defaultChecked="{{ h.no }}">No</label><label class="seg-opt" style="padding:0 14px"><input type="radio" name="{{ h.id }}" defaultChecked="{{ h.yes }}">Yes</label></div>
+      </div>
+    </sc-for>
+    <div role="status" style="display:flex;gap:12px;align-items:flex-start;padding:16px 18px;border-radius:26px;background:var(--color-accent-100);color:var(--color-accent-900);margin-top:4px">
+      <r-icon name="heart-handshake" size="22" style="color:var(--color-accent-700)"></r-icon>
+      <div style="font-size:14px;line-height:1.5"><strong style="display:block;font-size:15px;margin-bottom:2px">Thanks for telling us</strong>Please check with your doctor before starting. Until then we'll keep your plan more conservative — lighter loads, lower effort targets and more rest.</div>
+    </div>
+  </div>
+  <div style="flex:none;display:flex;gap:10px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-secondary" style="height:52px;padding:0 22px;white-space:nowrap">Back</button><button class="btn btn-primary" style="flex:1;height:52px;font-size:16px;white-space:nowrap">Next</button></div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">10 · f. Food</span>
+<div data-screen-label="10 Food" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="Food &amp; habits" sub="Step 6 of 7" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:15px;padding:6px 20px 20px">
+    <div class="field"><label style="font-size:13px">Meals per day</label><div class="seg" style="display:flex;height:48px"><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-m">2</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-m">3</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-m" defaultChecked="{{ true }}">4</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-m">5</label></div></div>
+    <div class="field"><label style="font-size:13px">Foods you dislike</label><div style="display:flex;flex-wrap:wrap;gap:8px">
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-accent);background:var(--color-accent-100);color:var(--color-accent-800);display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700"><r-icon name="check" size="15"></r-icon>Liver</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-accent);background:var(--color-accent-100);color:var(--color-accent-800);display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700"><r-icon name="check" size="15"></r-icon>Eggplant</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Okra</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Fish</span>
+      
+      <span style="min-height:44px;padding:0 12px;white-space:nowrap;border-radius:999px;border:1.5px dashed var(--color-divider);display:inline-flex;align-items:center;gap:4px;font-size:14px"><r-icon name="plus" size="15"></r-icon>More</span></div></div>
+    <div class="field"><label style="font-size:13px">Allergies</label><div style="display:flex;flex-wrap:wrap;gap:8px">
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-accent);background:var(--color-accent-100);color:var(--color-accent-800);display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700"><r-icon name="check" size="15"></r-icon>None</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Nuts</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Lactose</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Gluten</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Eggs</span></div></div>
+    <div class="field"><label style="font-size:13px">Fasting</label><div style="display:flex;flex-wrap:wrap;gap:8px">
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-accent);background:var(--color-accent-100);color:var(--color-accent-800);display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700"><r-icon name="moon-star" size="15"></r-icon>I fast in Ramadan</span>
+      <span style="min-height:44px;padding:0 14px;white-space:nowrap;border-radius:999px;border:1.5px solid var(--color-divider);display:inline-flex;align-items:center;font-size:14px">Intermittent fasting</span>
+      </div></div>
+    <div class="field"><label style="font-size:13px">Cooking time per day</label><div class="seg" style="display:flex;height:48px"><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-c">15 min</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-c" defaultChecked="{{ true }}">30 min</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="o-c">1 hr+</label></div></div>
+    <div class="field"><label style="font-size:13px;display:flex;justify-content:space-between"><span>Weekly food budget</span><strong style="color:var(--color-text);font-size:15px;white-space:nowrap">EGP 1,800</strong></label>
+      <div style="position:relative;height:44px;display:flex;align-items:center"><div style="height:10px;width:100%;border-radius:999px;background:var(--color-neutral-300)"><div style="height:10px;width:45%;border-radius:999px;background:var(--color-accent)"></div></div><span style="position:absolute;inset-inline-start:calc(45% - 14px);width:28px;height:28px;border-radius:50%;background:var(--color-bg);border:3px solid var(--color-accent);box-shadow:var(--shadow-md)"></span></div>
+      <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--color-neutral-700)"><span>EGP 600</span><span>EGP 3,500+</span></div></div>
+  </div>
+  <div style="flex:none;display:flex;gap:10px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-secondary" style="height:52px;padding:0 22px;white-space:nowrap">Back</button><button class="btn btn-primary" style="flex:1;height:52px;font-size:16px;white-space:nowrap">Next</button></div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">11 · g. Review your answers</span>
+<div data-screen-label="11 Review answers" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="Check your answers" sub="Step 7 of 7" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:10px;padding:6px 20px 20px">
+    <sc-for list="{{ review }}" as="r" hint-placeholder-count="6">
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 8px 12px 18px;border-radius:26px;background:var(--color-surface)">
+        <r-icon name="{{ r.icon }}" size="20" style="color:var(--color-accent-700)"></r-icon>
+        <div style="flex:1;min-width:0"><strong style="display:block;font-size:14px">{{ r.t }}</strong><span style="font-size:13px;color:var(--color-neutral-800);line-height:1.4">{{ r.v }}</span></div>
+        <button class="btn btn-ghost" style="height:44px;padding:0 12px;white-space:nowrap">Edit</button>
+      </div>
+    </sc-for>
+  </div>
+  <div style="flex:none;display:flex;flex-direction:column;gap:6px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-primary" style="height:54px;font-size:17px;white-space:nowrap;gap:8px"><r-icon name="sparkles" size="18"></r-icon>Build my plan</button><span style="font-size:12px;text-align:center;color:var(--color-neutral-700)">Takes about a minute. You can change answers any time.</span></div>
+</div></div>
+</div></section>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<h3 style="margin:0">Plan generation &amp; result</h3>
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">12 · Building your plan (30–90 s)</span>
+<div data-screen-label="12 Generating" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="flex:1;display:flex;flex-direction:column;gap:28px;padding:10px 28px 32px">
+    <div style="display:grid;place-items:center;height:220px">{{ breath }}</div>
+    <div><h2 style="margin:0 0 8px;font-size:30px">Building your plan, Omar</h2><p style="margin:0;font-size:15px;color:var(--color-neutral-800)">This usually takes 30–90 seconds. Feel free to put your phone down — we'll keep going.</p></div>
+    <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px">
+      <li style="display:flex;align-items:center;gap:14px;font-size:15px"><span style="width:32px;height:32px;border-radius:50%;background:var(--color-accent-2-600);color:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="check" size="17"></r-icon></span>Calculating your calories<span style="margin-inline-start:auto;font-size:12.5px;color:var(--color-neutral-700)">2,200 kcal</span></li>
+      <li style="display:flex;align-items:center;gap:14px;font-size:15px"><span style="width:32px;height:32px;border-radius:50%;background:var(--color-accent-2-600);color:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="check" size="17"></r-icon></span>Choosing your program<span style="margin-inline-start:auto;font-size:12.5px;color:var(--color-neutral-700)">Upper / Lower</span></li>
+      <li style="display:flex;align-items:center;gap:14px;font-size:15px;font-weight:700"><span style="width:32px;height:32px;border-radius:50%;border:3px solid var(--color-accent-300);border-top-color:var(--color-accent);flex:none;animation:rq-spin 1s linear infinite"></span>Checking your injuries</li>
+      <li style="display:flex;align-items:center;gap:14px;font-size:15px;color:var(--color-neutral-700)"><span style="width:32px;height:32px;border-radius:50%;border:2px dashed var(--color-neutral-400);flex:none"></span>Building your meals</li>
+    </ol>
+    <p style="margin:auto 0 0;font-size:12px;color:var(--color-neutral-700);display:flex;gap:6px"><r-icon name="lock" size="14"></r-icon>Your plan is built privately on our own servers.</p>
+  </div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">12b · Generation error</span>
+<div data-screen-label="12b Generation error" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="flex:1;display:flex;flex-direction:column;gap:22px;padding:40px 28px 32px">
+    <span style="width:96px;height:96px;border-radius:50%;background:var(--color-accent-200);color:var(--color-accent-700);display:grid;place-items:center"><r-icon name="hourglass" size="40"></r-icon></span>
+    <div><h2 style="margin:0 0 8px;font-size:30px">That took longer than expected</h2><p style="margin:0;font-size:15px;color:var(--color-neutral-800)">Your answers are saved. Nothing was lost — try again and we'll pick up where we stopped.</p></div>
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px"><button class="btn btn-primary" style="height:54px;font-size:17px;white-space:nowrap">Try again</button><button class="btn btn-secondary" style="height:52px;white-space:nowrap">Edit my answers</button></div>
+  </div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">13 · Your plan is ready (full scroll)</span>
+<div data-screen-label="13 Plan ready" style="width:390px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="Your plan" brand="{{ true }}" hint-size="100%,106px"></dc-import>
+  <div style="display:flex;flex-direction:column;gap:22px;padding:4px 20px 32px">
+    <div><span style="font-size:13px;font-weight:700;color:var(--color-accent-2-800);display:flex;gap:6px;align-items:center"><r-icon name="circle-check" size="16"></r-icon>Ready</span><h1 style="margin:6px 0 6px;font-size:34px">Here's your plan, Omar</h1><p style="margin:0;font-size:15px;color:var(--color-neutral-800)">Built for steady fat loss, 4 gym days, and a sore left shoulder.</p></div>
+    <div style="display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:32px;background:var(--color-surface)">
+      <span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700)">Daily target</span>
+      <div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:var(--font-heading);font-size:48px;line-height:1">2,200</span><span style="font-size:16px">kcal</span></div>
+      <p style="margin:0;font-size:14px;color:var(--color-neutral-800)"><strong>Why:</strong> about 500 below your maintenance (~2,700) — a steady 0.5 kg a week.</p>
+      <sc-for list="{{ macros }}" as="m" hint-placeholder-count="3">
+        <div style="display:flex;gap:14px;align-items:flex-start;padding-top:12px;border-top:1px solid var(--color-divider)">
+          <span style="{{ m.dot }}"></span>
+          <div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:baseline"><strong style="font-size:15px">{{ m.name }}</strong><span style="font-family:var(--font-heading);font-size:20px">{{ m.g }}</span></div><p style="margin:2px 0 0;font-size:13px;color:var(--color-neutral-800);line-height:1.45">{{ m.why }}</p></div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:32px;background:var(--color-accent-2-100)">
+      <span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-2-800)">Your program</span>
+      <h3 style="margin:0;font-size:24px">Upper / Lower · 4 days</h3>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-size:11px;text-align:center"><span style="padding:8px 0;border-radius:14px;background:var(--color-accent-2-600);color:var(--color-bg);font-weight:700">Sat<br>Lower</span><span style="padding:8px 0;border-radius:14px;background:var(--color-bg)">Sun<br>Rest</span><span style="padding:8px 0;border-radius:14px;background:var(--color-accent-2-600);color:var(--color-bg);font-weight:700">Mon<br>Upper</span><span style="padding:8px 0;border-radius:14px;background:var(--color-bg)">Tue<br>Rest</span><span style="padding:8px 0;border-radius:14px;background:var(--color-accent-2-600);color:var(--color-bg);font-weight:700">Wed<br>Lower</span><span style="padding:8px 0;border-radius:14px;background:var(--color-accent-2-600);color:var(--color-bg);font-weight:700">Thu<br>Upper</span><span style="padding:8px 0;border-radius:14px;background:var(--color-bg)">Fri<br>Rest</span></div>
+      <p style="margin:0;font-size:14px;color:var(--color-accent-2-900)"><strong>Why it fits:</strong> each muscle is trained twice a week in 60-minute sessions, which suits an intermediate lifter keeping strength while eating less. Fridays stay free.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:32px;background:var(--color-warn-100)">
+      <span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-warn-800);display:flex;gap:6px;align-items:center"><r-icon name="shield" size="14"></r-icon>Changed for your left shoulder</span>
+      <sc-for list="{{ swaps }}" as="s" hint-placeholder-count="3">
+        <div style="display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-radius:22px;background:var(--color-bg)">
+          <span style="font-size:13px;color:var(--color-neutral-700);text-decoration:line-through">{{ s.from }}</span>
+          <strong style="font-size:15px;line-height:1.35;display:flex;gap:6px;align-items:flex-start"><r-icon name="arrow-right" size="15" flip="" style="margin-top:3px"></r-icon><span>{{ s.to }}</span></strong>
+          <span style="font-size:12.5px;color:var(--color-neutral-800)">{{ s.why }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px"><button class="btn btn-primary" style="height:54px;font-size:17px;white-space:nowrap;gap:8px"><r-icon name="dumbbell" size="18"></r-icon>See my workout plan</button><button class="btn btn-secondary" style="height:54px;font-size:16px;white-space:nowrap;gap:8px"><r-icon name="salad" size="18"></r-icon>See my meal plan</button></div>
+    <p style="margin:0;font-size:12px;color:var(--color-neutral-700);display:flex;gap:6px"><r-icon name="info" size="14"></r-icon>Rafeqi gives general fitness guidance and is not medical advice.</p>
+  </div>
+</div></div>
+</div></section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light'|'dark'&quot;}}">
+class Component extends DCLogic {
+  state = { showPw: false };
+  renderVals() {
+    const dot = c => ({ width: 14, height: 14, borderRadius: '50%', background: c, flex: 'none', marginTop: 5 });
+    return {
+      theme: this.props.theme ?? 'light',
+      pwType: this.state.showPw ? 'text' : 'password', pwIcon: this.state.showPw ? 'eye-off' : 'eye',
+      pwLabel: this.state.showPw ? 'Hide password' : 'Show password',
+      togglePw: () => this.setState(s => ({ showPw: !s.showPw })),
+      obMarks: { shoulderL: 'select' },
+      breath: React.createElement('div', { style: { position: 'relative', width: 200, height: 200 } },
+        React.createElement('span', { style: { position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--color-accent-2-200)', animation: 'rq-breathe 5s ease-in-out infinite' } }),
+        React.createElement('span', { style: { position: 'absolute', inset: 34, borderRadius: '50%', background: 'var(--color-accent-2-400)', animation: 'rq-breathe 5s ease-in-out .6s infinite' } }),
+        React.createElement('span', { style: { position: 'absolute', inset: 70, borderRadius: '50%', background: 'var(--color-accent)', display: 'grid', placeItems: 'center', color: 'var(--color-bg)', fontFamily: 'var(--font-heading)', fontSize: 30 } }, 'R')),
+      health: [
+        { id: 'h1', q: 'Heart condition or chest pain on exertion', no: true, yes: false },
+        { id: 'h2', q: 'Diabetes', no: true, yes: false },
+        { id: 'h3', q: 'Pregnant or given birth in the last 6 months', no: true, yes: false },
+        { id: 'h4', q: 'Surgery in the last 6 months', no: true, yes: false },
+        { id: 'h5', q: 'Medication that affects exercise (e.g. blood pressure)', no: false, yes: true }],
+      review: [
+        { icon: 'user', t: 'About you', v: 'Male · 29 · 180 cm · 88 kg · waist 96 cm' },
+        { icon: 'target', t: 'Goal', v: 'Lose fat · steady, 0.5 kg/week' },
+        { icon: 'dumbbell', t: 'Training', v: 'Intermediate · 4 days · 60 min · full gym' },
+        { icon: 'bandage', t: 'Injuries', v: 'Left shoulder · tendon · 3/5 · no overhead lifting' },
+        { icon: 'heart-pulse', t: 'Health check', v: 'All clear' },
+        { icon: 'utensils', t: 'Food', v: '4 meals · no liver or eggplant · Ramadan · 30 min · EGP 1,800/wk' }],
+      macros: [
+        { name: 'Protein', g: '175 g', why: 'About 2 g per kg — protects muscle while you eat less. Chicken, eggs, ful, lentils, zabadi.', dot: dot('var(--color-accent-2-600)') },
+        { name: 'Carbs', g: '225 g', why: 'Fuels four training days. Mostly rice, baladi bread, oats, fruit — more on gym days.', dot: dot('var(--color-accent-500)') },
+        { name: 'Fat', g: '67 g', why: 'Around 27% of calories for hormones and flavour — olive oil, tahini, eggs.', dot: dot('var(--color-neutral-600)') }],
+      swaps: [
+        { from: 'Standing barbell overhead press', to: 'Half-kneeling landmine press', why: 'Presses at an angle, not overhead — respects your "no overhead" restriction.' },
+        { from: 'Barbell bench press', to: 'Neutral-grip dumbbell floor press', why: 'The floor limits the range that aggravates the shoulder.' },
+        { from: 'Parallel-bar dips', to: 'Cable triceps pushdown', why: 'Same triceps work without the deep shoulder stretch.' }]
+    };
+  }
+}
+</script>
+</body>
+</html>

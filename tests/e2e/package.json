@@ -1,0 +1,13 @@
+{
+  "name": "rafeqi-e2e",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "report": "playwright show-report",
+    "install-browser": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0"
+  }
+}

@@ -1,0 +1,452 @@
+# Exercise catalogue. Loaded into the `exercises` and `exercise_substitutions` tables by:
+#     npm run db:seed
+# Tags (movement_pattern, joints_loaded, range_of_motion, equipment) must be ids from data/vocab/movements.yaml;
+# loading stops with an error naming the exercise and the bad tag otherwise.
+# Photos: Free Exercise DB (github.com/yuhonas/free-exercise-db), Unlicense / public domain.
+exercises:
+- id: ex_db_floor_press
+  name:
+    en: Neutral-grip dumbbell floor press
+    ar: ضغط دمبل من الأرض بقبضة محايدة
+  description:
+    en: A chest press lying on the floor. The floor limits the range, which is kinder to sore shoulders. Trains chest and triceps.
+    ar: ضغط صدر وأنت نايم على الأرض. الأرض بتحدّ المدى، وده أريح للكتف. بيشتغل على الصدر والترايسبس.
+  movement_pattern: horizontalPush
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: partial
+  equipment:
+  - dumbbells
+  difficulty: beginner
+  primary_muscles:
+  - chest
+  secondary_muscles:
+  - armL
+  - armR
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Chest · triceps, front shoulders
+    ar: الصدر · الترايسبس، مقدمة الكتف
+  instructions:
+  - en: Lie on the floor, knees bent, a dumbbell in each hand with palms facing each other.
+    ar: نام على الأرض وركبك مثنية، ودمبل في كل إيد وكفوفك في وش بعض.
+  - en: Lower until your upper arms touch the floor.
+    ar: نزّل لحد ما دراعك يلمس الأرض.
+  - en: Press up until your arms are straight.
+    ar: ادفع لفوق لحد ما دراعك يفرد.
+  cues:
+  - en: Elbows about 45° from your body
+    ar: الكوع حوالي 45 درجة من جسمك
+  - en: Pause lightly on the floor
+    ar: وقفة خفيفة على الأرض
+  - en: Breathe out as you press
+    ar: اطرد النفس وأنت بتدفع
+  mistakes:
+  - en: Bouncing the elbows off the floor
+    ar: خبط الكوع في الأرض
+  - en: Flaring the elbows out wide
+    ar: فتح الكوع لبرّه أوي
+  image_url: /exercises/Dumbbell_Floor_Press/0.jpg
+  image_frames:
+  - /exercises/Dumbbell_Floor_Press/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Neutral+grip+dumbbell+floor+press+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dumbbell_Floor_Press
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Incline push-up on a bench
+      ar: ضغط مائل على بنش
+    kind: easier
+  - name:
+      en: Machine chest press, neutral grip
+      ar: ضغط صدر على الجهاز بقبضة محايدة
+    kind: injuryFriendly
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_cs_row
+  name:
+    en: Chest-supported dumbbell row
+    ar: تجديف دمبل بسند للصدر
+  description:
+    en: A row lying face-down on an incline bench, so your lower back rests while your upper back works.
+    ar: تجديف وأنت نايم على بطنك على بنش مائل، فأسفل ظهرك مرتاح وأعلى ظهرك هو اللي بيشتغل.
+  movement_pattern: horizontalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Upper back · biceps
+    ar: أعلى الظهر · البايسبس
+  instructions:
+  - en: Set a bench to about 30–45° and lie chest-down, a dumbbell in each hand, arms hanging straight.
+    ar: اظبط البنش على 30–45 درجة ونام على بطنك، ودمبل في كل إيد ودراعك متدلّي.
+  - en: Pull the dumbbells up and back towards your hips.
+    ar: اسحب الدمبل لفوق ولورا ناحية وسطك.
+  - en: Pause for a second with your shoulder blades squeezed.
+    ar: اثبت ثانية ولوحي الكتف مضغوطين.
+  - en: Lower slowly until your arms are straight again.
+    ar: نزّل ببطء لحد ما دراعك يفرد تاني.
+  cues:
+  - en: Lead with your elbows
+    ar: الكوع هو اللي يقود الحركة
+  - en: Squeeze shoulder blades together
+    ar: اضغط لوحي الكتف على بعض
+  - en: Keep your chest on the bench
+    ar: صدرك لازق في البنش
+  - en: Look down, neck long
+    ar: بصّ لتحت، ورقبتك مفرودة
+  mistakes:
+  - en: Shrugging to your ears
+    ar: رفع الكتف ناحية الودن
+  - en: Lifting the chest off the bench to swing the weight
+    ar: رفع صدرك من على البنش عشان تمرجح الوزن
+  - en: Cutting the range short at the bottom
+    ar: تقصير المدى من تحت
+  image_url: /exercises/Dumbbell_Incline_Row/0.jpg
+  image_frames:
+  - /exercises/Dumbbell_Incline_Row/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Chest+supported+dumbbell+row+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dumbbell_Incline_Row
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Seated cable row
+      ar: تجديف بالكابل قاعد
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_landmine_press
+  name:
+    en: Half-kneeling landmine press
+    ar: ضغط لاندماين على ركبة واحدة
+  description:
+    en: A one-arm press at an angle using a bar anchored in a corner. Trains the shoulders without pressing straight overhead.
+    ar: ضغط بإيد واحدة بزاوية ببار متثبّت في الركن. بيشتغل على الكتف من غير رفع فوق الراس على طول.
+  movement_pattern: verticalPush
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: partial
+  equipment:
+  - landmine
+  - barbell
+  difficulty: intermediate
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles:
+  - chest
+  - armL
+  - armR
+  - abdomen
+  muscle_names:
+    en: Front shoulders · upper chest, triceps, core
+    ar: مقدمة الكتف · أعلى الصدر، الترايسبس، البطن
+  instructions:
+  - en: Kneel on your right knee, left foot forward, bar end in your left hand at shoulder height.
+    ar: انزل على ركبتك اليمين، ورجلك الشمال قدام، وطرف البار في إيدك الشمال عند الكتف.
+  - en: Brace your stomach and squeeze your right glute.
+    ar: شدّ بطنك واعصر عضلة المقعدة اليمين.
+  - en: Press the bar up and forward until your arm is long — not straight overhead.
+    ar: ادفع البار لفوق ولقدام لحد ما دراعك يفرد — مش فوق راسك على طول.
+  - en: Lower for 2 seconds back to your shoulder.
+    ar: نزّله في ثانيتين لحد كتفك.
+  cues:
+  - en: Ribs down — don't lean back
+    ar: الضلوع لتحت — ماترجعش لورا
+  - en: Reach "up and out", like pushing a door shut
+    ar: ادفع لفوق ولقدام، كأنك بتقفل باب
+  - en: Keep your wrist stacked over your elbow
+    ar: خلّي رسغك فوق كوعك
+  - en: Breathe out as you press
+    ar: اطرد النفس وأنت بتدفع
+  mistakes:
+  - en: Arching the lower back to finish the rep
+    ar: تقويس أسفل الظهر عشان تكمّل العدّة
+  - en: Shrugging the shoulder up to your ear
+    ar: رفع الكتف ناحية الودن
+  - en: Dropping the bar fast on the way down
+    ar: تنزيل البار بسرعة
+  image_url: /exercises/Single-Arm_Linear_Jammer/0.jpg
+  image_frames:
+  - /exercises/Single-Arm_Linear_Jammer/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Half+kneeling+landmine+press+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Single-Arm_Linear_Jammer
+    license: Unlicense (public domain)
+    note:
+      en: 'Closest match in the image library: standing version. Yours is half-kneeling.'
+      ar: 'أقرب صورة متاحة: النسخة وأنت واقف. تمرينك على ركبة واحدة.'
+  alternatives:
+  - name:
+      en: Incline push-up on a bench
+      ar: ضغط مائل على بنش
+    kind: easier
+  - name:
+      en: Single-arm cable press
+      ar: ضغط كابل بإيد واحدة
+    kind: injuryFriendly
+  - name:
+      en: Seated landmine press
+      ar: ضغط لاندماين وأنت قاعد
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_lat_pulldown
+  name:
+    en: Neutral-grip lat pulldown
+    ar: سحب علوي بقبضة محايدة
+  description:
+    en: Pull a bar down to your chest while seated, palms facing each other. Builds the wide back muscles (lats) and biceps.
+    ar: اسحب مسكة لحد صدرك وأنت قاعد، وكفوفك في وش بعض. بيبني عضلات الظهر العريضة والبايسبس.
+  movement_pattern: verticalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Lats · biceps
+    ar: عضلات الظهر الجانبية · البايسبس
+  instructions:
+  - en: Sit with your thighs locked under the pad and hold the neutral handle, palms facing each other.
+    ar: اقعد ورجلك مثبّتة تحت المسند، وامسك المسكة المحايدة وكفوفك في وش بعض.
+  - en: Lean back very slightly and lift your chest.
+    ar: ارجع لورا سنّة صغيرة وارفع صدرك.
+  - en: Pull the handle to your upper chest, driving your elbows down.
+    ar: اسحب المسكة لأعلى صدرك وانت بتنزّل كوعك لتحت.
+  - en: Let it rise slowly until your arms are straight.
+    ar: سيبها تطلع ببطء لحد ما دراعك يفرد.
+  cues:
+  - en: Chest up to the handle
+    ar: صدرك يطلع للمسكة
+  - en: Elbows down to your back pockets
+    ar: الكوع ينزل ناحية جيوبك اللي ورا
+  - en: Shoulders away from your ears
+    ar: الكتف بعيد عن ودانك
+  - en: Control the way up
+    ar: اتحكّم في الطلعة
+  mistakes:
+  - en: Leaning far back
+    ar: الرجوع لورا كتير
+  - en: Pulling with the arms only
+    ar: السحب بالدراع بس
+  - en: Letting the weight yank you up
+    ar: تسيب الوزن يشدّك لفوق فجأة
+  image_url: /exercises/V-Bar_Pulldown/0.jpg
+  image_frames:
+  - /exercises/V-Bar_Pulldown/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Neutral+grip+lat+pulldown+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/V-Bar_Pulldown
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Half-kneeling single-arm cable pulldown
+      ar: سحب كابل بإيد واحدة على ركبة
+    kind: injuryFriendly
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_face_pull
+  name:
+    en: Cable face pull
+    ar: سحب للوجه بالكابل
+  description:
+    en: Pull a rope towards your face on a cable machine. Strengthens the rear shoulders and upper back, which helps shoulder health.
+    ar: اسحب حبل ناحية وشك على جهاز الكابل. بيقوّي خلفية الكتف وأعلى الظهر، وده مفيد لصحة الكتف.
+  movement_pattern: shoulderExternalRotation
+  joints_loaded:
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles:
+  - upperBack
+  muscle_names:
+    en: Rear shoulders · upper back
+    ar: خلفية الكتف · أعلى الظهر
+  instructions:
+  - en: Set a rope on a cable at face height and hold it with thumbs pointing back towards you.
+    ar: ثبّت الحبل في الكابل على مستوى وشك وامسكه والإبهام ناحيتك.
+  - en: Step back until your arms are straight, feet shoulder-width apart.
+    ar: ارجع لورا لحد ما دراعك يفرد، ورجليك بعرض كتفك.
+  - en: Pull the rope towards your forehead, separating your hands as it comes in.
+    ar: اسحب الحبل ناحية جبهتك وافتح إيديك وهو جاي.
+  - en: Hold one second, then return slowly.
+    ar: اثبت ثانية، ورجّع ببطء.
+  cues:
+  - en: Thumbs point back at the end
+    ar: الإبهام يشاور لورا في الآخر
+  - en: Elbows high, level with your hands
+    ar: الكوع عالي، على مستوى إيدك
+  - en: Squeeze the back of your shoulders
+    ar: اعصر خلفية الكتف
+  - en: Stand tall, no leaning
+    ar: اقف مفرود من غير ميل
+  mistakes:
+  - en: Using too much weight
+    ar: وزن تقيل زيادة
+  - en: Leaning back to pull
+    ar: الميل لورا عشان تسحب
+  - en: Letting the elbows drop low
+    ar: نزول الكوع لتحت
+  image_url: /exercises/Face_Pull/0.jpg
+  image_frames:
+  - /exercises/Face_Pull/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Cable+face+pull+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Face_Pull
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Band pull-apart
+      ar: فتح استك
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_pushdown
+  name:
+    en: Cable triceps pushdown
+    ar: ترايسبس بالكابل
+  description:
+    en: Push a cable bar down with your elbows pinned to your sides. Isolates the triceps at the back of the arm.
+    ar: ادفع بار الكابل لتحت والكوع لازق في جنبك. بيركّز على الترايسبس في ضهر الدراع.
+  movement_pattern: elbowExtension
+  joints_loaded:
+  - elbow
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles: []
+  muscle_names:
+    en: Triceps
+    ar: الترايسبس
+  instructions:
+  - en: Stand facing a high cable with a bar, hands shoulder-width, elbows at your sides.
+    ar: اقف قدام كابل عالي فيه بار، إيديك بعرض كتفك والكوع جنبك.
+  - en: Push the bar down until your arms are straight.
+    ar: ادفع البار لتحت لحد ما دراعك يفرد.
+  - en: Squeeze your triceps for a second at the bottom.
+    ar: اعصر الترايسبس ثانية تحت.
+  - en: Let the bar rise slowly to chest height.
+    ar: سيب البار يطلع ببطء لحد صدرك.
+  cues:
+  - en: Elbows stay still
+    ar: الكوع ثابت
+  - en: Slight forward lean from the hips
+    ar: ميل بسيط لقدام من الوسط
+  - en: Wrists straight
+    ar: الرسغ مفرود
+  - en: Full lockout every rep
+    ar: افرد دراعك على الآخر كل عدّة
+  mistakes:
+  - en: Leaning over the bar
+    ar: الميل على البار
+  - en: Elbows drifting forward
+    ar: الكوع يروح لقدام
+  - en: Using your body weight to push
+    ar: تدفع بوزن جسمك
+  image_url: /exercises/Triceps_Pushdown/0.jpg
+  image_frames:
+  - /exercises/Triceps_Pushdown/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Cable+triceps+pushdown+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Triceps_Pushdown
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Band pushdown
+      ar: ترايسبس بالاستك
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_incline_curl
+  name:
+    en: Incline dumbbell curl
+    ar: بايسبس دمبل على بنش مائل
+  description:
+    en: A biceps curl lying back on an incline bench, which stretches the biceps for more work per rep.
+    ar: بايسبس وأنت مسنود على بنش مائل، وده بيمدّ البايسبس فكل عدّة بتشتغل أكتر.
+  movement_pattern: elbowFlexion
+  joints_loaded:
+  - elbow
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles:
+  - forearmL
+  - forearmR
+  muscle_names:
+    en: Biceps · forearms
+    ar: البايسبس · الساعد
+  instructions:
+  - en: Set a bench to 45° and sit back, a dumbbell in each hand, arms hanging straight down.
+    ar: اظبط البنش على 45 درجة واسند ظهرك، ودمبل في كل إيد ودراعك متدلّي.
+  - en: Curl both dumbbells up, palms facing up.
+    ar: ارفع الدمبلين لفوق وكفوفك لفوق.
+  - en: Squeeze your biceps at the top.
+    ar: اعصر البايسبس فوق.
+  - en: Lower slowly until your arms are fully straight.
+    ar: نزّل ببطء لحد ما دراعك يفرد خالص.
+  cues:
+  - en: Keep upper arms still
+    ar: الدراع من فوق ثابت
+  - en: Head and back stay on the bench
+    ar: راسك وظهرك على البنش
+  - en: Lower for 2–3 seconds
+    ar: نزّل في 2–3 ثواني
+  mistakes:
+  - en: Swinging the weights
+    ar: مرجحة الأوزان
+  - en: Bringing the elbows forward at the top
+    ar: تقديم الكوع لقدام فوق
+  - en: Stopping short of a full stretch
+    ar: ماتفردش دراعك للآخر تحت
+  image_url: /exercises/Incline_Dumbbell_Curl/0.jpg
+  image_frames:
+  - /exercises/Incline_Dumbbell_Curl/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Incline+dumbbell+curl+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Incline_Dumbbell_Curl
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Cable curl
+      ar: بايسبس بالكابل
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'

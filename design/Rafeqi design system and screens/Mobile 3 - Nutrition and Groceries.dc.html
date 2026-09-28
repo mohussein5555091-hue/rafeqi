@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/styles.css">
+<link rel="stylesheet" href="rafeqi.css">
+<script src="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/_ds_bundle.js"></script>
+<script src="icons.js"></script>
+</helmet>
+<div data-theme="{{ theme }}" style="padding:56px;display:flex;flex-direction:column;gap:56px;background:var(--color-neutral-200);min-height:100vh">
+<header style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Rafeqi · Mobile 3 of 4</span><h1 style="margin:0">Nutrition &amp; groceries</h1></header>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<h3 style="margin:0">Meal plan &amp; recipe</h3>
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">24 · Nutrition — today (full scroll)</span>
+<div data-screen-label="24 Nutrition day" style="width:390px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Nutrition" sub="Monday 28 Sep · training day" hint-size="100%,106px"></dc-import>
+  <div style="display:flex;flex-direction:column;gap:14px;padding:0 16px 24px">
+    <div role="tablist" style="display:flex;padding:4px;border-radius:999px;background:var(--color-surface)"><button role="tab" aria-selected="true" style="flex:1;height:44px;border:0;border-radius:999px;background:var(--color-bg);box-shadow:var(--shadow-sm);color:var(--color-text);font:inherit;font-weight:700">Day</button><button role="tab" style="flex:1;height:44px;border:0;border-radius:999px;background:transparent;color:var(--color-neutral-700);font:inherit;font-weight:600">Week</button></div>
+    <div style="display:flex;flex-direction:column;gap:10px;padding:18px 20px;border-radius:32px;background:var(--color-surface)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13px;color:var(--color-neutral-700)">Daily total</span><span><span style="font-family:var(--font-heading);font-size:28px">2,200</span> <span style="font-size:13px">kcal</span></span></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center">
+        <div style="padding:10px 4px;border-radius:20px;background:var(--color-bg)"><span style="display:block;font-weight:700;font-size:16px">175 g</span><span style="font-size:11.5px;display:inline-flex;gap:4px;align-items:center"><span style="width:8px;height:8px;border-radius:50%;background:var(--color-accent-2-600)"></span>Protein</span></div>
+        <div style="padding:10px 4px;border-radius:20px;background:var(--color-bg)"><span style="display:block;font-weight:700;font-size:16px">225 g</span><span style="font-size:11.5px;display:inline-flex;gap:4px;align-items:center"><span style="width:8px;height:8px;border-radius:50%;background:var(--color-accent-500)"></span>Carbs</span></div>
+        <div style="padding:10px 4px;border-radius:20px;background:var(--color-bg)"><span style="display:block;font-weight:700;font-size:16px">67 g</span><span style="font-size:11.5px;display:inline-flex;gap:4px;align-items:center"><span style="width:8px;height:8px;border-radius:50%;background:var(--color-neutral-600)"></span>Fat</span></div>
+      </div>
+    </div>
+    <sc-for list="{{ meals }}" as="m" hint-placeholder-count="4">
+      <div style="display:flex;flex-direction:column;gap:12px;padding:14px;border-radius:32px;background:var(--color-surface)">
+        <div style="display:flex;gap:14px">
+          <div class="washed" style="{{ m.photo }}"><r-icon name="{{ m.icon }}" size="26"></r-icon></div>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;color:var(--color-neutral-700)">{{ m.slot }}</span><strong style="font-size:16px;line-height:1.3">{{ m.name }}</strong><span style="font-size:12.5px;color:var(--color-neutral-800);line-height:1.45">{{ m.portions }}</span></div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;font-size:12px"><span class="tag" style="font-weight:700;font-size:12px;background:var(--color-bg);color:var(--color-text)">{{ m.kcal }} kcal</span><span class="tag tag-neutral" style="font-size:12px">P {{ m.p }} g</span><span class="tag tag-neutral" style="font-size:12px">C {{ m.c }} g</span><span class="tag tag-neutral" style="font-size:12px">F {{ m.f }} g</span></div>
+        <div style="display:flex;gap:8px"><button class="btn btn-secondary" style="flex:1;height:44px;gap:6px;white-space:nowrap"><r-icon name="repeat" size="16"></r-icon>Swap</button><a href="#recipe" class="btn btn-secondary" style="flex:1;height:44px;gap:6px;white-space:nowrap;text-decoration:none"><r-icon name="chef-hat" size="16"></r-icon>Recipe</a></div>
+      </div>
+    </sc-for>
+    <p style="margin:0;font-size:12px;color:var(--color-neutral-700);display:flex;gap:6px"><r-icon name="info" size="14"></r-icon>Portions are for you. Rafeqi gives general guidance, not medical advice.</p>
+  </div>
+  <dc-import name="TabBar" active="nutrition" due="{{ true }}" hint-size="100%,82px"></dc-import>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">25 · Swap a meal — similar macros</span>
+<div data-screen-label="25 Swap meal" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="Nutrition" sub="Monday 28 Sep · training day" hint-size="100%,106px"></dc-import>
+  <div style="position:absolute;inset:0;background:color-mix(in srgb, var(--color-neutral-900) 45%, transparent)"></div>
+  <div role="dialog" aria-label="Swap lunch" style="position:absolute;inset-inline:0;bottom:0;display:flex;flex-direction:column;gap:12px;padding:12px 16px 28px;border-radius:36px 36px 0 0;background:var(--color-bg);box-shadow:var(--shadow-lg)">
+    <span style="align-self:center;width:44px;height:5px;border-radius:9px;background:var(--color-neutral-400)"></span>
+    <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0;font-size:22px">Swap lunch</h3><button class="btn btn-secondary" aria-label="Close" style="width:44px;height:44px;padding:0"><r-icon name="x" size="18"></r-icon></button></div>
+    <div style="display:flex;gap:12px;align-items:center;padding:12px 16px;border-radius:24px;background:var(--color-surface);font-size:13px"><span style="color:var(--color-neutral-700)">Now</span><strong style="flex:1">Koshary, lighter plate</strong><span>630 kcal · P30</span></div>
+    <span style="font-size:13px;color:var(--color-neutral-700)">Within 10% of your lunch's calories and protein</span>
+    <sc-for list="{{ swaps }}" as="s" hint-placeholder-count="3">
+      <label style="{{ s.row }}">
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><strong style="font-size:15px">{{ s.name }}</strong><span style="font-size:12.5px;color:var(--color-neutral-800)">{{ s.meta }}</span><span style="font-size:12px;color:var(--color-accent-2-800);font-weight:600">{{ s.delta }}</span></div>
+        <span style="{{ s.radio }}"></span>
+      </label>
+    </sc-for>
+    <label style="display:flex;gap:10px;align-items:center;min-height:44px;font-size:14px"><span style="width:24px;height:24px;border-radius:8px;border:2px solid var(--color-neutral-500)"></span>Swap on every Monday this week</label>
+    <button class="btn btn-primary" style="height:54px;font-size:16px;white-space:nowrap">Swap to hawawshi</button>
+    <span style="font-size:12px;color:var(--color-neutral-700);text-align:center">Your grocery list updates automatically.</span>
+  </div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">26 · Nutrition — week view</span>
+<div data-screen-label="26 Nutrition week" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Nutrition" sub="Week 3 · 26 Sep – 2 Oct" hint-size="100%,106px"></dc-import>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:10px;padding:0 16px 16px">
+    <div role="tablist" style="display:flex;padding:4px;border-radius:999px;background:var(--color-surface)"><button role="tab" style="flex:1;height:44px;border:0;border-radius:999px;background:transparent;color:var(--color-neutral-700);font:inherit;font-weight:600">Day</button><button role="tab" aria-selected="true" style="flex:1;height:44px;border:0;border-radius:999px;background:var(--color-bg);box-shadow:var(--shadow-sm);color:var(--color-text);font:inherit;font-weight:700">Week</button></div>
+    <sc-for list="{{ week }}" as="d" hint-placeholder-count="7">
+      <div style="{{ d.row }}">
+        <div style="width:44px;flex:none;display:flex;flex-direction:column;align-items:center;line-height:1.15"><span style="font-size:11px">{{ d.d }}</span><strong style="font-size:17px">{{ d.n }}</strong></div>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;font-size:12.5px;line-height:1.35"><strong style="font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.main }}</strong><span style="color:var(--color-neutral-800);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.rest }}</span></div>
+        <span style="font-size:12px;font-weight:700;white-space:nowrap">{{ d.kcal }}</span>
+      </div>
+    </sc-for>
+  </div>
+  <dc-import name="TabBar" active="nutrition" due="{{ true }}" hint-size="100%,82px"></dc-import>
+</div></div>
+
+<div id="recipe" style="display:flex;flex-direction:column;gap:12px;scroll-margin-top:40px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">27 · Recipe detail (full scroll)</span>
+<div data-screen-label="27 Recipe" style="width:390px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Chicken, rice &amp; molokhia" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="display:flex;flex-direction:column;gap:18px;padding:0 16px 28px">
+    <div class="washed" style="position:relative;height:220px;border-radius:32px;overflow:hidden;background:var(--color-accent-2-300);display:grid;place-items:center">
+      <span style="position:absolute;width:240px;height:240px;border-radius:50%;background:var(--color-accent-2-400);inset-inline-start:-60px;bottom:-90px"></span>
+      <span style="position:absolute;width:120px;height:120px;border-radius:50%;background:var(--color-accent-300);inset-inline-end:30px;top:-30px"></span>
+      <span style="position:relative;display:flex;gap:8px;align-items:center;font-size:12.5px;font-weight:600;color:var(--color-accent-2-900)"><r-icon name="image" size="18"></r-icon>Dish photo</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center">
+      <div style="padding:10px 2px;border-radius:20px;background:var(--color-surface)"><r-icon name="timer" size="18"></r-icon><span style="display:block;font-weight:700;font-size:14px">20 min</span><span style="font-size:11px">Prep</span></div>
+      <div style="padding:10px 2px;border-radius:20px;background:var(--color-surface)"><r-icon name="flame" size="18"></r-icon><span style="display:block;font-weight:700;font-size:14px">30 min</span><span style="font-size:11px">Cook</span></div>
+      <div style="padding:10px 2px;border-radius:20px;background:var(--color-surface)"><r-icon name="refrigerator" size="18"></r-icon><span style="display:block;font-weight:700;font-size:14px">3 days</span><span style="font-size:11px">Fridge</span></div>
+      <div style="padding:10px 2px;border-radius:20px;background:var(--color-surface)"><r-icon name="zap" size="18"></r-icon><span style="display:block;font-weight:700;font-size:14px">750</span><span style="font-size:11px">kcal</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><h4 style="margin:0">Ingredients</h4><div class="seg" style="height:44px"><label class="seg-opt" style="padding:0 14px"><input type="radio" name="r-p" defaultChecked="{{ true }}">1 portion</label><label class="seg-opt" style="padding:0 14px"><input type="radio" name="r-p">Prep 3</label></div></div>
+      <span style="font-size:12px;color:var(--color-neutral-700)">Scaled to your 750 kcal dinner</span>
+      <div style="display:flex;flex-direction:column;border-radius:28px;background:var(--color-surface);padding:6px 18px">
+        <sc-for list="{{ ingredients }}" as="i" hint-placeholder-count="8"><div style="display:flex;justify-content:space-between;gap:10px;min-height:44px;align-items:center;font-size:14px;border-bottom:1px solid var(--color-divider)"><span>{{ i.n }}</span><strong style="white-space:nowrap">{{ i.q }}</strong></div></sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px"><h4 style="margin:0">Steps</h4>
+      <sc-for list="{{ steps }}" as="s" hint-placeholder-count="6">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <span style="width:32px;height:32px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;font-weight:700;font-size:14px;flex:none">{{ s.n }}</span>
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px;padding-top:4px"><span style="font-size:14.5px;line-height:1.5">{{ s.t }}</span>
+            <sc-if value="{{ s.timer }}"><button class="btn btn-secondary" style="align-self:flex-start;height:44px;padding:0 16px;gap:6px;white-space:nowrap;font-family:var(--font-body);font-weight:700"><r-icon name="timer" size="16"></r-icon>Start {{ s.timer }} timer</button></sc-if></div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:18px;border-radius:28px;background:var(--color-accent-2-100);color:var(--color-accent-2-900);font-size:14px">
+      <strong style="display:flex;gap:8px;align-items:center"><r-icon name="refrigerator" size="18"></r-icon>Storing &amp; reheating</strong>
+      <span>Chicken and rice keep 3 days in the fridge; molokhia 2 days.</span>
+      <span>Reheat rice covered with a splash of water, 2 min in the microwave. Warm molokhia gently on the stove — don't let it boil or it separates.</span>
+    </div>
+  </div>
+</div></div>
+</div></section>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<h3 style="margin:0">Grocery list · generated from the meal plan</h3>
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">28 · Grocery list — interactive (tap tabs, checkboxes, "I have this", copy)</span>
+<div data-screen-label="28 Grocery list" style="width:390px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;position:relative">
+  <dc-import name="AppBar" title="Groceries" sub="Week 3 · for 26 Sep – 2 Oct" hint-size="100%,106px"></dc-import>
+  <div style="display:flex;flex-direction:column;gap:14px;padding:0 16px 24px">
+    <div role="tablist" style="display:flex;padding:4px;border-radius:999px;background:var(--color-surface)">
+      <button role="tab" aria-selected="{{ gIsWeek }}" onClick="{{ toWeek }}" style="{{ tabWeek }}">This week</button>
+      <button role="tab" aria-selected="{{ gIsMonth }}" onClick="{{ toMonth }}" style="{{ tabMonth }}">This month</button>
+    </div>
+    <sc-if value="{{ gIsWeek }}">
+      <div style="display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:24px;background:var(--color-accent-100);color:var(--color-accent-900);font-size:13.5px"><r-icon name="refresh-cw" size="18" style="color:var(--color-accent-700);margin-top:1px"></r-icon><span><strong>Updated after your weekly review.</strong> Fish fillet added; beef mince down from 1 kg to 0.5 kg.</span></div>
+    </sc-if>
+    <sc-for list="{{ gGroups }}" as="g" hint-placeholder-count="4">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:0 6px"><h5 style="margin:0">{{ g.name }}</h5><span style="font-size:12px;color:var(--color-neutral-700)">{{ g.sub }}</span></div>
+        <div style="display:flex;flex-direction:column;border-radius:28px;background:var(--color-surface);overflow:hidden">
+          <sc-for list="{{ g.items }}" as="i">
+            <div style="{{ i.row }}">
+              <button role="checkbox" aria-checked="{{ i.checkedStr }}" aria-label="{{ i.name }}" onClick="{{ i.toggle }}" style="width:44px;height:44px;border:0;background:transparent;display:grid;place-items:center;cursor:pointer;flex:none"><span style="{{ i.box }}"><sc-if value="{{ i.checked }}"><r-icon name="check" size="15"></r-icon></sc-if></span></button>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px">
+                <span style="{{ i.label }}">{{ i.name }} · <strong>{{ i.qty }}</strong></span>
+                <button onClick="{{ i.toggleHave }}" aria-pressed="{{ i.haveStr }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0;border:0;background:transparent;color:var(--color-neutral-800);font:inherit;font-size:12px;cursor:pointer"><span style="{{ i.sw }}"><span style="{{ i.knob }}"></span></span>I already have this</button>
+              </div>
+              <span style="{{ i.cost }}">{{ i.price }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+    <div style="display:flex;flex-direction:column;gap:10px;padding:18px 20px;border-radius:32px;background:var(--color-text);color:var(--color-bg)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13px;opacity:.8">{{ gTotalLabel }}</span><span style="font-family:var(--font-heading);font-size:26px">{{ gTotal }}</span></div>
+      <span style="font-size:12.5px;opacity:.8">{{ gTotalSub }}</span>
+      <button class="btn" onClick="{{ copyList }}" style="height:50px;background:var(--color-bg);color:var(--color-text);gap:8px;white-space:nowrap"><r-icon name="{{ copyIcon }}" size="18"></r-icon>{{ copyLabel }}</button>
+    </div>
+    <p style="margin:0;font-size:12px;color:var(--color-neutral-700)">Prices are rough estimates for Cairo supermarkets and markets. Checked items stay checked until Saturday.</p>
+  </div>
+  <dc-import name="TabBar" active="groceries" due="{{ true }}" hint-size="100%,82px"></dc-import>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">29 · Pantry — what you have at home</span>
+<div data-screen-label="29 Pantry" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="My pantry" back="{{ true }}" hint-size="100%,106px"></dc-import>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:12px;padding:0 16px 16px">
+    <p style="margin:0;font-size:14px;color:var(--color-neutral-800)">Staples you keep at home. We leave these off your list until you run low.</p>
+    <div style="display:flex;flex-direction:column;border-radius:28px;background:var(--color-surface);padding:4px 8px 4px 18px">
+      <sc-for list="{{ pantry }}" as="p" hint-placeholder-count="7"><div style="display:flex;align-items:center;gap:10px;min-height:56px;border-bottom:1px solid var(--color-divider)"><span style="flex:1;font-size:14.5px;font-weight:600">{{ p.n }}</span><span style="{{ p.tag }}">{{ p.s }}</span><button class="btn btn-ghost" aria-label="Mark running low" style="height:44px;padding:0 10px;white-space:nowrap;font-size:13px">Low</button></div></sc-for>
+    </div>
+    <button class="btn btn-secondary" style="height:52px;gap:8px;white-space:nowrap"><r-icon name="plus" size="18"></r-icon>Add a staple</button>
+  </div>
+  <dc-import name="TabBar" active="groceries" hint-size="100%,82px"></dc-import>
+</div></div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">30 · Grocery — loading</span>
+<div data-screen-label="30 Grocery loading" style="width:390px;height:520px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Groceries" hint-size="100%,106px"></dc-import>
+  <div aria-busy="true" style="display:flex;flex-direction:column;gap:10px;padding:0 16px">
+    <span style="font-size:13.5px;color:var(--color-neutral-800);display:flex;gap:8px;align-items:center"><span style="width:18px;height:18px;border-radius:50%;border:3px solid var(--color-accent-300);border-top-color:var(--color-accent);animation:rq-spin 1s linear infinite"></span>Adding up this week's meals…</span>
+    <span style="height:52px;border-radius:999px;background:var(--color-surface);animation:rq-pulse 1.6s ease-in-out infinite"></span><span style="height:52px;border-radius:999px;background:var(--color-surface);animation:rq-pulse 1.6s ease-in-out infinite"></span><span style="height:52px;border-radius:999px;background:var(--color-surface);animation:rq-pulse 1.6s ease-in-out infinite"></span><span style="height:52px;border-radius:999px;background:var(--color-surface);animation:rq-pulse 1.6s ease-in-out infinite"></span>
+  </div>
+</div></div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">31 · Grocery — empty</span>
+<div data-screen-label="31 Grocery empty" style="width:390px;height:520px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Groceries" hint-size="100%,106px"></dc-import>
+  <div style="flex:1;display:flex;flex-direction:column;gap:14px;padding:20px 24px">
+    <span style="width:72px;height:72px;border-radius:50%;background:var(--color-accent-2-200);color:var(--color-accent-2-700);display:grid;place-items:center"><r-icon name="shopping-basket" size="30"></r-icon></span>
+    <h3 style="margin:0;font-size:24px">All set for this week</h3>
+    <p style="margin:0;font-size:14.5px;color:var(--color-neutral-800)">You have everything on your list. Next week's list appears on Friday evening.</p>
+    <button class="btn btn-secondary" style="align-self:flex-start;height:48px;padding:0 20px;white-space:nowrap">View pantry</button>
+  </div>
+</div></div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">32 · Grocery / meal plan — error</span>
+<div data-screen-label="32 Grocery error" style="width:390px;height:520px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="Groceries" hint-size="100%,106px"></dc-import>
+  <div style="flex:1;display:flex;flex-direction:column;gap:14px;padding:20px 24px">
+    <span style="width:72px;height:72px;border-radius:50%;background:var(--color-warn-100);color:var(--color-warn-600);display:grid;place-items:center"><r-icon name="cloud-off" size="30"></r-icon></span>
+    <h3 style="margin:0;font-size:24px">We couldn't build your list</h3>
+    <p style="margin:0;font-size:14.5px;color:var(--color-neutral-800)">Your meal plan is fine — the list just didn't load. Check your connection and try again.</p>
+    <button class="btn btn-primary" style="align-self:flex-start;height:48px;padding:0 22px;white-space:nowrap">Try again</button>
+  </div>
+</div></div>
+</div>
+</div></section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light'|'dark'&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 'week', checked: { 'Tomatoes': true, 'Eggs': true, 'Baladi bread': true }, have: { 'Garlic': true, 'Olive oil': true, 'Salt': true, 'Black pepper': true }, copied: false };
+  data = {
+    week: [
+      ['Vegetables & fruit', [['Tomatoes', '2 kg', 50], ['Cucumbers', '1 kg', 25], ['Onions', '1.5 kg', 35], ['Potatoes', '2 kg', 45], ['Lemons', '0.5 kg', 30], ['Garlic', '250 g', 25], ['Molokhia, frozen', '1.4 kg', 105], ['Bananas', '1.5 kg', 60]]],
+      ['Meat, chicken & fish', [['Chicken breast', '1.5 kg', 495], ['Fish fillet', '0.6 kg', 150], ['Beef mince', '0.5 kg', 225]]],
+      ['Dairy & eggs', [['Eggs', '18', 120], ['Milk', '3 L', 150], ['Plain yogurt', '7 cups', 105], ['White cheese', '250 g', 50]]],
+      ['Bread & bakery', [['Baladi bread', '20 loaves', 40]]]],
+    month: [
+      ['Pantry staples', [['Rice', '3 kg', 105], ['Pasta', '2 kg', 70], ['Brown lentils', '1 kg', 70], ['Fava beans, dried', '2 kg', 110], ['Oats', '1 kg', 90], ['Olive oil', '1 L', 350], ['Tahini', '500 g', 90]]],
+      ['Spices & sauces', [['Cumin', '100 g', 30], ['Ground coriander', '100 g', 25], ['Black pepper', '50 g', 30], ['Tomato paste', '2 jars', 60], ['Vinegar', '1 L', 20], ['Salt', '1 kg', 10]]]]
+  };
+  copyList = () => {
+    const groups = this.data[this.state.tab];
+    const lines = [`Rafeqi grocery list — ${this.state.tab === 'week' ? 'this week' : 'this month'}`];
+    groups.forEach(([g, items]) => { const rows = items.filter(i => !this.state.have[i[0]]); if (rows.length) { lines.push('', g); rows.forEach(i => lines.push(`- ${i[0]} · ${i[1]}`)); } });
+    try { navigator.clipboard && navigator.clipboard.writeText(lines.join('\n')); } catch (e) {}
+    this.setState({ copied: true }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ copied: false }), 2200);
+  };
+  componentWillUnmount() { clearTimeout(this._t); }
+  renderVals() {
+    const S = this.state, fmt = n => 'EGP ' + n.toLocaleString('en-US');
+    const tabStyle = on => ({ flex: 1, height: 44, border: 0, borderRadius: 999, background: on ? 'var(--color-bg)' : 'transparent', boxShadow: on ? 'var(--shadow-sm)' : 'none', color: on ? 'var(--color-text)' : 'var(--color-neutral-700)', font: 'inherit', fontWeight: on ? 700 : 600, cursor: 'pointer' });
+    let total = 0, count = 0, skipped = 0;
+    const gGroups = this.data[S.tab].map(([name, items]) => {
+      let sub = 0;
+      const rows = items.map(([n, q, p]) => {
+        const checked = !!S.checked[n], have = !!S.have[n];
+        if (!have) { sub += p; count++; } else skipped++;
+        return { name: n, qty: q, price: have ? '—' : fmt(p), checked, checkedStr: String(checked), haveStr: String(have),
+          toggle: () => this.setState(s => ({ checked: { ...s.checked, [n]: !s.checked[n] } })),
+          toggleHave: () => this.setState(s => ({ have: { ...s.have, [n]: !s.have[n] } })),
+          row: { display: 'flex', alignItems: 'center', gap: 6, padding: '6px 16px 6px 4px', borderBottom: '1px solid var(--color-divider)', opacity: have ? 0.55 : 1 },
+          box: { width: 24, height: 24, borderRadius: 8, display: 'grid', placeItems: 'center', border: checked ? '0' : '2px solid var(--color-neutral-500)', background: checked ? 'var(--color-accent-2-600)' : 'transparent', color: 'var(--color-bg)' },
+          label: { fontSize: 14.5, lineHeight: 1.35, textDecoration: checked ? 'line-through' : 'none', color: checked ? 'var(--color-neutral-700)' : 'var(--color-text)' },
+          sw: { width: 30, height: 18, borderRadius: 999, background: have ? 'var(--color-accent-2-600)' : 'var(--color-neutral-400)', position: 'relative', flex: 'none', transition: 'background .15s' },
+          knob: { position: 'absolute', top: 2, insetInlineStart: have ? 14 : 2, width: 14, height: 14, borderRadius: '50%', background: 'var(--color-bg)', transition: 'inset-inline-start .15s' },
+          cost: { fontSize: 13, fontWeight: 600, whiteSpace: 'nowrap', color: 'var(--color-neutral-800)' } };
+      });
+      total += sub;
+      return { name, sub: fmt(sub), items: rows };
+    });
+    const pill = (bg, fg) => ({ fontSize: 11.5, fontWeight: 700, padding: '4px 10px', borderRadius: 999, background: bg, color: fg, whiteSpace: 'nowrap' });
+    const photo = (bg) => ({ width: 84, height: 84, borderRadius: 26, background: bg, display: 'grid', placeItems: 'center', flex: 'none', color: 'var(--color-neutral-800)' });
+    const circ = on => ({ width: 24, height: 24, borderRadius: '50%', flex: 'none', border: on ? '7px solid var(--color-accent)' : '2px solid var(--color-neutral-500)' });
+    const swRow = on => ({ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px', borderRadius: 26, background: on ? 'var(--color-accent-100)' : 'var(--color-surface)', boxShadow: on ? 'inset 0 0 0 2px var(--color-accent)' : 'none', cursor: 'pointer' });
+    const wk = [['Sat', 26, 'Grilled fish, rice & salad', 'Ful & eggs · lentil soup · zabadi', 1], ['Sun', 27, 'Beef kofta, baladi bread & tahini', 'Oats with milk · koshary · fruit', 0], ['Mon', 28, 'Chicken, rice & molokhia', 'Ful & eggs · koshary · zabadi & oats', 2], ['Tue', 29, 'Lentil soup & chicken shawarma bowl', 'Cheese & egg sandwich · pasta · fruit', 0], ['Wed', 30, 'Fish sayadeya, lighter', 'Shakshuka · chicken & potatoes · zabadi', 1], ['Thu', 1, 'Macarona with beef mince', 'Ful & eggs · tuna salad · fruit', 1], ['Fri', 2, 'Family lunch: mahshi & grilled chicken', 'Late breakfast · light dinner', 0]];
+    return {
+      theme: this.props.theme ?? 'light',
+      gIsWeek: S.tab === 'week', gIsMonth: S.tab === 'month',
+      toWeek: () => this.setState({ tab: 'week' }), toMonth: () => this.setState({ tab: 'month' }),
+      tabWeek: tabStyle(S.tab === 'week'), tabMonth: tabStyle(S.tab === 'month'), gGroups,
+      gTotalLabel: S.tab === 'week' ? 'This week · estimated' : 'This month · estimated', gTotal: fmt(total),
+      gTotalSub: `${count} items to buy${skipped ? ` · ${skipped} already at home` : ''}${S.tab === 'week' ? ' · budget EGP 1,800' : ''}`,
+      copyList: this.copyList, copyIcon: S.copied ? 'copy-check' : 'copy', copyLabel: S.copied ? 'Copied — paste into WhatsApp' : 'Copy list as text',
+      meals: [
+        { slot: 'Breakfast · 8:30', name: 'Ful medames, eggs & baladi bread', portions: '1 plate ful · 2 eggs + 2 whites · 1 baladi bread · tomato & cucumber', kcal: 515, p: 38, c: 52, f: 17, icon: 'egg', photo: photo('var(--color-accent-200)') },
+        { slot: 'Lunch · 2:30', name: 'Koshary, lighter plate', portions: '1 medium plate · extra lentils · less fried onion · 1 cup zabadi', kcal: 630, p: 30, c: 100, f: 12, icon: 'soup', photo: photo('var(--color-accent-300)') },
+        { slot: 'After the gym · 6:30', name: 'Zabadi, banana & oats', portions: '1 cup thick zabadi · 1 banana · 3 tbsp oats · 1 tsp honey', kcal: 305, p: 27, c: 38, f: 5, icon: 'apple', photo: photo('var(--color-accent-2-200)') },
+        { slot: 'Dinner · 9:00', name: 'Grilled chicken, rice & molokhia', portions: '250 g chicken · ½ cup rice · 1 ladle molokhia · lemon', kcal: 750, p: 80, c: 35, f: 33, icon: 'drumstick', photo: photo('var(--color-accent-2-300)') }],
+      swaps: [
+        { name: 'Hawawshi, baked, lean beef', meta: '1 loaf · salad · 640 kcal · P34 C68 F22', delta: '+10 kcal · +4 g protein', row: swRow(true), radio: circ(true) },
+        { name: 'Lentil soup, bread & grilled chicken', meta: '1 bowl · ½ baladi · 100 g chicken · 610 kcal', delta: '−20 kcal · +8 g protein', row: swRow(false), radio: circ(false) },
+        { name: 'Macarona with tomato & beef', meta: '1 plate · 90 g beef mince · 650 kcal', delta: '+20 kcal · +2 g protein', row: swRow(false), radio: circ(false) }],
+      week: wk.map(([d, n, main, rest, st]) => ({ d, n, main, rest, kcal: '2,200',
+        row: { display: 'flex', alignItems: 'center', gap: 12, minHeight: 64, padding: '8px 16px 8px 8px', borderRadius: 28, background: st === 2 ? 'var(--color-accent-100)' : 'var(--color-surface)', boxShadow: st === 2 ? 'inset 0 0 0 2px var(--color-accent)' : 'none' } })),
+      ingredients: [{ n: 'Chicken breast, raw', q: '250 g' }, { n: 'Egyptian rice, dry', q: '40 g' }, { n: 'Molokhia, frozen', q: '200 g' }, { n: 'Chicken stock', q: '250 ml' }, { n: 'Garlic', q: '3 cloves · 12 g' }, { n: 'Ground coriander', q: '2 g · 1 tsp' }, { n: 'Olive oil or ghee', q: '10 g · 2 tsp' }, { n: 'Lemon, cumin, salt', q: 'to taste' }],
+      steps: [
+        { n: 1, t: 'Rub the chicken with lemon, cumin, half the coriander and salt. Leave to marinate.', timer: '15:00' },
+        { n: 2, t: 'Rinse the rice, add 90 ml water and a pinch of salt, cover and cook on low.', timer: '18:00' },
+        { n: 3, t: 'Grill or pan-cook the chicken, 6 minutes each side, until the juices run clear.', timer: '12:00' },
+        { n: 4, t: 'Bring the stock to a simmer, add the molokhia and stir. Keep it below a boil.', timer: '5:00' },
+        { n: 5, t: 'Fry the garlic and remaining coriander in the oil until golden (the ta\'leya), then stir into the molokhia.', timer: '1:00' },
+        { n: 6, t: 'Slice the chicken, serve with the rice, molokhia and a squeeze of lemon.' }],
+      pantry: [
+        { n: 'Olive oil', s: 'Plenty', tag: pill('var(--color-accent-2-100)', 'var(--color-accent-2-800)') },
+        { n: 'Salt', s: 'Plenty', tag: pill('var(--color-accent-2-100)', 'var(--color-accent-2-800)') },
+        { n: 'Black pepper', s: 'Plenty', tag: pill('var(--color-accent-2-100)', 'var(--color-accent-2-800)') },
+        { n: 'Garlic', s: 'Plenty', tag: pill('var(--color-accent-2-100)', 'var(--color-accent-2-800)') },
+        { n: 'Cumin', s: 'Running low', tag: pill('var(--color-accent-100)', 'var(--color-accent-800)') },
+        { n: 'Rice', s: 'Running low', tag: pill('var(--color-accent-100)', 'var(--color-accent-800)') },
+        { n: 'Tea & sugar', s: 'Not tracked', tag: pill('var(--color-neutral-200)', 'var(--color-neutral-800)') }]
+    };
+  }
+}
+</script>
+</body>
+</html>

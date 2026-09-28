@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/styles.css">
+<link rel="stylesheet" href="rafeqi.css">
+</helmet>
+<figure style="{{ wrapStyle }}">
+  <svg viewBox="0 0 200 420" style="width:100%;height:auto;display:block;overflow:visible" role="img" aria-label="{{ aria }}">
+    <sc-for list="{{ shapes }}" as="s">
+      <sc-if value="{{ s.isC }}">
+        <circle cx="{{ s.cx }}" cy="{{ s.cy }}" r="{{ s.r }}" style="{{ s.style }}" onClick="{{ s.onClick }}"><title>{{ s.name }}</title></circle>
+      </sc-if>
+      <sc-if value="{{ s.isR }}">
+        <rect x="{{ s.x }}" y="{{ s.y }}" width="{{ s.w }}" height="{{ s.h }}" rx="{{ s.rx }}" style="{{ s.style }}" onClick="{{ s.onClick }}"><title>{{ s.name }}</title></rect>
+      </sc-if>
+    </sc-for>
+  </svg>
+  <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}">
+    <figcaption dir="ltr" style="display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:700;color:var(--color-neutral-700);margin-top:4px;padding:0 6px">
+      <span>{{ leftSide }}</span><span style="font-weight:600">{{ viewLabel }}</span><span>{{ rightSide }}</span>
+    </figcaption>
+  </sc-if>
+</figure>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:200,&quot;height&quot;:460},&quot;view&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;front&quot;,&quot;back&quot;],&quot;default&quot;:&quot;front&quot;,&quot;tsType&quot;:&quot;'front'|'back'&quot;},&quot;marks&quot;:{&quot;editor&quot;:null,&quot;default&quot;:{&quot;shoulderL&quot;:&quot;warn&quot;},&quot;tsType&quot;:&quot;Record&lt;string,'select'|'attn'|'warn'|'ok'|'muscle'|'muscle2'&gt;&quot;},&quot;width&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:150,&quot;tsType&quot;:&quot;number&quot;},&quot;interactive&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showLabels&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;en&quot;,&quot;ar&quot;],&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;'en'|'ar'&quot;}}">
+class Component extends DCLogic {
+  state = { sel: null };
+  renderVals() {
+    const p = this.props, ar = p.lang === 'ar', view = p.view ?? 'front', front = view === 'front';
+    const marks = { ...(p.marks ?? {}), ...(this.state.sel ?? {}) };
+    const base = [
+      { k: 'head', c: 1, cx: 100, cy: 34, r: 22 }, { k: 'neck', x: 91, y: 58, w: 18, h: 14 },
+      { k: front ? 'chest' : 'upperBack', x: 72, y: 76, w: 56, h: 58 }, { k: front ? 'abdomen' : 'lowerBack', x: 74, y: 138, w: 52, h: 50 },
+      { k: 'shoulder', p: 1, c: 1, cx: 60, cy: 90, r: 15 }, { k: 'arm', p: 1, x: 40, y: 106, w: 20, h: 58 },
+      { k: 'forearm', p: 1, x: 32, y: 168, w: 18, h: 62 }, { k: 'hip', p: 1, x: 73, y: 192, w: 26, h: 34 },
+      { k: 'thigh', p: 1, x: 73, y: 230, w: 26, h: 72 }, { k: 'knee', p: 1, c: 1, cx: 86, cy: 314, r: 12 },
+      { k: 'shin', p: 1, x: 75, y: 330, w: 22, h: 58 }, { k: 'ankle', p: 1, x: 75, y: 392, w: 22, h: 16 }];
+    const fills = {
+      none: ['var(--color-neutral-300)', 'var(--color-neutral-500)'],
+      select: ['var(--color-accent-300)', 'var(--color-accent-600)'],
+      attn: ['var(--color-accent-200)', 'var(--color-accent-500)'],
+      warn: ['var(--color-warn-200)', 'var(--color-warn-600)'],
+      ok: ['var(--color-accent-2-200)', 'var(--color-accent-2-600)'],
+      muscle: ['var(--color-accent-2-400)', 'var(--color-accent-2-700)'],
+      muscle2: ['var(--color-accent-2-200)', 'var(--color-accent-2-500)']
+    };
+    const shapes = [];
+    base.forEach(b => {
+      const sides = b.p ? [0, 1] : [null];
+      sides.forEach(mir => {
+        const vl = mir === 0; // viewer-left
+        const id = b.p ? b.k + ((front ? vl : !vl) ? 'R' : 'L') : b.k;
+        const st = marks[id] ?? 'none'; const [f, s] = fills[st] ?? fills.none;
+        const sh = { name: id, isC: !!b.c, isR: !b.c,
+          style: { fill: f, stroke: s, strokeWidth: st === 'none' ? 1.5 : 2.5, cursor: p.interactive ? 'pointer' : 'default', transition: 'fill .15s' },
+          onClick: p.interactive ? () => this.setState(x => { const cur = { ...(x.sel ?? {}) }; cur[id] = (marks[id] === 'select') ? 'none' : 'select'; return { sel: cur }; }) : undefined };
+        if (b.c) Object.assign(sh, { cx: mir === 1 ? 200 - b.cx : b.cx, cy: b.cy, r: b.r });
+        else Object.assign(sh, { x: mir === 1 ? 200 - b.x - b.w : b.x, y: b.y, w: b.w, h: b.h, rx: Math.min(b.w, b.h) / 2 });
+        shapes.push(sh);
+      });
+    });
+    const L = ar ? 'يسار' : 'L', R = ar ? 'يمين' : 'R';
+    return {
+      shapes, showLabels: p.showLabels ?? true,
+      wrapStyle: { margin: 0, width: p.width ?? 150, flex: 'none' },
+      leftSide: front ? R : L, rightSide: front ? L : R,
+      viewLabel: front ? (ar ? 'أمام' : 'Front') : (ar ? 'خلف' : 'Back'),
+      aria: (ar ? 'خريطة الجسم' : 'Body map') + ' — ' + view
+    };
+  }
+}
+</script>
+</body>
+</html>

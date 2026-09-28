@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/styles.css">
+<link rel="stylesheet" href="rafeqi.css">
+<script src="_ds/organic-7e596db5-da4a-4ef0-b72d-0bcd074549d9/_ds_bundle.js"></script>
+<script src="icons.js"></script>
+</helmet>
+<div dir="rtl" lang="ar" style="padding:56px;display:flex;flex-direction:column;gap:56px;background:var(--color-neutral-200);min-height:100vh;line-height:1.7">
+<header style="display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;font-weight:600;color:var(--color-accent-700)">رفيقي · الواجهة العربية (من اليمين لليسار)</span><h1 style="margin:0;line-height:1.3">الشاشات الأساسية بالعربي</h1></header>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<h3 style="margin:0">الموبايل</h3>
+<div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">ع1 · تسجيل الدخول</span>
+<div data-screen-label="AR1 Log in" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="" lang="ar" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="flex:1;display:flex;flex-direction:column;gap:20px;padding:8px 24px 28px">
+    <div style="position:relative;height:140px">
+      <span style="position:absolute;inset-inline-start:0;top:0;width:120px;height:120px;border-radius:50%;background:var(--color-accent-200)"></span>
+      <span style="position:absolute;inset-inline-start:84px;top:40px;width:84px;height:84px;border-radius:50%;background:var(--color-accent-2-300)"></span>
+      <span style="position:absolute;inset-inline-start:28px;top:28px;width:64px;height:64px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;font-family:var(--font-heading);font-size:34px">ر</span>
+    </div>
+    <div><h1 style="font-size:42px;margin:0 0 6px;line-height:1.3">رفيقي</h1><p style="margin:0;font-size:16px;color:var(--color-neutral-800)">مدربك الذكي للتمرين والأكل المصري البيتي — مبني على جسمك وأهدافك وإصاباتك.</p></div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="field"><label style="font-size:13px">البريد الإلكتروني</label><input class="input" dir="ltr" value="omar.hassan@gmail.com" style="height:52px;font-size:16px;text-align:right"></div>
+      <div class="field"><label style="font-size:13px">كلمة المرور</label><div style="position:relative"><input class="input" type="password" value="Corniche2026" style="height:52px;font-size:16px;padding-inline-end:56px"><button aria-label="إظهار كلمة المرور" style="position:absolute;inset-inline-end:4px;top:4px;width:44px;height:44px;border:0;background:transparent;color:var(--color-text);display:grid;place-items:center"><r-icon name="eye" size="20"></r-icon></button></div></div>
+      <a href="#" style="align-self:flex-end;font-size:14px;font-weight:600;min-height:44px;display:flex;align-items:center">نسيت كلمة المرور؟</a>
+    </div>
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
+      <button class="btn btn-primary" style="height:54px;font-size:18px;white-space:nowrap">تسجيل الدخول</button>
+      <button class="btn btn-secondary" style="height:54px;font-size:17px;white-space:nowrap">إنشاء حساب</button>
+      <p style="margin:6px 0 0;font-size:12px;color:var(--color-neutral-700);display:flex;gap:6px;align-items:flex-start"><r-icon name="info" size="14"></r-icon>إرشادات لياقة عامة، وليست نصيحة طبية.</p>
+    </div>
+  </div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">ع2 · الاستبيان — الإصابات</span>
+<div data-screen-label="AR2 Injuries map" style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="عندك إصابات؟" sub="الخطوة 4 من 7" lang="ar" back="{{ true }}" avatar="{{ false }}" hint-size="100%,106px"></dc-import>
+  <div style="padding:0 20px 14px;display:grid;grid-template-columns:repeat(7,1fr);gap:5px"><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-accent)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span><span style="height:8px;border-radius:9px;background:var(--color-neutral-300)"></span></div>
+  <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px;padding:4px 20px 20px">
+    <p style="margin:0;font-size:15px;color:var(--color-neutral-800)">اضغط على أي مكان بيوجعك أو اتصاب قبل كده. هنعدّل تمارينك حواليه.</p>
+    <div style="display:flex;justify-content:space-around;padding:14px 0;border-radius:32px;background:var(--color-surface)">
+      <dc-import name="BodyMap" view="front" lang="ar" marks="{{ obMarks }}" interactive="{{ true }}" width="{{ 138 }}" hint-size="138px,310px"></dc-import>
+      <dc-import name="BodyMap" view="back" lang="ar" marks="{{ obMarks }}" interactive="{{ true }}" width="{{ 138 }}" hint-size="138px,310px"></dc-import>
+    </div>
+    <span style="font-size:13px;color:var(--color-neutral-700)">اخترت</span>
+    <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="min-height:44px;padding:0 16px 0 8px;border-radius:999px;background:var(--color-accent-100);border:1.5px solid var(--color-accent);color:var(--color-accent-800);display:inline-flex;align-items:center;gap:6px;font-weight:700">الكتف الأيسر<button aria-label="إزالة" style="width:32px;height:32px;border:0;background:transparent;color:inherit;display:grid;place-items:center"><r-icon name="x" size="16"></r-icon></button></span></div>
+    <button class="btn btn-ghost" style="align-self:flex-start;height:44px;white-space:nowrap">مفيش إصابات — تخطَّ الخطوة</button>
+  </div>
+  <div style="flex:none;display:flex;gap:10px;padding:14px 20px 28px;border-top:1px solid var(--color-divider)"><button class="btn btn-secondary" style="height:52px;padding:0 22px;white-space:nowrap">رجوع</button><button class="btn btn-primary" style="flex:1;height:52px;font-size:17px;white-space:nowrap">وصف الكتف الأيسر</button></div>
+</div></div>
+
+<sc-for list="{{ themes }}" as="th" hint-placeholder-count="2">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">{{ th.label }}</span>
+<div data-theme="{{ th.theme }}" data-screen-label="AR3 Dashboard" style="width:390px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="صباح الخير يا عمر" sub="الاثنين 28 سبتمبر" lang="ar" hint-size="100%,106px"></dc-import>
+  <div style="display:flex;flex-direction:column;gap:16px;padding:4px 16px 24px">
+    <div style="display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:32px;background:var(--color-accent-100);box-shadow:inset 0 0 0 2px var(--color-accent-300)">
+      <div style="display:flex;gap:12px;align-items:center"><span style="width:44px;height:44px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="clipboard-check" size="21"></r-icon></span><div style="line-height:1.5"><strong style="display:block;font-size:16px;color:var(--color-accent-900)">حان وقت المتابعة الأسبوعية</strong><span style="font-size:13px;color:var(--color-accent-800)">حوالي 3 دقائق · تفتح مراجعة الأسبوع 3</span></div></div>
+      <button class="btn btn-primary" style="height:48px;font-size:16px;white-space:nowrap">ابدأ المتابعة</button>
+    </div>
+    <div class="card" style="padding:20px;gap:8px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;font-weight:700;color:var(--color-accent-700)">تمرين النهارده</span><span style="font-size:12.5px;color:var(--color-neutral-700)">الأسبوع 3 · 2 من 4</span></div>
+      <span class="card-title" style="font-size:26px;line-height:1.35">الجزء العلوي أ</span>
+      <span style="font-size:13.5px;color:var(--color-neutral-800)">7 تمارين · حوالي 58 دقيقة</span>
+      <span class="tag" style="align-self:flex-start;gap:5px;font-weight:700;font-size:12px;padding:5px 11px;background:var(--color-warn-100);color:var(--color-warn-800)"><r-icon name="shield" size="13"></r-icon>3 تمارين معدّلة عشان كتفك الأيسر</span>
+      <div style="display:flex;gap:8px;margin-top:4px"><button class="btn btn-primary" style="flex:1;height:48px;font-size:16px;white-space:nowrap">ابدأ التمرين</button><button class="btn btn-secondary" style="height:48px;padding:0 18px;white-space:nowrap">عرض</button></div>
+    </div>
+    <div class="card" style="padding:20px;gap:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;font-weight:700;color:var(--color-accent-700)">وجبات النهارده</span><a href="#" style="font-size:13px;font-weight:600">خطة الأكل</a></div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <div style="width:104px;height:104px;border-radius:50%;background:conic-gradient(var(--color-accent-2-600) 0 23%, var(--color-neutral-300) 23% 100%);display:grid;place-items:center;flex:none"><div style="width:82px;height:82px;border-radius:50%;background:var(--color-surface);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2"><span style="font-family:var(--font-heading);font-size:22px">1,685</span><span style="font-size:11px;color:var(--color-neutral-700)">سعرة متبقية</span></div></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px;font-size:12.5px">
+          <div><div style="display:flex;justify-content:space-between"><span>بروتين</span><strong>137 جم متبقي</strong></div><div style="height:8px;border-radius:9px;background:var(--color-neutral-300);margin-top:3px"><div style="height:8px;width:22%;border-radius:9px;background:var(--color-accent-2-600)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between"><span>كربوهيدرات</span><strong>173 جم متبقي</strong></div><div style="height:8px;border-radius:9px;background:var(--color-neutral-300);margin-top:3px"><div style="height:8px;width:23%;border-radius:9px;background:var(--color-accent-500)"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between"><span>دهون</span><strong>50 جم متبقي</strong></div><div style="height:8px;border-radius:9px;background:var(--color-neutral-300);margin-top:3px"><div style="height:8px;width:25%;border-radius:9px;background:var(--color-neutral-600)"></div></div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <sc-for list="{{ meals }}" as="m" hint-placeholder-count="4"><div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 6px 6px 14px;border-radius:999px;background:var(--color-bg)"><span style="{{ m.check }}"><r-icon name="{{ m.icon }}" size="17"></r-icon></span><div style="flex:1;min-width:0;line-height:1.4"><span style="display:block;font-size:11.5px;color:var(--color-neutral-700)">{{ m.slot }}</span><strong style="font-size:14px">{{ m.name }}</strong></div><span style="font-size:13px;font-weight:600;white-space:nowrap">{{ m.kcal }}</span></div></sc-for>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="card" style="padding:18px;gap:4px"><span class="tag" style="align-self:flex-start;gap:4px;font-weight:700;background:var(--color-accent-100);color:var(--color-accent-800)"><r-icon name="circle-alert" size="12"></r-icon>في التعافي</span><strong style="font-size:15px;margin-top:4px">الكتف الأيسر</strong><span style="font-size:12.5px;color:var(--color-neutral-800)">الألم 3/10 في آخر تمرين، نزل من 6</span></div>
+      <div class="card" style="padding:18px;gap:4px"><span class="tag" style="align-self:flex-start;gap:4px;font-weight:700;background:var(--color-accent-2-100);color:var(--color-accent-2-800)"><r-icon name="check" size="12"></r-icon>على المسار</span><strong style="font-size:15px;margin-top:4px">الوزن</strong><span style="font-size:12.5px;color:var(--color-neutral-800)">متوسط 86.5 كجم · −1.5 كجم في 3 أسابيع</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:20px;border-radius:32px;background:var(--color-accent-2-100)">
+      <span style="font-size:12px;font-weight:700;color:var(--color-accent-2-800);display:flex;gap:6px;align-items:center"><r-icon name="notebook-pen" size="14"></r-icon>ملاحظة المدرب · الأسبوع 2</span>
+      <p style="margin:0;font-size:15px;line-height:1.8;color:var(--color-accent-2-900)">أربع جلسات من أربع — التزام رائع. كتفك بيهدى، فزودنا 2.5 كجم على الضغط من الأرض. الكشري اتنقل لأيام التمرين، لما بتحتاج الكربوهيدرات أكتر.</p>
+      <div style="display:flex;justify-content:space-between;align-items:center"><span class="tag" style="gap:5px;background:var(--color-bg);color:var(--color-neutral-800)"><r-icon name="book-open" size="12"></r-icon>هيلمز · هرم العضلات والقوة</span><a href="#" style="font-size:13px;font-weight:600;color:var(--color-accent-2-800)">المراجعة كاملة</a></div>
+    </div>
+    <p style="margin:0;font-size:12px;color:var(--color-neutral-700);display:flex;gap:6px"><r-icon name="info" size="14"></r-icon>رفيقي يقدّم إرشادات لياقة عامة وليس نصيحة طبية.</p>
+  </div>
+  <dc-import name="TabBar" active="home" lang="ar" due="{{ true }}" hint-size="100%,82px"></dc-import>
+</div></div>
+</sc-for>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">ع4 · خطتك جاهزة</span>
+<div data-screen-label="AR4 Plan ready" style="width:390px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="خطتك" lang="ar" brand="{{ true }}" hint-size="100%,106px"></dc-import>
+  <div style="display:flex;flex-direction:column;gap:18px;padding:4px 20px 28px">
+    <div><span style="font-size:13px;font-weight:700;color:var(--color-accent-2-800);display:flex;gap:6px;align-items:center"><r-icon name="circle-check" size="16"></r-icon>جاهزة</span><h1 style="margin:6px 0;font-size:34px;line-height:1.35">دي خطتك يا عمر</h1><p style="margin:0;font-size:15px;color:var(--color-neutral-800)">مبنية لنزول دهون ثابت، 4 أيام جيم، وكتف أيسر محتاج رعاية.</p></div>
+    <div style="display:flex;flex-direction:column;gap:12px;padding:22px;border-radius:32px;background:var(--color-surface)">
+      <span style="font-size:12px;font-weight:700;color:var(--color-accent-700)">الهدف اليومي</span>
+      <div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:var(--font-heading);font-size:48px;line-height:1.1">2,200</span><span style="font-size:16px">سعرة</span></div>
+      <p style="margin:0;font-size:14px;color:var(--color-neutral-800)"><strong>ليه:</strong> حوالي 500 أقل من احتياجك (~2,700) — نزول ثابت نص كيلو في الأسبوع.</p>
+      <sc-for list="{{ macros }}" as="m" hint-placeholder-count="3"><div style="display:flex;gap:14px;align-items:flex-start;padding-top:10px;border-top:1px solid var(--color-divider)"><span style="{{ m.dot }}"></span><div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:baseline"><strong style="font-size:15px">{{ m.name }}</strong><span style="font-family:var(--font-heading);font-size:20px">{{ m.g }}</span></div><p style="margin:2px 0 0;font-size:13px;color:var(--color-neutral-800);line-height:1.7">{{ m.why }}</p></div></div></sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:32px;background:var(--color-warn-100)">
+      <span style="font-size:12px;font-weight:700;color:var(--color-warn-800);display:flex;gap:6px;align-items:center"><r-icon name="shield" size="14"></r-icon>اتغيرت عشان كتفك الأيسر</span>
+      <sc-for list="{{ swaps }}" as="s" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-radius:22px;background:var(--color-bg)"><span style="font-size:13px;color:var(--color-neutral-700);text-decoration:line-through">{{ s.from }}</span><strong style="font-size:15px;display:flex;gap:6px;align-items:flex-start"><r-icon name="arrow-right" size="15" flip="" style="margin-top:5px"></r-icon><span>{{ s.to }}</span></strong></div></sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px"><button class="btn btn-primary" style="height:54px;font-size:17px;white-space:nowrap;gap:8px"><r-icon name="dumbbell" size="18"></r-icon>شوف خطة التمرين</button><button class="btn btn-secondary" style="height:54px;font-size:17px;white-space:nowrap;gap:8px"><r-icon name="salad" size="18"></r-icon>شوف خطة الأكل</button></div>
+  </div>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">ع5 · جلسة التمرين</span>
+<div data-screen-label="AR5 Session" style="width:390px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="الجزء العلوي أ" sub="الاثنين · حوالي 58 دقيقة" lang="ar" back="{{ true }}" hint-size="100%,106px"></dc-import>
+  <div style="display:flex;flex-direction:column;gap:10px;padding:4px 16px 20px">
+    <sc-for list="{{ exercises }}" as="e" hint-placeholder-count="7">
+      <div style="display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:28px;background:var(--color-surface)">
+        <div style="display:flex;gap:12px;align-items:flex-start"><span style="width:32px;height:32px;border-radius:50%;background:var(--color-bg);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none">{{ e.n }}</span>
+          <div style="flex:1;min-width:0"><strong style="display:block;font-size:15.5px;line-height:1.5">{{ e.name }}</strong><div style="display:flex;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--color-neutral-800)"><span><strong>{{ e.sets }}</strong> × {{ e.reps }}</span><span>راحة {{ e.rest }}</span><span>المجهود {{ e.rpe }}</span></div></div></div>
+        <sc-if value="{{ e.swapped }}"><span class="tag" style="align-self:flex-start;gap:5px;font-weight:700;font-size:12px;padding:5px 11px;background:var(--color-warn-100);color:var(--color-warn-800);margin-inline-start:44px"><r-icon name="shield" size="13"></r-icon>{{ e.badge }}</span></sc-if>
+      </div>
+    </sc-for>
+    <p style="margin:4px 0 0;font-size:12.5px;color:var(--color-neutral-700)">المجهود (RPE) من 1 لـ 10. مجهود 8 يعني كان ممكن تعمل حوالي عدّتين زيادة.</p>
+  </div>
+  <div style="padding:12px 16px 16px;border-top:1px solid var(--color-divider)"><button class="btn btn-primary" style="width:100%;height:54px;font-size:18px;white-space:nowrap">ابدأ التمرين</button></div>
+  <dc-import name="TabBar" active="workouts" lang="ar" due="{{ true }}" hint-size="100%,82px"></dc-import>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">ع6 · قائمة المشتريات</span>
+<div data-screen-label="AR6 Groceries" style="width:390px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="المشتريات" sub="الأسبوع 3 · 26 سبتمبر – 2 أكتوبر" lang="ar" hint-size="100%,106px"></dc-import>
+  <div style="display:flex;flex-direction:column;gap:14px;padding:0 16px 24px">
+    <div role="tablist" style="display:flex;padding:4px;border-radius:999px;background:var(--color-surface)"><button role="tab" aria-selected="true" style="flex:1;height:44px;border:0;border-radius:999px;background:var(--color-bg);box-shadow:var(--shadow-sm);color:var(--color-text);font:inherit;font-weight:700">الأسبوع ده</button><button role="tab" style="flex:1;height:44px;border:0;border-radius:999px;background:transparent;color:var(--color-neutral-700);font:inherit;font-weight:600">الشهر ده</button></div>
+    <div style="display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:24px;background:var(--color-accent-100);color:var(--color-accent-900);font-size:13.5px"><r-icon name="refresh-cw" size="18" style="color:var(--color-accent-700);margin-top:3px"></r-icon><span><strong>اتحدّثت بعد مراجعتك الأسبوعية.</strong> اتضاف فيليه سمك، واللحمة المفرومة نزلت من 1 كجم لنص كيلو.</span></div>
+    <sc-for list="{{ groceries }}" as="g" hint-placeholder-count="4">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:0 6px"><h5 style="margin:0;font-size:17px">{{ g.name }}</h5><span style="font-size:12px;color:var(--color-neutral-700)">{{ g.sub }}</span></div>
+        <div style="display:flex;flex-direction:column;border-radius:28px;background:var(--color-surface);overflow:hidden">
+          <sc-for list="{{ g.items }}" as="i"><div style="{{ i.row }}"><span style="width:44px;height:44px;display:grid;place-items:center;flex:none"><span style="{{ i.box }}"><sc-if value="{{ i.checked }}"><r-icon name="check" size="15"></r-icon></sc-if></span></span><div style="flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.5"><span style="{{ i.label }}">{{ i.name }} · <strong>{{ i.qty }}</strong></span><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--color-neutral-800);min-height:28px"><span style="{{ i.sw }}"><span style="{{ i.knob }}"></span></span>عندي ده بالفعل</span></div><span style="font-size:13px;font-weight:600;white-space:nowrap;color:var(--color-neutral-800)">{{ i.price }}</span></div></sc-for>
+        </div>
+      </div>
+    </sc-for>
+    <div style="display:flex;flex-direction:column;gap:10px;padding:18px 20px;border-radius:32px;background:var(--color-text);color:var(--color-bg)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13px;opacity:.8">الإجمالي التقريبي للأسبوع</span><span style="font-family:var(--font-heading);font-size:26px">1,685 ج.م</span></div>
+      <span style="font-size:12.5px;opacity:.8">16 صنف للشراء · صنف واحد عندك · الميزانية 1,800 ج.م</span>
+      <button class="btn" style="height:50px;background:var(--color-bg);color:var(--color-text);gap:8px;white-space:nowrap;font-size:16px"><r-icon name="copy" size="18"></r-icon>انسخ القائمة كنص</button>
+    </div>
+  </div>
+  <dc-import name="TabBar" active="groceries" lang="ar" due="{{ true }}" hint-size="100%,82px"></dc-import>
+</div></div>
+
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">ع7 · المراجعة الأسبوعية</span>
+<div data-screen-label="AR7 Weekly review" style="width:390px;border-radius:44px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+  <dc-import name="AppBar" title="مراجعة الأسبوع 3" sub="22 – 28 سبتمبر" lang="ar" back="{{ true }}" hint-size="100%,106px"></dc-import>
+  <div style="display:flex;flex-direction:column;gap:18px;padding:0 16px 28px">
+    <div style="display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:32px;background:var(--color-accent-2-100)">
+      <span class="tag" style="align-self:flex-start;gap:5px;font-weight:700;font-size:12px;padding:5px 11px;background:var(--color-bg);color:var(--color-accent-2-800)"><r-icon name="check" size="13"></r-icon>على المسار</span>
+      <p style="margin:0;font-size:16px;line-height:1.85;color:var(--color-accent-2-900)">أسبوع كويس يا عمر. نزلت 0.7 كجم — أسرع شوية من المخطط — وكتفك واضح إنه بيتحسن. الشغل ضيّع عليك تمرين الخميس، وكنت جعان أغلب الليالي. خففنا العجز شوية ورتبنا الأيام عشان الأسبوع الجاي يبقى أسهل.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center">
+      <div style="padding:12px 4px;border-radius:24px;background:var(--color-surface)"><span style="font-family:var(--font-heading);font-size:22px;display:block" dir="ltr">−0.7</span><span style="font-size:11.5px">كجم الأسبوع ده</span></div>
+      <div style="padding:12px 4px;border-radius:24px;background:var(--color-accent-100)"><span style="font-family:var(--font-heading);font-size:22px;display:block">3/4</span><span style="font-size:11.5px">جلسات</span></div>
+      <div style="padding:12px 4px;border-radius:24px;background:var(--color-surface)"><span style="font-family:var(--font-heading);font-size:22px;display:block">2/10</span><span style="font-size:11.5px">ألم الكتف</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px"><h4 style="margin:0">إيه اللي اتغير وليه</h4>
+      <sc-for list="{{ changes }}" as="c" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:6px;padding:16px 18px;border-radius:28px;background:var(--color-surface)"><div style="display:flex;gap:10px;align-items:center"><span style="width:36px;height:36px;border-radius:50%;background:var(--color-bg);display:grid;place-items:center;flex:none"><r-icon name="{{ c.icon }}" size="18"></r-icon></span><span style="font-size:13px;font-weight:700;color:var(--color-accent-700)">{{ c.kind }}</span></div><strong style="font-size:15.5px;line-height:1.5">{{ c.what }}</strong><span style="font-size:13.5px;line-height:1.75;color:var(--color-neutral-800)">{{ c.why }}</span><span class="tag" style="align-self:flex-start;gap:5px;font-size:11.5px;background:var(--color-bg);color:var(--color-neutral-800)"><r-icon name="book-open" size="12"></r-icon>{{ c.cite }}</span></div></sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:32px;background:var(--color-accent-100)"><h4 style="margin:0;color:var(--color-accent-900)">تركيز الأسبوع الجاي</h4>
+      <sc-for list="{{ focus }}" as="f" hint-placeholder-count="3"><div style="display:flex;gap:12px;font-size:14.5px;line-height:1.7;color:var(--color-accent-900)"><span style="width:26px;height:26px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none">{{ f.n }}</span><span>{{ f.t }}</span></div></sc-for>
+    </div>
+    <a href="#" style="display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 8px 8px 18px;border-radius:999px;background:var(--color-surface);color:var(--color-text);text-decoration:none"><span style="width:44px;height:44px;border-radius:50%;background:var(--color-accent-2-600);color:var(--color-bg);display:grid;place-items:center"><r-icon name="shopping-basket" size="20"></r-icon></span><span style="flex:1;line-height:1.4"><strong style="display:block;font-size:15px">قائمة المشتريات المحدّثة</strong><span style="font-size:12.5px;color:var(--color-neutral-700)">اتضاف فيليه سمك · 1,685 ج.م الأسبوع ده</span></span><r-icon name="chevron-right" size="20" flip=""></r-icon></a>
+  </div>
+</div></div>
+</div></section>
+
+<section style="display:flex;flex-direction:column;gap:20px">
+<h3 style="margin:0">الكمبيوتر</h3>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;font-weight:700;color:var(--color-neutral-700)">ع8 · الرئيسية — كمبيوتر</span>
+<div data-screen-label="AR8 Desktop dashboard" style="width:1440px;height:900px;border-radius:28px;overflow:hidden;background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-lg);display:flex">
+  <dc-import name="Sidebar" active="home" lang="ar" due="{{ true }}" hint-size="248px,100%" style="height:100%;flex:none"></dc-import>
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column;gap:22px;padding:32px 40px;overflow:hidden">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between"><div><span style="font-size:14px;color:var(--color-neutral-700)">الاثنين 28 سبتمبر · الأسبوع 3 من 8</span><h1 style="margin:2px 0 0;font-size:42px;line-height:1.3">صباح الخير يا عمر</h1></div>
+      <div style="display:flex;gap:12px;align-items:center;padding:10px 20px 10px 10px;border-radius:999px;background:var(--color-accent-100);box-shadow:inset 0 0 0 2px var(--color-accent-300)"><r-icon name="clipboard-check" size="20" style="color:var(--color-accent-700)"></r-icon><span style="font-size:14.5px;color:var(--color-accent-900);white-space:nowrap"><strong>حان وقت المتابعة الأسبوعية</strong> · حوالي 3 دقائق</span><button class="btn btn-primary" style="height:44px;padding:0 20px;white-space:nowrap;font-size:15px">ابدأ المتابعة</button></div></div>
+    <div style="flex:1;min-height:0;display:grid;grid-template-columns:1.25fr 1fr 0.9fr;gap:20px">
+      <div class="card" style="padding:24px;gap:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;font-weight:700;color:var(--color-accent-700)">تمرين النهارده</span><span style="font-size:13px;color:var(--color-neutral-700)">2 من 4 الأسبوع ده</span></div>
+        <span class="card-title" style="font-size:30px;line-height:1.35">الجزء العلوي أ</span>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px">
+          <sc-for list="{{ exercises }}" as="e" hint-placeholder-count="7"><div style="display:flex;align-items:center;gap:12px;min-height:48px;padding:0 14px;border-radius:999px;background:var(--color-bg);font-size:14px"><span style="width:22px;color:var(--color-neutral-700);font-weight:700">{{ e.n }}</span><span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ e.name }}</span><sc-if value="{{ e.swapped }}"><r-icon name="shield" size="15" style="color:var(--color-warn-600)"></r-icon></sc-if><span style="color:var(--color-neutral-800);white-space:nowrap">{{ e.sets }} × {{ e.reps }}</span></div></sc-for>
+        </div>
+        <button class="btn btn-primary" style="height:50px;margin-top:auto;white-space:nowrap;font-size:16px">ابدأ التمرين</button>
+      </div>
+      <div class="card" style="padding:24px;gap:16px">
+        <span style="font-size:12px;font-weight:700;color:var(--color-accent-700)">وجبات النهارده</span>
+        <div style="display:flex;align-items:center;gap:18px"><div style="width:120px;height:120px;border-radius:50%;background:conic-gradient(var(--color-accent-2-600) 0 23%, var(--color-neutral-300) 23% 100%);display:grid;place-items:center;flex:none"><div style="width:96px;height:96px;border-radius:50%;background:var(--color-surface);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2"><span style="font-family:var(--font-heading);font-size:25px">1,685</span><span style="font-size:11.5px;color:var(--color-neutral-700)">سعرة متبقية</span></div></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px;font-size:13px"><div style="display:flex;justify-content:space-between"><span>بروتين</span><strong>137 جم</strong></div><div style="display:flex;justify-content:space-between"><span>كربوهيدرات</span><strong>173 جم</strong></div><div style="display:flex;justify-content:space-between"><span>دهون</span><strong>50 جم</strong></div></div></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><sc-for list="{{ meals }}" as="m" hint-placeholder-count="4"><div style="display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 6px 6px 16px;border-radius:999px;background:var(--color-bg)"><span style="{{ m.check }}"><r-icon name="{{ m.icon }}" size="17"></r-icon></span><div style="flex:1;min-width:0;line-height:1.4"><span style="display:block;font-size:11.5px;color:var(--color-neutral-700)">{{ m.slot }}</span><strong style="font-size:14px">{{ m.name }}</strong></div><span style="font-size:13px;font-weight:600;white-space:nowrap">{{ m.kcal }}</span></div></sc-for></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px;min-height:0">
+        <div class="card" style="padding:20px;gap:8px"><div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-size:16px">الكتف الأيسر</strong><span class="tag" style="gap:4px;font-weight:700;background:var(--color-accent-100);color:var(--color-accent-800)"><r-icon name="circle-alert" size="12"></r-icon>في التعافي</span></div>
+          <dc-import name="LineChart" series="{{ painSeries }}" labels="{{ painLabels }}" min="{{ 0 }}" max="{{ 10 }}" height="{{ 80 }}" axis-width="{{ 20 }}" legend="{{ false }}" hint-size="100%,110px"></dc-import>
+          <span style="font-size:13px;color:var(--color-neutral-800)">الألم 3/10 في آخر تمرين، نزل من 6</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:32px;background:var(--color-accent-2-100)"><span style="font-size:12px;font-weight:700;color:var(--color-accent-2-800);display:flex;gap:6px;align-items:center"><r-icon name="notebook-pen" size="14"></r-icon>ملاحظة المدرب · الأسبوع 2</span><p style="margin:0;font-size:14.5px;line-height:1.85;color:var(--color-accent-2-900)">أربع جلسات من أربع — التزام رائع. كتفك بيهدى، فزودنا 2.5 كجم على الضغط من الأرض. الكشري اتنقل لأيام التمرين.</p><span class="tag" style="align-self:flex-start;gap:5px;background:var(--color-bg);color:var(--color-neutral-800)"><r-icon name="book-open" size="12"></r-icon>هيلمز · هرم العضلات والقوة</span><a href="#" style="margin-top:auto;font-size:13.5px;font-weight:600;color:var(--color-accent-2-800)">اقرأ المراجعة كاملة</a></div>
+      </div>
+    </div>
+  </main>
+</div></div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const circ = (bg, fg, s) => ({ width: s, height: s, borderRadius: '50%', background: bg, color: fg, display: 'grid', placeItems: 'center', flex: 'none' });
+    const dot = c => ({ width: 14, height: 14, borderRadius: '50%', background: c, flex: 'none', marginTop: 8 });
+    const g = ([n, q, p, checked, have]) => ({ name: n, qty: q, price: have ? '—' : p + ' ج.م', checked: !!checked,
+      row: { display: 'flex', alignItems: 'center', gap: 6, padding: '6px 4px 6px 16px', borderBottom: '1px solid var(--color-divider)', opacity: have ? 0.55 : 1 },
+      box: { width: 24, height: 24, borderRadius: 8, display: 'grid', placeItems: 'center', border: checked ? '0' : '2px solid var(--color-neutral-500)', background: checked ? 'var(--color-accent-2-600)' : 'transparent', color: 'var(--color-bg)' },
+      label: { fontSize: 14.5, textDecoration: checked ? 'line-through' : 'none', color: checked ? 'var(--color-neutral-700)' : 'var(--color-text)' },
+      sw: { width: 30, height: 18, borderRadius: 999, background: have ? 'var(--color-accent-2-600)' : 'var(--color-neutral-400)', position: 'relative', flex: 'none' },
+      knob: { position: 'absolute', top: 2, insetInlineStart: have ? 14 : 2, width: 14, height: 14, borderRadius: '50%', background: 'var(--color-bg)' } });
+    return {
+      themes: [{ theme: 'light', label: 'ع3 · الرئيسية — فاتح' }, { theme: 'dark', label: 'ع3 · الرئيسية — داكن' }],
+      obMarks: { shoulderL: 'select' },
+      meals: [
+        { slot: 'الفطار · اتاكل', name: 'فول وبيض وعيش بلدي', kcal: '515 سعرة', icon: 'check', check: circ('var(--color-accent-2-600)', 'var(--color-bg)', 40) },
+        { slot: 'الغدا · 2:30', name: 'كشري، طبق أخف', kcal: '630 سعرة', icon: 'soup', check: circ('var(--color-surface)', 'var(--color-text)', 40) },
+        { slot: 'بعد الجيم', name: 'زبادي وموز وشوفان', kcal: '305 سعرة', icon: 'apple', check: circ('var(--color-surface)', 'var(--color-text)', 40) },
+        { slot: 'العشا · 9:00', name: 'فراخ مشوية ورز وملوخية', kcal: '750 سعرة', icon: 'drumstick', check: circ('var(--color-surface)', 'var(--color-text)', 40) }],
+      macros: [
+        { name: 'بروتين', g: '175 جم', why: 'حوالي 2 جم لكل كيلو — بيحافظ على العضل وأنت بتاكل أقل. فراخ، بيض، فول، عدس، زبادي.', dot: dot('var(--color-accent-2-600)') },
+        { name: 'كربوهيدرات', g: '225 جم', why: 'طاقة لأربع أيام تمرين. أغلبها رز وعيش بلدي وشوفان وفاكهة.', dot: dot('var(--color-accent-500)') },
+        { name: 'دهون', g: '67 جم', why: 'حوالي 27% من السعرات للهرمونات والطعم — زيت زيتون وطحينة وبيض.', dot: dot('var(--color-neutral-600)') }],
+      swaps: [{ from: 'ضغط أكتاف بالبار واقف', to: 'ضغط لاندماين على ركبة واحدة' }, { from: 'بنش بريس بالبار', to: 'ضغط دمبل من الأرض بقبضة محايدة' }, { from: 'ديبس على المتوازي', to: 'ترايسبس بالكابل' }],
+      exercises: [
+        { n: 1, name: 'ضغط دمبل من الأرض بقبضة محايدة', sets: 3, reps: '8–10', rest: '2 د', rpe: 7, swapped: true, badge: 'اتبدّل عشان كتفك الأيسر' },
+        { n: 2, name: 'تجديف دمبل بسند للصدر', sets: 3, reps: '10–12', rest: '90 ث', rpe: 8 },
+        { n: 3, name: 'ضغط لاندماين على ركبة واحدة', sets: 3, reps: '10 لكل جهة', rest: '90 ث', rpe: 7, swapped: true, badge: 'اتبدّل عشان كتفك الأيسر' },
+        { n: 4, name: 'سحب علوي بقبضة محايدة', sets: 3, reps: '10–12', rest: '90 ث', rpe: 8 },
+        { n: 5, name: 'سحب للوجه بالكابل', sets: 3, reps: '15', rest: '60 ث', rpe: 7, swapped: true, badge: 'اتضاف لدعم كتفك الأيسر' },
+        { n: 6, name: 'ترايسبس بالكابل', sets: 3, reps: '12', rest: '60 ث', rpe: 8, swapped: true, badge: 'اتبدّل عشان كتفك الأيسر' },
+        { n: 7, name: 'بايسبس دمبل على بنش مائل', sets: 2, reps: '12', rest: '60 ث', rpe: 8 }],
+      groceries: [
+        { name: 'خضار وفاكهة', sub: '350 ج.م', items: [['طماطم', '2 كجم', 50, 1], ['خيار', '1 كجم', 25], ['بصل', '1.5 كجم', 35], ['بطاطس', '2 كجم', 45], ['توم', '250 جم', 25, 0, 1], ['ملوخية مجمدة', '1.4 كجم', 105], ['موز', '1.5 كجم', 60]].map(g) },
+        { name: 'لحوم وفراخ وسمك', sub: '870 ج.م', items: [['صدور فراخ', '1.5 كجم', 495], ['فيليه سمك', '0.6 كجم', 150], ['لحمة مفرومة', '0.5 كجم', 225]].map(g) },
+        { name: 'ألبان وبيض', sub: '425 ج.م', items: [['بيض', '18', 120, 1], ['لبن', '3 لتر', 150], ['زبادي', '7 علب', 105], ['جبنة بيضا', '250 جم', 50]].map(g) },
+        { name: 'عيش ومخبوزات', sub: '40 ج.م', items: [['عيش بلدي', '20 رغيف', 40, 1]].map(g) }],
+      changes: [
+        { kind: 'السعرات', icon: 'flame', what: '2,200 ← 2,300 سعرة في أيام التمرين', why: 'نزلت 0.7 كجم (الهدف نص كيلو) وكنت جعان أغلب الليالي. الـ 100 سعرة الزيادة كربوهيدرات حوالين التمرين.', cite: 'هيلمز · هرم العضلات والقوة: التغذية' },
+        { kind: 'التمارين', icon: 'shield', what: 'السحب العلوي ← سحب بالكابل بإيد واحدة', why: 'كان مضايق كتفك الأيسر. إيد واحدة بتسمحلك تختار زاوية مريحة من غير ألم.', cite: 'NSCA · أساسيات تدريب القوة' },
+        { kind: 'الوجبات', icon: 'utensils', what: 'صيادية سمك ← فراخ وبطاطس (الأربع)', why: 'طلبت سمك أقل وفراخ أكتر. نفس السعرات و+6 جم بروتين.', cite: 'هيلمز · هرم العضلات والقوة: التغذية' }],
+      focus: [{ n: 1, t: 'تمرّن السبت والاثنين والتلات والخميس — العلوي ب اتنقل للتلات عشان لو الخميس زحمة.' }, { n: 2, t: 'حاول تنام 7 ساعات على الأقل 4 ليالي.' }, { n: 3, t: 'وقّف أي مجموعة لو ألم الكتف عدّى 3/10.' }],
+      painSeries: [{ values: [6, 5, 5, 4, 4, 4, 3, 2, 3], tone: 'warn', dots: true }], painLabels: ['13 سبتمبر', '29 سبتمبر']
+    };
+  }
+}
+</script>
+</body>
+</html>

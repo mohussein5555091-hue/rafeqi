@@ -1,0 +1,44 @@
+# Book PDFs are copyrighted and large — never commit them.
+books/
+Books/
+*.pdf
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# User data: database file(s) and private uploads (progress photos)
+data/uploads/
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+*.sqlite3
+
+# Node
+node_modules/
+dist/
+*.local
+*.tsbuildinfo
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Playwright
+tests/e2e/test-results/
+tests/e2e/playwright-report/
+tests/e2e/.cache/
+
+# Downloaded helper programs (cloudflared)
+/tools/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+tests/e2e/.auth/

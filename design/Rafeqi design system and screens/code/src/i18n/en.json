@@ -1,0 +1,272 @@
+{
+  "brand": { "name": "Rafeqi", "mark": "R" },
+  "common": {
+    "back": "Back", "next": "Next", "edit": "Edit", "save": "Save changes", "delete": "Delete", "cancel": "Cancel", "close": "Close", "remove": "Remove",
+    "view": "View", "details": "Details", "retry": "Try again", "yes": "Yes", "no": "No", "optional": "optional", "loading": "Loading",
+    "egp": "EGP {amount}", "stepOf": "Step {step} of {total}", "daysPerWeek": "{n} days/week",
+    "decrease": "Decrease {label}", "increase": "Increase {label}",
+    "switchLanguage": "التبديل إلى العربية", "otherLanguage": "عربي", "toggleTheme": "Switch light / dark",
+    "errorTitle": "Something didn't load", "errorBody": "Check your connection and try again. Nothing you saved was lost.",
+    "notFoundTitle": "We couldn't find that", "notFoundBody": "It may have been removed or updated with your latest plan.",
+    "disclaimer": "Rafeqi gives general fitness guidance and is not medical advice.",
+    "disclaimerShort": "General fitness guidance, not medical advice."
+  },
+  "nav": {
+    "main": "Main", "home": "Home", "workouts": "Workouts", "nutrition": "Nutrition", "groceries": "Groceries", "progress": "Progress",
+    "checkIn": "Check-in", "reviews": "Weekly reviews", "injuries": "Injuries", "profile": "Profile & settings",
+    "mealPlan": "Meal plan", "due": "Due", "checkInDue": "Check-in due"
+  },
+  "status": { "onTrack": "On track", "attention": "Needs attention", "warning": "Warning" },
+  "units": {
+    "kg": "kg", "g": "g", "L": "L", "ml": "ml", "pcs": "", "loaves": "loaves", "cups": "cups", "jars": "jars", "cm": "cm", "years": "years",
+    "kcal": "kcal", "kcalN": "{n} kcal", "grams": "{n} g", "minutesShort": "{n} min", "secondsShort": "{n} s"
+  },
+  "macros": { "protein": "Protein", "carbs": "Carbs", "fat": "Fat", "pShort": "P {n} g", "cShort": "C {n} g", "fShort": "F {n} g" },
+  "auth": {
+    "tagline": "Your AI coach for training and Egyptian home food — built around your body, goals and injuries.",
+    "heroTitle": "Your companion for training and food.",
+    "login": "Log in", "email": "Email", "password": "Password", "passwordPlaceholder": "Your password",
+    "showPassword": "Show password", "hidePassword": "Hide password", "forgot": "Forgot password?",
+    "createAccount": "Create an account", "createAccountCta": "Create account", "haveAccount": "I already have an account",
+    "signupTitle": "Create your account", "signupSub": "Two minutes of questions, then your plan.", "firstName": "First name",
+    "rule8": "8+ characters", "ruleNumber": "One number",
+    "consent": "I'm 18 or older and I understand Rafeqi gives general guidance, not medical advice.",
+    "forgotTitle": "Reset your password", "forgotBody": "Enter your email and we'll send you a link to set a new password.",
+    "linkSent": "If that email has an account, a reset link is on its way. Check your inbox.",
+    "sendLink": "Send reset link", "backToLogin": "Back to log in",
+    "errors": {
+      "email": "Enter a full email, like name@gmail.com", "passwordRequired": "Enter your password",
+      "invalid": "That email and password don't match. Check them and try again, or reset your password.",
+      "firstName": "Enter your first name", "passwordRules": "Use at least 8 characters with one number.",
+      "consent": "Please confirm you're 18+ to continue."
+    }
+  },
+  "onboarding": {
+    "about": {
+      "title": "About you", "intro": "We use these to estimate your calorie needs.", "sex": "Sex", "age": "Age", "adultsOnly": "Rafeqi is for adults 18 and over.",
+      "under18": "You need to be 18 or older to use Rafeqi.", "height": "Height", "weight": "Weight", "waist": "Waist", "waistHint": "Measure at your belly button, relaxed."
+    },
+    "goal": {
+      "title": "Your goal", "intro": "Pick the one that matters most right now.", "pace": "Preferred pace",
+      "paceHint": "Steady is easiest to stick with — about 8 kg over 4 months.",
+      "sub": { "loseFat": "Drop weight, keep muscle", "buildMuscle": "Gain size with a small surplus", "recomp": "Lose fat and build muscle slowly", "strength": "Lift more on the main lifts" },
+      "paceRate": { "gentle": "0.25 kg/wk", "steady": "0.5 kg/wk", "faster": "0.75 kg/wk" }
+    },
+    "training": {
+      "title": "Your training", "intro": "So your program fits your week and your gym.", "experience": "Experience", "days": "Days per week", "length": "Session length", "location": "Where do you train?",
+      "expHint": { "beginner": "New to lifting or back after a long break.", "intermediate": "1–3 years of regular lifting.", "advanced": "3+ years, comfortable with heavy compound lifts." }
+    },
+    "injuries": {
+      "title": "Any injuries?", "intro": "Tap anywhere that hurts or has been injured. We'll adjust your exercises around it.",
+      "pickFromList": "Or pick from a list", "none": "No injuries — skip this step"
+    },
+    "health": {
+      "title": "Health check", "intro": "A few quick safety questions.",
+      "q": {
+        "heartCondition": "Heart condition or chest pain on exertion", "diabetes": "Diabetes", "pregnancy": "Pregnant or given birth in the last 6 months",
+        "recentSurgery": "Surgery in the last 6 months", "exerciseMedication": "Medication that affects exercise (e.g. blood pressure)"
+      },
+      "yesTitle": "Thanks for telling us",
+      "yesBody": "Please check with your doctor before starting. Until then we'll keep your plan more conservative — lighter loads, lower effort targets and more rest.",
+      "private": "Your answers stay private."
+    },
+    "food": {
+      "title": "Food & habits", "intro": "Your meals are built from Egyptian home food.", "meals": "Meals per day", "dislikes": "Foods you dislike", "allergies": "Allergies",
+      "fasting": "Fasting", "cooking": "Cooking time per day", "budget": "Weekly food budget",
+      "cook": { "15": "15 min", "30": "30 min", "60": "1 hr+" }
+    },
+    "review": {
+      "title": "Check your answers", "intro": "Tap Edit to change anything.", "build": "Build my plan",
+      "buildNote": "Takes about a minute. You can change answers any time.",
+      "aboutValue": "{sex} · {age} · {height} cm · {weight} kg · waist {waist} cm",
+      "trainingValue": "{exp} · {days} days · {min} min · {where}",
+      "noInjuries": "None", "healthClear": "All clear", "healthFlag": "Doctor's approval recommended — conservative plan",
+      "foodValue": "{meals} meals · {budget}/week", "ramadanNote": "During Ramadan your meals move to iftar and suhoor automatically.",
+      "changeLater": "You can edit these later in Profile & settings."
+    }
+  },
+  "injury": {
+    "side": "Side", "type": "Type", "severity": "Severity · {n} of 5", "severityLabel": "Severity", "mild": "Mild", "severe": "Stops me training",
+    "movements": "Movements that hurt", "restrictions": "Restrictions from a doctor or physio"
+  },
+  "generating": {
+    "title": "Building your plan, {name}", "body": "This usually takes 30–90 seconds. Feel free to put your phone down — we'll keep going.",
+    "steps": { "calories": "Calculating your calories", "program": "Choosing your program", "injuries": "Checking your injuries", "meals": "Building your meals" },
+    "private": "Your plan is built privately on our own servers.",
+    "errorTitle": "That took longer than expected", "errorBody": "Your answers are saved. Nothing was lost — try again and we'll pick up where we stopped.",
+    "editAnswers": "Edit my answers"
+  },
+  "planReady": {
+    "ready": "Ready", "title": "Here's your plan, {name}", "sub": "Built for {goal}, {days} training days a week, and your injuries.",
+    "dailyTarget": "Daily target", "why": "Why:", "program": "Your program", "whyFits": "Why it fits:", "upper": "Upper", "lower": "Lower", "rest": "Rest",
+    "changedFor": "Changed for your {area}", "seeWorkouts": "See my workout plan", "seeMeals": "See my meal plan"
+  },
+  "dashboard": {
+    "greeting": "Good morning, {name}", "offline": "Can't reach Rafeqi. Showing what we saved earlier.",
+    "checkInDue": "Your weekly check-in is due", "checkInDueSub": "About 3 minutes · unlocks this week's review", "startCheckIn": "Start check-in",
+    "nextCheckIn": "Next check-in: {date}", "todaySession": "Today's session", "weekOf": "Week {week} of {total}",
+    "adjustedFor": "{n} exercises adjusted for your {area}", "restDay": "Rest day", "nextSessionOn": "Next: {name} on {day}",
+    "todayMeals": "Today's meals", "kcalLeft": "kcal left", "gLeft": "{n} g left", "eaten": "eaten",
+    "painNow": "Pain {now}/10 last session, down from {from}", "weight": "Weight", "weightAvg": "{avg} kg avg · {change} kg since start",
+    "coachNote": "Coach note · week {week}", "fullReview": "Full review",
+    "noNotesTitle": "No coach notes yet", "noNotesBody": "Your first review appears after your first weekly check-in."
+  },
+  "workouts": {
+    "programSub": "Upper / Lower · week {week} of {total}", "prevWeek": "Previous week", "nextWeek": "Next week",
+    "doneMeta": "Done · {min} min · {done}/{total} sets", "todayMeta": "Today · {min} min", "weekProgress": "Sessions done this week",
+    "doneOf": "{done} of {total} done", "deload": "Week {week} is a lighter week to let your joints recover.",
+    "start": "Start session", "sessionMeta": "{n} exercises · about {min} min", "about": "about {min} min",
+    "nExercises": "{n} exercises", "nSets": "{n} sets", "warmup": "Warm-up {n} min",
+    "rest": "Rest {t}", "rpe": "RPE {n}", "howTo": "How to do {name}",
+    "swappedFor": "Swapped for your {area}", "addedFor": "Added to support your {area}",
+    "rpeHelp": "RPE = how hard a set feels. RPE 8 means you could do about 2 more reps.",
+    "detailsSoon": "This session's exercises appear closer to the day."
+  },
+  "exercise": {
+    "media": "Exercise animation", "mediaPlaceholder": "Exercise animation · 12 s loop", "howTo": "How to do it", "cues": "Form cues",
+    "mistakes": "Common mistakes", "muscles": "Muscles worked", "alternatives": "Alternatives",
+    "kind": { "easier": "Easier", "injuryFriendly": "Injury-friendly" }
+  },
+  "logger": {
+    "exerciseOf": "Exercise {n} of {total}", "rest": "Rest", "nextSet": "Next: set {n} of {total}", "plus30": "+30 s", "skip": "Skip",
+    "set": "Set", "lastTime": "Last time", "repsKg": "Reps × kg", "rpeShort": "RPE", "now": "Now",
+    "repsTarget": "Reps · target {reps}", "reps": "Reps", "weightKg": "Weight, kg", "howHard": "How hard was it? (RPE · target {n})",
+    "pain": "Pain", "logSet": "Log set {n}",
+    "doneTitle": "Session done", "setsLogged": "sets logged", "exercises": "exercises", "newRecord": "new record",
+    "painQ": "How is your {area} now?", "painLabel": "Pain from 0 to 10", "pain0": "0 · no pain", "pain10": "10 · worst imaginable",
+    "anyOfThese": "Any of these?", "painDown": "Down from {prev} last time. Nice — we'll keep the current swaps for now.", "saveFinish": "Save & finish"
+  },
+  "redFlags": { "sharpPain": "Sharp pain", "swelling": "Swelling", "numbness": "Numbness", "none": "None" },
+  "nutrition": {
+    "sub": "{date} · {kind}", "trainingDay": "training day", "restDay": "rest day", "view": "View", "day": "Day", "week": "Week",
+    "swap": "Swap", "recipe": "Recipe", "dailyTotal": "Daily total", "target": "target {n} g",
+    "swapTitle": "Swap {slot}", "now": "Now", "swapHint": "Within 10% of this meal's calories and protein",
+    "noSwaps": "No similar meals right now.", "macroLine": "{kcal} kcal · P{p} C{c} F{f}", "delta": "{kcal} kcal · {p} g protein",
+    "swapTo": "Swap to {name}", "groceryUpdates": "Your grocery list updates automatically.",
+    "recipeSub": "Recipe", "photo": "Dish photo", "prep": "Prep", "cook": "Cook", "fridge": "Fridge", "days": "{n} days",
+    "storing": "Storing & reheating", "ingredients": "Ingredients", "portions": "Portions", "onePortion": "1 portion", "prepThree": "Prep 3",
+    "scaledTo": "Scaled to your {kcal} kcal meal", "steps": "Steps", "startTimer": "Start {t} timer", "timerRunning": "Timer running · tap to stop"
+  },
+  "groceries": {
+    "sub": "Week {week} · {start} – {end}", "period": "Period", "week": "This week", "month": "This month",
+    "total": { "week": "This week · estimated", "month": "This month · estimated" },
+    "count": "{n} items to buy · {have} already at home", "budget": "budget {amount}",
+    "haveIt": "I already have this", "copy": "Copy list as text", "copied": "List copied — paste it into WhatsApp",
+    "copyHeader": "Rafeqi grocery list — {period}",
+    "priceNote": "Prices are rough estimates for Cairo markets and supermarkets.",
+    "emptyTitle": "All set", "emptyBody": "You have everything on this list. Next week's list appears on Friday evening.",
+    "pantry": "My pantry", "pantryIntro": "Staples you keep at home. We leave these off your list until you run low.",
+    "pantryEmpty": "No staples saved yet", "markLow": "Low", "addStaple": "Add a staple",
+    "level": { "plenty": "Plenty", "low": "Running low", "untracked": "Not tracked" }
+  },
+  "injuries": {
+    "add": "Add an injury", "meta": "Pain {pain}/10 · {n} exercises swapped", "noRestrictions": "No restrictions",
+    "detailSub": "{type} · since {date}", "severityNow": "Severity {n}/5", "painTrend": "Pain after sessions", "painScale": "Pain 0–10",
+    "seeProfessional": "See a professional", "avoided": "Being avoided",
+    "stopRule": "Stop and see a doctor or physiotherapist if you get sharp pain, swelling, numbness, or pain that keeps getting worse.",
+    "markResolved": "Mark resolved", "editTitle": "Edit injury", "area": "Area", "status": "Status",
+    "saveNote": "Saving updates your exercise swaps."
+  },
+  "warning": {
+    "title": "Stop and see a doctor or physiotherapist",
+    "body": "You reported a warning sign in your {area}: sharp pain, swelling, numbness, or pain that keeps getting worse. This needs a professional to check, not a training plan.",
+    "whatWeDid": "What we've done", "paused": "Paused every exercise that loads this area", "kept": "Kept other sessions, at lighter effort",
+    "askAgain": "We'll ask again in 3 days",
+    "emergency": "If pain is severe, spreads to your chest or arm, or you feel unwell, call 123 (ambulance).",
+    "understand": "I understand", "checked": "I've been checked — update restrictions"
+  },
+  "checkIn": {
+    "submit": "Submit check-in", "reviewTime": "Your review takes about a minute to write.",
+    "body": {
+      "title": "Body", "weight": "This week's weight · morning, before eating", "lastWeek": "Last week {kg} kg",
+      "measurements": "Measurements · cm, optional", "was": "was {v}", "photos": "Progress photos · optional",
+      "photosPrivate": "Stored privately. Only you can see them.", "added": "Added",
+      "m": { "waist": "Waist", "hips": "Hips", "chest": "Chest", "arm": "Arm", "thigh": "Thigh" },
+      "view": { "front": "Front", "side": "Side", "back": "Back" }
+    },
+    "training": {
+      "title": "Training", "sessions": "Sessions done · {n} planned", "difficulty": "How hard did sessions feel? · {label}", "difficultyLabel": "Session difficulty",
+      "soreness": "Muscle soreness · {label}", "sorenessLabel": "Muscle soreness", "feltOff": "Any exercise that felt off?",
+      "pick": "Pick an exercise", "pickAnother": "Pick another exercise"
+    },
+    "injuries": {
+      "title": "Injuries", "painQ": "{area} · pain this week", "trend": "Compared with last week", "newPain": "Any new pain?",
+      "newPainHint": "Tap the area. Nothing new? Skip it.", "safety": "Safety questions",
+      "flag": { "sharpPain": "Sharp or stabbing pain", "swelling": "Swelling", "numbness": "Numbness or tingling" },
+      "flagNote": "A \"yes\" pauses affected exercises and asks you to see a doctor or physio."
+    },
+    "nutrition": {
+      "title": "Nutrition", "adherence": "How closely did you follow your meals?", "hunger": "Hunger · {label}", "hungerLabel": "Hunger",
+      "change": "Meals you'd like to change", "more": "More of", "less": "Less of"
+    },
+    "life": {
+      "title": "Life this week", "sleep": "Sleep quality · {n}", "energy": "Energy · {n}", "stress": "Stress · {n}",
+      "days": "Days you can train next week", "obstacles": "Anything get in the way?"
+    },
+    "note": {
+      "title": "One last thing", "label": "Anything else your coach should know?", "hint": "Short notes only — no chat.",
+      "count": "{n} / {max}", "summary": "Summary",
+      "summary1": "{kg} kg · {done} of {total} sessions · pain {pain}/10, {trend}",
+      "summary2": "Meals {pct}% · hunger {hunger}/5 · sleep {sleep}/5"
+    }
+  },
+  "scales": {
+    "difficulty": { "1": "very easy", "2": "easy", "3": "about right", "4": "hard", "5": "too hard" },
+    "soreness": { "1": "none", "2": "a little", "3": "moderate", "4": "a lot", "5": "very sore" },
+    "hunger": { "1": "rarely hungry", "2": "fine", "3": "sometimes hungry", "4": "often hungry", "5": "always hungry" }
+  },
+  "review": {
+    "title": "Week {week} review", "writingTitle": "Writing your review", "writingBody": "Usually 30–90 seconds. Your check-in is saved — you can close the app.",
+    "writingSteps": { "read": "Reading your check-in", "compare": "Comparing with last week", "adjust": "Adjusting your plan", "write": "Writing your review" },
+    "kgWeek": "kg this week", "sessions": "sessions", "pain": "pain", "changed": "What changed and why", "focus": "Next week's focus",
+    "kind": { "calories": "Calories", "exercise": "Exercise", "meals": "Meals" },
+    "grocery": "Updated grocery list", "past": "Past reviews", "week": "Week",
+    "citeNote": "Recommendations cite published coaching books.",
+    "slowTitle": "Your review is taking longer than usual", "slowBody": "Your check-in is saved and your plan stays the same until the review is ready.",
+    "emptyTitle": "No reviews yet", "emptyBody": "Your first review appears after your first weekly check-in."
+  },
+  "progress": {
+    "since": "Since {date}", "weight": "Weight", "weighIns": "Weigh-ins", "avg7": "7-day average", "measurements": "Measurements", "waistCm": "Waist, cm",
+    "strength": "Strength", "topSet": "Top set, {unit}", "records": "Personal records", "photos": "Before & after", "private": "Private",
+    "drag": "Drag to compare", "noPhotos": "Add photos in your weekly check-in to compare."
+  },
+  "profile": {
+    "plan": "Plan", "aboutValue": "{age} · {h} cm", "injuriesValue": "{n} active", "foodValue": "{n} meals · {budget}",
+    "regenerate": "Regenerate my plan", "regenerateNote": "Uses your current answers. Your history and progress are kept.",
+    "preferences": "Preferences", "units": "Units", "metric": "kg · cm", "imperial": "lb · in", "language": "Language", "theme": "Theme",
+    "themes": { "light": "Light", "dark": "Dark", "system": "System" },
+    "account": "Account", "changePassword": "Change password", "currentPassword": "Current password", "newPassword": "New password", "logout": "Log out",
+    "delete": "Delete my data", "deleteNote": "Permanently removes your answers, logs, photos and reviews.",
+    "deleteConfirmTitle": "Delete all your data?", "deleteConfirmBody": "This can't be undone. Your account, plan, logs, photos and reviews will be removed.", "deleteConfirm": "Delete everything"
+  },
+  "body": {
+    "front": "Front", "back": "Back", "frontView": "Body map, front", "backView": "Body map, back", "leftShort": "L", "rightShort": "R",
+    "head": "Head", "neck": "Neck", "chest": "Chest", "abdomen": "Stomach", "upperBack": "Upper back", "lowerBack": "Lower back",
+    "shoulderL": "Left shoulder", "shoulderR": "Right shoulder", "armL": "Left upper arm", "armR": "Right upper arm",
+    "forearmL": "Left forearm & wrist", "forearmR": "Right forearm & wrist", "hipL": "Left hip", "hipR": "Right hip",
+    "thighL": "Left thigh", "thighR": "Right thigh", "kneeL": "Left knee", "kneeR": "Right knee",
+    "shinL": "Left shin & calf", "shinR": "Right shin & calf", "ankleL": "Left ankle & foot", "ankleR": "Right ankle & foot"
+  },
+  "enums": {
+    "sex": { "male": "Male", "female": "Female" },
+    "goal": { "loseFat": "Lose fat", "buildMuscle": "Build muscle", "recomp": "Body recomposition", "strength": "Get stronger" },
+    "pace": { "gentle": "Gentle", "steady": "Steady", "faster": "Faster" },
+    "experience": { "beginner": "Beginner", "intermediate": "Intermediate", "advanced": "Advanced" },
+    "location": { "gym": "Full gym", "homeDumbbells": "Home with dumbbells", "bodyweight": "Bodyweight only" },
+    "side": { "left": "Left", "right": "Right", "both": "Both" },
+    "injuryType": { "joint": "Joint pain", "tendon": "Tendon / impingement", "strain": "Muscle strain", "sprain": "Sprain", "postSurgery": "After surgery", "unsure": "Not sure" },
+    "injuryStatus": { "active": "Active", "recovering": "Recovering", "resolved": "Resolved" },
+    "movement": { "overheadPress": "Overhead press", "benchPress": "Bench press", "dips": "Dips", "pullUps": "Pull-ups", "lateralRaise": "Lateral raise", "pushUps": "Push-ups", "squat": "Squat", "deadlift": "Deadlift", "lunges": "Lunges", "running": "Running" },
+    "restriction": { "noOverhead": "No overhead lifting", "limitRange": "Limit range", "noImpact": "No jumping or running", "noHeavyLoad": "No heavy loads", "noneSeen": "Haven't seen anyone" },
+    "food": { "liver": "Liver", "eggplant": "Eggplant", "okra": "Okra", "fish": "Fish", "mushrooms": "Mushrooms", "lentils": "Lentils", "beef": "Beef", "dairy": "Dairy", "chicken": "Chicken", "eggs": "Eggs", "fruit": "Fruit", "potatoes": "Potatoes", "rice": "Rice", "bread": "Bread", "tahini": "Tahini" },
+    "allergy": { "none": "None", "nuts": "Nuts", "lactose": "Lactose", "gluten": "Gluten", "eggs": "Eggs", "shellfish": "Shellfish", "sesame": "Sesame" },
+    "fasting": { "ramadan": "I fast in Ramadan", "intermittent": "Intermittent fasting" },
+    "obstacle": { "work": "Work", "travel": "Travel", "illness": "Illness", "motivation": "Motivation", "fasting": "Ramadan / fasting", "other": "Other" },
+    "feel": { "tooEasy": "Too easy", "tooHard": "Too hard", "uncomfortable": "Uncomfortable" },
+    "trend": { "better": "Better", "same": "Same", "worse": "Worse" },
+    "mealSlot": { "breakfast": "Breakfast", "lunch": "Lunch", "snack": "After the gym", "dinner": "Dinner" },
+    "groceryCategory": { "produce": "Vegetables & fruit", "meat": "Meat, chicken & fish", "dairy": "Dairy & eggs", "bakery": "Bread & bakery", "pantry": "Pantry staples", "spices": "Spices & sauces" },
+    "weekday": { "sat": "Saturday", "sun": "Sunday", "mon": "Monday", "tue": "Tuesday", "wed": "Wednesday", "thu": "Thursday", "fri": "Friday" },
+    "weekdayShort": { "sat": "Sat", "sun": "Sun", "mon": "Mon", "tue": "Tue", "wed": "Wed", "thu": "Thu", "fri": "Fri" }
+  }
+}

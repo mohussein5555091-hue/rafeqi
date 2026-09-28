@@ -1,0 +1,31 @@
+[project]
+name = "rafeqi-backend"
+version = "0.1.0"
+description = "Rafeqi API: auth, profiles, plan engine, logs and check-ins"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    "sqlalchemy>=2.0",
+    "alembic>=1.14",
+    "argon2-cffi>=23.1",
+    "pyyaml>=6.0",
+    "email-validator>=2.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "httpx>=0.27",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+# Backend tests live in the top-level tests/ folder; run them from backend/.
+testpaths = ["../tests/backend"]
+pythonpath = ["."]
+addopts = "-q"

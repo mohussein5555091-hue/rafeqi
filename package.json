@@ -1,0 +1,23 @@
+{
+  "name": "rafeqi",
+  "private": true,
+  "description": "Rafeqi (رفيقي) — personal trainer and nutritionist for Egypt. Root scripts run everything.",
+  "scripts": {
+    "setup": "node scripts/setup-env.mjs && npm install && npm --prefix frontend install && npm --prefix tests/e2e install && npm --prefix tests/e2e run install-browser && uv --directory backend sync && npm run db:migrate && npm run db:seed",
+    "dev": "npm run db:migrate && concurrently -k -n api,web -c blue,magenta \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "uv --directory backend run uvicorn app.main:app --reload --host 127.0.0.1 --port 8000",
+    "dev:web": "npm --prefix frontend run dev -- --host",
+    "db:migrate": "uv --directory backend run alembic upgrade head",
+    "db:seed": "uv --directory backend run python -m app.catalogue",
+    "reset-password": "uv --directory backend run python ../scripts/reset_password.py",
+    "typecheck": "npm --prefix frontend run typecheck",
+    "test": "npm run test:backend && npm run typecheck && npm run test:e2e",
+    "test:backend": "uv --directory backend run pytest",
+    "test:e2e": "npm --prefix tests/e2e test",
+    "lan": "node scripts/lan.mjs",
+    "tunnel": "node scripts/tunnel.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
