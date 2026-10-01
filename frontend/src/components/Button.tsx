@@ -13,7 +13,7 @@ type Variant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'inverse';
 type Size = 'sm' | 'md' | 'lg' | 'icon';
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-accent text-bg hover:bg-accent-600 active:bg-accent-700 hover:text-bg',
+  primary: 'bg-accent text-on-accent hover:bg-accent-600 active:bg-accent-600 hover:text-on-accent',
   secondary: 'border border-divider text-ink hover:bg-neutral-200 active:bg-neutral-300 hover:text-ink',
   ghost: 'text-accent-700 hover:bg-accent-100 active:bg-accent-200',
   danger: 'border border-warn-300 text-warn-700 hover:bg-warn-100 hover:text-warn-700',

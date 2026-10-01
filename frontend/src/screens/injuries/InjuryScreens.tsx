@@ -28,7 +28,7 @@ export function Injuries() {
               <div className="flex flex-col gap-3">
                 {list.map((i) => (
                   <Link key={i.id} to={`/injuries/${i.id}`} className="flex min-h-[76px] items-center gap-3.5 rounded-card bg-surface py-3 pe-4 ps-3 text-ink no-underline hover:bg-neutral-300 hover:text-ink">
-                    <span className={cn('grid h-12 w-12 shrink-0 place-items-center rounded-full text-bg', { active: 'bg-warn-600', recovering: 'bg-accent', resolved: 'bg-sage-600' }[i.status])}>
+                    <span className={cn('grid h-12 w-12 shrink-0 place-items-center rounded-full text-bg', { active: 'bg-warn-600', recovering: 'bg-attn-600', resolved: 'bg-sage-600' }[i.status])}>
                       <Icon as={{ active: TriangleAlert, recovering: CircleAlert, resolved: Check }[i.status]} />
                     </span>
                     <div className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -122,7 +122,7 @@ export function InjuryEdit() {
                 <div role="radiogroup" className="grid grid-cols-3 gap-2">
                   {(['active', 'recovering', 'resolved'] as InjuryStatus[]).map((s) => (
                     <button key={s} type="button" role="radio" aria-checked={v.status === s} onClick={() => set({ status: s })}
-                      className={cn('flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-lg text-[13.5px]', v.status === s ? 'bg-accent-100 font-bold text-accent-800 ring-2 ring-inset ring-accent' : 'bg-surface font-semibold')}>
+                      className={cn('flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-lg text-[13.5px]', v.status === s ? 'bg-accent-100 font-bold text-accent-800 ring-2 ring-inset ring-accent-700' : 'bg-surface font-semibold')}>
                       <Icon as={{ active: TriangleAlert, recovering: CircleAlert, resolved: CircleCheck }[s]} size={17} />{t(`enums.injuryStatus.${s}`)}
                     </button>
                   ))}

@@ -63,8 +63,8 @@ export function WorkoutPlan() {
                 {(['sat', 'sun', 'mon', 'tue', 'wed', 'thu', 'fri'] as const).map((day) => {
                   const s = w.sessions.find((x) => x.day === day);
                   const cls = cn('flex min-h-[72px] w-full items-center gap-3.5 rounded-card px-4 py-3 text-start no-underline lg:min-h-[88px] lg:flex-col lg:items-start lg:gap-0.5 lg:rounded-lg',
-                    !s ? 'hidden bg-neutral-100 text-neutral-700 lg:flex' : s.status === 'done' ? 'bg-sage-100 text-ink hover:text-ink' : s.status === 'today' ? 'bg-accent text-bg hover:text-bg' : 'bg-surface text-ink hover:bg-neutral-300 hover:text-ink',
-                    s && s.id === current.id && s.status !== 'today' && 'lg:ring-2 lg:ring-inset lg:ring-accent');
+                    !s ? 'hidden bg-neutral-100 text-neutral-700 lg:flex' : s.status === 'done' ? 'bg-sage-100 text-ink hover:text-ink' : s.status === 'today' ? 'bg-accent text-on-accent hover:text-on-accent' : 'bg-surface text-ink hover:bg-neutral-300 hover:text-ink',
+                    s && s.id === current.id && s.status !== 'today' && 'lg:ring-2 lg:ring-inset lg:ring-accent-700');
                   const inner = (
                     <>
                       {s && <span className={cn('grid h-tap w-tap place-items-center rounded-full lg:hidden', s.status === 'done' ? 'bg-sage-600 text-bg' : s.status === 'today' ? 'bg-bg text-ink' : 'bg-bg')}><Icon as={s.status === 'done' ? Check : s.name.en.includes('Lower') ? Footprints : Dumbbell} /></span>}

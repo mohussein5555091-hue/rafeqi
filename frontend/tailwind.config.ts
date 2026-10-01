@@ -1,6 +1,6 @@
 import type { Config } from 'tailwindcss';
 
-// Organic design-system tokens. Values live as CSS variables in src/index.css
+// Rafeqi colour tokens (palette 1b · Soft indigo) on Organic type/spacing. Values live as CSS variables in src/index.css
 // (:root = light, .dark = dark) so every utility switches theme automatically.
 const ramp = (name: string, steps = [100, 200, 300, 400, 500, 600, 700, 800, 900]) =>
   Object.fromEntries(steps.map((s) => [s, `var(--color-${name}-${s})`]));
@@ -15,10 +15,12 @@ export default {
         surface: 'var(--color-surface)',
         ink: 'var(--color-text)',
         divider: 'var(--color-divider)',
-        accent: { DEFAULT: 'var(--color-accent)', ...ramp('accent') }, // terracotta — actions, "needs attention"
-        sage: { DEFAULT: 'var(--color-accent-2)', ...ramp('accent-2') }, // sage — progress, "on track"
+        'on-accent': 'var(--color-on-accent)', // white text/icons on accent fills (both themes)
+        accent: { DEFAULT: 'var(--color-accent)', ...ramp('accent') }, // indigo — main buttons, selected tab, today
+        sage: { DEFAULT: 'var(--color-accent-2)', ...ramp('accent-2') }, // green — progress, "on track"
+        attn: ramp('attn', [100, 200, 300, 500, 600, 700, 800]), // amber — "needs attention"
         neutral: ramp('neutral'),
-        warn: ramp('warn', [100, 200, 300, 600, 700, 800]), // clay red — warnings, pain, health flags
+        warn: ramp('warn', [100, 200, 300, 600, 700, 800]), // red — warnings, pain, health flags
       },
       fontFamily: {
         heading: 'var(--font-heading)',

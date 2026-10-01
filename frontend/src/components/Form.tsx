@@ -17,7 +17,7 @@ export function Field({ label, hint, error, children, htmlFor }: { label: ReactN
 
 const inputCls = (invalid?: boolean) => cn(
   'h-[52px] w-full rounded-pill border bg-surface px-4 text-base text-ink caret-accent placeholder:text-neutral-600',
-  'hover:border-neutral-600 focus-visible:border-accent focus-visible:outline-offset-0',
+  'hover:border-neutral-600 focus-visible:border-accent-700 focus-visible:outline-offset-0',
   invalid ? 'border-warn-600 ring-1 ring-warn-600' : 'border-divider',
 );
 
@@ -47,8 +47,8 @@ export function Segmented<T extends string | number>({ options, value, onChange,
   return (
     <div role="radiogroup" aria-label={label} className={cn('flex min-h-12 overflow-hidden rounded-pill border border-divider', className)}>
       {options.map((o, i) => (
-        <label key={String(o.id)} className={cn('flex flex-1 cursor-pointer items-center justify-center whitespace-nowrap px-3 text-sm has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:-outline-offset-2 has-[:focus-visible]:outline-accent',
-          i > 0 && 'border-s border-divider', value === o.id ? 'bg-accent font-semibold text-bg' : 'hover:bg-neutral-200')}>
+        <label key={String(o.id)} className={cn('flex flex-1 cursor-pointer items-center justify-center whitespace-nowrap px-3 text-sm has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:-outline-offset-2 has-[:focus-visible]:outline-accent-700',
+          i > 0 && 'border-s border-divider', value === o.id ? 'bg-accent font-semibold text-on-accent' : 'hover:bg-neutral-200')}>
           <input type="radio" className="sr-only" name={name} checked={value === o.id} onChange={() => onChange(o.id)} />
           {o.label}
         </label>
@@ -67,7 +67,7 @@ export function ScalePicker({ values, value, onChange, label, dangerFrom, size =
       {values.map((v) => (
         <button key={v} type="button" role="radio" aria-checked={value === v} onClick={() => onChange(v)}
           className={cn('grid place-items-center rounded-pill text-[15px] font-semibold tabular transition-colors', size === 'lg' ? 'h-14' : 'h-12',
-            value === v ? 'bg-accent font-bold text-bg' : cn('bg-surface hover:bg-neutral-300', dangerFrom !== undefined && v >= dangerFrom ? 'text-warn-700' : 'text-ink'))}>
+            value === v ? 'bg-accent font-bold text-on-accent' : cn('bg-surface hover:bg-neutral-300', dangerFrom !== undefined && v >= dangerFrom ? 'text-warn-700' : 'text-ink'))}>
           {v}
         </button>
       ))}

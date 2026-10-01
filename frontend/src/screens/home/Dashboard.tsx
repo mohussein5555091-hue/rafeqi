@@ -48,10 +48,10 @@ function DashboardBody({ d, offline }: { d: DashboardData; offline: boolean }) {
     <>
       {offline && <div role="alert" className="flex items-center gap-3 rounded-pill bg-warn-100 px-5 py-3 text-warn-800"><Icon as={WifiOff} />{t('dashboard.offline')}</div>}
       {d.nextCheckIn.due ? (
-        <Card tone="accent" className="ring-2 ring-inset ring-accent-300 lg:flex-row lg:items-center">
+        <Card tone="attn" className="ring-2 ring-inset ring-attn-300 lg:flex-row lg:items-center">
           <div className="flex flex-1 items-center gap-3">
-            <span className="grid h-tap w-tap place-items-center rounded-full bg-accent text-bg"><Icon as={ClipboardCheck} /></span>
-            <div><strong className="block">{t('dashboard.checkInDue')}</strong><span className="text-[13px] text-accent-800">{t('dashboard.checkInDueSub')}</span></div>
+            <span className="grid h-tap w-tap place-items-center rounded-full bg-attn-600 text-bg"><Icon as={ClipboardCheck} /></span>
+            <div><strong className="block">{t('dashboard.checkInDue')}</strong><span className="text-[13px]">{t('dashboard.checkInDueSub')}</span></div>
           </div>
           <LinkButton to="/check-in/body">{t('dashboard.startCheckIn')}</LinkButton>
         </Card>

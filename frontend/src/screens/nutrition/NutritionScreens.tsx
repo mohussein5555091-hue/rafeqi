@@ -33,7 +33,7 @@ export function NutritionPlan() {
                 <li key={d.date}>
                   <Link to={`/nutrition/day/${d.date}`} aria-label={t('nutrition.openDay', { date: date(d.date, { weekday: 'long', day: 'numeric', month: 'long' }) })}
                     className={cn('flex min-h-16 items-center gap-3 rounded-lg py-2 pe-3 ps-2 text-ink no-underline hover:bg-neutral-300 hover:text-ink',
-                      d.date === dayQ.data?.[0].date ? 'bg-accent-100 ring-2 ring-inset ring-accent' : 'bg-surface')}>
+                      d.date === dayQ.data?.[0].date ? 'bg-accent-100 ring-2 ring-inset ring-accent-700' : 'bg-surface')}>
                     <div className="flex w-11 shrink-0 flex-col items-center leading-tight"><span className="text-[11px]">{t(`enums.weekdayShort.${d.day}`)}</span><strong className="text-[17px]">{date(d.date, { day: 'numeric' })}</strong></div>
                     <div className="flex min-w-0 flex-1 flex-col text-[12.5px]"><strong className="truncate text-[13.5px]">{l(d.main)}</strong><span className="truncate text-neutral-800">{l(d.others)}</span></div>
                     <span className="whitespace-nowrap text-xs font-bold">{t('units.kcalN', { n: num(d.kcal) })}</span>
@@ -151,13 +151,13 @@ function SwapSheet({ date, meal, onClose, onSwapped }: { date: string; meal: Mea
                 const on = o.id === chosen?.id;
                 return (
                   <button key={o.id} type="button" role="radio" aria-checked={on} onClick={() => setPick(o.id)}
-                    className={cn('flex items-center gap-3 rounded-lg px-4 py-3.5 text-start', on ? 'bg-accent-100 ring-2 ring-inset ring-accent' : 'bg-surface')}>
+                    className={cn('flex items-center gap-3 rounded-lg px-4 py-3.5 text-start', on ? 'bg-accent-100 ring-2 ring-inset ring-accent-700' : 'bg-surface')}>
                     <div className="flex flex-1 flex-col gap-0.5">
                       <strong>{l(o.name)}</strong>
                       <span className="text-[12.5px] text-neutral-800">{l(o.portions)} · {t('nutrition.macroLine', { kcal: o.kcal, p: o.proteinG, c: o.carbsG, f: o.fatG })}</span>
                       <span className="text-xs font-semibold text-sage-800">{t('nutrition.delta', { kcal: (o.kcal - meal.kcal > 0 ? '+' : '') + (o.kcal - meal.kcal), p: (o.proteinG - meal.proteinG > 0 ? '+' : '') + (o.proteinG - meal.proteinG) })}</span>
                     </div>
-                    <span className={cn('h-6 w-6 shrink-0 rounded-full', on ? 'border-[7px] border-accent' : 'border-2 border-neutral-500')} />
+                    <span className={cn('h-6 w-6 shrink-0 rounded-full', on ? 'border-[7px] border-accent-700' : 'border-2 border-neutral-500')} />
                   </button>
                 );
               })}
@@ -215,7 +215,7 @@ export function RecipeDetail() {
                 <ol className="m-0 flex list-none flex-col gap-3 p-0">
                   {r.steps.map((s, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent text-sm font-bold text-bg">{i + 1}</span>
+                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent text-sm font-bold text-on-accent">{i + 1}</span>
                       <div className="flex min-w-0 flex-1 flex-col gap-1.5 pt-1 lg:flex-row lg:items-center lg:gap-3.5">
                         <span className="flex-1 text-[14.5px]">{l(s.text)}</span>
                         {s.timerSec && (
@@ -282,7 +282,7 @@ export function Groceries() {
                         <div className="flex items-baseline justify-between px-1.5"><h2 className="m-0 text-base">{t(`enums.groceryCategory.${c}`)}</h2><span className="text-xs text-neutral-700">{t('groceries.catCount', { n: rows.filter((i) => !i.haveIt).length })}</span></div>
                         <ul className="m-0 flex list-none flex-col overflow-hidden rounded-lg bg-surface p-0">
                           {rows.map((i) => (
-                            <li key={i.id} className={cn('flex items-center gap-1.5 border-b border-divider py-1.5 pe-4 ps-1', i.haveIt && 'opacity-55')}>
+                            <li key={i.id} className={cn('flex items-center gap-1.5 border-b border-divider py-1.5 pe-4 ps-1', i.haveIt && 'text-neutral-700')}>
                               <Checkbox checked={i.checked} onChange={(checked) => update(i.id, { checked })} label={l(i.name)} />
                               <div className="flex min-w-0 flex-1 flex-col">
                                 <span className={cn('text-[14.5px]', i.checked && 'text-neutral-700 line-through')}>{l(i.name)} · <strong>{num(i.qty, 2)} {t(`units.${i.unit}`)}</strong></span>

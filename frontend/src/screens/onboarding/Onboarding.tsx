@@ -84,8 +84,8 @@ function AboutStep({ a, set }: StepProps) {
 function OptionCard({ selected, onClick, icon, title, sub }: { selected: boolean; onClick: () => void; icon: LucideIcon; title: string; sub?: string }) {
   return (
     <button type="button" role="radio" aria-checked={selected} onClick={onClick}
-      className={cn('flex min-h-[68px] items-center gap-3.5 rounded-lg border-2 px-4 py-2.5 text-start', selected ? 'border-accent bg-accent-100' : 'border-transparent bg-surface hover:bg-neutral-300')}>
-      <span className={cn('grid h-tap w-tap shrink-0 place-items-center rounded-full', selected ? 'bg-accent text-bg' : 'bg-bg')}><Icon as={icon} /></span>
+      className={cn('flex min-h-[68px] items-center gap-3.5 rounded-lg border-2 px-4 py-2.5 text-start', selected ? 'border-accent-700 bg-accent-100' : 'border-transparent bg-surface hover:bg-neutral-300')}>
+      <span className={cn('grid h-tap w-tap shrink-0 place-items-center rounded-full', selected ? 'bg-accent text-on-accent' : 'bg-bg')}><Icon as={icon} /></span>
       <span className="flex-1"><strong className="block text-base">{title}</strong>{sub && <span className="text-[13px] text-neutral-800">{sub}</span>}</span>
       {selected && <Icon as={CircleCheck} className="text-accent-700" />}
     </button>
@@ -104,7 +104,7 @@ function GoalStep({ a, set }: StepProps) {
       <div role="radiogroup" aria-label={t('onboarding.goal.pace')} className="grid grid-cols-3 gap-2">
         {PACES.map((p) => (
           <button key={p} type="button" role="radio" aria-checked={a.pace === p} onClick={() => set({ pace: p })}
-            className={cn('flex min-h-16 flex-col items-center justify-center rounded-md px-1 text-sm font-semibold', a.pace === p ? 'bg-accent font-bold text-bg' : 'bg-surface hover:bg-neutral-300')}>
+            className={cn('flex min-h-16 flex-col items-center justify-center rounded-md px-1 text-sm font-semibold', a.pace === p ? 'bg-accent font-bold text-on-accent' : 'bg-surface hover:bg-neutral-300')}>
             {t(`enums.pace.${p}`)}<span className="text-[11.5px] font-normal">{t(`onboarding.goal.paceRate.${p}`)}</span>
           </button>
         ))}
@@ -133,7 +133,7 @@ function TrainingStep({ a, set }: StepProps) {
         <div role="radiogroup" aria-label={t('onboarding.training.location')} className="flex flex-col gap-2">
           {LOCATIONS.map((l) => (
             <button key={l} type="button" role="radio" aria-checked={a.location === l} onClick={() => set({ location: l })}
-              className={cn('flex min-h-14 items-center gap-3 rounded-pill border-2 px-4 font-semibold', a.location === l ? 'border-accent bg-accent-100 font-bold' : 'border-transparent bg-surface hover:bg-neutral-300')}>
+              className={cn('flex min-h-14 items-center gap-3 rounded-pill border-2 px-4 font-semibold', a.location === l ? 'border-accent-700 bg-accent-100 font-bold' : 'border-transparent bg-surface hover:bg-neutral-300')}>
               <Icon as={locIcons[l]} />{t(`enums.location.${l}`)}{a.location === l && <Icon as={CircleCheck} className="ms-auto text-accent-700" />}
             </button>
           ))}

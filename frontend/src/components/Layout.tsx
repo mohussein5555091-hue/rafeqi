@@ -79,7 +79,7 @@ export function Sidebar() {
   return (
     <aside className="sticky top-0 hidden h-screen w-[248px] shrink-0 flex-col gap-6 bg-surface px-4 py-6 lg:flex">
       <Link to="/" className="flex items-center gap-2.5 px-2 text-ink no-underline">
-        <span className="grid h-10 w-10 place-items-center rounded-full bg-accent font-heading text-xl text-bg">{t('brand.mark')}</span>
+        <span className="grid h-10 w-10 place-items-center rounded-full bg-accent font-heading text-xl text-on-accent">{t('brand.mark')}</span>
         <span className="font-heading text-[22px]">{t('brand.name')}</span>
       </Link>
       <nav aria-label={t('nav.main')} className="flex flex-col gap-1">
@@ -88,7 +88,7 @@ export function Sidebar() {
             className={({ isActive }) => cn('flex min-h-tap items-center gap-3 rounded-pill px-3.5 text-[14.5px] no-underline', isActive ? 'bg-accent-200 font-bold text-accent-800' : 'font-medium text-ink hover:bg-neutral-200 hover:text-ink')}>
             <Icon as={item.icon} />
             <span className="flex-1 whitespace-nowrap">{t(`nav.${item.key}`)}</span>
-            {item.key === 'checkIn' && checkInDue && <span className="rounded-pill bg-accent px-2.5 py-0.5 text-[11px] font-bold text-bg">{t('nav.due')}</span>}
+            {item.key === 'checkIn' && checkInDue && <span className="rounded-pill bg-accent px-2.5 py-0.5 text-[11px] font-bold text-on-accent">{t('nav.due')}</span>}
           </NavLink>
         ))}
       </nav>

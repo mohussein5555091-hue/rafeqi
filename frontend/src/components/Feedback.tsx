@@ -67,7 +67,7 @@ export function Breathing({ size = 200, mark }: { size?: number; mark: string })
     <div className="relative" style={{ width: size, height: size }} aria-hidden>
       <span className="absolute inset-0 animate-breathe rounded-full bg-sage-200 motion-reduce:animate-none" />
       <span className="absolute animate-breathe rounded-full bg-sage-400 [animation-delay:.6s] motion-reduce:animate-none" style={{ inset: size * 0.17 }} />
-      <span className="absolute grid place-items-center rounded-full bg-accent font-heading text-bg" style={{ inset: size * 0.35, fontSize: size * 0.15 }}>{mark}</span>
+      <span className="absolute grid place-items-center rounded-full bg-accent font-heading text-on-accent" style={{ inset: size * 0.35, fontSize: size * 0.15 }}>{mark}</span>
     </div>
   );
 }

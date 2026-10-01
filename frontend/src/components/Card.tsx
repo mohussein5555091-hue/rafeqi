@@ -6,11 +6,12 @@ import { useI18n } from '@/i18n';
 import type { Status } from '@/types';
 
 // ── Card ─────────────────────────────────────────────────────────────
-type Tone = 'surface' | 'sage' | 'accent' | 'warn' | 'plain' | 'ink';
+type Tone = 'surface' | 'sage' | 'accent' | 'attn' | 'warn' | 'plain' | 'ink';
 const tones: Record<Tone, string> = {
   surface: 'bg-surface',
   sage: 'bg-sage-100 text-sage-900',
   accent: 'bg-accent-100 text-accent-900',
+  attn: 'bg-attn-100 text-attn-800',
   warn: 'bg-warn-100 text-warn-800',
   plain: 'bg-bg',
   ink: 'bg-ink text-bg',
@@ -27,7 +28,7 @@ export function Chip({ selected, onToggle, children, icon }: { selected: boolean
   return (
     <button type="button" aria-pressed={selected} onClick={onToggle}
       className={cn('inline-flex min-h-tap items-center gap-1.5 whitespace-nowrap rounded-pill border-[1.5px] px-4 text-sm transition-colors',
-        selected ? 'border-accent bg-accent-100 font-bold text-accent-800' : 'border-divider text-ink hover:bg-neutral-200')}>
+        selected ? 'border-accent-700 bg-accent-100 font-bold text-accent-800' : 'border-divider text-ink hover:bg-neutral-200')}>
       {selected ? <Icon as={Check} size={15} /> : icon && <Icon as={icon} size={15} />}
       {children}
     </button>
@@ -51,7 +52,7 @@ export function ChipGroup<T extends string>({ options, value, onChange, label }:
 // ── Badges ───────────────────────────────────────────────────────────
 const statusStyle: Record<Status, { cls: string; icon: LucideIcon }> = {
   onTrack: { cls: 'bg-sage-100 text-sage-800', icon: Check },
-  attention: { cls: 'bg-accent-100 text-accent-800', icon: CircleAlert },
+  attention: { cls: 'bg-attn-100 text-attn-800', icon: CircleAlert },
   warning: { cls: 'bg-warn-100 text-warn-800', icon: TriangleAlert },
 };
 

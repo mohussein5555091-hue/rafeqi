@@ -14,7 +14,7 @@ export function AuthLayout({ children }: { children: ReactNode }) {
     <div className="grid min-h-screen lg:grid-cols-2">
       <section className="relative hidden flex-col justify-between overflow-hidden bg-surface px-16 py-14 lg:flex">
         <div className="flex items-center gap-3">
-          <span className="grid h-12 w-12 place-items-center rounded-full bg-accent font-heading text-2xl text-bg">{t('brand.mark')}</span>
+          <span className="grid h-12 w-12 place-items-center rounded-full bg-accent font-heading text-2xl text-on-accent">{t('brand.mark')}</span>
           <span className="font-heading text-[28px]">{t('brand.name')}</span>
         </div>
         <span aria-hidden className="absolute -end-40 top-44 h-[520px] w-[520px] rounded-full bg-sage-300" />
@@ -37,7 +37,7 @@ function BrandIntro() {
       <div aria-hidden className="relative h-32">
         <span className="absolute start-0 top-0 h-28 w-28 rounded-full bg-accent-200" />
         <span className="absolute start-20 top-10 h-20 w-20 rounded-full bg-sage-300" />
-        <span className="absolute start-7 top-7 grid h-16 w-16 place-items-center rounded-full bg-accent font-heading text-[34px] text-bg">{t('brand.mark')}</span>
+        <span className="absolute start-7 top-7 grid h-16 w-16 place-items-center rounded-full bg-accent font-heading text-[34px] text-on-accent">{t('brand.mark')}</span>
       </div>
       <div><h1 className="m-0 mb-2 text-[38px]">{t('brand.name')}</h1><p className="m-0 text-base text-neutral-800">{t('auth.tagline')}</p></div>
     </div>

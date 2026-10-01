@@ -212,7 +212,7 @@ function NoteStep({ c, set }: Ctx) {
       <Field htmlFor="ci-note" label={<span className="text-sm font-semibold text-ink">{t('checkIn.note.label')} <span className="font-normal text-neutral-700">· {t('common.optional')}</span></span>}
         hint={<span className="flex justify-between"><span>{t('checkIn.note.hint')}</span><span className={cn('font-bold', len > NOTE_MAX - 30 && 'text-accent-700')} aria-live="polite">{t('checkIn.note.count', { n: len, max: NOTE_MAX })}</span></span>}>
         <textarea id="ci-note" maxLength={NOTE_MAX} value={c.note ?? ''} onChange={(e) => set({ note: e.target.value.slice(0, NOTE_MAX) })}
-          className="min-h-[168px] resize-none rounded-lg border border-divider bg-surface px-4 py-4 text-[15.5px] focus-visible:border-accent" />
+          className="min-h-[168px] resize-none rounded-lg border border-divider bg-surface px-4 py-4 text-[15.5px] focus-visible:border-accent-700" />
       </Field>
       <Card className="gap-1.5 text-[13.5px]">
         <strong className="text-[14.5px]">{t('checkIn.note.summary')}</strong>

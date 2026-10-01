@@ -75,7 +75,7 @@ export function WeeklyReview() {
                 {r.focus.length > 0 && (
                   <Card tone="accent"><h2 className="m-0 text-xl">{t('review.focus')}</h2>
                     <ol className="m-0 flex list-none flex-col gap-2.5 p-0">{r.focus.map((f, i) => (
-                      <li key={i} className="flex gap-3 text-[14.5px]"><span className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full bg-accent text-[13px] font-bold text-bg">{i + 1}</span>{l(f)}</li>
+                      <li key={i} className="flex gap-3 text-[14.5px]"><span className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-full bg-accent text-[13px] font-bold text-on-accent">{i + 1}</span>{l(f)}</li>
                     ))}</ol>
                   </Card>
                 )}
