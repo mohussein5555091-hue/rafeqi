@@ -15,7 +15,8 @@
     "test:backend": "uv --directory backend run pytest",
     "test:e2e": "npm --prefix tests/e2e test",
     "lan": "node scripts/lan.mjs",
-    "tunnel": "node scripts/tunnel.mjs"
+    "tunnel": "node scripts/tunnel.mjs",
+    "personas": "uv --directory backend run python ../scripts/personas.py"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"

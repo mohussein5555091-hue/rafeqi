@@ -176,6 +176,8 @@ erDiagram
     real target_rpe
     real load_factor "0.8 while recovering"
     real weight_step_kg
+    real start_weight_kg "first session, no history yet"
+    real weight_offset_kg "weekly review: one step, next session only"
     text replaced_exercise_id FK "what it swapped out"
     uuid injury_id FK "why it was swapped"
     json swap_reason

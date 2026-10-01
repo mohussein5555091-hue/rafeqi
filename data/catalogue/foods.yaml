@@ -1,0 +1,41 @@
+# Foods, nutrition per 100 g (as eaten: cooked rice, cooked lentils…). Loaded by `npm run db:seed`.
+# tags: matched against the questionnaire's dislikes (liver, eggplant, okra, fish, mushrooms, lentils, beef, dairy)
+#       and allergies (nuts, lactose, gluten, eggs, shellfish, sesame).
+# grocery: which generic shop item covers this food, and how many grams of that item one gram of food needs
+#          (cooked rice → dry rice ≈ 0.4; a grilled chicken breast loses water, so 1 g cooked ≈ 1.35 g raw).
+# PLACEHOLDER values: approximate, from USDA FoodData Central. Replace with the Egyptian food composition
+# table / the recipe book next session.
+source: "PLACEHOLDER: approximate values from USDA FoodData Central"
+foods:
+- {id: fava_beans, en: Fava beans (ful medames), ar: فول مدمس, kcal: 110, protein: 7.6, carbs: 19.7, fat: 0.4, fiber: 5.4, units: [{en: 1 plate, ar: طبق, grams: 200}], tags: [], grocery: {item: gi_fava_beans, ratio: 1.0}}
+- {id: egg, en: Egg, ar: بيض, kcal: 143, protein: 12.6, carbs: 0.7, fat: 9.5, fiber: 0, units: [{en: 1 egg, ar: بيضة, grams: 50}], tags: [eggs], grocery: {item: gi_eggs, ratio: 1.15}}
+- {id: egg_white, en: Egg white, ar: بياض بيض, kcal: 52, protein: 10.9, carbs: 0.7, fat: 0.2, fiber: 0, units: [{en: 1 egg white, ar: بياض بيضة, grams: 33}], tags: [eggs], grocery: {item: gi_eggs, ratio: 1.75}}
+- {id: baladi_bread, en: Baladi bread, ar: عيش بلدي, kcal: 266, protein: 9.8, carbs: 55, fat: 2.6, fiber: 7.4, units: [{en: 1 loaf, ar: رغيف, grams: 90}], tags: [gluten], grocery: {item: gi_baladi_bread, ratio: 1.0}}
+- {id: tomato, en: Tomato, ar: طماطم, kcal: 18, protein: 0.9, carbs: 3.9, fat: 0.2, fiber: 1.2, units: [{en: 1 medium tomato, ar: طماطماية وسط, grams: 120}], tags: [], grocery: {item: gi_tomatoes, ratio: 1.0}}
+- {id: cucumber, en: Cucumber, ar: خيار, kcal: 15, protein: 0.7, carbs: 3.6, fat: 0.1, fiber: 0.5, units: [{en: 1 cucumber, ar: خيارة, grams: 100}], tags: [], grocery: {item: gi_cucumbers, ratio: 1.0}}
+- {id: onion, en: Onion, ar: بصل, kcal: 40, protein: 1.1, carbs: 9.3, fat: 0.1, fiber: 1.7, units: [{en: 1 onion, ar: بصلة, grams: 110}], tags: [], grocery: {item: gi_onions, ratio: 1.0}}
+- {id: garlic, en: Garlic, ar: توم, kcal: 149, protein: 6.4, carbs: 33, fat: 0.5, fiber: 2.1, units: [{en: 1 clove, ar: فص, grams: 5}], tags: [], grocery: {item: gi_garlic, ratio: 1.0}}
+- {id: olive_oil, en: Olive oil, ar: زيت زيتون, kcal: 884, protein: 0, carbs: 0, fat: 100, fiber: 0, units: [{en: 1 tsp, ar: معلقة صغيرة, grams: 5}], tags: [], grocery: {item: gi_olive_oil, ratio: 1.0}}
+- {id: vegetable_oil, en: Vegetable oil, ar: زيت, kcal: 884, protein: 0, carbs: 0, fat: 100, fiber: 0, units: [{en: 1 tsp, ar: معلقة صغيرة, grams: 5}], tags: [], grocery: {item: gi_vegetable_oil, ratio: 1.0}}
+- {id: cumin, en: Cumin, ar: كمون, kcal: 375, protein: 18, carbs: 44, fat: 22, fiber: 10.5, units: [{en: 1 pinch, ar: رشة, grams: 1}], tags: [], grocery: {item: gi_cumin, ratio: 1.0}}
+- {id: rice, en: Rice (cooked), ar: رز مطبوخ, kcal: 130, protein: 2.7, carbs: 28, fat: 0.3, fiber: 0.4, units: [{en: 1 cup, ar: كوباية, grams: 160}], tags: [], grocery: {item: gi_rice, ratio: 0.4}}
+- {id: lentils, en: Lentils (cooked), ar: عدس مطبوخ, kcal: 116, protein: 9, carbs: 20, fat: 0.4, fiber: 7.9, units: [{en: 1 cup, ar: كوباية, grams: 200}], tags: [lentils], grocery: {item: gi_lentils, ratio: 0.4}}
+- {id: pasta, en: Pasta (cooked), ar: مكرونة مطبوخة, kcal: 158, protein: 5.8, carbs: 31, fat: 0.9, fiber: 1.8, units: [{en: 1 cup, ar: كوباية, grams: 140}], tags: [gluten], grocery: {item: gi_pasta, ratio: 0.4}}
+- {id: chickpeas, en: Chickpeas (cooked), ar: حمص مطبوخ, kcal: 164, protein: 8.9, carbs: 27, fat: 2.6, fiber: 7.6, units: [{en: 1 tbsp, ar: معلقة كبيرة, grams: 15}], tags: [], grocery: {item: gi_chickpeas, ratio: 0.45}}
+- {id: tomato_sauce, en: Tomato sauce, ar: صلصة طماطم, kcal: 29, protein: 1.3, carbs: 6, fat: 0.2, fiber: 1.5, units: [{en: 1 ladle, ar: مغرفة, grams: 80}], tags: [], grocery: {item: gi_tomato_paste, ratio: 0.3}}
+- {id: chicken_breast, en: Chicken breast (grilled), ar: صدور فراخ مشوية, kcal: 165, protein: 31, carbs: 0, fat: 3.6, fiber: 0, units: [{en: 1 piece, ar: قطعة, grams: 150}], tags: [], grocery: {item: gi_chicken_breast, ratio: 1.35}}
+- {id: molokhia, en: Molokhia (cooked), ar: ملوخية, kcal: 35, protein: 3, carbs: 5, fat: 0.6, fiber: 2, units: [{en: 1 ladle, ar: مغرفة, grams: 200}], tags: [], grocery: {item: gi_molokhia_frozen, ratio: 0.5}}
+- {id: yogurt, en: Yogurt (zabadi), ar: زبادي, kcal: 61, protein: 3.5, carbs: 4.7, fat: 3.3, fiber: 0, units: [{en: 1 cup, ar: علبة, grams: 105}], tags: [dairy, lactose], grocery: {item: gi_yogurt, ratio: 1.0}}
+- {id: banana, en: Banana, ar: موز, kcal: 89, protein: 1.1, carbs: 23, fat: 0.3, fiber: 2.6, units: [{en: 1 banana, ar: موزة, grams: 100}], tags: [], grocery: {item: gi_bananas, ratio: 1.5}}
+- {id: oats, en: Oats, ar: شوفان, kcal: 389, protein: 16.9, carbs: 66, fat: 6.9, fiber: 10.6, units: [{en: 1 tbsp, ar: معلقة كبيرة, grams: 10}], tags: [gluten], grocery: {item: gi_oats, ratio: 1.0}}
+- {id: honey, en: Honey, ar: عسل, kcal: 304, protein: 0.3, carbs: 82, fat: 0, fiber: 0.2, units: [{en: 1 tsp, ar: معلقة صغيرة, grams: 7}], tags: [], grocery: {item: gi_honey, ratio: 1.0}}
+- {id: carrot, en: Carrot, ar: جزر, kcal: 41, protein: 0.9, carbs: 9.6, fat: 0.2, fiber: 2.8, units: [{en: 1 carrot, ar: جزراية, grams: 60}], tags: [], grocery: {item: gi_carrots, ratio: 1.0}}
+- {id: bell_pepper, en: Bell pepper, ar: فلفل ألوان, kcal: 26, protein: 1, carbs: 6, fat: 0.3, fiber: 2.1, units: [{en: 1 pepper, ar: فلفلاية, grams: 120}], tags: [], grocery: {item: gi_peppers, ratio: 1.0}}
+- {id: fish_fillet, en: Fish fillet (grilled), ar: فيليه سمك مشوي, kcal: 128, protein: 26, carbs: 0, fat: 2.7, fiber: 0, units: [{en: 1 fillet, ar: فيليه, grams: 150}], tags: [fish], grocery: {item: gi_fish_fillet, ratio: 1.3}}
+- {id: lemon, en: Lemon juice, ar: عصير ليمون, kcal: 22, protein: 0.4, carbs: 6.9, fat: 0.2, fiber: 0.3, units: [{en: 1 tbsp, ar: معلقة كبيرة, grams: 15}], tags: [], grocery: {item: gi_lemons, ratio: 2.5}}
+- {id: tahini, en: Tahini, ar: طحينة, kcal: 595, protein: 17, carbs: 21, fat: 54, fiber: 9.3, units: [{en: 1 tbsp, ar: معلقة كبيرة, grams: 15}], tags: [sesame], grocery: {item: gi_tahini, ratio: 1.0}}
+- {id: beef_mince, en: Lean beef mince (cooked), ar: لحمة مفرومة قليلة الدهن, kcal: 217, protein: 26, carbs: 0, fat: 12, fiber: 0, units: [{en: 1 kofta finger, ar: صباع كفتة, grams: 50}], tags: [beef], grocery: {item: gi_beef_mince, ratio: 1.3}}
+- {id: parsley, en: Parsley, ar: بقدونس, kcal: 36, protein: 3, carbs: 6.3, fat: 0.8, fiber: 3.3, units: [{en: 1 handful, ar: حفنة, grams: 10}], tags: [], grocery: {item: gi_parsley, ratio: 1.0}}
+- {id: white_cheese, en: White cheese (gebna beida), ar: جبنة بيضا, kcal: 250, protein: 15, carbs: 2, fat: 20, fiber: 0, units: [{en: 1 slice, ar: شريحة, grams: 30}], tags: [dairy, lactose], grocery: {item: gi_white_cheese, ratio: 1.0}}
+- {id: cottage_cheese, en: Cottage cheese (gebna areesh), ar: جبنة قريش, kcal: 100, protein: 14, carbs: 3, fat: 4, fiber: 0, units: [{en: 1 piece, ar: قطعة, grams: 100}], tags: [dairy, lactose], grocery: {item: gi_cottage_cheese, ratio: 1.0}}
+- {id: potato, en: Potato (cooked), ar: بطاطس مطبوخة, kcal: 93, protein: 2.5, carbs: 21, fat: 0.1, fiber: 2.2, units: [{en: 1 medium potato, ar: بطاطساية وسط, grams: 170}], tags: [], grocery: {item: gi_potatoes, ratio: 1.05}}

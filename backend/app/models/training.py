@@ -119,6 +119,8 @@ class ProgramExercise(Base, UserOwned):
     target_rpe: Mapped[float]
     load_factor: Mapped[float] = mapped_column(default=1.0)  # e.g. 0.8 while an injury is recovering
     weight_step_kg: Mapped[float] = mapped_column(default=2.5)
+    start_weight_kg: Mapped[float] = mapped_column(default=0.0, server_default="0")  # first session, when there's no history
+    weight_offset_kg: Mapped[float] = mapped_column(default=0.0, server_default="0")  # weekly review: ± one step, next session only
     replaced_exercise_id: Mapped[str | None] = mapped_column(ForeignKey("exercises.id"))
     injury_id: Mapped[str | None] = mapped_column(ForeignKey("injuries.id", ondelete="SET NULL"))
     swap_kind: Mapped[str | None] = mapped_column(String(8))  # swapped | added

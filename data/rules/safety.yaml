@@ -1,0 +1,99 @@
+# Safety rules. Applied after the normal targets, and always win.
+# PLACEHOLDER values: clearly marked, to be replaced with values (and page numbers) extracted from the books next session.
+version: 1
+
+calorie_floor:
+  placeholder: true
+  source: "PLACEHOLDER: minimum daily calories without medical supervision; book + page to be added"
+  kcal: {female: 1200, male: 1500}
+  explain:
+    en: "Raised to {floor} kcal: we never go below this without a doctor's supervision."
+    ar: "اتعلّت لـ {floor} سعرة: عمرنا ما ننزل تحت كده من غير إشراف دكتور."
+
+max_weekly_loss:
+  placeholder: true
+  source: "PLACEHOLDER: maximum safe weekly loss as % of body weight; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition)"
+  pct_of_body_weight: 1.0
+  explain:
+    en: "Capped at {calories} kcal so you lose no more than {max_kg} kg a week ({pct}% of your weight)."
+    ar: "اتحددت بـ {calories} سعرة عشان ماتنزلش أكتر من {max_kg} كجم في الأسبوع ({pct}% من وزنك)."
+
+conservative:
+  # Any "yes" in the onboarding health check.
+  placeholder: true
+  source: "PLACEHOLDER: conservative adjustments when a health question is answered yes; book + page to be added"
+  max_deficit_pct: 15
+  max_surplus_kcal: 150
+  training: {rpe_minus: 1, load_factor: 0.85, extra_rest_sec: 30}
+  explain:
+    en: "Kept conservative because of your health answers: {detail}. Please check with your doctor before starting."
+    ar: "خلّيناها أهدى بسبب إجاباتك عن الصحة: {detail}. من فضلك اسأل دكتورك قبل ما تبدأ."
+
+pregnancy:
+  # Pregnant or gave birth in the last 6 months: no calorie deficit without medical advice.
+  placeholder: true
+  source: "PLACEHOLDER: no deficit during pregnancy / postpartum without medical advice; book + page to be added"
+  explain:
+    en: "Kept at maintenance ({calories} kcal): no calorie deficit during or soon after pregnancy without your doctor's advice."
+    ar: "على سعرات الثبات ({calories} سعرة): مفيش نقص سعرات وقت الحمل أو بعد الولادة على طول من غير رأي دكتورك."
+
+red_flags:
+  # Pain logs (after workouts and in the check-in). Any of these pauses the body area. We never diagnose.
+  placeholder: true
+  source: "PLACEHOLDER: red-flag symptoms and pain thresholds; book + page to be added"
+  flags: [sharp_pain, swelling, numbness, worsening]
+  pause_at_pain: 7               # pain this high (0-10) pauses the area
+  rising_logs: 3                 # pain going up across this many logs in a row pauses the area
+  message:
+    en: "Please see a doctor or physiotherapist before training this area again."
+    ar: "من فضلك اكشف عند دكتور أو أخصائي علاج طبيعي قبل ما تمرّن المنطقة دي تاني."
+
+# Which joints an injury in a body area affects (joint ids from data/vocab/movements.yaml).
+region_joints:
+  head: [neck]
+  neck: [neck]
+  chest: [shoulder]
+  abdomen: [spine]
+  upperBack: [spine, shoulder]
+  lowerBack: [spine]
+  shoulderL: [shoulder]
+  shoulderR: [shoulder]
+  armL: [elbow]
+  armR: [elbow]
+  forearmL: [wrist, elbow]
+  forearmR: [wrist, elbow]
+  hipL: [hip]
+  hipR: [hip]
+  thighL: [hip, knee]
+  thighR: [hip, knee]
+  kneeL: [knee]
+  kneeR: [knee]
+  shinL: [knee, ankle]
+  shinR: [knee, ankle]
+  ankleL: [ankle]
+  ankleR: [ankle]
+
+# Body area names for reasons (same as the app's body map labels).
+region_names:
+  head: {en: "head", ar: "الراس"}
+  neck: {en: "neck", ar: "الرقبة"}
+  chest: {en: "chest", ar: "الصدر"}
+  abdomen: {en: "stomach", ar: "البطن"}
+  upperBack: {en: "upper back", ar: "أعلى الضهر"}
+  lowerBack: {en: "lower back", ar: "أسفل الضهر"}
+  shoulderL: {en: "left shoulder", ar: "الكتف الأيسر"}
+  shoulderR: {en: "right shoulder", ar: "الكتف الأيمن"}
+  armL: {en: "left upper arm", ar: "الدراع الأيسر"}
+  armR: {en: "right upper arm", ar: "الدراع الأيمن"}
+  forearmL: {en: "left forearm & wrist", ar: "الساعد والرسغ الأيسر"}
+  forearmR: {en: "right forearm & wrist", ar: "الساعد والرسغ الأيمن"}
+  hipL: {en: "left hip", ar: "الورك الأيسر"}
+  hipR: {en: "right hip", ar: "الورك الأيمن"}
+  thighL: {en: "left thigh", ar: "الفخد الأيسر"}
+  thighR: {en: "right thigh", ar: "الفخد الأيمن"}
+  kneeL: {en: "left knee", ar: "الركبة اليسرى"}
+  kneeR: {en: "right knee", ar: "الركبة اليمنى"}
+  shinL: {en: "left shin & calf", ar: "الساق اليسرى"}
+  shinR: {en: "right shin & calf", ar: "الساق اليمنى"}
+  ankleL: {en: "left ankle & foot", ar: "الكاحل والقدم اليسرى"}
+  ankleR: {en: "right ankle & foot", ar: "الكاحل والقدم اليمنى"}

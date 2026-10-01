@@ -1,0 +1,105 @@
+# Training rules for the plan engine (backend/app/engine/training.py). Templates live in data/programs/.
+# PLACEHOLDER values: clearly marked, to be replaced with values (and page numbers) extracted from the books next session.
+version: 1
+
+template_choice:
+  # Only templates made for where the person trains are considered (all of them, if none is).
+  # Each one scores points for every match; the highest score wins (ties: file order).
+  placeholder: true
+  source: "PLACEHOLDER: program choice by experience, days, goal and equipment (Jeff Nippard programs)"
+  points: {experience: 4, days: 4, goal: 1, location: 1}  # ties: the first file wins (sample_full_body, the gentler one)
+  explain:
+    en: "Program: {name}, chosen for {experience} lifters training {days} days a week."
+    ar: "البرنامج: {name}، اتختار لمستوى {experience} وبتتمرن {days} أيام في الأسبوع."
+  explain_days:
+    en: "This program runs {program_days} days a week; you chose {days}. More programs come with the real templates."
+    ar: "البرنامج ده {program_days} أيام في الأسبوع؛ أنت اخترت {days}. برامج أكتر هتيجي مع البرامج الحقيقية."
+
+# Training days for each number of days a week (the Egyptian week starts on Saturday; Friday stays free).
+schedules:
+  2: [sat, tue]
+  3: [sat, mon, wed]
+  4: [sat, mon, wed, thu]
+  5: [sat, sun, mon, wed, thu]
+  6: [sat, sun, mon, tue, wed, thu]
+
+# What each training place has. `bodyweight` is always available.
+equipment_by_location:
+  gym: [bodyweight, dumbbells, barbell, bench, cable, machine, landmine, bands, pullUpBar]
+  homeDumbbells: [bodyweight, dumbbells, bench, bands]
+  bodyweight: [bodyweight, bands]
+
+# Weight steps by equipment (the smallest jump people can make).
+weight_step_kg: {dumbbells: 2, barbell: 2.5, landmine: 2.5, cable: 2.5, machine: 5, bodyweight: 0, bands: 0, pullUpBar: 0, bench: 0}
+
+start_load:
+  # Starting weight = body weight × ratio × experience × sex (× any load factor), rounded down to the weight step.
+  # Dumbbell ratios are per dumbbell. The first session's "Done as planned" then progresses with progression.yaml.
+  placeholder: true
+  source: "PLACEHOLDER: starting load ratios; to be replaced with the program PDFs' guidance"
+  experience_factor: {beginner: 0.5, intermediate: 1.0, advanced: 1.3}
+  sex_factor: {male: 1.0, female: 0.6}
+  ratio:
+    ex_db_floor_press: 0.25
+    ex_db_bench_press: 0.25
+    ex_bb_bench_press: 0.7
+    ex_cs_row: 0.25
+    ex_one_arm_db_row: 0.28
+    ex_landmine_press: 0.2
+    ex_db_shoulder_press: 0.17
+    ex_ohp: 0.45
+    ex_lat_pulldown: 0.55
+    ex_face_pull: 0.18
+    ex_pushdown: 0.25
+    ex_incline_curl: 0.11
+    ex_lateral_raise: 0.07
+    ex_goblet_squat: 0.27
+    ex_bb_squat: 0.9
+    ex_leg_press: 1.2
+    ex_db_rdl: 0.25
+    ex_bb_deadlift: 1.1
+    ex_split_squat: 0.12
+    ex_seated_leg_curl: 0.45
+    ex_leg_extension: 0.4
+    ex_calf_raise: 0.6
+  explain:
+    en: "Starting weight {kg} kg: {ratio} × your weight, adjusted for experience. Adjust it after the first session if it feels off."
+    ar: "وزن البداية {kg} كجم: {ratio} × وزنك، متظبط على مستواك. عدّله بعد أول تمرينة لو حاسس إنه مش مظبوط."
+
+injuries:
+  placeholder: true
+  source: "PLACEHOLDER: training around injuries; book + page to be added (Delavier, Strength Training Anatomy, for joint loading)"
+  recovering_load_factor: 0.8    # exercises loading a "recovering" area start lighter
+  min_load_factor: 0.5
+  # How close a substitute is: lower is closer. Only exercises with the same movement pattern are considered.
+  substitute_penalty: {different_range: 1, different_equipment: 1, harder_than_you: 3, per_difficulty_step: 1}
+  explain:
+    swapped:
+      en: "{from} → {to}: {to} avoids {why} for your {area}."
+      ar: "{from} ← {to}: {to} بيتجنب {why} عشان {area}."
+    swapped_restriction:
+      en: "{from} → {to}: {to} keeps to your \"{why}\" restriction for your {area}."
+      ar: "{from} ← {to}: {to} ماشي مع ممنوع \"{why}\" عشان {area}."
+    removed:
+      en: "{from} removed: no exercise in the catalogue avoids {why} for your {area} yet."
+      ar: "{from} اتشال: لسه مفيش تمرين في القائمة بيتجنب {why} عشان {area}."
+    load:
+      en: "{name} at {pct}% load while your {area} is {status}."
+      ar: "{name} بـ {pct}% من الوزن وأنت {area} {status}."
+    paused:
+      en: "{name} paused: your {area} needs checking first. {message}"
+      ar: "{name} متوقف: {area} محتاج كشف الأول. {message}"
+  equipment:
+    en: "{from} → {to}: {to} works the same movement with the equipment you have."
+    ar: "{from} ← {to}: {to} بيشغّل نفس الحركة بالأدوات اللي عندك."
+  equipment_removed:
+    en: "{from} removed: nothing in the catalogue does this movement with your equipment yet."
+    ar: "{from} اتشال: لسه مفيش في القائمة تمرين بيعمل الحركة دي بأدواتك."
+
+review:
+  # Weekly review: small, bounded steps (backend/app/engine/review.py).
+  placeholder: true
+  source: "PLACEHOLDER: weekly adjustments; book + page to be added (Helms, The Muscle & Strength Pyramid: Training)"
+  deload_when: {difficulty_at_least: 5, soreness_at_least: 4, avg_effort_at_least: 9}
+  deload_load_factor: 0.9
+  pain_up_load_step: 0.1         # pain went up: that area's exercises lose this much load factor

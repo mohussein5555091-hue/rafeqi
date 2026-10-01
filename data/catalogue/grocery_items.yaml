@@ -1,0 +1,38 @@
+# Generic shop items. Names are always generic ("Milk", "Chicken breast"): never brands, and no prices anywhere.
+# category: produce | meat | dairy | bakery | pantry | spices
+#   (Vegetables & fruit; Meat, chicken & fish; Dairy & eggs; Bread & bakery; Pantry staples; Spices & sauces)
+# shelf_life: weekly (fresh, bought every week) | monthly (staples and frozen, bought for ~4.3 weeks)
+# buying_unit: kg | g | L | pcs | cups | jars · pack_size: lists round up to a multiple of it · grams_per_unit: grams in one unit
+grocery_items:
+- {id: gi_tomatoes, en: Tomatoes, ar: طماطم, category: produce, shelf_life: weekly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_cucumbers, en: Cucumbers, ar: خيار, category: produce, shelf_life: weekly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_onions, en: Onions, ar: بصل, category: produce, shelf_life: weekly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_garlic, en: Garlic, ar: توم, category: produce, shelf_life: weekly, buying_unit: kg, pack_size: 0.25, grams_per_unit: 1000}
+- {id: gi_bananas, en: Bananas, ar: موز, category: produce, shelf_life: weekly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_carrots, en: Carrots, ar: جزر, category: produce, shelf_life: weekly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_peppers, en: Bell peppers, ar: فلفل ألوان, category: produce, shelf_life: weekly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_lemons, en: Lemons, ar: ليمون, category: produce, shelf_life: weekly, buying_unit: kg, pack_size: 0.25, grams_per_unit: 1000}
+- {id: gi_parsley, en: Parsley, ar: بقدونس, category: produce, shelf_life: weekly, buying_unit: pcs, pack_size: 1, grams_per_unit: 60}
+- {id: gi_potatoes, en: Potatoes, ar: بطاطس, category: produce, shelf_life: weekly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_chicken_breast, en: Chicken breast, ar: صدور فراخ, category: meat, shelf_life: weekly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_fish_fillet, en: Fish fillet, ar: فيليه سمك, category: meat, shelf_life: weekly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_beef_mince, en: Lean beef mince, ar: لحمة مفرومة قليلة الدهن, category: meat, shelf_life: weekly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_eggs, en: Eggs, ar: بيض, category: dairy, shelf_life: weekly, buying_unit: pcs, pack_size: 6, grams_per_unit: 60}
+- {id: gi_milk, en: Milk, ar: لبن, category: dairy, shelf_life: weekly, buying_unit: L, pack_size: 1, grams_per_unit: 1030}
+- {id: gi_yogurt, en: Yogurt (zabadi), ar: زبادي, category: dairy, shelf_life: weekly, buying_unit: cups, pack_size: 1, grams_per_unit: 105}
+- {id: gi_white_cheese, en: White cheese, ar: جبنة بيضا, category: dairy, shelf_life: weekly, buying_unit: kg, pack_size: 0.25, grams_per_unit: 1000}
+- {id: gi_cottage_cheese, en: Cottage cheese (areesh), ar: جبنة قريش, category: dairy, shelf_life: weekly, buying_unit: kg, pack_size: 0.25, grams_per_unit: 1000}
+- {id: gi_baladi_bread, en: Baladi bread, ar: عيش بلدي, category: bakery, shelf_life: weekly, buying_unit: pcs, pack_size: 5, grams_per_unit: 90}
+- {id: gi_rice, en: Rice, ar: رز, category: pantry, shelf_life: monthly, buying_unit: kg, pack_size: 1, grams_per_unit: 1000}
+- {id: gi_pasta, en: Pasta, ar: مكرونة, category: pantry, shelf_life: monthly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_lentils, en: Lentils, ar: عدس, category: pantry, shelf_life: monthly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_chickpeas, en: Chickpeas, ar: حمص, category: pantry, shelf_life: monthly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_fava_beans, en: Fava beans (ful), ar: فول, category: pantry, shelf_life: monthly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_oats, en: Oats, ar: شوفان, category: pantry, shelf_life: monthly, buying_unit: kg, pack_size: 0.5, grams_per_unit: 1000}
+- {id: gi_vegetable_oil, en: Vegetable oil, ar: زيت, category: pantry, shelf_life: monthly, buying_unit: L, pack_size: 1, grams_per_unit: 920}
+- {id: gi_olive_oil, en: Olive oil, ar: زيت زيتون, category: pantry, shelf_life: monthly, buying_unit: L, pack_size: 0.5, grams_per_unit: 920}
+- {id: gi_honey, en: Honey, ar: عسل, category: pantry, shelf_life: monthly, buying_unit: jars, pack_size: 1, grams_per_unit: 450}
+- {id: gi_molokhia_frozen, en: Frozen molokhia, ar: ملوخية مجمدة, category: pantry, shelf_life: monthly, buying_unit: kg, pack_size: 0.4, grams_per_unit: 1000}
+- {id: gi_tomato_paste, en: Tomato paste, ar: صلصة, category: spices, shelf_life: monthly, buying_unit: jars, pack_size: 1, grams_per_unit: 360}
+- {id: gi_tahini, en: Tahini, ar: طحينة, category: spices, shelf_life: monthly, buying_unit: jars, pack_size: 1, grams_per_unit: 300}
+- {id: gi_cumin, en: Cumin, ar: كمون, category: spices, shelf_life: monthly, buying_unit: g, pack_size: 50, grams_per_unit: 1}

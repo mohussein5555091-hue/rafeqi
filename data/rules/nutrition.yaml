@@ -1,0 +1,150 @@
+# Nutrition rules for the plan engine (backend/app/engine/nutrition.py and meals.py).
+# Every number the engine produces comes from here, with a one-line reason built from `explain`.
+# PLACEHOLDER values: clearly marked, to be replaced with values (and page numbers) extracted from the books next session.
+version: 1
+
+bmr:
+  # Mifflin-St Jeor: 10 × kg + 6.25 × cm − 5 × age + 5 (men) or − 161 (women)
+  placeholder: false
+  source: "Mifflin MD, St Jeor ST et al. (1990) Am J Clin Nutr 51:241-247"
+  explain:
+    en: "Resting burn {bmr} kcal (Mifflin-St Jeor: {sex}, {age} years, {height} cm, {weight} kg)."
+    ar: "الحرق وقت الراحة {bmr} سعرة (معادلة ميفلين-سانت جيور: {sex}، {age} سنة، {height} سم، {weight} كجم)."
+
+activity:
+  placeholder: true
+  source: "PLACEHOLDER: activity multipliers by training days; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition)"
+  factor_by_training_days: {2: 1.375, 3: 1.4, 4: 1.5, 5: 1.6, 6: 1.7}
+  explain:
+    en: "Maintenance about {tdee} kcal: resting burn × {factor} for {days} training days a week."
+    ar: "سعرات الثبات حوالي {tdee} سعرة: الحرق وقت الراحة × {factor} لـ {days} أيام تمرين في الأسبوع."
+
+goal:
+  placeholder: true
+  source: "PLACEHOLDER: deficit / surplus sizes; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition; Nippard & Barakat, The Ultimate Guide to Body Recomposition)"
+  kcal_per_kg: 7700              # energy in 1 kg of body weight change
+  loseFat: {kg_per_week: {gentle: 0.25, steady: 0.5, faster: 0.75}}
+  buildMuscle: {surplus_kcal: {beginner: 300, intermediate: 200, advanced: 150}}
+  recomp: {deficit_pct: 10}
+  strength: {surplus_kcal: {beginner: 150, intermediate: 100, advanced: 100}}
+  explain:
+    loseFat:
+      en: "Target {calories} kcal: about {deficit} kcal under maintenance, to lose about {rate} kg a week ({pace} pace)."
+      ar: "الهدف {calories} سعرة: حوالي {deficit} سعرة أقل من الثبات، عشان تنزل حوالي {rate} كجم في الأسبوع."
+    buildMuscle:
+      en: "Target {calories} kcal: {surplus} kcal over maintenance, a small surplus to build muscle with little fat."
+      ar: "الهدف {calories} سعرة: {surplus} سعرة فوق الثبات، زيادة بسيطة عشان تبني عضل من غير دهون كتير."
+    recomp:
+      en: "Target {calories} kcal: {pct}% under maintenance, to lose fat slowly while building muscle."
+      ar: "الهدف {calories} سعرة: {pct}% أقل من الثبات، عشان تخس دهون ببطء وأنت بتبني عضل."
+    strength:
+      en: "Target {calories} kcal: {surplus} kcal over maintenance, enough to recover from heavy training."
+      ar: "الهدف {calories} سعرة: {surplus} سعرة فوق الثبات، كفاية عشان تتعافى من التمرين التقيل."
+    final:
+      en: "Daily target after the safety limits: {calories} kcal."
+      ar: "الهدف اليومي بعد حدود الأمان: {calories} سعرة."
+
+protein:
+  placeholder: true
+  source: "PLACEHOLDER: protein per kg; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition)"
+  g_per_kg: {loseFat: 2.0, buildMuscle: 1.8, recomp: 2.0, strength: 1.8}
+  # Above BMI `bmi_from`, protein is worked out from the weight you'd have at BMI `reference_bmi`
+  # (extra body fat doesn't need extra protein).
+  bmi_from: 25
+  reference_bmi: 25
+  explain:
+    en: "Protein {protein} g: {per_kg} g per kg of {basis} kg."
+    ar: "بروتين {protein} جم: {per_kg} جم لكل كيلو من {basis} كجم."
+
+fat:
+  placeholder: true
+  source: "PLACEHOLDER: fat minimum; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition)"
+  min_g_per_kg: 0.7
+  min_pct_of_calories: 25
+  explain:
+    en: "Fat {fat} g: the higher of {per_kg} g per kg and {pct}% of calories, for hormones and vitamins."
+    ar: "دهون {fat} جم: الأعلى بين {per_kg} جم لكل كيلو و{pct}% من السعرات، عشان الهرمونات والفيتامينات."
+
+carbs:
+  placeholder: true
+  source: "PLACEHOLDER: carbohydrate from the remainder; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition)"
+  min_g: 50
+  explain:
+    en: "Carbs {carbs} g: the calories left after protein and fat, to fuel training."
+    ar: "كربوهيدرات {carbs} جم: السعرات اللي باقية بعد البروتين والدهون، عشان طاقة التمرين."
+
+meals:
+  placeholder: true
+  source: "PLACEHOLDER: meal planning settings; to be checked against the Arabic recipe book (Diet & Cheat)"
+  slots_by_meals_per_day:
+    2: [breakfast, dinner]
+    3: [breakfast, lunch, dinner]
+    4: [breakfast, lunch, snack, dinner]
+    5: [breakfast, snack, lunch, snack, dinner]
+  ramadan_slots_by_meals_per_day:
+    2: [suhoor, iftar]
+    3: [suhoor, iftar, snack]
+    4: [suhoor, iftar, snack, snack]
+    5: [suhoor, iftar, snack, snack, snack]
+  times: {breakfast: "08:30", lunch: "14:30", snack: "18:30", dinner: "21:00", suhoor: "03:30", iftar: "18:00"}
+  intermittent_times: {breakfast: "12:00", lunch: "15:00", snack: "17:30", dinner: "19:30"}
+  ramadan_times: {suhoor: "03:30", iftar: "18:00", snack: "21:30"}
+  # Approximate Ramadan dates (they depend on the moon sighting).
+  ramadan: [{start: 2026-02-18, end: 2026-03-19}, {start: 2027-02-08, end: 2027-03-09}, {start: 2028-01-28, end: 2028-02-26}]
+  calorie_tolerance_pct: 5       # each day within ±5% of target calories
+  portion_step: 0.25             # portions move in quarters
+  portion_min: 0.5
+  portion_max: 2.5
+  max_uses_per_week: 4           # the same recipe at most this many times a week
+  max_uses_per_week_snack: 7     # snacks (zabadi, a sandwich…) can be the same every day
+  # Weights for "close to the carb and fat targets" in the optimizer (calories and protein are hard limits).
+  weights: {kcal: 1.0, carbs: 0.5, fat: 0.5, variety: 20}
+  explain:
+    en: "Meals: {meals} a day, each day within {tol}% of {calories} kcal with at least {protein} g protein."
+    ar: "الوجبات: {meals} في اليوم، كل يوم في حدود {tol}% من {calories} سعرة وفيه {protein} جم بروتين على الأقل."
+
+  # If no day fits, these limits are eased one at a time (cooking, variety, meal times, protein, calories) and the plan says so.
+  relaxed:
+    cooking:
+      en: "Your cooking time didn't leave enough recipes for every day, so some days take a little longer to cook."
+      ar: "وقت الطبخ اللي عندك ماكانش كفاية لوصفات كل يوم، فبعض الأيام هتاخد وقت أطول شوية."
+    slots:
+      en: "Some meals use a recipe from another meal time, because none of the recipes for it fit your answers yet."
+      ar: "بعض الوجبات فيها وصفة من وقت تاني، لأن مفيش وصفات لوقتها مناسبة لإجاباتك لسه."
+    protein:
+      en: "Protein is a little under target on some days (at least {pct}%) with the recipes available now."
+      ar: "البروتين أقل من الهدف شوية في بعض الأيام (على الأقل {pct}%) بالوصفات المتاحة دلوقتي."
+    calories:
+      en: "Some days are within {pct}% of your calories (not {tol}%) with the recipes available now."
+      ar: "بعض الأيام في حدود {pct}% من سعراتك (مش {tol}%) بالوصفات المتاحة دلوقتي."
+    variety:
+      en: "Some recipes repeat more often this week because few recipes fit your preferences yet."
+      ar: "بعض الوصفات بتتكرر أكتر الأسبوع ده لأن وصفات قليلة لسه مناسبة لاختياراتك."
+  relax_protein_pct: 95
+  relax_calorie_pct: 8
+
+grocery:
+  placeholder: true
+  source: "PLACEHOLDER: weeks in a month for the monthly staples list"
+  monthly_factor: 4.3
+
+review:
+  # Weekly review: calories move in small, bounded steps (backend/app/engine/review.py).
+  # Expected weekly change = (target − maintenance) × 7 / kcal_per_kg. Compared with the 7-day average weight trend.
+  placeholder: true
+  source: "PLACEHOLDER: weekly calorie adjustments; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition)"
+  calorie_step: 100
+  min_adherence_pct: 70          # below this, calories stay the same: follow the plan first
+  too_fast_factor: 1.5           # changing more than 1.5 × expected (plus slack) → move calories back by one step
+  too_slow_factor: 0.5           # changing less than half of expected → move calories on by one step
+  slack_kg: 0.2                  # daily weight noise
+  explain:
+    too_fast:
+      en: "{before} → {after} kcal: you changed {actual} kg this week, faster than the {expected} kg planned."
+      ar: "{before} ← {after} سعرة: وزنك اتغيّر {actual} كجم الأسبوع ده، أسرع من الـ {expected} كجم المخططين."
+    too_slow:
+      en: "{before} → {after} kcal: you changed {actual} kg this week, slower than the {expected} kg planned, while following {adherence}% of meals."
+      ar: "{before} ← {after} سعرة: وزنك اتغيّر {actual} كجم الأسبوع ده، أبطأ من الـ {expected} كجم المخططين، وأنت ملتزم بـ {adherence}% من الوجبات."
+    low_adherence:
+      en: "Calories stay at {calories} kcal: you followed {adherence}% of meals, so let's get closer to the plan first."
+      ar: "السعرات تفضل {calories} سعرة: التزمت بـ {adherence}% من الوجبات، فخلّينا نقرّب من الخطة الأول."

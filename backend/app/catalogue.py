@@ -107,10 +107,20 @@ def main() -> int:
         for p in err.problems:
             print(f"  - {p}", file=sys.stderr)
         return 1
+    from app.food_catalogue import read_food_catalogue, seed_food_catalogue
+
+    try:
+        food = read_food_catalogue(get_settings().catalogue_dir)
+    except CatalogueError as err:
+        print(f"Food catalogue not loaded. Fix these in {get_settings().catalogue_dir}:", file=sys.stderr)
+        for p in err.problems:
+            print(f"  - {p}", file=sys.stderr)
+        return 1
     with SessionLocal() as db:
         n = seed_exercises(db, items)
+        foods, grocery, recipes = seed_food_catalogue(db, food)
         db.commit()
-    print(f"Loaded {n} exercises.")
+    print(f"Loaded {n} exercises, {foods} foods, {grocery} grocery items and {recipes} recipes.")
     return 0
 
 

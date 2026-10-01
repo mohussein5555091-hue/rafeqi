@@ -1,0 +1,211 @@
+# Sample Egyptian recipes (10). Loaded by `npm run db:seed`. Calories and macros are worked out from the
+# ingredients (data/catalogue/foods.yaml), never typed in. The real recipes come from the Arabic recipe book next session.
+# slots: which meals it can be (breakfast, lunch, snack, dinner, suhoor, iftar).
+# prep_min + cook_min = total time. batch: servings worth cooking at once (it keeps for fridge_days), so a big pot of
+#   koshary counts its cooking time once for several meals.
+# ingredients: grams per serving (as eaten), with an everyday amount for the recipe page.
+source: "PLACEHOLDER: sample recipes; replaced by the Arabic recipe book next session"
+recipes:
+- id: r_ful_eggs
+  name: {en: "Ful medames, eggs & baladi bread", ar: فول مدمس وبيض وعيش بلدي}
+  slots: [breakfast, suhoor]
+  prep_min: 5
+  cook_min: 10
+  fridge_days: 2
+  batch: 2
+  ingredients:
+  - {food: fava_beans, grams: 150, en: ¾ plate, ar: تلت أرباع طبق}
+  - {food: egg, grams: 100, en: 2 eggs, ar: 2 بيض}
+  - {food: egg_white, grams: 66, en: 2 egg whites, ar: 2 بياض}
+  - {food: baladi_bread, grams: 90, en: 1 loaf, ar: رغيف}
+  - {food: tomato, grams: 60, en: ½ tomato, ar: نص طماطماية}
+  - {food: cucumber, grams: 60, en: ½ cucumber, ar: نص خيارة}
+  - {food: olive_oil, grams: 5, en: 1 tsp, ar: معلقة صغيرة}
+  - {food: cumin, grams: 1, en: 1 pinch, ar: رشة}
+  steps:
+  - {en: "Warm the ful in a small pot with a splash of water.", ar: "سخّن الفول في حلة صغيرة بشوية مية.", timer_sec: 300}
+  - {en: "Boil or fry the eggs and whites in a non-stick pan.", ar: "اسلق أو اقلي البيض والبياض في طاسة تيفال.", timer_sec: 420}
+  - {en: "Mash the ful with cumin and the olive oil; serve with bread, tomato and cucumber.", ar: "اهرس الفول بالكمون وزيت الزيتون، وقدّمه بالعيش والطماطم والخيار."}
+  storage: {en: "Ful keeps 2 days in the fridge; cook eggs fresh.", ar: "الفول يقعد يومين في التلاجة؛ البيض يتعمل طازة."}
+  reheating: {en: "Reheat the ful on the stove with a little water.", ar: "سخّن الفول على النار بشوية مية."}
+- id: r_koshary
+  name: {en: "Koshary, lighter plate", ar: كشري، طبق أخف}
+  slots: [lunch, dinner, iftar]
+  prep_min: 15
+  cook_min: 35
+  fridge_days: 3
+  batch: 4
+  ingredients:
+  - {food: rice, grams: 120, en: ¾ cup rice, ar: تلت أرباع كوباية رز}
+  - {food: lentils, grams: 120, en: ½ cup lentils, ar: نص كوباية عدس}
+  - {food: pasta, grams: 60, en: ½ cup pasta, ar: نص كوباية مكرونة}
+  - {food: chickpeas, grams: 30, en: 2 tbsp chickpeas, ar: 2 معلقة حمص}
+  - {food: tomato_sauce, grams: 80, en: 1 ladle sauce, ar: مغرفة صلصة}
+  - {food: onion, grams: 30, en: ¼ onion, ar: ربع بصلة}
+  - {food: vegetable_oil, grams: 7, en: 1½ tsp oil, ar: معلقة ونص صغيرة زيت}
+  - {food: garlic, grams: 3, en: 1 clove, ar: فص توم}
+  - {food: cumin, grams: 1, en: 1 pinch, ar: رشة}
+  steps:
+  - {en: "Cook the lentils until soft, then add the rice and cook together.", ar: "اسلق العدس لحد ما يستوي، وبعدين ضيف الرز واطبخهم مع بعض.", timer_sec: 1500}
+  - {en: "Boil the pasta separately.", ar: "اسلق المكرونة لوحدها.", timer_sec: 600}
+  - {en: "Cook the sauce with garlic and cumin; brown a little onion in the oil.", ar: "اطبخ الصلصة بالتوم والكمون، وحمّر شوية بصل في الزيت.", timer_sec: 600}
+  - {en: "Layer rice and lentils, pasta, chickpeas, sauce and onion.", ar: "رصّ الرز والعدس والمكرونة والحمص والصلصة والبصل."}
+  storage: {en: "Keep the parts in separate boxes, up to 3 days.", ar: "خزّن كل حاجة في علبة لوحدها، لحد 3 أيام."}
+  reheating: {en: "Microwave covered with a spoon of water; heat the sauce separately.", ar: "سخّنه في المايكرويف متغطي بمعلقة مية، والصلصة لوحدها."}
+- id: r_chicken_molokhia
+  name: {en: "Grilled chicken, rice & molokhia", ar: فراخ مشوية ورز وملوخية}
+  slots: [lunch, dinner, iftar]
+  prep_min: 10
+  cook_min: 30
+  fridge_days: 3
+  batch: 4
+  ingredients:
+  - {food: chicken_breast, grams: 200, en: 1 large breast, ar: صدر فراخ كبير}
+  - {food: rice, grams: 120, en: ¾ cup rice, ar: تلت أرباع كوباية رز}
+  - {food: molokhia, grams: 200, en: 1 ladle molokhia, ar: مغرفة ملوخية}
+  - {food: garlic, grams: 5, en: 1 clove, ar: فص توم}
+  - {food: vegetable_oil, grams: 5, en: 1 tsp oil, ar: معلقة صغيرة زيت}
+  - {food: lemon, grams: 10, en: 2 tsp lemon juice, ar: 2 معلقة صغيرة ليمون}
+  steps:
+  - {en: "Season the chicken with lemon and garlic; grill or pan-fry until cooked through.", ar: "تبّل الفراخ بالليمون والتوم، واشويها أو حمّرها في الطاسة لحد ما تستوي.", timer_sec: 1080}
+  - {en: "Cook the rice.", ar: "اطبخ الرز.", timer_sec: 1200}
+  - {en: "Heat the molokhia in stock; finish with garlic fried in the oil.", ar: "سخّن الملوخية في الشوربة، وضيف التقلية بالتوم والزيت.", timer_sec: 300}
+  storage: {en: "Up to 3 days in the fridge, in separate boxes.", ar: "لحد 3 أيام في التلاجة، كل حاجة في علبة."}
+  reheating: {en: "Reheat the chicken covered so it stays juicy.", ar: "سخّن الفراخ متغطية عشان ماتنشفش."}
+- id: r_zabadi_oats
+  name: {en: "Zabadi, banana & oats", ar: زبادي وموز وشوفان}
+  slots: [snack, breakfast, suhoor]
+  prep_min: 3
+  cook_min: 0
+  fridge_days: 1
+  batch: 1
+  ingredients:
+  - {food: yogurt, grams: 210, en: 2 cups zabadi, ar: 2 علبة زبادي}
+  - {food: banana, grams: 100, en: 1 banana, ar: موزة}
+  - {food: oats, grams: 30, en: 3 tbsp oats, ar: 3 معالق شوفان}
+  - {food: honey, grams: 7, en: 1 tsp honey, ar: معلقة صغيرة عسل}
+  steps:
+  - {en: "Slice the banana into the zabadi, add the oats and the honey.", ar: "قطّع الموز على الزبادي، وضيف الشوفان والعسل."}
+  storage: {en: "Best made fresh.", ar: "الأحسن يتعمل طازة."}
+  reheating: {en: "Eat cold.", ar: "يتاكل بارد."}
+- id: r_lentil_soup_chicken
+  name: {en: "Lentil soup, bread & grilled chicken", ar: شوربة عدس وعيش وفراخ مشوية}
+  slots: [lunch, dinner, iftar]
+  prep_min: 10
+  cook_min: 30
+  fridge_days: 3
+  batch: 4
+  ingredients:
+  - {food: lentils, grams: 200, en: 1 bowl soup, ar: طبق شوربة}
+  - {food: onion, grams: 30, en: ¼ onion, ar: ربع بصلة}
+  - {food: carrot, grams: 40, en: ½ carrot, ar: نص جزراية}
+  - {food: chicken_breast, grams: 100, en: 1 small piece chicken, ar: قطعة فراخ صغيرة}
+  - {food: baladi_bread, grams: 45, en: ½ loaf, ar: نص رغيف}
+  - {food: vegetable_oil, grams: 5, en: 1 tsp oil, ar: معلقة صغيرة زيت}
+  - {food: lemon, grams: 10, en: 2 tsp lemon juice, ar: 2 معلقة صغيرة ليمون}
+  - {food: cumin, grams: 1, en: 1 pinch, ar: رشة}
+  steps:
+  - {en: "Simmer the lentils with onion and carrot until soft, then blend.", ar: "اسلق العدس بالبصل والجزر لحد ما يستوي، وبعدين اضربه في الخلاط.", timer_sec: 1500}
+  - {en: "Grill the chicken.", ar: "اشوي الفراخ.", timer_sec: 900}
+  - {en: "Serve the soup with cumin, lemon, the chicken and bread.", ar: "قدّم الشوربة بالكمون والليمون والفراخ والعيش."}
+  storage: {en: "Soup keeps 3 days; it thickens, so add water when reheating.", ar: "الشوربة تقعد 3 أيام؛ بتتقل، فضيف مية وأنت بتسخنها."}
+  reheating: {en: "Reheat on the stove, stirring.", ar: "سخّنها على النار وقلّب."}
+- id: r_shakshuka
+  name: {en: "Shakshuka & baladi bread", ar: شكشوكة وعيش بلدي}
+  slots: [breakfast, dinner, suhoor]
+  prep_min: 5
+  cook_min: 15
+  fridge_days: 1
+  batch: 1
+  ingredients:
+  - {food: egg, grams: 150, en: 3 eggs, ar: 3 بيض}
+  - {food: tomato, grams: 150, en: 1 large tomato, ar: طماطماية كبيرة}
+  - {food: bell_pepper, grams: 60, en: ½ pepper, ar: نص فلفلاية}
+  - {food: onion, grams: 40, en: ⅓ onion, ar: تلت بصلة}
+  - {food: olive_oil, grams: 7, en: 1½ tsp olive oil, ar: معلقة ونص صغيرة زيت زيتون}
+  - {food: baladi_bread, grams: 90, en: 1 loaf, ar: رغيف}
+  - {food: cumin, grams: 1, en: 1 pinch, ar: رشة}
+  steps:
+  - {en: "Soften the onion and pepper in the oil.", ar: "شوّح البصل والفلفل في الزيت.", timer_sec: 300}
+  - {en: "Add the chopped tomato and cumin; cook until saucy.", ar: "ضيف الطماطم المقطعة والكمون، وسيبها لحد ما تتصلص.", timer_sec: 360}
+  - {en: "Crack in the eggs, cover and cook until set.", ar: "اكسر البيض، غطّي وسيبه لحد ما يستوي.", timer_sec: 300}
+  storage: {en: "Best eaten fresh.", ar: "الأحسن تتاكل طازة."}
+  reheating: {en: "Not recommended.", ar: "مش مستحب تتسخن."}
+- id: r_fish_rice
+  name: {en: "Grilled fish, rice & salad", ar: سمك مشوي ورز وسلطة}
+  slots: [lunch, dinner, iftar]
+  prep_min: 10
+  cook_min: 25
+  fridge_days: 2
+  batch: 2
+  ingredients:
+  - {food: fish_fillet, grams: 200, en: 1 large fillet, ar: فيليه كبير}
+  - {food: rice, grams: 150, en: 1 cup rice, ar: كوباية رز}
+  - {food: tomato, grams: 80, en: ⅔ tomato, ar: تلتين طماطماية}
+  - {food: cucumber, grams: 80, en: ¾ cucumber, ar: تلت أرباع خيارة}
+  - {food: lemon, grams: 15, en: 1 tbsp lemon juice, ar: معلقة كبيرة ليمون}
+  - {food: tahini, grams: 10, en: 2 tsp tahini, ar: 2 معلقة صغيرة طحينة}
+  - {food: olive_oil, grams: 5, en: 1 tsp olive oil, ar: معلقة صغيرة زيت زيتون}
+  steps:
+  - {en: "Season the fish with lemon and cumin; grill until it flakes.", ar: "تبّل السمك بالليمون والكمون، واشويه لحد ما يتفتت بسهولة.", timer_sec: 720}
+  - {en: "Cook the rice.", ar: "اطبخ الرز.", timer_sec: 1200}
+  - {en: "Dice the salad; dress with tahini, lemon and the oil.", ar: "قطّع السلطة، وتبّلها بالطحينة والليمون والزيت."}
+  storage: {en: "Fish keeps 2 days; keep the salad undressed.", ar: "السمك يقعد يومين؛ السلطة من غير تتبيلة."}
+  reheating: {en: "Reheat the fish gently, covered.", ar: "سخّن السمك على هادي ومتغطي."}
+- id: r_kofta_tahini
+  name: {en: "Beef kofta, baladi bread & tahini salad", ar: كفتة وعيش بلدي وسلطة طحينة}
+  slots: [lunch, dinner, iftar]
+  prep_min: 15
+  cook_min: 15
+  fridge_days: 3
+  batch: 4
+  ingredients:
+  - {food: beef_mince, grams: 150, en: 3 kofta fingers, ar: 3 صوابع كفتة}
+  - {food: onion, grams: 30, en: ¼ onion, ar: ربع بصلة}
+  - {food: parsley, grams: 10, en: 1 handful parsley, ar: حفنة بقدونس}
+  - {food: baladi_bread, grams: 90, en: 1 loaf, ar: رغيف}
+  - {food: tahini, grams: 15, en: 1 tbsp tahini, ar: معلقة كبيرة طحينة}
+  - {food: tomato, grams: 60, en: ½ tomato, ar: نص طماطماية}
+  - {food: cucumber, grams: 60, en: ½ cucumber, ar: نص خيارة}
+  steps:
+  - {en: "Mix the mince with grated onion and chopped parsley; shape into fingers.", ar: "اخلط اللحمة بالبصل المبشور والبقدونس المفروم، وشكّلها صوابع."}
+  - {en: "Grill or bake until cooked through.", ar: "اشويها أو ادخلها الفرن لحد ما تستوي.", timer_sec: 900}
+  - {en: "Serve with bread, salad and tahini.", ar: "قدّمها بالعيش والسلطة والطحينة."}
+  storage: {en: "Cooked kofta keeps 3 days.", ar: "الكفتة المطبوخة تقعد 3 أيام."}
+  reheating: {en: "Reheat in a pan or oven so it stays firm.", ar: "سخّنها في طاسة أو الفرن عشان تفضل متماسكة."}
+- id: r_cheese_sandwich
+  name: {en: "White cheese & areesh sandwich with salad", ar: ساندوتش جبنة بيضا وقريش بالسلطة}
+  slots: [breakfast, snack, suhoor]
+  prep_min: 5
+  cook_min: 0
+  fridge_days: 1
+  batch: 1
+  ingredients:
+  - {food: cottage_cheese, grams: 100, en: 1 piece areesh, ar: قطعة قريش}
+  - {food: white_cheese, grams: 30, en: 1 slice white cheese, ar: شريحة جبنة بيضا}
+  - {food: baladi_bread, grams: 90, en: 1 loaf, ar: رغيف}
+  - {food: tomato, grams: 60, en: ½ tomato, ar: نص طماطماية}
+  - {food: cucumber, grams: 60, en: ½ cucumber, ar: نص خيارة}
+  steps:
+  - {en: "Fill the bread with both cheeses, tomato and cucumber.", ar: "احشي العيش بالجبنتين والطماطم والخيار."}
+  storage: {en: "Best made fresh.", ar: "الأحسن يتعمل طازة."}
+  reheating: {en: "Eat cold.", ar: "يتاكل بارد."}
+- id: r_chicken_potatoes
+  name: {en: "Oven chicken & potatoes", ar: فراخ وبطاطس في الفرن}
+  slots: [lunch, dinner, iftar]
+  prep_min: 10
+  cook_min: 45
+  fridge_days: 3
+  batch: 4
+  ingredients:
+  - {food: chicken_breast, grams: 200, en: 1 large breast, ar: صدر فراخ كبير}
+  - {food: potato, grams: 250, en: 1½ medium potatoes, ar: بطاطساية ونص وسط}
+  - {food: onion, grams: 50, en: ½ onion, ar: نص بصلة}
+  - {food: tomato, grams: 80, en: ⅔ tomato, ar: تلتين طماطماية}
+  - {food: vegetable_oil, grams: 8, en: 1½ tsp oil, ar: معلقة ونص صغيرة زيت}
+  - {food: cumin, grams: 1, en: 1 pinch, ar: رشة}
+  steps:
+  - {en: "Slice the potatoes, onion and tomato into a tray with the oil and spices.", ar: "قطّع البطاطس والبصل والطماطم في صينية بالزيت والتوابل."}
+  - {en: "Put the seasoned chicken on top and bake until golden.", ar: "حط الفراخ المتبلة فوق وادخلها الفرن لحد ما تحمّر.", timer_sec: 2700}
+  storage: {en: "Up to 3 days in the fridge.", ar: "لحد 3 أيام في التلاجة."}
+  reheating: {en: "Reheat in the oven or microwave, covered.", ar: "سخّنها في الفرن أو المايكرويف متغطية."}

@@ -1,0 +1,210 @@
+# The weekly check-in: fixed questions, plus one optional note (max 300 characters). There is no chat.
+# Change the wording, options or ranges here; no code changes needed. Loaded and checked by backend/app/engine/checkin.py.
+# Each answer is stored as one checkin_answers row: {question_id, value}.
+#
+# type:
+#   number   value between min and max (step)        scale    whole number between min and max (labels optional)
+#   choice   one of `options`                         multi    a list of `options` (or of a dynamic list, see `options_from`)
+#   yesno    true / false                             text     free text up to `max_length` (only the note)
+#   per_injury  one entry per active injury: {injury_id, pain (0-10), trend}
+#   per_exercise  a list of {exercise_id, feel} for exercises in the current program
+#   regions  a list of body areas (ids from the body map)
+# options_from: where a dynamic list comes from (the current plan's meals, the program's exercises…).
+# red_flag: a "yes" (or any listed value) skips the normal review and shows "see a doctor or physiotherapist".
+version: 1
+steps: [body, training, injuries, nutrition, life, note]
+questions:
+- id: weight_kg
+  step: body
+  type: number
+  required: true
+  min: 30
+  max: 300
+  step_size: 0.1
+  en: "This week's weight · morning, before eating"
+  ar: "وزنك الأسبوع ده · الصبح قبل الأكل"
+- id: waist_cm
+  step: body
+  type: number
+  min: 40
+  max: 200
+  step_size: 0.5
+  en: Waist (cm)
+  ar: الوسط (سم)
+- id: hips_cm
+  step: body
+  type: number
+  min: 40
+  max: 200
+  step_size: 0.5
+  en: Hips (cm)
+  ar: الأرداف (سم)
+- id: chest_cm
+  step: body
+  type: number
+  min: 40
+  max: 200
+  step_size: 0.5
+  en: Chest (cm)
+  ar: الصدر (سم)
+- id: arm_cm
+  step: body
+  type: number
+  min: 15
+  max: 70
+  step_size: 0.5
+  en: Arm (cm)
+  ar: الدراع (سم)
+- id: thigh_cm
+  step: body
+  type: number
+  min: 25
+  max: 100
+  step_size: 0.5
+  en: Thigh (cm)
+  ar: الفخد (سم)
+- id: sessions_done
+  step: training
+  type: scale
+  required: true
+  min: 0
+  max_from: sessions_planned
+  en: "Sessions done"
+  ar: "الجلسات اللي اتعملت"
+- id: difficulty
+  step: training
+  type: scale
+  required: true
+  min: 1
+  max: 5
+  en: How hard did sessions feel?
+  ar: الجلسات كانت صعبة قد إيه؟
+- id: soreness
+  step: training
+  type: scale
+  required: true
+  min: 1
+  max: 5
+  en: Muscle soreness
+  ar: ألم العضلات
+- id: exercise_feedback
+  step: training
+  type: per_exercise
+  options: [tooEasy, tooHard, uncomfortable]
+  options_from: program_exercises
+  en: Any exercise that felt off?
+  ar: في تمرين كان مش مظبوط؟
+- id: injury_pain
+  step: injuries
+  type: per_injury
+  min: 0
+  max: 10
+  trend_options: [better, same, worse]
+  red_flag_trend: worse
+  en: Pain this week, compared with last week
+  ar: الألم الأسبوع ده، مقارنة بالأسبوع اللي فات
+- id: new_pain_regions
+  step: injuries
+  type: regions
+  en: Any new pain?
+  ar: في ألم جديد؟
+- id: sharp_pain
+  step: injuries
+  type: yesno
+  required: true
+  red_flag: true
+  en: Sharp or stabbing pain
+  ar: ألم حاد أو زي الطعنة
+- id: swelling
+  step: injuries
+  type: yesno
+  required: true
+  red_flag: true
+  en: Swelling
+  ar: ورم
+- id: numbness
+  step: injuries
+  type: yesno
+  required: true
+  red_flag: true
+  en: Numbness or tingling
+  ar: تنميل أو وخز
+- id: adherence_pct
+  step: nutrition
+  type: number
+  required: true
+  min: 0
+  max: 100
+  step_size: 5
+  en: How closely did you follow your meals?
+  ar: التزمت بوجباتك قد إيه؟
+- id: hunger
+  step: nutrition
+  type: scale
+  required: true
+  min: 1
+  max: 5
+  en: Hunger
+  ar: الجوع
+- id: meals_to_change
+  step: nutrition
+  type: multi
+  options_from: plan_recipes
+  en: Meals you'd like to change
+  ar: وجبات عايز تغيّرها
+- id: more_of
+  step: nutrition
+  type: multi
+  options: [chicken, eggs, fish, beef, lentils, fruit, potatoes, rice, bread, tahini]
+  en: More of
+  ar: أكتر من
+- id: less_of
+  step: nutrition
+  type: multi
+  options: [chicken, eggs, fish, beef, lentils, fruit, potatoes, rice, bread, tahini]
+  en: Less of
+  ar: أقل من
+- id: sleep
+  step: life
+  type: scale
+  required: true
+  min: 1
+  max: 5
+  en: Sleep quality
+  ar: جودة النوم
+- id: energy
+  step: life
+  type: scale
+  required: true
+  min: 1
+  max: 5
+  en: Energy
+  ar: الطاقة
+- id: stress
+  step: life
+  type: scale
+  required: true
+  min: 1
+  max: 5
+  en: Stress
+  ar: التوتر
+- id: days_available
+  step: life
+  type: scale
+  required: true
+  min: 2
+  max: 6
+  en: Days you can train next week
+  ar: الأيام اللي تقدر تتمرن فيها الأسبوع الجاي
+- id: obstacles
+  step: life
+  type: multi
+  options: [work, travel, illness, motivation, fasting, other]
+  en: Anything get in the way?
+  ar: في حاجة عطّلتك؟
+- id: note
+  step: note
+  type: text
+  max_length: 300
+  en: Anything else your coach should know?
+  ar: في حاجة تانية المدرب لازم يعرفها؟

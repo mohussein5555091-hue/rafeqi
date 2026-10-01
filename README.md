@@ -87,7 +87,8 @@ After a Playwright run, `npm --prefix tests/e2e run report` opens the HTML repor
 | Command | What it does |
 |---|---|
 | `npm run db:migrate` | Creates or updates the tables to the latest version (runs automatically with `npm run dev`). |
-| `npm run db:seed` | Loads the catalogue from `data/catalogue/`. It refuses to load and lists every problem if any exercise uses a tag that isn't in `data/vocab/movements.yaml`. Safe to re-run. |
+| `npm run db:seed` | Loads the catalogue from `data/catalogue/`: exercises, foods, generic grocery items and recipes. It refuses to load and lists every problem (an unknown tag, a missing translation, a link to something that doesn't exist, a price or brand field). Safe to re-run. |
+| `npm run personas` | Writes [`docs/personas.md`](docs/personas.md): the plan the engine builds for each of the 5 test personas. |
 | `npm run reset-password -- someone@example.com` | Admin: sets a new password for someone. You type it twice, hidden. It logs them out everywhere and lifts any login lock-out. Email reset comes later. |
 
 - The tables are described, with diagrams, in [`docs/database.md`](docs/database.md).
@@ -105,7 +106,29 @@ After a Playwright run, `npm --prefix tests/e2e run report` opens the HTML repor
 API endpoints so far (try them at http://localhost:5173/api/docs):
 `POST /api/auth/signup`, `POST /api/auth/login`, `POST /api/auth/logout`, `POST /api/auth/change-password`,
 `GET/PATCH/DELETE /api/me`, `GET/POST /api/weights`, `DELETE /api/weights/{id}`,
-`GET /api/onboarding`, `PUT /api/onboarding/{about|goal|training|injuries|health|food}`, `POST /api/onboarding/complete`.
+`GET /api/onboarding`, `PUT /api/onboarding/{about|goal|training|injuries|health|food}`, `POST /api/onboarding/complete`,
+`POST /api/plan` (build a new plan version from the saved answers), `GET /api/plan` (the current plan).
+
+## The plan engine
+
+Every number in a plan comes from plain, tested Python in `backend/app/engine/`, never from an AI model. The AI (next session)
+only writes the explanations and the weekly-review text. Each number keeps a one-line reason (English and Arabic) with the rule and its source.
+
+| What | Rules | Code |
+|---|---|---|
+| Calories and macros: Mifflin-St Jeor × activity, goal adjustment, protein per kg, fat minimum, carbs from the rest | `data/rules/nutrition.yaml` | `engine/nutrition.py` |
+| Safety: calorie floor, maximum weekly loss, health-flag limits, no deficit in pregnancy, red flags | `data/rules/safety.yaml` | `engine/nutrition.py`, `engine/injuries.py` |
+| Program: template choice, equipment and injury swaps, lighter loads, starting weights | `data/rules/training.yaml`, `data/programs/*.json` | `engine/training.py`, `engine/injuries.py` |
+| Meals: recipes and portions picked by an optimizer (scipy MILP), every day ±5% calories, protein ≥ target | `data/rules/nutrition.yaml` (`meals`) | `engine/meals.py` |
+| Grocery list: weekly fresh items, monthly staples × 4.3, pantry, pack sizes, WhatsApp text | `data/catalogue/grocery_items.yaml` | `engine/grocery.py` |
+| Weekly check-in questions | `data/checkin_questions.yaml` | `engine/checkin.py` |
+| Weekly review: calories, deload, too easy / too hard / uncomfortable, pain, meals to change | all of the above | `engine/review.py` |
+| Session targets from last time (double progression) | `data/rules/progression.yaml` | `app/progression.py` |
+
+- **All values are placeholders for now**, clearly marked `placeholder: true` with a `PLACEHOLDER:` source. The real values,
+  with book and page, are extracted from the books next session. Change a value in the YAML and the next plan uses it; no code changes.
+- `backend/app/plans.py` reads the answers, runs the engine and saves a plan version (plans are never edited: each change is version n+1).
+- The 5 test personas are in `tests/backend/personas.py`; `tests/backend/test_personas.py` checks each plan against the safety bounds.
 
 ## Settings (.env)
 
@@ -135,6 +158,6 @@ Rafeqi never shows prices, costs or budgets, because people shop at different st
 - [x] Phase 1: project setup; designed screens running on sample data
 - [x] Phase 2: database and auth (the frontend still uses sample data until Phase 5)
 - [x] Phase 3: onboarding questionnaire (backend saves each step and checks every answer; the screens call it through `src/data/api.ts`, still on sample data until Phase 5)
-- [ ] Phase 4: plan engine
+- [x] Phase 4: plan engine (all rule values are placeholders until extracted from the books)
 - [ ] Phase 5: connect the frontend
 - [ ] Phase 6: remaining screens

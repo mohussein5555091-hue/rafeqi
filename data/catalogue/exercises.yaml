@@ -861,3 +861,721 @@ exercises:
       ar: قعدة الحيطة
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_db_bench_press
+  name:
+    en: Dumbbell bench press
+    ar: بنش بريس بالدمبل
+  description:
+    en: A chest press lying on a flat bench with a dumbbell in each hand. Trains chest, front shoulders and triceps.
+    ar: ضغط صدر وأنت نايم على بنش مفرود ودمبل في كل إيد. بيشتغل على الصدر ومقدمة الكتف والترايسبس.
+  movement_pattern: horizontalPush
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - chest
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  - armL
+  - armR
+  muscle_names:
+    en: Chest · front shoulders, triceps
+    ar: الصدر · مقدمة الكتف، الترايسبس
+  instructions:
+  - en: Lie on a flat bench, feet on the floor, a dumbbell in each hand above your chest.
+    ar: نام على بنش مفرود ورجليك على الأرض، ودمبل في كل إيد فوق صدرك.
+  - en: Lower the dumbbells to the sides of your chest.
+    ar: نزّل الدمبل لجنب صدرك.
+  - en: Press them back up until your arms are straight.
+    ar: ادفعهم لفوق لحد ما دراعك يفرد.
+  - en: Keep your shoulder blades pulled back the whole time.
+    ar: خلّي لوحي الكتف مشدودين لورا طول الوقت.
+  cues:
+  - en: Elbows about 45° from your body
+    ar: الكوع حوالي 45 درجة من جسمك
+  - en: Feet planted
+    ar: رجليك ثابتة على الأرض
+  - en: Control the way down
+    ar: انزل بتحكم
+  mistakes:
+  - en: Bouncing at the bottom
+    ar: النط تحت
+  - en: Flaring the elbows out wide
+    ar: فتح الكوع لبرّه أوي
+  image_url: /exercises/Dumbbell_Bench_Press/0.jpg
+  image_frames:
+  - /exercises/Dumbbell_Bench_Press/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Dumbbell+bench+press+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dumbbell_Bench_Press
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Push-up
+      ar: ضغط
+    kind: easier
+  - name:
+      en: Neutral-grip dumbbell floor press
+      ar: ضغط دمبل من الأرض بقبضة محايدة
+    kind: injuryFriendly
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_db_shoulder_press
+  name:
+    en: Seated dumbbell shoulder press
+    ar: ضغط كتف بالدمبل وأنت قاعد
+  description:
+    en: Pressing two dumbbells overhead while seated with back support. Trains shoulders and triceps.
+    ar: ضغط دمبلين فوق راسك وأنت قاعد وضهرك مسنود. بيشتغل على الكتف والترايسبس.
+  movement_pattern: verticalPush
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: overhead
+  equipment:
+  - dumbbells
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Shoulders · triceps
+    ar: الكتف · الترايسبس
+  instructions:
+  - en: Sit on a bench set upright, a dumbbell in each hand at shoulder height.
+    ar: اقعد على بنش واقف، ودمبل في كل إيد عند مستوى كتفك.
+  - en: Press the dumbbells up until your arms are straight.
+    ar: ادفع الدمبل لفوق لحد ما دراعك يفرد.
+  - en: Lower slowly back to shoulder height.
+    ar: نزّل ببطء لمستوى كتفك.
+  cues:
+  - en: Back stays on the pad
+    ar: ضهرك على المسند
+  - en: Ribs down, don't arch
+    ar: ماتقوّسش ضهرك
+  - en: Press slightly in front of your head
+    ar: ادفع قدام راسك سنة
+  mistakes:
+  - en: Arching the lower back
+    ar: تقويس أسفل الضهر
+  - en: Lowering only halfway
+    ar: تنزل نص المسافة بس
+  image_url: /exercises/Dumbbell_Shoulder_Press/0.jpg
+  image_frames:
+  - /exercises/Dumbbell_Shoulder_Press/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Seated+dumbbell+shoulder+press+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dumbbell_Shoulder_Press
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Half-kneeling landmine press
+      ar: ضغط لاندماين على ركبة واحدة
+    kind: injuryFriendly
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_lateral_raise
+  name:
+    en: Dumbbell lateral raise
+    ar: رفرفة جانبي بالدمبل
+  description:
+    en: Raising light dumbbells out to the sides up to shoulder height. Trains the side of the shoulders.
+    ar: رفع دمبل خفيف للجنب لحد مستوى الكتف. بيشتغل على جانب الكتف.
+  movement_pattern: shoulderAbduction
+  joints_loaded:
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  difficulty: beginner
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles: []
+  muscle_names:
+    en: Side shoulders
+    ar: جانب الكتف
+  instructions:
+  - en: Stand with a light dumbbell in each hand at your sides.
+    ar: اقف ودمبل خفيف في كل إيد جنبك.
+  - en: Raise your arms out to the sides, elbows slightly bent.
+    ar: ارفع دراعك للجنب والكوع مثني سنة.
+  - en: Stop at shoulder height, then lower slowly.
+    ar: اقف عند مستوى الكتف، وبعدين نزّل ببطء.
+  cues:
+  - en: Lead with the elbows
+    ar: الكوع هو اللي يقود
+  - en: No swinging
+    ar: من غير مرجحة
+  - en: Shoulders away from your ears
+    ar: الكتف بعيد عن ودنك
+  mistakes:
+  - en: Shrugging the weight up
+    ar: رفع الوزن بالترابيس
+  - en: Going too heavy
+    ar: وزن تقيل أوي
+  image_url: /exercises/Side_Lateral_Raise/0.jpg
+  image_frames:
+  - /exercises/Side_Lateral_Raise/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Dumbbell+lateral+raise+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Side_Lateral_Raise
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Cable lateral raise
+      ar: رفرفة جانبي بالكابل
+    kind: equipment
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_push_up
+  name:
+    en: Push-up
+    ar: ضغط
+  description:
+    en: Lowering and pushing your body up from the floor with a straight body. Trains chest, shoulders and triceps.
+    ar: تنزل وتطلع بجسمك من الأرض وجسمك مفرود. بيشتغل على الصدر والكتف والترايسبس.
+  movement_pattern: horizontalPush
+  joints_loaded:
+  - shoulder
+  - elbow
+  - wrist
+  range_of_motion: full
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - chest
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  - armL
+  - armR
+  muscle_names:
+    en: Chest · shoulders, triceps
+    ar: الصدر · الكتف، الترايسبس
+  instructions:
+  - en: Start in a plank, hands a little wider than your shoulders.
+    ar: ابدأ في وضع البلانك وإيديك أوسع سنة من كتفك.
+  - en: Lower your chest towards the floor in one straight line.
+    ar: نزّل صدرك ناحية الأرض وجسمك خط واحد.
+  - en: Push the floor away to come back up.
+    ar: ادفع الأرض عشان تطلع.
+  cues:
+  - en: Body in one line
+    ar: جسمك خط واحد
+  - en: Squeeze your glutes
+    ar: اعصر المؤخرة
+  - en: Elbows about 45°
+    ar: الكوع حوالي 45 درجة
+  mistakes:
+  - en: Hips sagging
+    ar: الوسط ينزل
+  - en: Half reps
+    ar: عدّات نص مدى
+  image_url: /exercises/Pushups/0.jpg
+  image_frames:
+  - /exercises/Pushups/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Push-up+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Pushups
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Incline push-up on a bench
+      ar: ضغط مائل على بنش
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_bb_squat
+  name:
+    en: Barbell back squat
+    ar: سكوات بالبار
+  description:
+    en: A squat with a barbell on your upper back. The main lower-body strength lift. Trains thighs, glutes and back.
+    ar: سكوات والبار على أعلى ضهرك. أهم تمرين قوة للجزء السفلي. بيشتغل على الفخد والمؤخرة والضهر.
+  movement_pattern: squat
+  joints_loaded:
+  - knee
+  - hip
+  - spine
+  range_of_motion: full
+  equipment:
+  - barbell
+  difficulty: intermediate
+  primary_muscles:
+  - thighL
+  - thighR
+  - hipL
+  - hipR
+  secondary_muscles:
+  - lowerBack
+  muscle_names:
+    en: Thighs, glutes · lower back
+    ar: الفخد، المؤخرة · أسفل الضهر
+  instructions:
+  - en: Set the bar on your upper back in a rack and step back, feet shoulder-width.
+    ar: حط البار على أعلى ضهرك في الراك وارجع خطوة، ورجليك بعرض كتفك.
+  - en: Brace your stomach and sit down between your heels.
+    ar: اشدّ بطنك وانزل كأنك بتقعد بين كعوبك.
+  - en: Go to at least thighs parallel to the floor.
+    ar: انزل لحد ما فخدك يبقى موازي للأرض على الأقل.
+  - en: Drive up through your whole foot.
+    ar: اطلع بقوة برجلك كلها.
+  cues:
+  - en: Brace before each rep
+    ar: اشدّ بطنك قبل كل عدّة
+  - en: Knees follow your toes
+    ar: الركبة في اتجاه صوابعك
+  - en: Chest up
+    ar: صدرك لفوق
+  mistakes:
+  - en: Knees caving in
+    ar: الركبة تدخل لجوه
+  - en: Heels lifting
+    ar: الكعب يترفع
+  - en: Rounding the back at the bottom
+    ar: تقويس الضهر تحت
+  image_url: /exercises/Barbell_Squat/0.jpg
+  image_frames:
+  - /exercises/Barbell_Squat/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Barbell+back+squat+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Barbell_Squat
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Goblet squat
+      ar: سكوات جوبلت
+    kind: easier
+  - name:
+      en: Leg press
+      ar: ليج برس
+    kind: injuryFriendly
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_bb_bench_press
+  name:
+    en: Barbell bench press
+    ar: بنش بريس بالبار
+  description:
+    en: A chest press with a barbell on a flat bench. The main upper-body pushing lift.
+    ar: ضغط صدر بالبار على بنش مفرود. أهم تمرين دفع للجزء العلوي.
+  movement_pattern: horizontalPush
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - barbell
+  - bench
+  difficulty: intermediate
+  primary_muscles:
+  - chest
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  - armL
+  - armR
+  muscle_names:
+    en: Chest · front shoulders, triceps
+    ar: الصدر · مقدمة الكتف، الترايسبس
+  instructions:
+  - en: Lie on the bench, eyes under the bar, hands a little wider than shoulders.
+    ar: نام على البنش وعينك تحت البار، وإيديك أوسع سنة من كتفك.
+  - en: Unrack and lower the bar to your lower chest.
+    ar: شيل البار ونزّله لأسفل صدرك.
+  - en: Press it back up over your shoulders.
+    ar: ادفعه لفوق فوق كتفك.
+  cues:
+  - en: Shoulder blades squeezed together
+    ar: لوحي الكتف مضمومين
+  - en: Feet pushing into the floor
+    ar: رجليك بتدفع الأرض
+  - en: Touch, don't bounce
+    ar: المس صدرك من غير نط
+  mistakes:
+  - en: Bouncing the bar off the chest
+    ar: نط البار على الصدر
+  - en: Lifting the hips
+    ar: رفع الوسط
+  image_url: /exercises/Barbell_Bench_Press_-_Medium_Grip/0.jpg
+  image_frames:
+  - /exercises/Barbell_Bench_Press_-_Medium_Grip/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Barbell+bench+press+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Barbell_Bench_Press_-_Medium_Grip
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Dumbbell bench press
+      ar: بنش بريس بالدمبل
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_bb_deadlift
+  name:
+    en: Barbell deadlift
+    ar: ديدليفت بالبار
+  description:
+    en: Lifting a barbell from the floor to standing by pushing the hips forward. Trains the whole back of the body.
+    ar: ترفع البار من الأرض لحد ما تقف وأنت بتدفع وسطك لقدام. بيشتغل على كل الجزء الخلفي من الجسم.
+  movement_pattern: hinge
+  joints_loaded:
+  - hip
+  - spine
+  - knee
+  range_of_motion: full
+  equipment:
+  - barbell
+  difficulty: intermediate
+  primary_muscles:
+  - thighL
+  - thighR
+  - hipL
+  - hipR
+  - lowerBack
+  secondary_muscles:
+  - upperBack
+  - forearmL
+  - forearmR
+  muscle_names:
+    en: Hamstrings, glutes, lower back · upper back, grip
+    ar: الفخد الخلفية، المؤخرة، أسفل الضهر · أعلى الضهر، القبضة
+  instructions:
+  - en: Stand with the bar over the middle of your feet, grip it just outside your legs.
+    ar: اقف والبار فوق نص رجلك، وامسكه برّه رجلك على طول.
+  - en: Flatten your back and pull the slack out of the bar.
+    ar: افرد ضهرك واشدّ البار من غير ما ترفعه.
+  - en: Push the floor away and stand up tall.
+    ar: ادفع الأرض واقف مفرود.
+  - en: Lower the bar the same way, hips back first.
+    ar: نزّل البار بنفس الطريقة، وسطك يرجع لورا الأول.
+  cues:
+  - en: Bar stays close to your legs
+    ar: البار لازق في رجلك
+  - en: Back flat
+    ar: ضهرك مفرود
+  - en: Stand tall, don't lean back
+    ar: اقف مفرود من غير ما تميل لورا
+  mistakes:
+  - en: Rounding the back
+    ar: تقويس الضهر
+  - en: Jerking the bar off the floor
+    ar: شد البار بعنف من الأرض
+  image_url: /exercises/Barbell_Deadlift/0.jpg
+  image_frames:
+  - /exercises/Barbell_Deadlift/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Barbell+deadlift+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Barbell_Deadlift
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Dumbbell Romanian deadlift
+      ar: رفعة رومانية بالدمبل
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_bw_squat
+  name:
+    en: Bodyweight squat
+    ar: سكوات بوزن الجسم
+  description:
+    en: A squat with no weight. Good for learning the movement and for training at home. Trains thighs and glutes.
+    ar: سكوات من غير وزن. كويس عشان تتعلم الحركة وتتمرن في البيت. بيشتغل على الفخد والمؤخرة.
+  movement_pattern: squat
+  joints_loaded:
+  - knee
+  - hip
+  range_of_motion: full
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles:
+  - hipL
+  - hipR
+  muscle_names:
+    en: Thighs · glutes
+    ar: الفخد · المؤخرة
+  instructions:
+  - en: Stand with feet shoulder-width apart, arms in front.
+    ar: اقف ورجليك بعرض كتفك ودراعك قدامك.
+  - en: Sit down between your heels as low as you can.
+    ar: انزل بين كعوبك لأوطى نقطة تقدر عليها.
+  - en: Stand back up by pushing through your whole foot.
+    ar: اقف تاني وأنت بتدفع برجلك كلها.
+  cues:
+  - en: Chest up
+    ar: صدرك لفوق
+  - en: Knees follow your toes
+    ar: الركبة في اتجاه صوابعك
+  - en: Slow on the way down
+    ar: انزل ببطء
+  mistakes:
+  - en: Heels lifting
+    ar: الكعب يترفع
+  - en: Knees caving in
+    ar: الركبة تدخل لجوه
+  image_url: /exercises/Bodyweight_Squat/0.jpg
+  image_frames:
+  - /exercises/Bodyweight_Squat/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Bodyweight+squat+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Bodyweight_Squat
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Box squat to a chair
+      ar: سكوات لحد الكرسي
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_inverted_row
+  name:
+    en: Inverted row
+    ar: تجديف معكوس
+  description:
+    en: Pulling your chest up to a bar or sturdy table edge while your body hangs underneath. Trains the upper back and biceps.
+    ar: تشد صدرك لفوق ناحية بار أو حرف ترابيزة تقيلة وجسمك متعلق تحتها. بيشتغل على أعلى الضهر والبايسبس.
+  movement_pattern: horizontalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Upper back · biceps
+    ar: أعلى الضهر · البايسبس
+  instructions:
+  - en: Lie under a bar set at waist height and grip it a little wider than your shoulders.
+    ar: نام تحت بار على ارتفاع وسطك وامسكه أوسع سنة من كتفك.
+  - en: Keep your body straight from heels to head.
+    ar: خلّي جسمك مفرود من كعبك لراسك.
+  - en: Pull your chest up to the bar.
+    ar: اشدّ صدرك لحد البار.
+  - en: Lower slowly until your arms are straight.
+    ar: انزل ببطء لحد ما دراعك يفرد.
+  cues:
+  - en: Squeeze your shoulder blades
+    ar: اضغط لوحي الكتف
+  - en: Body stays straight
+    ar: جسمك مفرود
+  - en: Bend your knees to make it easier
+    ar: اثني ركبتك عشان تسهل
+  mistakes:
+  - en: Hips dropping
+    ar: الوسط ينزل
+  - en: Half reps
+    ar: عدّات نص مدى
+  image_url: /exercises/Inverted_Row/0.jpg
+  image_frames:
+  - /exercises/Inverted_Row/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Inverted+row+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Inverted_Row
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Chest-supported dumbbell row
+      ar: تجديف دمبل بسند للصدر
+    kind: equipment
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_one_arm_db_row
+  name:
+    en: One-arm dumbbell row
+    ar: تجديف دمبل بإيد واحدة
+  description:
+    en: Rowing one dumbbell to your hip with the other hand supported. Trains the upper back and biceps.
+    ar: تشد دمبل واحد لوسطك والإيد التانية سانداك. بيشتغل على أعلى الضهر والبايسبس.
+  movement_pattern: horizontalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Upper back · biceps
+    ar: أعلى الضهر · البايسبس
+  instructions:
+  - en: Put one hand and knee on a bench or chair, dumbbell in the other hand.
+    ar: حط إيد وركبة على بنش أو كرسي، والدمبل في الإيد التانية.
+  - en: Pull the dumbbell up towards your hip.
+    ar: اشدّ الدمبل لفوق ناحية وسطك.
+  - en: Lower it slowly until your arm is straight.
+    ar: نزّله ببطء لحد ما دراعك يفرد.
+  - en: Finish all reps, then switch sides.
+    ar: خلّص العدّات وبعدين بدّل.
+  cues:
+  - en: Back flat
+    ar: ضهرك مفرود
+  - en: Pull with the elbow
+    ar: اشدّ بالكوع
+  - en: No twisting
+    ar: من غير لف
+  mistakes:
+  - en: Twisting the torso
+    ar: لف الجسم
+  - en: Shrugging the weight up
+    ar: رفع الوزن بالترابيس
+  image_url: /exercises/One-Arm_Dumbbell_Row/0.jpg
+  image_frames:
+  - /exercises/One-Arm_Dumbbell_Row/1.jpg
+  video_url: https://www.youtube.com/results?search_query=One-arm+dumbbell+row+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/One-Arm_Dumbbell_Row
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Inverted row
+      ar: تجديف معكوس
+    kind: equipment
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_pull_up
+  name:
+    en: Pull-up
+    ar: عقلة
+  description:
+    en: Pulling your body up to a bar from a dead hang. Trains the back and biceps.
+    ar: تشد جسمك لفوق لحد البار وأنت متعلق. بيشتغل على الضهر والبايسبس.
+  movement_pattern: verticalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: overhead
+  equipment:
+  - pullUpBar
+  difficulty: intermediate
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  - forearmL
+  - forearmR
+  muscle_names:
+    en: Back · biceps, forearms
+    ar: الضهر · البايسبس، الساعد
+  instructions:
+  - en: Hang from the bar, hands a little wider than your shoulders.
+    ar: اتعلق في البار وإيديك أوسع سنة من كتفك.
+  - en: Pull your chest up towards the bar.
+    ar: اشدّ صدرك لفوق ناحية البار.
+  - en: Lower all the way down with control.
+    ar: انزل لآخر المسافة بتحكم.
+  cues:
+  - en: Start by pulling the shoulders down
+    ar: ابدأ بشدّ الكتف لتحت
+  - en: No kicking
+    ar: من غير رفس
+  - en: Full hang at the bottom
+    ar: افرد دراعك خالص تحت
+  mistakes:
+  - en: Swinging
+    ar: المرجحة
+  - en: Half reps
+    ar: عدّات نص مدى
+  image_url: /exercises/Pullups/0.jpg
+  image_frames:
+  - /exercises/Pullups/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Pull-up+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Pullups
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Neutral-grip lat pulldown
+      ar: سحب علوي بقبضة محايدة
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_ohp
+  name:
+    en: Standing barbell overhead press
+    ar: ضغط كتف بالبار واقف
+  description:
+    en: Pressing a barbell from your shoulders to overhead while standing. Trains shoulders, triceps and core.
+    ar: تضغط البار من كتفك لفوق راسك وأنت واقف. بيشتغل على الكتف والترايسبس والجذع.
+  movement_pattern: verticalPush
+  joints_loaded:
+  - shoulder
+  - elbow
+  - spine
+  range_of_motion: overhead
+  equipment:
+  - barbell
+  difficulty: intermediate
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles:
+  - armL
+  - armR
+  - abdomen
+  muscle_names:
+    en: Shoulders · triceps, core
+    ar: الكتف · الترايسبس، الجذع
+  instructions:
+  - en: Hold the bar at your shoulders, hands just outside them.
+    ar: امسك البار عند كتفك وإيديك برّه كتفك على طول.
+  - en: Squeeze your glutes and stomach.
+    ar: اعصر المؤخرة والبطن.
+  - en: Press the bar straight up, moving your head back out of the way.
+    ar: ادفع البار لفوق على طول، وراسك ترجع سنة عشان تعدّي.
+  - en: Lower it back to your shoulders.
+    ar: نزّله لكتفك تاني.
+  cues:
+  - en: Ribs down
+    ar: ماتقوّسش ضهرك
+  - en: Bar over the middle of your foot
+    ar: البار فوق نص رجلك
+  - en: Lock out overhead
+    ar: افرد دراعك خالص فوق
+  mistakes:
+  - en: Leaning back
+    ar: الميل لورا
+  - en: Pressing the bar forward
+    ar: دفع البار لقدام
+  image_url: /exercises/Standing_Military_Press/0.jpg
+  image_frames:
+  - /exercises/Standing_Military_Press/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Standing+barbell+overhead+press+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Standing_Military_Press
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Seated dumbbell shoulder press
+      ar: ضغط كتف بالدمبل وأنت قاعد
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
