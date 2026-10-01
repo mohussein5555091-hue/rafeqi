@@ -4,7 +4,7 @@ import * as mock from '@/mocks/sampleData';
 import { nextTarget } from '@/mocks/progression';
 import type {
   CheckIn, Dashboard, Exercise, GroceryItem, GroceryList, Injury, InjuryInput, Meal, MealDay,
-  MealWeekDay, PantryItem, Plan, PlanGenerationStep, Progress, QuestionnaireAnswers, Recipe,
+  MealWeekDay, OnboardingState, OnboardingStep, PantryItem, Plan, PlanGenerationStep, Progress, QuestionnaireAnswers, Recipe,
   ExerciseResult, User, WeeklyReview, WeightLog, Workout, WorkoutLog, WorkoutWeek,
 } from '@/types';
 
@@ -26,6 +26,18 @@ const withTargets = (w: mock.PlannedWorkout): Workout => ({
 });
 let workoutWeek: WorkoutWeek = { ...clone(mock.workoutWeek), sessions: mock.workoutWeek.sessions.map((s) => withTargets(clone(s))) };
 let weightToday: WeightLog | null = null;
+
+const ONBOARDING_ORDER: OnboardingStep[] = ['about', 'goal', 'training', 'injuries', 'health', 'food', 'review'];
+const ONBOARDING_KEY = 'rafeqi.onboarding';
+/** Sample-data stand-in for the profile row: kept in sessionStorage so answers survive a reload. */
+function onboarding(): OnboardingState {
+  try {
+    const raw = JSON.parse(sessionStorage.getItem(ONBOARDING_KEY) ?? 'null');
+    if (raw?.answers) return { ...raw, answers: { ...mock.onboardingAnswers, ...raw.answers } };
+  } catch { /* fall through */ }
+  return { answers: clone(mock.onboardingAnswers), step: 'about', completed: false };
+}
+function saveOnboarding(s: OnboardingState) { try { sessionStorage.setItem(ONBOARDING_KEY, JSON.stringify(s)); } catch { /* not persisted */ } }
 
 export const api = {
   // ── Auth ──
@@ -51,9 +63,27 @@ export const api = {
    * Plan generation runs on a local model and takes 30–90 s.
    * onStep is called as each stage finishes so the wait screen can show progress.
    */
-  async generatePlan(_answers: QuestionnaireAnswers, onStep?: (step: PlanGenerationStep) => void): Promise<Plan> {
+  async generatePlan(onStep?: (step: PlanGenerationStep) => void): Promise<Plan> {
     for (const step of ['calories', 'program', 'injuries', 'meals'] as PlanGenerationStep[]) { await wait(900); onStep?.(step); }
     return clone(mock.plan);
+  },
+
+  // ── Onboarding questionnaire (backend: /api/onboarding, Phase 3) ──
+  async getOnboarding(): Promise<OnboardingState> { await wait(150); return clone(onboarding()); },
+  /** Saves one step (PUT /api/onboarding/{step}); the backend checks every answer again. */
+  async saveOnboardingStep(step: Exclude<OnboardingStep, 'review'>, answers: QuestionnaireAnswers): Promise<OnboardingState> {
+    await wait(200);
+    if (step === 'about' && answers.age < 18) throw new Error('must_be_adult');
+    const s = onboarding();
+    const next = ONBOARDING_ORDER[ONBOARDING_ORDER.indexOf(step) + 1];
+    saveOnboarding({ answers: clone(answers), step: ONBOARDING_ORDER.indexOf(next) > ONBOARDING_ORDER.indexOf(s.step) ? next : s.step, completed: s.completed });
+    return clone(onboarding());
+  },
+  /** POST /api/onboarding/complete: every step must be answered. */
+  async completeOnboarding(): Promise<OnboardingState> {
+    await wait(200);
+    saveOnboarding({ ...onboarding(), step: 'review', completed: true });
+    return clone(onboarding());
   },
 
   // ── Dashboard ──

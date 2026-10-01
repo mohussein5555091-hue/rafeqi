@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import type { LucideIcon } from 'lucide-react';
 import {
@@ -6,53 +6,64 @@ import {
   User as UserIcon, Target, Bandage, HeartPulse, Utensils, Lock, MoonStar,
 } from 'lucide-react';
 import {
-  BodyMap, Button, Card, ChipGroup, Field, FlowShell, Icon, NumberStepper, ScalePicker, Segmented, cn, type RegionState,
+  BodyMap, Button, Card, ChipGroup, Field, FlowShell, Icon, NumberStepper, QueryView, ScalePicker, Segmented, cn, useToast, type RegionState,
 } from '@/components';
 import { useI18n } from '@/i18n';
+import { api } from '@/data/api';
+import { useQuery } from '@/data/useQuery';
 import type { BodyRegion, InjuryInput, QuestionnaireAnswers } from '@/types';
 import { ALLERGIES, EXPERIENCE, FOODS, GOALS, HEALTH_KEYS, INJURY_TYPES, LOCATIONS, MOVEMENTS, PACES, REGION_LIST, RESTRICTIONS, sideOf } from '@/constants';
 
 export const ONBOARDING_STEPS = ['about', 'goal', 'training', 'injuries', 'health', 'food', 'review'] as const;
 type StepId = (typeof ONBOARDING_STEPS)[number];
-const STORAGE = 'rafeqi.onboarding';
-
-export const defaultAnswers: QuestionnaireAnswers = {
-  sex: 'male', age: 29, heightCm: 180, weightKg: 88, waistCm: 96,
-  goal: 'loseFat', pace: 'steady', experience: 'intermediate', daysPerWeek: 4, sessionMinutes: 60, location: 'gym',
-  injuries: [{ region: 'shoulderL', side: 'left', type: 'tendon', severity: 3, painfulMovements: ['overheadPress', 'benchPress', 'dips'], restrictions: ['noOverhead'] }],
-  health: { heartCondition: false, diabetes: false, pregnancy: false, recentSurgery: false, exerciseMedication: false },
-  food: { mealsPerDay: 4, dislikes: ['liver', 'eggplant'], allergies: ['none'], fasting: ['ramadan'], cookingMinutes: 30 },
-};
-
-export const loadAnswers = (): QuestionnaireAnswers => {
-  const raw = sessionStorage.getItem(STORAGE);
-  return raw ? { ...defaultAnswers, ...JSON.parse(raw) } : defaultAnswers;
-};
 
 type StepProps = { a: QuestionnaireAnswers; set: (patch: Partial<QuestionnaireAnswers>) => void };
 
-/** Onboarding questionnaire: 7 steps, answers kept in sessionStorage between steps and reloads. */
+/** /onboarding: picks up at the step the person reached last time. */
+export function OnboardingStart() {
+  const q = useQuery(() => api.getOnboarding());
+  return q.data ? <Navigate to={`/onboarding/${q.data.step}`} replace /> : <QueryView query={q}>{() => null}</QueryView>;
+}
+
+/** Onboarding questionnaire: 7 steps. Each step is saved when you tap Next, so you can stop and come back. */
 export function Onboarding() {
+  const q = useQuery(() => api.getOnboarding());
+  return q.data ? <OnboardingFlow initial={q.data.answers} /> : <div className="p-5"><QueryView query={q}>{() => null}</QueryView></div>;
+}
+
+function OnboardingFlow({ initial }: { initial: QuestionnaireAnswers }) {
   const { step = 'about' } = useParams<{ step: StepId }>();
   const nav = useNavigate();
   const { t } = useI18n();
-  const [a, setA] = useState<QuestionnaireAnswers>(loadAnswers);
-  useEffect(() => { sessionStorage.setItem(STORAGE, JSON.stringify(a)); }, [a]);
+  const toast = useToast();
+  const [a, setA] = useState<QuestionnaireAnswers>(initial);
+  const [saving, setSaving] = useState(false);
   const idx = ONBOARDING_STEPS.indexOf(step as StepId);
   if (idx < 0) return <Navigate to="/onboarding/about" replace />;
   const set = (patch: Partial<QuestionnaireAnswers>) => setA((prev) => ({ ...prev, ...patch }));
   const go = (i: number) => nav(`/onboarding/${ONBOARDING_STEPS[i]}`);
   const isLast = idx === ONBOARDING_STEPS.length - 1;
   const Step = { about: AboutStep, goal: GoalStep, training: TrainingStep, injuries: InjuriesStep, health: HealthStep, food: FoodStep, review: ReviewStep }[step as StepId];
+  const next = async () => {
+    setSaving(true);
+    try {
+      if (isLast) { await api.completeOnboarding(); nav('/onboarding/generating'); }
+      else { await api.saveOnboardingStep(step as Exclude<StepId, 'review'>, a); go(idx + 1); }
+    } catch {
+      toast({ message: t('onboarding.saveFailed'), tone: 'error' });
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
     <FlowShell
       title={t(`onboarding.${step}.title`)} intro={t(`onboarding.${step}.intro`)}
       step={idx + 1} total={ONBOARDING_STEPS.length}
       onBack={idx > 0 ? () => go(idx - 1) : undefined}
-      onNext={() => (isLast ? nav('/onboarding/generating') : go(idx + 1))}
+      onNext={next}
       nextLabel={isLast ? t('onboarding.review.build') : undefined}
-      nextDisabled={step === 'about' && a.age < 18}
+      nextDisabled={saving || (step === 'about' && a.age < 18)}
       footerNote={isLast ? t('onboarding.review.buildNote') : undefined}
     >
       <Step a={a} set={set} />

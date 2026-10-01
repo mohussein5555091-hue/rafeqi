@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { RequireAuth } from '@/data/session';
 import { Login, SignUp, ForgotPassword } from '@/screens/auth/AuthScreens';
-import { Onboarding } from '@/screens/onboarding/Onboarding';
+import { Onboarding, OnboardingStart } from '@/screens/onboarding/Onboarding';
 import { PlanGenerating, PlanReady } from '@/screens/onboarding/PlanScreens';
 import { Dashboard } from '@/screens/home/Dashboard';
 import { WorkoutPlan, Session, ExerciseDetail, WorkoutLogger } from '@/screens/workouts/WorkoutScreens';
@@ -22,7 +22,7 @@ export function App() {
 
       <Route path="/onboarding/generating" element={auth(<PlanGenerating />)} />
       <Route path="/onboarding/:step" element={auth(<Onboarding />)} />
-      <Route path="/onboarding" element={<Navigate to="/onboarding/about" replace />} />
+      <Route path="/onboarding" element={auth(<OnboardingStart />)} />
       <Route path="/plan-ready" element={auth(<PlanReady />)} />
 
       <Route path="/" element={auth(<Dashboard />)} />

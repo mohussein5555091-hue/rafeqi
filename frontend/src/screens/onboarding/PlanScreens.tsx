@@ -6,7 +6,6 @@ import { useI18n } from '@/i18n';
 import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
 import { useSession } from '@/data/session';
-import { loadAnswers } from './Onboarding';
 import type { PlanGenerationStep } from '@/types';
 
 const STEPS: PlanGenerationStep[] = ['calories', 'program', 'injuries', 'meals'];
@@ -22,7 +21,7 @@ export function PlanGenerating() {
 
   const run = () => {
     setFailed(false); setDone([]);
-    api.generatePlan(loadAnswers(), (s) => setDone((d) => [...d, s]))
+    api.generatePlan((s) => setDone((d) => [...d, s]))
       .then(() => nav('/plan-ready', { replace: true }))
       .catch(() => setFailed(true));
   };

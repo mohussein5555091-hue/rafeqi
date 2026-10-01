@@ -43,6 +43,7 @@
     }
   },
   "onboarding": {
+    "saveFailed": "Couldn't save your answers. Check your connection and try again.",
     "about": {
       "title": "About you", "intro": "We use these to estimate your calorie needs.", "sex": "Sex", "age": "Age", "adultsOnly": "Rafeqi is for adults 18 and over.",
       "under18": "You need to be 18 or older to use Rafeqi.", "height": "Height", "weight": "Weight", "waist": "Waist", "waistHint": "Measure at your belly button, relaxed."

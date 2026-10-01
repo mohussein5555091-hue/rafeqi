@@ -99,6 +99,10 @@ export interface Plan {
 
 export type PlanGenerationStep = 'calories' | 'program' | 'injuries' | 'meals';
 
+export type OnboardingStep = 'about' | 'goal' | 'training' | 'injuries' | 'health' | 'food' | 'review';
+/** Backend: GET /api/onboarding. The answers so far, and the step to resume at. */
+export interface OnboardingState { answers: QuestionnaireAnswers; step: OnboardingStep; completed: boolean }
+
 // ── Training ─────────────────────────────────────────────────────────
 /** Where an exercise's demonstration media comes from (shown as a credit on the detail page). */
 export interface MediaSource {

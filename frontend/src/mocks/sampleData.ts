@@ -2,7 +2,7 @@
 // Replace src/data/api.ts implementations with real requests; keep these shapes.
 import type {
   User, Plan, Exercise, SessionExercise, Workout, WorkoutWeek, MealDay, Meal, MealWeekDay, Recipe,
-  GroceryList, PantryItem, Injury, CheckIn, WeeklyReview, Progress, LocalizedText,
+  GroceryList, PantryItem, Injury, CheckIn, WeeklyReview, Progress, LocalizedText, QuestionnaireAnswers,
 } from '@/types';
 
 const L = (en: string, ar: string): LocalizedText => ({ en, ar });
@@ -425,6 +425,16 @@ export const exercises: Exercise[] = [
     alternatives: [{ name: L('Wall sit', 'قعدة الحيطة'), kind: 'easier' }],
   },
 ];
+
+// ── Onboarding ───────────────────────────────────────────────────────
+/** Omar's answers, so the sample questionnaire starts filled in. */
+export const onboardingAnswers: QuestionnaireAnswers = {
+  sex: 'male', age: 29, heightCm: 180, weightKg: 88, waistCm: 96,
+  goal: 'loseFat', pace: 'steady', experience: 'intermediate', daysPerWeek: 4, sessionMinutes: 60, location: 'gym',
+  injuries: [{ region: 'shoulderL', side: 'left', type: 'tendon', severity: 3, painfulMovements: ['overheadPress', 'benchPress', 'dips'], restrictions: ['noOverhead'] }],
+  health: { heartCondition: false, diabetes: false, pregnancy: false, recentSurgery: false, exerciseMedication: false },
+  food: { mealsPerDay: 4, dislikes: ['liver', 'eggplant'], allergies: ['none'], fasting: ['ramadan'], cookingMinutes: 30 },
+};
 
 // ── Plan ─────────────────────────────────────────────────────────────
 export const plan: Plan = {

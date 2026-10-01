@@ -21,6 +21,8 @@ SELF_ONLY = {  # no id in the URL: they act on the logged-in user by constructio
     ("POST", "/api/auth/logout"), ("POST", "/api/auth/change-password"),
     ("GET", "/api/me"), ("PATCH", "/api/me"), ("DELETE", "/api/me"),
     ("GET", "/api/weights"), ("POST", "/api/weights"),
+    ("GET", "/api/onboarding"), ("POST", "/api/onboarding/complete"),
+    *(("PUT", f"/api/onboarding/{step}") for step in ("about", "goal", "training", "injuries", "health", "food")),
 }
 BY_ID = {  # id in the URL: tested below with another user's id
     ("DELETE", "/api/weights/{weight_id}"): "weight_logs",

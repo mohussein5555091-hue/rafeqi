@@ -104,7 +104,8 @@ After a Playwright run, `npm --prefix tests/e2e run report` opens the HTML repor
 
 API endpoints so far (try them at http://localhost:5173/api/docs):
 `POST /api/auth/signup`, `POST /api/auth/login`, `POST /api/auth/logout`, `POST /api/auth/change-password`,
-`GET/PATCH/DELETE /api/me`, `GET/POST /api/weights`, `DELETE /api/weights/{id}`.
+`GET/PATCH/DELETE /api/me`, `GET/POST /api/weights`, `DELETE /api/weights/{id}`,
+`GET /api/onboarding`, `PUT /api/onboarding/{about|goal|training|injuries|health|food}`, `POST /api/onboarding/complete`.
 
 ## Settings (.env)
 
@@ -133,7 +134,7 @@ Rafeqi never shows prices, costs or budgets, because people shop at different st
 
 - [x] Phase 1: project setup; designed screens running on sample data
 - [x] Phase 2: database and auth (the frontend still uses sample data until Phase 5)
-- [ ] Phase 3: onboarding questionnaire
+- [x] Phase 3: onboarding questionnaire (backend saves each step and checks every answer; the screens call it through `src/data/api.ts`, still on sample data until Phase 5)
 - [ ] Phase 4: plan engine
 - [ ] Phase 5: connect the frontend
 - [ ] Phase 6: remaining screens
