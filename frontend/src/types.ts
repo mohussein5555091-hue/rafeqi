@@ -134,16 +134,20 @@ export interface Exercise {
  */
 export interface ExerciseResult { sets: number; reps: number; weightKg: number; struggled: boolean }
 
+/** Why the target is what it is (data/rules/progression.yaml). */
+export type TargetReason = 'start' | 'addReps' | 'addWeight' | 'repeat' | 'dropWeight';
+export interface Target { sets: number; reps: number; weightKg: number; reason: TargetReason }
+
 export interface SessionExercise {
   exerciseId: string;
   sets: number;
   reps: string; // "8–10", "10 each side"
   restSec: number;
   rpe: number; // target effort (RPE)
-  /** Planned weight per set. Missing for bodyweight exercises. */
-  weightKg?: number;
   swap?: { injuryId: string; kind: 'swapped' | 'added' };
   lastTime?: ExerciseResult;
+  /** This session's exact target, from last time and the progression rules. "Done as planned" saves exactly this. */
+  target: Target;
   weightStepKg?: number;
 }
 

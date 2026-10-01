@@ -1,6 +1,7 @@
 // The data layer. Every screen reads through these functions — swap the mock
 // bodies for real HTTP calls (keep the signatures) to connect a backend.
 import * as mock from '@/mocks/sampleData';
+import { nextTarget } from '@/mocks/progression';
 import type {
   CheckIn, Dashboard, Exercise, GroceryItem, GroceryList, Injury, InjuryInput, Meal, MealDay,
   MealWeekDay, PantryItem, Plan, PlanGenerationStep, Progress, QuestionnaireAnswers, Recipe,
@@ -18,7 +19,12 @@ export class NotFoundError extends Error {
 let groceries = clone(mock.groceryList);
 let injuryStore = clone(mock.injuries);
 let mealDays = clone(mock.mealDays);
-let workoutWeek = clone(mock.workoutWeek);
+/** Adds each exercise's target, as the backend will (app/progression.py). */
+const withTargets = (w: mock.PlannedWorkout): Workout => ({
+  ...w,
+  exercises: w.exercises.map(({ startWeightKg, ...e }) => ({ ...e, target: nextTarget(e.sets, e.reps, e.weightStepKg ?? 0, startWeightKg ?? 0, e.lastTime) })),
+});
+let workoutWeek: WorkoutWeek = { ...clone(mock.workoutWeek), sessions: mock.workoutWeek.sessions.map((s) => withTargets(clone(s))) };
 let weightToday: WeightLog | null = null;
 
 export const api = {

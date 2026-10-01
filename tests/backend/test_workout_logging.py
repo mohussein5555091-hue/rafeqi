@@ -8,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 
 from app.models import Exercise, SetLog, WorkoutLog
 from app.workouts import (
-    STRUGGLED_RPE, ExerciseResult, as_planned, exercise_results, finish_workout, last_result, rep_range,
+    STRUGGLED_RPE, ExerciseResult, exercise_results, finish_workout, last_result, rep_range,
     save_exercise_result,
 )
 from populate import ensure_catalogue
@@ -34,10 +34,6 @@ def rows(db, log: WorkoutLog, exercise_id: str = "ex_test") -> list[tuple[int, i
 @pytest.mark.parametrize("text,expected", [("8-10", (8, 10)), ("8–10", (8, 10)), ("15", (15, 15)), ("10 each side", (10, 10))])
 def test_rep_range(text, expected):
     assert rep_range(text) == expected
-
-
-def test_done_as_planned_is_every_set_at_the_top_of_the_range():
-    assert as_planned(3, "8–10", 22.5) == ExerciseResult(sets=3, reps=10, weight_kg=22.5)
 
 
 def test_one_result_becomes_one_row_per_set(db, log):
@@ -78,7 +74,7 @@ def test_finish_marks_untouched_exercises_as_planned_and_keeps_edits(db, log):
     edited = ExerciseResult(sets=3, reps=8, weight_kg=22.5, struggled=True)
     save_exercise_result(db, log, "ex_test", edited)
 
-    results = finish_workout(db, log, effort=7, planned={"ex_test": as_planned(3, "8–10", 22.5), second: as_planned(3, "10–12", 20)})
+    results = finish_workout(db, log, effort=7, planned={"ex_test": ExerciseResult(sets=3, reps=10, weight_kg=22.5), second: ExerciseResult(sets=3, reps=12, weight_kg=20)})
 
     assert results == {"ex_test": edited, second: ExerciseResult(sets=3, reps=12, weight_kg=20)}
     assert (log.status, log.effort) == ("done", 7) and log.finished_at is not None
@@ -94,7 +90,7 @@ def test_effort_must_be_1_to_10(db, log):
 
 
 def test_last_time_comes_from_the_latest_finished_workout(db, log, clock):
-    finish_workout(db, log, effort=6, planned={"ex_test": as_planned(3, "8–10", 22.5)})
+    finish_workout(db, log, effort=6, planned={"ex_test": ExerciseResult(sets=3, reps=10, weight_kg=22.5)})
     clock.advance(days=7)
     nxt = WorkoutLog(user_id=log.user_id, week_number=4, date=MONDAY + dt.timedelta(days=7))
     db.add(nxt)
@@ -109,7 +105,7 @@ def test_last_time_comes_from_the_latest_finished_workout(db, log, clock):
 
 def test_per_set_readers_still_get_what_they_need(db, log):
     """Progression and the weekly review read set_logs set by set: top of the range on every set, volume, struggles."""
-    finish_workout(db, log, effort=7, planned={"ex_test": as_planned(3, "8–10", 22.5)})
+    finish_workout(db, log, effort=7, planned={"ex_test": ExerciseResult(sets=3, reps=10, weight_kg=22.5)})
     sets = db.scalars(select(SetLog).where(SetLog.workout_log_id == log.id)).all()
     assert all(s.reps >= rep_range("8–10")[1] for s in sets)  # → ready for the next weight step
     assert sum(s.reps * s.weight_kg for s in sets) == 3 * 10 * 22.5

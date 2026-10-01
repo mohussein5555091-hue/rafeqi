@@ -17,19 +17,19 @@ type T = (k: string, v?: Record<string, string | number>) => string;
 const fmtRest = (sec: number, t: T) =>
   sec >= 120 && sec % 60 === 0 ? t('units.minutesShort', { n: sec / 60 }) : t('units.secondsShort', { n: sec });
 
-/** "8–10" → 10, "15" → 15, "10 each" → 10. */
-const topReps = (reps: string) => { const n = (reps.match(/\d+/g) ?? ['0']).map(Number); return n[1] ?? n[0]; };
-
-/** What "Done as planned" logs: every planned set, at the top of the rep range, at the planned weight. */
-export const asPlanned = (e: SessionExercise): ExerciseResult => ({ sets: e.sets, reps: topReps(e.reps), weightKg: e.weightKg ?? 0, struggled: false });
+/** What "Done as planned" logs: exactly the session's target. */
+export const asPlanned = (e: SessionExercise): ExerciseResult => ({ sets: e.target.sets, reps: e.target.reps, weightKg: e.target.weightKg, struggled: false });
 
 function useFormat() {
   const { t, num } = useI18n();
+  /** "3 × 9 @ 22.5 kg" (or "3 × 12" for bodyweight) */
+  const result = (r: Pick<ExerciseResult, 'sets' | 'reps' | 'weightKg'>) =>
+    (r.weightKg ? t('workouts.target', { sets: r.sets, reps: r.reps, kg: num(r.weightKg, 1) }) : t('workouts.targetBw', { sets: r.sets, reps: r.reps }));
   return {
-    /** "3 × 8–10 @ 22.5 kg" */
-    target: (e: SessionExercise) => (e.weightKg ? t('workouts.target', { sets: e.sets, reps: e.reps, kg: num(e.weightKg, 1) }) : t('workouts.targetBw', { sets: e.sets, reps: e.reps })),
-    /** "3 × 10 @ 22.5 kg" */
-    result: (r: ExerciseResult) => (r.weightKg ? t('workouts.target', { sets: r.sets, reps: r.reps, kg: num(r.weightKg, 1) }) : t('workouts.targetBw', { sets: r.sets, reps: r.reps })),
+    result,
+    target: (e: SessionExercise) => result(e.target),
+    /** Why the target changed since last time: "+1 rep", "+2.5 kg", "Same as last time"… */
+    reason: (e: SessionExercise) => t(`workouts.reason.${e.target.reason}`, { kg: num(e.weightStepKg ?? 0, 1) }),
   };
 }
 
@@ -109,9 +109,11 @@ function ExerciseRow({ e, i, ex, result }: { e: SessionExercise; i: number; ex?:
           <div className="min-w-0 flex-1">
             <strong className="block text-[15.5px] leading-snug">{l(ex?.name)}</strong>
             <div className="mt-1 flex flex-wrap gap-x-3 gap-y-0.5 text-[12.5px] text-neutral-800">
-              <span><strong>{e.sets}</strong> × {e.reps}{e.weightKg ? <> @ <strong>{num(e.weightKg, 1)}</strong> {t('units.kg')}</> : null}</span>
+              <span><strong>{e.target.sets}</strong> × <strong>{e.target.reps}</strong>{e.target.weightKg ? <> @ <strong>{num(e.target.weightKg, 1)}</strong> {t('units.kg')}</> : null}</span>
+              <span>{t('workouts.range', { reps: e.reps })}</span>
               <span>{t('workouts.rest', { t: fmtRest(e.restSec, t) })}</span><span>{t('workouts.rpe', { n: e.rpe })}</span>
             </div>
+            {result === undefined && <span className="mt-1.5 inline-block rounded-pill bg-accent-100 px-2.5 py-0.5 text-xs font-semibold text-accent-800">{fmt.reason(e)}</span>}
           </div>
         </Link>
         <InfoLink id={e.exerciseId} name={l(ex?.name)} />
@@ -405,7 +407,7 @@ function LogCard({ e, ex, result, editing, onEdit, onCancel, onLog }: {
           <ExerciseThumb ex={ex} size={56} />
           <span className="flex min-w-0 flex-col gap-0.5 leading-tight">
             <strong className="text-[15.5px]">{name}</strong>
-            <span className="text-[13px] text-neutral-800">{t('logger.targetLine', { target: fmt.target(e) })}</span>
+            <span className="text-[13px] text-neutral-800">{t('logger.targetLine', { target: fmt.target(e) })} <span className="text-neutral-700">· {fmt.reason(e)}</span></span>
             {e.lastTime && <span className="text-xs text-neutral-700">{t('logger.lastTime', { result: fmt.result(e.lastTime) })}{e.lastTime.struggled && <> · {t('logger.struggledShort')}</>}</span>}
           </span>
         </Link>

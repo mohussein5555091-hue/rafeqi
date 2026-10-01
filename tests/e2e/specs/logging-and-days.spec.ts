@@ -12,14 +12,16 @@ test('logger: one tap per exercise, one row to edit, finish marks the rest as pl
   await loaded(page, '[data-testid="log-card"] img');
 
   const press = cards.nth(0);
-  await expect(press).toContainText('Target 3 × 8–10 @ 22.5 kg');
+  // One exact target from last time (3 × 9, struggled) and the progression rules: same again.
+  await expect(press).toContainText('Target 3 × 9 @ 22.5 kg · Same as last time');
   await expect(press).toContainText('Last time: 3 × 9 @ 22.5 kg · last set was a struggle');
   await expect(press.getByRole('link', { name: /^How to do / })).toBeVisible();
   await press.getByRole('button', { name: /^Done as planned/ }).click();
-  await expect(press).toContainText('Done: 3 × 10 @ 22.5 kg');
+  await expect(press).toContainText('Done: 3 × 9 @ 22.5 kg'); // exactly the target
 
   // Something was different: one row (sets, reps, weight) plus "struggled".
   const row = cards.nth(1);
+  await expect(row).toContainText('Target 3 × 11 @ 20 kg · +1 rep since last time');
   await row.getByRole('button', { name: /^Edit / }).click();
   await row.getByLabel('Reps').fill('9');
   await row.getByRole('switch', { name: 'I struggled on the last set' }).click();
@@ -48,6 +50,8 @@ test('logger: one tap per exercise, one row to edit, finish marks the rest as pl
   await expect(page.getByText('Effort 7/10')).toBeVisible();
   const results = page.getByTestId('logged-result');
   await expect(results).toHaveCount(7);
+  await expect(results.nth(0)).toContainText('3 × 9 @ 22.5 kg');
+  await expect(results.nth(2)).toContainText('3 × 10 @ 15 kg'); // untouched → its target
   await expect(results.nth(1)).toContainText('3 × 9 @ 20 kg');
   await expect(results.nth(6)).toContainText('2 × 12 @ 10 kg');
   await expect(page.getByRole('link', { name: 'Start workout' })).toHaveCount(0); // done: nothing left to start

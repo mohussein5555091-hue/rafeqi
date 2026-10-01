@@ -1,0 +1,17 @@
+# How each exercise's target for the next session is chosen from last time ("double progression").
+# Read by backend/app/progression.py. Worked examples: progression_cases.json (checked by the backend and browser tests).
+#
+#   1. No result yet                                   → planned sets × bottom of the range @ starting weight      (start)
+#   2. Every planned set done at the top of the range,
+#      and the last set wasn't a struggle              → add one weight step, back to the bottom of the range       (addWeight)
+#   3. Struggled on the last set, or fewer sets done:
+#        below the bottom of the range and struggled   → drop one weight step, bottom of the range                  (dropWeight)
+#        otherwise                                     → repeat last time's reps (kept inside the range), same weight (repeat)
+#   4. Otherwise                                       → same weight, `reps_per_step` more reps (up to the top)     (addReps)
+#
+# Exercises with no weight step (bodyweight) never add weight: they stay at the top of the range once they reach it.
+version: 1
+reps_per_step: 1
+source: >-
+  Double progression (add reps across the range, then add load) as used in the Jeff Nippard programs and
+  Helms' Muscle & Strength Pyramid. Page references are added with the plan engine (Phase 4).

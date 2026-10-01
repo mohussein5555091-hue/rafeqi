@@ -1,7 +1,7 @@
 // All sample data for the proof of concept — Omar, 29, Cairo.
 // Replace src/data/api.ts implementations with real requests; keep these shapes.
 import type {
-  User, Plan, Exercise, Workout, WorkoutWeek, MealDay, Meal, MealWeekDay, Recipe,
+  User, Plan, Exercise, SessionExercise, Workout, WorkoutWeek, MealDay, Meal, MealWeekDay, Recipe,
   GroceryList, PantryItem, Injury, CheckIn, WeeklyReview, Progress, LocalizedText,
 } from '@/types';
 
@@ -464,7 +464,11 @@ export const plan: Plan = {
 };
 
 // ── Workouts ─────────────────────────────────────────────────────────
-const upperA: Workout = {
+// What the program says, before targets are worked out: api.ts adds each exercise's target from
+// lastTime with mocks/progression.ts, the way the backend does with app/progression.py.
+export type PlannedExercise = Omit<SessionExercise, 'target'> & { startWeightKg?: number };
+export type PlannedWorkout = Omit<Workout, 'exercises'> & { exercises: PlannedExercise[] };
+const upperA: PlannedWorkout = {
   id: 'w3_upper_a',
   name: L('Upper body A', 'الجزء العلوي أ'),
   day: 'mon',
@@ -473,17 +477,17 @@ const upperA: Workout = {
   estMinutes: 58,
   warmupMinutes: 6,
   exercises: [
-    { exerciseId: 'ex_db_floor_press', sets: 3, reps: '8–10', restSec: 120, rpe: 7, weightKg: 22.5, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2, lastTime: { sets: 3, reps: 9, weightKg: 22.5, struggled: true } },
-    { exerciseId: 'ex_cs_row', sets: 3, reps: '10–12', restSec: 90, rpe: 8, weightKg: 20, weightStepKg: 2, lastTime: { sets: 3, reps: 10, weightKg: 20, struggled: false } },
-    { exerciseId: 'ex_landmine_press', sets: 3, reps: '10 each', restSec: 90, rpe: 7, weightKg: 15, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
-    { exerciseId: 'ex_lat_pulldown', sets: 3, reps: '10–12', restSec: 90, rpe: 8, weightKg: 45, weightStepKg: 5 },
-    { exerciseId: 'ex_face_pull', sets: 3, reps: '15', restSec: 60, rpe: 7, weightKg: 15, swap: { injuryId: 'inj_shoulder_l', kind: 'added' }, weightStepKg: 2.5 },
-    { exerciseId: 'ex_pushdown', sets: 3, reps: '12', restSec: 60, rpe: 8, weightKg: 20, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
-    { exerciseId: 'ex_incline_curl', sets: 2, reps: '12', restSec: 60, rpe: 8, weightKg: 10, weightStepKg: 1 },
+    { exerciseId: 'ex_db_floor_press', sets: 3, reps: '8–10', restSec: 120, rpe: 7, startWeightKg: 22.5, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2, lastTime: { sets: 3, reps: 9, weightKg: 22.5, struggled: true } },
+    { exerciseId: 'ex_cs_row', sets: 3, reps: '10–12', restSec: 90, rpe: 8, startWeightKg: 20, weightStepKg: 2, lastTime: { sets: 3, reps: 10, weightKg: 20, struggled: false } },
+    { exerciseId: 'ex_landmine_press', sets: 3, reps: '10 each', restSec: 90, rpe: 7, startWeightKg: 15, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
+    { exerciseId: 'ex_lat_pulldown', sets: 3, reps: '10–12', restSec: 90, rpe: 8, startWeightKg: 45, weightStepKg: 5 },
+    { exerciseId: 'ex_face_pull', sets: 3, reps: '15', restSec: 60, rpe: 7, startWeightKg: 15, swap: { injuryId: 'inj_shoulder_l', kind: 'added' }, weightStepKg: 2.5 },
+    { exerciseId: 'ex_pushdown', sets: 3, reps: '12', restSec: 60, rpe: 8, startWeightKg: 20, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
+    { exerciseId: 'ex_incline_curl', sets: 2, reps: '12', restSec: 60, rpe: 8, startWeightKg: 10, weightStepKg: 1 },
   ],
 };
 
-const lowerA: Workout = {
+const lowerA: PlannedWorkout = {
   id: 'w3_lower_a',
   name: L('Lower body A', 'الجزء السفلي أ'),
   day: 'sat',
@@ -492,11 +496,11 @@ const lowerA: Workout = {
   estMinutes: 55,
   warmupMinutes: 6,
   exercises: [
-    { exerciseId: 'ex_goblet_squat', sets: 3, reps: '8–10', restSec: 120, rpe: 7, weightKg: 24, weightStepKg: 2 },
-    { exerciseId: 'ex_db_rdl', sets: 3, reps: '8–10', restSec: 120, rpe: 7, weightKg: 20, weightStepKg: 2 },
-    { exerciseId: 'ex_leg_press', sets: 3, reps: '10–12', restSec: 120, rpe: 8, weightKg: 100, weightStepKg: 10 },
-    { exerciseId: 'ex_seated_leg_curl', sets: 3, reps: '10–12', restSec: 90, rpe: 8, weightKg: 40, weightStepKg: 5 },
-    { exerciseId: 'ex_calf_raise', sets: 3, reps: '12–15', restSec: 60, rpe: 8, weightKg: 50, weightStepKg: 5 },
+    { exerciseId: 'ex_goblet_squat', sets: 3, reps: '8–10', restSec: 120, rpe: 7, startWeightKg: 24, weightStepKg: 2 },
+    { exerciseId: 'ex_db_rdl', sets: 3, reps: '8–10', restSec: 120, rpe: 7, startWeightKg: 20, weightStepKg: 2 },
+    { exerciseId: 'ex_leg_press', sets: 3, reps: '10–12', restSec: 120, rpe: 8, startWeightKg: 100, weightStepKg: 10 },
+    { exerciseId: 'ex_seated_leg_curl', sets: 3, reps: '10–12', restSec: 90, rpe: 8, startWeightKg: 40, weightStepKg: 5 },
+    { exerciseId: 'ex_calf_raise', sets: 3, reps: '12–15', restSec: 60, rpe: 8, startWeightKg: 50, weightStepKg: 5 },
   ],
   summary: { minutes: 52, setsDone: 14, setsTotal: 15, painByInjury: { inj_shoulder_l: 2 } },
   log: {
@@ -511,7 +515,7 @@ const lowerA: Workout = {
   },
 };
 
-const lowerB: Workout = {
+const lowerB: PlannedWorkout = {
   id: 'w3_lower_b',
   name: L('Lower body B', 'الجزء السفلي ب'),
   day: 'wed',
@@ -520,15 +524,15 @@ const lowerB: Workout = {
   estMinutes: 55,
   warmupMinutes: 6,
   exercises: [
-    { exerciseId: 'ex_split_squat', sets: 3, reps: '8–10 each', restSec: 90, rpe: 7, weightKg: 10, weightStepKg: 2 },
-    { exerciseId: 'ex_db_rdl', sets: 3, reps: '10–12', restSec: 120, rpe: 7, weightKg: 20, weightStepKg: 2, lastTime: { sets: 3, reps: 10, weightKg: 20, struggled: false } },
-    { exerciseId: 'ex_leg_extension', sets: 3, reps: '12–15', restSec: 60, rpe: 8, weightKg: 35, weightStepKg: 5 },
-    { exerciseId: 'ex_seated_leg_curl', sets: 3, reps: '12–15', restSec: 60, rpe: 8, weightKg: 35, weightStepKg: 5, lastTime: { sets: 3, reps: 12, weightKg: 40, struggled: false } },
-    { exerciseId: 'ex_calf_raise', sets: 3, reps: '15', restSec: 60, rpe: 8, weightKg: 50, weightStepKg: 5, lastTime: { sets: 2, reps: 15, weightKg: 50, struggled: false } },
+    { exerciseId: 'ex_split_squat', sets: 3, reps: '8–10 each', restSec: 90, rpe: 7, startWeightKg: 10, weightStepKg: 2 },
+    { exerciseId: 'ex_db_rdl', sets: 3, reps: '10–12', restSec: 120, rpe: 7, startWeightKg: 20, weightStepKg: 2, lastTime: { sets: 3, reps: 10, weightKg: 20, struggled: false } },
+    { exerciseId: 'ex_leg_extension', sets: 3, reps: '12–15', restSec: 60, rpe: 8, startWeightKg: 35, weightStepKg: 5 },
+    { exerciseId: 'ex_seated_leg_curl', sets: 3, reps: '12–15', restSec: 60, rpe: 8, startWeightKg: 35, weightStepKg: 5, lastTime: { sets: 3, reps: 12, weightKg: 40, struggled: false } },
+    { exerciseId: 'ex_calf_raise', sets: 3, reps: '15', restSec: 60, rpe: 8, startWeightKg: 50, weightStepKg: 5, lastTime: { sets: 2, reps: 15, weightKg: 50, struggled: false } },
   ],
 };
 
-const upperB: Workout = {
+const upperB: PlannedWorkout = {
   id: 'w3_upper_b',
   name: L('Upper body B', 'الجزء العلوي ب'),
   day: 'thu',
@@ -537,17 +541,17 @@ const upperB: Workout = {
   estMinutes: 58,
   warmupMinutes: 6,
   exercises: [
-    { exerciseId: 'ex_cs_row', sets: 3, reps: '8–10', restSec: 120, rpe: 8, weightKg: 22, weightStepKg: 2 },
-    { exerciseId: 'ex_db_floor_press', sets: 3, reps: '10–12', restSec: 120, rpe: 7, weightKg: 20, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2 },
-    { exerciseId: 'ex_lat_pulldown', sets: 3, reps: '8–10', restSec: 90, rpe: 8, weightKg: 50, weightStepKg: 5 },
-    { exerciseId: 'ex_landmine_press', sets: 3, reps: '12 each', restSec: 90, rpe: 7, weightKg: 12.5, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
-    { exerciseId: 'ex_face_pull', sets: 3, reps: '15', restSec: 60, rpe: 7, weightKg: 15, swap: { injuryId: 'inj_shoulder_l', kind: 'added' }, weightStepKg: 2.5 },
-    { exerciseId: 'ex_incline_curl', sets: 3, reps: '10', restSec: 60, rpe: 8, weightKg: 10, weightStepKg: 1 },
-    { exerciseId: 'ex_pushdown', sets: 2, reps: '12', restSec: 60, rpe: 8, weightKg: 20, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
+    { exerciseId: 'ex_cs_row', sets: 3, reps: '8–10', restSec: 120, rpe: 8, startWeightKg: 22, weightStepKg: 2 },
+    { exerciseId: 'ex_db_floor_press', sets: 3, reps: '10–12', restSec: 120, rpe: 7, startWeightKg: 20, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2 },
+    { exerciseId: 'ex_lat_pulldown', sets: 3, reps: '8–10', restSec: 90, rpe: 8, startWeightKg: 50, weightStepKg: 5 },
+    { exerciseId: 'ex_landmine_press', sets: 3, reps: '12 each', restSec: 90, rpe: 7, startWeightKg: 12.5, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
+    { exerciseId: 'ex_face_pull', sets: 3, reps: '15', restSec: 60, rpe: 7, startWeightKg: 15, swap: { injuryId: 'inj_shoulder_l', kind: 'added' }, weightStepKg: 2.5 },
+    { exerciseId: 'ex_incline_curl', sets: 3, reps: '10', restSec: 60, rpe: 8, startWeightKg: 10, weightStepKg: 1 },
+    { exerciseId: 'ex_pushdown', sets: 2, reps: '12', restSec: 60, rpe: 8, startWeightKg: 20, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
   ],
 };
 
-export const workoutWeek: WorkoutWeek = {
+export const workoutWeek: Omit<WorkoutWeek, 'sessions'> & { sessions: PlannedWorkout[] } = {
   weekNumber: 3,
   totalWeeks: 8,
   start: '2026-09-26',

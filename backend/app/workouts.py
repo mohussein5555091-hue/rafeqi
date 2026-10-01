@@ -43,11 +43,6 @@ def rep_range(reps: str) -> tuple[int, int]:
     return (numbers[0], numbers[1]) if len(numbers) > 1 else (numbers[0], numbers[0])
 
 
-def as_planned(sets: int, reps: str, weight_kg: float) -> ExerciseResult:
-    """What "Done as planned" records: every planned set, at the top of the rep range, at the planned weight."""
-    return ExerciseResult(sets=sets, reps=rep_range(reps)[1], weight_kg=weight_kg)
-
-
 def save_exercise_result(db: Session, log: WorkoutLog, exercise_id: str, result: ExerciseResult) -> list[SetLog]:
     """Replaces whatever was logged for this exercise in this workout (logging again = correcting it)."""
     db.execute(delete(SetLog).where(SetLog.workout_log_id == log.id, SetLog.exercise_id == exercise_id))
@@ -88,7 +83,7 @@ def last_result(db: Session, user_id: str, exercise_id: str, before_log: Workout
 def finish_workout(db: Session, log: WorkoutLog, effort: int, planned: dict[str, ExerciseResult]) -> dict[str, ExerciseResult]:
     """"Finish workout": every planned exercise not logged yet is saved as done as planned; the session rating is stored.
 
-    `planned` is {exercise_id: as_planned(...)} for the session. Exercises the person already logged keep their result.
+    `planned` is {exercise_id: next_target(...).as_result()} for the session (see app/progression.py). Exercises the person already logged keep their result.
     """
     if not 1 <= effort <= 10:
         raise ValueError("effort must be between 1 and 10")

@@ -124,6 +124,7 @@
     "swappedFor": "اتبدّل عشان {area}", "addedFor": "اتضاف لدعم {area}",
     "rpeHelp": "المجهود (RPE) من 1 لـ 10. مجهود 8 يعني كان ممكن تعمل حوالي عدّتين زيادة.",
     "detailsSoon": "تمارين الجلسة دي هتظهر قرب يومها.",
+    "range": "المدى {reps}", "reason": { "start": "وزن البداية", "addReps": "عدّة زيادة عن آخر مرة", "addWeight": "+{kg} كجم عن آخر مرة", "repeat": "زي آخر مرة", "dropWeight": "−{kg} كجم عشان ترجع العدّات" },
     "target": "{sets} × {reps} @ {kg} كجم", "targetBw": "{sets} × {reps}", "prevDay": "التمرين اللي قبله", "nextDay": "التمرين اللي بعده",
     "dayOf": "تمرين {n} من {total} الأسبوع ده", "whatYouDid": "اللي عملته", "skipped": "ماتعملش", "effortLogged": "المجهود {n}/10",
     "painAfter": "{area} بعدها: {n}/10", "startOnDay": "تقدر تبدأ التمرين ده يوم {day}.", "missed": "فاتك"
