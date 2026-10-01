@@ -135,11 +135,17 @@ class WorkoutLog(Base, UserOwned):
     week_number: Mapped[int]
     date: Mapped[dt.date]
     status: Mapped[str] = mapped_column(String(12), default="inProgress")  # inProgress | done | skipped
+    effort: Mapped[int | None]  # "How hard was today's workout?" 1–10, asked once when it's finished
     started_at: Mapped[datetime] = timestamp()
     finished_at: Mapped[datetime | None]
 
+    __table_args__ = (CheckConstraint("effort BETWEEN 1 AND 10", name="effort_range"),)
+
 
 class SetLog(Base, UserOwned):
+    """Workouts are logged per exercise (see app/workouts.py): one row per set, all with the same reps and weight.
+    rpe is only set on the last set, to 10, when the person said they struggled on it."""
+
     __tablename__ = "set_logs"
 
     id: Mapped[str] = uuid_pk()

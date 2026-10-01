@@ -11,6 +11,8 @@ const OUT = fileURLToPath(new URL('../frontend/public/exercises', import.meta.ur
 const DEFAULT = [
   'Dumbbell_Floor_Press', 'Dumbbell_Incline_Row', 'Single-Arm_Linear_Jammer', 'V-Bar_Pulldown',
   'Face_Pull', 'Triceps_Pushdown', 'Incline_Dumbbell_Curl',
+  'Goblet_Squat', 'Stiff-Legged_Dumbbell_Deadlift', 'Leg_Press', 'Seated_Leg_Curl', 'Standing_Calf_Raises',
+  'Split_Squat_with_Dumbbells', 'Leg_Extensions',
 ];
 
 const ids = process.argv.slice(2).length ? process.argv.slice(2) : DEFAULT;

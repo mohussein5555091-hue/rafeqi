@@ -125,19 +125,25 @@ export interface Exercise {
   instructions: LocalizedText[];
   cues: LocalizedText[];
   mistakes: LocalizedText[];
-  alternatives: { exerciseId?: string; name: LocalizedText; kind: 'easier' | 'injuryFriendly' }[];
+  alternatives: { exerciseId?: string; name: LocalizedText; kind: 'easier' | 'injuryFriendly' | 'equipment' }[];
 }
 
-export interface SetLog { reps: number; weightKg: number; rpe: number }
+/**
+ * One exercise's result. Logged in one tap ("Done as planned") or one row when something was different.
+ * The backend stores it as one set_logs row per set, all with the same reps and weight.
+ */
+export interface ExerciseResult { sets: number; reps: number; weightKg: number; struggled: boolean }
 
 export interface SessionExercise {
   exerciseId: string;
   sets: number;
   reps: string; // "8–10", "10 each side"
   restSec: number;
-  rpe: number;
+  rpe: number; // target effort (RPE)
+  /** Planned weight per set. Missing for bodyweight exercises. */
+  weightKg?: number;
   swap?: { injuryId: string; kind: 'swapped' | 'added' };
-  lastTime?: SetLog[];
+  lastTime?: ExerciseResult;
   weightStepKg?: number;
 }
 
@@ -152,6 +158,14 @@ export interface Workout {
   warmupMinutes: number;
   exercises: SessionExercise[];
   summary?: { minutes: number; setsDone: number; setsTotal: number; painByInjury: Record<string, number> };
+  /** What was logged, once the session is finished. */
+  log?: WorkoutLog;
+}
+
+export interface WorkoutLog {
+  /** "How hard was today's workout?" 1–10, asked once at the end. */
+  effort: number;
+  results: Record<string, ExerciseResult>; // by exerciseId; an exercise that was skipped has no entry
 }
 
 export interface WorkoutWeek {

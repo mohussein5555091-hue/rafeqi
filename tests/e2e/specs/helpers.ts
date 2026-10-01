@@ -27,8 +27,8 @@ export const PUBLIC_ROUTES = ['/login', '/signup', '/forgot-password'];
 export const APP_ROUTES = [
   ...['about', 'goal', 'training', 'injuries', 'health', 'food', 'review'].map((s) => `/onboarding/${s}`),
   '/onboarding/generating', '/plan-ready',
-  '/', '/workouts', '/workouts/w3_upper_a', '/workouts/w3_upper_a/log', '/exercises/ex_landmine_press',
-  '/nutrition', '/nutrition?view=week', '/nutrition/recipes/r_chicken_molokhia', '/groceries', '/groceries/pantry',
+  '/', '/workouts', '/workouts/w3_upper_a', '/workouts/w3_lower_a', '/workouts/w3_upper_a/log', '/exercises/ex_landmine_press',
+  '/nutrition', '/nutrition?view=week', '/nutrition/day/2026-10-02', '/nutrition/recipes/r_chicken_molokhia', '/groceries', '/groceries/pantry',
   '/injuries', '/injuries/inj_shoulder_l', '/injuries/new', '/injuries/inj_shoulder_l/edit', '/injuries/inj_shoulder_l/warning',
   ...['body', 'training', 'injuries', 'nutrition', 'life', 'note'].map((s) => `/check-in/${s}`),
   '/reviews', '/reviews/rv_w3', '/progress', '/profile', '/profile/password',

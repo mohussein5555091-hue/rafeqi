@@ -4,7 +4,7 @@ import * as mock from '@/mocks/sampleData';
 import type {
   CheckIn, Dashboard, Exercise, GroceryItem, GroceryList, Injury, InjuryInput, Meal, MealDay,
   MealWeekDay, PantryItem, Plan, PlanGenerationStep, Progress, QuestionnaireAnswers, Recipe,
-  SetLog, User, WeeklyReview, WeightLog, Workout, WorkoutWeek,
+  ExerciseResult, User, WeeklyReview, WeightLog, Workout, WorkoutLog, WorkoutWeek,
 } from '@/types';
 
 const wait = (ms = 250) => new Promise((r) => setTimeout(r, ms));
@@ -17,7 +17,8 @@ export class NotFoundError extends Error {
 // In-memory state so the prototype feels real between screens.
 let groceries = clone(mock.groceryList);
 let injuryStore = clone(mock.injuries);
-let dayMeals = clone(mock.mealDay);
+let mealDays = clone(mock.mealDays);
+let workoutWeek = clone(mock.workoutWeek);
 let weightToday: WeightLog | null = null;
 
 export const api = {
@@ -56,9 +57,9 @@ export const api = {
     return {
       user: clone(mock.user),
       plan: clone(mock.plan),
-      today: clone(mock.workoutWeek.sessions.find((s) => s.status === 'today') ?? null),
-      nextSession: clone(mock.workoutWeek.sessions.find((s) => s.status === 'planned') ?? null),
-      mealDay: clone(dayMeals),
+      today: clone(workoutWeek.sessions.find((s) => s.date === mock.TODAY) ?? null),
+      nextSession: clone(workoutWeek.sessions.find((s) => s.status === 'planned') ?? null),
+      mealDay: clone(mealDays[mock.TODAY]),
       nextCheckIn: clone(mock.nextCheckIn),
       injuries: clone(injuryStore.filter((i) => i.status !== 'resolved')),
       latestReview: clone(mock.reviews.find((r) => r.weekNumber === 2) ?? null),
@@ -77,10 +78,10 @@ export const api = {
   },
 
   // ── Training ──
-  async getWorkoutWeek(): Promise<WorkoutWeek> { await wait(); return clone(mock.workoutWeek); },
+  async getWorkoutWeek(): Promise<WorkoutWeek> { await wait(); return clone(workoutWeek); },
   async getWorkout(id: string): Promise<Workout> {
     await wait();
-    const s = mock.workoutWeek.sessions.find((x) => x.id === id);
+    const s = workoutWeek.sessions.find((x) => x.id === id);
     if (!s) throw new NotFoundError('workout');
     return clone(s);
   },
@@ -91,17 +92,40 @@ export const api = {
     return clone(e);
   },
   async getExercises(): Promise<Exercise[]> { await wait(100); return clone(mock.exercises); },
-  async logSet(_workoutId: string, _exerciseId: string, _setIndex: number, _set: SetLog): Promise<void> { await wait(150); },
-  async finishWorkout(_workoutId: string, _painByInjury: Record<string, number>, _redFlags: string[]): Promise<void> { await wait(300); },
+  /**
+   * Saves one exercise's result as soon as it's tapped (null = undo). Logging again replaces it.
+   * Backend: one set_logs row per set, all with the same reps and weight (backend/app/workouts.py).
+   */
+  async logExercise(_workoutId: string, _exerciseId: string, _result: ExerciseResult | null): Promise<void> { await wait(150); },
+  /** Exercises missing from log.results were skipped. Backend: finish_workout() also stores the effort rating. */
+  async finishWorkout(workoutId: string, log: WorkoutLog, painByInjury: Record<string, number>, _redFlags: string[]): Promise<void> {
+    await wait(300);
+    const results = Object.values(log.results);
+    workoutWeek = {
+      ...workoutWeek,
+      sessions: workoutWeek.sessions.map((s) => (s.id !== workoutId ? s : {
+        ...s, status: 'done', log: clone(log),
+        summary: { minutes: s.estMinutes, setsDone: results.reduce((a, r) => a + r.sets, 0), setsTotal: s.exercises.reduce((a, e) => a + e.sets, 0), painByInjury },
+      })),
+    };
+  },
 
   // ── Nutrition ──
-  async getMealDay(_date?: string): Promise<MealDay> { await wait(); return clone(dayMeals); },
+  /** One date's meals (today when no date). */
+  async getMealDay(date: string = mock.TODAY): Promise<MealDay> {
+    await wait();
+    const d = mealDays[date];
+    if (!d) throw new NotFoundError('meal day');
+    return clone(d);
+  },
   async getMealWeek(): Promise<MealWeekDay[]> { await wait(); return clone(mock.mealWeek); },
   async getSwapOptions(mealId: string): Promise<Meal[]> { await wait(); return clone(mock.swapOptions[mealId] ?? []); },
-  async swapMeal(mealId: string, replacement: Meal): Promise<MealDay> {
+  async swapMeal(date: string, mealId: string, replacement: Meal): Promise<MealDay> {
     await wait();
-    dayMeals = { ...dayMeals, meals: dayMeals.meals.map((m) => (m.id === mealId ? { ...replacement, time: m.time } : m)) };
-    return clone(dayMeals);
+    const d = mealDays[date];
+    if (!d) throw new NotFoundError('meal day');
+    mealDays = { ...mealDays, [date]: { ...d, meals: d.meals.map((m) => (m.id === mealId ? { ...replacement, time: m.time } : m)) } };
+    return clone(mealDays[date]);
   },
   async getRecipe(id: string): Promise<Recipe> {
     await wait();

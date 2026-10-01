@@ -111,7 +111,7 @@ erDiagram
 
 ## Plans and training
 
-A plan is versioned: every change makes a new version and the old one stays for history. The program and its exercises hang off the plan, and your workout logs point back at them.
+A plan is versioned: every change makes a new version and the old one stays for history. The program and its exercises hang off the plan, and your workout logs point back at them. Workouts are logged one result per exercise ("done as planned", or sets, reps and weight). Each result is saved as one `set_logs` row per set with the same reps and weight, and the session gets one effort rating. See `backend/app/workouts.py`.
 
 ```mermaid
 erDiagram
@@ -219,6 +219,7 @@ erDiagram
     int week_number
     date date
     text status "inProgress, done, skipped"
+    int effort "how hard was today's workout, 1-10"
     datetime started_at
     datetime finished_at
   }
@@ -230,7 +231,7 @@ erDiagram
     int set_number
     int reps
     real weight_kg
-    real rpe
+    real rpe "10 on the last set if they struggled, else empty"
     datetime logged_at
   }
 ```

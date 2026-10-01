@@ -450,3 +450,414 @@ exercises:
       ar: بايسبس بالكابل
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_goblet_squat
+  name:
+    en: Goblet squat
+    ar: سكوات جوبلت
+  description:
+    en: A squat holding one dumbbell at your chest. The weight in front keeps you upright, so it is easy to learn. Trains thighs and glutes.
+    ar: سكوات وأنت شايل دمبل واحد قدام صدرك. الوزن من قدام بيخليك واقف مفرود، فسهل تتعلمه. بيشتغل على الفخد والمؤخرة.
+  movement_pattern: squat
+  joints_loaded:
+  - knee
+  - hip
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles:
+  - hipL
+  - hipR
+  muscle_names:
+    en: Front thighs, glutes · inner thighs
+    ar: الفخد الأمامية، المؤخرة · الفخد الداخلية
+  instructions:
+  - en: Hold one dumbbell upright against your chest with both hands, feet a little wider than your hips.
+    ar: امسك دمبل واحد واقف على صدرك بإيديك الاتنين، ورجليك أوسع شوية من وسطك.
+  - en: Sit down between your heels, keeping your chest up.
+    ar: انزل كأنك بتقعد بين كعوبك، وصدرك لفوق.
+  - en: Go as low as you can with a flat back.
+    ar: انزل لأوطى نقطة تقدر عليها وضهرك مفرود.
+  - en: Push the floor away to stand back up.
+    ar: ادفع الأرض بقوة عشان تقوم.
+  cues:
+  - en: Knees follow your toes
+    ar: الركبة في اتجاه صوابع رجلك
+  - en: Whole foot on the floor
+    ar: رجلك كلها على الأرض
+  - en: Elbows inside the knees at the bottom
+    ar: الكوع جوه الركبة تحت
+  mistakes:
+  - en: Heels lifting off the floor
+    ar: الكعب يترفع من الأرض
+  - en: Knees caving inwards
+    ar: الركبة تدخل لجوه
+  - en: Rounding the lower back at the bottom
+    ar: تقويس أسفل الضهر تحت
+  image_url: /exercises/Goblet_Squat/0.jpg
+  image_frames:
+  - /exercises/Goblet_Squat/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Goblet+squat+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Goblet_Squat
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Bodyweight box squat
+      ar: سكوات على كرسي بوزن الجسم
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_db_rdl
+  name:
+    en: Dumbbell Romanian deadlift
+    ar: رفعة رومانية بالدمبل
+  description:
+    en: 'A hip hinge with dumbbells: push your hips back with soft knees until you feel the back of your thighs stretch. Trains hamstrings and glutes.'
+    ar: 'ثني من الوسط بالدمبل: ارجع بوسطك لورا وركبتك مثنية سنة لحد ما تحس بشد في ضهر الفخد. بيشتغل على الفخد الخلفية والمؤخرة.'
+  movement_pattern: hinge
+  joints_loaded:
+  - hip
+  - spine
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  difficulty: intermediate
+  primary_muscles:
+  - thighL
+  - thighR
+  - hipL
+  - hipR
+  secondary_muscles:
+  - lowerBack
+  muscle_names:
+    en: Hamstrings, glutes · lower back
+    ar: الفخد الخلفية، المؤخرة · أسفل الضهر
+  instructions:
+  - en: Stand tall with a dumbbell in each hand in front of your thighs.
+    ar: اقف مفرود ودمبل في كل إيد قدام فخدك.
+  - en: Bend your knees slightly and push your hips back.
+    ar: اثني ركبتك سنة وارجع بوسطك لورا.
+  - en: Slide the dumbbells down your legs until you feel a strong stretch.
+    ar: نزّل الدمبل جنب رجلك لحد ما تحس بشد قوي.
+  - en: Drive your hips forward to stand up.
+    ar: ادفع وسطك لقدام عشان تقوم.
+  cues:
+  - en: Back flat the whole time
+    ar: ضهرك مفرود طول الوقت
+  - en: Dumbbells close to your legs
+    ar: الدمبل قريب من رجلك
+  - en: Hips go back, not down
+    ar: وسطك يرجع لورا، مش ينزل لتحت
+  mistakes:
+  - en: Rounding the back to reach lower
+    ar: تقوّس ضهرك عشان تنزل أكتر
+  - en: Turning it into a squat
+    ar: تحولها لسكوات
+  - en: Leaning back at the top
+    ar: تميل لورا فوق
+  image_url: /exercises/Stiff-Legged_Dumbbell_Deadlift/0.jpg
+  image_frames:
+  - /exercises/Stiff-Legged_Dumbbell_Deadlift/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Dumbbell+Romanian+deadlift+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Stiff-Legged_Dumbbell_Deadlift
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Glute bridge
+      ar: رفع الحوض من الأرض
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_leg_press
+  name:
+    en: Leg press
+    ar: ليج برس
+  description:
+    en: 'A machine squat: you push a weighted platform away with your legs while your back stays supported. Trains thighs and glutes.'
+    ar: 'سكوات على الجهاز: بتزق منصة عليها وزن برجلك وضهرك مسنود. بيشتغل على الفخد والمؤخرة.'
+  movement_pattern: squat
+  joints_loaded:
+  - knee
+  - hip
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles:
+  - hipL
+  - hipR
+  muscle_names:
+    en: Front thighs · glutes
+    ar: الفخد الأمامية · المؤخرة
+  instructions:
+  - en: Sit with your back flat on the pad, feet hip-width in the middle of the platform.
+    ar: اقعد وضهرك لازق في المسند، ورجليك بعرض وسطك في نص المنصة.
+  - en: Release the safety handles.
+    ar: فك مساكات الأمان.
+  - en: Lower the platform until your knees are bent to about 90°.
+    ar: نزّل المنصة لحد ما ركبتك تتني حوالي 90 درجة.
+  - en: Press back up without locking your knees.
+    ar: ادفع لفوق من غير ما تقفل ركبتك.
+  cues:
+  - en: Lower back stays on the pad
+    ar: أسفل ضهرك لازق في المسند
+  - en: Push through your heels
+    ar: ادفع بكعبك
+  - en: Knees in line with your feet
+    ar: ركبتك على خط رجلك
+  mistakes:
+  - en: Locking the knees at the top
+    ar: قفل الركبة فوق
+  - en: Hips rolling off the seat at the bottom
+    ar: وسطك يترفع من الكرسي تحت
+  image_url: /exercises/Leg_Press/0.jpg
+  image_frames:
+  - /exercises/Leg_Press/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Leg+press+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Leg_Press
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Goblet squat
+      ar: سكوات جوبلت
+    kind: equipment
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_seated_leg_curl
+  name:
+    en: Seated leg curl
+    ar: ثني رجل وأنت قاعد
+  description:
+    en: A machine curl for the back of the thighs, done seated so the hamstrings work in a long position.
+    ar: تمرين جهاز لضهر الفخد، وأنت قاعد فالعضلة بتشتغل وهي ممدودة.
+  movement_pattern: kneeFlexion
+  joints_loaded:
+  - knee
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles:
+  - shinL
+  - shinR
+  muscle_names:
+    en: Hamstrings · calves
+    ar: الفخد الخلفية · السمانة
+  instructions:
+  - en: Sit with the pad just above your heels and the thigh pad locked down.
+    ar: اقعد والمسند فوق كعبك على طول، ومسند الفخد مقفول عليك.
+  - en: Curl your heels down and back as far as you can.
+    ar: اسحب كعبك لتحت ولورا على قد ما تقدر.
+  - en: Pause for a second.
+    ar: اثبت ثانية.
+  - en: Let your legs come back up slowly.
+    ar: رجّع رجلك لفوق ببطء.
+  cues:
+  - en: Hips stay on the seat
+    ar: وسطك على الكرسي
+  - en: Slow on the way back
+    ar: ببطء وأنت راجع
+  - en: Point your toes up
+    ar: صوابع رجلك لفوق
+  mistakes:
+  - en: Jerking the weight
+    ar: شد الوزن بعنف
+  - en: Cutting the range short
+    ar: تقصير المدى
+  image_url: /exercises/Seated_Leg_Curl/0.jpg
+  image_frames:
+  - /exercises/Seated_Leg_Curl/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Seated+leg+curl+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Seated_Leg_Curl
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Lying leg curl
+      ar: ثني رجل وأنت نايم
+    kind: equipment
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_calf_raise
+  name:
+    en: Standing calf raise
+    ar: سمانة واقف
+  description:
+    en: Rising onto your toes against a weight, with a full stretch at the bottom. Trains the calves.
+    ar: تطلع على صوابع رجلك وعليك وزن، مع مدّة كاملة تحت. بيشتغل على السمانة.
+  movement_pattern: plantarFlexion
+  joints_loaded:
+  - ankle
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - shinL
+  - shinR
+  secondary_muscles: []
+  muscle_names:
+    en: Calves
+    ar: السمانة
+  instructions:
+  - en: Stand with the balls of your feet on the step and the pads on your shoulders.
+    ar: اقف ومقدمة رجلك على الحافة والمساند على كتفك.
+  - en: Lower your heels as far as they go.
+    ar: نزّل كعبك لآخره.
+  - en: Rise up onto your toes as high as you can.
+    ar: اطلع على صوابعك لأعلى نقطة.
+  - en: Hold for a second at the top, then lower slowly.
+    ar: اثبت ثانية فوق، وبعدين نزّل ببطء.
+  cues:
+  - en: Pause in the stretch at the bottom
+    ar: اثبت في المدّة تحت
+  - en: Knees straight but not locked
+    ar: ركبتك مفرودة من غير قفل
+  - en: Push through your big toe
+    ar: ادفع بالصباع الكبير
+  mistakes:
+  - en: Bouncing at the bottom
+    ar: النط تحت
+  - en: Half reps
+    ar: عدّات نص مدى
+  image_url: /exercises/Standing_Calf_Raises/0.jpg
+  image_frames:
+  - /exercises/Standing_Calf_Raises/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Standing+calf+raise+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Standing_Calf_Raises
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Calf raise on a step, bodyweight
+      ar: سمانة على سلمة بوزن الجسم
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_split_squat
+  name:
+    en: Dumbbell split squat
+    ar: سبليت سكوات بالدمبل
+  description:
+    en: A staggered-stance squat with a dumbbell in each hand, one leg at a time. Trains thighs and glutes and evens out left and right.
+    ar: سكوات ورجل قدام ورجل ورا ودمبل في كل إيد، رجل رجل. بيشتغل على الفخد والمؤخرة وبيعادل بين الشمال واليمين.
+  movement_pattern: lunge
+  joints_loaded:
+  - knee
+  - hip
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  difficulty: intermediate
+  primary_muscles:
+  - thighL
+  - thighR
+  - hipL
+  - hipR
+  secondary_muscles: []
+  muscle_names:
+    en: Front thighs, glutes
+    ar: الفخد الأمامية، المؤخرة
+  instructions:
+  - en: Take a long step forward, a dumbbell in each hand, back heel off the floor.
+    ar: خد خطوة طويلة لقدام، ودمبل في كل إيد، وكعب الرجل اللي ورا مرفوع.
+  - en: Lower straight down until your back knee nearly touches the floor.
+    ar: انزل على طول لتحت لحد ما ركبة الرجل اللي ورا تقرب من الأرض.
+  - en: Push through your front foot to come back up.
+    ar: ادفع برجلك اللي قدام عشان تطلع.
+  - en: Do all the reps, then switch legs.
+    ar: خلّص العدّات وبعدين بدّل الرجل.
+  cues:
+  - en: Torso upright
+    ar: جسمك مفرود
+  - en: Front knee over the middle of the foot
+    ar: الركبة اللي قدام فوق نص الرجل
+  - en: Go down, not forward
+    ar: انزل لتحت، مش لقدام
+  mistakes:
+  - en: Stance too narrow, like a tightrope
+    ar: الرجلين على خط واحد كأنك ماشي على حبل
+  - en: Pushing off the back leg
+    ar: تدفع بالرجل اللي ورا
+  image_url: /exercises/Split_Squat_with_Dumbbells/0.jpg
+  image_frames:
+  - /exercises/Split_Squat_with_Dumbbells/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Dumbbell+split+squat+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Split_Squat_with_Dumbbells
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Split squat holding a support, bodyweight
+      ar: سبليت سكوات بوزن الجسم وأنت ماسك حاجة
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_leg_extension
+  name:
+    en: Leg extension
+    ar: ليج إكستنشن
+  description:
+    en: A machine exercise that straightens the knee against a pad. Trains the front of the thighs on their own.
+    ar: تمرين جهاز بتفرد فيه ركبتك ضد مسند. بيشتغل على الفخد الأمامية لوحدها.
+  movement_pattern: kneeExtension
+  joints_loaded:
+  - knee
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles: []
+  muscle_names:
+    en: Front thighs
+    ar: الفخد الأمامية
+  instructions:
+  - en: Sit with your back on the pad and the roller on the front of your ankles.
+    ar: اقعد وضهرك على المسند والرول قدام كاحلك.
+  - en: Straighten your legs until they are nearly locked.
+    ar: افرد رجلك لحد ما تقرب تتفرد خالص.
+  - en: Squeeze the thighs for a second at the top.
+    ar: اعصر الفخد ثانية فوق.
+  - en: Lower slowly to the start.
+    ar: نزّل ببطء لمكان البداية.
+  cues:
+  - en: Hold the handles, stay seated
+    ar: امسك المساكات وخليك قاعد
+  - en: Lower for 2–3 seconds
+    ar: نزّل في 2–3 ثواني
+  - en: Knee in line with the machine's pivot
+    ar: ركبتك على محور الجهاز
+  mistakes:
+  - en: Kicking the weight up
+    ar: رمي الوزن لفوق
+  - en: Lifting the hips off the seat
+    ar: رفع الوسط من الكرسي
+  image_url: /exercises/Leg_Extensions/0.jpg
+  image_frames:
+  - /exercises/Leg_Extensions/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Leg+extension+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Leg_Extensions
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Wall sit
+      ar: قعدة الحيطة
+    kind: easier
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'

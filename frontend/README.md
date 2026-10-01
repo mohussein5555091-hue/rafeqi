@@ -37,7 +37,7 @@ src/
   `bg, surface, ink, divider, accent-100…900` (terracotta), `sage-100…900`, `neutral-100…900`, `warn-100…800`; radii `sm md lg card pill`; spacing `o-1…o-8`, `tap` (44px); `shadow-sm/md/lg`; fonts `font-heading` (Caprasimo → Lalezar in Arabic) and `font-body` (Figtree → Readex Pro).
 - **One status language:** `onTrack` (sage), `attention` (terracotta), `warning` (clay red). Use `<StatusBadge status=…/>`.
 - **Grocery items use generic names only**, never brands.
-- **Touch targets** are at least 44px (`min-h-tap`, `h-tap w-tap`). The logger's set controls are 56px.
+- **Touch targets** are at least 44px (`min-h-tap`, `h-tap w-tap`). The logger's "Done as planned" buttons are 54px.
 - **Loading, empty and error states** go through `<QueryView>` on every data screen.
 
 ## Screens, routes and data
@@ -52,10 +52,11 @@ src/
 | 4 | Your plan is ready | `PlanReady` (onboarding/PlanScreens) | `/plan-ready` | `getPlan()`, `getUser()`, `getExercises()` → `plan`, `user`, `exercises` |
 | 5 | Dashboard | `Dashboard` (home/Dashboard) | `/` | `getDashboard()` → `user, plan, workoutWeek, mealDay, nextCheckIn, injuries, reviews, progress` |
 | 6 | Workout plan (week) | `WorkoutPlan` (workouts/WorkoutScreens) | `/workouts` | `getWorkoutWeek()`, `getExercises()` → `workoutWeek`, `exercises` |
-| 6 | Session | `Session` (workouts/WorkoutScreens) | `/workouts/:id` | `getWorkout(id)` → `workoutWeek.sessions` |
+| 6 | Workout day (any day of the week; prev/next arrows; what was logged on past days; Start only today) | `Session` (workouts/WorkoutScreens) | `/workouts/:id` | `getWorkout(id)`, `getWorkoutWeek()`, `getInjuries()` → `workoutWeek.sessions` |
 | 7 | Exercise detail | `ExerciseDetail` (workouts/WorkoutScreens) | `/exercises/:id` | `getExercise(id)`, `getPlan()` → `exercises`, `plan.injurySwaps` |
-| 8 | Workout logger + pain check | `WorkoutLogger` (workouts/WorkoutScreens) | `/workouts/:id/log` | `getWorkout`, `getExercises`, `getInjuries`, `logSet`, `finishWorkout` |
-| 9 | Nutrition plan (day / week, swap) | `NutritionPlan` (nutrition/NutritionScreens) | `/nutrition`, `/nutrition?view=week` | `getMealDay`, `getPlan`, `getMealWeek`, `getSwapOptions`, `swapMeal` → `mealDay`, `mealWeek`, `swapOptions` |
+| 8 | Workout logger (one page, one result per exercise) + effort rating + pain check | `WorkoutLogger` (workouts/WorkoutScreens) | `/workouts/:id/log` | `getWorkout`, `getExercises`, `getInjuries`, `logExercise`, `finishWorkout` |
+| 9 | Nutrition plan (day / week, swap) | `NutritionPlan` (nutrition/NutritionScreens) | `/nutrition`, `/nutrition?view=week` | `getMealDay`, `getPlan`, `getMealWeek`, `getSwapOptions`, `swapMeal` → `mealDays`, `mealWeek`, `swapOptions` |
+| 9 | Nutrition day (one date, prev/next arrows) | `NutritionDay` (nutrition/NutritionScreens) | `/nutrition/day/:date` | `getMealDay(date)`, `getPlan`, `getMealWeek`, `swapMeal` → `mealDays` |
 | 10 | Recipe detail | `RecipeDetail` (nutrition/NutritionScreens) | `/nutrition/recipes/:id` | `getRecipe(id)` → `recipes` |
 | 11 | Grocery list | `Groceries` (nutrition/NutritionScreens) | `/groceries` | `getGroceryList`, `updateGroceryItem` → `groceryList` |
 | 11 | Pantry | `Pantry` (nutrition/NutritionScreens) | `/groceries/pantry` | `getPantry()` → `pantry` |

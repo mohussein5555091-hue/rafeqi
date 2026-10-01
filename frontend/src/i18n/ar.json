@@ -123,20 +123,26 @@
     "rest": "راحة {t}", "rpe": "المجهود {n}", "howTo": "إزاي تعمل {name}",
     "swappedFor": "اتبدّل عشان {area}", "addedFor": "اتضاف لدعم {area}",
     "rpeHelp": "المجهود (RPE) من 1 لـ 10. مجهود 8 يعني كان ممكن تعمل حوالي عدّتين زيادة.",
-    "detailsSoon": "تمارين الجلسة دي هتظهر قرب يومها."
+    "detailsSoon": "تمارين الجلسة دي هتظهر قرب يومها.",
+    "target": "{sets} × {reps} @ {kg} كجم", "targetBw": "{sets} × {reps}", "prevDay": "التمرين اللي قبله", "nextDay": "التمرين اللي بعده",
+    "dayOf": "تمرين {n} من {total} الأسبوع ده", "whatYouDid": "اللي عملته", "skipped": "ماتعملش", "effortLogged": "المجهود {n}/10",
+    "painAfter": "{area} بعدها: {n}/10", "startOnDay": "تقدر تبدأ التمرين ده يوم {day}.", "missed": "فاتك"
   },
   "exercise": {
     "media": "شرح التمرين بالصور", "mediaAlt": "{name}: وضع البداية والنهاية", "noMedia": "الشرح بالصور قريب",
     "pause": "وقّف العرض", "play": "شغّل العرض", "watchVideo": "شوف الفيديو", "credit": "الصور:", "howTo": "إزاي تعمله", "cues": "نصايح الأداء",
     "mistakes": "أخطاء شائعة", "muscles": "العضلات الشغالة", "alternatives": "بدائل",
-    "kind": { "easier": "أسهل", "injuryFriendly": "مناسب للإصابة" }
+    "kind": { "easier": "أسهل", "injuryFriendly": "مناسب للإصابة", "equipment": "بأدوات تانية" }
   },
   "logger": {
-    "exerciseOf": "التمرين {n} من {total}", "rest": "راحة", "nextSet": "الجاي: مجموعة {n} من {total}", "plus30": "+30 ث", "skip": "تخطّي",
-    "set": "المجموعة", "lastTime": "المرة اللي فاتت", "repsKg": "عدّات × كجم", "rpeShort": "المجهود", "now": "دلوقتي",
-    "repsTarget": "العدّات · الهدف {reps}", "reps": "العدّات", "weightKg": "الوزن، كجم", "howHard": "كان صعب قد إيه؟ (المجهود · الهدف {n})",
-    "pain": "ألم", "logSet": "سجّل مجموعة {n}",
-    "doneTitle": "التمرين خلص", "setsLogged": "مجموعة اتسجلت", "exercises": "تمارين", "newRecord": "رقم قياسي جديد",
+    "targetLine": "الهدف {target}", "lastTime": "آخر مرة: {result}", "struggledShort": "آخر مجموعة كانت صعبة",
+    "doneAsPlanned": "خلصته زي المخطط", "editResult": "عدّل {name}", "sets": "المجموعات", "reps": "العدّات", "weightKg": "الوزن، كجم",
+    "struggled": "آخر مجموعة كانت صعبة عليّا", "saveResult": "احفظ", "undo": "تراجع", "result": "اتعمل: {result}",
+    "progress": "{done} من {total} تمارين اتسجلت", "finish": "خلّص التمرين", "finishHint": "أي تمرين ماسجلتوش هيتحسب إنك عملته زي المخطط.",
+    "pain": "ألم",
+    "doneTitle": "التمرين خلص", "setsLogged": "مجموعة اتسجلت", "exercises": "تمارين", "beatLastTime": "أحسن من آخر مرة",
+    "effortQ": "تمرين النهارده كان صعب قد إيه؟", "effortLabel": "مجهود التمرين من 1 لـ 10", "effort1": "1 · سهل جدًا", "effort10": "10 · ماكنتش أقدر أكمّل",
+    "pickEffort": "اختار كان صعب قد إيه عشان تحفظ التمرين.",
     "painQ": "{area} عامل إيه دلوقتي؟", "painLabel": "الألم من 0 لـ 10", "pain0": "0 · مفيش ألم", "pain10": "10 · أسوأ ألم",
     "anyOfThese": "في أي حاجة من دول؟", "painDown": "نزل من {prev} المرة اللي فاتت. حلو — هنسيب البدائل زي ما هي دلوقتي.", "saveFinish": "احفظ وخلّص"
   },
@@ -149,7 +155,8 @@
     "swapTo": "بدّل لـ {name}", "groceryUpdates": "قائمة المشتريات بتتحدّث تلقائيًا.",
     "recipeSub": "الوصفة", "photo": "صورة الطبق", "prep": "التحضير", "cook": "الطبخ", "fridge": "التلاجة", "days": "{n} أيام",
     "storing": "التخزين والتسخين", "ingredients": "المكونات", "portions": "الكمية", "onePortion": "حصة واحدة", "prepThree": "حضّر 3",
-    "scaledTo": "محسوبة على وجبتك {kcal} سعرة", "steps": "الخطوات", "startTimer": "شغّل مؤقت {t}", "timerRunning": "المؤقت شغال · اضغط للإيقاف"
+    "scaledTo": "محسوبة على وجبتك {kcal} سعرة", "steps": "الخطوات", "startTimer": "شغّل مؤقت {t}", "timerRunning": "المؤقت شغال · اضغط للإيقاف",
+    "prevDay": "اليوم اللي قبله", "nextDay": "اليوم اللي بعده", "today": "النهارده", "openDay": "وجبات {date}"
   },
   "groceries": {
     "sub": "الأسبوع {week} · {start} – {end}", "period": "الفترة", "week": "الأسبوع ده", "month": "الشهر ده",

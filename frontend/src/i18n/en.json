@@ -118,25 +118,31 @@
     "programSub": "Upper / Lower · week {week} of {total}", "prevWeek": "Previous week", "nextWeek": "Next week",
     "doneMeta": "Done · {min} min · {done}/{total} sets", "todayMeta": "Today · {min} min", "weekProgress": "Sessions done this week",
     "doneOf": "{done} of {total} done", "deload": "Week {week} is a lighter week to let your joints recover.",
-    "start": "Start session", "sessionMeta": "{n} exercises · about {min} min", "about": "about {min} min",
+    "start": "Start workout", "sessionMeta": "{n} exercises · about {min} min", "about": "about {min} min",
     "nExercises": "{n} exercises", "nSets": "{n} sets", "warmup": "Warm-up {n} min",
     "rest": "Rest {t}", "rpe": "RPE {n}", "howTo": "How to do {name}",
     "swappedFor": "Swapped for your {area}", "addedFor": "Added to support your {area}",
     "rpeHelp": "RPE = how hard a set feels. RPE 8 means you could do about 2 more reps.",
-    "detailsSoon": "This session's exercises appear closer to the day."
+    "detailsSoon": "This session's exercises appear closer to the day.",
+    "target": "{sets} × {reps} @ {kg} kg", "targetBw": "{sets} × {reps}", "prevDay": "Previous workout", "nextDay": "Next workout",
+    "dayOf": "Workout {n} of {total} this week", "whatYouDid": "What you did", "skipped": "Skipped", "effortLogged": "Effort {n}/10",
+    "painAfter": "{area} after: {n}/10", "startOnDay": "You can start this workout on {day}.", "missed": "Missed"
   },
   "exercise": {
     "media": "Exercise demonstration", "mediaAlt": "{name}: start and end position", "noMedia": "Demonstration coming soon",
     "pause": "Pause demonstration", "play": "Play demonstration", "watchVideo": "Watch video", "credit": "Photos:", "howTo": "How to do it", "cues": "Form cues",
     "mistakes": "Common mistakes", "muscles": "Muscles worked", "alternatives": "Alternatives",
-    "kind": { "easier": "Easier", "injuryFriendly": "Injury-friendly" }
+    "kind": { "easier": "Easier", "injuryFriendly": "Injury-friendly", "equipment": "Other equipment" }
   },
   "logger": {
-    "exerciseOf": "Exercise {n} of {total}", "rest": "Rest", "nextSet": "Next: set {n} of {total}", "plus30": "+30 s", "skip": "Skip",
-    "set": "Set", "lastTime": "Last time", "repsKg": "Reps × kg", "rpeShort": "RPE", "now": "Now",
-    "repsTarget": "Reps · target {reps}", "reps": "Reps", "weightKg": "Weight, kg", "howHard": "How hard was it? (RPE · target {n})",
-    "pain": "Pain", "logSet": "Log set {n}",
-    "doneTitle": "Session done", "setsLogged": "sets logged", "exercises": "exercises", "newRecord": "new record",
+    "targetLine": "Target {target}", "lastTime": "Last time: {result}", "struggledShort": "last set was a struggle",
+    "doneAsPlanned": "Done as planned", "editResult": "Edit {name}", "sets": "Sets", "reps": "Reps", "weightKg": "Weight, kg",
+    "struggled": "I struggled on the last set", "saveResult": "Save", "undo": "Undo", "result": "Done: {result}",
+    "progress": "{done} of {total} exercises logged", "finish": "Finish workout", "finishHint": "Anything you haven't logged counts as done as planned.",
+    "pain": "Pain",
+    "doneTitle": "Session done", "setsLogged": "sets logged", "exercises": "exercises", "beatLastTime": "beat last time",
+    "effortQ": "How hard was today's workout?", "effortLabel": "Workout effort from 1 to 10", "effort1": "1 · very easy", "effort10": "10 · couldn't do more",
+    "pickEffort": "Pick how hard it was to save the workout.",
     "painQ": "How is your {area} now?", "painLabel": "Pain from 0 to 10", "pain0": "0 · no pain", "pain10": "10 · worst imaginable",
     "anyOfThese": "Any of these?", "painDown": "Down from {prev} last time. Nice — we'll keep the current swaps for now.", "saveFinish": "Save & finish"
   },
@@ -149,7 +155,8 @@
     "swapTo": "Swap to {name}", "groceryUpdates": "Your grocery list updates automatically.",
     "recipeSub": "Recipe", "photo": "Dish photo", "prep": "Prep", "cook": "Cook", "fridge": "Fridge", "days": "{n} days",
     "storing": "Storing & reheating", "ingredients": "Ingredients", "portions": "Portions", "onePortion": "1 portion", "prepThree": "Prep 3",
-    "scaledTo": "Scaled to your {kcal} kcal meal", "steps": "Steps", "startTimer": "Start {t} timer", "timerRunning": "Timer running · tap to stop"
+    "scaledTo": "Scaled to your {kcal} kcal meal", "steps": "Steps", "startTimer": "Start {t} timer", "timerRunning": "Timer running · tap to stop",
+    "prevDay": "Previous day", "nextDay": "Next day", "today": "Today", "openDay": "Meals for {date}"
   },
   "groceries": {
     "sub": "Week {week} · {start} – {end}", "period": "Period", "week": "This week", "month": "This month",

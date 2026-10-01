@@ -5,7 +5,7 @@ import { Onboarding } from '@/screens/onboarding/Onboarding';
 import { PlanGenerating, PlanReady } from '@/screens/onboarding/PlanScreens';
 import { Dashboard } from '@/screens/home/Dashboard';
 import { WorkoutPlan, Session, ExerciseDetail, WorkoutLogger } from '@/screens/workouts/WorkoutScreens';
-import { NutritionPlan, RecipeDetail, Groceries, Pantry } from '@/screens/nutrition/NutritionScreens';
+import { NutritionPlan, NutritionDay, RecipeDetail, Groceries, Pantry } from '@/screens/nutrition/NutritionScreens';
 import { Injuries, InjuryDetail, InjuryEdit, InjuryWarning } from '@/screens/injuries/InjuryScreens';
 import { CheckIn } from '@/screens/checkin/CheckIn';
 import { WeeklyReview, ReviewHistory, Progress, Profile, ChangePassword } from '@/screens/review/ReviewAndProgress';
@@ -32,6 +32,7 @@ export function App() {
       <Route path="/exercises/:id" element={auth(<ExerciseDetail />)} />
 
       <Route path="/nutrition" element={auth(<NutritionPlan />)} />
+      <Route path="/nutrition/day/:date" element={auth(<NutritionDay />)} />
       <Route path="/nutrition/recipes/:id" element={auth(<RecipeDetail />)} />
       <Route path="/groceries" element={auth(<Groceries />)} />
       <Route path="/groceries/pantry" element={auth(<Pantry />)} />

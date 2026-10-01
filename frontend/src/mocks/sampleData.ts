@@ -233,6 +233,197 @@ export const exercises: Exercise[] = [
     ],
     alternatives: [{ name: L('Cable curl', 'بايسبس بالكابل'), kind: 'easier' }],
   },
+  {
+    id: 'ex_goblet_squat',
+    name: L('Goblet squat', 'سكوات جوبلت'),
+    description: L('A squat holding one dumbbell at your chest. The weight in front keeps you upright, so it is easy to learn. Trains thighs and glutes.', 'سكوات وأنت شايل دمبل واحد قدام صدرك. الوزن من قدام بيخليك واقف مفرود، فسهل تتعلمه. بيشتغل على الفخد والمؤخرة.'),
+    imageUrl: '/exercises/Goblet_Squat/0.jpg',
+    imageFrames: ['/exercises/Goblet_Squat/1.jpg'],
+    videoUrl: 'https://www.youtube.com/results?search_query=Goblet+squat+proper+form',
+    mediaSource: { ...freeExerciseDb, url: 'https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Goblet_Squat' },
+    muscles: { primary: ['thighL', 'thighR'], secondary: ['hipL', 'hipR'] },
+    muscleNames: L('Front thighs, glutes · inner thighs', 'الفخد الأمامية، المؤخرة · الفخد الداخلية'),
+    instructions: [
+      L('Hold one dumbbell upright against your chest with both hands, feet a little wider than your hips.', 'امسك دمبل واحد واقف على صدرك بإيديك الاتنين، ورجليك أوسع شوية من وسطك.'),
+      L('Sit down between your heels, keeping your chest up.', 'انزل كأنك بتقعد بين كعوبك، وصدرك لفوق.'),
+      L('Go as low as you can with a flat back.', 'انزل لأوطى نقطة تقدر عليها وضهرك مفرود.'),
+      L('Push the floor away to stand back up.', 'ادفع الأرض بقوة عشان تقوم.'),
+    ],
+    cues: [
+      L('Knees follow your toes', 'الركبة في اتجاه صوابع رجلك'),
+      L('Whole foot on the floor', 'رجلك كلها على الأرض'),
+      L('Elbows inside the knees at the bottom', 'الكوع جوه الركبة تحت'),
+    ],
+    mistakes: [
+      L('Heels lifting off the floor', 'الكعب يترفع من الأرض'),
+      L('Knees caving inwards', 'الركبة تدخل لجوه'),
+      L('Rounding the lower back at the bottom', 'تقويس أسفل الضهر تحت'),
+    ],
+    alternatives: [{ name: L('Bodyweight box squat', 'سكوات على كرسي بوزن الجسم'), kind: 'easier' }],
+  },
+  {
+    id: 'ex_db_rdl',
+    name: L('Dumbbell Romanian deadlift', 'رفعة رومانية بالدمبل'),
+    description: L('A hip hinge with dumbbells: push your hips back with soft knees until you feel the back of your thighs stretch. Trains hamstrings and glutes.', 'ثني من الوسط بالدمبل: ارجع بوسطك لورا وركبتك مثنية سنة لحد ما تحس بشد في ضهر الفخد. بيشتغل على الفخد الخلفية والمؤخرة.'),
+    imageUrl: '/exercises/Stiff-Legged_Dumbbell_Deadlift/0.jpg',
+    imageFrames: ['/exercises/Stiff-Legged_Dumbbell_Deadlift/1.jpg'],
+    videoUrl: 'https://www.youtube.com/results?search_query=Dumbbell+Romanian+deadlift+proper+form',
+    mediaSource: { ...freeExerciseDb, url: 'https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Stiff-Legged_Dumbbell_Deadlift' },
+    muscles: { primary: ['thighL', 'thighR', 'hipL', 'hipR'], secondary: ['lowerBack'] },
+    muscleNames: L('Hamstrings, glutes · lower back', 'الفخد الخلفية، المؤخرة · أسفل الضهر'),
+    instructions: [
+      L('Stand tall with a dumbbell in each hand in front of your thighs.', 'اقف مفرود ودمبل في كل إيد قدام فخدك.'),
+      L('Bend your knees slightly and push your hips back.', 'اثني ركبتك سنة وارجع بوسطك لورا.'),
+      L('Slide the dumbbells down your legs until you feel a strong stretch.', 'نزّل الدمبل جنب رجلك لحد ما تحس بشد قوي.'),
+      L('Drive your hips forward to stand up.', 'ادفع وسطك لقدام عشان تقوم.'),
+    ],
+    cues: [
+      L('Back flat the whole time', 'ضهرك مفرود طول الوقت'),
+      L('Dumbbells close to your legs', 'الدمبل قريب من رجلك'),
+      L('Hips go back, not down', 'وسطك يرجع لورا، مش ينزل لتحت'),
+    ],
+    mistakes: [
+      L('Rounding the back to reach lower', 'تقوّس ضهرك عشان تنزل أكتر'),
+      L('Turning it into a squat', 'تحولها لسكوات'),
+      L('Leaning back at the top', 'تميل لورا فوق'),
+    ],
+    alternatives: [{ name: L('Glute bridge', 'رفع الحوض من الأرض'), kind: 'easier' }],
+  },
+  {
+    id: 'ex_leg_press',
+    name: L('Leg press', 'ليج برس'),
+    description: L('A machine squat: you push a weighted platform away with your legs while your back stays supported. Trains thighs and glutes.', 'سكوات على الجهاز: بتزق منصة عليها وزن برجلك وضهرك مسنود. بيشتغل على الفخد والمؤخرة.'),
+    imageUrl: '/exercises/Leg_Press/0.jpg',
+    imageFrames: ['/exercises/Leg_Press/1.jpg'],
+    videoUrl: 'https://www.youtube.com/results?search_query=Leg+press+proper+form',
+    mediaSource: { ...freeExerciseDb, url: 'https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Leg_Press' },
+    muscles: { primary: ['thighL', 'thighR'], secondary: ['hipL', 'hipR'] },
+    muscleNames: L('Front thighs · glutes', 'الفخد الأمامية · المؤخرة'),
+    instructions: [
+      L('Sit with your back flat on the pad, feet hip-width in the middle of the platform.', 'اقعد وضهرك لازق في المسند، ورجليك بعرض وسطك في نص المنصة.'),
+      L('Release the safety handles.', 'فك مساكات الأمان.'),
+      L('Lower the platform until your knees are bent to about 90°.', 'نزّل المنصة لحد ما ركبتك تتني حوالي 90 درجة.'),
+      L('Press back up without locking your knees.', 'ادفع لفوق من غير ما تقفل ركبتك.'),
+    ],
+    cues: [
+      L('Lower back stays on the pad', 'أسفل ضهرك لازق في المسند'),
+      L('Push through your heels', 'ادفع بكعبك'),
+      L('Knees in line with your feet', 'ركبتك على خط رجلك'),
+    ],
+    mistakes: [
+      L('Locking the knees at the top', 'قفل الركبة فوق'),
+      L('Hips rolling off the seat at the bottom', 'وسطك يترفع من الكرسي تحت'),
+    ],
+    alternatives: [{ name: L('Goblet squat', 'سكوات جوبلت'), kind: 'equipment' }],
+  },
+  {
+    id: 'ex_seated_leg_curl',
+    name: L('Seated leg curl', 'ثني رجل وأنت قاعد'),
+    description: L('A machine curl for the back of the thighs, done seated so the hamstrings work in a long position.', 'تمرين جهاز لضهر الفخد، وأنت قاعد فالعضلة بتشتغل وهي ممدودة.'),
+    imageUrl: '/exercises/Seated_Leg_Curl/0.jpg',
+    imageFrames: ['/exercises/Seated_Leg_Curl/1.jpg'],
+    videoUrl: 'https://www.youtube.com/results?search_query=Seated+leg+curl+proper+form',
+    mediaSource: { ...freeExerciseDb, url: 'https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Seated_Leg_Curl' },
+    muscles: { primary: ['thighL', 'thighR'], secondary: ['shinL', 'shinR'] },
+    muscleNames: L('Hamstrings · calves', 'الفخد الخلفية · السمانة'),
+    instructions: [
+      L('Sit with the pad just above your heels and the thigh pad locked down.', 'اقعد والمسند فوق كعبك على طول، ومسند الفخد مقفول عليك.'),
+      L('Curl your heels down and back as far as you can.', 'اسحب كعبك لتحت ولورا على قد ما تقدر.'),
+      L('Pause for a second.', 'اثبت ثانية.'),
+      L('Let your legs come back up slowly.', 'رجّع رجلك لفوق ببطء.'),
+    ],
+    cues: [
+      L('Hips stay on the seat', 'وسطك على الكرسي'),
+      L('Slow on the way back', 'ببطء وأنت راجع'),
+      L('Point your toes up', 'صوابع رجلك لفوق'),
+    ],
+    mistakes: [
+      L('Jerking the weight', 'شد الوزن بعنف'),
+      L('Cutting the range short', 'تقصير المدى'),
+    ],
+    alternatives: [{ name: L('Lying leg curl', 'ثني رجل وأنت نايم'), kind: 'equipment' }],
+  },
+  {
+    id: 'ex_calf_raise',
+    name: L('Standing calf raise', 'سمانة واقف'),
+    description: L('Rising onto your toes against a weight, with a full stretch at the bottom. Trains the calves.', 'تطلع على صوابع رجلك وعليك وزن، مع مدّة كاملة تحت. بيشتغل على السمانة.'),
+    imageUrl: '/exercises/Standing_Calf_Raises/0.jpg',
+    imageFrames: ['/exercises/Standing_Calf_Raises/1.jpg'],
+    videoUrl: 'https://www.youtube.com/results?search_query=Standing+calf+raise+proper+form',
+    mediaSource: { ...freeExerciseDb, url: 'https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Standing_Calf_Raises' },
+    muscles: { primary: ['shinL', 'shinR'], secondary: [] },
+    muscleNames: L('Calves', 'السمانة'),
+    instructions: [
+      L('Stand with the balls of your feet on the step and the pads on your shoulders.', 'اقف ومقدمة رجلك على الحافة والمساند على كتفك.'),
+      L('Lower your heels as far as they go.', 'نزّل كعبك لآخره.'),
+      L('Rise up onto your toes as high as you can.', 'اطلع على صوابعك لأعلى نقطة.'),
+      L('Hold for a second at the top, then lower slowly.', 'اثبت ثانية فوق، وبعدين نزّل ببطء.'),
+    ],
+    cues: [
+      L('Pause in the stretch at the bottom', 'اثبت في المدّة تحت'),
+      L('Knees straight but not locked', 'ركبتك مفرودة من غير قفل'),
+      L('Push through your big toe', 'ادفع بالصباع الكبير'),
+    ],
+    mistakes: [
+      L('Bouncing at the bottom', 'النط تحت'),
+      L('Half reps', 'عدّات نص مدى'),
+    ],
+    alternatives: [{ name: L('Calf raise on a step, bodyweight', 'سمانة على سلمة بوزن الجسم'), kind: 'easier' }],
+  },
+  {
+    id: 'ex_split_squat',
+    name: L('Dumbbell split squat', 'سبليت سكوات بالدمبل'),
+    description: L('A staggered-stance squat with a dumbbell in each hand, one leg at a time. Trains thighs and glutes and evens out left and right.', 'سكوات ورجل قدام ورجل ورا ودمبل في كل إيد، رجل رجل. بيشتغل على الفخد والمؤخرة وبيعادل بين الشمال واليمين.'),
+    imageUrl: '/exercises/Split_Squat_with_Dumbbells/0.jpg',
+    imageFrames: ['/exercises/Split_Squat_with_Dumbbells/1.jpg'],
+    videoUrl: 'https://www.youtube.com/results?search_query=Dumbbell+split+squat+proper+form',
+    mediaSource: { ...freeExerciseDb, url: 'https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Split_Squat_with_Dumbbells' },
+    muscles: { primary: ['thighL', 'thighR', 'hipL', 'hipR'], secondary: [] },
+    muscleNames: L('Front thighs, glutes', 'الفخد الأمامية، المؤخرة'),
+    instructions: [
+      L('Take a long step forward, a dumbbell in each hand, back heel off the floor.', 'خد خطوة طويلة لقدام، ودمبل في كل إيد، وكعب الرجل اللي ورا مرفوع.'),
+      L('Lower straight down until your back knee nearly touches the floor.', 'انزل على طول لتحت لحد ما ركبة الرجل اللي ورا تقرب من الأرض.'),
+      L('Push through your front foot to come back up.', 'ادفع برجلك اللي قدام عشان تطلع.'),
+      L('Do all the reps, then switch legs.', 'خلّص العدّات وبعدين بدّل الرجل.'),
+    ],
+    cues: [
+      L('Torso upright', 'جسمك مفرود'),
+      L('Front knee over the middle of the foot', 'الركبة اللي قدام فوق نص الرجل'),
+      L('Go down, not forward', 'انزل لتحت، مش لقدام'),
+    ],
+    mistakes: [
+      L('Stance too narrow, like a tightrope', 'الرجلين على خط واحد كأنك ماشي على حبل'),
+      L('Pushing off the back leg', 'تدفع بالرجل اللي ورا'),
+    ],
+    alternatives: [{ name: L('Split squat holding a support, bodyweight', 'سبليت سكوات بوزن الجسم وأنت ماسك حاجة'), kind: 'easier' }],
+  },
+  {
+    id: 'ex_leg_extension',
+    name: L('Leg extension', 'ليج إكستنشن'),
+    description: L('A machine exercise that straightens the knee against a pad. Trains the front of the thighs on their own.', 'تمرين جهاز بتفرد فيه ركبتك ضد مسند. بيشتغل على الفخد الأمامية لوحدها.'),
+    imageUrl: '/exercises/Leg_Extensions/0.jpg',
+    imageFrames: ['/exercises/Leg_Extensions/1.jpg'],
+    videoUrl: 'https://www.youtube.com/results?search_query=Leg+extension+proper+form',
+    mediaSource: { ...freeExerciseDb, url: 'https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Leg_Extensions' },
+    muscles: { primary: ['thighL', 'thighR'], secondary: [] },
+    muscleNames: L('Front thighs', 'الفخد الأمامية'),
+    instructions: [
+      L('Sit with your back on the pad and the roller on the front of your ankles.', 'اقعد وضهرك على المسند والرول قدام كاحلك.'),
+      L('Straighten your legs until they are nearly locked.', 'افرد رجلك لحد ما تقرب تتفرد خالص.'),
+      L('Squeeze the thighs for a second at the top.', 'اعصر الفخد ثانية فوق.'),
+      L('Lower slowly to the start.', 'نزّل ببطء لمكان البداية.'),
+    ],
+    cues: [
+      L('Hold the handles, stay seated', 'امسك المساكات وخليك قاعد'),
+      L('Lower for 2–3 seconds', 'نزّل في 2–3 ثواني'),
+      L('Knee in line with the machine\'s pivot', 'ركبتك على محور الجهاز'),
+    ],
+    mistakes: [
+      L('Kicking the weight up', 'رمي الوزن لفوق'),
+      L('Lifting the hips off the seat', 'رفع الوسط من الكرسي'),
+    ],
+    alternatives: [{ name: L('Wall sit', 'قعدة الحيطة'), kind: 'easier' }],
+  },
 ];
 
 // ── Plan ─────────────────────────────────────────────────────────────
@@ -282,13 +473,77 @@ const upperA: Workout = {
   estMinutes: 58,
   warmupMinutes: 6,
   exercises: [
-    { exerciseId: 'ex_db_floor_press', sets: 3, reps: '8–10', restSec: 120, rpe: 7, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2, lastTime: [{ reps: 10, weightKg: 22.5, rpe: 7 }, { reps: 10, weightKg: 22.5, rpe: 7 }, { reps: 9, weightKg: 22.5, rpe: 8 }] },
-    { exerciseId: 'ex_cs_row', sets: 3, reps: '10–12', restSec: 90, rpe: 8, weightStepKg: 2, lastTime: [{ reps: 12, weightKg: 20, rpe: 8 }, { reps: 11, weightKg: 20, rpe: 8 }, { reps: 10, weightKg: 20, rpe: 8 }] },
-    { exerciseId: 'ex_landmine_press', sets: 3, reps: '10 each', restSec: 90, rpe: 7, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
-    { exerciseId: 'ex_lat_pulldown', sets: 3, reps: '10–12', restSec: 90, rpe: 8, weightStepKg: 5 },
-    { exerciseId: 'ex_face_pull', sets: 3, reps: '15', restSec: 60, rpe: 7, swap: { injuryId: 'inj_shoulder_l', kind: 'added' }, weightStepKg: 2.5 },
-    { exerciseId: 'ex_pushdown', sets: 3, reps: '12', restSec: 60, rpe: 8, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
-    { exerciseId: 'ex_incline_curl', sets: 2, reps: '12', restSec: 60, rpe: 8, weightStepKg: 1 },
+    { exerciseId: 'ex_db_floor_press', sets: 3, reps: '8–10', restSec: 120, rpe: 7, weightKg: 22.5, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2, lastTime: { sets: 3, reps: 9, weightKg: 22.5, struggled: true } },
+    { exerciseId: 'ex_cs_row', sets: 3, reps: '10–12', restSec: 90, rpe: 8, weightKg: 20, weightStepKg: 2, lastTime: { sets: 3, reps: 10, weightKg: 20, struggled: false } },
+    { exerciseId: 'ex_landmine_press', sets: 3, reps: '10 each', restSec: 90, rpe: 7, weightKg: 15, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
+    { exerciseId: 'ex_lat_pulldown', sets: 3, reps: '10–12', restSec: 90, rpe: 8, weightKg: 45, weightStepKg: 5 },
+    { exerciseId: 'ex_face_pull', sets: 3, reps: '15', restSec: 60, rpe: 7, weightKg: 15, swap: { injuryId: 'inj_shoulder_l', kind: 'added' }, weightStepKg: 2.5 },
+    { exerciseId: 'ex_pushdown', sets: 3, reps: '12', restSec: 60, rpe: 8, weightKg: 20, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
+    { exerciseId: 'ex_incline_curl', sets: 2, reps: '12', restSec: 60, rpe: 8, weightKg: 10, weightStepKg: 1 },
+  ],
+};
+
+const lowerA: Workout = {
+  id: 'w3_lower_a',
+  name: L('Lower body A', 'الجزء السفلي أ'),
+  day: 'sat',
+  date: '2026-09-26',
+  status: 'done',
+  estMinutes: 55,
+  warmupMinutes: 6,
+  exercises: [
+    { exerciseId: 'ex_goblet_squat', sets: 3, reps: '8–10', restSec: 120, rpe: 7, weightKg: 24, weightStepKg: 2 },
+    { exerciseId: 'ex_db_rdl', sets: 3, reps: '8–10', restSec: 120, rpe: 7, weightKg: 20, weightStepKg: 2 },
+    { exerciseId: 'ex_leg_press', sets: 3, reps: '10–12', restSec: 120, rpe: 8, weightKg: 100, weightStepKg: 10 },
+    { exerciseId: 'ex_seated_leg_curl', sets: 3, reps: '10–12', restSec: 90, rpe: 8, weightKg: 40, weightStepKg: 5 },
+    { exerciseId: 'ex_calf_raise', sets: 3, reps: '12–15', restSec: 60, rpe: 8, weightKg: 50, weightStepKg: 5 },
+  ],
+  summary: { minutes: 52, setsDone: 14, setsTotal: 15, painByInjury: { inj_shoulder_l: 2 } },
+  log: {
+    effort: 7,
+    results: {
+      ex_goblet_squat: { sets: 3, reps: 10, weightKg: 24, struggled: false },
+      ex_db_rdl: { sets: 3, reps: 10, weightKg: 20, struggled: false },
+      ex_leg_press: { sets: 3, reps: 10, weightKg: 100, struggled: true },
+      ex_seated_leg_curl: { sets: 3, reps: 12, weightKg: 40, struggled: false },
+      ex_calf_raise: { sets: 2, reps: 15, weightKg: 50, struggled: false },
+    },
+  },
+};
+
+const lowerB: Workout = {
+  id: 'w3_lower_b',
+  name: L('Lower body B', 'الجزء السفلي ب'),
+  day: 'wed',
+  date: '2026-09-30',
+  status: 'planned',
+  estMinutes: 55,
+  warmupMinutes: 6,
+  exercises: [
+    { exerciseId: 'ex_split_squat', sets: 3, reps: '8–10 each', restSec: 90, rpe: 7, weightKg: 10, weightStepKg: 2 },
+    { exerciseId: 'ex_db_rdl', sets: 3, reps: '10–12', restSec: 120, rpe: 7, weightKg: 20, weightStepKg: 2, lastTime: { sets: 3, reps: 10, weightKg: 20, struggled: false } },
+    { exerciseId: 'ex_leg_extension', sets: 3, reps: '12–15', restSec: 60, rpe: 8, weightKg: 35, weightStepKg: 5 },
+    { exerciseId: 'ex_seated_leg_curl', sets: 3, reps: '12–15', restSec: 60, rpe: 8, weightKg: 35, weightStepKg: 5, lastTime: { sets: 3, reps: 12, weightKg: 40, struggled: false } },
+    { exerciseId: 'ex_calf_raise', sets: 3, reps: '15', restSec: 60, rpe: 8, weightKg: 50, weightStepKg: 5, lastTime: { sets: 2, reps: 15, weightKg: 50, struggled: false } },
+  ],
+};
+
+const upperB: Workout = {
+  id: 'w3_upper_b',
+  name: L('Upper body B', 'الجزء العلوي ب'),
+  day: 'thu',
+  date: '2026-10-01',
+  status: 'planned',
+  estMinutes: 58,
+  warmupMinutes: 6,
+  exercises: [
+    { exerciseId: 'ex_cs_row', sets: 3, reps: '8–10', restSec: 120, rpe: 8, weightKg: 22, weightStepKg: 2 },
+    { exerciseId: 'ex_db_floor_press', sets: 3, reps: '10–12', restSec: 120, rpe: 7, weightKg: 20, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2 },
+    { exerciseId: 'ex_lat_pulldown', sets: 3, reps: '8–10', restSec: 90, rpe: 8, weightKg: 50, weightStepKg: 5 },
+    { exerciseId: 'ex_landmine_press', sets: 3, reps: '12 each', restSec: 90, rpe: 7, weightKg: 12.5, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
+    { exerciseId: 'ex_face_pull', sets: 3, reps: '15', restSec: 60, rpe: 7, weightKg: 15, swap: { injuryId: 'inj_shoulder_l', kind: 'added' }, weightStepKg: 2.5 },
+    { exerciseId: 'ex_incline_curl', sets: 3, reps: '10', restSec: 60, rpe: 8, weightKg: 10, weightStepKg: 1 },
+    { exerciseId: 'ex_pushdown', sets: 2, reps: '12', restSec: 60, rpe: 8, weightKg: 20, swap: { injuryId: 'inj_shoulder_l', kind: 'swapped' }, weightStepKg: 2.5 },
   ],
 };
 
@@ -298,12 +553,7 @@ export const workoutWeek: WorkoutWeek = {
   start: '2026-09-26',
   end: '2026-10-02',
   deloadWeek: 5,
-  sessions: [
-    { id: 'w3_lower_a', name: L('Lower body A', 'الجزء السفلي أ'), day: 'sat', date: '2026-09-26', status: 'done', estMinutes: 55, warmupMinutes: 6, exercises: [], summary: { minutes: 52, setsDone: 18, setsTotal: 18, painByInjury: { inj_shoulder_l: 2 } } },
-    upperA,
-    { id: 'w3_lower_b', name: L('Lower body B', 'الجزء السفلي ب'), day: 'wed', date: '2026-09-30', status: 'planned', estMinutes: 55, warmupMinutes: 6, exercises: [] },
-    { id: 'w3_upper_b', name: L('Upper body B', 'الجزء العلوي ب'), day: 'thu', date: '2026-10-01', status: 'planned', estMinutes: 58, warmupMinutes: 6, exercises: [] },
-  ],
+  sessions: [lowerA, upperA, lowerB, upperB],
 };
 
 // ── Meals & recipes ──────────────────────────────────────────────────
@@ -314,7 +564,6 @@ export const meals: Meal[] = [
   { id: 'm_chicken_molokhia', slot: 'dinner', time: '21:00', name: L('Grilled chicken, rice & molokhia', 'فراخ مشوية ورز وملوخية'), portions: L('250 g chicken · ½ cup rice · 1 ladle molokhia · lemon', '250 جم فراخ · نص كوباية رز · مغرفة ملوخية · ليمون'), kcal: 750, proteinG: 80, carbsG: 35, fatG: 33, recipeId: 'r_chicken_molokhia' },
 ];
 
-export const mealDay: MealDay = { date: TODAY, day: 'mon', isTrainingDay: true, meals };
 
 /** Swap candidates: within ±10% of the meal's calories and protein. */
 export const swapOptions: Record<string, Meal[]> = {
@@ -325,15 +574,52 @@ export const swapOptions: Record<string, Meal[]> = {
   ],
 };
 
-export const mealWeek: MealWeekDay[] = [
-  { date: '2026-09-26', day: 'sat', kcal: 2200, main: L('Grilled fish, rice & salad', 'سمك مشوي ورز وسلطة'), others: L('Ful & eggs · lentil soup · zabadi', 'فول وبيض · شوربة عدس · زبادي') },
-  { date: '2026-09-27', day: 'sun', kcal: 2200, main: L('Beef kofta, baladi bread & tahini', 'كفتة وعيش بلدي وطحينة'), others: L('Oats with milk · koshary · fruit', 'شوفان باللبن · كشري · فاكهة') },
-  { date: '2026-09-28', day: 'mon', kcal: 2200, main: L('Chicken, rice & molokhia', 'فراخ ورز وملوخية'), others: L('Ful & eggs · koshary · zabadi & oats', 'فول وبيض · كشري · زبادي وشوفان') },
-  { date: '2026-09-29', day: 'tue', kcal: 2200, main: L('Lentil soup & chicken shawarma bowl', 'شوربة عدس وبول شاورما فراخ'), others: L('Cheese & egg sandwich · pasta · fruit', 'ساندوتش جبنة وبيض · مكرونة · فاكهة') },
-  { date: '2026-09-30', day: 'wed', kcal: 2200, main: L('Chicken & potatoes (swapped)', 'فراخ وبطاطس (بديل)'), others: L('Shakshuka · koshary · zabadi', 'شكشوكة · كشري · زبادي') },
-  { date: '2026-10-01', day: 'thu', kcal: 2200, main: L('Macarona with beef mince', 'مكرونة باللحمة المفرومة'), others: L('Ful & eggs · tuna salad · fruit', 'فول وبيض · سلطة تونة · فاكهة') },
-  { date: '2026-10-02', day: 'fri', kcal: 2200, main: L('Family lunch: mahshi & grilled chicken', 'غدا العيلة: محشي وفراخ مشوية'), others: L('Late breakfast · light dinner', 'فطار متأخر · عشا خفيف') },
-];
+const M = (id: string, slot: Meal['slot'], time: string, name: LocalizedText, portions: LocalizedText, kcal: number, proteinG: number, carbsG: number, fatG: number, recipeId?: string): Meal =>
+  ({ id, slot, time, name, portions, kcal, proteinG, carbsG, fatG, ...(recipeId && { recipeId }) });
+const plain = (m: Meal): Meal => ({ ...m, eaten: undefined });
+const lentilChicken = M('m_lentil_chicken', 'lunch', '14:30', L('Lentil soup, bread & grilled chicken', 'شوربة عدس وعيش وفراخ مشوية'), L('1 bowl lentil soup · ½ baladi bread · 100 g chicken', 'طبق شوربة عدس · نص رغيف بلدي · 100 جم فراخ'), 610, 38, 70, 16);
+const fruitNuts = M('m_fruit_nuts', 'snack', '18:30', L('Fruit & a handful of nuts', 'فاكهة وحفنة مكسرات'), L('1 apple or 2 guavas · 20 g peanuts or almonds', 'تفاحة أو 2 جوافة · 20 جم سوداني أو لوز'), 250, 6, 26, 14);
+
+/** The week's meal plan, one MealDay per date. Training days: sat, mon, wed, thu. */
+export const mealDays: Record<string, MealDay> = Object.fromEntries(([
+  { date: '2026-09-26', day: 'sat', isTrainingDay: true, meals: [plain(meals[0]), lentilChicken, plain(meals[2]),
+    M('m_fish_rice', 'dinner', '21:00', L('Grilled fish, rice & salad', 'سمك مشوي ورز وسلطة'), L('300 g bolti or bouri · ¾ cup rice · green salad · tahini drizzle', '300 جم بلطي أو بوري · تلت أرباع كوباية رز · سلطة خضرا · شوية طحينة'), 770, 52, 80, 24)] },
+  { date: '2026-09-27', day: 'sun', isTrainingDay: false, meals: [
+    M('m_oats_milk', 'breakfast', '08:30', L('Oats with milk & banana', 'شوفان باللبن وموز'), L('½ cup oats · 1 cup milk · 1 banana · 1 tsp honey', 'نص كوباية شوفان · كوباية لبن · موزة · معلقة عسل صغيرة'), 420, 22, 62, 10),
+    plain(meals[1]), fruitNuts,
+    M('m_kofta_tahini', 'dinner', '21:00', L('Beef kofta, baladi bread & tahini', 'كفتة وعيش بلدي وطحينة'), L('200 g lean kofta · 1 baladi bread · 2 tbsp tahini · salad', '200 جم كفتة قليلة الدهن · رغيف بلدي · 2 معلقة طحينة · سلطة'), 900, 62, 58, 44)] },
+  { date: '2026-09-28', day: 'mon', isTrainingDay: true, meals },
+  { date: '2026-09-29', day: 'tue', isTrainingDay: false, meals: [
+    M('m_cheese_egg_sandwich', 'breakfast', '08:30', L('Cheese & egg sandwich in baladi bread', 'ساندوتش جبنة وبيض في عيش بلدي'), L('1 baladi bread · 2 eggs · 40 g white cheese · tomato', 'رغيف بلدي · 2 بيض · 40 جم جبنة بيضا · طماطم'), 480, 30, 45, 19),
+    M('m_shawarma_bowl', 'lunch', '14:30', L('Lentil soup & chicken shawarma bowl', 'شوربة عدس وبول شاورما فراخ'), L('1 cup lentil soup · 150 g chicken shawarma · ½ cup rice · salad & garlic yoghurt', 'كوباية شوربة عدس · 150 جم شاورما فراخ · نص كوباية رز · سلطة وزبادي بالتوم'), 720, 55, 70, 22),
+    M('m_fruit_zabadi', 'snack', '18:30', L('Fruit & zabadi', 'فاكهة وزبادي'), L('1 cup zabadi · 1 orange or 2 guavas', 'علبة زبادي · برتقانة أو 2 جوافة'), 250, 14, 38, 4),
+    M('m_pasta_tuna', 'dinner', '21:00', L('Pasta with tomato sauce & tuna', 'مكرونة بالصلصة والتونة'), L('1 plate pasta · 1 can tuna in water · tomato sauce', 'طبق مكرونة · علبة تونة مية · صلصة طماطم'), 750, 45, 95, 18)] },
+  { date: '2026-09-30', day: 'wed', isTrainingDay: true, meals: [
+    M('m_shakshuka', 'breakfast', '08:30', L('Shakshuka & baladi bread', 'شكشوكة وعيش بلدي'), L('3 eggs in tomato & pepper · 1 baladi bread', '3 بيض بالطماطم والفلفل · رغيف بلدي'), 470, 26, 44, 20),
+    plain(meals[1]), plain(meals[2]),
+    M('m_chicken_potatoes', 'dinner', '21:00', L('Oven chicken & potatoes', 'فراخ وبطاطس في الفرن'), L('250 g chicken · 2 medium potatoes · onion & tomato', '250 جم فراخ · 2 بطاطس وسط · بصل وطماطم'), 795, 70, 70, 24)] },
+  { date: '2026-10-01', day: 'thu', isTrainingDay: true, meals: [plain(meals[0]),
+    M('m_macarona_beef', 'lunch', '14:30', L('Macarona with beef mince', 'مكرونة باللحمة المفرومة'), L('1 plate pasta · 120 g lean beef mince · tomato sauce', 'طبق مكرونة · 120 جم لحمة مفرومة قليلة الدهن · صلصة طماطم'), 830, 50, 100, 24),
+    plain(meals[2]),
+    M('m_tuna_salad', 'dinner', '21:00', L('Tuna salad with baladi bread', 'سلطة تونة وعيش بلدي'), L('1 can tuna · 1 baladi bread · cucumber, tomato & lemon · 1 tsp olive oil', 'علبة تونة · رغيف بلدي · خيار وطماطم وليمون · معلقة زيت زيتون صغيرة'), 520, 42, 48, 16)] },
+  { date: '2026-10-02', day: 'fri', isTrainingDay: false, meals: [
+    M('m_late_breakfast', 'breakfast', '11:00', L('Late breakfast: ful, ta3meya & eggs', 'فطار متأخر: فول وطعمية وبيض'), L('1 plate ful · 2 pieces ta3meya · 2 eggs · ½ baladi bread', 'طبق فول · 2 طعمية · 2 بيض · نص رغيف بلدي'), 620, 30, 62, 26),
+    M('m_mahshi_chicken', 'lunch', '16:00', L('Family lunch: mahshi & grilled chicken', 'غدا العيلة: محشي وفراخ مشوية'), L('6 pieces mahshi · ¼ grilled chicken, no skin · salad', '6 صوابع محشي · ربع فرخة مشوية من غير جلد · سلطة'), 1000, 70, 95, 36),
+    { ...fruitNuts, time: '19:00' },
+    M('m_light_dinner', 'dinner', '22:00', L('Light dinner: zabadi, cheese & cucumber', 'عشا خفيف: زبادي وجبنة وخيار'), L('1 cup zabadi · 60 g cottage or white cheese · cucumber', 'علبة زبادي · 60 جم جبنة قريش أو بيضا · خيار'), 330, 28, 16, 16)] },
+] as MealDay[]).map((d) => [d.date, d]));
+
+export const mealDay: MealDay = mealDays[TODAY];
+
+/** One line per day for the week list, built from mealDays: the biggest meal, then the others. */
+export const mealWeek: MealWeekDay[] = Object.values(mealDays).map((d) => {
+  const main = d.meals.reduce((a, m) => (m.kcal > a.kcal ? m : a));
+  const others = d.meals.filter((m) => m !== main);
+  return {
+    date: d.date, day: d.day, kcal: d.meals.reduce((a, m) => a + m.kcal, 0), main: main.name,
+    others: L(others.map((m) => m.name.en).join(' · '), others.map((m) => m.name.ar).join(' · ')),
+  };
+});
 
 export const recipes: Recipe[] = [
   {

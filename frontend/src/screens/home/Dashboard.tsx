@@ -67,7 +67,7 @@ function DashboardBody({ d, offline }: { d: DashboardData; offline: boolean }) {
             <span className="text-[13.5px] text-neutral-800">{t('workouts.sessionMeta', { n: d.today.exercises.length, min: d.today.estMinutes })}</span>
             {swaps > 0 && <SwapBadge label={t('dashboard.adjustedFor', { n: swaps, area: t('body.shoulderL') })} />}
             <div className="mt-1 flex gap-2">
-              <LinkButton to={`/workouts/${d.today.id}/log`} className="flex-1">{t('workouts.start')}</LinkButton>
+              {d.today.status === 'today' && <LinkButton to={`/workouts/${d.today.id}/log`} className="flex-1">{t('workouts.start')}</LinkButton>}
               <LinkButton to={`/workouts/${d.today.id}`} variant="secondary">{t('common.view')}</LinkButton>
             </div>
           </Card>
