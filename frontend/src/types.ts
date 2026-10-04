@@ -237,6 +237,8 @@ export interface WorkoutLog {
 }
 
 export interface WorkoutWeek {
+  /** The program's own name ("Full body (sample)", "Upper / Lower (sample)"). */
+  programName: LocalizedText;
   weekNumber: number;
   totalWeeks: number;
   start: ISODate;

@@ -338,3 +338,15 @@ def test_finish_with_skipped_exercises(planned):
     c.post(f"/api/workouts/{s['id']}/finish", json={"effort": 6, "done": [first["exerciseId"]]})
     results = c.get(f"/api/workouts/{s['id']}").json()["log"]["results"]
     assert list(results) == [first["exerciseId"]]  # the rest were skipped, not saved as planned
+
+
+def test_week_carries_the_real_program_name(planned, make_user):  # noqa: F811
+    """The Workouts header shows the program's own name (it used to say "Upper / Lower" for every program)."""
+    from test_onboarding import TRAINING, answer_all
+
+    assert week(planned.client)["programName"] == {"en": "Upper / Lower (sample)", "ar": "علوي / سفلي (عينة)"}
+    c = make_user().client
+    answer_all(c, training=TRAINING | {"experience": "beginner", "daysPerWeek": 3})
+    c.post("/api/onboarding/complete")
+    c.post("/api/plan")
+    assert week(c)["programName"]["en"] == "Full body (sample)"

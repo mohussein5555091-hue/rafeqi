@@ -48,7 +48,7 @@ export function WorkoutPlan() {
   const exMap = useExerciseMap();
   const [selected, setSelected] = useState<string>();
   return (
-    <AppShell title={t('nav.workouts')} sub={q.data ? t('workouts.programSub', { week: q.data.weekNumber, total: q.data.totalWeeks }) : undefined}>
+    <AppShell title={t('nav.workouts')} sub={q.data ? t('workouts.programSub', { program: l(q.data.programName), week: q.data.weekNumber, total: q.data.totalWeeks }) : undefined}>
       <QueryView query={q}>
         {(w) => {
           const current = w.sessions.find((s) => s.id === selected) ?? w.sessions.find((s) => s.status === 'today') ?? w.sessions[0];
@@ -169,6 +169,7 @@ function SessionBody({ s, exMap, injuries, twoCols, onChanged }: { s: Workout; e
         {s.exercises.map((e, i) => <ExerciseRow key={e.exerciseId} e={e} i={i} ex={exMap.get(e.exerciseId)} result={log ? log.results[e.exerciseId] ?? null : undefined}
           onSwap={canSwap ? () => setSwapping(e) : undefined} />)}
       </ol>
+      {!canSwap && <p data-testid="past-locked" className="m-0 text-[13px] text-neutral-800">{t('workouts.pastLocked')}</p>}
       <p className="m-0 text-[12.5px] text-neutral-700">{t('workouts.rpeHelp')}</p>
       <CooldownSection w={s} exMap={exMap} />
       {s.cardio && <CardioCard w={s} c={s.cardio} exMap={exMap} />}
@@ -433,7 +434,7 @@ export function WorkoutLogger() {
                   <LogCard key={e.exerciseId} e={e} ex={exMap.get(e.exerciseId)} result={results[e.exerciseId]} editing={editing === e.exerciseId}
                     onEdit={() => setEditing(e.exerciseId)} onCancel={() => setEditing(null)}
                     onLog={(r) => { log(e.exerciseId, r); setEditing(null); }}
-                    onSwap={results[e.exerciseId] ? undefined : () => setSwapping(e)} />
+                    onSwap={results[e.exerciseId] || w.status !== 'today' ? undefined : () => setSwapping(e)} />
                 ))}
               </ol>
               <CooldownSection w={w} exMap={exMap} />

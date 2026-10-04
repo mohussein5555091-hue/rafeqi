@@ -209,3 +209,47 @@ def test_pain_swap_is_saved_like_the_others(planned):  # noqa: F811
     swap(c, s, ex, to, "pain", "today")
     e = next(x for x in c.get(f"/api/workouts/{s['id']}").json()["exercises"] if x["exerciseId"] == to)
     assert e["swap"]["reason"] == "pain" and e["swap"]["why"]["en"] == "it caused pain"
+
+
+# ── Bug reports: swapping and regenerating on a fresh account; past sessions are locked ──
+
+def test_fresh_account_swaps_for_every_reason_then_regenerates(make_user, catalogue):  # noqa: F811
+    """A brand-new account (beginner, full body) can swap for every reason, "just today" and "from now on", and then
+    regenerate its plan: every call succeeds and the swap is kept."""
+    from test_onboarding import TRAINING, answer_all
+
+    u = make_user()
+    c = u.client
+    answer_all(c, training=TRAINING | {"experience": "beginner", "daysPerWeek": 3}, injuries={"injuries": []})
+    assert c.post("/api/onboarding/complete").status_code == 200
+    assert c.post("/api/plan").status_code == 200
+    for reason in ("busy", "cantDo", "pain", "equipment"):
+        s = next(x for x in lifting(c) if x["status"] in ("today", "planned"))
+        ex = s["exercises"][0]["exerciseId"]
+        options = alt(c, s, ex, reason)
+        assert options, reason
+        swap(c, s, ex, options[0]["exerciseId"], reason, "today")
+        s = next(x for x in lifting(c) if x["day"] == s["day"])
+        ex = s["exercises"][1]["exerciseId"]
+        to = alt(c, s, ex, reason)[0]["exerciseId"]
+        swap(c, s, ex, to, reason, "always")
+        assert to in program_ids(c)
+    r = c.post("/api/plan")
+    assert r.status_code == 200, r.text
+    assert to in program_ids(c)  # the last "from now on" swap (each one replaced the one before in that slot) is kept
+    assert [x["toExerciseId"] for x in c.get("/api/swaps").json()] == [to]
+
+
+def test_past_and_finished_sessions_cannot_be_swapped(planned):  # noqa: F811
+    c = planned.client  # Monday: Saturday's session is over
+    sat = next(s for s in lifting(c) if s["day"] == "sat")
+    assert sat["status"] == "missed"
+    ex, to = next((e["exerciseId"], a[0]["exerciseId"]) for e in sat["exercises"] if (a := alt(c, sat, e["exerciseId"])))
+    for scope in ("today", "always"):
+        r = c.post(f"/api/workouts/{sat['id']}/exercises/{ex}/swap", json={"toExerciseId": to, "reason": "busy", "scope": scope})
+        assert (r.status_code, r.json()["detail"]) == (409, "session_is_over")
+    today = today_session(c)
+    assert c.post(f"/api/workouts/{today['id']}/finish", json={"effort": 7}).status_code == 200
+    ex, to = next((e["exerciseId"], a[0]["exerciseId"]) for e in today["exercises"] if (a := alt(c, today, e["exerciseId"])))
+    r = c.post(f"/api/workouts/{today['id']}/exercises/{ex}/swap", json={"toExerciseId": to, "reason": "busy", "scope": "today"})
+    assert r.status_code == 409

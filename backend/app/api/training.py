@@ -251,7 +251,8 @@ def swap_exercise(day_id: str, exercise_id: str, body: SwapExerciseIn, auth: Cur
     week = current_week(db, uid)
     day = _day(db, week, day_id)
     d = week.date_of(day)
-    if body.scope == "today" and d < week.today:
+    finished = (log := v.session_log(db, uid, d)) is not None and log.status == "done"
+    if d < week.today or finished:  # past (or finished) sessions can't be changed, from there or "from now on"
         raise HTTPException(409, "session_is_over")
     se = _session_exercise(db, uid, week, day, exercise_id)
     if body.to_exercise_id not in {a.id for a in _alternatives(db, uid, week, day, se, body.reason)}:

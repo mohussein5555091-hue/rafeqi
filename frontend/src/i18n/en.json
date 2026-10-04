@@ -118,7 +118,7 @@
     "noNotesTitle": "No coach notes yet", "noNotesBody": "Your first review appears after your first weekly check-in."
   },
   "workouts": {
-    "programSub": "Upper / Lower · week {week} of {total}", "prevWeek": "Previous week", "nextWeek": "Next week",
+    "programSub": "{program} · week {week} of {total}", "prevWeek": "Previous week", "nextWeek": "Next week",
     "doneMeta": "Done · {min} min · {done}/{total} sets", "todayMeta": "Today · {min} min", "weekProgress": "Sessions done this week",
     "doneOf": "{done} of {total} done", "deload": "Week {week} is a lighter week to let your joints recover.",
     "start": "Start workout", "sessionMeta": "{n} exercises · about {min} min", "about": "about {min} min",
@@ -130,7 +130,7 @@
     "range": "Range {reps}", "reason": { "findWeight": "Find your weight: start light", "start": "Starting weight", "addReps": "+1 rep since last time", "addWeight": "+{kg} kg since last time", "repeat": "Same as last time", "dropWeight": "−{kg} kg to get the reps back" },
     "target": "{sets} × {reps} @ {kg} kg", "targetBw": "{sets} × {reps}", "prevDay": "Previous workout", "nextDay": "Next workout",
     "dayOf": "Workout {n} of {total} this week", "whatYouDid": "What you did", "skipped": "Skipped", "effortLogged": "Effort {n}/10",
-    "painAfter": "{area} after: {n}/10", "startOnDay": "You can start this workout on {day}.", "missed": "Missed"
+    "painAfter": "{area} after: {n}/10", "startOnDay": "You can start this workout on {day}.", "missed": "Missed", "pastLocked": "Past sessions can't be changed."
   },
   "exercise": {
     "swappedIn": "You swapped this in for {name}, from now on ({why}).",

@@ -275,7 +275,7 @@ def workout_week(db: Session, user_id: str, week: Week) -> dict:
     sessions += [cardio_day_out(db, user_id, week, c) for c in cardio_sessions(week).values() if c["weekday"] not in lifting]
     cardio = week.program.cardio or {}
     why = cardio.get("reasons") or []
-    return {"weekNumber": week.number, "totalWeeks": week.program.total_weeks, "start": week.start.isoformat(),
+    return {"programName": bi(week.program.name_en, week.program.name_ar), "weekNumber": week.number, "totalWeeks": week.program.total_weeks, "start": week.start.isoformat(),
             "end": week.end.isoformat(), "deloadWeek": week.program.deload_week, "sessions": sorted(sessions, key=lambda s: s["date"]),
             "cardio": {"sessionsPerWeek": len(cardio.get("sessions", [])), "stepsPerDay": cardio.get("stepsPerDay", 0),
                        "why": bi(" ".join(r["en"] for r in why), " ".join(r["ar"] for r in why))}}

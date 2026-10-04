@@ -118,7 +118,7 @@
     "noNotesTitle": "لسه مفيش ملاحظات", "noNotesBody": "أول مراجعة هتظهر بعد أول متابعة أسبوعية."
   },
   "workouts": {
-    "programSub": "علوي / سفلي · الأسبوع {week} من {total}", "prevWeek": "الأسبوع اللي فات", "nextWeek": "الأسبوع الجاي",
+    "programSub": "{program} · الأسبوع {week} من {total}", "prevWeek": "الأسبوع اللي فات", "nextWeek": "الأسبوع الجاي",
     "doneMeta": "خلص · {min} د · {done}/{total} مجموعة", "todayMeta": "النهارده · {min} د", "weekProgress": "الجلسات اللي خلصت الأسبوع ده",
     "doneOf": "{done} من {total} خلصوا", "deload": "الأسبوع {week} أخف عشان مفاصلك ترتاح.",
     "start": "ابدأ التمرين", "sessionMeta": "{n} تمارين · حوالي {min} د", "about": "حوالي {min} د",
@@ -130,7 +130,7 @@
     "range": "المدى {reps}", "reason": { "findWeight": "اختار وزنك: ابدأ خفيف", "start": "وزن البداية", "addReps": "عدّة زيادة عن آخر مرة", "addWeight": "+{kg} كجم عن آخر مرة", "repeat": "زي آخر مرة", "dropWeight": "−{kg} كجم عشان ترجع العدّات" },
     "target": "{sets} × {reps} @ {kg} كجم", "targetBw": "{sets} × {reps}", "prevDay": "التمرين اللي قبله", "nextDay": "التمرين اللي بعده",
     "dayOf": "تمرين {n} من {total} الأسبوع ده", "whatYouDid": "اللي عملته", "skipped": "ماتعملش", "effortLogged": "المجهود {n}/10",
-    "painAfter": "{area} بعدها: {n}/10", "startOnDay": "تقدر تبدأ التمرين ده يوم {day}.", "missed": "فاتك"
+    "painAfter": "{area} بعدها: {n}/10", "startOnDay": "تقدر تبدأ التمرين ده يوم {day}.", "missed": "فاتك", "pastLocked": "التمرينات اللي فاتت ماينفعش تتغيّر."
   },
   "exercise": {
     "swappedIn": "أنت بدّلت ده مكان {name} من هنا ورايح ({why}).",

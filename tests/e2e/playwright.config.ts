@@ -11,7 +11,8 @@ export default defineConfig({
   fullyParallel: true,
   retries: 0,
   reporter: [['list'], ['html', { open: 'never' }]],
-  use: { baseURL: WEB, trace: 'retain-on-failure' },
+  // PW_CHROMIUM_PATH: use an already-installed Chromium instead of Playwright's own download (e.g. a cloud machine).
+  use: { baseURL: WEB, trace: 'retain-on-failure', launchOptions: process.env.PW_CHROMIUM_PATH ? { executablePath: process.env.PW_CHROMIUM_PATH } : {} },
   webServer: {
     command: 'node scripts/e2e-server.mjs',
     cwd: '../..',
