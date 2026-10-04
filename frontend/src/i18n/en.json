@@ -120,14 +120,14 @@
   "workouts": {
     "programSub": "{program} · week {week} of {total}", "prevWeek": "Previous week", "nextWeek": "Next week",
     "doneMeta": "Done · {min} min · {done}/{total} sets", "todayMeta": "Today · {min} min", "weekProgress": "Sessions done this week",
-    "doneOf": "{done} of {total} done", "deload": "Week {week} is a lighter week to let your joints recover.",
+    "doneOf": "{done} of {total} done", "deload": "Week {week} is a lighter week to let your joints recover.", "deloadNow": "This is your lighter week: {sets} set fewer and effort {rpe} lower on every exercise, at the same weights, so your joints and muscles recover.", "deloadCheckIn": "This week is lighter because your check-in said training felt very hard.", "lighter": "Lighter week",
     "start": "Start workout", "sessionMeta": "{n} exercises · about {min} min", "about": "about {min} min",
     "nExercises": "{n} exercises", "nSets": "{n} sets", "warmup": "Warm-up {n} min",
     "rest": "Rest {t}", "rpe": "RPE {n}", "howTo": "How to do {name}",
     "swappedFor": "Swapped for your {area}", "addedFor": "Added because of your {area}",
     "rpeHelp": "RPE = how hard a set feels. RPE 8 means you could do about 2 more reps.",
     "detailsSoon": "This session's exercises appear closer to the day.",
-    "range": "Range {reps}", "reason": { "findWeight": "Find your weight: start light", "start": "Starting weight", "addReps": "+1 rep since last time", "addWeight": "+{kg} kg since last time", "repeat": "Same as last time", "dropWeight": "−{kg} kg to get the reps back" },
+    "range": "Range {reps}", "reason": { "findWeight": "Find your weight: start light", "deload": "Lighter week: same weight as last time", "start": "Starting weight", "addReps": "+1 rep since last time", "addWeight": "+{kg} kg since last time", "repeat": "Same as last time", "dropWeight": "−{kg} kg to get the reps back" },
     "target": "{sets} × {reps} @ {kg} kg", "targetBw": "{sets} × {reps}", "prevDay": "Previous workout", "nextDay": "Next workout",
     "dayOf": "Workout {n} of {total} this week", "whatYouDid": "What you did", "skipped": "Skipped", "effortLogged": "Effort {n}/10",
     "painAfter": "{area} after: {n}/10", "startOnDay": "You can start this workout on {day}.", "missed": "Missed", "pastLocked": "Past sessions can't be changed."

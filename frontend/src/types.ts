@@ -157,7 +157,7 @@ export interface ExerciseResult { sets: number; reps: number; weightKg: number; 
 
 /** Why the target is what it is (data/rules/progression.yaml). */
 /** findWeight: an exercise the person swapped in, with no history yet: a light suggestion to find their weight. */
-export type TargetReason = 'start' | 'addReps' | 'addWeight' | 'repeat' | 'dropWeight' | 'findWeight';
+export type TargetReason = 'start' | 'addReps' | 'addWeight' | 'repeat' | 'dropWeight' | 'findWeight' | 'deload';
 export interface Target { sets: number; reps: number; weightKg: number; reason: TargetReason }
 
 export interface SessionExercise {
@@ -224,6 +224,8 @@ export interface Workout {
   day: Weekday;
   date: ISODate;
   status: 'done' | 'today' | 'planned' | 'missed';
+  /** The program's lighter week: sets and effort are already lowered, weights stay at last time's. */
+  lighter?: boolean;
   estMinutes: number;
   warmupMinutes: number;
   exercises: SessionExercise[];
@@ -256,6 +258,8 @@ export interface WorkoutWeek {
   start: ISODate;
   end: ISODate;
   deloadWeek: number;
+  /** The lighter week: which week the program plans it, and whether it's this week (planned, or after a hard check-in). */
+  deload: { week: number | null; thisWeek: boolean; byCheckIn: boolean; setsMinus: number; rpeMinus: number };
   sessions: Workout[];
   cardio: { sessionsPerWeek: number; stepsPerDay: number; why: LocalizedText };
 }

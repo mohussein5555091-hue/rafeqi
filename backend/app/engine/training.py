@@ -130,6 +130,12 @@ def fits_equipment(ex: ExerciseInfo, location: str, missing: tuple[str, ...] = (
     return set(ex.equipment) <= available_equipment(location, missing)
 
 
+def deload_volume(sets: int, rpe: float) -> tuple[int, float]:
+    """A lighter week's sets and target effort (training.yaml `deload`): weights stay the same."""
+    dl = load_rules()["training"]["deload"]
+    return max(1, sets - dl["sets_minus"]), rpe - dl["rpe_minus"]
+
+
 def is_compound(ex: ExerciseInfo) -> bool:
     """A compound (multi-joint) lift: a squat, press, row… not a curl, leg extension or calf raise."""
     return ex.type == "strength" and len(set(ex.joints)) >= 2
@@ -305,7 +311,7 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
                                            pct=round(extra * 100), area=regions[inj.region], status=STATUS["active"]))
             rpe, rest, sets = t["rpe"], t["rest_sec"], t["sets"]
             if adjust.deload:
-                sets, rpe = max(1, sets - 1), rpe - 1
+                sets, rpe = deload_volume(sets, rpe)
             if p.conservative:
                 c = safety["conservative"]["training"]
                 factor *= c["load_factor"]

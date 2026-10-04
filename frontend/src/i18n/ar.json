@@ -120,14 +120,14 @@
   "workouts": {
     "programSub": "{program} · الأسبوع {week} من {total}", "prevWeek": "الأسبوع اللي فات", "nextWeek": "الأسبوع الجاي",
     "doneMeta": "خلص · {min} د · {done}/{total} مجموعة", "todayMeta": "النهارده · {min} د", "weekProgress": "الجلسات اللي خلصت الأسبوع ده",
-    "doneOf": "{done} من {total} خلصوا", "deload": "الأسبوع {week} أخف عشان مفاصلك ترتاح.",
+    "doneOf": "{done} من {total} خلصوا", "deload": "الأسبوع {week} أخف عشان مفاصلك ترتاح.", "deloadNow": "ده أسبوعك الأخف: مجموعات أقل ومجهود أقل في كل تمرين، بنفس الأوزان، عشان مفاصلك وعضلك يرتاحوا.", "deloadCheckIn": "الأسبوع ده أخف عشان متابعتك قالت إن التمرين كان صعب جدًا.", "lighter": "أسبوع أخف",
     "start": "ابدأ التمرين", "sessionMeta": "{n} تمارين · حوالي {min} د", "about": "حوالي {min} د",
     "nExercises": "{n} تمارين", "nSets": "{n} مجموعة", "warmup": "إحماء {n} د",
     "rest": "راحة {t}", "rpe": "المجهود {n}", "howTo": "إزاي تعمل {name}",
     "swappedFor": "اتبدّل عشان {area}", "addedFor": "اتضاف بسبب {area}",
     "rpeHelp": "المجهود (RPE) من 1 لـ 10. مجهود 8 يعني كان ممكن تعمل حوالي عدّتين زيادة.",
     "detailsSoon": "تمارين الجلسة دي هتظهر قرب يومها.",
-    "range": "المدى {reps}", "reason": { "findWeight": "اختار وزنك: ابدأ خفيف", "start": "وزن البداية", "addReps": "عدّة زيادة عن آخر مرة", "addWeight": "+{kg} كجم عن آخر مرة", "repeat": "زي آخر مرة", "dropWeight": "−{kg} كجم عشان ترجع العدّات" },
+    "range": "المدى {reps}", "reason": { "findWeight": "اختار وزنك: ابدأ خفيف", "deload": "أسبوع أخف: نفس وزن المرة اللي فاتت", "start": "وزن البداية", "addReps": "عدّة زيادة عن آخر مرة", "addWeight": "+{kg} كجم عن آخر مرة", "repeat": "زي آخر مرة", "dropWeight": "−{kg} كجم عشان ترجع العدّات" },
     "target": "{sets} × {reps} @ {kg} كجم", "targetBw": "{sets} × {reps}", "prevDay": "التمرين اللي قبله", "nextDay": "التمرين اللي بعده",
     "dayOf": "تمرين {n} من {total} الأسبوع ده", "whatYouDid": "اللي عملته", "skipped": "ماتعملش", "effortLogged": "المجهود {n}/10",
     "painAfter": "{area} بعدها: {n}/10", "startOnDay": "تقدر تبدأ التمرين ده يوم {day}.", "missed": "فاتك", "pastLocked": "التمرينات اللي فاتت ماينفعش تتغيّر."

@@ -94,7 +94,11 @@ export function WorkoutPlan() {
                   <Icon as={HeartPulse} size={16} className="text-warn-600" />{t('cardio.perWeek', { n: w.cardio.sessionsPerWeek })} · <Footprints size={16} aria-hidden />{t('cardio.steps', { n: num(w.cardio.stepsPerDay) })}
                 </p>
               )}
-              <p className="m-0 text-[12.5px] text-neutral-700">{t('workouts.deload', { week: w.deloadWeek })}</p>
+              {w.deload.thisWeek ? (
+                <p data-testid="deload-now" className="m-0 rounded-lg bg-sage-100 px-4 py-3 text-[13.5px] text-sage-900">
+                  {w.deload.byCheckIn ? t('workouts.deloadCheckIn') : t('workouts.deloadNow', { sets: w.deload.setsMinus, rpe: w.deload.rpeMinus })}
+                </p>
+              ) : w.deload.week && w.deload.week > w.weekNumber ? <p className="m-0 text-[12.5px] text-neutral-700">{t('workouts.deload', { week: w.deload.week })}</p> : null}
               <div className="hidden lg:block"><SessionPanel s={current} exMap={exMap} onChanged={q.reload} /></div>
             </>
           );
@@ -217,6 +221,7 @@ export function Session() {
                 <span className="rounded-pill bg-neutral-100 px-3 py-1 text-xs">{t('workouts.nExercises', { n: s.exercises.length })}</span>
                 <span className="rounded-pill bg-neutral-100 px-3 py-1 text-xs">{t('workouts.nSets', { n: s.exercises.reduce((a, e) => a + e.sets, 0) })}</span>
                 <span className="rounded-pill bg-neutral-100 px-3 py-1 text-xs">{t('workouts.warmup', { n: s.warmupMinutes })}</span>
+                {s.lighter && <span className="rounded-pill bg-sage-100 px-3 py-1 text-xs font-semibold text-sage-900">{t('workouts.lighter')}</span>}
               </div>
             )}
             <SessionBody s={s} exMap={exMap} injuries={injuries} onChanged={(newId) => (newId && newId !== s.id ? nav(`/workouts/${newId}`, { replace: true }) : q.reload())} />

@@ -107,3 +107,20 @@ Before starting:
 - "Other equipment" is now "Different equipment: dumbbells" / "Different equipment: cable machine" (Arabic: "أداة تانية:
   …"). The equipment comes from the catalogue entry, or from a new `equipment` field for alternatives that aren't in the
   catalogue yet (the loader refuses an "equipment" alternative without it). Migration `38c1e339409b` adds the column.
+
+### Priority 1 extra: the planned lighter (deload) week is now real
+
+- Before: the week view said "Week 5 is a lighter week" but nothing changed in week 5.
+- Now, in the program's deload week (`deload_week` in the program file, 5 of 8 in both samples) every session has
+  `sets_minus` fewer sets (never below 1) and a target effort `rpe_minus` lower (`training.yaml` `deload`, both 1,
+  marked placeholders), and each exercise's target is **last time's weight and reps** (no progression step that week;
+  target reason "Lighter week: same weight as last time"). The week after, progression picks up as usual.
+- **Decision:** it's applied when the week is shown and logged (`views/training.py` `scheduled_deload`), because a plan
+  version is one week that repeats; the plan itself isn't rebuilt for it. If a check-in already made the week lighter,
+  it is not applied twice.
+- Week view: in week 5 a box says "This is your lighter week: 1 set fewer and effort 1 lower on every exercise, at the
+  same weights…" (or "…because your check-in said training felt very hard"); before week 5 the old line stays; after it,
+  nothing. Session pages show a "Lighter week" chip. The "Why this plan" deload text now says "same weights" too.
+- The check-in-triggered deload is unchanged.
+- Tests: `test_the_planned_lighter_week_has_fewer_sets_lower_effort_and_the_same_weights`,
+  `test_a_check_in_lighter_week_is_not_made_lighter_twice`. New `tests/backend/test_i18n.py` checks en/ar have the same keys.

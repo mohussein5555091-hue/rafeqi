@@ -400,11 +400,15 @@ deload:
   source: "PLACEHOLDER: deload timing; to be replaced with the Jeff Nippard programs' deload weeks (Helms, The Muscle & Strength Pyramid: Training)"
   uses: [checkin]
   summary:
-    en: "A lighter week (one set fewer, effort one lower) lets joints and muscles recover: planned by the program, or sooner when a check-in says training felt too hard."
-    ar: "أسبوع أخف (مجموعة أقل ومجهود أقل بدرجة) بيدّي المفاصل والعضل فرصة تتعافى: البرنامج بيحدده، أو بدري لو المتابعة قالت إن التمرين كان صعب أوي."
+    en: "A lighter week (one set fewer, effort one lower, same weights) lets joints and muscles recover: planned by the program, or sooner when a check-in says training felt too hard."
+    ar: "أسبوع أخف (مجموعة أقل ومجهود أقل بدرجة، بنفس الأوزان) بيدّي المفاصل والعضل فرصة تتعافى: البرنامج بيحدده، أو بدري لو المتابعة قالت إن التمرين كان صعب أوي."
+  # The lighter week: every exercise loses `sets_minus` sets (never below 1) and its target effort drops by `rpe_minus`;
+  # weights stay at last time's (no progression step that week). backend/app/engine/training.py deload_volume()
+  sets_minus: 1
+  rpe_minus: 1
   explain:
-    en: "Week {week} of {total} is a lighter week. A check-in that says sessions felt very hard (difficulty {difficulty}/5, soreness {soreness}/5 or effort RPE {effort}+) makes the next week lighter too."
-    ar: "الأسبوع {week} من {total} أسبوع أخف. ولو المتابعة قالت إن التمرين كان صعب جدًا (صعوبة {difficulty}/5 أو تكسير {soreness}/5 أو مجهود {effort} أو أكتر) الأسبوع اللي بعده هيبقى أخف كمان."
+    en: "Week {week} of {total} is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty {difficulty}/5, soreness {soreness}/5 or effort RPE {effort}+) makes the next week lighter too."
+    ar: "الأسبوع {week} من {total} أسبوع أخف: مجموعة أقل ومجهود أقل بدرجة، بنفس الأوزان. ولو المتابعة قالت إن التمرين كان صعب جدًا (صعوبة {difficulty}/5 أو تكسير {soreness}/5 أو مجهود {effort} أو أكتر) الأسبوع اللي بعده هيبقى أخف كمان."
   explain_none:
     en: "A check-in that says sessions felt very hard (difficulty {difficulty}/5, soreness {soreness}/5 or effort RPE {effort}+) makes the next week lighter."
     ar: "لو المتابعة قالت إن التمرين كان صعب جدًا (صعوبة {difficulty}/5 أو تكسير {soreness}/5 أو مجهود {effort} أو أكتر) الأسبوع اللي بعده هيبقى أخف."
