@@ -93,16 +93,21 @@ injuries:
   min_load_factor: 0.5
   # How close a substitute is: lower is closer. Only exercises with the same movement pattern are considered.
   substitute_penalty: {different_range: 1, different_equipment: 1, harder_than_you: 3, per_difficulty_step: 1}
+  # {why}: a painful movement's phrase ("pressing overhead") or a restriction's name ("No overhead lifting"),
+  # data/vocab/movements.yaml.
   explain:
     swapped:
-      en: "{from} → {to}: {to} avoids {why} for your {area}."
-      ar: "{from} ← {to}: {to} بيتجنب {why} عشان {area}."
+      en: "{from} → {to}: {to} avoids {why}, which hurts your {area}."
+      ar: "{from} ← {to}: {to} مافيهوش {why}، اللي بيوجع {area}."
     swapped_restriction:
-      en: "{from} → {to}: {to} keeps to your \"{why}\" restriction for your {area}."
-      ar: "{from} ← {to}: {to} ماشي مع ممنوع \"{why}\" عشان {area}."
+      en: "{from} → {to}: {to} keeps to the \"{why}\" restriction for your {area}."
+      ar: "{from} ← {to}: {to} ماشي مع قيد «{why}» على {area}."
     removed:
-      en: "{from} removed: no exercise in the catalogue avoids {why} for your {area} yet."
-      ar: "{from} اتشال: لسه مفيش تمرين في القائمة بيتجنب {why} عشان {area}."
+      en: "{from} removed: nothing in the catalogue avoids {why}, which hurts your {area}, yet."
+      ar: "{from} اتشال: لسه مفيش تمرين في القائمة من غير {why}، اللي بيوجع {area}."
+    removed_restriction:
+      en: "{from} removed: nothing in the catalogue keeps to the \"{why}\" restriction for your {area} yet."
+      ar: "{from} اتشال: لسه مفيش تمرين في القائمة ماشي مع قيد «{why}» على {area}."
     load:
       en: "{name} at {pct}% load while your {area} is {status}."
       ar: "{name} بـ {pct}% من الوزن وأنت {area} {status}."
@@ -236,9 +241,16 @@ warmup:
     no_ramp:
       en: "Warm-up {minutes} min: {general} min of {name} and {moves} mobility moves for today's muscles."
       ar: "تسخين {minutes} دقيقة: {general} دقايق {name} و{moves} حركات مرونة لعضلات النهارده."
+    # Moves an injury rules out: a painful movement (its phrase), a restriction (its name), or a paused area.
     skipped:
-      en: "{name} left out of the warm-up: it involves {why}, which hurts your {area}."
-      ar: "{name} اتشال من التسخين: فيه {why}، وده بيوجع {area}."
+      en: "Not in your warm-up: {name}. It involves {why}, which hurts your {area}."
+      ar: "{name} اتشال من التسخين: فيه {why}، اللي بيوجع {area}."
+    skipped_restriction:
+      en: "Not in your warm-up: {name}. It goes against the \"{why}\" restriction for your {area}."
+      ar: "{name} اتشال من التسخين عشان قيد «{why}» على {area}."
+    skipped_paused:
+      en: "Not in your warm-up: {name}, until your {area} has been checked."
+      ar: "{name} اتشال من التسخين لحد ما تكشف على {area}."
 
 # ── Cool-down (about 5–8 min, after every session) ───────────────────
 # Static stretches for the muscles trained that day: the stretches whose muscles had the most sets come first.

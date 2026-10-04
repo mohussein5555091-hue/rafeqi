@@ -29,6 +29,11 @@ class Vocab:
             for tag, entry in data[cat].items():
                 if not isinstance(entry, dict) or not entry.get("en") or not entry.get("ar"):
                     raise VocabError(f"{cat}.{tag} needs both an English (en) and an Arabic (ar) label")
+        # Painful movements finish the sentence "it involves …" in the reasons.
+        for tag, entry in data["painful_movements"].items():
+            phrase = entry.get("phrase") or {}
+            if not phrase.get("en") or not phrase.get("ar"):
+                raise VocabError(f"painful_movements.{tag} needs a phrase (en and ar) for the reasons")
         # Injury tags may only point at tags that exist.
         for cat in ("painful_movements", "restrictions"):
             for tag, entry in data[cat].items():
@@ -40,6 +45,13 @@ class Vocab:
                     for ref in excludes.get(ref_cat, []):
                         if ref not in data[ref_cat]:
                             raise VocabError(f"{cat}.{tag} refers to unknown {ref_cat} '{ref}'")
+
+    def injury_tag(self, tag: str) -> tuple[str, dict]:
+        """("painful", its phrase) or ("restriction", its label): how a reason names what ruled an exercise out."""
+        if tag in self.data["painful_movements"]:
+            return "painful", self.data["painful_movements"][tag]["phrase"]
+        label = self.data["restrictions"][tag]
+        return "restriction", {"en": label["en"], "ar": label["ar"]}
 
     def ids(self, category: str) -> set[str]:
         return set(self.data[category])

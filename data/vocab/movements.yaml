@@ -66,24 +66,29 @@ equipment:
   jumpRope:   { en: Jump rope, ar: حبل نط }
 
 # Injury: "which movements hurt?" (the onboarding chips).
-# `excludes` says which exercises that movement rules out: every listed field must match.
+# `excludes` says which exercises that movement rules out: every listed field must match. `joint_of_injury: true` means
+# only exercises that load the injured area's joints (data/rules/safety.yaml region_joints): squatting that hurts a
+# lower back rules out the barbell squat (it loads the spine) but not the leg press. `phrase` finishes the sentence
+# "it involves …" in the reasons ("Arm circles are left out of your warm-up: it involves pressing overhead, which hurts …").
 painful_movements:
-  overheadPress: { en: Overhead press, ar: ضغط فوق الراس, excludes: { movement_patterns: [verticalPush], ranges_of_motion: [overhead] } }
-  benchPress:    { en: Bench press, ar: بنش بريس, excludes: { movement_patterns: [horizontalPush], ranges_of_motion: [full] } }
-  dips:          { en: Dips, ar: ديبس, excludes: { movement_patterns: [dip] } }
-  pullUps:       { en: Pull-ups, ar: عقلة, excludes: { movement_patterns: [verticalPull], ranges_of_motion: [full, overhead] } }
-  lateralRaise:  { en: Lateral raise, ar: رفرفة جانبي, excludes: { movement_patterns: [shoulderAbduction] } }
-  pushUps:       { en: Push-ups, ar: ضغط, excludes: { movement_patterns: [horizontalPush], ranges_of_motion: [full] } }
-  squat:         { en: Squat, ar: سكوات, excludes: { movement_patterns: [squat] } }
-  deadlift:      { en: Deadlift, ar: رفعة ميتة, excludes: { movement_patterns: [hinge] } }
-  lunges:        { en: Lunges, ar: طعنات, excludes: { movement_patterns: [lunge] } }
-  running:       { en: Running, ar: جري, excludes: { movement_patterns: [locomotion, jump] } }
+  overheadPress: { en: Overhead press, ar: ضغط فوق الراس, phrase: { en: pressing overhead, ar: الضغط فوق الراس }, excludes: { movement_patterns: [verticalPush], ranges_of_motion: [overhead], joint_of_injury: true } }
+  benchPress:    { en: Bench press, ar: بنش بريس, phrase: { en: bench pressing, ar: ضغط البنش }, excludes: { movement_patterns: [horizontalPush], ranges_of_motion: [full], joint_of_injury: true } }
+  dips:          { en: Dips, ar: ديبس, phrase: { en: dips, ar: الديبس }, excludes: { movement_patterns: [dip], joint_of_injury: true } }
+  pullUps:       { en: Pull-ups, ar: عقلة, phrase: { en: pulling up from overhead, ar: السحب من فوق الراس }, excludes: { movement_patterns: [verticalPull], ranges_of_motion: [full, overhead], joint_of_injury: true } }
+  lateralRaise:  { en: Lateral raise, ar: رفرفة جانبي, phrase: { en: raising your arms to the side, ar: رفع الدراع للجنب }, excludes: { movement_patterns: [shoulderAbduction], joint_of_injury: true } }
+  pushUps:       { en: Push-ups, ar: ضغط, phrase: { en: push-ups, ar: الضغط }, excludes: { movement_patterns: [horizontalPush], ranges_of_motion: [full], joint_of_injury: true } }
+  squat:         { en: Squat, ar: سكوات, phrase: { en: squatting, ar: السكوات }, excludes: { movement_patterns: [squat], joint_of_injury: true } }
+  deadlift:      { en: Deadlift, ar: رفعة ميتة, phrase: { en: bending at the hips under load, like a deadlift, ar: ثني الوسط بوزن زي الرفعة الميتة }, excludes: { movement_patterns: [hinge], joint_of_injury: true } }
+  lunges:        { en: Lunges, ar: طعنات, phrase: { en: lunging, ar: الطعنات }, excludes: { movement_patterns: [lunge], joint_of_injury: true } }
+  running:       { en: Running, ar: جري, phrase: { en: running or jumping, ar: الجري أو النط }, excludes: { movement_patterns: [locomotion, jump], joint_of_injury: true } }
 
 # Injury: restrictions from a doctor or physio.
-# `excludes` works as above; `joint_of_injury: true` means "only exercises that load the injured joint".
+# `excludes` works as above. A restriction is about the injured area, so "no overhead lifting" for a lower back rules
+# out overhead lifts that load the spine (the barbell overhead press), not arm circles. "No jumping or running" is the
+# exception: impact jars the whole body, so it applies whatever the area.
 # `load_factor` reduces the weight instead of removing exercises.
 restrictions:
-  noOverhead:  { en: No overhead lifting, ar: ممنوع الرفع فوق الراس, excludes: { ranges_of_motion: [overhead] } }
+  noOverhead:  { en: No overhead lifting, ar: ممنوع الرفع فوق الراس, excludes: { ranges_of_motion: [overhead], joint_of_injury: true } }
   limitRange:  { en: Limit range, ar: مدى حركة محدود, excludes: { ranges_of_motion: [full, overhead], joint_of_injury: true } }
   noImpact:    { en: No jumping or running, ar: ممنوع النط والجري, excludes: { movement_patterns: [jump, locomotion] } }
   noHeavyLoad: { en: No heavy loads, ar: ممنوع الأوزان التقيلة, load_factor: 0.7 }

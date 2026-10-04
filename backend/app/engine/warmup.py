@@ -50,16 +50,16 @@ def _fits(ex: ExerciseInfo, p: Person) -> bool:
     return set(ex.equipment) <= eq - set(p.missing_equipment)
 
 
-def _blocked(ex: ExerciseInfo, p: Person) -> tuple[str, dict] | None:
-    """(injury region, the painful movement or restriction label) when an injury rules this move out."""
+def _blocked(ex: ExerciseInfo, p: Person) -> tuple[str, str, dict] | None:
+    """(injury region, which explain line, what to name) when an injury rules this move out: "skipped" with the painful
+    movement's phrase, "skipped_restriction" with the restriction's name, or "skipped_paused"."""
     vocab = get_vocab()
     for inj in p.injuries:
         if (tag := ruled_out_by(ex, inj, vocab)) is not None:
-            kind = "painful_movements" if tag in vocab.data["painful_movements"] else "restrictions"
-            label = vocab.data[kind][tag]
-            return inj.region, {"en": label["en"].lower() if kind == "painful_movements" else label["en"], "ar": label["ar"]}
+            kind, why = vocab.injury_tag(tag)
+            return inj.region, "skipped" if kind == "painful" else "skipped_restriction", why
     if (inj := paused_by(ex, p.injuries)) is not None:
-        return inj.region, {"en": "a paused area", "ar": "منطقة متوقفة"}
+        return inj.region, "skipped_paused", {"en": "", "ar": ""}
     return None
 
 
@@ -93,8 +93,8 @@ def build_warmup(kind: str, p: Person, catalogue: dict[str, ExerciseInfo], first
         if ex is None or not _fits(ex, p) or len(moves) >= w["moves"]["max"]:
             continue
         if (b := _blocked(ex, p)) is not None:
-            area, why = b
-            t = w["explain"]["skipped"]
+            area, line, why = b
+            t = w["explain"][line]
             skipped.append({"id": ex.id, "why": {"en": t["en"].format(name=ex.name["en"], why=why["en"], area=regions[area]["en"]),
                                                  "ar": t["ar"].format(name=ex.name["ar"], why=why["ar"], area=regions[area]["ar"])}})
             continue

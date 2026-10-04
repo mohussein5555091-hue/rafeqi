@@ -247,15 +247,13 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
             blocking = next(((i, tag) for i in p.injuries if (tag := ruled_out_by(ex, i, vocab))), None)
             if blocking:
                 inj, tag = blocking
-                kind_ = "painful_movements" if tag in vocab.data["painful_movements"] else "restrictions"
-                label = vocab.data[kind_][tag]
-                why = {"en": label["en"].lower() if kind_ == "painful_movements" else label["en"], "ar": label["ar"]}
+                kind_, why = vocab.injury_tag(tag)
                 sub = closest_substitute(ex, p, catalogue, taken, removed_by_person)
                 if sub is None:
-                    note(_reason("training.injuries", inj_rules["source"], inj_rules["explain"]["removed"],
+                    note(_reason("training.injuries", inj_rules["source"], inj_rules["explain"]["removed" if kind_ == "painful" else "removed_restriction"],
                                                 **{"from": name(ex.id), "why": why, "area": regions[inj.region]}))
                     return
-                wording = inj_rules["explain"]["swapped" if kind_ == "painful_movements" else "swapped_restriction"]
+                wording = inj_rules["explain"]["swapped" if kind_ == "painful" else "swapped_restriction"]
                 reasons.append(_reason("training.injuries", inj_rules["source"], wording,
                                        **{"from": name(ex.id), "to": sub.name, "why": why, "area": regions[inj.region]}))
                 replaced, injury_id, swap_kind, ex = replaced or ex.id, inj.id, "swapped", sub

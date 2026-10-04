@@ -36,3 +36,25 @@ Before starting:
 ### 3. Workouts header
 
 - The header shows the real program name ("Full body (sample) · week 1 of 8"), sent by the API as `programName`.
+
+### 4. Warm-up injury filtering and the wording
+
+- **Cause:** an injury's painful movements and restrictions ruled out matching exercises *whatever body part they
+  load*. So "No overhead lifting" given for a lower back removed arm circles, and "deadlift hurts" removed the glute
+  bridge (tagged as a hip hinge).
+- **Fix (Decision):** every painful movement, and the restrictions "No overhead lifting" and "Limit range", now only
+  rule out exercises that load the injured area's joints (`joint_of_injury: true` in `data/vocab/movements.yaml`).
+  "No jumping or running" still applies whatever the area (impact jars the whole body).
+  Result: lower back keeps arm circles, cat-cow and the glute bridge, loses the barbell squat, goblet squat, deadlifts and
+  the standing overhead press; the leg press and split squat stay.
+- **Tag review** of all 54 catalogue entries. Changed: barbell squat also loads the shoulder (the bar sits on it);
+  goblet squat also loads the spine (the weight is held in front); jump rope also loads the spine (landing).
+  Everything else looked right for the rules as they are.
+- **Sentences:** each painful movement now has a phrase ("pressing overhead", "bending at the hips under load, like a
+  deadlift"); restrictions are quoted. Examples:
+  - "Not in your warm-up: Bodyweight squat. It involves squatting, which hurts your right knee."
+  - "Not in your warm-up: Arm circles. It goes against the "No overhead lifting" restriction for your left shoulder."
+  - "Barbell bench press → Floor press: Floor press avoids bench pressing, which hurts your left shoulder."
+  Arabic versions for each (`training.yaml` `injuries.explain`, `warmup.explain`).
+- Tests: `tests/backend/test_injury_rules.py` (lower back, shoulder, knee; every exercise, warm-up move and stretch in
+  36 generated programs checked against the injury; every reason checked for being a full sentence).

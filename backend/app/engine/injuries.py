@@ -1,8 +1,10 @@
 """Injuries: which exercises an injury rules out, how much lighter the rest go, and red flags. Never diagnoses.
 
 An injury's painful movements and restrictions are ids from data/vocab/movements.yaml; their `excludes` say which
-exercise tags they rule out (every listed field must match). `joint_of_injury` limits a restriction to exercises
-that load the injured joint (body area → joints: data/rules/safety.yaml region_joints).
+exercise tags they rule out (every listed field must match). `joint_of_injury` (set on every painful movement and
+on most restrictions) limits it to exercises that load the injured area's joints (body area → joints:
+data/rules/safety.yaml region_joints): squatting that hurts a lower back rules out the barbell squat, not the leg press,
+and "no overhead lifting" for a lower back doesn't rule out arm circles.
 """
 
 from dataclasses import dataclass
