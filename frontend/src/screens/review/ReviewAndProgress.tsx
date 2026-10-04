@@ -7,13 +7,16 @@ import {
 } from '@/components';
 import { useI18n } from '@/i18n';
 import { useTheme } from '@/theme';
-import { api } from '@/data/api';
+import { ApiError, api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
 import { useSession } from '@/data/session';
 import type { WeeklyReview as Review } from '@/types';
 import { useNavigate } from 'react-router-dom';
 
-const changeIcon: Record<Review['changes'][number]['kind'], LucideIcon> = { calories: Flame, exercise: Dumbbell, meals: Utensils };
+const MEASURES = ['waist', 'hips', 'chest', 'arm', 'thigh'] as const;
+type MeasureKey = (typeof MEASURES)[number];
+
+const changeIcon: Record<Review['changes'][number]['kind'], LucideIcon> = { calories: Flame, exercise: Dumbbell, injury: Bandage, meals: Utensils };
 
 function ReviewWriting({ onDone }: { onDone: () => void }) {
   const { t } = useI18n();
@@ -133,33 +136,42 @@ export function Progress() {
         {(p) => {
           const w = p.weights.map((x) => x.kg);
           const pick = (arr: { date: string }[], n = 4) => arr.filter((_, i) => i % Math.ceil(arr.length / n) === 0 || i === arr.length - 1).map((x) => date(x.date));
-          const first = p.measurements[0], lastM = p.measurements.at(-1)!;
-          const L = p.lifts[lift];
+          // Each measurement compares the first week it was taken with the latest one.
+          const firstOf = (k: MeasureKey) => p.measurements.find((m) => m[k] !== undefined)?.[k];
+          const lastOf = (k: MeasureKey) => [...p.measurements].reverse().find((m) => m[k] !== undefined)?.[k];
+          const waist = p.measurements.filter((m) => m.waist !== undefined);
+          const L = p.lifts[Math.min(lift, p.lifts.length - 1)];
+          const noData = <p className="m-0 text-sm text-neutral-800">{t('progress.noData')}</p>;
           const photos = p.photos.filter((x) => x.view === view);
           return (
             <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
               <Card>
-                <div className="flex items-baseline justify-between"><h2 className="m-0 text-xl">{t('progress.weight')}</h2><span className="text-[13px] font-bold text-sage-800">{num(w[0], 1)} → {num(w.at(-1)!, 1)} {t('units.kg')}</span></div>
-                <LineChart ariaLabel={t('progress.weight')} labels={pick(p.weights)} height={180} axisWidth={34}
-                  series={[{ values: w, tone: 'muted', dots: true, line: false, label: t('progress.weighIns') }, { values: rollingAverage(w), tone: 'ok', area: true, label: t('progress.avg7') }]} />
+                <div className="flex items-baseline justify-between"><h2 className="m-0 text-xl">{t('progress.weight')}</h2>{w.length > 0 && <span className="text-[13px] font-bold text-sage-800">{num(w[0], 1)} → {num(w.at(-1)!, 1)} {t('units.kg')}</span>}</div>
+                {w.length < 2 ? noData : <LineChart ariaLabel={t('progress.weight')} labels={pick(p.weights)} height={180} axisWidth={34}
+                  series={[{ values: w, tone: 'muted', dots: true, line: false, label: t('progress.weighIns') }, { values: rollingAverage(w), tone: 'ok', area: true, label: t('progress.avg7') }]} />}
               </Card>
               <Card>
                 <h2 className="m-0 text-xl">{t('progress.measurements')}</h2>
-                <LineChart ariaLabel={t('progress.measurements')} labels={pick(p.measurements)} height={110} axisWidth={30} series={[{ values: p.measurements.map((m) => m.waist), tone: 'ok', dots: true, label: t('progress.waistCm') }]} />
-                <table className="w-full text-sm">
-                  <tbody>{(['waist', 'hips', 'chest', 'arm', 'thigh'] as const).map((k) => {
-                    const d = lastM[k] - first[k];
-                    return <tr key={k} className="h-tap border-b border-divider"><td>{t(`checkIn.body.m.${k}`)}</td><td className="text-neutral-700">{num(first[k], 1)} → {num(lastM[k], 1)}</td><td className={cn('text-end font-bold', d < 0 ? 'text-sage-800' : 'text-neutral-700')} dir="ltr">{d > 0 ? '+' : ''}{num(d, 1)}</td></tr>;
-                  })}</tbody>
-                </table>
+                {waist.length >= 2 && <LineChart ariaLabel={t('progress.measurements')} labels={pick(waist)} height={110} axisWidth={30} series={[{ values: waist.map((m) => m.waist!), tone: 'ok', dots: true, label: t('progress.waistCm') }]} />}
+                {p.measurements.length === 0 ? noData : (
+                  <table className="w-full text-sm">
+                    <tbody>{MEASURES.filter((k) => firstOf(k) !== undefined).map((k) => {
+                      const a = firstOf(k)!, b = lastOf(k)!, d = b - a;
+                      return <tr key={k} className="h-tap border-b border-divider"><td>{t(`checkIn.body.m.${k}`)}</td><td className="text-neutral-700">{num(a, 1)} → {num(b, 1)}</td><td className={cn('text-end font-bold', d < 0 ? 'text-sage-800' : 'text-neutral-700')} dir="ltr">{d > 0 ? '+' : ''}{num(d, 1)}</td></tr>;
+                    })}</tbody>
+                  </table>
+                )}
               </Card>
               <Card>
                 <h2 className="m-0 text-xl">{t('progress.strength')}</h2>
-                <Segmented className="min-h-tap" label={t('progress.strength')} value={lift} onChange={setLift} options={p.lifts.map((x, i) => ({ id: i, label: l(x.name) }))} />
-                <LineChart ariaLabel={l(L.name)} labels={pick(L.points, 3)} height={130} axisWidth={34} series={[{ values: L.points.map((x) => x.kg), tone: 'accent', dots: true, label: t('progress.topSet', { unit: l(L.unit) }) }]} />
+                {L ? <>
+                  <Segmented className="min-h-tap" label={t('progress.strength')} value={lift} onChange={setLift} options={p.lifts.map((x, i) => ({ id: i, label: l(x.name) }))} />
+                  {L.points.length < 2 ? noData : <LineChart ariaLabel={l(L.name)} labels={pick(L.points, 3)} height={130} axisWidth={34} series={[{ values: L.points.map((x) => x.kg), tone: 'accent', dots: true, label: t('progress.topSet', { unit: l(L.unit) }) }]} />}
+                </> : <p className="m-0 text-sm text-neutral-800">{t('progress.noLifts')}</p>}
               </Card>
               <div className="grid gap-4 lg:grid-cols-2">
                 <section className="flex flex-col gap-2"><h2 className="m-0 text-xl">{t('progress.records')}</h2>
+                  {p.records.length === 0 && <p className="m-0 text-sm text-neutral-800">{t('progress.noLifts')}</p>}
                   {p.records.map((r) => (
                     <div key={r.exerciseId} className="flex min-h-[60px] items-center gap-3 rounded-pill bg-surface py-2 pe-4 ps-2">
                       <span className="grid h-tap w-tap shrink-0 place-items-center rounded-full bg-accent-200 text-accent-800"><Icon as={Trophy} size={19} /></span>
@@ -277,7 +289,8 @@ export function ChangePassword() {
       <form className="flex max-w-md flex-col gap-4" onSubmit={async (e) => {
         e.preventDefault();
         if (next.length < 8 || !/\d/.test(next)) return setErr(t('auth.errors.passwordRules'));
-        await api.changePassword(cur, next); nav('/profile');
+        try { await api.changePassword(cur, next); nav('/profile'); }
+        catch (e) { setErr(t(e instanceof ApiError && e.message === 'wrong_current_password' ? 'profile.wrongPassword' : 'common.saveFailed')); }
       }}>
         <label className="flex flex-col gap-1.5 text-[13px]">{t('profile.currentPassword')}<input type="password" className="h-[52px] rounded-pill border border-divider bg-surface px-4 text-base" value={cur} onChange={(e) => setCur(e.target.value)} /></label>
         <label className="flex flex-col gap-1.5 text-[13px]">{t('profile.newPassword')}<input type="password" className="h-[52px] rounded-pill border border-divider bg-surface px-4 text-base" value={next} onChange={(e) => setNext(e.target.value)} aria-invalid={!!err} /></label>

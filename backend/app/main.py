@@ -5,10 +5,10 @@ from urllib.parse import urlsplit
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-from app.api import auth, me, onboarding, plans, weights
+from app.api import auth, body, me, nutrition, onboarding, plans, training, weights
 from app.config import get_settings
 
-app = FastAPI(title="Rafeqi API", version="0.2.0", docs_url="/api/docs", openapi_url="/api/openapi.json")
+app = FastAPI(title="Rafeqi API", version="0.5.0", docs_url="/api/docs", openapi_url="/api/openapi.json")
 
 UNSAFE = {"POST", "PUT", "PATCH", "DELETE"}
 
@@ -27,5 +27,5 @@ def health() -> dict[str, str]:
     return {"status": "ok", "env": get_settings().env}
 
 
-for module in (auth, me, onboarding, plans, weights):
+for module in (auth, me, onboarding, plans, weights, training, nutrition, body):
     app.include_router(module.router)

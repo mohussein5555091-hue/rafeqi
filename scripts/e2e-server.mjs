@@ -26,6 +26,9 @@ const env = {
   RAFEQI_DATABASE_URL: `sqlite:///${dataDir.replaceAll('\\', '/')}e2e.db`,
   RAFEQI_UPLOADS_DIR: `${dataDir}uploads`,
   RAFEQI_BACKEND_URL: `http://127.0.0.1:${API_PORT}`,
+  // The tests pretend today is Monday 5 October 2026, so "today's workout" doesn't depend on the real weekday.
+  // Keep in step with TODAY in tests/e2e/specs/helpers.ts.
+  RAFEQI_TODAY: '2026-10-05',
 };
 
 for (const script of ['db:migrate', 'db:seed']) {

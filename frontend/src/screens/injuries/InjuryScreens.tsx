@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ChevronRight, Plus, Ban, Stethoscope, Check, OctagonAlert, Pause, Footprints, Bell, CircleAlert, TriangleAlert, CircleCheck } from 'lucide-react';
-import { AppShell, BodyMap, Button, Card, Field, Icon, LineChart, PageControls, QueryView, StatusBadge, cn, type RegionState } from '@/components';
+import { AppShell, BodyMap, Button, Card, Field, Icon, LineChart, PageControls, QueryView, StatusBadge, cn, useToast, type RegionState } from '@/components';
 import { useI18n } from '@/i18n';
 import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
@@ -52,6 +52,7 @@ export function InjuryDetail() {
   const { id = '' } = useParams();
   const { t, l, date } = useI18n();
   const nav = useNavigate();
+  const toast = useToast();
   const q = useQuery(() => api.getInjury(id), [id]);
   return (
     <AppShell back title={q.data ? t(`body.${q.data.region}`) : t('nav.injuries')} sub={q.data ? t('injuries.detailSub', { type: t(`enums.injuryType.${q.data.type}`), date: date(q.data.since) }) : undefined}>
@@ -86,7 +87,7 @@ export function InjuryDetail() {
               <div className="flex items-start gap-3 rounded-lg bg-surface px-4 py-4 text-[13.5px]"><Icon as={Stethoscope} className="text-warn-600" /><span>{t('injuries.stopRule')}</span></div>
               <div className="flex gap-2.5">
                 <Button variant="secondary" className="flex-1" onClick={() => nav(`/injuries/${i.id}/edit`)}>{t('common.edit')}</Button>
-                {i.status !== 'resolved' && <Button variant="secondary" icon={Check} className="flex-1" onClick={async () => { q.setData(await api.saveInjury({ ...i, status: 'resolved' })); }}>{t('injuries.markResolved')}</Button>}
+                {i.status !== 'resolved' && <Button variant="secondary" icon={Check} className="flex-1" onClick={() => api.saveInjury({ ...i, status: 'resolved' }).then(q.setData, () => toast({ message: t('common.saveFailed'), tone: 'error' }))}>{t('injuries.markResolved')}</Button>}
               </div>
             </div>
           </div>
@@ -102,6 +103,8 @@ export function InjuryEdit() {
   const { t } = useI18n();
   const nav = useNavigate();
   const q = useQuery(() => (id ? api.getInjury(id) : Promise.resolve(null)), [id]);
+  const toast = useToast();
+  const failed = () => toast({ message: t('common.saveFailed'), tone: 'error' });
   const [draft, setDraft] = useState<(InjuryInput & { status: InjuryStatus }) | null>(null);
   return (
     <AppShell back hideTabs title={id ? t('injuries.editTitle') : t('injuries.add')}>
@@ -112,8 +115,8 @@ export function InjuryEdit() {
           return (
             <div className="mx-auto flex w-full max-w-xl flex-col gap-4">
               {!existing && (
-                <Field label={t('injuries.area')}>
-                  <select className="h-[52px] rounded-pill border border-divider bg-surface px-4" value={v.region} onChange={(e) => { const r = e.target.value as BodyRegion; set({ region: r, side: sideOf(r) }); }}>
+                <Field label={t('injuries.area')} htmlFor="injury-area">
+                  <select id="injury-area" className="h-[52px] rounded-pill border border-divider bg-surface px-4" value={v.region} onChange={(e) => { const r = e.target.value as BodyRegion; set({ region: r, side: sideOf(r) }); }}>
                     {REGION_LIST.map((r) => <option key={r} value={r}>{t(`body.${r}`)}</option>)}
                   </select>
                 </Field>
@@ -131,8 +134,8 @@ export function InjuryEdit() {
               <InjuryDetailsForm value={v} onChange={(x) => set(x)} />
               <p className="m-0 text-[12.5px] text-neutral-700">{t('injuries.saveNote')}</p>
               <div className="flex gap-2.5">
-                {existing && <Button variant="danger" onClick={async () => { await api.deleteInjury(existing.id); nav('/injuries', { replace: true }); }}>{t('common.delete')}</Button>}
-                <Button className="flex-1" size="lg" onClick={async () => { const saved = await api.saveInjury({ ...v, id: existing?.id }); nav(`/injuries/${saved.id}`, { replace: true }); }}>{t('common.save')}</Button>
+                {existing && <Button variant="danger" onClick={() => api.deleteInjury(existing.id).then(() => nav('/injuries', { replace: true }), failed)}>{t('common.delete')}</Button>}
+                <Button className="flex-1" size="lg" onClick={() => api.saveInjury({ ...v, id: existing?.id }).then((saved) => nav(`/injuries/${saved.id}`, { replace: true }), failed)}>{t('common.save')}</Button>
               </div>
             </div>
           );

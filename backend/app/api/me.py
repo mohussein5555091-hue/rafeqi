@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 from app import accounts
 from app.api.deps import CurrentAuth, Db, clear_session_cookie
 from app.models import Profile, User
+from app.plans import current_plan
 from app.schemas.account import MeOut, MePatch
 
 router = APIRouter(prefix="/api/me", tags=["me"])
@@ -15,7 +16,8 @@ def me_out(db: Session, user: User) -> MeOut:
     profile = db.get(Profile, user.id)
     return MeOut(id=user.id, email=user.email, first_name=user.first_name, last_name=user.last_name,
                  language=user.language, theme=user.theme, member_since=user.created_at.date(),
-                 onboarding_complete=bool(profile and profile.completed_at))
+                 onboarding_complete=bool(profile and profile.completed_at),
+                 has_plan=current_plan(db, user.id) is not None)
 
 
 @router.get("", response_model=MeOut)

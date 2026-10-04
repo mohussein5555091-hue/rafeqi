@@ -1,219 +1,329 @@
-// The data layer. Every screen reads through these functions — swap the mock
-// bodies for real HTTP calls (keep the signatures) to connect a backend.
-import * as mock from '@/mocks/sampleData';
-import { nextTarget } from '@/mocks/progression';
+// The data layer. Every screen reads through these functions, which call the FastAPI backend under /api
+// (the Vite dev server forwards /api to it, so the session cookie stays on one origin).
+// The function names and types are the same ones the screens were designed against.
 import type {
-  CheckIn, Dashboard, Exercise, GroceryItem, GroceryList, Injury, InjuryInput, Meal, MealDay,
-  MealWeekDay, OnboardingState, OnboardingStep, PantryItem, Plan, PlanGenerationStep, Progress, QuestionnaireAnswers, Recipe,
-  ExerciseResult, User, WeeklyReview, WeightLog, Workout, WorkoutLog, WorkoutWeek,
+  CheckIn, CheckInDraft, Dashboard, Exercise, ExerciseResult, GroceryItem, GroceryList, Injury, InjuryInput, InjuryStatus, LocalizedText,
+  Meal, MealDay, MealWeekDay, OnboardingState, OnboardingStep, PantryItem, Plan, PlanGenerationStep, Progress, QuestionnaireAnswers,
+  Recipe, User, Weekday, WeeklyReview, WeightLog, Workout, WorkoutLog, WorkoutWeek,
 } from '@/types';
-
-const wait = (ms = 250) => new Promise((r) => setTimeout(r, ms));
-const clone = <T,>(v: T): T => structuredClone(v);
 
 export class NotFoundError extends Error {
   constructor(what: string) { super(`${what} not found`); this.name = 'NotFoundError'; }
 }
 
-// In-memory state so the prototype feels real between screens.
-let groceries = clone(mock.groceryList);
-let injuryStore = clone(mock.injuries);
-let mealDays = clone(mock.mealDays);
-/** Adds each exercise's target, as the backend will (app/progression.py). */
-const withTargets = (w: mock.PlannedWorkout): Workout => ({
-  ...w,
-  exercises: w.exercises.map(({ startWeightKg, ...e }) => ({ ...e, target: nextTarget(e.sets, e.reps, e.weightStepKg ?? 0, startWeightKg ?? 0, e.lastTime) })),
-});
-let workoutWeek: WorkoutWeek = { ...clone(mock.workoutWeek), sessions: mock.workoutWeek.sessions.map((s) => withTargets(clone(s))) };
-let weightToday: WeightLog | null = null;
-
-const ONBOARDING_ORDER: OnboardingStep[] = ['about', 'goal', 'training', 'injuries', 'health', 'food', 'review'];
-const ONBOARDING_KEY = 'rafeqi.onboarding';
-/** Sample-data stand-in for the profile row: kept in sessionStorage so answers survive a reload. */
-function onboarding(): OnboardingState {
-  try {
-    const raw = JSON.parse(sessionStorage.getItem(ONBOARDING_KEY) ?? 'null');
-    if (raw?.answers) return { ...raw, answers: { ...mock.onboardingAnswers, ...raw.answers } };
-  } catch { /* fall through */ }
-  return { answers: clone(mock.onboardingAnswers), step: 'about', completed: false };
+/** Any other answer that isn't OK. `message` is the backend's error code, e.g. "email_taken". */
+export class ApiError extends Error {
+  constructor(public status: number, public detail: unknown) {
+    super(typeof detail === 'string' ? detail : `request failed (${status})`);
+    this.name = 'ApiError';
+  }
 }
-function saveOnboarding(s: OnboardingState) { try { sessionStorage.setItem(ONBOARDING_KEY, JSON.stringify(s)); } catch { /* not persisted */ } }
+
+/** Fired when the session has ended (logged out elsewhere, expired): the app goes back to Log in. */
+export const UNAUTHORIZED_EVENT = 'rafeqi:unauthorized';
+
+async function request<T>(method: string, path: string, body?: unknown, { authCheck = true } = {}): Promise<T> {
+  const res = await fetch(`/api${path}`, {
+    method,
+    credentials: 'same-origin',
+    headers: body === undefined ? { Accept: 'application/json' } : { Accept: 'application/json', 'Content-Type': 'application/json' },
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+  if (res.ok) return (res.status === 204 ? undefined : await res.json()) as T;
+  const detail = await res.json().then((j) => j?.detail, () => undefined);
+  if (res.status === 401 && authCheck) window.dispatchEvent(new Event(UNAUTHORIZED_EVENT));
+  if (res.status === 404) throw new NotFoundError(path);
+  throw new ApiError(res.status, detail);
+}
+const get = <T,>(path: string) => request<T>('GET', path);
+const send = <T,>(method: 'POST' | 'PUT' | 'PATCH' | 'DELETE', path: string, body?: unknown) => request<T>(method, path, body);
+
+// ── Backend shapes that differ from the screens' types (everything else is already the screens' shape) ──
+
+interface MeOut {
+  id: string; email: string; firstName: string; lastName: string; language: User['language']; theme: User['theme'];
+  memberSince: string; onboardingComplete: boolean; hasPlan: boolean;
+}
+interface OnboardingOut {
+  step: OnboardingStep; completed: boolean; missing: string[]; conservative: boolean;
+  about: Pick<QuestionnaireAnswers, 'sex' | 'age' | 'heightCm' | 'weightKg'> & { waistCm: number | null } | null;
+  goal: Pick<QuestionnaireAnswers, 'goal' | 'pace'> | null;
+  training: Pick<QuestionnaireAnswers, 'experience' | 'daysPerWeek' | 'sessionMinutes' | 'location'> | null;
+  injuries: (InjuryInput & { id: string; status: InjuryStatus })[];
+  injuriesAnswered: boolean;
+  health: QuestionnaireAnswers['health'] | null;
+  food: QuestionnaireAnswers['food'] | null;
+}
+interface ReasonOut { rule: string; en: string; ar: string; source: string }
+interface PlanOut {
+  id: string; createdAt: string; calories: number; maintenanceCalories: number; proteinG: number; carbsG: number; fatG: number;
+  conservative: boolean; reasons: Record<string, ReasonOut[]>;
+  program: null | {
+    name: LocalizedText; daysPerWeek: number; totalWeeks: number; currentWeek: number;
+    days: {
+      id: string; weekday: Weekday; name: LocalizedText;
+      exercises: { exerciseId: string; replacedName: LocalizedText | null; injuryId: string | null; injuryRegion: Injury['region'] | null;
+        swapKind: string | null; reasons: ReasonOut[] }[];
+    }[];
+  };
+}
+
+const WEEK: Weekday[] = ['sat', 'sun', 'mon', 'tue', 'wed', 'thu', 'fri'];
+
+/** Shown in the questionnaire until the person changes them. */
+const DEFAULT_ANSWERS: QuestionnaireAnswers = {
+  sex: 'male', age: 30, heightCm: 170, weightKg: 75, goal: 'loseFat', pace: 'steady', experience: 'intermediate', daysPerWeek: 4,
+  sessionMinutes: 60, location: 'gym', injuries: [],
+  health: { heartCondition: false, diabetes: false, pregnancy: false, recentSurgery: false, exerciseMedication: false },
+  food: { mealsPerDay: 4, dislikes: [], allergies: ['none'], fasting: [], cookingMinutes: 30 },
+};
+
+function toAnswers(o: OnboardingOut): QuestionnaireAnswers {
+  const d = DEFAULT_ANSWERS;
+  const about = o.about ? { ...o.about, waistCm: o.about.waistCm ?? undefined } : {};
+  return {
+    ...d, ...about, ...(o.goal ?? {}), ...(o.training ?? {}),
+    injuries: o.injuries.map(({ region, side, type, severity, painfulMovements, restrictions }) => ({ region, side, type, severity, painfulMovements, restrictions })),
+    health: o.health ?? d.health,
+    food: o.food ?? d.food,
+  } as QuestionnaireAnswers;
+}
+
+const toState = (o: OnboardingOut): OnboardingState => ({ answers: toAnswers(o), step: o.step, completed: o.completed });
+
+function toUser(me: MeOut, o: OnboardingOut): User {
+  return {
+    ...toAnswers(o),
+    id: me.id, email: me.email, firstName: { en: me.firstName, ar: me.firstName }, lastName: { en: me.lastName, ar: me.lastName },
+    language: me.language, theme: me.theme, memberSince: me.memberSince, onboardingComplete: me.onboardingComplete, hasPlan: me.hasPlan,
+  };
+}
+
+const both = (lines: ReasonOut[] = []): LocalizedText => ({ en: lines.map((r) => r.en).join(' '), ar: lines.map((r) => r.ar).join(' ') });
+
+const dayKind = (name: LocalizedText): 'upper' | 'lower' | 'full' =>
+  (/upper/i.test(name.en) ? 'upper' : /lower/i.test(name.en) ? 'lower' : 'full');
+
+function toPlan(p: PlanOut): Plan {
+  const days = p.program?.days ?? [];
+  const swaps = new Map<string, Plan['injurySwaps'][number]>();
+  for (const e of days.flatMap((d) => d.exercises)) {
+    if (e.swapKind !== 'swapped' || !e.injuryId || !e.injuryRegion || !e.replacedName || swaps.has(e.exerciseId)) continue;
+    const why = e.reasons.find((r) => r.rule === 'training.injuries') ?? e.reasons[0];
+    swaps.set(e.exerciseId, { injuryId: e.injuryId, region: e.injuryRegion, fromName: e.replacedName, toExerciseId: e.exerciseId,
+      reason: why ? { en: why.en, ar: why.ar } : { en: '', ar: '' } });
+  }
+  return {
+    id: p.id, createdAt: p.createdAt.slice(0, 10), calories: p.calories, maintenanceCalories: p.maintenanceCalories,
+    proteinG: p.proteinG, carbsG: p.carbsG, fatG: p.fatG, conservative: p.conservative,
+    rationale: { calories: both(p.reasons.calories), protein: both(p.reasons.protein), carbs: both(p.reasons.carbs), fat: both(p.reasons.fat) },
+    program: {
+      name: p.program?.name ?? { en: '', ar: '' }, daysPerWeek: p.program?.daysPerWeek ?? 0, totalWeeks: p.program?.totalWeeks ?? 0,
+      currentWeek: p.program?.currentWeek ?? 1, why: both(p.reasons.training),
+      schedule: WEEK.map((day) => {
+        const d = days.find((x) => x.weekday === day);
+        return d ? { day, sessionId: d.id, kind: dayKind(d.name) } : { day };
+      }),
+    },
+    injurySwaps: [...swaps.values()],
+  };
+}
+
+const ONBOARDING_BODY: Record<Exclude<OnboardingStep, 'review'>, (a: QuestionnaireAnswers) => unknown> = {
+  about: (a) => ({ sex: a.sex, age: a.age, heightCm: a.heightCm, weightKg: a.weightKg, waistCm: a.waistCm ?? null }),
+  goal: (a) => ({ goal: a.goal, pace: a.pace }),
+  training: (a) => ({ experience: a.experience, daysPerWeek: a.daysPerWeek, sessionMinutes: a.sessionMinutes, location: a.location }),
+  injuries: (a) => ({ injuries: a.injuries.map(injuryBody) }),
+  health: (a) => a.health,
+  food: (a) => a.food,
+};
+
+function injuryBody(i: InjuryInput) {
+  return { region: i.region, side: i.side, type: i.type, severity: i.severity, painfulMovements: i.painfulMovements, restrictions: i.restrictions };
+}
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/** The exercise catalogue changes only with a new release, so it's fetched once per visit. */
+let exercises: Promise<Exercise[]> | null = null;
+
+/** Exercise results still being saved, per workout: finishing waits for them. */
+const saving = new Map<string, Set<Promise<unknown>>>();
+
+const average = (xs: number[]) => xs.reduce((a, x) => a + x, 0) / xs.length;
+const addDays = (iso: string, n: number) => new Date(Date.parse(`${iso}T00:00:00Z`) + n * 86_400_000).toISOString().slice(0, 10);
 
 export const api = {
   // ── Auth ──
   async login(email: string, password: string): Promise<User> {
-    await wait(400);
-    if (!email.includes('@') || password.length < 8) throw new Error('invalid_credentials');
-    return clone(mock.user);
+    await request('POST', '/auth/login', { email, password }, { authCheck: false });
+    return api.getUser();
   },
+  /** Ticking "I'm 18 or older" on the sign-up form is required to get here. */
   async signup(input: { firstName: string; email: string; password: string }): Promise<User> {
-    await wait(400);
-    return { ...clone(mock.user), email: input.email, firstName: { en: input.firstName, ar: input.firstName } };
+    await request('POST', '/auth/signup', { ...input, adultConfirmed: true }, { authCheck: false });
+    return api.getUser();
   },
-  async requestPasswordReset(_email: string): Promise<void> { await wait(300); },
-  async changePassword(_current: string, _next: string): Promise<void> { await wait(300); },
-  async logout(): Promise<void> { await wait(100); },
-  async deleteMyData(): Promise<void> { await wait(500); },
+  /** Email reset isn't built yet: the Forgot password page explains how to get a new password for now. */
+  async requestPasswordReset(_email: string): Promise<void> { /* nothing to send yet */ },
+  async changePassword(current: string, next: string): Promise<void> {
+    await send('POST', '/auth/change-password', { currentPassword: current, newPassword: next });
+  },
+  async logout(): Promise<void> {
+    await request('POST', '/auth/logout', undefined, { authCheck: false }).catch(() => undefined); // already logged out is fine
+  },
+  /** Deletes the account and everything in it, including progress photos. */
+  async deleteMyData(): Promise<void> { await send('DELETE', '/me'); },
 
   // ── User & plan ──
-  async getUser(): Promise<User> { await wait(); return clone(mock.user); },
-  async updateUser(patch: Partial<User>): Promise<User> { await wait(); return { ...clone(mock.user), ...patch }; },
-  async getPlan(): Promise<Plan> { await wait(); return clone(mock.plan); },
+  async getUser(): Promise<User> {
+    const [me, o] = await Promise.all([get<MeOut>('/me'), get<OnboardingOut>('/onboarding')]);
+    return toUser(me, o);
+  },
+  /** Name, language and theme. Questionnaire answers change through the onboarding steps. */
+  async updateUser(patch: Partial<Pick<User, 'firstName' | 'lastName' | 'language' | 'theme'>>): Promise<User> {
+    await send('PATCH', '/me', {
+      firstName: patch.firstName?.en, lastName: patch.lastName?.en, language: patch.language, theme: patch.theme,
+    });
+    return api.getUser();
+  },
+  async getPlan(): Promise<Plan> { return toPlan(await get<PlanOut>('/plan')); },
   /**
-   * Plan generation runs on a local model and takes 30–90 s.
-   * onStep is called as each stage finishes so the wait screen can show progress.
+   * Builds a new plan version from the saved answers (POST /api/plan). The engine answers in a second or two;
+   * onStep marks each stage on the wait screen as it goes, and the last one only once the plan is saved.
    */
   async generatePlan(onStep?: (step: PlanGenerationStep) => void): Promise<Plan> {
-    for (const step of ['calories', 'program', 'injuries', 'meals'] as PlanGenerationStep[]) { await wait(900); onStep?.(step); }
-    return clone(mock.plan);
+    const steps: PlanGenerationStep[] = ['calories', 'program', 'injuries', 'meals'];
+    let shown = 0;
+    let finished = false;
+    const pace = (async () => {
+      while (!finished && shown < steps.length - 1) { await sleep(700); if (!finished) onStep?.(steps[shown++]); }
+    })();
+    try {
+      const plan = await send<PlanOut>('POST', '/plan');
+      finished = true;
+      await pace;
+      while (shown < steps.length) { onStep?.(steps[shown++]); await sleep(250); }
+      return toPlan(plan);
+    } finally {
+      finished = true;
+    }
   },
 
-  // ── Onboarding questionnaire (backend: /api/onboarding, Phase 3) ──
-  async getOnboarding(): Promise<OnboardingState> { await wait(150); return clone(onboarding()); },
+  // ── Onboarding questionnaire (backend: /api/onboarding) ──
+  async getOnboarding(): Promise<OnboardingState> { return toState(await get<OnboardingOut>('/onboarding')); },
   /** Saves one step (PUT /api/onboarding/{step}); the backend checks every answer again. */
   async saveOnboardingStep(step: Exclude<OnboardingStep, 'review'>, answers: QuestionnaireAnswers): Promise<OnboardingState> {
-    await wait(200);
     if (step === 'about' && answers.age < 18) throw new Error('must_be_adult');
-    const s = onboarding();
-    const next = ONBOARDING_ORDER[ONBOARDING_ORDER.indexOf(step) + 1];
-    saveOnboarding({ answers: clone(answers), step: ONBOARDING_ORDER.indexOf(next) > ONBOARDING_ORDER.indexOf(s.step) ? next : s.step, completed: s.completed });
-    return clone(onboarding());
+    return toState(await send<OnboardingOut>('PUT', `/onboarding/${step}`, ONBOARDING_BODY[step](answers)));
   },
   /** POST /api/onboarding/complete: every step must be answered. */
-  async completeOnboarding(): Promise<OnboardingState> {
-    await wait(200);
-    saveOnboarding({ ...onboarding(), step: 'review', completed: true });
-    return clone(onboarding());
-  },
+  async completeOnboarding(): Promise<OnboardingState> { return toState(await send<OnboardingOut>('POST', '/onboarding/complete')); },
 
-  // ── Dashboard ──
+  // ── Dashboard (put together from the endpoints below) ──
   async getDashboard(): Promise<Dashboard> {
-    await wait();
-    const avg = mock.progress.weights.slice(-7).reduce((a, w) => a + w.kg, 0) / 7;
+    const [user, plan, week, mealDay, injuries, reviews, weights, nextCheckIn] = await Promise.all([
+      api.getUser(), api.getPlan(), api.getWorkoutWeek(), api.getMealDay(), api.getInjuries(), api.getReviews(),
+      get<WeightLog[]>('/weights'), api.getNextCheckIn(),
+    ]);
+    const today = mealDay.date;
+    const recent = weights.filter((w) => w.date > addDays(today, -7) && w.date <= today).map((w) => w.weightKg);
+    const avg = recent.length ? average(recent) : weights.at(-1)?.weightKg ?? user.weightKg;
+    const first = weights[0]?.weightKg ?? user.weightKg;
     return {
-      user: clone(mock.user),
-      plan: clone(mock.plan),
-      today: clone(workoutWeek.sessions.find((s) => s.date === mock.TODAY) ?? null),
-      nextSession: clone(workoutWeek.sessions.find((s) => s.status === 'planned') ?? null),
-      mealDay: clone(mealDays[mock.TODAY]),
-      nextCheckIn: clone(mock.nextCheckIn),
-      injuries: clone(injuryStore.filter((i) => i.status !== 'resolved')),
-      latestReview: clone(mock.reviews.find((r) => r.weekNumber === 2) ?? null),
+      user, plan, mealDay, nextCheckIn,
+      today: week.sessions.find((s) => s.date === today) ?? null,
+      nextSession: week.sessions.find((s) => s.status === 'planned') ?? null,
+      injuries: injuries.filter((i) => i.status !== 'resolved'),
+      latestReview: reviews.find((r) => r.state === 'ready') ?? null,
       weightAvgKg: Math.round(avg * 10) / 10,
-      weightChangeKg: Math.round((avg - mock.progress.weights[0].kg) * 10) / 10,
-      weightToday: clone(weightToday),
+      weightChangeKg: Math.round((avg - first) * 10) / 10,
+      weightToday: weights.find((w) => w.date === today) ?? null,
     };
   },
 
   // ── Body weight ──
   /** Saves today's weight (or corrects it: one entry per day). Backend: POST /api/weights. */
   async logWeight(weightKg: number): Promise<WeightLog> {
-    await wait(300);
-    weightToday = { id: weightToday?.id ?? 'w_today', date: new Date().toISOString().slice(0, 10), weightKg: Math.round(weightKg * 10) / 10, source: 'daily' };
-    return clone(weightToday);
+    return send<WeightLog>('POST', '/weights', { weightKg: Math.round(weightKg * 10) / 10 });
   },
 
   // ── Training ──
-  async getWorkoutWeek(): Promise<WorkoutWeek> { await wait(); return clone(workoutWeek); },
-  async getWorkout(id: string): Promise<Workout> {
-    await wait();
-    const s = workoutWeek.sessions.find((x) => x.id === id);
-    if (!s) throw new NotFoundError('workout');
-    return clone(s);
+  async getWorkoutWeek(): Promise<WorkoutWeek> { return get<WorkoutWeek>('/workouts/week'); },
+  async getWorkout(id: string): Promise<Workout> { return get<Workout>(`/workouts/${encodeURIComponent(id)}`); },
+  async getExercise(id: string): Promise<Exercise> { return get<Exercise>(`/exercises/${encodeURIComponent(id)}`); },
+  async getExercises(): Promise<Exercise[]> {
+    exercises ??= get<Exercise[]>('/exercises').catch((e) => { exercises = null; throw e; });
+    return exercises;
   },
-  async getExercise(id: string): Promise<Exercise> {
-    await wait();
-    const e = mock.exercises.find((x) => x.id === id);
-    if (!e) throw new NotFoundError('exercise');
-    return clone(e);
-  },
-  async getExercises(): Promise<Exercise[]> { await wait(100); return clone(mock.exercises); },
   /**
    * Saves one exercise's result as soon as it's tapped (null = undo). Logging again replaces it.
    * Backend: one set_logs row per set, all with the same reps and weight (backend/app/workouts.py).
    */
-  async logExercise(_workoutId: string, _exerciseId: string, _result: ExerciseResult | null): Promise<void> { await wait(150); },
-  /** Exercises missing from log.results were skipped. Backend: finish_workout() also stores the effort rating. */
-  async finishWorkout(workoutId: string, log: WorkoutLog, painByInjury: Record<string, number>, _redFlags: string[]): Promise<void> {
-    await wait(300);
-    const results = Object.values(log.results);
-    workoutWeek = {
-      ...workoutWeek,
-      sessions: workoutWeek.sessions.map((s) => (s.id !== workoutId ? s : {
-        ...s, status: 'done', log: clone(log),
-        summary: { minutes: s.estMinutes, setsDone: results.reduce((a, r) => a + r.sets, 0), setsTotal: s.exercises.reduce((a, e) => a + e.sets, 0), painByInjury },
-      })),
-    };
+  async logExercise(workoutId: string, exerciseId: string, result: ExerciseResult | null): Promise<void> {
+    const path = `/workouts/${encodeURIComponent(workoutId)}/exercises/${encodeURIComponent(exerciseId)}`;
+    const p = result ? send('PUT', path, result) : send('DELETE', path);
+    const pending = saving.get(workoutId) ?? new Set();
+    saving.set(workoutId, pending.add(p));
+    try { await p; } finally { pending.delete(p); }
+  },
+  /**
+   * Exercises missing from log.results were skipped. The effort rating and the pain check are stored.
+   * Returns the injuries the pain check paused (sharp pain, swelling, numbness, pain too high or rising): the plan is
+   * rebuilt without them and the screen shows "see a doctor or physiotherapist".
+   */
+  async finishWorkout(workoutId: string, log: WorkoutLog, painByInjury: Record<string, number>, redFlags: string[]): Promise<{ paused: string[] }> {
+    await Promise.allSettled([...(saving.get(workoutId) ?? [])]);
+    return send<{ paused: string[] }>('POST', `/workouts/${encodeURIComponent(workoutId)}/finish`, {
+      effort: log.effort,
+      pain: Object.entries(painByInjury).map(([injuryId, pain]) => ({ injuryId, pain })),
+      redFlags,
+      done: Object.keys(log.results), // anything else was skipped
+    });
   },
 
   // ── Nutrition ──
   /** One date's meals (today when no date). */
-  async getMealDay(date: string = mock.TODAY): Promise<MealDay> {
-    await wait();
-    const d = mealDays[date];
-    if (!d) throw new NotFoundError('meal day');
-    return clone(d);
+  async getMealDay(date?: string): Promise<MealDay> { return get<MealDay>(`/meals/day/${date ?? 'today'}`); },
+  async getMealWeek(): Promise<MealWeekDay[]> { return get<MealWeekDay[]>('/meals/week'); },
+  /** Other recipes for this meal, each with the portion that keeps the day on target (backend/app/engine/meals.py). */
+  async getSwapOptions(mealId: string): Promise<Meal[]> { return get<Meal[]>(`/meals/${encodeURIComponent(mealId)}/swap-options`); },
+  async swapMeal(_date: string, mealId: string, replacement: Meal): Promise<MealDay> {
+    return send<MealDay>('POST', `/meals/${encodeURIComponent(mealId)}/swap`, { recipeId: replacement.recipeId ?? replacement.id });
   },
-  async getMealWeek(): Promise<MealWeekDay[]> { await wait(); return clone(mock.mealWeek); },
-  async getSwapOptions(mealId: string): Promise<Meal[]> { await wait(); return clone(mock.swapOptions[mealId] ?? []); },
-  async swapMeal(date: string, mealId: string, replacement: Meal): Promise<MealDay> {
-    await wait();
-    const d = mealDays[date];
-    if (!d) throw new NotFoundError('meal day');
-    mealDays = { ...mealDays, [date]: { ...d, meals: d.meals.map((m) => (m.id === mealId ? { ...replacement, time: m.time } : m)) } };
-    return clone(mealDays[date]);
-  },
-  async getRecipe(id: string): Promise<Recipe> {
-    await wait();
-    const r = mock.recipes.find((x) => x.id === id);
-    if (!r) throw new NotFoundError('recipe');
-    return clone(r);
-  },
+  async getRecipe(id: string): Promise<Recipe> { return get<Recipe>(`/recipes/${encodeURIComponent(id)}`); },
 
   // ── Groceries ──
-  async getGroceryList(): Promise<GroceryList> { await wait(); return clone(groceries); },
+  async getGroceryList(): Promise<GroceryList> { return get<GroceryList>('/groceries'); },
   async updateGroceryItem(id: string, patch: Partial<Pick<GroceryItem, 'checked' | 'haveIt'>>): Promise<GroceryList> {
-    groceries = { ...groceries, items: groceries.items.map((i) => (i.id === id ? { ...i, ...patch } : i)) };
-    return clone(groceries);
+    return send<GroceryList>('PATCH', `/groceries/items/${encodeURIComponent(id)}`, patch);
   },
-  async getPantry(): Promise<PantryItem[]> { await wait(); return clone(mock.pantry); },
+  async getPantry(): Promise<PantryItem[]> { return get<PantryItem[]>('/pantry'); },
 
   // ── Injuries ──
-  async getInjuries(): Promise<Injury[]> { await wait(); return clone(injuryStore); },
-  async getInjury(id: string): Promise<Injury> {
-    await wait();
-    const i = injuryStore.find((x) => x.id === id);
-    if (!i) throw new NotFoundError('injury');
-    return clone(i);
-  },
+  async getInjuries(): Promise<Injury[]> { return get<Injury[]>('/injuries'); },
+  async getInjury(id: string): Promise<Injury> { return get<Injury>(`/injuries/${encodeURIComponent(id)}`); },
+  /** Adds or edits an injury; the plan is rebuilt around it. */
   async saveInjury(input: InjuryInput & { id?: string; status?: Injury['status'] }): Promise<Injury> {
-    await wait();
-    const existing = input.id ? injuryStore.find((x) => x.id === input.id) : undefined;
-    const next: Injury = existing
-      ? { ...existing, ...input, id: existing.id }
-      : { ...input, id: `inj_${Date.now()}`, status: input.status ?? 'active', since: mock.TODAY, painLog: [], avoided: [], redFlags: { sharpPain: false, swelling: false, numbness: false, worsening: false } };
-    injuryStore = existing ? injuryStore.map((x) => (x.id === next.id ? next : x)) : [...injuryStore, next];
-    return clone(next);
+    const body = { ...injuryBody(input), status: input.status ?? 'active' };
+    return input.id ? send<Injury>('PUT', `/injuries/${encodeURIComponent(input.id)}`, body) : send<Injury>('POST', '/injuries', body);
   },
-  async deleteInjury(id: string): Promise<void> { await wait(); injuryStore = injuryStore.filter((x) => x.id !== id); },
+  async deleteInjury(id: string): Promise<void> { await send('DELETE', `/injuries/${encodeURIComponent(id)}`); },
 
   // ── Check-in & reviews ──
-  async getCheckInDraft(): Promise<{ draft: CheckIn; last: typeof mock.lastCheckIn; mealOptions: typeof mock.checkInMealOptions }> {
-    await wait();
-    return { draft: clone(mock.checkInDraft), last: clone(mock.lastCheckIn), mealOptions: clone(mock.checkInMealOptions) };
+  /** When the next weekly check-in opens, and whether it's due now. */
+  async getNextCheckIn(): Promise<Dashboard['nextCheckIn']> { return get<Dashboard['nextCheckIn']>('/checkins/next'); },
+  async getCheckInDraft(): Promise<CheckInDraft> { return get<CheckInDraft>('/checkins/draft'); },
+  /** Saves the check-in and runs the weekly review, which builds next week's plan. Returns the review's id. */
+  async submitCheckIn(checkIn: CheckIn): Promise<{ reviewId: string }> {
+    const { body, ...rest } = checkIn;
+    return send<{ reviewId: string }>('POST', '/checkins', { ...rest, body: { ...body, photos: {} } }); // photo upload: Phase 6
   },
-  /** Returns the id of the review that will be written (30–90 s on the backend). */
-  async submitCheckIn(_checkIn: CheckIn): Promise<{ reviewId: string }> { await wait(500); return { reviewId: 'rv_w3' }; },
-  async getReviews(): Promise<WeeklyReview[]> { await wait(); return clone(mock.reviews); },
-  async getReview(id: string): Promise<WeeklyReview> {
-    await wait();
-    const r = mock.reviews.find((x) => x.id === id);
-    if (!r) throw new NotFoundError('review');
-    return clone(r);
-  },
+  async getReviews(): Promise<WeeklyReview[]> { return get<WeeklyReview[]>('/reviews'); },
+  async getReview(id: string): Promise<WeeklyReview> { return get<WeeklyReview>(`/reviews/${encodeURIComponent(id)}`); },
 
   // ── Progress ──
-  async getProgress(): Promise<Progress> { await wait(); return clone(mock.progress); },
+  async getProgress(): Promise<Progress> { return get<Progress>('/progress'); },
 };
 
 export type Api = typeof api;

@@ -11,6 +11,7 @@ import {
 import { useI18n } from '@/i18n';
 import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
+import { useSession } from '@/data/session';
 import type { BodyRegion, InjuryInput, QuestionnaireAnswers } from '@/types';
 import { ALLERGIES, EXPERIENCE, FOODS, GOALS, HEALTH_KEYS, INJURY_TYPES, LOCATIONS, MOVEMENTS, PACES, REGION_LIST, RESTRICTIONS, sideOf } from '@/constants';
 
@@ -36,6 +37,7 @@ function OnboardingFlow({ initial }: { initial: QuestionnaireAnswers }) {
   const nav = useNavigate();
   const { t } = useI18n();
   const toast = useToast();
+  const { refresh } = useSession();
   const [a, setA] = useState<QuestionnaireAnswers>(initial);
   const [saving, setSaving] = useState(false);
   const idx = ONBOARDING_STEPS.indexOf(step as StepId);
@@ -47,7 +49,7 @@ function OnboardingFlow({ initial }: { initial: QuestionnaireAnswers }) {
   const next = async () => {
     setSaving(true);
     try {
-      if (isLast) { await api.completeOnboarding(); nav('/onboarding/generating'); }
+      if (isLast) { await api.completeOnboarding(); await refresh(); nav('/onboarding/generating'); }
       else { await api.saveOnboardingStep(step as Exclude<StepId, 'review'>, a); go(idx + 1); }
     } catch {
       toast({ message: t('onboarding.saveFailed'), tone: 'error' });

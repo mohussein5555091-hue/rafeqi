@@ -1,17 +1,23 @@
-import { expect, test } from '@playwright/test';
-import { SIGNED_OUT, waitForContent } from './helpers';
+import { SIGNED_OUT, expect, freshUser, test, waitForContent } from './helpers';
 
-test('dashboard: log today\'s weight, with a range check', async ({ page }) => {
-  await page.goto('/');
-  await waitForContent(page);
-  await page.getByRole('button', { name: 'Log today' }).click();
-  const field = page.getByLabel('Today\'s weight', { exact: true });
-  await field.fill('12');
-  await page.getByRole('button', { name: 'Save today\'s weight' }).click();
-  await expect(page.getByRole('alert').filter({ hasText: 'between 30 and 300' })).toBeVisible();
-  await field.fill('88,1'); // comma decimals are accepted too
-  await page.getByRole('button', { name: 'Save today\'s weight' }).click();
-  await expect(page.getByText('Today: 88.1 kg')).toBeVisible();
+test.describe('own account', () => {
+  test.use({ storageState: SIGNED_OUT });
+  test('dashboard: log today\'s weight, with a range check; it\'s still there after a reload', async ({ page }) => {
+    await freshUser(page);
+    // The questionnaire weight (88 kg) was today's first entry; saving again corrects it.
+    await expect(page.getByText('Today: 88 kg')).toBeVisible();
+    await page.getByRole('button', { name: 'Edit' }).click();
+    const field = page.getByLabel('Today\'s weight', { exact: true });
+    await field.fill('12');
+    await page.getByRole('button', { name: 'Save today\'s weight' }).click();
+    await expect(page.getByRole('alert').filter({ hasText: 'between 30 and 300' })).toBeVisible();
+    await field.fill('88,1'); // comma decimals are accepted too
+    await page.getByRole('button', { name: 'Save today\'s weight' }).click();
+    await expect(page.getByText('Today: 88.1 kg')).toBeVisible();
+    await page.reload();
+    await waitForContent(page);
+    await expect(page.getByText('Today: 88.1 kg')).toBeVisible();
+  });
 });
 
 test.describe('signed out', () => {

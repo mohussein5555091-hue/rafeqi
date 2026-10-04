@@ -1,10 +1,13 @@
 """The onboarding questionnaire: one PUT per step (saved as you go), then complete."""
 
 from fastapi import APIRouter, HTTPException
+from sqlalchemy import select
 
-from app import onboarding
+from app import clock, onboarding
 from app.api.deps import CurrentAuth, Db
+from app.models import Profile, WeightLog
 from app.schemas.onboarding import AboutIn, FoodIn, GoalIn, HealthIn, InjuriesIn, OnboardingOut, TrainingIn
+from app.weights import record_weight
 
 router = APIRouter(prefix="/api/onboarding", tags=["onboarding"])
 
@@ -60,5 +63,8 @@ def complete(auth: CurrentAuth, db: Db):
         onboarding.complete(db, auth.user.id)
     except onboarding.Incomplete as e:
         raise HTTPException(422, {"error": "onboarding_incomplete", "missing": e.missing}) from e
+    # The questionnaire weight is the first point on the weight chart.
+    if db.scalar(select(WeightLog.id).where(WeightLog.user_id == auth.user.id).limit(1)) is None:
+        record_weight(db, auth.user.id, clock.today(), db.get(Profile, auth.user.id).weight_kg, "daily")
     db.commit()
     return onboarding.state(db, auth.user.id)

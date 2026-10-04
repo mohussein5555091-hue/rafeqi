@@ -216,3 +216,16 @@ def run_weekly_review(db: Session, user_id: str, checkin_id: str) -> WeeklyRevie
     db.add(review)
     db.flush()
     return review
+
+
+def rebuild_plan(db: Session, user_id: str, trigger: str) -> Plan | None:
+    """A new version after an injury changed (edited, added, removed or paused), keeping what the weekly reviews decided
+    (calories, swapped exercises, lighter loads, replaced meals). One-off changes (deload, ± one step) aren't repeated.
+    Does nothing before the first plan."""
+    before = current_plan(db, user_id)
+    if before is None:
+        return None
+    prev = (before.inputs or {}).get("adjustments") or {}
+    adjust = Adjustments(avoid=frozenset(prev.get("avoid") or ()), injury_factors=tuple(sorted((prev.get("injury_factors") or {}).items())))
+    return generate_plan(db, user_id, trigger, adjust=adjust, calories=prev.get("calories"),
+                         banned=frozenset(prev.get("banned_recipes") or ()))

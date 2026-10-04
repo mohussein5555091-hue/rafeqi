@@ -183,3 +183,40 @@ def plan_week(week_start: dt.date, p: Person, t: Targets, recipes: list[RecipeIn
         v = {"protein": vals, "calories": {"pct": m["relax_calorie_pct"], "tol": m["calorie_tolerance_pct"]}}.get(step, {})
         reasons.append(Reason(f"nutrition.meals.relaxed.{step}", text["en"].format(**v), text["ar"].format(**v), src))
     return WeekMeals(meals=meals, relaxed=relaxed, reasons=reasons)
+
+
+def swap_options(day: list[MealChoice], index: int, t: Targets, p: Person, recipes: list[RecipeInfo],
+                 banned: frozenset[str] = frozenset(), limit: int = 4) -> list[MealChoice]:
+    """Other recipes for one meal of a day (the "Swap" sheet), each with the portion that keeps the whole day inside the
+    same limits as the plan: within ±calorie_tolerance_pct of the calorie target and at least the protein target.
+
+    Same meal time, no disliked foods or allergens, not already eaten that day, within the cooking minutes.
+    Closest to the current meal's calories and protein first.
+    """
+    m = load_rules()["nutrition"]["meals"]
+    q = round(1 / m["portion_step"])
+    kmin, kmax = round(m["portion_min"] * q), round(m["portion_max"] * q)
+    tol = m["calorie_tolerance_pct"]
+    current = day[index]
+    others = [x for i, x in enumerate(day) if i != index]
+    kcal_rest, protein_rest = sum(x.kcal for x in others), sum(x.protein for x in others)
+    taken = {x.recipe_id for x in day}
+    found: list[tuple[float, MealChoice]] = []
+    for r in eligible_recipes(recipes, p, banned):
+        if r.id in taken or current.slot not in r.slots or (r.prep_min + r.cook_min) / r.batch > p.cooking_minutes:
+            continue
+        best: tuple[float, MealChoice] | None = None
+        for k in range(kmin, kmax + 1):
+            portion = k / q
+            c = MealChoice(date=current.date, slot=current.slot, time=current.time, recipe_id=r.id, portion=portion,
+                           kcal=round(r.kcal * portion), protein=round(r.protein * portion),
+                           carbs=round(r.carbs * portion), fat=round(r.fat * portion))
+            day_kcal = kcal_rest + c.kcal
+            if abs(day_kcal - t.calories) > t.calories * tol / 100 or protein_rest + c.protein < t.protein:
+                continue
+            score = abs(c.kcal - current.kcal) / max(current.kcal, 1) + abs(c.protein - current.protein) / max(current.protein, 1)
+            if best is None or score < best[0]:
+                best = (score, c)
+        if best is not None:
+            found.append(best)
+    return [c for _, c in sorted(found, key=lambda x: (x[0], x[1].recipe_id))[:limit]]
