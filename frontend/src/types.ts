@@ -153,7 +153,12 @@ export interface Exercise {
  * One exercise's result. Logged in one tap ("Done as planned") or one row when something was different.
  * The backend stores it as one set_logs row per set, all with the same reps and weight.
  */
-export interface ExerciseResult { sets: number; reps: number; weightKg: number; struggled: boolean }
+export interface ExerciseResult {
+  sets: number; reps: number; weightKg: number; struggled: boolean;
+  /** Logged set by set ("Log each set") with sets that differ: reps and weight of each. sets / reps / weightKg sum it up. */
+  perSet?: SetResult[];
+}
+export interface SetResult { reps: number; weightKg: number }
 
 /** Why the target is what it is (data/rules/progression.yaml). */
 /** findWeight: an exercise the person swapped in, with no history yet: a light suggestion to find their weight. */

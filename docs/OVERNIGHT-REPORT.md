@@ -147,3 +147,16 @@ are offered.
   "Do this workout today" isn't offered when today already has a workout.
 - API: `GET /api/workouts/{id}/move-options`, `POST /api/workouts/{id}/move {date}` (both in the isolation test).
 - Tests: `tests/backend/test_move_workout.py`, browser test in `overnight-fixes.spec.ts`.
+
+### 10. "Log each set" inside Edit
+
+- In the logger's Edit, a **Log each set** switch turns the one row into one row per set, prefilled from the row (or
+  from what was logged). Each set has its own reps and weight; "Add a set" / "Remove the last set". The saved result,
+  the session page and "Last time" show each set ("10 × 22.5 kg, 9 × 22.5 kg, 10 × 20 kg").
+- Stored in `set_logs` as one row per set with its own reps and weight (the table already allowed it; no migration).
+  The API takes an optional `perSet` list; results come back with `perSet` when the sets differ.
+- **Progression with real per-set values (Decision):** the weight is the heaviest one used; the reps are the fewest
+  done at that weight; only sets at that weight count as "all planned sets done". So a lighter last set means "same
+  weight again", and reps 10/9/8 means "one more rep than 8". Three new worked examples in
+  `data/rules/progression_cases.json`.
+- Tests: backend (`test_workout_logging.py`, `test_progression.py`) and a browser test.

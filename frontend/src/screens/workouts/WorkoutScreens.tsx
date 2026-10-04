@@ -24,8 +24,10 @@ export const asPlanned = (e: SessionExercise): ExerciseResult => ({ sets: e.targ
 function useFormat() {
   const { t, num } = useI18n();
   /** "3 × 9 @ 22.5 kg" (or "3 × 12" for bodyweight) */
-  const result = (r: Pick<ExerciseResult, 'sets' | 'reps' | 'weightKg'>) =>
-    (r.weightKg ? t('workouts.target', { sets: r.sets, reps: r.reps, kg: num(r.weightKg, 1) }) : t('workouts.targetBw', { sets: r.sets, reps: r.reps }));
+  const result = (r: Pick<ExerciseResult, 'sets' | 'reps' | 'weightKg' | 'perSet'>) =>
+    (r.perSet?.length // logged set by set: each set as it was done
+      ? r.perSet.map((s) => (s.weightKg ? t('workouts.setLine', { reps: s.reps, kg: num(s.weightKg, 1) }) : t('workouts.setLineBw', { reps: s.reps }))).join(', ')
+      : r.weightKg ? t('workouts.target', { sets: r.sets, reps: r.reps, kg: num(r.weightKg, 1) }) : t('workouts.targetBw', { sets: r.sets, reps: r.reps }));
   return {
     result,
     target: (e: SessionExercise) => result(e.target),
@@ -581,33 +583,80 @@ function LogCard({ e, ex, result, editing, onEdit, onCancel, onLog, onSwap }: {
   );
 }
 
-/** One row: sets done, reps (one number), weight, and "struggled on the last set". */
+/** One row: sets done, reps (one number), weight, and "struggled on the last set". Or "Log each set": one row per set
+ *  (prefilled from the row), each with its own reps and weight. */
 function ResultEditor({ initial, name, onSave, onCancel }: { initial: ExerciseResult; name: string; onSave: (r: ExerciseResult) => void; onCancel: () => void }) {
   const { t } = useI18n();
   const [v, setV] = useState({ sets: String(initial.sets), reps: String(initial.reps), weightKg: String(initial.weightKg) });
   const [struggled, setStruggled] = useState(initial.struggled);
+  const [each, setEach] = useState(!!initial.perSet?.length);
+  const [rows, setRows] = useState(() => (initial.perSet?.length ? initial.perSet : Array.from({ length: initial.sets }, () => ({ reps: initial.reps, weightKg: initial.weightKg })))
+    .map((s) => ({ reps: String(s.reps), weightKg: String(s.weightKg) })));
   const parse = (s: string) => Number(s.trim().replace(',', '.').replace(/[٠-٩]/g, (d) => String('٠١٢٣٤٥٦٧٨٩'.indexOf(d))));
+  const badReps = (s: string) => !(Number.isInteger(parse(s)) && parse(s) >= 0 && parse(s) <= 100);
+  const badKg = (s: string) => !(s.trim() !== '' && parse(s) >= 0 && parse(s) <= 500);
   const sets = parse(v.sets), reps = parse(v.reps), weightKg = parse(v.weightKg);
   const bad = {
     sets: !(Number.isInteger(sets) && sets >= 0 && sets <= 20),
-    reps: !(Number.isInteger(reps) && reps >= 0 && reps <= 100),
-    weightKg: !(v.weightKg.trim() !== '' && weightKg >= 0 && weightKg <= 500),
+    reps: badReps(v.reps),
+    weightKg: badKg(v.weightKg),
+  };
+  const rowsBad = rows.some((r) => badReps(r.reps) || badKg(r.weightKg));
+  const invalid = each ? rowsBad : Object.values(bad).some(Boolean);
+  const startEach = (on: boolean) => {
+    if (on && !bad.sets) { // prefill one row per set from the single row
+      setRows(Array.from({ length: sets }, (_, i) => rows[i] ?? { reps: v.reps, weightKg: v.weightKg }));
+    }
+    setEach(on);
+  };
+  const save = () => {
+    if (!each) {
+      onSave({ sets, reps: sets ? reps : 0, weightKg: sets ? Math.round(weightKg * 4) / 4 : 0, struggled: sets > 0 && struggled });
+      return;
+    }
+    const perSet = rows.map((r) => ({ reps: parse(r.reps), weightKg: Math.round(parse(r.weightKg) * 4) / 4 }));
+    const top = Math.max(0, ...perSet.map((s) => s.weightKg));
+    const atTop = perSet.filter((s) => s.weightKg === top).map((s) => s.reps);
+    onSave({ sets: perSet.length, reps: atTop.length ? Math.min(...atTop) : 0, weightKg: top, struggled: perSet.length > 0 && struggled, perSet });
   };
   const fields = [['sets', t('logger.sets'), 'numeric'], ['reps', t('logger.reps'), 'numeric'], ['weightKg', t('logger.weightKg'), 'decimal']] as const;
+  const input = (value: string, invalidField: boolean, label: string, mode: 'numeric' | 'decimal', onChange: (s: string) => void) => (
+    <TextInput aria-label={label} inputMode={mode} enterKeyHint="done" value={value} invalid={invalidField} className="px-3 text-center text-lg font-semibold tabular"
+      onFocus={(ev) => ev.target.select()} onChange={(ev) => onChange(ev.target.value)} />
+  );
   return (
-    <form className="flex flex-col gap-3" aria-label={t('logger.editResult', { name })}
-      onSubmit={(ev) => { ev.preventDefault(); if (!Object.values(bad).some(Boolean)) onSave({ sets, reps: sets ? reps : 0, weightKg: sets ? Math.round(weightKg * 4) / 4 : 0, struggled: sets > 0 && struggled }); }}>
-      <div className="grid grid-cols-3 gap-2">
-        {fields.map(([k, label, mode]) => (
-          <label key={k} className="flex min-w-0 flex-col gap-1 text-xs text-neutral-800">{label}
-            <TextInput inputMode={mode} enterKeyHint="done" value={v[k]} invalid={bad[k]} className="px-3 text-center text-lg font-semibold tabular"
-              onFocus={(ev) => ev.target.select()} onChange={(ev) => setV({ ...v, [k]: ev.target.value })} />
-          </label>
-        ))}
-      </div>
+    <form className="flex flex-col gap-3" aria-label={t('logger.editResult', { name })} onSubmit={(ev) => { ev.preventDefault(); if (!invalid) save(); }}>
+      {each ? (
+        <ol className="m-0 flex list-none flex-col gap-2 p-0" data-testid="set-rows">
+          {rows.map((r, i) => (
+            <li key={i} className="grid grid-cols-[4.5rem_1fr_1fr] items-end gap-2">
+              <span className="pb-3 text-[13px] font-semibold text-neutral-800">{t('logger.setN', { n: i + 1 })}</span>
+              <label className="flex min-w-0 flex-col gap-1 text-xs text-neutral-800">{t('logger.reps')}
+                {input(r.reps, badReps(r.reps), `${t('logger.setN', { n: i + 1 })}: ${t('logger.reps')}`, 'numeric', (s) => setRows(rows.map((x, j) => (j === i ? { ...x, reps: s } : x))))}
+              </label>
+              <label className="flex min-w-0 flex-col gap-1 text-xs text-neutral-800">{t('logger.weightKg')}
+                {input(r.weightKg, badKg(r.weightKg), `${t('logger.setN', { n: i + 1 })}: ${t('logger.weightKg')}`, 'decimal', (s) => setRows(rows.map((x, j) => (j === i ? { ...x, weightKg: s } : x))))}
+              </label>
+            </li>
+          ))}
+          <li className="flex flex-wrap gap-2">
+            <Button variant="secondary" size="sm" disabled={rows.length >= 20} onClick={() => setRows([...rows, rows.at(-1) ?? { reps: v.reps, weightKg: v.weightKg }])}>{t('logger.addSet')}</Button>
+            <Button variant="ghost" size="sm" disabled={!rows.length} onClick={() => setRows(rows.slice(0, -1))}>{t('logger.removeSet')}</Button>
+          </li>
+        </ol>
+      ) : (
+        <div className="grid grid-cols-3 gap-2">
+          {fields.map(([k, label, mode]) => (
+            <label key={k} className="flex min-w-0 flex-col gap-1 text-xs text-neutral-800">{label}
+              {input(v[k], bad[k], label, mode, (s) => setV({ ...v, [k]: s }))}
+            </label>
+          ))}
+        </div>
+      )}
+      <Toggle checked={each} onChange={startEach} label={<span className="text-[13px]">{t('logger.logEachSet')}</span>} />
       <Toggle checked={struggled} onChange={setStruggled} label={<span className="text-[13px]">{t('logger.struggled')}</span>} />
       <div className="flex gap-2">
-        <Button type="submit" className="flex-1" disabled={Object.values(bad).some(Boolean)}>{t('logger.saveResult')}</Button>
+        <Button type="submit" className="flex-1" disabled={invalid}>{t('logger.saveResult')}</Button>
         <Button variant="secondary" onClick={onCancel}>{t('common.cancel')}</Button>
       </div>
     </form>

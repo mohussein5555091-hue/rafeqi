@@ -113,3 +113,30 @@ test('move an upcoming session: today is taken (says why), another day works and
   await page.getByRole('button', { name: 'Back to Wednesday' }).click();
   await expect(page.getByTestId('moved-from')).toHaveCount(0);
 });
+
+test('log each set: one row per set, prefilled; the result and "last time" show every set', async ({ page }) => {
+  await freshUser(page);
+  const week = await api(page, '/workouts/week');
+  const today = week.sessions.find((s: { status: string; kind: string }) => s.status === 'today' && s.kind === 'strength');
+  const ex = today.exercises.find((e: { target: { weightKg: number } }) => e.target.weightKg > 0);
+  const kg: number = ex.target.weightKg;
+  await page.goto(`/workouts/${today.id}/log`);
+  await waitForContent(page);
+  const card = page.getByTestId('log-card').filter({ has: page.locator(`a[href="/exercises/${ex.exerciseId}"]`) }).first();
+  await card.getByRole('button', { name: /^Edit / }).click();
+  await card.getByRole('switch', { name: 'Log each set' }).click();
+  const rows = card.getByTestId('set-rows').locator('li').filter({ hasText: /^Set / });
+  await expect(rows).toHaveCount(ex.target.sets);
+  await expect(card.getByLabel('Set 1: Reps')).toHaveValue(String(ex.target.reps));
+  const lighter = String(kg - ex.weightStepKg);
+  await card.getByLabel(`Set ${ex.target.sets}: Weight, kg`).fill(lighter);
+  await card.getByRole('button', { name: 'Save' }).click();
+  await expect(card).toContainText(`${ex.target.reps} × ${lighter} kg`);
+  // Saved set by set on the server.
+  await page.getByRole('button', { name: 'Finish workout' }).click();
+  await page.getByRole('radiogroup', { name: 'Workout effort from 1 to 10' }).getByRole('radio', { name: '7', exact: true }).click();
+  await page.getByRole('button', { name: 'Save & finish' }).click();
+  await expect(page).toHaveURL(new RegExp(`/workouts/${today.id}$`));
+  const done = (await api(page, '/workouts/week')).sessions.find((s: { id: string }) => s.id === today.id);
+  expect(done.log.results[ex.exerciseId].perSet.at(-1)).toEqual({ reps: ex.target.reps, weightKg: Number(lighter) });
+});

@@ -128,7 +128,7 @@
     "rpeHelp": "RPE = how hard a set feels. RPE 8 means you could do about 2 more reps.",
     "detailsSoon": "This session's exercises appear closer to the day.",
     "range": "Range {reps}", "reason": { "findWeight": "Find your weight: start light", "deload": "Lighter week: same weight as last time", "start": "Starting weight", "addReps": "+1 rep since last time", "addWeight": "+{kg} kg since last time", "repeat": "Same as last time", "dropWeight": "−{kg} kg to get the reps back" },
-    "target": "{sets} × {reps} @ {kg} kg", "targetBw": "{sets} × {reps}", "prevDay": "Previous workout", "nextDay": "Next workout",
+    "target": "{sets} × {reps} @ {kg} kg", "targetBw": "{sets} × {reps}", "setLine": "{reps} × {kg} kg", "setLineBw": "{reps} reps", "prevDay": "Previous workout", "nextDay": "Next workout",
     "dayOf": "Workout {n} of {total} this week", "whatYouDid": "What you did", "skipped": "Skipped", "effortLogged": "Effort {n}/10",
     "painAfter": "{area} after: {n}/10", "startOnDay": "You can start this workout on {day}.", "missed": "Missed", "pastLocked": "Past sessions can't be changed.",
     "doToday": "Do this workout today", "moveDay": "Move to another day", "moveTitle": "Move {name} to…",
@@ -156,7 +156,8 @@
     "effortQ": "How hard was today's workout?", "effortLabel": "Workout effort from 1 to 10", "effort1": "1 · very easy", "effort10": "10 · couldn't do more",
     "pickEffort": "Pick how hard it was to save the workout.",
     "painQ": "How is your {area} now?", "painLabel": "Pain from 0 to 10", "pain0": "0 · no pain", "pain10": "10 · worst imaginable",
-    "anyOfThese": "Any of these?", "painDown": "Down from {prev} last time. Nice — we'll keep the current swaps for now.", "saveFinish": "Save & finish"
+    "anyOfThese": "Any of these?", "painDown": "Down from {prev} last time. Nice — we'll keep the current swaps for now.", "saveFinish": "Save & finish",
+    "logEachSet": "Log each set", "setN": "Set {n}", "addSet": "Add a set", "removeSet": "Remove the last set"
   },
   "redFlags": { "sharpPain": "Sharp pain", "swelling": "Swelling", "numbness": "Numbness", "none": "None" },
   "nutrition": {

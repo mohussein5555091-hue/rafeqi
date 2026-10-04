@@ -16,8 +16,11 @@ CASES = json.loads((get_settings().rules_dir / "progression_cases.json").read_te
 
 @pytest.mark.parametrize("case", CASES, ids=[c["name"] for c in CASES])
 def test_worked_examples(case):
-    last = case["last"] and ExerciseResult(sets=case["last"]["sets"], reps=case["last"]["reps"],
-                                           weight_kg=case["last"]["weightKg"], struggled=case["last"]["struggled"])
+    if case["last"] and "perSet" in case["last"]:
+        last = ExerciseResult.from_sets([tuple(s) for s in case["last"]["perSet"]], case["last"]["struggled"])
+    else:
+        last = case["last"] and ExerciseResult(sets=case["last"]["sets"], reps=case["last"]["reps"],
+                                               weight_kg=case["last"]["weightKg"], struggled=case["last"]["struggled"])
     t = next_target(case["sets"], case["reps"], case["step"], case["start"], last)
     want = case["target"]
     assert (t.sets, t.reps, t.weight_kg, t.reason) == (want["sets"], want["reps"], want["weightKg"], want["reason"])

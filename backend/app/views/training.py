@@ -77,7 +77,10 @@ def one_exercise(db: Session, exercise_id: str) -> dict | None:
 
 
 def result_out(r: ExerciseResult) -> dict:
-    return {"sets": r.sets, "reps": r.reps, "weightKg": r.weight_kg, "struggled": r.struggled}
+    out = {"sets": r.sets, "reps": r.reps, "weightKg": r.weight_kg, "struggled": r.struggled}
+    if r.per_set is not None:  # logged set by set, with different sets
+        out["perSet"] = [{"reps": reps, "weightKg": kg} for reps, kg in r.per_set]
+    return out
 
 
 def day_exercises(db: Session, day: ProgramDay) -> list[ProgramExercise]:

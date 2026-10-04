@@ -128,7 +128,7 @@
     "rpeHelp": "المجهود (RPE) من 1 لـ 10. مجهود 8 يعني كان ممكن تعمل حوالي عدّتين زيادة.",
     "detailsSoon": "تمارين الجلسة دي هتظهر قرب يومها.",
     "range": "المدى {reps}", "reason": { "findWeight": "اختار وزنك: ابدأ خفيف", "deload": "أسبوع أخف: نفس وزن المرة اللي فاتت", "start": "وزن البداية", "addReps": "عدّة زيادة عن آخر مرة", "addWeight": "+{kg} كجم عن آخر مرة", "repeat": "زي آخر مرة", "dropWeight": "−{kg} كجم عشان ترجع العدّات" },
-    "target": "{sets} × {reps} @ {kg} كجم", "targetBw": "{sets} × {reps}", "prevDay": "التمرين اللي قبله", "nextDay": "التمرين اللي بعده",
+    "target": "{sets} × {reps} @ {kg} كجم", "targetBw": "{sets} × {reps}", "setLine": "{reps} × {kg} كجم", "setLineBw": "{reps} عدة", "prevDay": "التمرين اللي قبله", "nextDay": "التمرين اللي بعده",
     "dayOf": "تمرين {n} من {total} الأسبوع ده", "whatYouDid": "اللي عملته", "skipped": "ماتعملش", "effortLogged": "المجهود {n}/10",
     "painAfter": "{area} بعدها: {n}/10", "startOnDay": "تقدر تبدأ التمرين ده يوم {day}.", "missed": "فاتك", "pastLocked": "التمرينات اللي فاتت ماينفعش تتغيّر.",
     "doToday": "اعمل التمرينة دي النهارده", "moveDay": "انقلها ليوم تاني", "moveTitle": "انقل {name} لـ…",
@@ -156,7 +156,8 @@
     "effortQ": "تمرين النهارده كان صعب قد إيه؟", "effortLabel": "مجهود التمرين من 1 لـ 10", "effort1": "1 · سهل جدًا", "effort10": "10 · ماكنتش أقدر أكمّل",
     "pickEffort": "اختار كان صعب قد إيه عشان تحفظ التمرين.",
     "painQ": "{area} عامل إيه دلوقتي؟", "painLabel": "الألم من 0 لـ 10", "pain0": "0 · مفيش ألم", "pain10": "10 · أسوأ ألم",
-    "anyOfThese": "في أي حاجة من دول؟", "painDown": "نزل من {prev} المرة اللي فاتت. حلو — هنسيب البدائل زي ما هي دلوقتي.", "saveFinish": "احفظ وخلّص"
+    "anyOfThese": "في أي حاجة من دول؟", "painDown": "نزل من {prev} المرة اللي فاتت. حلو — هنسيب البدائل زي ما هي دلوقتي.", "saveFinish": "احفظ وخلّص",
+    "logEachSet": "سجّل كل مجموعة", "setN": "مجموعة {n}", "addSet": "زوّد مجموعة", "removeSet": "شيل آخر مجموعة"
   },
   "redFlags": { "sharpPain": "ألم حاد", "swelling": "ورم", "numbness": "تنميل", "none": "مفيش" },
   "nutrition": {

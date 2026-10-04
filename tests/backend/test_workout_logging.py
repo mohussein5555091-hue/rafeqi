@@ -12,6 +12,7 @@ from app.workouts import (
     save_exercise_result,
 )
 from populate import ensure_catalogue
+from test_plans import catalogue  # noqa: F401 (fixture)
 
 MONDAY = dt.date(2026, 9, 28)
 
@@ -110,3 +111,43 @@ def test_per_set_readers_still_get_what_they_need(db, log):
     assert all(s.reps >= rep_range("8–10")[1] for s in sets)  # → ready for the next weight step
     assert sum(s.reps * s.weight_kg for s in sets) == 3 * 10 * 22.5
     assert not any((s.rpe or 0) >= STRUGGLED_RPE for s in sets)
+
+
+# ── "Log each set": one row per set, and the next target from what was really done ──
+
+def test_log_each_set_keeps_every_set_and_drives_the_next_target(make_user, catalogue, clock):  # noqa: F811
+    from test_onboarding import answer_all
+
+    c = make_user().client
+    answer_all(c)
+    c.post("/api/onboarding/complete")
+    c.post("/api/plan")
+    week = c.get("/api/workouts/week").json()
+    mon = next(s for s in week["sessions"] if s["status"] == "today")
+    ex = next(e for e in mon["exercises"] if e["target"]["weightKg"] > 0)
+    kg = ex["target"]["weightKg"]
+    sets = [{"reps": 10, "weightKg": kg}, {"reps": 9, "weightKg": kg}, {"reps": 10, "weightKg": kg - ex["weightStepKg"]}]
+    r = c.put(f"/api/workouts/{mon['id']}/exercises/{ex['exerciseId']}", json={"sets": 3, "reps": 0, "weightKg": 0, "perSet": sets})
+    assert r.status_code == 204, r.text
+    assert c.post(f"/api/workouts/{mon['id']}/finish", json={"effort": 7}).status_code == 200
+    done = next(s for s in c.get("/api/workouts/week").json()["sessions"] if s["id"] == mon["id"])
+    assert done["log"]["results"][ex["exerciseId"]] == {"sets": 3, "reps": 9, "weightKg": kg, "struggled": False, "perSet": sets}
+    clock.advance(days=7)
+    nxt = next(s for s in c.get("/api/workouts/week").json()["sessions"] if s["status"] == "today")
+    e = next(x for x in nxt["exercises"] if x["exerciseId"] == ex["exerciseId"])
+    assert e["lastTime"]["perSet"] == sets  # "Last time" shows each set
+    # Only 2 of 3 sets at the heaviest weight: same weight again, reps kept in the range.
+    assert (e["target"]["weightKg"], e["target"]["reason"]) == (kg, "repeat")
+
+
+def test_log_each_set_validation(make_user, catalogue):  # noqa: F811
+    from test_onboarding import answer_all
+
+    c = make_user().client
+    answer_all(c)
+    c.post("/api/onboarding/complete")
+    c.post("/api/plan")
+    mon = next(s for s in c.get("/api/workouts/week").json()["sessions"] if s["status"] == "today")
+    ex = mon["exercises"][0]["exerciseId"]
+    bad = {"sets": 1, "reps": 0, "weightKg": 0, "perSet": [{"reps": 101, "weightKg": 10}]}
+    assert c.put(f"/api/workouts/{mon['id']}/exercises/{ex}", json=bad).status_code == 422

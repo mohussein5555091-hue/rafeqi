@@ -80,7 +80,11 @@ def _log(db: Session, user_id: str, day_id: str, exercise_id: str):
 def log_exercise(day_id: str, exercise_id: str, body: ExerciseResultIn, auth: CurrentAuth, db: Db):
     """Saves one exercise's result (logging it again replaces it). Only today's session can be logged."""
     log = _log(db, auth.user.id, day_id, exercise_id)
-    save_exercise_result(db, log, exercise_id, ExerciseResult(body.sets, body.reps, body.weight_kg, body.struggled and body.sets > 0))
+    if body.per_set is not None:
+        result = ExerciseResult.from_sets([(s.reps, s.weight_kg) for s in body.per_set], body.struggled and len(body.per_set) > 0)
+    else:
+        result = ExerciseResult(body.sets, body.reps, body.weight_kg, body.struggled and body.sets > 0)
+    save_exercise_result(db, log, exercise_id, result)
     db.commit()
 
 

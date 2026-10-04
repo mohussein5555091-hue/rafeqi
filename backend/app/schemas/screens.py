@@ -11,11 +11,20 @@ from app.schemas.injuries import BodyRegion, InjuryIn
 Scale5 = Field(ge=1, le=5)
 
 
+class SetIn(ApiModel):
+    reps: int = Field(ge=0, le=100)
+    weight_kg: float = Field(ge=0, le=500)
+
+
 class ExerciseResultIn(ApiModel):
+    """One row (sets × reps @ weight), or "Log each set": per_set, one entry per set (sets, reps and weight are then
+    worked out from it)."""
+
     sets: int = Field(ge=0, le=20)
     reps: int = Field(ge=0, le=100)
     weight_kg: float = Field(ge=0, le=500)
     struggled: bool = False
+    per_set: list[SetIn] | None = Field(default=None, max_length=20)
 
 
 class PainIn(ApiModel):
