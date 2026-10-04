@@ -823,6 +823,68 @@ exercises:
       ar: سبليت سكوات بوزن الجسم وأنت ماسك حاجة
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_step_up
+  type: strength
+  name:
+    en: Dumbbell step-up
+    ar: طلوع على بنش بالدمبل
+  description:
+    en: Stepping up onto a bench or sturdy box with a dumbbell in each hand, one leg at a time. Trains thighs and glutes with the back kept upright and unloaded.
+    ar: طلوع على بنش أو صندوق ثابت ودمبل في كل إيد، رجل رجل. بيشتغل على الفخد والمؤخرة والضهر مفرود ومن غير حمل عليه.
+  movement_pattern: lunge
+  joints_loaded:
+  - knee
+  - hip
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  - hipL
+  - hipR
+  secondary_muscles: []
+  muscle_names:
+    en: Front thighs, glutes
+    ar: الفخد الأمامية، المؤخرة
+  instructions:
+  - en: Stand facing a bench or sturdy box at about knee height, a dumbbell in each hand, arms hanging.
+    ar: اقف قدام بنش أو صندوق ثابت في طول ركبتك تقريبًا، ودمبل في كل إيد والدراعات مدلّية.
+  - en: Put your whole right foot on the bench.
+    ar: حط رجلك اليمين كلها على البنش.
+  - en: Push through that foot to stand up on the bench, then step down with the other leg first.
+    ar: ادفع بالرجل دي عشان تقف على البنش، وبعدين انزل بالرجل التانية الأول.
+  - en: Do all the reps on one leg, then switch.
+    ar: خلّص العدّات على رجل، وبعدين بدّل.
+  cues:
+  - en: Chest up, back straight
+    ar: صدرك لفوق وضهرك مفرود
+  - en: Let the top leg do the work
+    ar: خلّي الرجل اللي فوق هي اللي تشتغل
+  - en: Step down slowly
+    ar: انزل براحة
+  mistakes:
+  - en: Pushing off the bottom leg
+    ar: تدفع بالرجل اللي تحت
+  - en: A box so high your hips tilt
+    ar: صندوق عالي أوي لدرجة إن حوضك يميل
+  image_url: /exercises/Dumbbell_Step_Ups/0.jpg
+  image_frames:
+  - /exercises/Dumbbell_Step_Ups/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Dumbbell+step+up+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dumbbell_Step_Ups
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_split_squat
+    name:
+      en: Dumbbell split squat
+      ar: سبليت سكوات بالدمبل
+    kind: injuryFriendly
+  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_leg_extension
   type: strength
   name:

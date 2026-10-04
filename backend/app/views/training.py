@@ -223,10 +223,12 @@ def workout_out(db: Session, user_id: str, week: Week, day: ProgramDay, injuries
     done = log is not None and log.status == "done"
     status = "done" if done else "today" if d == week.today else "missed" if d < week.today else "planned"
     ses = session_exercises(db, user_id, day, d, injuries)
+    joints = dict(db.execute(select(Exercise.id, Exercise.joints_loaded).where(Exercise.id.in_([se.exercise_id for se in ses]))).all()) if ses else {}
     exercises, ramp_from = [], None
     for se in ses:
         t, last = target_for(db, user_id, week, se, log)
-        if ramp_from is None and se.weight_step_kg > 0 and t.weight_kg > 0:
+        # Ramp-up sets: the first main compound lift (several joints) with a weight, as in engine/training.py.
+        if ramp_from is None and se.weight_step_kg > 0 and t.weight_kg > 0 and len(set(joints.get(se.exercise_id) or ())) >= 2:
             ramp_from = (se.exercise_id, t.weight_kg, se.weight_step_kg)
         exercises.append(no_nones({
             "exerciseId": se.exercise_id, "sets": se.sets, "reps": se.reps.replace("-", "–"), "restSec": se.rest_sec,

@@ -124,3 +124,68 @@ def test_injury_swap_reason_names_the_movement():
     plan = build_program(person(injuries=(SHOULDER,)), CAT)
     swapped = [r.en for d in plan.days for e in d.exercises if e.swap_kind == "swapped" for r in e.reasons if r.rule == "training.injuries"]
     assert any("avoids bench pressing, which hurts your left shoulder." in s for s in swapped), swapped
+
+
+# ── Lower back: back-friendly compound leg exercises; ramp-up only on a compound lift ──
+
+LEG_COMPOUNDS = {"ex_leg_press", "ex_split_squat", "ex_step_up", "ex_walking_lunge_bw", "ex_bw_squat"}
+
+
+@pytest.mark.parametrize("experience,days,location", [("intermediate", 4, "gym"), ("beginner", 3, "gym"), ("beginner", 3, "homeDumbbells")])
+def test_lower_back_gets_back_friendly_compound_leg_exercises(experience, days, location):
+    plan = build_program(person(injuries=(BACK,), experience=experience, days_per_week=days, location=location), CAT)
+    for d in plan.days:
+        if d.kind == "upper":
+            continue
+        ids = [e.exercise_id for e in d.exercises]
+        loaded = [i for i in ids if i in LEG_COMPOUNDS and CAT[i].equipment != ("bodyweight",)]
+        assert loaded, (d.name, ids)  # never only leg extensions and calf raises
+        assert not {"ex_bb_squat", "ex_goblet_squat", "ex_bb_deadlift", "ex_db_rdl"} & set(ids)
+    ids = {e.exercise_id for d in plan.days for e in d.exercises}
+    assert ids & ({"ex_leg_press"} if location == "gym" else {"ex_step_up", "ex_split_squat"})
+
+
+def test_a_barbell_squat_becomes_a_loaded_leg_exercise_not_a_bodyweight_squat():
+    plan = build_program(person(injuries=(BACK,)), CAT)
+    subs = {e.replaced_exercise_id: e.exercise_id for d in plan.days for e in d.exercises if e.swap_kind == "swapped"}
+    assert subs["ex_bb_squat"] == "ex_leg_press"
+    home = build_program(person(injuries=(BACK,), experience="beginner", days_per_week=3, location="homeDumbbells"), CAT)
+    assert all(e.exercise_id != "ex_bw_squat" for d in home.days for e in d.exercises)
+
+
+@pytest.mark.parametrize("injuries", [(), (BACK,), (SHOULDER,), (KNEE,)], ids=["none", "back", "shoulder", "knee"])
+@pytest.mark.parametrize("location", ["gym", "homeDumbbells"])
+def test_ramp_up_sets_go_on_the_first_compound_lift_only(injuries, location):
+    from app.engine.training import is_compound
+
+    for p in (person(injuries=injuries, location=location), person(injuries=injuries, location=location, experience="beginner", days_per_week=3)):
+        for d in build_program(p, CAT).days:
+            ramp = d.warmup["ramp"]["id"]
+            if ramp is None:
+                continue
+            assert is_compound(CAT[ramp]), (d.name, ramp)
+            first_compound = next(e.exercise_id for e in d.exercises if e.weight_step_kg > 0 and e.start_weight_kg > 0 and is_compound(CAT[e.exercise_id]))
+            assert ramp == first_compound
+
+
+def test_an_isolation_exercise_first_gets_no_ramp_up():
+    from app.engine.warmup import build_warmup  # noqa: F401  (the engine decides; this checks the knee case)
+
+    knee = InjuryInfo("k", "kneeR", painful_movements=("squat", "lunges", "deadlift"))
+    for d in build_program(person(injuries=(knee,)), CAT).days:
+        ramp = d.warmup["ramp"]["id"]
+        assert ramp is None or ramp not in {"ex_leg_extension", "ex_seated_leg_curl", "ex_calf_raise", "ex_incline_curl", "ex_lateral_raise"}
+
+
+def test_injury_badge_only_for_real_injury_swaps():
+    """An exercise the weekly review swapped (marked uncomfortable) is not shown as "Swapped for your shoulder"."""
+    from app.engine.training import Adjustments
+
+    recovering = InjuryInfo("s", "shoulderL", status="recovering")
+    plan = build_program(person(injuries=(recovering,)), CAT, adjust=Adjustments(avoid=frozenset({"ex_cs_row"})))
+    row = next(e for d in plan.days for e in d.exercises if e.replaced_exercise_id == "ex_cs_row")
+    assert row.swap_kind == "review"
+    for d in plan.days:
+        for e in d.exercises:
+            if e.swap_kind in ("swapped", "added"):
+                assert any(r.rule in ("training.injuries", "training.full_body_legs") for r in e.reasons)

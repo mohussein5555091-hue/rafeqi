@@ -58,7 +58,7 @@ class PlannedExercise:
     weight_offset_kg: float = 0.0
     replaced_exercise_id: str | None = None
     injury_id: str | None = None
-    swap_kind: str | None = None  # swapped (injury) | added (full-body legs) | equipment | user (the person's swap)
+    swap_kind: str | None = None  # swapped (injury) | added (full-body legs) | equipment | review (marked uncomfortable) | user (the person's swap)
     user_reason: str | None = None  # user swaps: equipment | busy | cantDo | pain
     reasons: list[Reason] = field(default_factory=list)
 
@@ -130,6 +130,11 @@ def fits_equipment(ex: ExerciseInfo, location: str, missing: tuple[str, ...] = (
     return set(ex.equipment) <= available_equipment(location, missing)
 
 
+def is_compound(ex: ExerciseInfo) -> bool:
+    """A compound (multi-joint) lift: a squat, press, row… not a curl, leg extension or calf raise."""
+    return ex.type == "strength" and len(set(ex.joints)) >= 2
+
+
 def weight_step(ex: ExerciseInfo) -> float:
     steps = load_rules()["training"]["weight_step_kg"]
     return max((steps.get(e, 0) for e in ex.equipment), default=0)
@@ -137,19 +142,25 @@ def weight_step(ex: ExerciseInfo) -> float:
 
 def closest_substitute(ex: ExerciseInfo, p: Person, catalogue: dict[str, ExerciseInfo], taken: set[str],
                        avoid: frozenset[str] = frozenset()) -> ExerciseInfo | None:
-    """Same movement pattern, fits the equipment, avoids every injury; the lowest penalty wins (ties: id order)."""
-    pen = load_rules()["training"]["injuries"]["substitute_penalty"]
+    """Same movement pattern (or a related leg pattern), fits the equipment, avoids every injury; the lowest penalty
+    wins (ties: id order). A loaded exercise only becomes a bodyweight one when nothing loaded fits."""
+    inj = load_rules()["training"]["injuries"]
+    pen, related = inj["substitute_penalty"], inj.get("related_patterns", {})
+    patterns = {ex.pattern, *related.get(ex.pattern, ())}
     vocab = get_vocab()
+    loaded = weight_step(ex) > 0
     best, best_score = None, math.inf
     for c in sorted(catalogue.values(), key=lambda c: c.id):
-        if c.id == ex.id or c.id in taken or c.id in avoid or c.pattern != ex.pattern or c.type != "strength":
+        if c.id == ex.id or c.id in taken or c.id in avoid or c.pattern not in patterns or c.type != "strength":
             continue
         if not fits_equipment(c, p.location, p.missing_equipment) or not allowed(c, p.injuries, vocab):
             continue
         s = (pen["different_range"] * (c.rom != ex.rom)
              + pen["different_equipment"] * (not set(c.equipment) & set(ex.equipment))
              + pen["per_difficulty_step"] * abs(LEVELS[c.difficulty] - LEVELS[ex.difficulty])
-             + pen["harder_than_you"] * (LEVELS[c.difficulty] > LEVELS[p.experience]))
+             + pen["harder_than_you"] * (LEVELS[c.difficulty] > LEVELS[p.experience])
+             + pen["different_pattern"] * (c.pattern != ex.pattern)
+             + pen["lose_load"] * (loaded and weight_step(c) == 0))
         if s < best_score:
             best, best_score = c, s
     return best
@@ -268,7 +279,8 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
                 else:
                     reasons.append(Reason("training.review.uncomfortable", f"{name(ex.id)['en']} → {sub.name['en']}: you marked it uncomfortable.",
                                           f"{name(ex.id)['ar']} ← {sub.name['ar']}: قلت إنه مش مريح.", tr["review"]["source"]))
-                    replaced, swap_kind, ex = replaced or ex.id, swap_kind or "swapped", sub
+                    # "review", not "swapped": the badge "Swapped for your <area>" is only for injury swaps.
+                    replaced, swap_kind, ex = replaced or ex.id, swap_kind or "review", sub
 
             if ex.id in taken:  # a substitute already used earlier in this session
                 return
@@ -350,7 +362,8 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
                 exercises.insert(0, first_leg)
 
         # As many exercises as the session length allows (template order), then warm-up and cool-down.
-        first_main = next((e for e in exercises if e.weight_step_kg > 0 and e.start_weight_kg > 0), None)
+        # Ramp-up sets go on the first main compound lift (several joints, with a weight), never an isolation exercise.
+        first_main = next((e for e in exercises if e.weight_step_kg > 0 and e.start_weight_kg > 0 and is_compound(catalogue[e.exercise_id])), None)
         warm = build_warmup(kind, p, catalogue, first_main.exercise_id if first_main else None, first_main.start_weight_kg if first_main else 0)
         kept: list[PlannedExercise] = []
         for e in exercises:
@@ -464,7 +477,14 @@ def alternatives(ex: ExerciseInfo, p: Person, catalogue: dict[str, ExerciseInfo]
 
     same = sorted((c for c in catalogue.values() if c.pattern == ex.pattern and usable(c)), key=score)
     out = same[:limit]
-    if len(out) < 2:  # few with the same movement: add exercises for the same muscles
-        more = sorted((c for c in catalogue.values() if c.pattern != ex.pattern and set(c.muscles) & set(ex.muscles) and usable(c)), key=score)
+    if len(out) < 2:  # few with the same movement: add exercises for the same main muscles, in the same direction
+        way = direction(ex.pattern)
+        more = sorted((c for c in catalogue.values() if c.pattern != ex.pattern and way is not None and direction(c.pattern) == way
+                       and set(c.muscles) & set(ex.muscles) and usable(c)), key=score)
         out += more[: limit - len(out)]
     return out
+
+
+def direction(pattern: str) -> str | None:
+    """push, pull, kneeDominant, hipDominant… (training.yaml `swaps.directions`); None for patterns without one."""
+    return next((d for d, patterns in load_rules()["training"]["swaps"]["directions"].items() if pattern in patterns), None)

@@ -73,6 +73,7 @@ start_load:
     ex_db_rdl: 0.25
     ex_bb_deadlift: 1.1
     ex_split_squat: 0.12
+    ex_step_up: 0.1
     ex_seated_leg_curl: 0.45
     ex_leg_extension: 0.4
     ex_calf_raise: 0.6
@@ -91,8 +92,13 @@ injuries:
     ar: التمارين اللي فيها حركة بتوجعك بتتبدّل بأقرب تمرين بنفس الحركة من غيرها؛ والمناطق اللي بتتعافى بتبدأ بوزن أخف.
   recovering_load_factor: 0.8    # exercises loading a "recovering" area start lighter
   min_load_factor: 0.5
-  # How close a substitute is: lower is closer. Only exercises with the same movement pattern are considered.
-  substitute_penalty: {different_range: 1, different_equipment: 1, harder_than_you: 3, per_difficulty_step: 1}
+  # How close a substitute is: lower is closer. Exercises with the same movement pattern are considered, plus the
+  # related leg patterns below (a barbell squat that hurts a lower back → leg press, split squat or step-up).
+  # lose_load: a loaded exercise replaced by a bodyweight-only one (only when nothing loaded fits).
+  substitute_penalty: {different_range: 1, different_equipment: 1, harder_than_you: 3, per_difficulty_step: 1, different_pattern: 2, lose_load: 3}
+  related_patterns:
+    squat: [lunge]
+    lunge: [squat]
   # {why}: a painful movement's phrase ("pressing overhead") or a restriction's name ("No overhead lifting"),
   # data/vocab/movements.yaml.
   explain:
@@ -335,6 +341,17 @@ swaps:
     en: An exercise you swapped is replaced by one with the same movement and muscles that fits your equipment and injuries, and the weekly review never puts the old one back.
     ar: التمرين اللي بدّلته بيتحط مكانه تمرين بنفس الحركة والعضلات ومناسب لأدواتك وإصاباتك، والمراجعة الأسبوعية عمرها ما ترجّع القديم.
   max_alternatives: 4
+  # When too few exercises share the movement pattern, others for the same main muscles are offered, but only in the
+  # same direction: a push stays a push (a curl is never swapped for a triceps pushdown), a knee-bending leg exercise
+  # stays one (a leg extension is never swapped for a deadlift).
+  directions:
+    push: [horizontalPush, verticalPush, dip, elbowExtension, shoulderAbduction]
+    pull: [horizontalPull, verticalPull, elbowFlexion, shoulderExternalRotation]
+    kneeDominant: [squat, lunge, kneeExtension]
+    hipDominant: [hinge, kneeFlexion]
+    calves: [plantarFlexion]
+    core: [core]
+    carry: [carry]
   explain:
     en: "{from} → {to}: your choice ({why})."
     ar: "{from} ← {to}: اختيارك ({why})."

@@ -131,7 +131,7 @@ class ProgramExercise(Base, UserOwned):
     weight_offset_kg: Mapped[float] = mapped_column(default=0.0, server_default="0")  # weekly review: ± one step, next session only
     replaced_exercise_id: Mapped[str | None] = mapped_column(ForeignKey("exercises.id"))
     injury_id: Mapped[str | None] = mapped_column(ForeignKey("injuries.id", ondelete="SET NULL"))
-    swap_kind: Mapped[str | None] = mapped_column(String(8))  # swapped (injury) | added | equipment | user (the person's swap)
+    swap_kind: Mapped[str | None] = mapped_column(String(8))  # swapped (injury) | added | equipment | review (marked uncomfortable) | user (the person's swap)
     user_reason: Mapped[str | None] = mapped_column(String(10))  # user swaps: equipment | busy | cantDo | pain
     swap_reason: Mapped[dict | None]
 
