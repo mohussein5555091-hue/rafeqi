@@ -64,6 +64,7 @@ class Person:
     fasting: tuple[str, ...] = ()
     injuries: tuple[InjuryInfo, ...] = ()
     missing_equipment: tuple[str, ...] = ()  # "Equipment not available" from an exercise swap
+    disliked_foods: tuple[str, ...] = ()  # food ids removed from meals with "I don't like it" / "Always"
 
     @property
     def conservative(self) -> bool:
@@ -101,6 +102,23 @@ class RecipeInfo:
     carbs: float
     fat: float
     ingredients: tuple[tuple[str, float], ...]  # (food_id, grams per serving)
+    essential: frozenset[str] = frozenset()  # food ids that make the dish (removing one means swapping the meal)
+    per100: tuple[tuple[float, float, float, float], ...] = ()  # each ingredient's kcal, protein, carbs, fat per 100 g
+
+
+@dataclass(frozen=True)
+class FoodInfo:
+    """A food from the catalogue, per 100 g, with its role in a meal (protein, eggsDairy, legume, carb, fat, vegetable,
+    fruit, flavour) and its dislike/allergy tags."""
+
+    id: str
+    name: Text
+    role: str
+    tags: frozenset[str]
+    kcal: float
+    protein: float
+    carbs: float
+    fat: float
 
 
 @dataclass(frozen=True)

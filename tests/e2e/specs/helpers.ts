@@ -87,7 +87,7 @@ export const PUBLIC_ROUTES = ['/login', '/signup', '/forgot-password'];
  */
 export const APP_ROUTES = [
   ...['about', 'goal', 'training', 'injuries', 'health', 'food', 'review'].map((s) => `/onboarding/${s}`),
-  '/plan-ready',
+  '/plan-ready', '/plan/why',
   '/', '/workouts', '/workouts/:today', '/workouts/:planned', '/workouts/:cardio', '/workouts/:today/log', '/exercises/:exercise',
   '/exercises/ex_cat_cow', '/exercises/ex_quad_stretch', '/exercises/ex_bike',
   '/nutrition', '/nutrition?view=week', `/nutrition/day/${TODAY}`, '/nutrition/recipes/:recipe', '/groceries', '/groceries/pantry',

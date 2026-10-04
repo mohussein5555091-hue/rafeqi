@@ -3,7 +3,7 @@
 import datetime as dt
 from datetime import datetime
 
-from sqlalchemy import ForeignKey, Integer, String, Text, UniqueConstraint
+from sqlalchemy import CheckConstraint, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.models.base import Base, UserOwned, owner, timestamp, uuid_pk
@@ -24,6 +24,7 @@ class Food(Base):
     fiber_100g: Mapped[float]
     units: Mapped[list] = mapped_column(default=list)  # [{en: "1 baladi loaf", ar: "رغيف بلدي", grams: 90}]
     tags: Mapped[list] = mapped_column(default=list)  # matched against dislikes and allergies
+    role: Mapped[str] = mapped_column(String(10), default="", server_default="")  # protein | eggsDairy | legume | carb | fat | vegetable | fruit | flavour
     source: Mapped[str] = mapped_column(String(200), default="")
 
 
@@ -81,6 +82,7 @@ class RecipeIngredient(Base):
     grams: Mapped[float]  # per serving
     amount_en: Mapped[str] = mapped_column(String(80), default="")  # "1 ladle"
     amount_ar: Mapped[str] = mapped_column(String(80), default="")
+    essential: Mapped[bool] = mapped_column(default=False, server_default="0")  # what makes the dish: removing it means swapping the meal
 
 
 class RecipeStep(Base):
@@ -103,6 +105,9 @@ class MealPlan(Base, UserOwned):
     week_start: Mapped[dt.date]
     status: Mapped[str] = mapped_column(String(12), default="active")
     created_at: Mapped[datetime] = timestamp()
+    # After an ingredient is removed: what the engine changed to keep each day on target, by date
+    # {"2026-10-03": {"lines": [{en, ar}], "snack": {...} | None}} (app/engine/ingredients.py).
+    day_notes: Mapped[dict] = mapped_column(default=dict, server_default="{}")
 
 
 class MealPlanItem(Base, UserOwned):
@@ -115,7 +120,8 @@ class MealPlanItem(Base, UserOwned):
     slot: Mapped[str] = mapped_column(String(10))
     time: Mapped[str] = mapped_column(String(5))  # "08:30"
     recipe_id: Mapped[str] = mapped_column(ForeignKey("recipes.id"))
-    portion: Mapped[float] = mapped_column(default=1.0)  # scale factor chosen by the optimizer
+    portion: Mapped[float] = mapped_column(default=1.0)  # scale factor: the optimizer's, or rebalanced after an ingredient change
+    planned_portion: Mapped[float | None]  # the optimizer's (or a meal swap's) portion, kept while `portion` is rebalanced
     kcal: Mapped[int]
     protein_g: Mapped[int]
     carbs_g: Mapped[int]
@@ -123,6 +129,31 @@ class MealPlanItem(Base, UserOwned):
     eaten: Mapped[bool] = mapped_column(default=False)
     replaced_recipe_id: Mapped[str | None] = mapped_column(ForeignKey("recipes.id"))
     reason: Mapped[dict | None]
+
+
+class MealIngredientChange(Base, UserOwned):
+    """The person removed (or replaced) an ingredient of one meal. Rows made by one action share `group_id`
+    ("Always" changes every meal of the week that has it). Undo deletes the group."""
+
+    __tablename__ = "meal_ingredient_changes"
+
+    id: Mapped[str] = uuid_pk()
+    user_id: Mapped[str] = owner()
+    meal_plan_item_id: Mapped[str] = mapped_column(ForeignKey("meal_plan_items.id", ondelete="CASCADE"), index=True)
+    group_id: Mapped[str] = mapped_column(String(36), index=True)
+    food_id: Mapped[str] = mapped_column(ForeignKey("foods.id"))
+    replacement_food_id: Mapped[str | None] = mapped_column(ForeignKey("foods.id"))
+    replacement_grams: Mapped[float | None]  # per serving, like recipe_ingredients.grams
+    reason: Mapped[str] = mapped_column(String(12))  # dislike | unavailable
+    scope: Mapped[str] = mapped_column(String(6))  # meal | always
+    added_dislike: Mapped[bool] = mapped_column(default=False)  # this action put the food in profiles.disliked_foods
+    created_at: Mapped[datetime] = timestamp()
+
+    __table_args__ = (
+        CheckConstraint("scope IN ('meal', 'always')", name="scope_values"),
+        CheckConstraint("reason IN ('dislike', 'unavailable')", name="reason_values"),
+        UniqueConstraint("meal_plan_item_id", "food_id"),
+    )
 
 
 class GroceryList(Base, UserOwned):

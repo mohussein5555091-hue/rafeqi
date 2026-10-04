@@ -9,6 +9,7 @@ from app.api.deps import CurrentAuth, Db
 from app.models import (
     Exercise, GroceryList, GroceryListItem, Injury, MealPlan, MealPlanItem, Plan, ProgramDay, ProgramExercise, TrainingProgram,
 )
+from app.views.why import why_out
 from app.week import program_week_number
 
 router = APIRouter(prefix="/api/plan", tags=["plan"])
@@ -57,6 +58,16 @@ def get_plan(auth: CurrentAuth, db: Db):
     if plan is None:
         raise HTTPException(404, "no_plan_yet")
     return plan_out(db, plan)
+
+
+@router.get("/why")
+def get_why(auth: CurrentAuth, db: Db):
+    """The "Why this plan" page: every decision in the current plan with the answers used, the rule, its source and
+    the result (app/views/why.py)."""
+    plan = plans.current_plan(db, auth.user.id)
+    if plan is None:
+        raise HTTPException(404, "no_plan_yet")
+    return why_out(db, plan)
 
 
 @router.post("")

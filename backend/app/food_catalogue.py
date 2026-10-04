@@ -21,6 +21,7 @@ SHELF_LIVES = {"weekly", "monthly"}
 UNITS = {"kg", "g", "L", "pcs", "cups", "jars"}
 SLOTS = {"breakfast", "lunch", "snack", "dinner", "suhoor", "iftar"}
 NUTRIENTS = ("kcal", "protein", "carbs", "fat", "fiber")
+ROLES = {"protein", "eggsDairy", "legume", "carb", "fat", "vegetable", "fruit", "flavour"}
 FORBIDDEN_KEYS = {"price", "cost", "brand", "budget"}
 
 
@@ -84,6 +85,8 @@ def validate_food_catalogue(foods: list[dict], items: list[dict], recipes: list[
             energy = 4 * f["protein"] + 4 * f["carbs"] + 9 * f["fat"]
             if abs(energy - f["kcal"]) > max(25, 0.2 * f["kcal"]):
                 problems.append(f"{where}: kcal {f['kcal']} doesn't match its macros (~{energy:.0f})")
+        if f.get("role") not in ROLES:
+            problems.append(f"{where}: role must be one of {sorted(ROLES)}")
         if bad := set(f.get("tags") or []) - FOOD_TAGS:
             problems.append(f"{where}: unknown tags {sorted(bad)}; allowed: {sorted(FOOD_TAGS)}")
         g = f.get("grocery") or {}
@@ -105,11 +108,15 @@ def validate_food_catalogue(foods: list[dict], items: list[dict], recipes: list[
         ings = r.get("ingredients") or []
         if not ings:
             problems.append(f"{where}: needs ingredients")
+        elif not any(i.get("essential") is True for i in ings):
+            problems.append(f"{where}: mark at least one ingredient essential: true (what makes the dish)")
         for ing in ings:
             if ing.get("food") not in food_ids:
                 problems.append(f"{where}: ingredient food {ing.get('food')} doesn't exist")
             if not isinstance(ing.get("grams"), (int, float)) or ing["grams"] <= 0:
                 problems.append(f"{where}: ingredient {ing.get('food')} needs grams > 0")
+            if ing.get("essential", False) not in (True, False):
+                problems.append(f"{where}: ingredient {ing.get('food')}: essential must be true or false")
             if not (ing.get("en") and ing.get("ar")):
                 problems.append(f"{where}: ingredient {ing.get('food')} needs an en and ar amount")
         steps = r.get("steps") or []
@@ -126,7 +133,7 @@ def seed_food_catalogue(db: Session, data: dict) -> tuple[int, int, int]:
     for f in data["foods"]:
         db.merge(Food(id=f["id"], name_en=f["en"], name_ar=f["ar"], kcal_100g=f["kcal"], protein_100g=f["protein"],
                       carbs_100g=f["carbs"], fat_100g=f["fat"], fiber_100g=f["fiber"], units=f.get("units") or [],
-                      tags=f.get("tags") or [], source=data["food_source"]))
+                      tags=f.get("tags") or [], role=f["role"], source=data["food_source"]))
     db.flush()
     db.execute(delete(FoodGroceryItem).where(FoodGroceryItem.food_id.in_([f["id"] for f in data["foods"]])))
     for f in data["foods"]:
@@ -142,7 +149,8 @@ def seed_food_catalogue(db: Session, data: dict) -> tuple[int, int, int]:
         db.execute(delete(RecipeIngredient).where(RecipeIngredient.recipe_id == r["id"]))
         db.execute(delete(RecipeStep).where(RecipeStep.recipe_id == r["id"]))
         for ing in r["ingredients"]:
-            db.add(RecipeIngredient(recipe_id=r["id"], food_id=ing["food"], grams=ing["grams"], amount_en=ing["en"], amount_ar=ing["ar"]))
+            db.add(RecipeIngredient(recipe_id=r["id"], food_id=ing["food"], grams=ing["grams"], amount_en=ing["en"], amount_ar=ing["ar"],
+                                    essential=bool(ing.get("essential"))))
         for n, s in enumerate(r["steps"], 1):
             db.add(RecipeStep(recipe_id=r["id"], position=n, text_en=s["en"], text_ar=s["ar"], timer_sec=s.get("timer_sec")))
     db.flush()

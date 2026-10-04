@@ -6,7 +6,8 @@ from fastapi import APIRouter, HTTPException
 
 from app.api.deps import CurrentAuth, Db
 from app.api.training import current_week
-from app.schemas.screens import GroceryPatchIn, SwapIn
+from app.schemas.screens import GroceryPatchIn, RemoveIngredientIn, SwapIn
+from app.views import ingredients as ing
 from app.views import nutrition as v
 from app.week import NoPlan, this_week
 
@@ -54,17 +55,64 @@ def swap(item_id: str, body: SwapIn, auth: CurrentAuth, db: Db):
     except v.NotAnOption:
         raise HTTPException(422, "not_a_swap_option") from None
     db.commit()
-    shown = next(d for d in week.dates if week.meal_date(d) == item.date)
-    return v.meal_day(db, week, shown)
+    return v.meal_day(db, week, _shown(week, item))
+
+
+def _shown(week, item) -> dt.date:
+    """The meal's day as the screens show it (this week's date for that plan day)."""
+    return next(d for d in week.dates if week.meal_date(d) == item.date)
+
+
+@router.get("/api/meals/{item_id}/ingredients/{food_id}/replacements")
+def get_replacements(item_id: str, food_id: str, auth: CurrentAuth, db: Db):
+    """What the Remove sheet offers for one ingredient: whether it's essential (then: swap the meal), and 1–3
+    replacements with the same role, sized for this meal's portion."""
+    week, item = _item(db, auth.user.id, item_id)
+    try:
+        return ing.replacement_options(db, week, item, food_id)
+    except ing.NotInMeal:
+        raise HTTPException(404, "not_found") from None
+
+
+@router.post("/api/meals/{item_id}/ingredients/{food_id}/remove")
+def remove_ingredient(item_id: str, food_id: str, body: RemoveIngredientIn, auth: CurrentAuth, db: Db):
+    """Removes (or replaces) an ingredient: this meal, or "always" (every meal this week, and every later plan).
+    Rebalances the day and rebuilds the grocery list. Returns the meal's day. 409 for an essential ingredient."""
+    week, item = _item(db, auth.user.id, item_id)
+    try:
+        ing.remove_ingredient(db, week, item, food_id, body.reason, body.scope, body.replacement_food_id)
+    except ing.NotInMeal:
+        raise HTTPException(404, "not_found") from None
+    except ing.Essential:
+        raise HTTPException(409, "essential_ingredient") from None
+    except ing.NotAReplacement:
+        raise HTTPException(422, "not_a_replacement") from None
+    v.rebuild_grocery_list(db, week, ing.change_note(db, food_id, body.replacement_food_id))
+    db.commit()
+    return v.meal_day(db, week, _shown(week, item))
+
+
+@router.delete("/api/meals/{item_id}/ingredients/{food_id}")
+def undo_ingredient(item_id: str, food_id: str, auth: CurrentAuth, db: Db):
+    """Undo: the ingredient is back (in every meal the same action changed), and it's no longer a disliked food."""
+    week, item = _item(db, auth.user.id, item_id)
+    try:
+        ing.undo_change(db, week, item, food_id)
+    except ing.NotInMeal:
+        raise HTTPException(404, "not_found") from None
+    v.rebuild_grocery_list(db, week, ing.change_note(db, food_id, None, undo=True))
+    db.commit()
+    return v.meal_day(db, week, _shown(week, item))
 
 
 @router.get("/api/recipes/{recipe_id}")
-def get_recipe(recipe_id: str, auth: CurrentAuth, db: Db):
+def get_recipe(recipe_id: str, auth: CurrentAuth, db: Db, meal: str | None = None):
+    """`meal`: the meal it was opened from (portions, and that meal's removed or replaced ingredients)."""
     try:
         week = this_week(db, auth.user.id)
     except NoPlan:
         week = None
-    out = v.recipe_out(db, recipe_id, week)
+    out = v.recipe_out(db, recipe_id, week, meal)
     if out is None:
         raise HTTPException(404, "not_found")
     return out

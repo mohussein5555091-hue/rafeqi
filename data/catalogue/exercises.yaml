@@ -330,7 +330,8 @@ exercises:
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Face_Pull
     license: Unlicense (public domain)
   alternatives:
-  - name:
+  - exercise_id: ex_band_pull_apart
+    name:
       en: Band pull-apart
       ar: فتح استك
     kind: easier
@@ -578,7 +579,8 @@ exercises:
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Stiff-Legged_Dumbbell_Deadlift
     license: Unlicense (public domain)
   alternatives:
-  - name:
+  - exercise_id: ex_glute_bridge
+    name:
       en: Glute bridge
       ar: رفع الحوض من الأرض
     kind: easier
@@ -638,7 +640,8 @@ exercises:
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Leg_Press
     license: Unlicense (public domain)
   alternatives:
-  - name:
+  - exercise_id: ex_goblet_squat
+    name:
       en: Goblet squat
       ar: سكوات جوبلت
     kind: equipment
@@ -933,11 +936,13 @@ exercises:
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dumbbell_Bench_Press
     license: Unlicense (public domain)
   alternatives:
-  - name:
+  - exercise_id: ex_push_up
+    name:
       en: Push-up
       ar: ضغط
     kind: easier
-  - name:
+  - exercise_id: ex_db_floor_press
+    name:
       en: Neutral-grip dumbbell floor press
       ar: ضغط دمبل من الأرض بقبضة محايدة
     kind: injuryFriendly
@@ -996,7 +1001,8 @@ exercises:
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dumbbell_Shoulder_Press
     license: Unlicense (public domain)
   alternatives:
-  - name:
+  - exercise_id: ex_landmine_press
+    name:
       en: Half-kneeling landmine press
       ar: ضغط لاندماين على ركبة واحدة
     kind: injuryFriendly
@@ -1175,11 +1181,13 @@ exercises:
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Barbell_Squat
     license: Unlicense (public domain)
   alternatives:
-  - name:
+  - exercise_id: ex_goblet_squat
+    name:
       en: Goblet squat
       ar: سكوات جوبلت
     kind: easier
-  - name:
+  - exercise_id: ex_leg_press
+    name:
       en: Leg press
       ar: ليج برس
     kind: injuryFriendly
@@ -1239,7 +1247,8 @@ exercises:
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Barbell_Bench_Press_-_Medium_Grip
     license: Unlicense (public domain)
   alternatives:
-  - name:
+  - exercise_id: ex_db_bench_press
+    name:
       en: Dumbbell bench press
       ar: بنش بريس بالدمبل
     kind: easier
@@ -1304,7 +1313,8 @@ exercises:
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Barbell_Deadlift
     license: Unlicense (public domain)
   alternatives:
-  - name:
+  - exercise_id: ex_db_rdl
+    name:
       en: Dumbbell Romanian deadlift
       ar: رفعة رومانية بالدمبل
     kind: easier
@@ -1421,7 +1431,8 @@ exercises:
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Inverted_Row
     license: Unlicense (public domain)
   alternatives:
-  - name:
+  - exercise_id: ex_cs_row
+    name:
       en: Chest-supported dumbbell row
       ar: تجديف دمبل بسند للصدر
     kind: equipment
@@ -1480,10 +1491,11 @@ exercises:
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/One-Arm_Dumbbell_Row
     license: Unlicense (public domain)
   alternatives:
-  - name:
+  - exercise_id: ex_inverted_row
+    name:
       en: Inverted row
       ar: تجديف معكوس
-    kind: equipment
+    kind: noEquipment
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_pull_up
   type: strength
@@ -1539,7 +1551,8 @@ exercises:
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Pullups
     license: Unlicense (public domain)
   alternatives:
-  - name:
+  - exercise_id: ex_lat_pulldown
+    name:
       en: Neutral-grip lat pulldown
       ar: سحب علوي بقبضة محايدة
     kind: easier
@@ -1601,7 +1614,8 @@ exercises:
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Standing_Military_Press
     license: Unlicense (public domain)
   alternatives:
-  - name:
+  - exercise_id: ex_db_shoulder_press
+    name:
       en: Seated dumbbell shoulder press
       ar: ضغط كتف بالدمبل وأنت قاعد
     kind: easier
@@ -1667,7 +1681,7 @@ exercises:
     name:
       en: Marching in place
       ar: مشي في المكان
-    kind: equipment
+    kind: noEquipment
   source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
 - id: ex_incline_walk
   type: cardio
@@ -1729,7 +1743,7 @@ exercises:
     name:
       en: Brisk walk outdoors
       ar: مشي سريع برّه
-    kind: equipment
+    kind: noEquipment
   source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
 - id: ex_bike
   type: cardio
@@ -1788,7 +1802,7 @@ exercises:
     name:
       en: Brisk walk
       ar: مشي سريع
-    kind: equipment
+    kind: noEquipment
   source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
 - id: ex_jump_rope
   type: cardio
@@ -2074,7 +2088,7 @@ exercises:
     name:
       en: Arm circles
       ar: دوائر بالدراع
-    kind: equipment
+    kind: noEquipment
   source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
 - id: ex_cat_cow
   type: mobility

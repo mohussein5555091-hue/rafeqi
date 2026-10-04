@@ -5,6 +5,10 @@ version: 1
 calorie_floor:
   placeholder: true
   source: "PLACEHOLDER: minimum daily calories without medical supervision; book + page to be added"
+  uses: [sex]
+  summary:
+    en: Calories never go below a minimum (by sex) without a doctor's supervision.
+    ar: السعرات عمرها ما تنزل تحت حد أدنى (حسب النوع) من غير إشراف دكتور.
   kcal: {female: 1200, male: 1500}
   explain:
     en: "Raised to {floor} kcal: we never go below this without a doctor's supervision."
@@ -13,6 +17,10 @@ calorie_floor:
 max_weekly_loss:
   placeholder: true
   source: "PLACEHOLDER: maximum safe weekly loss as % of body weight; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition)"
+  uses: [weight_kg, pace]
+  summary:
+    en: The deficit is capped so you lose at most 1% of your body weight a week.
+    ar: نقص السعرات له حد عشان ماتنزلش أكتر من ١٪ من وزنك في الأسبوع.
   pct_of_body_weight: 1.0
   explain:
     en: "Capped at {calories} kcal so you lose no more than {max_kg} kg a week ({pct}% of your weight)."
@@ -22,6 +30,10 @@ conservative:
   # Any "yes" in the onboarding health check.
   placeholder: true
   source: "PLACEHOLDER: conservative adjustments when a health question is answered yes; book + page to be added"
+  uses: [health]
+  summary:
+    en: 'Any yes in the health check keeps the plan gentler: a smaller deficit or surplus, lighter weights, lower effort and longer rests.'
+    ar: 'أي إجابة بـ أيوه في أسئلة الصحة بتخلّي الخطة أهدى: نقص أو زيادة سعرات أقل، أوزان أخف، مجهود أقل وراحة أطول.'
   max_deficit_pct: 15
   max_surplus_kcal: 150
   training: {rpe_minus: 1, load_factor: 0.85, extra_rest_sec: 30}
@@ -33,6 +45,10 @@ pregnancy:
   # Pregnant or gave birth in the last 6 months: no calorie deficit without medical advice.
   placeholder: true
   source: "PLACEHOLDER: no deficit during pregnancy / postpartum without medical advice; book + page to be added"
+  uses: [health]
+  summary:
+    en: No calorie deficit during or soon after pregnancy without a doctor's advice.
+    ar: مفيش نقص سعرات وقت الحمل أو بعد الولادة على طول من غير رأي دكتور.
   explain:
     en: "Kept at maintenance ({calories} kcal): no calorie deficit during or soon after pregnancy without your doctor's advice."
     ar: "على سعرات الثبات ({calories} سعرة): مفيش نقص سعرات وقت الحمل أو بعد الولادة على طول من غير رأي دكتورك."
@@ -41,6 +57,10 @@ red_flags:
   # Pain logs (after workouts and in the check-in). Any of these pauses the body area. We never diagnose.
   placeholder: true
   source: "PLACEHOLDER: red-flag symptoms and pain thresholds; book + page to be added"
+  uses: [injuries]
+  summary:
+    en: Sharp pain, swelling, numbness, worsening pain or high pain pauses that body area and asks you to see a doctor or physiotherapist. We never diagnose.
+    ar: الألم الحاد أو التورم أو التنميل أو الألم اللي بيزيد أو الألم الشديد بيوقّف المنطقة دي ويطلب منك تكشف عند دكتور أو أخصائي علاج طبيعي. إحنا عمرنا ما بنشخّص.
   flags: [sharp_pain, swelling, numbness, worsening]
   pause_at_pain: 7               # pain this high (0-10) pauses the area
   rising_logs: 3                 # pain going up across this many logs in a row pauses the area

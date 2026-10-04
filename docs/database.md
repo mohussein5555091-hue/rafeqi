@@ -279,6 +279,8 @@ erDiagram
   users ||--o{ meal_plans : "has"
   meal_plans ||--o{ meal_plan_items : "meals"
   recipes ||--o{ meal_plan_items : "chosen for"
+  meal_plan_items ||--o{ meal_ingredient_changes : "removed / replaced"
+  foods ||--o{ meal_ingredient_changes : "which food"
   meal_plans ||--|| grocery_lists : "generates"
   grocery_lists ||--o{ grocery_list_items : "items"
   grocery_items ||--o{ grocery_list_items : "listed as"
@@ -397,7 +399,24 @@ erDiagram
     text level "plenty, low, untracked"
     datetime updated_at
   }
+  meal_ingredient_changes {
+    uuid id PK
+    uuid user_id FK
+    uuid meal_plan_item_id FK
+    text group_id "one action (Always changes several meals); plan- for foods a new plan left out"
+    text food_id FK
+    text replacement_food_id FK "empty: removed without replacing"
+    real replacement_grams "per serving"
+    text reason "dislike or unavailable"
+    text scope "meal or always"
+    bool added_dislike "this action put it in profiles.disliked_foods"
+  }
 ```
+
+Added for removing ingredients: `foods.role` (protein, eggsDairy, legume, carb, fat, vegetable, fruit, flavour: what
+a replacement must match), `recipe_ingredients.essential`, `profiles.disliked_foods` (food ids every later plan leaves
+out), `meal_plan_items.planned_portion` (the optimizer's portion, kept while `portion` is rebalanced) and
+`meal_plans.day_notes` (what the engine changed on each day after an ingredient change).
 
 ## Check-ins, reviews and the AI log
 

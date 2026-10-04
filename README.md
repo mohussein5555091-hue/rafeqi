@@ -128,11 +128,11 @@ API endpoints (try them at http://localhost:5173/api/docs). The screens call the
 | Area | Endpoints |
 |---|---|
 | Account | `POST /api/auth/signup`, `/login`, `/logout`, `/change-password` · `GET/PATCH/DELETE /api/me` |
-| Questionnaire & plan | `GET /api/onboarding`, `PUT /api/onboarding/{about\|goal\|training\|injuries\|health\|food}`, `POST /api/onboarding/complete` · `GET/POST /api/plan` |
+| Questionnaire & plan | `GET /api/onboarding`, `PUT /api/onboarding/{about\|goal\|training\|injuries\|health\|food}`, `POST /api/onboarding/complete` · `GET/POST /api/plan` · `GET /api/plan/why` ("Why this plan": every decision with its answers, rule, source and result) |
 | Weight | `GET/POST /api/weights`, `DELETE /api/weights/{id}` |
 | Training | `GET /api/exercises`, `/api/exercises/{id}` · `GET /api/workouts/week`, `/api/workouts/{id}` · `PUT/DELETE /api/workouts/{id}/exercises/{exercise_id}` (log one exercise / undo) · `POST /api/workouts/{id}/finish` (effort + pain check) · `PUT /api/workouts/{id}/warmup`, `/cooldown` (Done ticks) |
 | Swaps & cardio | `GET /api/workouts/{id}/exercises/{exercise_id}/alternatives?reason=…` · `POST /api/workouts/{id}/exercises/{exercise_id}/swap` (just today / from now on) · `GET /api/swaps`, `DELETE /api/swaps/{id}` (undo) · `GET/PUT/DELETE /api/cardio/{weekday}` (a cardio day; marked done with minutes) |
-| Nutrition | `GET /api/meals/week`, `/api/meals/day/{date or today}`, `/api/meals/{id}/swap-options` · `POST /api/meals/{id}/swap` · `GET /api/recipes/{id}` · `GET /api/groceries`, `PATCH /api/groceries/items/{id}` · `GET /api/pantry` |
+| Nutrition | `GET /api/meals/week`, `/api/meals/day/{date or today}`, `/api/meals/{id}/swap-options` · `POST /api/meals/{id}/swap` · `GET /api/recipes/{id}?meal={meal id}` · `GET /api/meals/{id}/ingredients/{food}/replacements` · `POST /api/meals/{id}/ingredients/{food}/remove` (just this meal / always; rebalances the day) · `DELETE /api/meals/{id}/ingredients/{food}` (undo) · `GET /api/groceries`, `PATCH /api/groceries/items/{id}` · `GET /api/pantry` |
 | Injuries | `GET/POST /api/injuries`, `GET/PUT/DELETE /api/injuries/{id}` (saving one rebuilds the plan around it) |
 | Check-in & reviews | `GET /api/checkins/next`, `/api/checkins/draft` · `POST /api/checkins` (runs the weekly review) · `GET /api/reviews`, `/api/reviews/{id}` · `GET /api/progress` |
 
@@ -153,7 +153,8 @@ only writes the explanations and the weekly-review text. Each number keeps a one
 | Program: template choice, equipment and injury swaps, lighter loads, starting weights (capped per experience), exercises that fit the session length, a leg exercise on every full-body day, the time estimate, the person's own swaps and missing equipment | `data/rules/training.yaml`, `data/programs/*.json` | `engine/training.py`, `engine/injuries.py` |
 | Warm-up (general, mobility moves, ramp-up sets) and cool-down (stretches, breathing) | `data/rules/training.yaml` (`warmup`, `cooldown`) | `engine/warmup.py` |
 | Cardio: sessions and minutes by goal, type by equipment and injuries, placement, daily steps (counted once in calories) | `data/rules/training.yaml` (`cardio`), `nutrition.yaml` (`cardio_counted`) | `engine/cardio.py` |
-| Meals: recipes and portions picked by an optimizer (scipy MILP), every day ±5% calories, protein ≥ target | `data/rules/nutrition.yaml` (`meals`) | `engine/meals.py` |
+| Meals: recipes and portions picked by an optimizer (scipy MILP), every day ±5% calories, protein ≥ target; foods the person removed for good are left out | `data/rules/nutrition.yaml` (`meals`) | `engine/meals.py` |
+| Removing an ingredient: same-role replacements sized to match, essential ingredients (swap the meal instead), the day rebalanced (small portion changes, or a snack) | `data/rules/nutrition.yaml` (`ingredients`), `data/catalogue/foods.yaml` (`role`), `recipes.yaml` (`essential`) | `engine/ingredients.py` |
 | Grocery list: weekly fresh items, monthly staples × 4.3, pantry, pack sizes, WhatsApp text | `data/catalogue/grocery_items.yaml` | `engine/grocery.py` |
 | Weekly check-in questions | `data/checkin_questions.yaml` | `engine/checkin.py` |
 | Weekly review: calories, deload, too easy / too hard / uncomfortable, pain, meals to change | all of the above | `engine/review.py` |
@@ -163,6 +164,10 @@ only writes the explanations and the weekly-review text. Each number keeps a one
   with book and page, are extracted from the books next session. Change a value in the YAML and the next plan uses it; no code changes.
 - `backend/app/plans.py` reads the answers, runs the engine and saves a plan version (plans are never edited: each change is version n+1).
 - The 5 test personas are in `tests/backend/personas.py`; `tests/backend/test_personas.py` checks each plan against the safety bounds.
+- **"Why this plan"** (`/plan/why`, linked from "Your plan is ready", Home and Profile) lists every decision in the plan from
+  the stored reasons and each rule's `summary`, `uses`, `source` and `ref` (book, chapter, page, short quote) in the YAML files
+  (`backend/app/views/why.py`). Rules still marked `placeholder: true` show "Not yet from a book"; the top says how many
+  decisions are backed by the books. Never AI text: the AI summary slot at the top is filled in the AI phase.
 
 ## Settings (.env)
 
@@ -197,4 +202,5 @@ Rafeqi never shows prices, costs or budgets, because people shop at different st
 - [x] Phase 5: every screen runs on the real backend (no more sample data), Arabic end to end, installable on a phone
 - [x] Workout plan update: warm-up and cool-down in every session, cardio in the week, swap any exercise, typed number
       inputs, fuller sessions with honest time estimates (see "Added since" in `docs/PLAN.md`)
+- [x] Whole exercise photos (never cropped), "Why this plan" page, removing an ingredient from a meal (see "Added since")
 - [ ] Phase 6: remaining screens

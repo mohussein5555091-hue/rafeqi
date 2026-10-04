@@ -102,6 +102,16 @@ def test_catalogue_other_checks():
     assert "needs 3 to 5 cues" in problems and "name needs en and ar" in problems and "duplicate id" in problems
 
 
+def test_an_alternative_that_needs_no_equipment_is_labelled_so():
+    """Arm circles for a band pull-apart is "No equipment needed", not "Other equipment"."""
+    items = copy.deepcopy(catalogue())
+    band = next(e for e in items if e["id"] == "ex_band_pull_apart")
+    assert band["alternatives"][0] == band["alternatives"][0] | {"exercise_id": "ex_arm_circles", "kind": "noEquipment"}
+    band["alternatives"][0]["kind"] = "equipment"
+    problems = "\n".join(validate_exercises(items, get_vocab()))
+    assert "ex_band_pull_apart" in problems and "ex_arm_circles needs no equipment" in problems
+
+
 def test_bad_catalogue_writes_nothing(tmp_path, db):
     items = copy.deepcopy(catalogue())
     items[0]["movement_pattern"] = "pressing"

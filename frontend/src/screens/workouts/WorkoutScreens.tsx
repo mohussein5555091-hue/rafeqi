@@ -202,10 +202,12 @@ export function Session() {
   const q = useQuery(() => Promise.all([api.getWorkout(id), api.getWorkoutWeek(), api.getInjuries()]), [id]);
   const exMap = useExerciseMap();
   const nav = useNavigate();
-  const s = q.data?.[0];
+  // While the next day loads, show the loading state, not the previous day (whose arrows would point back here).
+  const view = q.loading && q.data && q.data[0].id !== id ? { ...q, data: undefined } : q;
+  const s = view.data?.[0];
   return (
     <AppShell back title={s ? l(s.name) : t('nav.workouts')} sub={s ? `${t(`enums.weekday.${s.day}`)} ${date(s.date)} · ${t('workouts.about', { min: s.estMinutes })}` : undefined}>
-      <QueryView query={q}>
+      <QueryView query={view}>
         {([s, week, injuries]) => (
           <>
             <DayNav s={s} week={week} />
@@ -261,7 +263,7 @@ export function ExerciseDetail() {
           return (
             <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
               <div className="flex flex-col gap-4">
-                <ExerciseMedia ex={ex} className="h-56 lg:h-80" />
+                <ExerciseMedia ex={ex} className="max-h-[60vh] lg:max-h-[440px]" />
                 <p className="m-0 text-[15px] text-neutral-800">{l(ex.description)}</p>
                 {ex.videoUrl && (
                   <a href={ex.videoUrl} target="_blank" rel="noopener noreferrer" className={cn(buttonClass('secondary', 'md'), 'self-start')}>
@@ -305,12 +307,21 @@ export function ExerciseDetail() {
                   <div className="flex flex-col gap-2 text-[13.5px]"><h3 className="m-0 text-base">{t('exercise.muscles')}</h3><span>{l(ex.muscleNames)}</span></div>
                 </Card>
                 <section className="flex flex-col gap-2"><h2 className="m-0 text-xl">{t('exercise.alternatives')}</h2>
-                  {ex.alternatives.map((a, i) => (
-                    <div key={i} className="flex min-h-[60px] items-center gap-3 rounded-pill bg-surface py-2 pe-3 ps-2">
-                      <span className={cn('grid h-tap w-tap place-items-center rounded-full', a.kind === 'easier' ? 'bg-sage-200 text-sage-800' : a.kind === 'equipment' ? 'bg-neutral-200 text-neutral-800' : 'bg-warn-100 text-warn-800')}><Icon as={a.kind === 'easier' ? ArrowDown : a.kind === 'equipment' ? Dumbbell : Shield} size={18} /></span>
-                      <div className="flex-1 leading-tight"><strong className="block text-[14.5px]">{l(a.name)}</strong><span className="text-xs text-neutral-700">{t(`exercise.kind.${a.kind}`)}</span></div>
-                    </div>
-                  ))}
+                  {ex.alternatives.map((a, i) => {
+                    const equipmentKind = a.kind === 'equipment' || a.kind === 'noEquipment';
+                    const inner = (
+                      <>
+                        {a.imageUrl
+                          ? <ExerciseThumb ex={a} size={48} />
+                          : <span className={cn('grid h-tap w-tap place-items-center rounded-full', a.kind === 'easier' ? 'bg-sage-200 text-sage-800' : equipmentKind ? 'bg-neutral-200 text-neutral-800' : 'bg-warn-100 text-warn-800')}><Icon as={a.kind === 'easier' ? ArrowDown : equipmentKind ? Dumbbell : Shield} size={18} /></span>}
+                        <div className="flex-1 leading-tight"><strong className="block text-[14.5px]">{l(a.name)}</strong><span className="text-xs text-neutral-700">{t(`exercise.kind.${a.kind}`)}</span></div>
+                      </>
+                    );
+                    const cls = 'flex min-h-[60px] items-center gap-3 rounded-pill bg-surface py-2 pe-3 ps-2';
+                    return a.exerciseId
+                      ? <Link key={i} to={`/exercises/${a.exerciseId}`} data-testid="alternative" className={cn(cls, 'text-ink no-underline hover:bg-neutral-200 hover:text-ink')}>{inner}<Icon as={ChevronRight} size={18} flip className="text-neutral-600" /></Link>
+                      : <div key={i} data-testid="alternative" className={cls}>{inner}</div>;
+                  })}
                 </section>
               </div>
             </div>

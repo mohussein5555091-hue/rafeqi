@@ -61,6 +61,16 @@ def test_exercise_catalogue(planned):
     assert planned.client.get("/api/exercises/ex_nope").status_code == 404
 
 
+def test_alternatives_in_the_catalogue_come_with_their_photo(planned):
+    band = planned.client.get("/api/exercises/ex_band_pull_apart").json()
+    assert band["alternatives"] == [{"exerciseId": "ex_arm_circles", "name": {"en": "Arm circles", "ar": "دوائر بالدراع"},
+                                     "kind": "noEquipment", "imageUrl": "/exercises/Arm_Circles/0.jpg"}]
+    every = planned.client.get("/api/exercises").json()
+    linked = [a for e in every for a in e["alternatives"] if "exerciseId" in a]
+    assert linked and all(a["imageUrl"].startswith("/exercises/") for a in linked)
+    assert all("imageUrl" not in a for e in every for a in e["alternatives"] if "exerciseId" not in a)
+
+
 # ── Workouts ──
 
 def test_workout_week(planned):

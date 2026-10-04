@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
-import { Repeat, ChefHat, Image, Timer, Flame, Refrigerator, Zap, X, RefreshCw, Copy, Plus, ShoppingBasket, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Repeat, ChefHat, Image, Timer, Flame, Refrigerator, Zap, X, RefreshCw, Copy, Plus, ShoppingBasket, ChevronLeft, ChevronRight, ChevronDown, Scale } from 'lucide-react';
 import {
   AppShell, Button, Card, Checkbox, Disclaimer, EmptyState, Icon, LinkButton, QueryView, Segmented, Tabs, Toggle, cn, useToast,
 } from '@/components';
@@ -9,6 +9,7 @@ import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
 import { mealIcon } from '@/screens/home/Dashboard';
 import type { GroceryCategory, GroceryItem, GroceryList, Meal, MealDay, MealWeekDay, Plan } from '@/types';
+import { DayNoteCard, IngredientList } from './Ingredients';
 
 /** Today's Egyptian meals, or the week; each day of the week opens its own page. */
 export function NutritionPlan() {
@@ -89,11 +90,16 @@ function MealDayNav({ date: iso, week }: { date: string; week: MealWeekDay[] }) 
 /** One day's meals: portions, macros, swap and recipe per meal, and the daily totals against the plan. */
 function MealDayView({ day, plan, onChange }: { day: MealDay; plan: Plan; onChange: (d: MealDay) => void }) {
   const { t, l, num } = useI18n();
-  const [swapFor, setSwapFor] = useState<Meal | null>(null);
+  const [params, setParams] = useSearchParams();
+  // ?swap=<meal id>: the recipe page sent someone here to swap a meal (its essential ingredient can't be removed).
+  const [swapFor, setSwapFor] = useState<Meal | null>(() => day.meals.find((m) => m.id === params.get('swap')) ?? null);
+  const [open, setOpen] = useState<string[]>([]);
+  const closeSwap = () => { setSwapFor(null); if (params.has('swap')) { params.delete('swap'); setParams(params, { replace: true }); } };
   const total = (k: 'kcal' | 'proteinG' | 'carbsG' | 'fatG') => day.meals.reduce((a, m) => a + m[k], 0);
   return (
     <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
       <div className="order-2 grid gap-4 lg:order-1 lg:grid-cols-2">
+        {day.note && <div className="lg:col-span-2"><DayNoteCard note={day.note} /></div>}
         {day.meals.map((m) => (
           <Card key={m.id} className="p-3.5" data-testid="meal-card">
             <div className="flex gap-3.5">
@@ -103,11 +109,25 @@ function MealDayView({ day, plan, onChange }: { day: MealDay; plan: Plan; onChan
             <div className="flex flex-wrap gap-1.5 text-xs">
               <span className="rounded-pill bg-bg px-2.5 py-1 font-bold">{t('units.kcalN', { n: num(m.kcal) })}</span>
               {([['p', m.proteinG], ['c', m.carbsG], ['f', m.fatG]] as const).map(([k, v]) => <span key={k} className="rounded-pill bg-neutral-100 px-2.5 py-1">{t(`macros.${k}Short`, { n: v })}</span>)}
+              {m.portionChange && <span className="inline-flex items-center gap-1 rounded-pill bg-sage-100 px-2.5 py-1 font-semibold text-sage-800" data-testid="portion-change"><Icon as={Scale} size={13} />{t('ingredients.portion', { from: num(m.portionChange.from, 2), to: num(m.portionChange.to, 2) })}</span>}
             </div>
+            {m.ingredients && m.ingredients.length > 0 && (
+              <>
+                <button type="button" aria-expanded={open.includes(m.id)} onClick={() => setOpen(open.includes(m.id) ? open.filter((x) => x !== m.id) : [...open, m.id])}
+                  className="flex min-h-tap items-center justify-between rounded-lg bg-bg px-3.5 text-[13.5px] font-semibold hover:bg-neutral-200">
+                  {t('ingredients.show', { n: m.ingredients.length })}
+                  <Icon as={ChevronDown} size={18} className={cn('transition-transform', open.includes(m.id) && 'rotate-180')} />
+                </button>
+                {open.includes(m.id) && (
+                  <IngredientList mealId={m.id} mealName={l(m.name)} ingredients={m.ingredients} onChanged={onChange} onSwapMeal={() => setSwapFor(m)}
+                    className="rounded-lg bg-bg px-3.5" />
+                )}
+              </>
+            )}
             <div className="mt-auto flex gap-2">
               <Button variant="secondary" size="sm" icon={Repeat} className="flex-1" onClick={() => setSwapFor(m)}>{t('nutrition.swap')}</Button>
               {m.recipeId
-                ? <LinkButton to={`/nutrition/recipes/${m.recipeId}`} variant="secondary" size="sm" icon={ChefHat} className="flex-1">{t('nutrition.recipe')}</LinkButton>
+                ? <LinkButton to={`/nutrition/recipes/${m.recipeId}?meal=${m.id}`} variant="secondary" size="sm" icon={ChefHat} className="flex-1">{t('nutrition.recipe')}</LinkButton>
                 : <Button variant="secondary" size="sm" icon={ChefHat} className="flex-1" disabled>{t('nutrition.recipe')}</Button>}
             </div>
           </Card>
@@ -127,7 +147,7 @@ function MealDayView({ day, plan, onChange }: { day: MealDay; plan: Plan; onChan
         <LinkButton to="/groceries" variant="secondary" icon={ShoppingBasket}>{t('nav.groceries')}</LinkButton>
       </Card>
       <Disclaimer className="order-3 lg:col-span-2" />
-      {swapFor && <SwapSheet date={day.date} meal={swapFor} onClose={() => setSwapFor(null)} onSwapped={(d) => { onChange(d); setSwapFor(null); }} />}
+      {swapFor && <SwapSheet date={day.date} meal={swapFor} onClose={closeSwap} onSwapped={(d) => { onChange(d); closeSwap(); }} />}
     </div>
   );
 }
@@ -175,8 +195,11 @@ function SwapSheet({ date, meal, onClose, onSwapped }: { date: string; meal: Mea
 /** Recipe: photo area, ingredients scaled to the user's portion, steps with timers, storage & reheating. */
 export function RecipeDetail() {
   const { id = '' } = useParams();
+  const [params] = useSearchParams();
+  const meal = params.get('meal') ?? undefined;
+  const nav = useNavigate();
   const { t, l, num } = useI18n();
-  const q = useQuery(() => api.getRecipe(id), [id]);
+  const q = useQuery(() => api.getRecipe(id, meal), [id, meal]);
   const [batch, setBatch] = useState<1 | 3>(1);
   const [running, setRunning] = useState<number | null>(null);
   return (
@@ -203,14 +226,20 @@ export function RecipeDetail() {
                 <div className="flex items-center justify-between gap-3"><h2 className="m-0 text-xl">{t('nutrition.ingredients')}</h2>
                   <Segmented className="min-h-tap" label={t('nutrition.portions')} value={batch} onChange={setBatch} options={[{ id: 1, label: t('nutrition.onePortion') }, { id: 3, label: t('nutrition.prepThree') }]} /></div>
                 <span className="text-xs text-neutral-700">{t('nutrition.scaledTo', { kcal: num(r.kcal) })}</span>
+                {r.mealId && batch === 1 ? (
+                  <IngredientList mealId={r.mealId} mealName={l(r.name)} ingredients={r.ingredients} onChanged={() => q.reload()}
+                    onSwapMeal={() => nav(`/nutrition/day/${r.mealDate}?swap=${r.mealId}`)} className="rounded-lg bg-surface px-5 py-1.5" />
+                ) : (
                 <ul className="m-0 grid list-none rounded-lg bg-surface px-5 py-1.5 lg:grid-cols-2 lg:gap-x-7">
-                  {r.ingredients.map((i) => (
+                  {/* Batch cooking: what's really cooked (removed foods out, replacements in), × 3. */}
+                  {r.ingredients.filter((i) => i.status !== 'removed').map((i) => (i.status === 'replaced' && i.replacement ? { ...i, ...i.replacement } : i)).map((i) => (
                     <li key={i.name.en} className="flex min-h-tap items-center justify-between gap-2.5 border-b border-divider text-sm">
                       <span className="min-w-0 flex-1 truncate">{l(i.name)}</span>
                       <strong className="whitespace-nowrap">{batch === 1 || !i.grams ? l(i.amount) : t('units.grams', { n: i.grams * batch })}</strong>
                     </li>
                   ))}
                 </ul>
+                )}
               </section>
               <section className="flex flex-col gap-3"><h2 className="m-0 text-xl">{t('nutrition.steps')}</h2>
                 <ol className="m-0 flex list-none flex-col gap-3 p-0">

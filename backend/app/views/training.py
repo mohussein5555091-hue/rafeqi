@@ -31,14 +31,17 @@ def no_nones(d: dict) -> dict:
     return {k: v for k, v in d.items() if v is not None}
 
 
-def exercise_out(e: Exercise, alternatives: list[ExerciseSubstitution]) -> dict:
+def exercise_out(e: Exercise, alternatives: list[ExerciseSubstitution], images: dict[str, str | None] | None = None) -> dict:
+    """`images`: the photo of each alternative that is in the catalogue (for its thumbnail)."""
+    images = images or {}
     return no_nones({
         "id": e.id, "type": e.type, "name": bi(e.name_en, e.name_ar), "description": bi(e.description_en, e.description_ar),
         "imageUrl": e.image_url, "imageFrames": e.image_frames or [], "videoUrl": e.video_url, "mediaSource": e.media_source,
         "muscles": {"primary": e.primary_muscles or [], "secondary": e.secondary_muscles or []},
         "muscleNames": bi(e.muscle_names_en, e.muscle_names_ar),
         "instructions": e.instructions, "cues": e.cues, "mistakes": e.mistakes,
-        "alternatives": [{"exerciseId": a.substitute_id, "name": bi(a.name_en, a.name_ar), "kind": a.kind} for a in alternatives],
+        "alternatives": [no_nones({"exerciseId": a.substitute_id, "name": bi(a.name_en, a.name_ar), "kind": a.kind,
+                                   "imageUrl": images.get(a.substitute_id)}) for a in alternatives],
     })
 
 
@@ -46,7 +49,9 @@ def all_exercises(db: Session) -> list[dict]:
     alts: dict[str, list[ExerciseSubstitution]] = {}
     for a in db.scalars(select(ExerciseSubstitution).order_by(ExerciseSubstitution.priority)):
         alts.setdefault(a.exercise_id, []).append(a)
-    return [exercise_out(e, alts.get(e.id, [])) for e in db.scalars(select(Exercise).order_by(Exercise.name_en))]
+    rows = list(db.scalars(select(Exercise).order_by(Exercise.name_en)))
+    images = {e.id: e.image_url for e in rows}
+    return [exercise_out(e, alts.get(e.id, []), images) for e in rows]
 
 
 def one_exercise(db: Session, exercise_id: str) -> dict | None:
@@ -55,7 +60,9 @@ def one_exercise(db: Session, exercise_id: str) -> dict | None:
         return None
     alts = list(db.scalars(select(ExerciseSubstitution).where(ExerciseSubstitution.exercise_id == e.id)
                            .order_by(ExerciseSubstitution.priority)))
-    return exercise_out(e, alts)
+    ids = [a.substitute_id for a in alts if a.substitute_id]
+    images = dict(db.execute(select(Exercise.id, Exercise.image_url).where(Exercise.id.in_(ids))).all()) if ids else {}
+    return exercise_out(e, alts, images)
 
 
 def result_out(r: ExerciseResult) -> dict:

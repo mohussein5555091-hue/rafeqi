@@ -13,7 +13,7 @@ from sqlalchemy import func, inspect, select
 from app.catalogue import read_exercises, seed_exercises
 from app.config import get_settings
 from app.food_catalogue import read_food_catalogue, seed_food_catalogue
-from app.models import Base, ExerciseSwap, Injury, WeightLog
+from app.models import Base, ExerciseSwap, Injury, MealIngredientChange, WeightLog
 from app.vocab import get_vocab
 from populate import populate
 from test_onboarding import answer_all
@@ -32,7 +32,7 @@ SELF_ONLY = {  # no id in the URL: they act on the logged-in user by constructio
     ("GET", "/api/me"), ("PATCH", "/api/me"), ("DELETE", "/api/me"),
     ("GET", "/api/weights"), ("POST", "/api/weights"),
     ("GET", "/api/onboarding"), ("POST", "/api/onboarding/complete"),
-    ("GET", "/api/plan"), ("POST", "/api/plan"),
+    ("GET", "/api/plan"), ("POST", "/api/plan"), ("GET", "/api/plan/why"),
     ("GET", "/api/workouts/week"), ("GET", "/api/meals/week"), ("GET", "/api/meals/day/{date}"),  # a date, not a row id
     ("GET", "/api/groceries"), ("GET", "/api/pantry"), ("GET", "/api/injuries"), ("POST", "/api/injuries"),
     ("GET", "/api/checkins/next"), ("GET", "/api/checkins/draft"), ("POST", "/api/checkins"),
@@ -52,6 +52,9 @@ BY_ID = {  # id in the URL: tested below with another user's id → (the table t
     ("POST", "/api/workouts/{day_id}/finish"): ("program_days", {"effort": 7}),
     ("GET", "/api/meals/{item_id}/swap-options"): ("meal_plan_items", None),
     ("POST", "/api/meals/{item_id}/swap"): ("meal_plan_items", {"recipeId": "r_test"}),
+    ("GET", "/api/meals/{item_id}/ingredients/{food_id}/replacements"): ("meal_plan_items", None),
+    ("POST", "/api/meals/{item_id}/ingredients/{food_id}/remove"): ("meal_plan_items", {"reason": "dislike", "scope": "always"}),
+    ("DELETE", "/api/meals/{item_id}/ingredients/{food_id}"): ("meal_plan_items", None),
     ("PATCH", "/api/groceries/items/{item_id}"): ("grocery_list_items", {"checked": True}),
     ("GET", "/api/injuries/{injury_id}"): ("injuries", None),
     ("PUT", "/api/injuries/{injury_id}"): ("injuries", INJURY),
@@ -93,7 +96,7 @@ def test_every_endpoint_is_classified(client_factory):
 
 def _attack(a, b_ids: dict[str, str]) -> None:
     for (method, path), (table, body) in BY_ID.items():
-        url = re.sub(r"\{\w+_id\}", b_ids[table], path, count=1).replace("{exercise_id}", "ex_test")
+        url = re.sub(r"\{\w+_id\}", b_ids[table], path, count=1).replace("{exercise_id}", "ex_test").replace("{food_id}", "food_test")
         r = a.client.request(method, url, json=body)
         assert r.status_code == 404, f"{method} {path} with B's id answered {r.status_code} for A: {r.text}"
 
@@ -107,6 +110,7 @@ def test_user_a_cannot_touch_user_b_rows_by_id(make_user, db):
     assert db.scalar(select(func.count()).select_from(WeightLog).where(WeightLog.user_id == b.id)) == 1
     assert db.scalar(select(func.count()).select_from(Injury).where(Injury.user_id == b.id)) == 1
     assert db.scalar(select(func.count()).select_from(ExerciseSwap).where(ExerciseSwap.user_id == b.id, ExerciseSwap.ended_at.is_(None))) == 1
+    assert db.scalar(select(func.count()).select_from(MealIngredientChange).where(MealIngredientChange.user_id == b.id)) == 1
 
 
 def test_a_with_a_plan_still_cannot_reach_b_rows(make_user, db):
@@ -130,6 +134,7 @@ def test_lists_only_show_your_own_rows(make_user, db):
     rows = a.client.get("/api/weights").json()
     assert [r["weightKg"] for r in rows] == [70.2]
     assert a.client.get("/api/me").json()["id"] == a.id
+    assert a.client.get("/api/plan/why").status_code == 404  # B's plan is never A's "why"
 
 
 def test_a_cannot_change_b_through_self_endpoints(make_user, db):

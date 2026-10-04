@@ -11,8 +11,8 @@ database notes, the engine's rule table).
 ## Current phase
 
 - Done: Phases 1–5 (setup, database + auth, onboarding questionnaire, plan engine, frontend connected to the backend),
-  plus the workout plan update listed at the end of `docs/PLAN.md` (warm-up, cool-down, cardio, exercise swaps,
-  typed number inputs, session length and time estimate).
+  plus the updates listed at the end of `docs/PLAN.md` (warm-up, cool-down, cardio, exercise swaps, typed number
+  inputs, session length and time estimate; whole exercise photos, the "Why this plan" page, removing ingredients).
   Every rule value in `data/rules/*.yaml` is still a marked placeholder (`placeholder: true`) until the real values are
   extracted from the books. The sample data is gone from `frontend/` (the design reference in `design/` still has it).
 - **Next: Phase 6, the rest of the screens** (see `docs/PLAN.md`): progress photo upload (`data/uploads/<user_id>/`,
@@ -41,6 +41,9 @@ Update this section and the Status list in README.md at the end of every phase.
    `tests/backend/test_isolation.py` must cover any new table or endpoint.
 8. Keep the designed look exactly. `design/` is the read-only reference, so never edit it.
 9. Tests must run without the books, the real database, `.env` or Ollama. Fake any LLM call in tests.
+10. Every rule section in `data/rules/*.yaml` with an `explain` also has `summary` (plain language, EN + AR) and `uses`
+    (the answers it reads); when a rule stops being a placeholder it needs `ref` (book, chapter, page, a 1–2 sentence
+    quote). The "Why this plan" page is built from these, never from LLM text.
 
 ## Folder layout
 
@@ -48,8 +51,9 @@ Update this section and the Status list in README.md at the end of every phase.
 backend/            Python 3.12 + FastAPI, SQLAlchemy 2, Alembic (managed by uv)
   app/api/          HTTP endpoints (auth, me, weights, onboarding, plans, training, nutrition, body)
   app/views/        Database rows → the screens' shapes (frontend/src/types.ts); app/week.py = "this week" of the plan
-  app/engine/       The plan engine: nutrition, training, warmup (+ cool-down), cardio, injuries, meals (scipy MILP), grocery,
-                    check-in, review
+  app/engine/       The plan engine: nutrition, training, warmup (+ cool-down), cardio, injuries, meals (scipy MILP),
+                    ingredients (replacements, day rebalancing), grocery, check-in, review
+  app/views/why.py  "Why this plan": every stored reason + its rule's summary/uses/source/ref from data/rules/*.yaml
   app/models/       Database tables          app/schemas/  Request/response shapes (Pydantic)
   app/ai/           Reserved for the local LLM + RAG (empty)
   migrations/       Alembic migrations (a test fails if models and migrations disagree)

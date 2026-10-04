@@ -239,9 +239,9 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
             if not fits_equipment(ex, p.location, p.missing_equipment):
                 sub = closest_substitute(ex, p, catalogue, taken, removed_by_person)
                 if sub is None:
-                    note(_reason("training.equipment", tr["start_load"]["source"], inj_rules["equipment_removed"], **{"from": name(ex.id)}))
+                    note(_reason("training.equipment", tr["equipment"]["source"], inj_rules["equipment_removed"], **{"from": name(ex.id)}))
                     return
-                reasons.append(_reason("training.equipment", tr["start_load"]["source"], inj_rules["equipment"], **{"from": name(ex.id), "to": sub.name}))
+                reasons.append(_reason("training.equipment", tr["equipment"]["source"], inj_rules["equipment"], **{"from": name(ex.id), "to": sub.name}))
                 replaced, swap_kind, ex = replaced or ex.id, swap_kind or "equipment", sub
 
             blocking = next(((i, tag) for i in p.injuries if (tag := ruled_out_by(ex, i, vocab))), None)
@@ -374,11 +374,63 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
                                                                                 cooldown=cool.minutes),
                                   s["explain"]["ar"].format(minutes=est, warmup=warm.minutes, exercises=len(kept), lifting=round(lift), cooldown=cool.minutes),
                                   s["source"]))
+        day_reasons.append(volume_reason(tday["name"], kept))
         planned_days.append(PlannedDay(index, weekday, key, tday["name"], est, warm.minutes, kept, kind, warm.as_dict(), cool.as_dict(), day_reasons))
 
     cardio = build_cardio(p, [(d.weekday, d.kind) for d in planned_days], catalogue)
+    plan_reasons.insert(1, schedule_reason(p, weekdays))
+    plan_reasons += [progression_reason(planned_days, catalogue), deload_reason(template)]
     return ProgramPlan(template_id=template["id"], name=template["name"], days_per_week=days, total_weeks=template["total_weeks"],
                        deload_week=template.get("deload_week"), days=planned_days, reasons=plan_reasons, cardio=cardio)
+
+
+SEP = {"en": ", ", "ar": "، "}
+
+
+def schedule_reason(p: Person, weekdays: list[str]) -> Reason:
+    sc = load_rules()["training"]["schedule"]
+    names = {lang: SEP[lang].join(sc["day_names"][d][lang] for d in weekdays) for lang in ("en", "ar")}
+    return _reason("training.schedule", sc["source"], sc["explain"], days=len(weekdays), names=names, minutes=p.session_minutes)
+
+
+def _span(values: list) -> str:
+    lo, hi = min(values), max(values)
+    return f"{lo:g}" if lo == hi else f"{lo:g}–{hi:g}"
+
+
+def volume_reason(day_name: dict, exercises: list[PlannedExercise]) -> Reason:
+    """One line per day: how many sets, the rep range, effort and rest (the numbers come from the template, after
+    any deload or health-flag change)."""
+    v = load_rules()["training"]["volume"]
+    reps = [int(x) for e in exercises for x in str(e.reps).replace("-", "–").split("–") if x.strip().isdigit()]
+    return _reason("training.volume", v["source"], v["explain"], name=day_name, exercises=len(exercises),
+                   sets=sum(e.sets for e in exercises), reps=_span(reps) if reps else "—",
+                   rpe=_span([e.target_rpe for e in exercises]), rest=_span([e.rest_sec for e in exercises]))
+
+
+def progression_reason(days: list[PlannedDay], catalogue: dict[str, ExerciseInfo]) -> Reason:
+    """How targets move from session to session (data/rules/progression.yaml, used by app/progression.py), with the
+    weight steps of the equipment in this program."""
+    pr = load_rules()["progression"]
+    labels = get_vocab().data["equipment"]
+    steps: dict[str, float] = {}
+    for d in days:
+        for e in d.exercises:
+            if e.weight_step_kg > 0:
+                eq = next((x for x in catalogue[e.exercise_id].equipment if x in labels and x != "bench"), None)
+                if eq:
+                    steps.setdefault(eq, e.weight_step_kg)
+    text = {lang: SEP[lang].join(f"{kg:g} kg {labels[eq]['en'].lower()}" if lang == "en" else f"{kg:g} كجم {labels[eq]['ar']}" for eq, kg in steps.items())
+            or ("bodyweight: more reps" if lang == "en" else "وزن الجسم: عدات أكتر") for lang in ("en", "ar")}
+    return _reason("progression", pr["source"], pr["explain"], steps=text, reps=pr["reps_per_step"])
+
+
+def deload_reason(template: dict) -> Reason:
+    dl, when = load_rules()["training"]["deload"], load_rules()["training"]["review"]["deload_when"]
+    v = {"difficulty": when["difficulty_at_least"], "soreness": when["soreness_at_least"], "effort": when["avg_effort_at_least"]}
+    if template.get("deload_week"):
+        return _reason("training.deload", dl["source"], dl["explain"], week=template["deload_week"], total=template["total_weeks"], **v)
+    return _reason("training.deload", dl["source"], dl["explain_none"], **v)
 
 
 def _trained(exercises: list[PlannedExercise], catalogue: dict[str, ExerciseInfo]) -> dict[str, int]:

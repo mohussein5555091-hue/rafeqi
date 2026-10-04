@@ -19,7 +19,7 @@ from app.models import Exercise, ExerciseSubstitution
 from app.vocab import Vocab, VocabError, get_vocab
 
 DIFFICULTIES = {"beginner", "intermediate", "advanced"}
-ALT_KINDS = {"easier", "injuryFriendly", "equipment"}
+ALT_KINDS = {"easier", "injuryFriendly", "equipment", "noEquipment"}
 TYPES = {"strength", "cardio", "mobility", "stretch"}
 
 
@@ -37,6 +37,7 @@ def validate_exercises(items: list[dict], vocab: Vocab) -> list[str]:
     problems: list[str] = []
     seen: set[str] = set()
     ids = {e.get("id") for e in items}
+    equipment = {e.get("id"): set(e.get("equipment") or []) for e in items}
     for e in items:
         where = f"exercise {e.get('id', '?')}"
         if e.get("id") in seen:
@@ -64,6 +65,8 @@ def validate_exercises(items: list[dict], vocab: Vocab) -> list[str]:
                 problems.append(f"{where}: alternative kind must be one of {sorted(ALT_KINDS)}")
             if alt.get("exercise_id") and alt["exercise_id"] not in ids:
                 problems.append(f"{where}: alternative points at unknown exercise {alt['exercise_id']}")
+            elif alt.get("kind") == "equipment" and alt.get("exercise_id") and equipment[alt["exercise_id"]] <= {"bodyweight"}:
+                problems.append(f"{where}: alternative {alt['exercise_id']} needs no equipment, so its kind is noEquipment")
     return problems
 
 
