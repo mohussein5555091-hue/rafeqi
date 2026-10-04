@@ -77,8 +77,12 @@ The first run downloads Cloudflare's `cloudflared` program into `tools/` (not co
 npm test               # everything: backend + typecheck + browser tests
 npm run test:backend   # pytest only (fast)
 npm run typecheck      # TypeScript only
-npm run test:e2e       # Playwright only (starts the app for you if it isn't running)
+npm run test:e2e       # Playwright only (starts its own copy of the app with a fresh test database)
 ```
+
+The tests never use your `data/rafeqi.db`. Backend tests build a temporary database from the migrations, and the browser
+tests start their own copy of the app on ports 8001/5174 with a fresh, seeded database in `tests/e2e/.data/`
+(rebuilt on every run, not committed). So `npm run dev` can keep running while you test.
 
 After a Playwright run, `npm --prefix tests/e2e run report` opens the HTML report (with traces of any failures).
 

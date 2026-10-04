@@ -42,3 +42,5 @@ Thumbs.db
 .vscode/
 .idea/
 tests/e2e/.auth/
+# Throwaway database + uploads made fresh by each Playwright run
+tests/e2e/.data/

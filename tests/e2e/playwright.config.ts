@@ -1,20 +1,24 @@
 import { defineConfig, devices } from '@playwright/test';
 import { AUTH_FILE } from './specs/helpers';
 
-// Starts the whole app (backend + frontend) with the root `npm run dev`,
-// or reuses it if it's already running.
+// Starts its own copy of the app (backend + frontend) on ports 8001/5174 with a fresh, seeded
+// test database in tests/e2e/.data/ (see scripts/e2e-server.mjs). Your `npm run dev` on 5173
+// and data/rafeqi.db are never touched, and both can run at the same time.
+const WEB = 'http://localhost:5174';
+
 export default defineConfig({
   testDir: './specs',
   fullyParallel: true,
   retries: 0,
   reporter: [['list'], ['html', { open: 'never' }]],
-  use: { baseURL: 'http://localhost:5173', trace: 'retain-on-failure' },
+  use: { baseURL: WEB, trace: 'retain-on-failure' },
   webServer: {
-    command: 'npm run dev',
+    command: 'node scripts/e2e-server.mjs',
     cwd: '../..',
-    url: 'http://localhost:5173',
-    reuseExistingServer: true,
-    timeout: 120_000,
+    url: WEB,
+    // Always start fresh, so every run gets a new empty database.
+    reuseExistingServer: false,
+    timeout: 180_000,
   },
   projects: [
     // Logs in once and saves the session; every other test starts already signed in.
