@@ -191,3 +191,42 @@ def test_grocery_catalogue_has_no_brands_and_no_prices():
     data = food_catalogue()
     bad_item = dict(data["grocery_items"][0], price_egp=30)
     assert any("no prices or brands" in p for p in validate_food_catalogue(data["foods"], [bad_item, *data["grocery_items"][1:]], data["recipes"]))
+
+
+# ── Swapping one meal (engine/meals.py swap_options) ──
+
+def test_swap_options_keep_the_day_within_limits():
+    from app.engine.meals import swap_options
+
+    p = person()
+    t, week = week_for(p)
+    tol = load_rules()["nutrition"]["meals"]["calorie_tolerance_pct"]
+    step = load_rules()["nutrition"]["meals"]["portion_step"]
+    found = 0
+    for d in sorted({m.date for m in week.meals}):
+        day = week.day(d)
+        for i, current in enumerate(day):
+            for o in swap_options(day, i, Targets(t.calories, t.protein_g, t.carbs_g, t.fat_g), p, RECIPES):
+                found += 1
+                rest = [m for j, m in enumerate(day) if j != i]
+                assert abs(sum(m.kcal for m in rest) + o.kcal - t.calories) <= t.calories * tol / 100
+                assert sum(m.protein for m in rest) + o.protein >= t.protein_g
+                assert o.slot == current.slot and o.slot in BY_ID[o.recipe_id].slots
+                assert o.recipe_id not in {m.recipe_id for m in day}
+                assert (o.portion / step).is_integer()
+    assert found > 0
+
+
+def test_swap_options_respect_dislikes_and_bans():
+    from app.engine.meals import swap_options
+
+    p = person(dislikes=("fish",), allergies=("eggs",))
+    t, week = week_for(p)
+    day = week.day(WEEK)
+    targets = Targets(t.calories, t.protein_g, t.carbs_g, t.fat_g)
+    for i in range(len(day)):
+        options = swap_options(day, i, targets, p, RECIPES)
+        assert not any(BY_ID[o.recipe_id].tags & {"fish", "eggs"} for o in options)
+        if options:
+            banned = frozenset(o.recipe_id for o in options)
+            assert not {o.recipe_id for o in swap_options(day, i, targets, p, RECIPES, banned)} & banned

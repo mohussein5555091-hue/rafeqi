@@ -60,6 +60,10 @@ export interface User {
   language: Lang;
   theme: 'light' | 'dark' | 'system';
   memberSince: ISODate;
+  /** The questionnaire is finished (until then every page leads back to it). */
+  onboardingComplete: boolean;
+  /** A plan has been built (after onboarding, until then the plan pages wait for it). */
+  hasPlan: boolean;
 }
 
 /** What the onboarding questionnaire produces (also used to regenerate). */
@@ -70,6 +74,8 @@ export type QuestionnaireAnswers = Pick<User,
 // ── Plan ─────────────────────────────────────────────────────────────
 export interface ExerciseSwap {
   injuryId: string;
+  /** The injured body area the swap is for. */
+  region: BodyRegion;
   fromName: LocalizedText;
   toExerciseId: string;
   reason: LocalizedText;
@@ -90,7 +96,8 @@ export interface Plan {
     totalWeeks: number;
     currentWeek: number;
     why: LocalizedText;
-    schedule: { day: Weekday; sessionId?: string }[];
+    /** kind: what the day trains, for the week strip ("Upper" / "Lower" / "Full"). */
+    schedule: { day: Weekday; sessionId?: string; kind?: 'upper' | 'lower' | 'full' }[];
   };
   injurySwaps: ExerciseSwap[];
   /** true when a health-check answer was "yes" → lighter loads, lower RPE. */
@@ -148,7 +155,7 @@ export interface SessionExercise {
   reps: string; // "8–10", "10 each side"
   restSec: number;
   rpe: number; // target effort (RPE)
-  swap?: { injuryId: string; kind: 'swapped' | 'added' };
+  swap?: { injuryId: string; kind: 'swapped' | 'added'; region: BodyRegion };
   lastTime?: ExerciseResult;
   /** This session's exact target, from last time and the progression rules. "Done as planned" saves exactly this. */
   target: Target;
@@ -186,7 +193,7 @@ export interface WorkoutWeek {
 }
 
 // ── Nutrition ────────────────────────────────────────────────────────
-export type MealSlot = 'breakfast' | 'lunch' | 'snack' | 'dinner';
+export type MealSlot = 'breakfast' | 'lunch' | 'snack' | 'dinner' | 'suhoor' | 'iftar'; // suhoor / iftar: Ramadan days
 
 export interface Meal {
   id: string;
@@ -285,6 +292,8 @@ export interface Injury extends InjuryInput {
   painLog: { date: ISODate; pain: number }[];
   avoided: { from: LocalizedText; to: LocalizedText }[];
   redFlags: { sharpPain: boolean; swelling: boolean; numbness: boolean; worsening: boolean };
+  /** A red flag paused this area: no exercises for it until it's checked by a professional. */
+  paused?: boolean;
 }
 
 // ── Weekly check-in & review ─────────────────────────────────────────
@@ -316,7 +325,7 @@ export interface CheckIn {
 }
 
 export interface ReviewChange {
-  kind: 'calories' | 'exercise' | 'meals';
+  kind: 'calories' | 'exercise' | 'injury' | 'meals';
   what: LocalizedText;
   why: LocalizedText;
   citation: LocalizedText; // the book a recommendation comes from
@@ -349,10 +358,18 @@ export interface WeightLog {
 export interface Progress {
   since: ISODate;
   weights: { date: ISODate; kg: number }[];
-  measurements: { date: ISODate; waist: number; hips: number; chest: number; arm: number; thigh: number }[];
+  /** Only what was measured that week. */
+  measurements: { date: ISODate; waist?: number; hips?: number; chest?: number; arm?: number; thigh?: number }[];
   lifts: { exerciseId: string; name: LocalizedText; unit: LocalizedText; points: { date: ISODate; kg: number }[] }[];
   records: { exerciseId: string; name: LocalizedText; date: ISODate; value: LocalizedText }[];
   photos: { date: ISODate; view: 'front' | 'side' | 'back'; url?: string }[];
+}
+
+/** Backend: GET /api/checkins/draft. A check-in pre-filled from this week, with last week's numbers to compare. */
+export interface CheckInDraft {
+  draft: CheckIn;
+  last: { weightKg: number; measurementsCm: Record<string, number> };
+  mealOptions: { id: string; name: LocalizedText }[];
 }
 
 // ── Dashboard (aggregated by the data layer) ────────────────────────

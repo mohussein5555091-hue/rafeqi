@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import type { LucideIcon } from 'lucide-react';
-import { ClipboardCheck, Check, Utensils, Soup, Apple, Drumstick, Egg, NotebookPen, Sprout, Weight, WifiOff } from 'lucide-react';
+import { ClipboardCheck, Check, Utensils, Soup, Apple, Drumstick, Egg, NotebookPen, Sprout, Weight, WifiOff, MoonStar, Sunset } from 'lucide-react';
 import {
   AppShell, Button, Card, CitationChip, Disclaimer, EmptyState, Icon, Kicker, LineChart, LinkButton, MacroBars, MacroRing, QueryView, Skeleton, StatusBadge, SwapBadge,
   TextInput, cn, useToast,
@@ -11,7 +11,7 @@ import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
 import type { Dashboard as DashboardData, MealSlot, WeightLog } from '@/types';
 
-export const mealIcon: Record<MealSlot, LucideIcon> = { breakfast: Egg, lunch: Soup, snack: Apple, dinner: Drumstick };
+export const mealIcon: Record<MealSlot, LucideIcon> = { breakfast: Egg, lunch: Soup, snack: Apple, dinner: Drumstick, suhoor: MoonStar, iftar: Sunset };
 
 function DashboardSkeleton() {
   return (
@@ -41,7 +41,8 @@ function DashboardBody({ d, offline }: { d: DashboardData; offline: boolean }) {
   const { t, l, num, date } = useI18n();
   const eaten = d.mealDay.meals.filter((m) => m.eaten);
   const sum = (k: 'kcal' | 'proteinG' | 'carbsG' | 'fatG') => eaten.reduce((a, m) => a + m[k], 0);
-  const swaps = d.today?.exercises.filter((e) => e.swap).length ?? 0;
+  const swapped = d.today?.exercises.filter((e) => e.swap) ?? [];
+  const swaps = swapped.length;
   const shoulder = d.injuries[0];
 
   return (
@@ -65,7 +66,7 @@ function DashboardBody({ d, offline }: { d: DashboardData; offline: boolean }) {
             <div className="flex items-center justify-between"><Kicker>{t('dashboard.todaySession')}</Kicker><span className="text-[12.5px] text-neutral-700">{t('dashboard.weekOf', { week: d.plan.program.currentWeek, total: d.plan.program.totalWeeks })}</span></div>
             <h2 className="m-0 text-2xl">{l(d.today.name)}</h2>
             <span className="text-[13.5px] text-neutral-800">{t('workouts.sessionMeta', { n: d.today.exercises.length, min: d.today.estMinutes })}</span>
-            {swaps > 0 && <SwapBadge label={t('dashboard.adjustedFor', { n: swaps, area: t('body.shoulderL') })} />}
+            {swaps > 0 && <SwapBadge label={t('dashboard.adjustedFor', { n: swaps, area: t(`body.${swapped[0].swap!.region}`) })} />}
             <div className="mt-1 flex gap-2">
               {d.today.status === 'today' && <LinkButton to={`/workouts/${d.today.id}/log`} className="flex-1">{t('workouts.start')}</LinkButton>}
               <LinkButton to={`/workouts/${d.today.id}`} variant="secondary">{t('common.view')}</LinkButton>
@@ -101,10 +102,10 @@ function DashboardBody({ d, offline }: { d: DashboardData; offline: boolean }) {
             <Card className="gap-1.5">
               <StatusBadge status={shoulder.status === 'active' ? 'warning' : 'attention'} label={t(`enums.injuryStatus.${shoulder.status}`)} />
               <strong className="mt-1">{t(`body.${shoulder.region}`)}</strong>
-              <div className="hidden lg:block">
+              {shoulder.painLog.length > 1 && <div className="hidden lg:block">
                 <LineChart ariaLabel={t('injuries.painTrend')} series={[{ values: shoulder.painLog.map((p) => p.pain), tone: 'warn', dots: true }]} labels={[date(shoulder.painLog[0].date), date(shoulder.painLog.at(-1)!.date)]} min={0} max={10} height={80} axisWidth={20} legend={false} />
-              </div>
-              <span className="text-[12.5px] text-neutral-800">{t('dashboard.painNow', { now: shoulder.painLog.at(-1)?.pain ?? 0, from: shoulder.painLog[0]?.pain ?? 0 })}</span>
+              </div>}
+              {shoulder.painLog.length > 0 && <span className="text-[12.5px] text-neutral-800">{t('dashboard.painNow', { now: shoulder.painLog.at(-1)?.pain ?? 0, from: shoulder.painLog[0]?.pain ?? 0 })}</span>}
               <Link to={`/injuries/${shoulder.id}`} className="mt-auto flex min-h-8 items-end text-[13px] font-semibold">{t('common.details')}</Link>
             </Card>
           ) : null}

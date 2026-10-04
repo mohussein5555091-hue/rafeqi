@@ -13,7 +13,7 @@ const STEPS: PlanGenerationStep[] = ['calories', 'program', 'injuries', 'meals']
 /** Calm wait screen while the local model builds the plan (30–90 s). */
 export function PlanGenerating() {
   const { t, l } = useI18n();
-  const { user } = useSession();
+  const { user, refresh } = useSession();
   const nav = useNavigate();
   const [done, setDone] = useState<PlanGenerationStep[]>([]);
   const [failed, setFailed] = useState(false);
@@ -22,6 +22,7 @@ export function PlanGenerating() {
   const run = () => {
     setFailed(false); setDone([]);
     api.generatePlan((s) => setDone((d) => [...d, s]))
+      .then(() => refresh().catch(() => undefined))
       .then(() => nav('/plan-ready', { replace: true }))
       .catch(() => setFailed(true));
   };
@@ -86,7 +87,7 @@ export function PlanReady() {
                   <div className="grid grid-cols-7 gap-1 text-center text-[11px]">
                     {plan.program.schedule.map((d) => (
                       <span key={d.day} className={d.sessionId ? 'rounded-md bg-sage-600 py-2 font-bold text-bg' : 'rounded-md bg-bg py-2'}>
-                        {t(`enums.weekdayShort.${d.day}`)}<br />{d.sessionId ? t(d.sessionId.includes('upper') ? 'planReady.upper' : 'planReady.lower') : t('planReady.rest')}
+                        {t(`enums.weekdayShort.${d.day}`)}<br />{d.sessionId ? t(`planReady.${d.kind ?? 'full'}`) : t('planReady.rest')}
                       </span>
                     ))}
                   </div>
@@ -94,7 +95,7 @@ export function PlanReady() {
                 </Card>
                 {plan.injurySwaps.length > 0 && (
                   <Card tone="warn" className="p-6">
-                    <Kicker className="flex items-center gap-1.5 text-warn-800"><Icon as={Shield} size={14} />{t('planReady.changedFor', { area: t('body.shoulderL') })}</Kicker>
+                    <Kicker className="flex items-center gap-1.5 text-warn-800"><Icon as={Shield} size={14} />{t('planReady.changedFor', { area: t(`body.${plan.injurySwaps[0].region}`) })}</Kicker>
                     {plan.injurySwaps.map((s) => (
                       <div key={s.toExerciseId} className="flex flex-col gap-0.5 rounded-lg bg-bg px-3.5 py-3">
                         <span className="text-[13px] text-neutral-700 line-through">{l(s.fromName)}</span>

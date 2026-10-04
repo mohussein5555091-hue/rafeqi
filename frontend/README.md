@@ -1,12 +1,12 @@
 # Rafeqi · رفيقي — web frontend
 
-AI personal trainer and nutritionist for Egypt. This is a proof of concept: every screen runs on sample data (Omar, 29, 88 kg, intermediate, 4 days a week, left shoulder injury). It's ready to be connected to a real backend.
+AI personal trainer and nutritionist for Egypt. Every screen reads and writes through `src/data/api.ts`, which calls the FastAPI backend in `../backend` (Phase 5). The original sample-data version is kept in `../design/` as the reference.
 
 React 18 · TypeScript · Tailwind 3 · Vite · React Router 6 · lucide-react. No chat and no "Ask" tab: all input goes through structured forms, plus one optional 300-character note in the weekly check-in.
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173 — log in with any email + 8-char password
+npm run dev        # http://localhost:5173 — needs the API too: use `npm run dev` in the project root, which starts both
 npm run typecheck
 ```
 
@@ -15,11 +15,11 @@ npm run typecheck
 ```
 src/
   types.ts              Domain types: User, Plan, Workout, Exercise, Meal, Recipe, GroceryItem, Injury, CheckIn, WeeklyReview, Progress…
-  mocks/sampleData.ts   ALL sample data (typed). Nothing else contains data.
-  data/api.ts           Data layer: one async function per backend call. Swap bodies for fetch() — keep signatures.
+  data/api.ts           Data layer: one async function per screen need, calling /api (the Vite server forwards it to FastAPI).
   data/useQuery.ts      Tiny loading/error/reload hook (swap for TanStack Query if you like).
-  data/session.tsx      Signed-in user, login/signup/logout, <RequireAuth>.
-  i18n/en.json, ar.json All UI text. index.tsx = provider, t(), l() for LocalizedText, number/date/EGP formatting.
+  data/session.tsx      Signed-in user (checked against the session cookie), login/signup/logout, language and theme
+                        saved to the account, <RequireAuth> (questionnaire first, then the plan, then everything else).
+  i18n/en.json, ar.json All UI text. index.tsx = provider, t(), l() for LocalizedText, number and date formatting.
   theme.tsx             Light / dark / system (adds .dark to <html>).
   constants.ts          Option ids for forms (labels live in the translation files under enums.*).
   components/           Shared UI: Button, Card, Chip, Badge/StatusBadge/SwapBadge/CitationChip, ProgressBar/StepProgress,
@@ -42,40 +42,45 @@ src/
 
 ## Screens, routes and data
 
-| # | Screen | Component (file) | Route | Data (api.ts → sampleData.ts) |
+| # | Screen | Component (file) | Route | Data (api.ts) |
 |---|---|---|---|---|
-| 1 | Log in | `Login` (auth/AuthScreens) | `/login` | `login()` → `user` |
+| 1 | Log in | `Login` (auth/AuthScreens) | `/login` | `login()` |
 | 1 | Sign up | `SignUp` (auth/AuthScreens) | `/signup` | `signup()` |
 | 1 | Forgot password | `ForgotPassword` (auth/AuthScreens) | `/forgot-password` | `requestPasswordReset()` |
-| 2a–g | Onboarding questionnaire | `Onboarding` (onboarding/Onboarding) | `/onboarding/:step` (`about, goal, training, injuries, health, food, review`) | local state → `QuestionnaireAnswers` (kept in sessionStorage) |
-| 3 | Plan generation wait | `PlanGenerating` (onboarding/PlanScreens) | `/onboarding/generating` | `generatePlan(answers, onStep)` → `plan` |
-| 4 | Your plan is ready | `PlanReady` (onboarding/PlanScreens) | `/plan-ready` | `getPlan()`, `getUser()`, `getExercises()` → `plan`, `user`, `exercises` |
-| 5 | Dashboard | `Dashboard` (home/Dashboard) | `/` | `getDashboard()` → `user, plan, workoutWeek, mealDay, nextCheckIn, injuries, reviews, progress` |
-| 6 | Workout plan (week) | `WorkoutPlan` (workouts/WorkoutScreens) | `/workouts` | `getWorkoutWeek()`, `getExercises()` → `workoutWeek`, `exercises` |
-| 6 | Workout day (any day of the week; prev/next arrows; what was logged on past days; Start only today) | `Session` (workouts/WorkoutScreens) | `/workouts/:id` | `getWorkout(id)`, `getWorkoutWeek()`, `getInjuries()` → `workoutWeek.sessions` |
-| 7 | Exercise detail | `ExerciseDetail` (workouts/WorkoutScreens) | `/exercises/:id` | `getExercise(id)`, `getPlan()` → `exercises`, `plan.injurySwaps` |
+| 2a–g | Onboarding questionnaire | `Onboarding` (onboarding/Onboarding) | `/onboarding/:step` (`about, goal, training, injuries, health, food, review`) | `getOnboarding`, `saveOnboardingStep` (each step saved on Next), `completeOnboarding` |
+| 3 | Plan generation wait | `PlanGenerating` (onboarding/PlanScreens) | `/onboarding/generating` | `generatePlan(onStep)` |
+| 4 | Your plan is ready | `PlanReady` (onboarding/PlanScreens) | `/plan-ready` | `getPlan()`, `getUser()`, `getExercises()` |
+| 5 | Dashboard | `Dashboard` (home/Dashboard) | `/` | `getDashboard()` |
+| 6 | Workout plan (week) | `WorkoutPlan` (workouts/WorkoutScreens) | `/workouts` | `getWorkoutWeek()`, `getExercises()` |
+| 6 | Workout day (any day of the week; prev/next arrows; what was logged on past days; Start only today) | `Session` (workouts/WorkoutScreens) | `/workouts/:id` | `getWorkout(id)`, `getWorkoutWeek()`, `getInjuries()` |
+| 7 | Exercise detail | `ExerciseDetail` (workouts/WorkoutScreens) | `/exercises/:id` | `getExercise(id)`, `getPlan()` |
 | 8 | Workout logger (one page, one result per exercise) + effort rating + pain check | `WorkoutLogger` (workouts/WorkoutScreens) | `/workouts/:id/log` | `getWorkout`, `getExercises`, `getInjuries`, `logExercise`, `finishWorkout` |
-| 9 | Nutrition plan (day / week, swap) | `NutritionPlan` (nutrition/NutritionScreens) | `/nutrition`, `/nutrition?view=week` | `getMealDay`, `getPlan`, `getMealWeek`, `getSwapOptions`, `swapMeal` → `mealDays`, `mealWeek`, `swapOptions` |
-| 9 | Nutrition day (one date, prev/next arrows) | `NutritionDay` (nutrition/NutritionScreens) | `/nutrition/day/:date` | `getMealDay(date)`, `getPlan`, `getMealWeek`, `swapMeal` → `mealDays` |
-| 10 | Recipe detail | `RecipeDetail` (nutrition/NutritionScreens) | `/nutrition/recipes/:id` | `getRecipe(id)` → `recipes` |
-| 11 | Grocery list | `Groceries` (nutrition/NutritionScreens) | `/groceries` | `getGroceryList`, `updateGroceryItem` → `groceryList` |
-| 11 | Pantry | `Pantry` (nutrition/NutritionScreens) | `/groceries/pantry` | `getPantry()` → `pantry` |
-| 12 | Injuries list | `Injuries` (injuries/InjuryScreens) | `/injuries` | `getInjuries()` → `injuries` |
+| 9 | Nutrition plan (day / week, swap) | `NutritionPlan` (nutrition/NutritionScreens) | `/nutrition`, `/nutrition?view=week` | `getMealDay`, `getPlan`, `getMealWeek`, `getSwapOptions`, `swapMeal` |
+| 9 | Nutrition day (one date, prev/next arrows) | `NutritionDay` (nutrition/NutritionScreens) | `/nutrition/day/:date` | `getMealDay(date)`, `getPlan`, `getMealWeek`, `swapMeal` |
+| 10 | Recipe detail | `RecipeDetail` (nutrition/NutritionScreens) | `/nutrition/recipes/:id` | `getRecipe(id)` |
+| 11 | Grocery list | `Groceries` (nutrition/NutritionScreens) | `/groceries` | `getGroceryList`, `updateGroceryItem` |
+| 11 | Pantry | `Pantry` (nutrition/NutritionScreens) | `/groceries/pantry` | `getPantry()` |
+| 12 | Injuries list | `Injuries` (injuries/InjuryScreens) | `/injuries` | `getInjuries()` |
 | 12 | Injury detail | `InjuryDetail` (injuries/InjuryScreens) | `/injuries/:id` | `getInjury`, `saveInjury` |
 | 12 | Add / edit injury | `InjuryEdit` (injuries/InjuryScreens) | `/injuries/new`, `/injuries/:id/edit` | `getInjury`, `saveInjury`, `deleteInjury` |
 | 12 | Stop-and-see-a-doctor warning | `InjuryWarning` (injuries/InjuryScreens) | `/injuries/:id/warning` | `getInjury(id)` |
-| 13a–f | Weekly check-in | `CheckIn` (checkin/CheckIn) | `/check-in/:step` (`body, training, injuries, nutrition, life, note`) | `getCheckInDraft`, `getExercises`, `getInjuries`, `submitCheckIn` → `checkInDraft`, `lastCheckIn`, `checkInMealOptions` |
-| 14 | Weekly review (+ writing wait) | `WeeklyReview` (review/ReviewAndProgress) | `/reviews/:id` (`?writing=1` shows the 30–90 s wait) | `getReview(id)` → `reviews` |
-| 14 | Past reviews | `ReviewHistory` (review/ReviewAndProgress) | `/reviews` | `getReviews()` → `reviews` |
-| 15 | Progress | `Progress` (review/ReviewAndProgress) | `/progress` | `getProgress()` → `progress` |
+| 13a–f | Weekly check-in | `CheckIn` (checkin/CheckIn) | `/check-in/:step` (`body, training, injuries, nutrition, life, note`) | `getCheckInDraft`, `getExercises`, `getInjuries`, `submitCheckIn` |
+| 14 | Weekly review (+ writing wait) | `WeeklyReview` (review/ReviewAndProgress) | `/reviews/:id` (`?writing=1` shows the 30–90 s wait) | `getReview(id)` |
+| 14 | Past reviews | `ReviewHistory` (review/ReviewAndProgress) | `/reviews` | `getReviews()` |
+| 15 | Progress | `Progress` (review/ReviewAndProgress) | `/progress` | `getProgress()` |
 | 16 | Profile & settings | `Profile` (review/ReviewAndProgress) | `/profile` | `getUser`, `getInjuries`, `deleteMyData`, `logout` |
 | 16 | Change password | `ChangePassword` (review/ReviewAndProgress) | `/profile/password` | `changePassword()` |
 
 Every route except log in, sign up and forgot password is wrapped in `<RequireAuth>`. Mobile shows bottom tabs (Home, Workouts, Nutrition, Groceries, Progress); the Home tab gets a dot when the check-in is due, and the profile is in the header. Desktop (`lg:`) shows the left sidebar instead.
 
-## Connecting a backend
+## The backend connection
 
-1. Replace the function bodies in `src/data/api.ts` with HTTP calls that return the types in `src/types.ts`. Screens never import mocks directly.
-2. `generatePlan` and weekly review writing are slow (30–90 s on a local model). Keep the `onStep` callback for plan generation. For reviews, return `state: 'pending'` and poll `getReview` until it's `'ready'` (or `'failed'` → the "taking longer" state).
-3. Store progress photos privately and return storage keys in `CheckIn.body.photos`.
-4. Backend strings (meal names, review text, citations) should arrive as `{ en, ar }`.
+1. `src/data/api.ts` calls the endpoints under `/api` (list: http://localhost:5173/api/docs) and turns their answers into the
+   types in `src/types.ts`. Screens never call `fetch` themselves.
+2. Answers: 401 → back to Log in (the session ended); 404 → `NotFoundError` (the "We couldn't find that" state); anything
+   else → `ApiError` with the backend's error code (e.g. `email_taken`), shown as the screen's error state or a toast.
+3. `generatePlan` shows its four steps while the engine works (about a second). The weekly review is written by the engine
+   straight away for now; the AI text (next session) will arrive with `state: 'pending'` and the screen will poll `getReview`.
+4. Backend text (meal names, reasons, review changes) arrives as `{ en, ar }`; `l()` picks the language.
+5. Progress photo upload comes in Phase 6 (`CheckIn.body.photos` isn't sent yet).
+6. Installable as a home-screen app: `public/manifest.webmanifest` and `public/icons/` (redraw with `node scripts/make-icons.mjs`).

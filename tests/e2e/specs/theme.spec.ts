@@ -1,5 +1,4 @@
-import { expect, test } from '@playwright/test';
-import { SIGNED_OUT } from './helpers';
+import { SIGNED_OUT, expect, test } from './helpers';
 
 test.use({ storageState: SIGNED_OUT });
 const html = (page: import('@playwright/test').Page) => page.locator('html');

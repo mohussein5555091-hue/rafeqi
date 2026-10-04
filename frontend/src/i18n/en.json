@@ -9,7 +9,7 @@
     "errorTitle": "Something didn't load", "errorBody": "Check your connection and try again. Nothing you saved was lost.",
     "notFoundTitle": "We couldn't find that", "notFoundBody": "It may have been removed or updated with your latest plan.",
     "disclaimer": "Rafeqi gives general fitness guidance and is not medical advice.",
-    "disclaimerShort": "General fitness guidance, not medical advice."
+    "saveFailed": "Couldn't save. Check your connection and try again.", "disclaimerShort": "General fitness guidance, not medical advice."
   },
   "nav": {
     "main": "Main", "home": "Home", "workouts": "Workouts", "nutrition": "Nutrition", "groceries": "Groceries", "progress": "Progress",
@@ -39,7 +39,9 @@
       "email": "Enter a full email, like name@gmail.com", "passwordRequired": "Enter your password",
       "invalid": "That email and password don't match. Check them and try again, or reset your password.",
       "firstName": "Enter your first name", "passwordRules": "Use at least 8 characters with one number.",
-      "consent": "Please confirm you're 18+ to continue."
+      "consent": "Please confirm you're 18+ to continue.",
+      "emailTaken": "There's already an account with this email. Log in instead.",
+      "failed": "Something went wrong. Please try again."
     }
   },
   "onboarding": {
@@ -100,7 +102,7 @@
   },
   "planReady": {
     "ready": "Ready", "title": "Here's your plan, {name}", "sub": "Built for {goal}, {days} training days a week, and your injuries.",
-    "dailyTarget": "Daily target", "why": "Why:", "program": "Your program", "whyFits": "Why it fits:", "upper": "Upper", "lower": "Lower", "rest": "Rest",
+    "dailyTarget": "Daily target", "why": "Why:", "program": "Your program", "whyFits": "Why it fits:", "upper": "Upper", "lower": "Lower", "full": "Full", "rest": "Rest",
     "changedFor": "Changed for your {area}", "seeWorkouts": "See my workout plan", "seeMeals": "See my meal plan"
   },
   "dashboard": {
@@ -232,7 +234,7 @@
     "title": "Week {week} review", "writingTitle": "Writing your review", "writingBody": "Usually 30–90 seconds. Your check-in is saved — you can close the app.",
     "writingSteps": { "read": "Reading your check-in", "compare": "Comparing with last week", "adjust": "Adjusting your plan", "write": "Writing your review" },
     "kgWeek": "kg this week", "sessions": "sessions", "pain": "pain", "changed": "What changed and why", "focus": "Next week's focus",
-    "kind": { "calories": "Calories", "exercise": "Exercise", "meals": "Meals" },
+    "kind": { "calories": "Calories", "exercise": "Exercise", "injury": "Injury", "meals": "Meals" },
     "grocery": "Updated grocery list", "past": "Past reviews", "week": "Week",
     "citeNote": "Recommendations cite published coaching books.",
     "slowTitle": "Your review is taking longer than usual", "slowBody": "Your check-in is saved and your plan stays the same until the review is ready.",
@@ -241,14 +243,15 @@
   "progress": {
     "since": "Since {date}", "weight": "Weight", "weighIns": "Weigh-ins", "avg7": "7-day average", "measurements": "Measurements", "waistCm": "Waist, cm",
     "strength": "Strength", "topSet": "Top set, {unit}", "records": "Personal records", "photos": "Before & after", "private": "Private",
-    "drag": "Drag to compare", "noPhotos": "Add photos in your weekly check-in to compare."
+    "drag": "Drag to compare", "noPhotos": "Add photos in your weekly check-in to compare.",
+    "noData": "Not enough entries yet. Your chart appears here as you log.", "noLifts": "Finish a workout and your strength shows here."
   },
   "profile": {
     "plan": "Plan", "aboutValue": "{age} · {h} cm", "injuriesValue": "{n} active", "foodValue": "{n} meals a day",
     "regenerate": "Regenerate my plan", "regenerateNote": "Uses your current answers. Your history and progress are kept.",
     "preferences": "Preferences", "language": "Language", "theme": "Theme",
     "themes": { "light": "Light", "dark": "Dark", "system": "System" },
-    "account": "Account", "changePassword": "Change password", "currentPassword": "Current password", "newPassword": "New password", "logout": "Log out",
+    "account": "Account", "changePassword": "Change password", "currentPassword": "Current password", "newPassword": "New password", "wrongPassword": "That isn't your current password.", "saveFailed": "Couldn't save. Please try again.", "logout": "Log out",
     "delete": "Delete my data", "deleteNote": "Permanently removes your answers, logs, photos and reviews.",
     "deleteConfirmTitle": "Delete all your data?", "deleteConfirmBody": "This can't be undone. Your account, plan, logs, photos and reviews will be removed.", "deleteConfirm": "Delete everything"
   },
@@ -277,7 +280,7 @@
     "obstacle": { "work": "Work", "travel": "Travel", "illness": "Illness", "motivation": "Motivation", "fasting": "Ramadan / fasting", "other": "Other" },
     "feel": { "tooEasy": "Too easy", "tooHard": "Too hard", "uncomfortable": "Uncomfortable" },
     "trend": { "better": "Better", "same": "Same", "worse": "Worse" },
-    "mealSlot": { "breakfast": "Breakfast", "lunch": "Lunch", "snack": "After the gym", "dinner": "Dinner" },
+    "mealSlot": { "breakfast": "Breakfast", "lunch": "Lunch", "snack": "After the gym", "dinner": "Dinner", "suhoor": "Suhoor", "iftar": "Iftar" },
     "groceryCategory": { "produce": "Vegetables & fruit", "meat": "Meat, chicken & fish", "dairy": "Dairy & eggs", "bakery": "Bread & bakery", "pantry": "Pantry staples", "spices": "Spices & sauces" },
     "weekday": { "sat": "Saturday", "sun": "Sunday", "mon": "Monday", "tue": "Tuesday", "wed": "Wednesday", "thu": "Thursday", "fri": "Friday" },
     "weekdayShort": { "sat": "Sat", "sun": "Sun", "mon": "Mon", "tue": "Tue", "wed": "Wed", "thu": "Thu", "fri": "Fri" }

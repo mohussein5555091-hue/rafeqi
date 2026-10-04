@@ -60,6 +60,16 @@ If the phone can't connect:
 - The first time, Windows may ask whether to allow **Node.js** on the network. Tick **Private networks** and click **Allow**.
 - Some routers have "AP / client isolation" turned on, which stops devices seeing each other. Guest networks often do this. Use the tunnel below instead.
 
+### Install it on your phone's home screen
+
+Rafeqi is an installable web app (a "PWA"): it gets its own icon and opens full screen, without the browser bar.
+
+- **Android (Chrome):** open the app, tap **⋮** → **Add to Home screen** (or **Install app**).
+- **iPhone (Safari):** open the app, tap **Share** → **Add to Home Screen**.
+
+Chrome only offers "Install" on `https` links or `localhost`, so on a phone use the tunnel link below (on the Wi-Fi
+address, Android still offers **Add to Home screen**). The icons are in `frontend/public/icons/`; `node scripts/make-icons.mjs` redraws them.
+
 ### Or: open it through an https link (Cloudflare quick tunnel)
 
 Works from any network, even mobile data. Free, with no account.
@@ -78,11 +88,17 @@ npm test               # everything: backend + typecheck + browser tests
 npm run test:backend   # pytest only (fast)
 npm run typecheck      # TypeScript only
 npm run test:e2e       # Playwright only (starts its own copy of the app with a fresh test database)
+npm run test:backend -- -k swap                      # only the backend tests whose name contains "swap"
+npm run test:e2e -- specs/phase5.spec.ts --project=desktop   # one browser test file, desktop only
 ```
 
 The tests never use your `data/rafeqi.db`. Backend tests build a temporary database from the migrations, and the browser
 tests start their own copy of the app on ports 8001/5174 with a fresh, seeded database in `tests/e2e/.data/`
 (rebuilt on every run, not committed). So `npm run dev` can keep running while you test.
+
+The browser tests pretend today is Monday 5 October 2026 (`RAFEQI_TODAY`), so "today's workout" never depends on the
+real weekday. They first create one shared account (questionnaire, plan and one check-in) that read-only tests use; any test
+that changes data signs up its own new account, so tests can run side by side.
 
 After a Playwright run, `npm --prefix tests/e2e run report` opens the HTML report (with traces of any failures).
 
@@ -107,11 +123,22 @@ After a Playwright run, `npm --prefix tests/e2e run report` opens the HTML repor
   `tests/backend/test_isolation.py` fails if a table or endpoint is added without being covered.
 - **Delete my account** removes every row and the photo folder. The one exception is `llm_calls`: those rows keep their counts with no owner, so AI usage totals stay correct.
 
-API endpoints so far (try them at http://localhost:5173/api/docs):
-`POST /api/auth/signup`, `POST /api/auth/login`, `POST /api/auth/logout`, `POST /api/auth/change-password`,
-`GET/PATCH/DELETE /api/me`, `GET/POST /api/weights`, `DELETE /api/weights/{id}`,
-`GET /api/onboarding`, `PUT /api/onboarding/{about|goal|training|injuries|health|food}`, `POST /api/onboarding/complete`,
-`POST /api/plan` (build a new plan version from the saved answers), `GET /api/plan` (the current plan).
+API endpoints (try them at http://localhost:5173/api/docs). The screens call them through `frontend/src/data/api.ts`.
+
+| Area | Endpoints |
+|---|---|
+| Account | `POST /api/auth/signup`, `/login`, `/logout`, `/change-password` · `GET/PATCH/DELETE /api/me` |
+| Questionnaire & plan | `GET /api/onboarding`, `PUT /api/onboarding/{about\|goal\|training\|injuries\|health\|food}`, `POST /api/onboarding/complete` · `GET/POST /api/plan` |
+| Weight | `GET/POST /api/weights`, `DELETE /api/weights/{id}` |
+| Training | `GET /api/exercises`, `/api/exercises/{id}` · `GET /api/workouts/week`, `/api/workouts/{id}` · `PUT/DELETE /api/workouts/{id}/exercises/{exercise_id}` (log one exercise / undo) · `POST /api/workouts/{id}/finish` (effort + pain check) |
+| Nutrition | `GET /api/meals/week`, `/api/meals/day/{date or today}`, `/api/meals/{id}/swap-options` · `POST /api/meals/{id}/swap` · `GET /api/recipes/{id}` · `GET /api/groceries`, `PATCH /api/groceries/items/{id}` · `GET /api/pantry` |
+| Injuries | `GET/POST /api/injuries`, `GET/PUT/DELETE /api/injuries/{id}` (saving one rebuilds the plan around it) |
+| Check-in & reviews | `GET /api/checkins/next`, `/api/checkins/draft` · `POST /api/checkins` (runs the weekly review) · `GET /api/reviews`, `/api/reviews/{id}` · `GET /api/progress` |
+
+How a week works: weeks run Saturday to Friday. A plan holds one week of sessions and meals, and it repeats until the
+next plan version, so each date uses the plan's day with the same weekday. Only today's session can be logged. The weekly
+check-in opens on Thursday. A red flag after a workout (sharp pain, swelling, numbness, pain of 7 or more, or pain rising
+three times in a row) pauses that body area and rebuilds the plan without it.
 
 ## The plan engine
 
@@ -143,6 +170,7 @@ only writes the explanations and the weekly-review text. Each number keeps a one
 | `RAFEQI_ENV` | `development` or `production` |
 | `RAFEQI_SECRET_KEY` | Random secret, for anything that needs signing later |
 | `RAFEQI_DATABASE_URL` | Optional. Defaults to SQLite at `data/rafeqi.db`. For PostgreSQL later, set this one line. |
+| `RAFEQI_TODAY` | Testing only, e.g. `2026-10-05`: the app acts as if today were that date (the browser tests use it). Ignored in production. |
 
 ## Exercise images and videos
 
@@ -163,5 +191,5 @@ Rafeqi never shows prices, costs or budgets, because people shop at different st
 - [x] Phase 2: database and auth (the frontend still uses sample data until Phase 5)
 - [x] Phase 3: onboarding questionnaire (backend saves each step and checks every answer; the screens call it through `src/data/api.ts`, still on sample data until Phase 5)
 - [x] Phase 4: plan engine (all rule values are placeholders until extracted from the books)
-- [ ] Phase 5: connect the frontend
+- [x] Phase 5: every screen runs on the real backend (no more sample data), Arabic end to end, installable on a phone
 - [ ] Phase 6: remaining screens

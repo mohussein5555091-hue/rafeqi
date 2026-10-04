@@ -1,20 +1,17 @@
-import { readFileSync } from 'node:fs';
-import { expect, test } from '@playwright/test';
-import { nextTarget } from '../../../frontend/src/mocks/progression';
+import { api, expect, test, waitForContent } from './helpers';
 
-// The sample-data stand-in must give the same targets as the backend (backend/app/progression.py):
-// both are checked against the same worked examples.
-const { cases } = JSON.parse(readFileSync(new URL('../../../data/rules/progression_cases.json', import.meta.url), 'utf8'));
-
-test('sample-data targets follow the same progression rules as the backend', () => {
-  for (const c of cases) expect(nextTarget(c.sets, c.reps, c.step, c.start, c.last), c.name).toEqual(c.target);
-});
-
-test('each session shows one exact target per exercise', async ({ page }) => {
-  await page.goto('/workouts/w3_lower_b');
-  const squat = page.locator('main ol > li').first();
-  await expect(squat).toContainText('3 × 8 @ 10 kg');
-  await expect(squat).toContainText('Range 8–10 each');
-  await expect(squat).toContainText('Starting weight');
-  await expect(page.locator('main ol > li').nth(1)).toContainText('3 × 11 @ 20 kg'); // last time 3 × 10 → +1 rep
+// The targets themselves are computed and tested in the backend (app/progression.py, tests/backend/test_progression.py,
+// against data/rules/progression_cases.json). This checks the screen shows exactly what the backend decided.
+test('each session shows one exact target per exercise, from the plan engine', async ({ page }) => {
+  const week = await api(page, '/workouts/week');
+  const s = week.sessions.find((x: { status: string }) => x.status === 'planned');
+  await page.goto(`/workouts/${s.id}`);
+  await waitForContent(page);
+  const rows = page.locator('main ol > li');
+  for (const [i, e] of s.exercises.entries()) {
+    const t = e.target;
+    await expect(rows.nth(i)).toContainText(t.weightKg ? `${t.sets} × ${t.reps} @ ${t.weightKg} kg` : `${t.sets} × ${t.reps}`);
+    await expect(rows.nth(i)).toContainText(`Range ${e.reps}`);
+    await expect(rows.nth(i)).toContainText('Starting weight'); // no history yet on the shared account
+  }
 });

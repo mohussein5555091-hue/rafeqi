@@ -4,6 +4,7 @@ import { CircleAlert, Check, Info } from 'lucide-react';
 import { Button, Field, Icon, PageControls, PasswordInput, TextInput, cn } from '@/components';
 import { useI18n } from '@/i18n';
 import { useSession } from '@/data/session';
+import { ApiError } from '@/data/api';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -96,6 +97,7 @@ export function SignUp() {
   const [form, setForm] = useState({ firstName: '', email: '', password: '' });
   const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
+  const [busy, setBusy] = useState(false);
   const rules = { len: form.password.length >= 8, num: /\d/.test(form.password) };
 
   const submit = async (e: FormEvent) => {
@@ -108,8 +110,16 @@ export function SignUp() {
     };
     setErrors(next);
     if (Object.values(next).some(Boolean)) return;
-    await signup(form);
-    nav('/onboarding/about');
+    setBusy(true);
+    try {
+      await signup(form);
+      nav('/onboarding/about');
+    } catch (err) {
+      const taken = err instanceof ApiError && err.message === 'email_taken';
+      setErrors(taken ? { email: t('auth.errors.emailTaken') } : { form: t('auth.errors.failed') });
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -131,7 +141,8 @@ export function SignUp() {
           <span>{t('auth.consent')}</span>
         </label>
         {errors.consent && <span role="alert" className="text-[13px] text-warn-700">{errors.consent}</span>}
-        <Button type="submit" size="lg">{t('auth.createAccountCta')}</Button>
+        {errors.form && <span role="alert" className="text-[13px] text-warn-700">{errors.form}</span>}
+        <Button type="submit" size="lg" disabled={busy}>{t('auth.createAccountCta')}</Button>
         <Link to="/login" className="self-center text-sm font-semibold">{t('auth.haveAccount')}</Link>
       </form>
     </AuthLayout>

@@ -10,12 +10,13 @@ database notes, the engine's rule table).
 
 ## Current phase
 
-- Done: Phases 1–4 (setup, database + auth, onboarding questionnaire, plan engine). Every rule value in `data/rules/*.yaml`
-  is still a marked placeholder (`placeholder: true`) until the real values are extracted from the books.
-- **Next: Phase 5, connect the frontend.** Replace the contents of `frontend/src/data/api.ts` with real API calls,
-  keeping the same function names and types. Use the designed loading, empty and error states, make Arabic/RTL work
-  end to end, and make the site installable as a home-screen app (PWA manifest and icons).
-- Then Phase 6 (remaining screens). After that, the local LLM + RAG (`backend/app/ai/`, still empty).
+- Done: Phases 1–5 (setup, database + auth, onboarding questionnaire, plan engine, frontend connected to the backend).
+  Every rule value in `data/rules/*.yaml` is still a marked placeholder (`placeholder: true`) until the real values are
+  extracted from the books. The sample data is gone from `frontend/` (the design reference in `design/` still has it).
+- **Next: Phase 6, the rest of the screens** (see `docs/PLAN.md`): progress photo upload (`data/uploads/<user_id>/`,
+  owner-only), weekly review page polish, grocery pantry editing ("Mark low", "Add a staple"), progress charts,
+  "regenerate my plan". Most endpoints already exist (README "API endpoints"); check-in photos are not sent yet.
+- After that, the local LLM + RAG (`backend/app/ai/`, still empty): it fills `weekly_reviews.ai_summary_*` and plan explanations.
 
 Update this section and the Status list in README.md at the end of every phase.
 
@@ -43,7 +44,8 @@ Update this section and the Status list in README.md at the end of every phase.
 
 ```
 backend/            Python 3.12 + FastAPI, SQLAlchemy 2, Alembic (managed by uv)
-  app/api/          HTTP endpoints (auth, me, weights, onboarding, plans)
+  app/api/          HTTP endpoints (auth, me, weights, onboarding, plans, training, nutrition, body)
+  app/views/        Database rows → the screens' shapes (frontend/src/types.ts); app/week.py = "this week" of the plan
   app/engine/       The plan engine: nutrition, training, injuries, meals (scipy MILP), grocery, check-in, review
   app/models/       Database tables          app/schemas/  Request/response shapes (Pydantic)
   app/ai/           Reserved for the local LLM + RAG (empty)
@@ -79,7 +81,8 @@ npm test               # everything: backend + typecheck + browser tests
 npm run test:backend   # pytest only (about a minute)
 npm run typecheck      # TypeScript only
 npm run test:e2e       # Playwright only
-uv --directory backend run pytest ../tests/backend/test_plans.py -k name   # one file / one test
+npm run test:backend -- -k name                         # backend tests whose name matches
+uv --directory backend run pytest ../tests/backend/test_plans.py -c pyproject.toml --rootdir .   # one file (needs -c / --rootdir)
 ```
 
 How the tests stay independent of local files:
@@ -89,6 +92,9 @@ How the tests stay independent of local files:
 - **Browser (Playwright):** `scripts/e2e-server.mjs` deletes and recreates `tests/e2e/.data/` (ignored by git), migrates and
   seeds a fresh `e2e.db` there, then starts its own API on **8001** and web app on **5174**. It never touches
   `npm run dev` (8000/5173) or `data/rafeqi.db`. Ports 8001 and 5174 must be free.
+  It sets `RAFEQI_TODAY=2026-10-05` (a Monday) and the browser clock to match (`test` from `specs/helpers.ts`).
+  `auth.setup.ts` creates the shared read-only account; tests that change data call `freshUser(page)` for their own.
+  Routes with ids are written as `/workouts/:today` etc. and filled in by `resolve()`.
 
 Other commands: `npm run db:migrate`, `npm run db:seed` (loads `data/catalogue/`, refuses on any bad tag/price/brand),
 `npm run personas` (rewrites `docs/personas.md`), `npm run reset-password -- someone@example.com`.

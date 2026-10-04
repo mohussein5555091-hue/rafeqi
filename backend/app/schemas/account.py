@@ -59,6 +59,7 @@ class MeOut(ApiModel):
     theme: Literal["light", "dark", "system"]
     member_since: dt.date
     onboarding_complete: bool
+    has_plan: bool = False
 
 
 class MePatch(ApiModel):

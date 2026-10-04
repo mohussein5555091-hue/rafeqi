@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import {
   AppShell, BodyMap, Button, Card, ChipGroup, ExerciseMedia, ExerciseThumb, Icon, LinkButton, ProgressBar, QueryView, ScalePicker, SwapBadge,
-  TextInput, Toggle, buttonClass, cn, type RegionState,
+  TextInput, Toggle, buttonClass, cn, useToast, type RegionState,
 } from '@/components';
 import { useI18n } from '@/i18n';
 import { api } from '@/data/api';
@@ -118,7 +118,7 @@ function ExerciseRow({ e, i, ex, result }: { e: SessionExercise; i: number; ex?:
         </Link>
         <InfoLink id={e.exerciseId} name={l(ex?.name)} />
       </div>
-      {e.swap && <div className="ps-[68px]"><SwapBadge label={t(e.swap.kind === 'added' ? 'workouts.addedFor' : 'workouts.swappedFor', { area: t('body.shoulderL') })} /></div>}
+      {e.swap && <div className="ps-[68px]"><SwapBadge label={t(e.swap.kind === 'added' ? 'workouts.addedFor' : 'workouts.swappedFor', { area: t(`body.${e.swap.region}`) })} /></div>}
       {result !== undefined && (
         <div data-testid="logged-result" className={cn('ms-[68px] flex items-center gap-2 rounded-pill px-3 py-1.5 text-[12.5px]', result ? 'bg-sage-100 text-sage-900' : 'bg-neutral-100 text-neutral-800')}>
           {result ? <><Icon as={Check} size={15} className="text-sage-700" /><span>{t('logger.result', { result: fmt.result(result) })}{result.struggled && <> · {t('logger.struggledShort')}</>}</span></> : t('workouts.skipped')}
@@ -245,7 +245,7 @@ export function ExerciseDetail() {
                     <Icon as={ExternalLink} size={18} />{t('exercise.watchVideo')}<span className="sr-only"> {t('common.newTab')}</span>
                   </a>
                 )}
-                {swap && <SwapBadge label={t('workouts.swappedFor', { area: t('body.shoulderL') })} />}
+                {swap && <SwapBadge label={t('workouts.swappedFor', { area: t(`body.${swap.region}`) })} />}
                 <section><h2 className="m-0 mb-2 text-xl">{t('exercise.howTo')}</h2>
                   <ol className="m-0 flex flex-col gap-1.5 ps-5 text-[14.5px]">{ex.instructions.map((s, i) => <li key={i}>{l(s)}</li>)}</ol></section>
                 {ex.mediaSource && (
@@ -290,6 +290,8 @@ export function WorkoutLogger() {
   const nav = useNavigate();
   const { t, l, num } = useI18n();
   const q = useQuery(() => Promise.all([api.getWorkout(id), api.getExercises(), api.getInjuries()]), [id]);
+  const toast = useToast();
+  const [saving, setSaving] = useState(false);
   const key = `rafeqi.logger.${id}.`;
   const [results, setResults] = useSessionState<Record<string, ExerciseResult>>(`${key}results`, {});
   const [finished, setFinished] = useSessionState(`${key}finished`, false);
@@ -310,7 +312,7 @@ export function WorkoutLogger() {
             const next = { ...results };
             if (r) next[exerciseId] = r; else delete next[exerciseId];
             setResults(next);
-            void api.logExercise(w.id, exerciseId, r);
+            api.logExercise(w.id, exerciseId, r).catch(() => toast({ message: t('common.saveFailed'), tone: 'error' }));
           };
 
           if (finished) {
@@ -348,12 +350,18 @@ export function WorkoutLogger() {
                   <div className="flex items-start gap-3 rounded-lg bg-sage-100 px-4 py-4 text-sm text-sage-900"><Icon as={TrendingDown} />{t('logger.painDown', { prev: prevPain })}</div>
                 )}
                 {effort === null && <p className="m-0 text-[13px] text-neutral-800">{t('logger.pickEffort')}</p>}
-                <Button size="lg" disabled={effort === null} onClick={async () => {
+                <Button size="lg" disabled={effort === null || saving} onClick={async () => {
                   if (effort === null) return;
-                  await api.finishWorkout(w.id, { effort, results: Object.fromEntries(Object.entries(results).filter(([, r]) => r.sets > 0)) }, pain, flags.filter((f) => f !== 'none'));
+                  setSaving(true);
+                  const saved = await api.finishWorkout(w.id, { effort, results: Object.fromEntries(Object.entries(results).filter(([, r]) => r.sets > 0)) }, pain, flags.filter((f) => f !== 'none'))
+                    .catch(() => { toast({ message: t('common.saveFailed'), tone: 'error' }); return null; });
+                  setSaving(false);
+                  if (!saved) return;
+                  const { paused } = saved;
                   clearSessionState(key);
-                  const warn = main && (redFlag || Object.values(pain).some((p) => p >= 6));
-                  nav(warn ? `/injuries/${main.id}/warning` : `/workouts/${w.id}`, { replace: true });
+                  // A paused area rebuilds the plan, so the warning comes first; it also shows for pain of 6 or more.
+                  const warnFor = paused[0] ?? (main && (redFlag || Object.values(pain).some((p) => p >= 6)) ? main.id : undefined);
+                  nav(warnFor ? `/injuries/${warnFor}/warning` : `/workouts/${w.id}`, { replace: true });
                 }}>{t('logger.saveFinish')}</Button>
               </div>
             );
@@ -380,7 +388,7 @@ export function WorkoutLogger() {
                 <Button size="lg" icon={Check} className="flex-1" onClick={() => {
                   const all = { ...results };
                   for (const e of w.exercises) {
-                    if (!all[e.exerciseId]) { all[e.exerciseId] = asPlanned(e); void api.logExercise(w.id, e.exerciseId, all[e.exerciseId]); }
+                    if (!all[e.exerciseId]) { all[e.exerciseId] = asPlanned(e); api.logExercise(w.id, e.exerciseId, all[e.exerciseId]).catch(() => undefined); }
                   }
                   setResults(all); setEditing(null); setFinished(true);
                 }}>{t('logger.finish')}</Button>

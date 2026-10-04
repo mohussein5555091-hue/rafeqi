@@ -134,6 +134,7 @@ function MealDayView({ day, plan, onChange }: { day: MealDay; plan: Plan; onChan
 
 function SwapSheet({ date, meal, onClose, onSwapped }: { date: string; meal: Meal; onClose: () => void; onSwapped: (d: Awaited<ReturnType<typeof api.swapMeal>>) => void }) {
   const { t, l, num } = useI18n();
+  const toast = useToast();
   const q = useQuery(() => api.getSwapOptions(meal.id), [meal.id]);
   const [pick, setPick] = useState<string>();
   const chosen = q.data?.find((m) => m.id === pick) ?? q.data?.[0];
@@ -164,7 +165,7 @@ function SwapSheet({ date, meal, onClose, onSwapped }: { date: string; meal: Mea
             </div>
           )}
         </QueryView>
-        <Button size="lg" disabled={!chosen} onClick={async () => chosen && onSwapped(await api.swapMeal(date, meal.id, chosen))}>{chosen ? t('nutrition.swapTo', { name: l(chosen.name) }) : t('nutrition.swap')}</Button>
+        <Button size="lg" disabled={!chosen} onClick={async () => { if (chosen) await api.swapMeal(date, meal.id, chosen).then(onSwapped, () => toast({ message: t('common.saveFailed'), tone: 'error' })); }}>{chosen ? t('nutrition.swapTo', { name: l(chosen.name) }) : t('nutrition.swap')}</Button>
         <span className="text-center text-xs text-neutral-700">{t('nutrition.groceryUpdates')}</span>
       </div>
     </div>
@@ -256,7 +257,8 @@ export function Groceries() {
   const toast = useToast();
   const q = useQuery(() => api.getGroceryList());
   const [period, setPeriod] = useState<'week' | 'month'>('week');
-  const update = async (id: string, patch: Partial<Pick<GroceryItem, 'checked' | 'haveIt'>>) => q.setData(await api.updateGroceryItem(id, patch));
+  const update = (id: string, patch: Partial<Pick<GroceryItem, 'checked' | 'haveIt'>>) =>
+    api.updateGroceryItem(id, patch).then(q.setData, () => toast({ message: t('common.saveFailed'), tone: 'error' }));
 
   return (
     <AppShell title={t('nav.groceries')} sub={q.data ? t('groceries.sub', { week: q.data.weekNumber, start: date(q.data.start), end: date(q.data.end) }) : undefined}

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { Camera, Lock, Plus, Bandage } from 'lucide-react';
-import { BodyMap, Button, Card, ChipGroup, Field, FlowShell, Icon, NumberStepper, QueryView, ScalePicker, Segmented, Slider, cn, type RegionState } from '@/components';
+import { BodyMap, Button, Card, ChipGroup, Field, FlowShell, Icon, NumberStepper, QueryView, ScalePicker, Segmented, Slider, cn, useToast, type RegionState } from '@/components';
 import { useI18n } from '@/i18n';
 import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
+import { useSession } from '@/data/session';
 import { MORE_LESS_FOODS, NOTE_MAX, OBSTACLES } from '@/constants';
 import type { BodyRegion, CheckIn as CheckInData, Exercise, Injury, LocalizedText, Scale5 } from '@/types';
 
@@ -24,7 +25,10 @@ export function CheckIn() {
   const { step = 'body' } = useParams<{ step: StepId }>();
   const { t } = useI18n();
   const nav = useNavigate();
-  const q = useQuery(() => Promise.all([api.getCheckInDraft(), api.getExercises(), api.getInjuries()]));
+  const toast = useToast();
+  const { refresh } = useSession();
+  const [sending, setSending] = useState(false);
+  const q = useQuery(() => Promise.all([api.getCheckInDraft(), api.getExercises(), api.getInjuries(), api.getWorkoutWeek()]));
   const [c, setC] = useState<CheckInData | null>(() => { const raw = sessionStorage.getItem(STORAGE); return raw ? JSON.parse(raw) : null; });
   useEffect(() => { if (!c && q.data) setC(q.data[0].draft); }, [q.data, c]);
   useEffect(() => { if (c) sessionStorage.setItem(STORAGE, JSON.stringify(c)); }, [c]);
@@ -36,19 +40,27 @@ export function CheckIn() {
 
   const submit = async () => {
     if (!c) return;
-    const { reviewId } = await api.submitCheckIn(c);
+    setSending(true);
+    const sent = await api.submitCheckIn(c).catch(() => null);
+    setSending(false);
+    if (!sent) { toast({ message: t('common.saveFailed'), tone: 'error' }); return; }
+    const { reviewId } = sent;
     sessionStorage.removeItem(STORAGE);
+    refresh().catch(() => undefined); // the check-in is no longer due
     nav(`/reviews/${reviewId}?writing=1`, { replace: true });
   };
 
   return (
     <FlowShell title={t(`checkIn.${step}.title`)} step={idx + 1} total={CHECKIN_STEPS.length}
       onBack={idx > 0 ? () => go(idx - 1) : undefined} backLabel={idx === 0 ? undefined : t('common.back')}
-      onNext={isLast ? submit : () => go(idx + 1)} nextLabel={isLast ? t('checkIn.submit') : undefined} nextDisabled={!c}
+      onNext={isLast ? submit : () => go(idx + 1)} nextLabel={isLast ? t('checkIn.submit') : undefined} nextDisabled={!c || sending}
       footerNote={isLast ? t('checkIn.reviewTime') : undefined}>
       <QueryView query={q}>
-        {([draft, exercises, injuries]) => {
+        {([draft, catalogue, injuries, week]) => {
           if (!c) return null;
+          // Only exercises in this week's program can be marked (the weekly review changes the program).
+          const inProgram = new Set(week.sessions.flatMap((s) => s.exercises.map((e) => e.exerciseId)));
+          const exercises = catalogue.filter((e) => inProgram.has(e.id));
           const ctx: Ctx = { c, set: (p) => setC({ ...c, ...p }), last: draft.last, mealOptions: draft.mealOptions, exercises, injuries: injuries.filter((i) => i.status !== 'resolved') };
           const Step = { body: BodyStep, training: TrainingStep, injuries: InjuriesStep, nutrition: NutritionStep, life: LifeStep, note: NoteStep }[step as StepId];
           return <Step {...ctx} />;

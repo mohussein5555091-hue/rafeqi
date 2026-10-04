@@ -1,5 +1,6 @@
 """App settings, read from the project-root .env file (never hard-code secrets)."""
 
+import datetime as dt
 from functools import lru_cache
 from pathlib import Path
 
@@ -23,6 +24,9 @@ class Settings(BaseSettings):
     programs_dir: Path = DATA_DIR / "programs"
     vocab_file: Path = DATA_DIR / "vocab" / "movements.yaml"
     catalogue_dir: Path = DATA_DIR / "catalogue"
+    # Testing only: pretend today is this date (e.g. 2026-10-05), so browser tests don't depend on the real weekday.
+    # The clock keeps running; only the date moves. Ignored in production.
+    today: dt.date | None = None
 
     # Sessions: an httpOnly cookie holding a random token; each visit extends it.
     session_cookie: str = "rafeqi_session"
