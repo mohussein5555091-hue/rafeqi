@@ -143,3 +143,12 @@ def compute_targets(p: Person, calories_override: int | None = None) -> Nutritio
             "carbs": carb_lines,
         },
     )
+
+
+def add_cardio_reason(targets: NutritionTargets, p: Person, sessions: int, minutes: int) -> None:
+    """Cardio is part of the activity level, never added on top: the calorie reasons say so (nutrition.yaml cardio_counted)."""
+    if sessions <= 0:
+        return
+    n = load_rules()["nutrition"]
+    factor = n["activity"]["factor_by_training_days"][p.days_per_week]
+    targets.reasons["calories"].insert(2, explain(n["cardio_counted"], "nutrition.cardio_counted", sessions=sessions, minutes=minutes, factor=factor))

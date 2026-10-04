@@ -1,4 +1,4 @@
-import { useId, useState, type InputHTMLAttributes, type ReactNode } from 'react';
+import { useCallback, useEffect, useId, useRef, useState, type InputHTMLAttributes, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from 'react';
 import { Eye, EyeOff, Minus, Plus, CircleAlert } from 'lucide-react';
 import { cn, Icon } from './Button';
 import { useI18n } from '@/i18n';
@@ -75,22 +75,104 @@ export function ScalePicker({ values, value, onChange, label, dangerFrom, size =
   );
 }
 
-export function NumberStepper({ value, onChange, step = 1, min, max, unit, label, digits = 0, size = 'md' }: {
-  value: number; onChange: (v: number) => void; step?: number; min?: number; max?: number; unit?: string; label: string; digits?: number; size?: 'md' | 'lg';
+/** Reads a typed number: "." or "," (or the Arabic ٫) as the decimal point, and Arabic or Persian digits. NaN if it isn't one. */
+export function parseNumber(text: string): number {
+  const s = text.trim().replace(/[٠-٩]/g, (d) => String('٠١٢٣٤٥٦٧٨٩'.indexOf(d))).replace(/[۰-۹]/g, (d) => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))
+    .replace(/[,٫]/g, '.');
+  return /^\d+(\.\d+)?$|^\d+\.$/.test(s) ? Number(s.replace(/\.$/, '')) : NaN;
+}
+
+/** Repeats `fn` while a button is held: once at once, then faster and faster. */
+function useHoldRepeat(fn: () => void) {
+  const timer = useRef<number>();
+  const fnRef = useRef(fn);
+  fnRef.current = fn;
+  const stop = useCallback(() => { window.clearTimeout(timer.current); timer.current = undefined; }, []);
+  const start = useCallback(() => {
+    stop();
+    fnRef.current();
+    let delay = 400;
+    const tick = () => { fnRef.current(); delay = Math.max(50, delay * 0.8); timer.current = window.setTimeout(tick, delay); };
+    timer.current = window.setTimeout(tick, delay);
+  }, [stop]);
+  useEffect(() => stop, [stop]);
+  return { start, stop };
+}
+
+/**
+ * A number you can type (tap it: the phone's number keyboard opens, with a decimal point when `digits` > 0), or nudge
+ * with − and + (hold to repeat, faster and faster). It can start empty with a placeholder ("e.g. 80").
+ * `onChange` gets the typed number (even out of range) or undefined when the field is empty or not a number;
+ * the range message shows when the field is left with a value outside `min`–`max`.
+ */
+export function NumberStepper({ value, onChange, step = 1, min, max, unit, label, digits = 0, size = 'md', placeholder, start, rangeError, id }: {
+  value: number | undefined; onChange: (v: number | undefined) => void; step?: number; min?: number; max?: number; unit?: string; label: string;
+  digits?: number; size?: 'md' | 'lg'; placeholder?: number; start?: number; rangeError?: (v: number) => string | undefined; id?: string;
 }) {
   const { t, num } = useI18n();
+  const fmt = (v: number | undefined) => (v === undefined ? '' : num(v, digits).replace(/,/g, ''));
+  const [text, setText] = useState(fmt(value));
+  const [focused, setFocused] = useState(false);
+  const [touched, setTouched] = useState(false);
+  const pointer = useRef(false);
+  const ownId = useId();
+  const inputId = id ?? ownId;
+  useEffect(() => { if (!focused) setText(fmt(value)); }, [value, focused]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const clamp = (v: number) => Math.max(min ?? -Infinity, Math.min(max ?? Infinity, Math.round(v * 100) / 100));
-  const btn = cn('grid place-items-center rounded-pill text-ink hover:bg-neutral-200', size === 'lg' ? 'h-14 w-14 bg-bg' : 'h-12 w-12');
+  const valueRef = useRef(value);
+  valueRef.current = value;
+  const nudge = (dir: 1 | -1) => {
+    const cur = valueRef.current;
+    const next = cur === undefined ? clamp(start ?? placeholder ?? min ?? 0) : clamp(cur + dir * step);
+    valueRef.current = next;
+    setTouched(true);
+    onChange(next);
+  };
+  const minus = useHoldRepeat(() => nudge(-1));
+  const plus = useHoldRepeat(() => nudge(1));
+
+  const typed = parseNumber(text);
+  const outOfRange = !Number.isNaN(typed) && ((min !== undefined && typed < min) || (max !== undefined && typed > max));
+  const message = text.trim() === '' || !touched || focused ? undefined
+    : Number.isNaN(typed) ? t('common.notANumber', { label })
+      : (rangeError?.(typed) ?? (outOfRange ? t('common.range', { label, min: num(min ?? 0, digits), max: num(max ?? 0, digits), unit: unit ?? '' }).trim() : undefined));
+
+  const btn = cn('grid shrink-0 touch-none select-none place-items-center rounded-pill text-ink hover:bg-neutral-200', size === 'lg' ? 'h-14 w-14 bg-bg' : 'h-12 w-12');
+  const hold = (h: ReturnType<typeof useHoldRepeat>) => ({
+    onPointerDown: (e: ReactPointerEvent) => { if (e.button !== 0) return; pointer.current = true; h.start(); },
+    onPointerUp: h.stop, onPointerLeave: h.stop, onPointerCancel: h.stop,
+    onClick: () => { if (!pointer.current) h.start(); h.stop(); pointer.current = false; }, // keyboard: one step
+    onContextMenu: (e: ReactMouseEvent) => e.preventDefault(),
+  });
   return (
-    <div className={cn('flex items-center rounded-pill border border-divider bg-surface', size === 'lg' && 'border-0 bg-transparent')} aria-label={label} role="group">
-      <button type="button" className={btn} aria-label={t('common.decrease', { label })} onClick={() => onChange(clamp(value - step))}><Icon as={Minus} /></button>
-      <output className={cn('flex-1 text-center font-bold tabular', size === 'lg' ? 'font-heading text-[34px] font-normal' : 'text-lg')} aria-live="polite">
-        {num(value, digits)} {unit && <span className="text-[13px] font-normal text-neutral-700">{unit}</span>}
-      </output>
-      <button type="button" className={btn} aria-label={t('common.increase', { label })} onClick={() => onChange(clamp(value + step))}><Icon as={Plus} /></button>
+    <div className="flex flex-col gap-1.5">
+      <div className={cn('flex items-center rounded-pill border bg-surface', message ? 'border-warn-600' : 'border-divider', size === 'lg' && 'border-0 bg-transparent')} aria-label={label} role="group">
+        <button type="button" className={btn} aria-label={t('common.decrease', { label })} {...hold(minus)}><Icon as={Minus} /></button>
+        <label className="flex min-w-0 flex-1 items-baseline justify-center gap-1" htmlFor={inputId}>
+          <input id={inputId} type="text" inputMode={digits > 0 ? 'decimal' : 'numeric'} enterKeyHint="done" autoComplete="off" dir="ltr"
+            aria-label={label} aria-invalid={!!message} placeholder={placeholder !== undefined ? t('common.eg', { n: num(placeholder, digits) }) : undefined}
+            className={cn('w-full min-w-0 bg-transparent text-center font-bold tabular placeholder:text-[15px] placeholder:font-normal placeholder:text-neutral-600 focus:outline-none',
+              size === 'lg' ? 'font-heading text-[34px] font-normal' : 'text-lg')}
+            value={text}
+            onFocus={(e) => { setFocused(true); e.target.select(); }}
+            onBlur={() => { setFocused(false); setTouched(true); }}
+            onChange={(e) => {
+              setText(e.target.value);
+              const v = parseNumber(e.target.value);
+              onChange(Number.isNaN(v) ? undefined : v);
+            }} />
+          {unit && <span className="shrink-0 text-[13px] font-normal text-neutral-700">{unit}</span>}
+        </label>
+        <button type="button" className={btn} aria-label={t('common.increase', { label })} {...hold(plus)}><Icon as={Plus} /></button>
+      </div>
+      {message && <span role="alert" className="flex items-center gap-1.5 text-[13px] text-warn-700"><Icon as={CircleAlert} size={14} />{message}</span>}
     </div>
   );
 }
+
+/** True when `v` is a number inside min–max (what a NumberStepper accepts). */
+export const inRange = (v: number | undefined, min: number, max: number): v is number => v !== undefined && v >= min && v <= max;
 
 export function Slider({ value, onChange, min, max, step = 1, label, tone = 'sage' }: {
   value: number; onChange: (v: number) => void; min: number; max: number; step?: number; label: string; tone?: 'sage' | 'accent';

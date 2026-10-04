@@ -16,6 +16,9 @@ from app.engine.grocery import as_text  # noqa: E402
 from app.engine.injuries import allowed  # noqa: E402
 from app.engine.rules import load_rules, rules_version  # noqa: E402
 from app.engine.training import fits_equipment  # noqa: E402
+from app.engine.warmup import ramp_up  # noqa: E402
+
+LEG_PATTERNS = {"squat", "hinge", "lunge", "kneeExtension", "kneeFlexion"}
 from engine_fixtures import exercise_catalogue, food_catalogue, recipe_infos  # noqa: E402
 from personas import PERSONAS, run  # noqa: E402
 
@@ -54,12 +57,28 @@ def persona_md(key: str) -> list[str]:
     ]
     out += [f"- {x.en}" for x in r.program.reasons] + [""]
     for d in r.program.days:
-        out += [f"**{d.weekday.capitalize()} · {d.name['en']}** ({d.est_minutes} min)", "",
+        w, c = d.warmup, d.cooldown
+        moves = ", ".join(f"{CAT[m['id']].name['en']} ({m['amount']['en']})" for m in w["moves"])
+        ramp = ", ".join(f"{s['pct']}% × {s['reps']} @ {kg(s['weightKg'])}" for s in ramp_up(
+            next((e.start_weight_kg for e in d.exercises if e.exercise_id == w["ramp"]["id"]), 0),
+            next((e.weight_step_kg for e in d.exercises if e.exercise_id == w["ramp"]["id"]), 0))) or "none (bodyweight)"
+        stretches = ", ".join(f"{CAT[s['id']].name['en']} {s['seconds']} s{' each side' if s['eachSide'] else ''}" for s in c["stretches"])
+        out += [f"**{d.weekday.capitalize()} · {d.name['en']}** ({d.kind}, {d.est_minutes} min)", "",
+                f"- Warm-up ({w['minutes']} min): {w['general']['minutes']} min {CAT[w['general']['id']].name['en'].lower()}; {moves}; "
+                f"ramp-up of {CAT[w['ramp']['id']].name['en'] if w['ramp']['id'] else '—'}: {ramp}"
+                + "".join(f"<br>  {s['why']['en']}" for s in w["skipped"]),
+                f"- Cool-down ({c['minutes']} min): {stretches}; {c['breathing']['minutes']} min slow breathing",
+                f"- {next(x.en for x in d.reasons if x.rule == 'training.session')}", "",
                 "| Exercise | Sets × reps | Start weight | Rest | RPE | Notes |", "|---|---|---|---|---|---|"]
         for e in d.exercises:
             notes = "<br>".join(x.en for x in e.reasons if x.rule != "training.start_load")
             out.append(f"| {CAT[e.exercise_id].name['en']} | {e.sets} × {e.reps} | {kg(e.start_weight_kg)} | {e.rest_sec} s | {e.target_rpe:g} | {notes} |")
         out.append("")
+    cardio = r.program.cardio
+    out += ["### Cardio", ""] + [f"- {x.en}" for x in cardio.reasons] + [""]
+    out += ["| Day | Type | Minutes | Intensity | When |", "|---|---|---|---|---|"]
+    out += [f"| {s.weekday.capitalize()} | {CAT[s.exercise_id].name['en']} | {s.minutes} | {s.intensity} | {s.when} |" for s in cardio.sessions]
+    out += [f"| Every day | Steps | about {cardio.steps_per_day:,} | | |", ""]
     out += ["### Meals", ""]
     out += [f"- {x.en}" for x in r.meals.reasons] + [""]
     out += ["| Day | Meals (portion) | kcal | Protein | Carbs | Fat |", "|---|---|---|---|---|---|"]
@@ -83,6 +102,18 @@ def persona_md(key: str) -> list[str]:
     checks.append(("No disliked or allergenic food", all(not RECIPES[m.recipe_id].tags & p.avoided_food_tags for m in r.meals.meals)))
     checks.append(("Every exercise is safe for the injuries", all(allowed(CAT[e.exercise_id], p.injuries) for d in r.program.days for e in d.exercises)))
     checks.append(("Every exercise fits the equipment", all(fits_equipment(CAT[e.exercise_id], p.location) for d in r.program.days for e in d.exercises)))
+    full_legs = all(any(CAT[e.exercise_id].pattern in LEG_PATTERNS for e in d.exercises) for d in r.program.days if d.kind == "full")
+    checks.append(("Every full-body day trains the legs", full_legs))
+    checks.append(("Session time within the chosen length (+15 min at most)", all(d.est_minutes <= p.session_minutes + 15 for d in r.program.days)))
+    caps = load_rules()["training"]["start_load"]["max_kg"][p.experience]
+    checks.append((f"Starting weights within the {p.experience} caps", all(e.start_weight_kg <= min([caps[q] for q in CAT[e.exercise_id].equipment if q in caps] or [999])
+                                                                          for d in r.program.days for e in d.exercises)))
+    kinds = {d.weekday: d.kind for d in r.program.days}
+    week = ["sat", "sun", "mon", "tue", "wed", "thu", "fri"]
+    checks.append(("No cardio the day before a leg day", all(kinds.get(week[(week.index(s.weekday) + 1) % 7]) not in ("lower", "full") for s in cardio.sessions)))
+    checks.append(("Every warm-up move and stretch is safe for the injuries",
+                   all(allowed(CAT[m["id"]], p.injuries) for d in r.program.days for m in d.warmup["moves"])
+                   and all(allowed(CAT[x["id"]], p.injuries) for d in r.program.days for x in d.cooldown["stretches"])))
     checks.append(("Limits eased for meals", not r.meals.relaxed))
     out += ["### Safety checks", ""] + [f"- {'✅' if ok else ('⚠️' if 'eased' in name else '❌')} {name}"
                                          + (f": {', '.join(r.meals.relaxed)}" if 'eased' in name and r.meals.relaxed else "") for name, ok in checks]

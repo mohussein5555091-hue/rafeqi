@@ -30,6 +30,22 @@ class FinishWorkoutIn(ApiModel):
     done: list[str] | None = Field(default=None, max_length=30)
 
 
+class SwapExerciseIn(ApiModel):
+    """Swap an exercise: to one of its alternatives, with why, for today's session only or from now on."""
+
+    to_exercise_id: str = Field(max_length=60)
+    reason: Literal["equipment", "busy", "cantDo", "pain"]
+    scope: Literal["today", "always"]
+
+
+class DoneIn(ApiModel):
+    done: bool
+
+
+class CardioDoneIn(ApiModel):
+    minutes: int = Field(ge=1, le=300)
+
+
 class SwapIn(ApiModel):
     recipe_id: str = Field(max_length=60)
 

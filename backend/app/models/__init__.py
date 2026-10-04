@@ -8,13 +8,13 @@ from app.models.nutrition import (
     RecipeIngredient, RecipeStep,
 )
 from app.models.training import (
-    Exercise, ExerciseSubstitution, Plan, ProgramDay, ProgramExercise, SetLog, TrainingProgram, WorkoutLog,
+    CardioLog, Exercise, ExerciseSubstitution, ExerciseSwap, Plan, ProgramDay, ProgramExercise, SetLog, TrainingProgram, WorkoutLog,
 )
 
 __all__ = [
     "Base", "UserOwned",
     "User", "UserSession", "LoginAttempt", "Profile", "Injury", "PainLog", "WeightLog",
-    "Plan", "TrainingProgram", "ProgramDay", "ProgramExercise", "Exercise", "ExerciseSubstitution", "WorkoutLog", "SetLog",
+    "Plan", "TrainingProgram", "ProgramDay", "ProgramExercise", "Exercise", "ExerciseSubstitution", "WorkoutLog", "SetLog", "ExerciseSwap", "CardioLog",
     "Food", "GroceryItem", "FoodGroceryItem", "Recipe", "RecipeIngredient", "RecipeStep",
     "MealPlan", "MealPlanItem", "GroceryList", "GroceryListItem", "PantryItem",
     "CheckIn", "CheckInAnswer", "WeeklyReview", "LlmCall",

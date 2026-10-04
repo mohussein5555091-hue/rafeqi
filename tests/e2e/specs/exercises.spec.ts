@@ -4,16 +4,16 @@ import { api, expect, test, waitForContent } from './helpers';
 const loaded = (img: Locator) => expect.poll(() => img.evaluate((i: HTMLImageElement) => i.complete && i.naturalWidth > 0)).toBe(true);
 const card = (page: Page, heading: string) => page.locator('div', { has: page.getByRole('heading', { name: heading, exact: true }) }).last();
 
-/** This week's sessions (from the API) and how many exercises each has. */
+/** This week's lifting sessions (from the API) and their exercises (the week also has cardio days). */
 async function sessions(page: Page): Promise<{ id: string; exercises: { exerciseId: string }[] }[]> {
-  return (await api(page, '/workouts/week')).sessions;
+  return (await api(page, '/workouts/week')).sessions.filter((s: { kind: string }) => s.kind === 'strength');
 }
 
 test('each exercise in every session has a thumbnail and an info button', async ({ page }) => {
   for (const s of await sessions(page)) {
     await page.goto(`/workouts/${s.id}`);
     await waitForContent(page);
-    const rows = page.locator('main ol > li');
+    const rows = page.getByTestId('exercise-row');
     await expect(rows, s.id).toHaveCount(s.exercises.length);
     for (const row of await rows.all()) {
       await loaded(row.locator('img').first());
@@ -26,7 +26,7 @@ test('tapping an exercise opens a full explanation', async ({ page }) => {
   const week = await sessions(page);
   await page.goto(`/workouts/${week[0].id}`);
   await waitForContent(page);
-  await page.locator('main ol > li').first().getByRole('link').first().click();
+  await page.getByTestId('exercise-row').first().getByRole('link').first().click();
   await expect(page).toHaveURL(new RegExp(`/exercises/${week[0].exercises[0].exerciseId}$`));
 
   const ids = new Set(week.flatMap((s) => s.exercises.map((e) => e.exerciseId)));

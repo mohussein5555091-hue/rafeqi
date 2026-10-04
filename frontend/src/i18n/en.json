@@ -9,7 +9,7 @@
     "errorTitle": "Something didn't load", "errorBody": "Check your connection and try again. Nothing you saved was lost.",
     "notFoundTitle": "We couldn't find that", "notFoundBody": "It may have been removed or updated with your latest plan.",
     "disclaimer": "Rafeqi gives general fitness guidance and is not medical advice.",
-    "saveFailed": "Couldn't save. Check your connection and try again.", "disclaimerShort": "General fitness guidance, not medical advice."
+    "saveFailed": "Couldn't save. Check your connection and try again.", "range": "{label} must be between {min} and {max} {unit}", "notANumber": "{label}: type a number, like 80 or 80.5", "eg": "e.g. {n}", "disclaimerShort": "General fitness guidance, not medical advice."
   },
   "nav": {
     "main": "Main", "home": "Home", "workouts": "Workouts", "nutrition": "Nutrition", "groceries": "Groceries", "progress": "Progress",
@@ -19,7 +19,7 @@
   "status": { "onTrack": "On track", "attention": "Needs attention", "warning": "Warning" },
   "units": {
     "kg": "kg", "g": "g", "L": "L", "ml": "ml", "pcs": "", "loaves": "loaves", "cups": "cups", "jars": "jars", "cm": "cm", "years": "years",
-    "kcal": "kcal", "kcalN": "{n} kcal", "grams": "{n} g", "minutesShort": "{n} min", "secondsShort": "{n} s"
+    "kcal": "kcal", "kcalN": "{n} kcal", "grams": "{n} g", "minutesUnit": "min", "minutesShort": "{n} min", "secondsShort": "{n} s"
   },
   "macros": { "protein": "Protein", "carbs": "Carbs", "fat": "Fat", "pShort": "P {n} g", "cShort": "C {n} g", "fShort": "F {n} g" },
   "auth": {
@@ -127,12 +127,16 @@
     "swappedFor": "Swapped for your {area}", "addedFor": "Added to support your {area}",
     "rpeHelp": "RPE = how hard a set feels. RPE 8 means you could do about 2 more reps.",
     "detailsSoon": "This session's exercises appear closer to the day.",
-    "range": "Range {reps}", "reason": { "start": "Starting weight", "addReps": "+1 rep since last time", "addWeight": "+{kg} kg since last time", "repeat": "Same as last time", "dropWeight": "−{kg} kg to get the reps back" },
+    "range": "Range {reps}", "reason": { "findWeight": "Find your weight: start light", "start": "Starting weight", "addReps": "+1 rep since last time", "addWeight": "+{kg} kg since last time", "repeat": "Same as last time", "dropWeight": "−{kg} kg to get the reps back" },
     "target": "{sets} × {reps} @ {kg} kg", "targetBw": "{sets} × {reps}", "prevDay": "Previous workout", "nextDay": "Next workout",
     "dayOf": "Workout {n} of {total} this week", "whatYouDid": "What you did", "skipped": "Skipped", "effortLogged": "Effort {n}/10",
     "painAfter": "{area} after: {n}/10", "startOnDay": "You can start this workout on {day}.", "missed": "Missed"
   },
   "exercise": {
+    "swappedIn": "You swapped this in for {name}, from now on ({why}).",
+    "undoSwap": "Undo swap: back to {name}",
+    "swapUndone": "Swap undone. {name} is back in your program.",
+    "type": {"strength": "Exercise", "cardio": "Cardio", "mobility": "Warm-up move", "stretch": "Stretch"},
     "media": "Exercise demonstration", "mediaAlt": "{name}: start and end position", "noMedia": "Demonstration coming soon",
     "pause": "Pause demonstration", "play": "Play demonstration", "watchVideo": "Watch video", "credit": "Photos:", "howTo": "How to do it", "cues": "Form cues",
     "mistakes": "Common mistakes", "muscles": "Muscles worked", "alternatives": "Alternatives",
@@ -284,5 +288,9 @@
     "groceryCategory": { "produce": "Vegetables & fruit", "meat": "Meat, chicken & fish", "dairy": "Dairy & eggs", "bakery": "Bread & bakery", "pantry": "Pantry staples", "spices": "Spices & sauces" },
     "weekday": { "sat": "Saturday", "sun": "Sunday", "mon": "Monday", "tue": "Tuesday", "wed": "Wednesday", "thu": "Thursday", "fri": "Friday" },
     "weekdayShort": { "sat": "Sat", "sun": "Sun", "mon": "Mon", "tue": "Tue", "wed": "Wed", "thu": "Thu", "fri": "Fri" }
-  }
+  },
+  "warmup": {"title": "Warm-up", "about": "About {n} min", "general": "{min} min, easy pace", "moves": "Mobility for today's muscles", "ramp": "Lighter sets of {name}", "rampSet": "{reps} reps @ {kg} kg", "rampPct": "{pct}%", "skipped": "Left out for your injury", "done": "Warm-up done", "why": "Warming up gets your joints and muscles ready, so the first sets feel better and safer."},
+  "cooldown": {"title": "Cool-down", "about": "About {n} min", "hold": "Hold {s} s", "eachSide": "{s} s each side", "breathing": "{min} min slow breathing to finish", "done": "Cool-down done"},
+  "cardio": {"title": "Cardio", "afterLifting": "After lifting", "restDay": "Cardio day", "minutes": "{n} min", "minutesDone": "Minutes done", "markDone": "Mark done", "done": "Done: {n} min", "undo": "Undo", "steps": "Every day: about {n} steps", "notYet": "You can mark it done on {day}.", "perWeek": "{n} cardio sessions a week"},
+  "swap": {"button": "Swap", "title": "Swap {name}", "why": "Why do you want to swap it?", "pick": "Pick the new exercise", "none": "Nothing else fits your equipment and injuries for this movement yet.", "reason": {"equipment": "Equipment not available", "busy": "Machine is busy today", "cantDo": "I can't do this exercise", "pain": "It causes pain"}, "reasonHint": {"equipment": "We'll leave it out of future plans too", "busy": "Something similar on other equipment", "cantDo": "Too hard, or I don't know it", "pain": "Then tell us where"}, "scope": "Just today, or from now on?", "today": "Just today", "todayHint": "Only this session changes.", "always": "From now on", "alwaysHint": "Your program changes for every week from now on. You can undo it from the exercise's page.", "confirm": "Swap to {name}", "badge": "Swapped: {why}", "done": "Swapped to {name}", "back": "Back", "painTitle": "Did it hurt?", "painBody": "Add it as an injury, so your whole plan avoids the movements that hurt and checks in on the pain.", "addInjury": "Add an injury", "updateInjury": "Update: {area}", "notNow": "Not now"}
 }

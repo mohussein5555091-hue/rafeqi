@@ -10,7 +10,9 @@ database notes, the engine's rule table).
 
 ## Current phase
 
-- Done: Phases 1–5 (setup, database + auth, onboarding questionnaire, plan engine, frontend connected to the backend).
+- Done: Phases 1–5 (setup, database + auth, onboarding questionnaire, plan engine, frontend connected to the backend),
+  plus the workout plan update listed at the end of `docs/PLAN.md` (warm-up, cool-down, cardio, exercise swaps,
+  typed number inputs, session length and time estimate).
   Every rule value in `data/rules/*.yaml` is still a marked placeholder (`placeholder: true`) until the real values are
   extracted from the books. The sample data is gone from `frontend/` (the design reference in `design/` still has it).
 - **Next: Phase 6, the rest of the screens** (see `docs/PLAN.md`): progress photo upload (`data/uploads/<user_id>/`,
@@ -46,7 +48,8 @@ Update this section and the Status list in README.md at the end of every phase.
 backend/            Python 3.12 + FastAPI, SQLAlchemy 2, Alembic (managed by uv)
   app/api/          HTTP endpoints (auth, me, weights, onboarding, plans, training, nutrition, body)
   app/views/        Database rows → the screens' shapes (frontend/src/types.ts); app/week.py = "this week" of the plan
-  app/engine/       The plan engine: nutrition, training, injuries, meals (scipy MILP), grocery, check-in, review
+  app/engine/       The plan engine: nutrition, training, warmup (+ cool-down), cardio, injuries, meals (scipy MILP), grocery,
+                    check-in, review
   app/models/       Database tables          app/schemas/  Request/response shapes (Pydantic)
   app/ai/           Reserved for the local LLM + RAG (empty)
   migrations/       Alembic migrations (a test fails if models and migrations disagree)

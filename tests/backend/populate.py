@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 
 from app import clock
 from app.models import (
-    CheckIn, CheckInAnswer, Exercise, Food, GroceryItem, GroceryList, GroceryListItem, Injury, LlmCall, MealPlan,
+    CardioLog, CheckIn, CheckInAnswer, Exercise, ExerciseSwap, Food, GroceryItem, GroceryList, GroceryListItem, Injury, LlmCall, MealPlan,
     MealPlanItem, PainLog, PantryItem, Plan, ProgramDay, ProgramExercise, Recipe, SetLog, TrainingProgram, WeeklyReview,
     WeightLog, WorkoutLog,
 )
@@ -55,6 +55,8 @@ def populate(db: Session, user_id: str) -> dict[str, str]:
                         rest_sec=120, target_rpe=7))
     workout = add(WorkoutLog(user_id=user_id, plan_id=plan.id, program_day_id=day.id, week_number=1, date=today))
     add(SetLog(user_id=user_id, workout_log_id=workout.id, exercise_id="ex_test", set_number=1, reps=10, weight_kg=20))
+    add(ExerciseSwap(user_id=user_id, from_exercise_id="ex_test", to_exercise_id="ex_test", reason="busy", scope="today", date=today))
+    add(CardioLog(user_id=user_id, date=today, exercise_id="ex_test", minutes=25))
     checkin = add(CheckIn(user_id=user_id, week_number=1, week_start=today, weight_kg=88.0, note="ok"))
     add(CheckInAnswer(user_id=user_id, checkin_id=checkin.id, question_id="sleep", value={"value": 4}))
     add(PainLog(user_id=user_id, injury_id=injury.id, region="shoulderL", pain=3, source="workout", workout_log_id=workout.id))

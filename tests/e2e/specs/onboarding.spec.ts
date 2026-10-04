@@ -15,12 +15,17 @@ test('sign up, then the questionnaire: saved step by step, survives a reload, re
   await expect(page).toHaveURL(/\/onboarding\/about$/);
   await waitForContent(page);
 
-  // Under 18 can't continue.
-  const age = page.getByRole('group', { name: 'Age' });
-  for (let i = 0; i < 15; i++) await age.getByRole('button', { name: /^Decrease/ }).click(); // 30 → 16
+  // The numbers start empty: type them. Under 18 can't continue.
+  const age = page.getByRole('textbox', { name: 'Age' });
+  await expect(age).toHaveValue('');
+  await expect(page.getByRole('button', { name: 'Next' })).toBeDisabled();
+  await age.fill('16');
+  await age.blur();
   await expect(page.getByText('You need to be 18 or older')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Next' })).toBeDisabled();
-  for (let i = 0; i < 4; i++) await age.getByRole('button', { name: /^Increase/ }).click(); // 16 → 20
+  await age.fill('20');
+  await page.getByRole('textbox', { name: 'Height' }).fill('165');
+  await page.getByRole('textbox', { name: 'Weight' }).fill('٦٢٫٥'); // Arabic digits and decimal point work too
   await page.getByRole('radio', { name: 'Female' }).check({ force: true });
   await page.getByRole('button', { name: 'Next' }).click();
 
@@ -41,7 +46,7 @@ test('sign up, then the questionnaire: saved step by step, survives a reload, re
   }
 
   await expect(page).toHaveURL(/\/onboarding\/review$/);
-  await expect(page.getByText(/Female · 20 ·/)).toBeVisible();
+  await expect(page.getByText(/Female · 20 · 165 cm · 62.5 kg/)).toBeVisible();
   await expect(page.getByText('Build muscle', { exact: false })).toBeVisible();
   await expect(page.getByText(/Intermediate · 3 days/)).toBeVisible();
   await page.getByRole('button', { name: 'Build my plan' }).click();

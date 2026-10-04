@@ -2,34 +2,173 @@
   "id": "sample_full_body",
   "placeholder": true,
   "source": "PLACEHOLDER: small sample in the style of Jeff Nippard's Fundamentals Hypertrophy Program; replaced by the real program next session",
-  "name": { "en": "Full body (sample)", "ar": "الجسم كله (عينة)" },
-  "experience": ["beginner"],
-  "days_per_week": [2, 3],
-  "goals": ["loseFat", "buildMuscle", "recomp", "strength"],
-  "locations": ["gym", "homeDumbbells", "bodyweight"],
+  "note": "Each day lists exercises in order of priority: the engine takes as many as fit the session length the person chose (data/rules/training.yaml `session`). kind: upper | lower | full (warm-up moves, cardio placement).",
+  "name": {
+    "en": "Full body (sample)",
+    "ar": "الجسم كله (عينة)"
+  },
+  "experience": [
+    "beginner"
+  ],
+  "days_per_week": [
+    2,
+    3
+  ],
+  "goals": [
+    "loseFat",
+    "buildMuscle",
+    "recomp",
+    "strength"
+  ],
+  "locations": [
+    "gym",
+    "homeDumbbells",
+    "bodyweight"
+  ],
   "total_weeks": 8,
   "deload_week": 5,
-  "rotation": { "2": ["A", "B"], "3": ["A", "B", "A"] },
+  "rotation": {
+    "2": [
+      "A",
+      "B"
+    ],
+    "3": [
+      "A",
+      "B",
+      "A"
+    ]
+  },
   "days": [
     {
-      "key": "A", "name": { "en": "Full body A", "ar": "الجسم كله أ" }, "est_minutes": 50, "warmup_minutes": 6,
+      "key": "A",
+      "kind": "full",
+      "name": {
+        "en": "Full body A",
+        "ar": "الجسم كله أ"
+      },
       "exercises": [
-        { "exercise": "ex_goblet_squat", "sets": 3, "reps": "8–10", "rest_sec": 120, "rpe": 7 },
-        { "exercise": "ex_db_bench_press", "sets": 3, "reps": "8–10", "rest_sec": 120, "rpe": 7 },
-        { "exercise": "ex_cs_row", "sets": 3, "reps": "10–12", "rest_sec": 90, "rpe": 7 },
-        { "exercise": "ex_db_rdl", "sets": 2, "reps": "10–12", "rest_sec": 120, "rpe": 7 },
-        { "exercise": "ex_lateral_raise", "sets": 2, "reps": "12–15", "rest_sec": 60, "rpe": 8 }
+        {
+          "exercise": "ex_goblet_squat",
+          "sets": 3,
+          "reps": "8–10",
+          "rest_sec": 120,
+          "rpe": 7
+        },
+        {
+          "exercise": "ex_db_bench_press",
+          "sets": 3,
+          "reps": "8–10",
+          "rest_sec": 120,
+          "rpe": 7
+        },
+        {
+          "exercise": "ex_cs_row",
+          "sets": 3,
+          "reps": "10–12",
+          "rest_sec": 90,
+          "rpe": 7
+        },
+        {
+          "exercise": "ex_db_rdl",
+          "sets": 2,
+          "reps": "10–12",
+          "rest_sec": 120,
+          "rpe": 7
+        },
+        {
+          "exercise": "ex_lateral_raise",
+          "sets": 2,
+          "reps": "12–15",
+          "rest_sec": 60,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_split_squat",
+          "sets": 2,
+          "reps": "8–10 each",
+          "rest_sec": 90,
+          "rpe": 7
+        },
+        {
+          "exercise": "ex_incline_curl",
+          "sets": 2,
+          "reps": "10–12",
+          "rest_sec": 60,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_calf_raise",
+          "sets": 2,
+          "reps": "12–15",
+          "rest_sec": 60,
+          "rpe": 8
+        }
       ]
     },
     {
-      "key": "B", "name": { "en": "Full body B", "ar": "الجسم كله ب" }, "est_minutes": 50, "warmup_minutes": 6,
+      "key": "B",
+      "kind": "full",
+      "name": {
+        "en": "Full body B",
+        "ar": "الجسم كله ب"
+      },
       "exercises": [
-        { "exercise": "ex_leg_press", "sets": 3, "reps": "10–12", "rest_sec": 120, "rpe": 7 },
-        { "exercise": "ex_db_shoulder_press", "sets": 3, "reps": "8–10", "rest_sec": 120, "rpe": 7 },
-        { "exercise": "ex_lat_pulldown", "sets": 3, "reps": "10–12", "rest_sec": 90, "rpe": 7 },
-        { "exercise": "ex_split_squat", "sets": 2, "reps": "8–10 each", "rest_sec": 90, "rpe": 7 },
-        { "exercise": "ex_incline_curl", "sets": 2, "reps": "10–12", "rest_sec": 60, "rpe": 8 },
-        { "exercise": "ex_pushdown", "sets": 2, "reps": "10–12", "rest_sec": 60, "rpe": 8 }
+        {
+          "exercise": "ex_leg_press",
+          "sets": 3,
+          "reps": "10–12",
+          "rest_sec": 120,
+          "rpe": 7
+        },
+        {
+          "exercise": "ex_db_shoulder_press",
+          "sets": 3,
+          "reps": "8–10",
+          "rest_sec": 120,
+          "rpe": 7
+        },
+        {
+          "exercise": "ex_lat_pulldown",
+          "sets": 3,
+          "reps": "10–12",
+          "rest_sec": 90,
+          "rpe": 7
+        },
+        {
+          "exercise": "ex_glute_bridge",
+          "sets": 2,
+          "reps": "12–15",
+          "rest_sec": 90,
+          "rpe": 7
+        },
+        {
+          "exercise": "ex_split_squat",
+          "sets": 2,
+          "reps": "8–10 each",
+          "rest_sec": 90,
+          "rpe": 7
+        },
+        {
+          "exercise": "ex_incline_curl",
+          "sets": 2,
+          "reps": "10–12",
+          "rest_sec": 60,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_pushdown",
+          "sets": 2,
+          "reps": "10–12",
+          "rest_sec": 60,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_face_pull",
+          "sets": 2,
+          "reps": "12–15",
+          "rest_sec": 60,
+          "rpe": 8
+        }
       ]
     }
   ]

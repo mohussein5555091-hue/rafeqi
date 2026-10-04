@@ -124,6 +124,9 @@ erDiagram
   program_days ||--o{ workout_logs : "done as"
   workout_logs ||--o{ set_logs : "sets"
   users ||--o{ workout_logs : "logs"
+  users ||--o{ exercise_swaps : "swaps"
+  exercises ||--o{ exercise_swaps : "from / to"
+  users ||--o{ cardio_logs : "cardio done"
   plans {
     uuid id PK
     uuid user_id FK
@@ -222,6 +225,8 @@ erDiagram
     date date
     text status "inProgress, done, skipped"
     int effort "how hard was today's workout, 1-10"
+    bool warmup_done
+    bool cooldown_done
     datetime started_at
     datetime finished_at
   }
@@ -236,7 +241,29 @@ erDiagram
     real rpe "10 on the last set if they struggled, else empty"
     datetime logged_at
   }
+  exercise_swaps {
+    uuid id PK
+    uuid user_id FK
+    text from_exercise_id FK
+    text to_exercise_id FK
+    text reason "equipment, busy, cantDo, pain"
+    text scope "today (one session) or always (from now on)"
+    date date "the session, for today"
+    datetime ended_at "undone"
+  }
+  cardio_logs {
+    uuid id PK
+    uuid user_id FK
+    date date "one per day"
+    text exercise_id FK
+    int minutes "actually done"
+  }
 ```
+
+Added with the workout plan update: `exercises.type` (strength, cardio, mobility, stretch), `program_days.kind`,
+`warmup`, `cooldown` and `reasons` (JSON from `engine/warmup.py`), `training_programs.cardio` (JSON from
+`engine/cardio.py`), `program_exercises.user_reason`, and `profiles.missing_equipment` (equipment the person said
+isn't available; plans avoid it).
 
 ## Food, meals and groceries
 

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
-  Check, ChevronLeft, ChevronRight, Dumbbell, ExternalLink, Footprints, Info, X, ArrowDown, Shield, Zap, TrendingDown, Bandage, Pencil, Undo2,
+  Check, ChevronLeft, ChevronRight, Dumbbell, ExternalLink, Footprints, HeartPulse, X, ArrowDown, Shield, Zap, TrendingDown, Bandage, Pencil, Repeat, Undo2,
 } from 'lucide-react';
 import {
   AppShell, BodyMap, Button, Card, ChipGroup, ExerciseMedia, ExerciseThumb, Icon, LinkButton, ProgressBar, QueryView, ScalePicker, SwapBadge,
@@ -11,6 +11,7 @@ import { useI18n } from '@/i18n';
 import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
 import type { BodyRegion, Exercise, ExerciseResult, Injury, SessionExercise, Workout, WorkoutWeek } from '@/types';
+import { CardioCard, CooldownSection, InfoLink, SwapSheet, WarmupSection, useSwapLabel } from './SessionExtras';
 
 type T = (k: string, v?: Record<string, string | number>) => string;
 
@@ -42,7 +43,7 @@ const isDesktop = () => typeof window !== 'undefined' && window.matchMedia?.('(m
 
 /** Week overview of the training program. Tapping a day opens that day's session (side panel on desktop). */
 export function WorkoutPlan() {
-  const { t, l, date } = useI18n();
+  const { t, l, num, date } = useI18n();
   const q = useQuery(() => api.getWorkoutWeek());
   const exMap = useExerciseMap();
   const [selected, setSelected] = useState<string>();
@@ -67,7 +68,7 @@ export function WorkoutPlan() {
                     s && s.id === current.id && s.status !== 'today' && 'lg:ring-2 lg:ring-inset lg:ring-accent-700');
                   const inner = (
                     <>
-                      {s && <span className={cn('grid h-tap w-tap place-items-center rounded-full lg:hidden', s.status === 'done' ? 'bg-sage-600 text-bg' : s.status === 'today' ? 'bg-bg text-ink' : 'bg-bg')}><Icon as={s.status === 'done' ? Check : s.name.en.includes('Lower') ? Footprints : Dumbbell} /></span>}
+                      {s && <span className={cn('grid h-tap w-tap place-items-center rounded-full lg:hidden', s.status === 'done' ? 'bg-sage-600 text-bg' : s.status === 'today' ? 'bg-bg text-ink' : 'bg-bg')}><Icon as={s.status === 'done' ? Check : s.kind === 'cardio' ? HeartPulse : s.name.en.includes('Lower') ? Footprints : Dumbbell} /></span>}
                       <span className="flex flex-1 flex-col">
                         <span className="text-xs">{t(`enums.weekdayShort.${day}`)} {s && date(s.date, { day: 'numeric' })}</span>
                         <strong className="text-[15.5px]">{s ? l(s.name) : t('planReady.rest')}</strong>
@@ -88,8 +89,13 @@ export function WorkoutPlan() {
                 })}
               </ol>
               <div className="flex items-center gap-2.5 text-[13px]"><ProgressBar value={done} max={w.sessions.length} label={t('workouts.weekProgress')} /><span className="whitespace-nowrap font-semibold">{t('workouts.doneOf', { done, total: w.sessions.length })}</span></div>
+              {w.cardio.sessionsPerWeek > 0 && (
+                <p className="m-0 flex flex-wrap items-center gap-x-2 text-[13px] text-neutral-800" title={l(w.cardio.why)}>
+                  <Icon as={HeartPulse} size={16} className="text-warn-600" />{t('cardio.perWeek', { n: w.cardio.sessionsPerWeek })} · <Footprints size={16} aria-hidden />{t('cardio.steps', { n: num(w.cardio.stepsPerDay) })}
+                </p>
+              )}
               <p className="m-0 text-[12.5px] text-neutral-700">{t('workouts.deload', { week: w.deloadWeek })}</p>
-              <div className="hidden lg:block"><SessionPanel s={current} exMap={exMap} /></div>
+              <div className="hidden lg:block"><SessionPanel s={current} exMap={exMap} onChanged={q.reload} /></div>
             </>
           );
         }}
@@ -98,11 +104,12 @@ export function WorkoutPlan() {
   );
 }
 
-function ExerciseRow({ e, i, ex, result }: { e: SessionExercise; i: number; ex?: Exercise; result?: ExerciseResult | null }) {
+function ExerciseRow({ e, i, ex, result, onSwap }: { e: SessionExercise; i: number; ex?: Exercise; result?: ExerciseResult | null; onSwap?: () => void }) {
   const { t, l, num } = useI18n();
   const fmt = useFormat();
+  const swapLabel = useSwapLabel();
   return (
-    <li className="flex flex-col gap-2 rounded-lg bg-surface px-4 pb-3.5 pt-4">
+    <li data-testid="exercise-row" className="flex flex-col gap-2 rounded-lg bg-surface px-4 pb-3.5 pt-4">
       <div className="flex items-start gap-3">
         <Link to={`/exercises/${e.exerciseId}`} className="flex min-w-0 flex-1 items-start gap-3 text-ink no-underline hover:text-ink">
           <ExerciseThumb ex={ex} n={i + 1} />
@@ -118,7 +125,12 @@ function ExerciseRow({ e, i, ex, result }: { e: SessionExercise; i: number; ex?:
         </Link>
         <InfoLink id={e.exerciseId} name={l(ex?.name)} />
       </div>
-      {e.swap && <div className="ps-[68px]"><SwapBadge label={t(e.swap.kind === 'added' ? 'workouts.addedFor' : 'workouts.swappedFor', { area: t(`body.${e.swap.region}`) })} /></div>}
+      {(e.swap || onSwap) && (
+        <div className="flex flex-wrap items-center justify-between gap-2 ps-[68px]">
+          {e.swap ? <SwapBadge label={swapLabel(e.swap)} /> : <span />}
+          {onSwap && <Button variant="ghost" size="sm" icon={Repeat} aria-label={`${t('swap.button')}: ${l(ex?.name)}`} onClick={onSwap}>{t('swap.button')}</Button>}
+        </div>
+      )}
       {result !== undefined && (
         <div data-testid="logged-result" className={cn('ms-[68px] flex items-center gap-2 rounded-pill px-3 py-1.5 text-[12.5px]', result ? 'bg-sage-100 text-sage-900' : 'bg-neutral-100 text-neutral-800')}>
           {result ? <><Icon as={Check} size={15} className="text-sage-700" /><span>{t('logger.result', { result: fmt.result(result) })}{result.struggled && <> · {t('logger.struggledShort')}</>}</span></> : t('workouts.skipped')}
@@ -128,16 +140,15 @@ function ExerciseRow({ e, i, ex, result }: { e: SessionExercise; i: number; ex?:
   );
 }
 
-function InfoLink({ id, name }: { id: string; name: string }) {
+/** Warm-up, the exercise list (each with Swap), cool-down and any cardio; once it's done, what was logged.
+ *  Shared by the desktop panel and the day page. A rest day with cardio shows the cardio session. */
+function SessionBody({ s, exMap, injuries, twoCols, onChanged }: { s: Workout; exMap: Map<string, Exercise>; injuries?: Injury[]; twoCols?: boolean; onChanged?: (newId?: string) => void }) {
   const { t } = useI18n();
-  return <Link to={`/exercises/${id}`} aria-label={t('workouts.howTo', { name })} className="grid h-tap w-tap shrink-0 place-items-center rounded-full text-neutral-700 hover:bg-neutral-300 hover:text-ink"><Icon as={Info} size={18} /></Link>;
-}
-
-/** The exercise list plus, once it's done, what was logged. Shared by the desktop panel and the day page. */
-function SessionBody({ s, exMap, injuries, twoCols }: { s: Workout; exMap: Map<string, Exercise>; injuries?: Injury[]; twoCols?: boolean }) {
-  const { t } = useI18n();
+  const [swapping, setSwapping] = useState<SessionExercise>();
+  if (s.kind === 'cardio' && s.cardio) return <CardioCard w={s} c={s.cardio} exMap={exMap} />;
   if (!s.exercises.length) return <p className="m-0 text-neutral-800">{t('workouts.detailsSoon')}</p>;
   const log = s.status === 'done' ? s.log : undefined;
+  const canSwap = s.status === 'today' || s.status === 'planned';
   return (
     <>
       {log && (
@@ -153,15 +164,21 @@ function SessionBody({ s, exMap, injuries, twoCols }: { s: Workout; exMap: Map<s
           </div>
         </Card>
       )}
+      {!log && <WarmupSection w={s} exMap={exMap} />}
       <ol className={cn('m-0 grid list-none gap-2.5 p-0', twoCols ? 'grid-cols-2' : 'lg:grid-cols-2')}>
-        {s.exercises.map((e, i) => <ExerciseRow key={e.exerciseId} e={e} i={i} ex={exMap.get(e.exerciseId)} result={log ? log.results[e.exerciseId] ?? null : undefined} />)}
+        {s.exercises.map((e, i) => <ExerciseRow key={e.exerciseId} e={e} i={i} ex={exMap.get(e.exerciseId)} result={log ? log.results[e.exerciseId] ?? null : undefined}
+          onSwap={canSwap ? () => setSwapping(e) : undefined} />)}
       </ol>
       <p className="m-0 text-[12.5px] text-neutral-700">{t('workouts.rpeHelp')}</p>
+      <CooldownSection w={s} exMap={exMap} />
+      {s.cardio && <CardioCard w={s} c={s.cardio} exMap={exMap} />}
+      {swapping && <SwapSheet w={s} e={swapping} exMap={exMap} injuries={injuries ?? []} onClose={() => setSwapping(undefined)}
+        onSwapped={(id) => { setSwapping(undefined); onChanged?.(id); }} />}
     </>
   );
 }
 
-function SessionPanel({ s, exMap }: { s: Workout; exMap: Map<string, Exercise> }) {
+function SessionPanel({ s, exMap, onChanged }: { s: Workout; exMap: Map<string, Exercise>; onChanged: () => void }) {
   const { t, l } = useI18n();
   return (
     <Card className="p-6">
@@ -172,7 +189,7 @@ function SessionPanel({ s, exMap }: { s: Workout; exMap: Map<string, Exercise> }
           {s.status === 'today' && s.exercises.length > 0 && <LinkButton to={`/workouts/${s.id}/log`}>{t('workouts.start')}</LinkButton>}
         </div>
       </div>
-      <SessionBody s={s} exMap={exMap} twoCols />
+      <SessionBody s={s} exMap={exMap} twoCols onChanged={onChanged} />
     </Card>
   );
 }
@@ -184,6 +201,7 @@ export function Session() {
   const { t, l, date } = useI18n();
   const q = useQuery(() => Promise.all([api.getWorkout(id), api.getWorkoutWeek(), api.getInjuries()]), [id]);
   const exMap = useExerciseMap();
+  const nav = useNavigate();
   const s = q.data?.[0];
   return (
     <AppShell back title={s ? l(s.name) : t('nav.workouts')} sub={s ? `${t(`enums.weekday.${s.day}`)} ${date(s.date)} · ${t('workouts.about', { min: s.estMinutes })}` : undefined}>
@@ -191,14 +209,16 @@ export function Session() {
         {([s, week, injuries]) => (
           <>
             <DayNav s={s} week={week} />
-            <div className="flex flex-wrap gap-2">
-              <span className="rounded-pill bg-neutral-100 px-3 py-1 text-xs">{t('workouts.nExercises', { n: s.exercises.length })}</span>
-              <span className="rounded-pill bg-neutral-100 px-3 py-1 text-xs">{t('workouts.nSets', { n: s.exercises.reduce((a, e) => a + e.sets, 0) })}</span>
-              <span className="rounded-pill bg-neutral-100 px-3 py-1 text-xs">{t('workouts.warmup', { n: s.warmupMinutes })}</span>
-            </div>
-            <SessionBody s={s} exMap={exMap} injuries={injuries} />
+            {s.kind === 'strength' && (
+              <div className="flex flex-wrap gap-2">
+                <span className="rounded-pill bg-neutral-100 px-3 py-1 text-xs">{t('workouts.nExercises', { n: s.exercises.length })}</span>
+                <span className="rounded-pill bg-neutral-100 px-3 py-1 text-xs">{t('workouts.nSets', { n: s.exercises.reduce((a, e) => a + e.sets, 0) })}</span>
+                <span className="rounded-pill bg-neutral-100 px-3 py-1 text-xs">{t('workouts.warmup', { n: s.warmupMinutes })}</span>
+              </div>
+            )}
+            <SessionBody s={s} exMap={exMap} injuries={injuries} onChanged={(newId) => (newId && newId !== s.id ? nav(`/workouts/${newId}`, { replace: true }) : q.reload())} />
             {s.status === 'today' && s.exercises.length > 0 && <LinkButton to={`/workouts/${s.id}/log`} size="lg" block className="lg:w-auto lg:self-start">{t('workouts.start')}</LinkButton>}
-            {s.status === 'planned' && <p className="m-0 text-[13px] text-neutral-800">{t('workouts.startOnDay', { day: t(`enums.weekday.${s.day}`) })}</p>}
+            {s.status === 'planned' && s.kind === 'strength' && <p className="m-0 text-[13px] text-neutral-800">{t('workouts.startOnDay', { day: t(`enums.weekday.${s.day}`) })}</p>}
             {s.status === 'missed' && <p className="m-0 text-[13px] text-neutral-800">{t('workouts.missed')}</p>}
           </>
         )}
@@ -228,12 +248,15 @@ function DayNav({ s, week }: { s: Workout; week: WorkoutWeek }) {
 export function ExerciseDetail() {
   const { id = '' } = useParams();
   const { t, l } = useI18n();
-  const q = useQuery(() => Promise.all([api.getExercise(id), api.getPlan()]), [id]);
+  const q = useQuery(() => Promise.all([api.getExercise(id), api.getPlan(), api.getSwaps()]), [id]);
+  const toast = useToast();
+  const [undoing, setUndoing] = useState(false);
   return (
-    <AppShell back hideTabs title={q.data ? l(q.data[0].name) : ''}>
+    <AppShell back hideTabs title={q.data ? l(q.data[0].name) : ''} sub={q.data && q.data[0].type !== 'strength' ? t(`exercise.type.${q.data[0].type}`) : undefined}>
       <QueryView query={q}>
-        {([ex, plan]) => {
+        {([ex, plan, swaps]) => {
           const swap = plan.injurySwaps.find((s) => s.toExerciseId === ex.id);
+          const mine = swaps.find((s) => s.toExerciseId === ex.id);
           const marks = Object.fromEntries([...ex.muscles.primary.map((r) => [r, 'muscle']), ...ex.muscles.secondary.map((r) => [r, 'muscle2'])]) as Partial<Record<BodyRegion, RegionState>>;
           return (
             <div className="grid gap-5 lg:grid-cols-[1fr_1fr]">
@@ -246,6 +269,23 @@ export function ExerciseDetail() {
                   </a>
                 )}
                 {swap && <SwapBadge label={t('workouts.swappedFor', { area: t(`body.${swap.region}`) })} />}
+                {mine && (
+                  <Card tone="accent" className="gap-2" data-testid="my-swap">
+                    <span className="text-[13.5px]">{t('exercise.swappedIn', { name: l(mine.fromName), why: l(mine.why) })}</span>
+                    <Button variant="secondary" icon={Undo2} className="self-start" disabled={undoing} onClick={async () => {
+                      setUndoing(true);
+                      try {
+                        await api.undoSwap(mine.id);
+                        toast({ message: t('exercise.swapUndone', { name: l(mine.fromName) }), tone: 'success' });
+                        q.reload();
+                      } catch {
+                        toast({ message: t('common.saveFailed'), tone: 'error' });
+                      } finally {
+                        setUndoing(false);
+                      }
+                    }}>{t('exercise.undoSwap', { name: l(mine.fromName) })}</Button>
+                  </Card>
+                )}
                 <section><h2 className="m-0 mb-2 text-xl">{t('exercise.howTo')}</h2>
                   <ol className="m-0 flex flex-col gap-1.5 ps-5 text-[14.5px]">{ex.instructions.map((s, i) => <li key={i}>{l(s)}</li>)}</ol></section>
                 {ex.mediaSource && (
@@ -297,6 +337,7 @@ export function WorkoutLogger() {
   const [finished, setFinished] = useSessionState(`${key}finished`, false);
   const [effort, setEffort] = useSessionState<number | null>(`${key}effort`, null);
   const [editing, setEditing] = useState<string | null>(null);
+  const [swapping, setSwapping] = useState<SessionExercise>();
   const [pain, setPain] = useState<Record<string, number>>({});
   const [flags, setFlags] = useState<string[]>(['none']);
   useEffect(() => { if (finished) window.scrollTo?.(0, 0); }, [finished]);
@@ -375,13 +416,22 @@ export function WorkoutLogger() {
                 <ProgressBar value={loggedCount} max={w.exercises.length} label={t('logger.progress', { done: loggedCount, total: w.exercises.length })} />
                 <span className="whitespace-nowrap font-semibold">{t('logger.progress', { done: loggedCount, total: w.exercises.length })}</span>
               </div>
+              <WarmupSection w={w} exMap={exMap} />
               <ol className="m-0 flex list-none flex-col gap-3 p-0">
                 {w.exercises.map((e) => (
                   <LogCard key={e.exerciseId} e={e} ex={exMap.get(e.exerciseId)} result={results[e.exerciseId]} editing={editing === e.exerciseId}
                     onEdit={() => setEditing(e.exerciseId)} onCancel={() => setEditing(null)}
-                    onLog={(r) => { log(e.exerciseId, r); setEditing(null); }} />
+                    onLog={(r) => { log(e.exerciseId, r); setEditing(null); }}
+                    onSwap={results[e.exerciseId] ? undefined : () => setSwapping(e)} />
                 ))}
               </ol>
+              <CooldownSection w={w} exMap={exMap} />
+              {w.cardio && <CardioCard w={w} c={w.cardio} exMap={exMap} />}
+              {swapping && <SwapSheet w={w} e={swapping} exMap={exMap} injuries={injuries} onClose={() => setSwapping(undefined)} onSwapped={(newId) => {
+                setSwapping(undefined);
+                if (newId && newId !== w.id) { moveSessionState(`rafeqi.logger.${w.id}.`, `rafeqi.logger.${newId}.`); nav(`/workouts/${newId}/log`, { replace: true }); }
+                else q.reload();
+              }} />}
               <p className="m-0 text-[12.5px] text-neutral-700">{t('logger.finishHint')}</p>
               <div className="flex gap-2.5">
                 <Button variant="danger" size="lg" icon={Zap} onClick={() => setFinished(true)}>{t('logger.pain')}</Button>
@@ -401,12 +451,13 @@ export function WorkoutLogger() {
   );
 }
 
-function LogCard({ e, ex, result, editing, onEdit, onCancel, onLog }: {
+function LogCard({ e, ex, result, editing, onEdit, onCancel, onLog, onSwap }: {
   e: SessionExercise; ex?: Exercise; result?: ExerciseResult; editing: boolean;
-  onEdit: () => void; onCancel: () => void; onLog: (r: ExerciseResult | null) => void;
+  onEdit: () => void; onCancel: () => void; onLog: (r: ExerciseResult | null) => void; onSwap?: () => void;
 }) {
   const { t, l } = useI18n();
   const fmt = useFormat();
+  const swapLabel = useSwapLabel();
   const name = l(ex?.name);
   return (
     <li data-testid="log-card" className={cn('flex flex-col gap-3 rounded-card p-4', result && !editing ? 'bg-sage-100' : 'bg-surface')}>
@@ -421,6 +472,12 @@ function LogCard({ e, ex, result, editing, onEdit, onCancel, onLog }: {
         </Link>
         <InfoLink id={e.exerciseId} name={name} />
       </div>
+      {(e.swap || onSwap) && (
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          {e.swap ? <SwapBadge label={swapLabel(e.swap)} /> : <span />}
+          {onSwap && <Button variant="ghost" size="sm" icon={Repeat} aria-label={`${t('swap.button')}: ${name}`} onClick={onSwap}>{t('swap.button')}</Button>}
+        </div>
+      )}
       {editing ? (
         <ResultEditor initial={result ?? asPlanned(e)} name={name} onSave={onLog} onCancel={onCancel} />
       ) : result ? (
@@ -482,6 +539,16 @@ function useSessionState<T>(key: string, initial: T) {
   });
   useEffect(() => { try { sessionStorage.setItem(key, JSON.stringify(value)); } catch { /* not persisted */ } }, [key, value]);
   return [value, setValue] as const;
+}
+
+/** Keeps what was logged when a "from now on" swap gives the session a new id. */
+function moveSessionState(from: string, to: string) {
+  try {
+    Object.keys(sessionStorage).filter((k) => k.startsWith(from)).forEach((k) => {
+      sessionStorage.setItem(to + k.slice(from.length), sessionStorage.getItem(k) ?? '');
+      sessionStorage.removeItem(k);
+    });
+  } catch { /* nothing to keep */ }
 }
 
 function clearSessionState(prefix: string) {

@@ -2,9 +2,11 @@
 #     npm run db:seed
 # Tags (movement_pattern, joints_loaded, range_of_motion, equipment) must be ids from data/vocab/movements.yaml;
 # loading stops with an error naming the exercise and the bad tag otherwise.
+# type: strength (the program), cardio, mobility (warm-up moves) or stretch (cool-down). Every type gets the same how-to page.
 # Photos: Free Exercise DB (github.com/yuhonas/free-exercise-db), Unlicense / public domain.
 exercises:
 - id: ex_db_floor_press
+  type: strength
   name:
     en: Neutral-grip dumbbell floor press
     ar: ضغط دمبل من الأرض بقبضة محايدة
@@ -67,6 +69,7 @@ exercises:
     kind: injuryFriendly
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_cs_row
+  type: strength
   name:
     en: Chest-supported dumbbell row
     ar: تجديف دمبل بسند للصدر
@@ -130,6 +133,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_landmine_press
+  type: strength
   name:
     en: Half-kneeling landmine press
     ar: ضغط لاندماين على ركبة واحدة
@@ -207,6 +211,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_lat_pulldown
+  type: strength
   name:
     en: Neutral-grip lat pulldown
     ar: سحب علوي بقبضة محايدة
@@ -269,6 +274,7 @@ exercises:
     kind: injuryFriendly
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_face_pull
+  type: strength
   name:
     en: Cable face pull
     ar: سحب للوجه بالكابل
@@ -330,6 +336,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_pushdown
+  type: strength
   name:
     en: Cable triceps pushdown
     ar: ترايسبس بالكابل
@@ -390,6 +397,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_incline_curl
+  type: strength
   name:
     en: Incline dumbbell curl
     ar: بايسبس دمبل على بنش مائل
@@ -451,6 +459,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_goblet_squat
+  type: strength
   name:
     en: Goblet squat
     ar: سكوات جوبلت
@@ -512,6 +521,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_db_rdl
+  type: strength
   name:
     en: Dumbbell Romanian deadlift
     ar: رفعة رومانية بالدمبل
@@ -574,6 +584,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_leg_press
+  type: strength
   name:
     en: Leg press
     ar: ليج برس
@@ -633,6 +644,7 @@ exercises:
     kind: equipment
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_seated_leg_curl
+  type: strength
   name:
     en: Seated leg curl
     ar: ثني رجل وأنت قاعد
@@ -691,6 +703,7 @@ exercises:
     kind: equipment
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_calf_raise
+  type: strength
   name:
     en: Standing calf raise
     ar: سمانة واقف
@@ -747,6 +760,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_split_squat
+  type: strength
   name:
     en: Dumbbell split squat
     ar: سبليت سكوات بالدمبل
@@ -806,6 +820,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_leg_extension
+  type: strength
   name:
     en: Leg extension
     ar: ليج إكستنشن
@@ -862,6 +877,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_db_bench_press
+  type: strength
   name:
     en: Dumbbell bench press
     ar: بنش بريس بالدمبل
@@ -927,6 +943,7 @@ exercises:
     kind: injuryFriendly
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_db_shoulder_press
+  type: strength
   name:
     en: Seated dumbbell shoulder press
     ar: ضغط كتف بالدمبل وأنت قاعد
@@ -985,6 +1002,7 @@ exercises:
     kind: injuryFriendly
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_lateral_raise
+  type: strength
   name:
     en: Dumbbell lateral raise
     ar: رفرفة جانبي بالدمبل
@@ -1039,6 +1057,7 @@ exercises:
     kind: equipment
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_push_up
+  type: strength
   name:
     en: Push-up
     ar: ضغط
@@ -1098,6 +1117,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_bb_squat
+  type: strength
   name:
     en: Barbell back squat
     ar: سكوات بالبار
@@ -1165,6 +1185,7 @@ exercises:
     kind: injuryFriendly
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_bb_bench_press
+  type: strength
   name:
     en: Barbell bench press
     ar: بنش بريس بالبار
@@ -1224,6 +1245,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_bb_deadlift
+  type: strength
   name:
     en: Barbell deadlift
     ar: ديدليفت بالبار
@@ -1288,6 +1310,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_bw_squat
+  type: strength
   name:
     en: Bodyweight squat
     ar: سكوات بوزن الجسم
@@ -1345,6 +1368,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_inverted_row
+  type: strength
   name:
     en: Inverted row
     ar: تجديف معكوس
@@ -1403,6 +1427,7 @@ exercises:
     kind: equipment
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_one_arm_db_row
+  type: strength
   name:
     en: One-arm dumbbell row
     ar: تجديف دمبل بإيد واحدة
@@ -1461,6 +1486,7 @@ exercises:
     kind: equipment
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_pull_up
+  type: strength
   name:
     en: Pull-up
     ar: عقلة
@@ -1519,6 +1545,7 @@ exercises:
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_ohp
+  type: strength
   name:
     en: Standing barbell overhead press
     ar: ضغط كتف بالبار واقف
@@ -1579,3 +1606,1505 @@ exercises:
       ar: ضغط كتف بالدمبل وأنت قاعد
     kind: easier
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+- id: ex_brisk_walk
+  type: cardio
+  name:
+    en: Brisk walk
+    ar: مشي سريع
+  description:
+    en: Walking fast enough to breathe harder but still talk. Easy on the joints; outdoors or on a treadmill.
+    ar: مشي سريع لدرجة إن نفسك يعلى بس لسه تقدر تتكلم. خفيف على المفاصل؛ في الشارع أو على المشاية.
+  movement_pattern: walking
+  joints_loaded:
+  - hip
+  - knee
+  - ankle
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles:
+  - shinL
+  - shinR
+  muscle_names:
+    en: Legs · heart and lungs
+    ar: الرجلين · القلب والرئة
+  instructions:
+  - en: Stand tall and look ahead, not down.
+    ar: اقف مفرود وبص قدامك مش في الأرض.
+  - en: Walk with quick, natural steps, swinging your arms.
+    ar: امشي بخطوات سريعة وطبيعية ودراعك بيتحرك معاك.
+  - en: Keep a pace where you can talk but not sing.
+    ar: خلّي سرعتك بحيث تقدر تتكلم بس ماتقدرش تغني.
+  cues:
+  - en: Arms bent and swinging
+    ar: الدراع مثني وبيتحرك
+  - en: Land on the heel, roll to the toes
+    ar: انزل على الكعب وكمّل على الصوابع
+  - en: Breathe steadily
+    ar: نفسك منتظم
+  mistakes:
+  - en: Strolling too slowly to raise your breathing
+    ar: المشي ببطء أوي لدرجة إن نفسك مايعلاش
+  - en: Looking down at your phone
+    ar: تبص في الموبايل وأنت ماشي
+  image_url: /exercises/Walking_Treadmill/0.jpg
+  image_frames:
+  - /exercises/Walking_Treadmill/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Brisk+walk+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Walking_Treadmill
+    license: Unlicense (public domain)
+    note:
+      en: 'Closest match: treadmill walking'
+      ar: 'أقرب صورة: المشي على المشاية'
+  alternatives:
+  - exercise_id: ex_march_in_place
+    name:
+      en: Marching in place
+      ar: مشي في المكان
+    kind: equipment
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_incline_walk
+  type: cardio
+  name:
+    en: Incline treadmill walk
+    ar: مشي على المشاية بميل
+  description:
+    en: Walking on a treadmill set to a slope. Harder for the heart than flat walking, with no running impact.
+    ar: مشي على المشاية وهي مايلة. أصعب على القلب من المشي العادي ومن غير خبط الجري.
+  movement_pattern: walking
+  joints_loaded:
+  - hip
+  - knee
+  - ankle
+  range_of_motion: partial
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles:
+  - hipL
+  - hipR
+  - shinL
+  - shinR
+  muscle_names:
+    en: Legs · glutes · heart and lungs
+    ar: الرجلين · المؤخرة · القلب والرئة
+  instructions:
+  - en: Start the belt slowly, then raise the slope to 5–10%.
+    ar: شغّل السير ببطء وبعدين ارفع الميل لـ 5 لـ 10%.
+  - en: Walk at a pace where you can still talk.
+    ar: امشي بسرعة تقدر تتكلم فيها.
+  - en: Lower the slope for the last 2 minutes to cool down.
+    ar: نزّل الميل آخر دقيقتين عشان تهدى.
+  cues:
+  - en: Let go of the handrails
+    ar: سيب الماسكات
+  - en: Stand tall
+    ar: اقف مفرود
+  - en: Short, steady steps
+    ar: خطوات قصيرة ومنتظمة
+  mistakes:
+  - en: Holding the rails and leaning back
+    ar: تمسك الماسكات وتميل لورا
+  - en: A slope so steep you can't talk
+    ar: ميل عالي أوي لدرجة إنك ماتقدرش تتكلم
+  image_url: /exercises/Walking_Treadmill/0.jpg
+  image_frames:
+  - /exercises/Walking_Treadmill/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Incline+treadmill+walk+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Walking_Treadmill
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_brisk_walk
+    name:
+      en: Brisk walk outdoors
+      ar: مشي سريع برّه
+    kind: equipment
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_bike
+  type: cardio
+  name:
+    en: Stationary bike
+    ar: عجلة ثابتة
+  description:
+    en: Steady pedalling on a gym bike. No impact on the knees or ankles, so it suits sore joints.
+    ar: بدّال منتظم على عجلة الجيم. مفيش خبط على الركبة أو الكاحل، فمناسبة للمفاصل اللي بتوجع.
+  movement_pattern: cycling
+  joints_loaded:
+  - knee
+  - hip
+  range_of_motion: partial
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles:
+  - hipL
+  - hipR
+  muscle_names:
+    en: Thighs · heart and lungs
+    ar: الفخد · القلب والرئة
+  instructions:
+  - en: Set the seat so your knee is slightly bent at the bottom.
+    ar: ظبّط الكرسي بحيث ركبتك تكون مثنية شوية تحت.
+  - en: Pedal at an easy, steady pace.
+    ar: بدّل بسرعة سهلة ومنتظمة.
+  - en: Add a little resistance if it feels too easy to breathe harder.
+    ar: زوّد المقاومة شوية لو حاسس إنه سهل أوي.
+  cues:
+  - en: Knees in line with the feet
+    ar: الركبة على خط الرجل
+  - en: Relaxed shoulders
+    ar: كتفك مرتاح
+  - en: Smooth circles
+    ar: دوائر ناعمة
+  mistakes:
+  - en: Seat too low, knees bending a lot
+    ar: الكرسي واطي أوي والركبة بتتني كتير
+  - en: Bouncing on the seat
+    ar: تتنطط على الكرسي
+  image_url: /exercises/Bicycling_Stationary/0.jpg
+  image_frames:
+  - /exercises/Bicycling_Stationary/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Stationary+bike+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Bicycling_Stationary
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_brisk_walk
+    name:
+      en: Brisk walk
+      ar: مشي سريع
+    kind: equipment
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_jump_rope
+  type: cardio
+  name:
+    en: Jump rope
+    ar: نط الحبل
+  description:
+    en: Small, quick jumps over a rope. A lot of cardio in a small space at home; hard on the ankles and knees.
+    ar: نطات صغيرة وسريعة على الحبل. كارديو كتير في مساحة صغيرة في البيت؛ تقيل على الكاحل والركبة.
+  movement_pattern: jump
+  joints_loaded:
+  - ankle
+  - knee
+  range_of_motion: partial
+  equipment:
+  - jumpRope
+  difficulty: intermediate
+  primary_muscles:
+  - shinL
+  - shinR
+  secondary_muscles:
+  - thighL
+  - thighR
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Calves · shoulders · heart and lungs
+    ar: السمانة · الكتف · القلب والرئة
+  instructions:
+  - en: Hold the handles at hip height, rope behind you.
+    ar: امسك الإيدين عند وسطك والحبل وراك.
+  - en: Turn the rope with your wrists and hop just high enough to clear it.
+    ar: لف الحبل برسغك واتنطط على قد ما الحبل يعدي.
+  - en: Rest 30 seconds whenever you need to.
+    ar: ارتاح 30 ثانية كل ما تحتاج.
+  cues:
+  - en: Land softly on the balls of your feet
+    ar: انزل بنعومة على مقدمة رجلك
+  - en: Elbows close to your body
+    ar: الكوع جنب جسمك
+  - en: Tiny jumps
+    ar: نطات صغيرة
+  mistakes:
+  - en: Jumping too high
+    ar: النط عالي أوي
+  - en: Turning the rope with the whole arm
+    ar: تلف الحبل بدراعك كله
+  image_url: /exercises/Rope_Jumping/0.jpg
+  image_frames:
+  - /exercises/Rope_Jumping/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Jump+rope+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Rope_Jumping
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_march_in_place
+    name:
+      en: Marching in place
+      ar: مشي في المكان
+    kind: easier
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_march_in_place
+  type: cardio
+  name:
+    en: Marching in place
+    ar: مشي في المكان
+  description:
+    en: Lifting your knees in turn without moving forward. Needs no space or equipment; good for warming up at home.
+    ar: رفع الركبة بالتبادل من غير ما تتحرك. مش محتاج مساحة ولا أدوات؛ كويس للتسخين في البيت.
+  movement_pattern: walking
+  joints_loaded:
+  - hip
+  - knee
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles:
+  - hipL
+  - hipR
+  muscle_names:
+    en: Thighs · hips · heart and lungs
+    ar: الفخد · الحوض · القلب والرئة
+  instructions:
+  - en: Stand tall with feet hip-width apart.
+    ar: اقف مفرود ورجليك بعرض الحوض.
+  - en: Lift one knee to hip height, then the other, swinging your arms.
+    ar: ارفع ركبة لحد الحوض وبعدين التانية ودراعك بيتحرك.
+  - en: Keep a quick, steady rhythm.
+    ar: حافظ على إيقاع سريع ومنتظم.
+  cues:
+  - en: Tall posture
+    ar: جسمك مفرود
+  - en: Opposite arm and leg
+    ar: الدراع عكس الرجل
+  - en: Soft landings
+    ar: انزل بنعومة
+  mistakes:
+  - en: Leaning back
+    ar: تميل لورا
+  - en: Stamping hard on the floor
+    ar: تخبط جامد في الأرض
+  image_url: /exercises/Walking_Treadmill/0.jpg
+  image_frames:
+  - /exercises/Walking_Treadmill/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Marching+in+place+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Walking_Treadmill
+    license: Unlicense (public domain)
+    note:
+      en: 'Closest match: walking'
+      ar: 'أقرب صورة: المشي'
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_elliptical
+  type: cardio
+  name:
+    en: Elliptical trainer
+    ar: جهاز الإليبتكال
+  description:
+    en: A gym machine that moves like running without the landing. Low impact, works arms and legs.
+    ar: جهاز في الجيم حركته زي الجري من غير الخبط. خفيف على المفاصل وبيشغّل الدراع والرجل.
+  movement_pattern: walking
+  joints_loaded:
+  - hip
+  - knee
+  range_of_motion: partial
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles:
+  - hipL
+  - hipR
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Legs · arms · heart and lungs
+    ar: الرجلين · الدراع · القلب والرئة
+  instructions:
+  - en: Step on and hold the moving handles.
+    ar: اطلع وامسك الإيدين اللي بتتحرك.
+  - en: Push and pull smoothly with arms and legs together.
+    ar: ادفع واسحب بنعومة بدراعك ورجلك مع بعض.
+  - en: Keep an easy pace where you can still talk.
+    ar: خلّي السرعة سهلة تقدر تتكلم فيها.
+  cues:
+  - en: Whole foot on the pedal
+    ar: رجلك كلها على الدواسة
+  - en: Stand tall
+    ar: اقف مفرود
+  - en: Steady rhythm
+    ar: إيقاع منتظم
+  mistakes:
+  - en: Leaning on the machine
+    ar: تسند على الجهاز
+  - en: Going so fast you lose control
+    ar: تسرع أوي لدرجة إنك ماتتحكمش
+  image_url: /exercises/Elliptical_Trainer/0.jpg
+  image_frames:
+  - /exercises/Elliptical_Trainer/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Elliptical+trainer+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Elliptical_Trainer
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_bike
+    name:
+      en: Stationary bike
+      ar: عجلة ثابتة
+    kind: equipment
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_arm_circles
+  type: mobility
+  name:
+    en: Arm circles
+    ar: دوائر بالدراع
+  description:
+    en: Circling the straight arms forwards and backwards to warm up the shoulders.
+    ar: لف الدراعين وهما مفرودين لقدام ولورا عشان تسخّن الكتف.
+  movement_pattern: mobility
+  joints_loaded:
+  - shoulder
+  range_of_motion: overhead
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles:
+  - upperBack
+  muscle_names:
+    en: Shoulders
+    ar: الكتف
+  instructions:
+  - en: Stand with arms straight out to the sides.
+    ar: اقف ودراعك مفرود على الجنبين.
+  - en: Make small circles forwards, slowly getting bigger.
+    ar: اعمل دوائر صغيرة لقدام وكبّرها بالراحة.
+  - en: Repeat backwards.
+    ar: كرّر لورا.
+  cues:
+  - en: Arms straight
+    ar: الدراع مفرود
+  - en: Shoulders down, away from the ears
+    ar: الكتف لتحت بعيد عن ودنك
+  - en: Smooth, controlled circles
+    ar: دوائر ناعمة ومتحكم فيها
+  mistakes:
+  - en: Shrugging the shoulders
+    ar: رفع الكتف لفوق
+  - en: Swinging wildly
+    ar: اللف بعنف
+  image_url: /exercises/Arm_Circles/0.jpg
+  image_frames:
+  - /exercises/Arm_Circles/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Arm+circles+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Arm_Circles
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_band_pull_apart
+  type: mobility
+  name:
+    en: Band pull-apart
+    ar: فتح الأستك
+  description:
+    en: Pulling a light band apart in front of your chest. Wakes up the upper back before pressing and pulling.
+    ar: فتح أستك خفيف قدام صدرك. بيصحّي ضهرك من فوق قبل تمارين الدفع والسحب.
+  movement_pattern: horizontalPull
+  joints_loaded:
+  - shoulder
+  range_of_motion: partial
+  equipment:
+  - bands
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Upper back · rear shoulders
+    ar: أعلى الضهر · خلفية الكتف
+  instructions:
+  - en: Hold a light band at chest height, arms straight.
+    ar: امسك أستك خفيف عند صدرك ودراعك مفرود.
+  - en: Pull the band apart until it touches your chest.
+    ar: افتح الأستك لحد ما يلمس صدرك.
+  - en: Return slowly.
+    ar: ارجع بالراحة.
+  cues:
+  - en: Squeeze the shoulder blades
+    ar: اضغط لوحي الكتف على بعض
+  - en: Arms nearly straight
+    ar: الدراع شبه مفرود
+  - en: Ribs down
+    ar: الضلوع لتحت
+  mistakes:
+  - en: Arching the lower back
+    ar: تقوّس أسفل ضهرك
+  - en: Using a band that's too strong
+    ar: أستك تقيل أوي
+  image_url: /exercises/Band_Pull_Apart/0.jpg
+  image_frames:
+  - /exercises/Band_Pull_Apart/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Band+pull-apart+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Band_Pull_Apart
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_arm_circles
+    name:
+      en: Arm circles
+      ar: دوائر بالدراع
+    kind: equipment
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_cat_cow
+  type: mobility
+  name:
+    en: Cat–cow
+    ar: حركة القطة والبقرة
+  description:
+    en: On hands and knees, rounding then arching the back to loosen the spine.
+    ar: على إيديك وركبك، تقوّس ضهرك لفوق وبعدين لتحت عشان تليّن العمود الفقري.
+  movement_pattern: mobility
+  joints_loaded:
+  - spine
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - lowerBack
+  - upperBack
+  secondary_muscles:
+  - abdomen
+  muscle_names:
+    en: Back
+    ar: الضهر
+  instructions:
+  - en: Kneel on all fours, hands under shoulders.
+    ar: انزل على إيديك وركبك، إيديك تحت كتفك.
+  - en: Round your back up and tuck your chin.
+    ar: قوّس ضهرك لفوق ودخّل دقنك.
+  - en: Then let your belly drop and look slightly up.
+    ar: وبعدين نزّل بطنك وبص لفوق شوية.
+  cues:
+  - en: Move slowly with your breath
+    ar: اتحرك ببطء مع نفسك
+  - en: Move one vertebra at a time
+    ar: حرّك ضهرك فقرة فقرة
+  - en: Arms straight
+    ar: الدراع مفرود
+  mistakes:
+  - en: Rushing the movement
+    ar: تستعجل الحركة
+  - en: Forcing a painful range
+    ar: تجبر نفسك على مدى بيوجع
+  image_url: /exercises/Cat_Stretch/0.jpg
+  image_frames:
+  - /exercises/Cat_Stretch/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Cat–cow+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Cat_Stretch
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_leg_swings
+  type: mobility
+  name:
+    en: Leg swings
+    ar: مرجحة الرجل
+  description:
+    en: Swinging one leg forwards and back while holding a wall, to loosen the hips before leg work.
+    ar: مرجحة رجل لقدام ولورا وأنت ماسك الحيطة، عشان تليّن الحوض قبل تمارين الرجل.
+  movement_pattern: mobility
+  joints_loaded:
+  - hip
+  range_of_motion: full
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - hipL
+  - hipR
+  secondary_muscles:
+  - thighL
+  - thighR
+  muscle_names:
+    en: Hips · hamstrings
+    ar: الحوض · خلفية الفخد
+  instructions:
+  - en: Stand side-on to a wall, one hand on it.
+    ar: اقف جنب الحيطة وإيدك عليها.
+  - en: Swing the outside leg forwards and back, gradually higher.
+    ar: مرجح الرجل البعيدة لقدام ولورا وعلّي بالتدريج.
+  - en: Switch sides.
+    ar: بدّل الناحية.
+  cues:
+  - en: Stand tall
+    ar: اقف مفرود
+  - en: Relaxed swing, no kicking
+    ar: مرجحة مريحة من غير شوط
+  - en: Keep the hips square
+    ar: الحوض مستقيم
+  mistakes:
+  - en: Swinging so hard the back rounds
+    ar: تمرجح جامد لدرجة إن ضهرك يتقوس
+  - en: Bending the standing knee a lot
+    ar: تثني الركبة الواقفة كتير
+  image_url: /exercises/Front_Leg_Raises/0.jpg
+  image_frames:
+  - /exercises/Front_Leg_Raises/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Leg+swings+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Front_Leg_Raises
+    license: Unlicense (public domain)
+    note:
+      en: 'Closest match: front leg raises'
+      ar: 'أقرب صورة: رفع الرجل لقدام'
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_hip_circles
+  type: mobility
+  name:
+    en: Hip circles
+    ar: دوائر بالحوض
+  description:
+    en: Circling the hips with hands on your waist to loosen the hips and lower back.
+    ar: لف الحوض وإيدك على وسطك عشان تليّن الحوض وأسفل الضهر.
+  movement_pattern: mobility
+  joints_loaded:
+  - hip
+  - spine
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - hipL
+  - hipR
+  secondary_muscles:
+  - lowerBack
+  muscle_names:
+    en: Hips · lower back
+    ar: الحوض · أسفل الضهر
+  instructions:
+  - en: Stand with feet shoulder-width apart, hands on hips.
+    ar: اقف ورجليك بعرض كتفك وإيدك على وسطك.
+  - en: Draw big slow circles with your hips.
+    ar: ارسم دوائر كبيرة بطيئة بحوضك.
+  - en: Change direction halfway.
+    ar: غيّر الاتجاه في النص.
+  cues:
+  - en: Keep the head still
+    ar: راسك ثابتة
+  - en: Knees soft
+    ar: الركبة مرتاحة
+  - en: Big, slow circles
+    ar: دوائر كبيرة وبطيئة
+  mistakes:
+  - en: Moving only the shoulders
+    ar: تحرك كتفك بس
+  - en: Going too fast
+    ar: تسرع أوي
+  image_url: /exercises/Standing_Hip_Circles/0.jpg
+  image_frames:
+  - /exercises/Standing_Hip_Circles/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Hip+circles+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Standing_Hip_Circles
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_inchworm
+  type: mobility
+  name:
+    en: Inchworm
+    ar: الدودة
+  description:
+    en: From standing, walking the hands out to a plank and back. Warms up hamstrings, shoulders and core together.
+    ar: من الوقوف، تمشي بإيديك لحد وضع البلانك وترجع. بيسخّن خلفية الفخد والكتف والبطن مع بعض.
+  movement_pattern: mobility
+  joints_loaded:
+  - shoulder
+  - spine
+  - hip
+  range_of_motion: full
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  - abdomen
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Hamstrings · core · shoulders
+    ar: خلفية الفخد · البطن · الكتف
+  instructions:
+  - en: Stand, bend forward and put your hands on the floor.
+    ar: اقف واتني لقدام وحط إيدك على الأرض.
+  - en: Walk your hands out to a plank.
+    ar: امشي بإيدك لقدام لحد البلانك.
+  - en: Walk your hands back and stand up.
+    ar: ارجع بإيدك واقف تاني.
+  cues:
+  - en: Bend the knees as much as you need
+    ar: اثني ركبتك على قد ما تحتاج
+  - en: Tight belly in the plank
+    ar: شد بطنك في البلانك
+  - en: Slow and controlled
+    ar: ببطء وتحكم
+  mistakes:
+  - en: Letting the hips sag in the plank
+    ar: الحوض ينزل في البلانك
+  - en: Rushing
+    ar: الاستعجال
+  image_url: /exercises/Inchworm/0.jpg
+  image_frames:
+  - /exercises/Inchworm/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Inchworm+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Inchworm
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_walking_lunge_bw
+  type: strength
+  name:
+    en: Walking lunge (bodyweight)
+    ar: طعنات بالمشي بوزن الجسم
+  description:
+    en: Long steps forward, dropping the back knee towards the floor. Warms up hips, thighs and balance.
+    ar: خطوات طويلة لقدام وتنزل بالركبة اللي ورا ناحية الأرض. بيسخّن الحوض والفخد والتوازن.
+  movement_pattern: lunge
+  joints_loaded:
+  - knee
+  - hip
+  range_of_motion: full
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles:
+  - hipL
+  - hipR
+  muscle_names:
+    en: Thighs · glutes
+    ar: الفخد · المؤخرة
+  instructions:
+  - en: Stand tall, then take a long step forward.
+    ar: اقف مفرود وخد خطوة طويلة لقدام.
+  - en: Lower until the back knee nearly touches the floor.
+    ar: انزل لحد ما الركبة اللي ورا تقرب من الأرض.
+  - en: Push up and step into the next lunge.
+    ar: اطلع وادخل في الطعنة اللي بعدها.
+  cues:
+  - en: Front knee over the foot
+    ar: الركبة اللي قدام فوق الرجل
+  - en: Upright chest
+    ar: صدرك مفرود
+  - en: Controlled steps
+    ar: خطوات متحكم فيها
+  mistakes:
+  - en: Front knee caving in
+    ar: الركبة اللي قدام تدخل لجوه
+  - en: Steps too short
+    ar: خطوات قصيرة أوي
+  image_url: /exercises/Bodyweight_Walking_Lunge/0.jpg
+  image_frames:
+  - /exercises/Bodyweight_Walking_Lunge/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Walking+lunge+bodyweight+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Bodyweight_Walking_Lunge
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_dynamic_chest
+  type: mobility
+  name:
+    en: Dynamic chest opener
+    ar: فتح الصدر الديناميكي
+  description:
+    en: Swinging the arms open and closed across the chest to warm up the chest and shoulders before pressing.
+    ar: فتح وقفل الدراعين قدام صدرك عشان تسخّن الصدر والكتف قبل تمارين الضغط.
+  movement_pattern: mobility
+  joints_loaded:
+  - shoulder
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - chest
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Chest · shoulders
+    ar: الصدر · الكتف
+  instructions:
+  - en: Stand with arms out in front at chest height.
+    ar: اقف ودراعك قدامك عند صدرك.
+  - en: Swing the arms wide open, feeling a stretch across the chest.
+    ar: افتح دراعك على الآخر وحس بالشد في صدرك.
+  - en: Swing them back across, crossing in front.
+    ar: رجّعهم يتقاطعوا قدامك.
+  cues:
+  - en: Relaxed swing
+    ar: مرجحة مريحة
+  - en: Chest tall
+    ar: صدرك مفرود
+  - en: Breathe out as you open
+    ar: اطرد النفس وأنت بتفتح
+  mistakes:
+  - en: Forcing the arms back hard
+    ar: تشد دراعك لورا جامد
+  - en: Shrugging
+    ar: رفع الكتف
+  image_url: /exercises/Dynamic_Chest_Stretch/0.jpg
+  image_frames:
+  - /exercises/Dynamic_Chest_Stretch/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Dynamic+chest+opener+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dynamic_Chest_Stretch
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_glute_bridge
+  type: strength
+  name:
+    en: Glute bridge
+    ar: الكوبري
+  description:
+    en: Lying on your back and lifting the hips. A hip hinge that needs no equipment and is kind to the back. Trains glutes and hamstrings.
+    ar: تنام على ضهرك وترفع الحوض. حركة ثني الوسط من غير أدوات وخفيفة على الضهر. بيشتغل على المؤخرة وخلفية الفخد.
+  movement_pattern: hinge
+  joints_loaded:
+  - hip
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - hipL
+  - hipR
+  secondary_muscles:
+  - thighL
+  - thighR
+  - lowerBack
+  muscle_names:
+    en: Glutes · hamstrings
+    ar: المؤخرة · خلفية الفخد
+  instructions:
+  - en: Lie on your back, knees bent, feet flat.
+    ar: نام على ضهرك وركبتك مثنية ورجلك على الأرض.
+  - en: Push through your heels and lift your hips.
+    ar: ادفع بكعبك وارفع حوضك.
+  - en: Squeeze at the top, then lower slowly.
+    ar: اعصر فوق وبعدين انزل بالراحة.
+  cues:
+  - en: Push through the heels
+    ar: ادفع بالكعب
+  - en: Ribs down
+    ar: الضلوع لتحت
+  - en: Squeeze the glutes at the top
+    ar: اعصر المؤخرة فوق
+  mistakes:
+  - en: Arching the lower back
+    ar: تقوّس أسفل ضهرك
+  - en: Pushing through the toes
+    ar: تدفع بالصوابع
+  image_url: /exercises/Butt_Lift_Bridge/0.jpg
+  image_frames:
+  - /exercises/Butt_Lift_Bridge/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Glute+bridge+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Butt_Lift_Bridge
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_db_rdl
+    name:
+      en: Dumbbell Romanian deadlift
+      ar: رفعة رومانية بالدمبل
+    kind: equipment
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_chest_stretch
+  type: stretch
+  name:
+    en: Doorway chest stretch
+    ar: إطالة الصدر عند الباب
+  description:
+    en: Leaning gently through a doorway with the arm on the frame. Stretches the chest and front of the shoulder.
+    ar: تميل بالراحة في الباب ودراعك على الحلق. إطالة للصدر ومقدمة الكتف.
+  movement_pattern: stretch
+  joints_loaded:
+  - shoulder
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - chest
+  - shoulderL
+  - shoulderR
+  secondary_muscles: []
+  muscle_names:
+    en: Chest · front shoulders
+    ar: الصدر · مقدمة الكتف
+  instructions:
+  - en: Put your forearm on a door frame, elbow at shoulder height.
+    ar: حط ساعدك على حلق الباب والكوع عند كتفك.
+  - en: Step forward gently until you feel a stretch in the chest.
+    ar: اتقدم خطوة بالراحة لحد ما تحس بشد في صدرك.
+  - en: Hold, then switch sides.
+    ar: اثبت وبعدين بدّل الناحية.
+  cues:
+  - en: 'Ease into it: a gentle pull, never pain'
+    ar: 'ادخل فيها بالراحة: شد خفيف، مش ألم'
+  - en: Breathe slowly
+    ar: اتنفس ببطء
+  - en: Hold still, no bouncing
+    ar: اثبت، من غير هز
+  mistakes:
+  - en: Bouncing to go further
+    ar: تهز عشان توصل أبعد
+  - en: Holding your breath
+    ar: تكتم نفسك
+  image_url: /exercises/Chest_And_Front_Of_Shoulder_Stretch/0.jpg
+  image_frames:
+  - /exercises/Chest_And_Front_Of_Shoulder_Stretch/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Doorway+chest+stretch+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Chest_And_Front_Of_Shoulder_Stretch
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_lat_stretch
+  type: stretch
+  name:
+    en: Overhead lat stretch
+    ar: إطالة الضهر فوق الراس
+  description:
+    en: Reaching one arm overhead and leaning to the side. Stretches the lats along the side of the back.
+    ar: تمد دراع فوق راسك وتميل على الجنب. إطالة لعضلة الضهر الجانبية.
+  movement_pattern: stretch
+  joints_loaded:
+  - shoulder
+  - spine
+  range_of_motion: overhead
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles: []
+  muscle_names:
+    en: Lats · side of the back
+    ar: عضلة الضهر الجانبية
+  instructions:
+  - en: Stand tall and reach one arm overhead.
+    ar: اقف مفرود ومد دراع فوق راسك.
+  - en: Lean gently to the other side.
+    ar: ميل بالراحة للناحية التانية.
+  - en: Hold, then switch sides.
+    ar: اثبت وبعدين بدّل.
+  cues:
+  - en: 'Ease into it: a gentle pull, never pain'
+    ar: 'ادخل فيها بالراحة: شد خفيف، مش ألم'
+  - en: Breathe slowly
+    ar: اتنفس ببطء
+  - en: Hold still, no bouncing
+    ar: اثبت، من غير هز
+  mistakes:
+  - en: Bouncing to go further
+    ar: تهز عشان توصل أبعد
+  - en: Holding your breath
+    ar: تكتم نفسك
+  image_url: /exercises/Overhead_Lat/0.jpg
+  image_frames:
+  - /exercises/Overhead_Lat/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Overhead+lat+stretch+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Overhead_Lat
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_triceps_stretch
+  type: stretch
+  name:
+    en: Overhead triceps stretch
+    ar: إطالة الترايسبس فوق الراس
+  description:
+    en: Bending one arm behind the head and easing the elbow down with the other hand.
+    ar: تثني دراع ورا راسك وتنزّل الكوع بالراحة بإيدك التانية.
+  movement_pattern: stretch
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: overhead
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles: []
+  muscle_names:
+    en: Triceps
+    ar: الترايسبس
+  instructions:
+  - en: Raise one arm and bend it so the hand reaches your upper back.
+    ar: ارفع دراع واثنيه لحد ما إيدك توصل لضهرك من فوق.
+  - en: With the other hand, ease the elbow down and back.
+    ar: بإيدك التانية نزّل الكوع لتحت ولورا بالراحة.
+  - en: Hold, then switch.
+    ar: اثبت وبعدين بدّل.
+  cues:
+  - en: 'Ease into it: a gentle pull, never pain'
+    ar: 'ادخل فيها بالراحة: شد خفيف، مش ألم'
+  - en: Breathe slowly
+    ar: اتنفس ببطء
+  - en: Hold still, no bouncing
+    ar: اثبت، من غير هز
+  mistakes:
+  - en: Bouncing to go further
+    ar: تهز عشان توصل أبعد
+  - en: Holding your breath
+    ar: تكتم نفسك
+  image_url: /exercises/Overhead_Triceps/0.jpg
+  image_frames:
+  - /exercises/Overhead_Triceps/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Overhead+triceps+stretch+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Overhead_Triceps
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_cross_shoulder_stretch
+  type: stretch
+  name:
+    en: Cross-body shoulder stretch
+    ar: إطالة الكتف عبر الصدر
+  description:
+    en: Pulling one straight arm across the chest. Stretches the back of the shoulder.
+    ar: تشد دراع مفرود عبر صدرك. إطالة لخلفية الكتف.
+  movement_pattern: stretch
+  joints_loaded:
+  - shoulder
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles: []
+  muscle_names:
+    en: Rear shoulders
+    ar: خلفية الكتف
+  instructions:
+  - en: Bring one arm straight across your chest.
+    ar: هات دراع مفرود عبر صدرك.
+  - en: Hold it above the elbow with the other hand and pull gently.
+    ar: امسكه فوق الكوع بإيدك التانية واسحب بالراحة.
+  - en: Hold, then switch.
+    ar: اثبت وبعدين بدّل.
+  cues:
+  - en: 'Ease into it: a gentle pull, never pain'
+    ar: 'ادخل فيها بالراحة: شد خفيف، مش ألم'
+  - en: Breathe slowly
+    ar: اتنفس ببطء
+  - en: Hold still, no bouncing
+    ar: اثبت، من غير هز
+  mistakes:
+  - en: Bouncing to go further
+    ar: تهز عشان توصل أبعد
+  - en: Holding your breath
+    ar: تكتم نفسك
+  image_url: /exercises/Shoulder_Stretch/0.jpg
+  image_frames:
+  - /exercises/Shoulder_Stretch/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Cross-body+shoulder+stretch+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Shoulder_Stretch
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_biceps_stretch
+  type: stretch
+  name:
+    en: Seated biceps stretch
+    ar: إطالة البايسبس وأنت قاعد
+  description:
+    en: Sitting with the hands behind you on the floor and sliding the hips forward. Stretches the biceps and front of the shoulders.
+    ar: تقعد وإيدك ورا على الأرض وتزحلق حوضك لقدام. إطالة للبايسبس ومقدمة الكتف.
+  movement_pattern: stretch
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles: []
+  muscle_names:
+    en: Biceps · front shoulders
+    ar: البايسبس · مقدمة الكتف
+  instructions:
+  - en: Sit on the floor, knees bent, hands behind you with fingers pointing back.
+    ar: اقعد على الأرض وركبتك مثنية وإيدك وراك وصوابعك لورا.
+  - en: Slowly slide your hips forward, away from your hands.
+    ar: زحلق حوضك لقدام بالراحة بعيد عن إيدك.
+  - en: Hold the gentle stretch.
+    ar: اثبت على الشد الخفيف.
+  cues:
+  - en: 'Ease into it: a gentle pull, never pain'
+    ar: 'ادخل فيها بالراحة: شد خفيف، مش ألم'
+  - en: Breathe slowly
+    ar: اتنفس ببطء
+  - en: Hold still, no bouncing
+    ar: اثبت، من غير هز
+  mistakes:
+  - en: Bouncing to go further
+    ar: تهز عشان توصل أبعد
+  - en: Holding your breath
+    ar: تكتم نفسك
+  image_url: /exercises/Seated_Biceps/0.jpg
+  image_frames:
+  - /exercises/Seated_Biceps/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Seated+biceps+stretch+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Seated_Biceps
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_upper_back_stretch
+  type: stretch
+  name:
+    en: Upper back stretch
+    ar: إطالة أعلى الضهر
+  description:
+    en: Hugging the arms forward and rounding the upper back. Releases the upper back after rows and pulldowns.
+    ar: تحضن دراعك لقدام وتقوّس أعلى ضهرك. بيريّح أعلى الضهر بعد تمارين السحب.
+  movement_pattern: stretch
+  joints_loaded:
+  - spine
+  - shoulder
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles: []
+  muscle_names:
+    en: Upper back
+    ar: أعلى الضهر
+  instructions:
+  - en: Stand and clasp your hands in front at chest height.
+    ar: اقف واشبك إيدك قدامك عند صدرك.
+  - en: Push your hands forward and round your upper back.
+    ar: ادفع إيدك لقدام وقوّس أعلى ضهرك.
+  - en: Hold and breathe into your back.
+    ar: اثبت واتنفس في ضهرك.
+  cues:
+  - en: 'Ease into it: a gentle pull, never pain'
+    ar: 'ادخل فيها بالراحة: شد خفيف، مش ألم'
+  - en: Breathe slowly
+    ar: اتنفس ببطء
+  - en: Hold still, no bouncing
+    ar: اثبت، من غير هز
+  mistakes:
+  - en: Bouncing to go further
+    ar: تهز عشان توصل أبعد
+  - en: Holding your breath
+    ar: تكتم نفسك
+  image_url: /exercises/Middle_Back_Stretch/0.jpg
+  image_frames:
+  - /exercises/Middle_Back_Stretch/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Upper+back+stretch+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Middle_Back_Stretch
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_quad_stretch
+  type: stretch
+  name:
+    en: Standing quad stretch
+    ar: إطالة الفخد الأمامية واقف
+  description:
+    en: Holding one foot behind you. Stretches the front of the thigh after squats and lunges.
+    ar: تمسك رجلك وراك. إطالة لمقدمة الفخد بعد السكوات والطعنات.
+  movement_pattern: stretch
+  joints_loaded:
+  - knee
+  range_of_motion: full
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles: []
+  muscle_names:
+    en: Front thighs
+    ar: مقدمة الفخد
+  instructions:
+  - en: Stand next to a wall for balance.
+    ar: اقف جنب الحيطة عشان التوازن.
+  - en: Bend one knee and hold the foot behind you.
+    ar: اثني ركبة وامسك رجلك وراك.
+  - en: Keep the knees together and hold, then switch.
+    ar: خلّي الركبتين جنب بعض واثبت، وبعدين بدّل.
+  cues:
+  - en: 'Ease into it: a gentle pull, never pain'
+    ar: 'ادخل فيها بالراحة: شد خفيف، مش ألم'
+  - en: Breathe slowly
+    ar: اتنفس ببطء
+  - en: Hold still, no bouncing
+    ar: اثبت، من غير هز
+  mistakes:
+  - en: Bouncing to go further
+    ar: تهز عشان توصل أبعد
+  - en: Holding your breath
+    ar: تكتم نفسك
+  image_url: /exercises/Quad_Stretch/0.jpg
+  image_frames:
+  - /exercises/Quad_Stretch/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Standing+quad+stretch+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Quad_Stretch
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_hamstring_stretch
+  type: stretch
+  name:
+    en: Hamstring stretch
+    ar: إطالة خلفية الفخد
+  description:
+    en: Reaching towards the toes of a straight leg. Stretches the back of the thigh after hinges and leg curls.
+    ar: تمد إيدك ناحية صوابع رجل مفرودة. إطالة لخلفية الفخد بعد تمارين الثني.
+  movement_pattern: stretch
+  joints_loaded:
+  - hip
+  range_of_motion: full
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles: []
+  muscle_names:
+    en: Hamstrings
+    ar: خلفية الفخد
+  instructions:
+  - en: Sit with one leg straight and the other bent in.
+    ar: اقعد ورجل مفرودة والتانية مثنية لجوه.
+  - en: Hinge forward from the hips towards the straight leg's foot.
+    ar: اتني لقدام من الحوض ناحية رجلك المفرودة.
+  - en: Hold, then switch.
+    ar: اثبت وبعدين بدّل.
+  cues:
+  - en: 'Ease into it: a gentle pull, never pain'
+    ar: 'ادخل فيها بالراحة: شد خفيف، مش ألم'
+  - en: Breathe slowly
+    ar: اتنفس ببطء
+  - en: Hold still, no bouncing
+    ar: اثبت، من غير هز
+  mistakes:
+  - en: Bouncing to go further
+    ar: تهز عشان توصل أبعد
+  - en: Holding your breath
+    ar: تكتم نفسك
+  image_url: /exercises/Hamstring_Stretch/0.jpg
+  image_frames:
+  - /exercises/Hamstring_Stretch/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Hamstring+stretch+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Hamstring_Stretch
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_hip_flexor_stretch
+  type: stretch
+  name:
+    en: Kneeling hip flexor stretch
+    ar: إطالة مقدمة الحوض على الركبة
+  description:
+    en: Kneeling on one knee and pushing the hips forward. Stretches the front of the hip, which gets tight from sitting.
+    ar: تنزل على ركبة وتدفع الحوض لقدام. إطالة لمقدمة الحوض اللي بتشد من القعدة.
+  movement_pattern: stretch
+  joints_loaded:
+  - hip
+  - knee
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - hipL
+  - hipR
+  secondary_muscles: []
+  muscle_names:
+    en: Front of the hips
+    ar: مقدمة الحوض
+  instructions:
+  - en: Kneel on one knee, the other foot in front.
+    ar: انزل على ركبة والرجل التانية قدامك.
+  - en: Squeeze the glute of the back leg and shift the hips forward.
+    ar: اعصر مؤخرة الرجل اللي ورا وحرّك الحوض لقدام.
+  - en: Hold, then switch.
+    ar: اثبت وبعدين بدّل.
+  cues:
+  - en: 'Ease into it: a gentle pull, never pain'
+    ar: 'ادخل فيها بالراحة: شد خفيف، مش ألم'
+  - en: Breathe slowly
+    ar: اتنفس ببطء
+  - en: Hold still, no bouncing
+    ar: اثبت، من غير هز
+  mistakes:
+  - en: Bouncing to go further
+    ar: تهز عشان توصل أبعد
+  - en: Holding your breath
+    ar: تكتم نفسك
+  image_url: /exercises/Kneeling_Hip_Flexor/0.jpg
+  image_frames:
+  - /exercises/Kneeling_Hip_Flexor/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Kneeling+hip+flexor+stretch+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Kneeling_Hip_Flexor
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_glute_stretch
+  type: stretch
+  name:
+    en: Seated glute stretch
+    ar: إطالة المؤخرة وأنت قاعد
+  description:
+    en: Crossing one ankle over the other knee and leaning forward. Stretches the glutes and outer hip.
+    ar: تحط كاحل على ركبة التانية وتميل لقدام. إطالة للمؤخرة وجنب الحوض.
+  movement_pattern: stretch
+  joints_loaded:
+  - hip
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - hipL
+  - hipR
+  secondary_muscles: []
+  muscle_names:
+    en: Glutes · outer hips
+    ar: المؤخرة · جنب الحوض
+  instructions:
+  - en: Sit tall on a chair or the floor.
+    ar: اقعد مفرود على كرسي أو على الأرض.
+  - en: Cross one ankle over the other knee.
+    ar: حط كاحل على ركبة التانية.
+  - en: Lean forward with a straight back; hold, then switch.
+    ar: ميل لقدام وضهرك مفرود؛ اثبت وبعدين بدّل.
+  cues:
+  - en: 'Ease into it: a gentle pull, never pain'
+    ar: 'ادخل فيها بالراحة: شد خفيف، مش ألم'
+  - en: Breathe slowly
+    ar: اتنفس ببطء
+  - en: Hold still, no bouncing
+    ar: اثبت، من غير هز
+  mistakes:
+  - en: Bouncing to go further
+    ar: تهز عشان توصل أبعد
+  - en: Holding your breath
+    ar: تكتم نفسك
+  image_url: /exercises/Seated_Glute/0.jpg
+  image_frames:
+  - /exercises/Seated_Glute/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Seated+glute+stretch+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Seated_Glute
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_calf_stretch
+  type: stretch
+  name:
+    en: Wall calf stretch
+    ar: إطالة السمانة على الحيطة
+  description:
+    en: Pushing against a wall with one leg back. Stretches the calves.
+    ar: تزق الحيطة ورجل ورا. إطالة للسمانة.
+  movement_pattern: stretch
+  joints_loaded:
+  - ankle
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - shinL
+  - shinR
+  secondary_muscles: []
+  muscle_names:
+    en: Calves
+    ar: السمانة
+  instructions:
+  - en: Put your hands on a wall, one leg stepped back.
+    ar: حط إيدك على الحيطة ورجل لورا.
+  - en: Keep the back heel down and lean in.
+    ar: خلّي الكعب اللي ورا على الأرض وميل لقدام.
+  - en: Hold, then switch.
+    ar: اثبت وبعدين بدّل.
+  cues:
+  - en: 'Ease into it: a gentle pull, never pain'
+    ar: 'ادخل فيها بالراحة: شد خفيف، مش ألم'
+  - en: Breathe slowly
+    ar: اتنفس ببطء
+  - en: Hold still, no bouncing
+    ar: اثبت، من غير هز
+  mistakes:
+  - en: Bouncing to go further
+    ar: تهز عشان توصل أبعد
+  - en: Holding your breath
+    ar: تكتم نفسك
+  image_url: /exercises/Calf_Stretch_Hands_Against_Wall/0.jpg
+  image_frames:
+  - /exercises/Calf_Stretch_Hands_Against_Wall/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Wall+calf+stretch+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Calf_Stretch_Hands_Against_Wall
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_childs_pose
+  type: stretch
+  name:
+    en: Child's pose
+    ar: وضعية الطفل
+  description:
+    en: Kneeling and sitting back on the heels with arms forward. Relaxes the lower back, hips and shoulders.
+    ar: تنزل على ركبك وتقعد على كعبك ودراعك قدامك. بيريّح أسفل الضهر والحوض والكتف.
+  movement_pattern: stretch
+  joints_loaded:
+  - spine
+  - hip
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - lowerBack
+  secondary_muscles: []
+  muscle_names:
+    en: Lower back · hips
+    ar: أسفل الضهر · الحوض
+  instructions:
+  - en: Kneel and sit back towards your heels.
+    ar: انزل على ركبك واقعد لورا ناحية كعبك.
+  - en: Reach your arms forward and rest your forehead down.
+    ar: مد دراعك لقدام وريّح جبهتك على الأرض.
+  - en: Breathe slowly into your back.
+    ar: اتنفس ببطء في ضهرك.
+  cues:
+  - en: 'Ease into it: a gentle pull, never pain'
+    ar: 'ادخل فيها بالراحة: شد خفيف، مش ألم'
+  - en: Breathe slowly
+    ar: اتنفس ببطء
+  - en: Hold still, no bouncing
+    ar: اثبت، من غير هز
+  mistakes:
+  - en: Bouncing to go further
+    ar: تهز عشان توصل أبعد
+  - en: Holding your breath
+    ar: تكتم نفسك
+  image_url: /exercises/Childs_Pose/0.jpg
+  image_frames:
+  - /exercises/Childs_Pose/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Childs+pose+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Childs_Pose
+    license: Unlicense (public domain)
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_slow_breathing
+  type: stretch
+  name:
+    en: Slow belly breathing
+    ar: تنفّس بطيء من البطن
+  description:
+    en: Slow breaths into the belly to bring the heart rate down and finish the session calm.
+    ar: نفس بطيء في البطن عشان ضربات القلب تهدى وتخلّص التمرينة وأنت هادي.
+  movement_pattern: breathing
+  joints_loaded:
+  - spine
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - abdomen
+  secondary_muscles: []
+  muscle_names:
+    en: Breathing muscles
+    ar: عضلات التنفس
+  instructions:
+  - en: Rest in child's pose or lie on your back.
+    ar: ارتاح في وضعية الطفل أو نام على ضهرك.
+  - en: Breathe in through the nose for 4 seconds, letting the belly rise.
+    ar: خد نفس من مناخيرك 4 ثواني وخلّي بطنك تطلع.
+  - en: Breathe out slowly for 6 seconds. Repeat.
+    ar: اطرد النفس ببطء 6 ثواني. كرّر.
+  cues:
+  - en: Belly rises, chest stays still
+    ar: البطن تطلع والصدر ثابت
+  - en: Out-breath longer than in-breath
+    ar: الزفير أطول من الشهيق
+  - en: Relax the jaw and shoulders
+    ar: ريّح فكّك وكتفك
+  mistakes:
+  - en: Breathing fast into the chest
+    ar: نفس سريع في الصدر
+  - en: Forcing the breath
+    ar: تجبر النفس
+  image_url: /exercises/Childs_Pose/0.jpg
+  image_frames:
+  - /exercises/Childs_Pose/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Slow+belly+breathing+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Childs_Pose
+    license: Unlicense (public domain)
+    note:
+      en: Shown in child's pose; lying on your back works too
+      ar: في الصورة وضعية الطفل؛ النوم على الضهر برضه ينفع
+  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'

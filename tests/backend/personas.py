@@ -9,7 +9,7 @@ from dataclasses import dataclass
 from app.engine.catalogue import grocery_from_catalogue
 from app.engine.grocery import GroceryLine, build_grocery_list
 from app.engine.meals import Targets, WeekMeals, plan_week
-from app.engine.nutrition import NutritionTargets, compute_targets
+from app.engine.nutrition import NutritionTargets, add_cardio_reason, compute_targets
 from app.engine.training import ProgramPlan, build_program
 from app.engine.types import Health, InjuryInfo, Person
 from engine_fixtures import exercise_catalogue, food_catalogue, recipe_infos
@@ -56,6 +56,8 @@ def run(key: str) -> PersonaPlan:
     _, p, start = PERSONAS[key]
     targets = compute_targets(p)
     program = build_program(p, exercise_catalogue())
+    if program.cardio and program.cardio.sessions:
+        add_cardio_reason(targets, p, len(program.cardio.sessions), program.cardio.sessions[0].minutes)
     meals = plan_week(start, p, Targets(targets.calories, targets.protein_g, targets.carbs_g, targets.fat_g), list(recipe_infos()))
     items, food_map = grocery_from_catalogue(food_catalogue())
     ingredients = {r.id: list(r.ingredients) for r in recipe_infos()}

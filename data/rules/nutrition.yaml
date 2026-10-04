@@ -148,3 +148,12 @@ review:
     low_adherence:
       en: "Calories stay at {calories} kcal: you followed {adherence}% of meals, so let's get closer to the plan first."
       ar: "السعرات تفضل {calories} سعرة: التزمت بـ {adherence}% من الوجبات، فخلّينا نقرّب من الخطة الأول."
+
+# Cardio and calories: the activity factor above already counts the training days and the weekly cardio, so cardio
+# calories are never added on top (that would count them twice). The plan says so in the calorie reasons.
+cardio_counted:
+  placeholder: true
+  source: "PLACEHOLDER: activity level and cardio; book + page to be added"
+  explain:
+    en: "Your {sessions} cardio sessions a week ({minutes} min each) are already counted in the activity level (× {factor}); their calories aren't added again."
+    ar: "جلسات الكارديو ({sessions} في الأسبوع، {minutes} دقيقة) محسوبة في مستوى النشاط (× {factor})؛ سعراتها مش بتتزاد تاني."

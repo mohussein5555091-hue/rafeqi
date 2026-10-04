@@ -75,3 +75,45 @@ Run the tests, show me how to try it by hand, and list anything you assumed.
 - The movement vocabulary (`data/vocab/movements.yaml`).
 - Per-exercise workout logging with exact targets (`data/rules/progression.yaml`).
 - Colour palette 1b.
+
+### Workout plan changes (requested after Phase 5; these stay as built)
+
+1. **Warm-up before every session** (about 8–10 min), its own section above the exercises:
+   5 min of easy general movement chosen by equipment (bike or incline walk at the gym; marching in place, jump rope or a
+   brisk walk at home); 3–4 dynamic mobility moves for the day's muscles (arm circles, band pull-aparts… for upper days;
+   leg swings, bodyweight squats, glute bridges… for lower days); 2–3 lighter ramp-up sets of the first main exercise
+   (50% × 8, 75% × 4, plus 90% × 2 from 60 kg; none below 10 kg), with the weights worked out from that session's target.
+   Any move ruled out by an injury's painful movements or restrictions (movement vocabulary) is skipped, with the reason.
+2. **Cool-down after every session** (about 5–8 min), its own section after the exercises with a "Done" tick:
+   4–5 static stretches for the muscles trained that day (most-trained first), 30–45 s each (both sides for one-sided
+   stretches), then 1 min of slow breathing. The warm-up has a "Done" tick too.
+3. **Cardio in the weekly plan**, decided by the engine from goal, experience, equipment, health flag and injuries:
+   fat loss 2–3 × 20–30 min easy (talking pace) + a daily step target; muscle gain / strength 1–2 short sessions;
+   recomposition about 2. Type by equipment and injury: incline walk, bike, elliptical, brisk walk, marching, jump rope;
+   injured legs mean the bike or walking, never running or jumping; the health flag means easy and no jumping.
+   On rest days first, then after lifting, never on the day before a leg day. Cardio days show in the Workouts week,
+   open like any other day, and are marked done with the minutes actually done (`cardio_logs`).
+   **Calories count cardio once:** the activity level already includes it, so it's never added on top, and the
+   calorie reasons say so (`nutrition.yaml` `cardio_counted`).
+4. **Every warm-up move, stretch and cardio type has the same how-to page as the exercises** (image, steps, cues,
+   mistakes, video link). They live in the exercise catalogue with `type`: strength, cardio, mobility or stretch.
+5. **All of these rules are in `data/rules/training.yaml`** (`session`, `full_body_legs`, `warmup`, `cooldown`, `cardio`,
+   `swaps`, and `start_load.max_kg`) and marked `placeholder: true` until the real values are extracted from the books
+   (the Jeff Nippard programs' warm-up protocols; the recomposition guide's cardio).
+6. **Fixes:** every full-body day has a squat or hip hinge (or, when injuries rule both out, another leg exercise);
+   the number of exercises follows the session length chosen (`session.exercises_by_minutes`), topped up from the
+   program's other days when injuries remove too many; the time estimate is worked out from the sets, rests, warm-up
+   and cool-down; starting weights are more conservative and capped per experience level.
+7. **Number inputs** (questionnaire, check-in weight and measurements, the weight log): tap the number to type it
+   (the phone's number keyboard, with a decimal point where needed); + and − stay for small changes, and holding one
+   repeats faster and faster; the fields start empty with an "e.g." placeholder; typed values are checked against the
+   same ranges with a clear message ("Weight must be between 35 and 250 kg"); "." or "," and Arabic digits both work.
+8. **Swap any exercise** from the session or the logger: why (equipment not available / machine busy / can't do it /
+   it causes pain) → 2–4 alternatives with the same movement pattern and muscles that fit the equipment and every
+   active injury (from `exercise_substitutions` and the movement vocabulary) → "Just today" (that session only) or
+   "From now on" (the program for every week; kept by the weekly review and "regenerate", which never put the old
+   exercise back; undo from the exercise's page). "Equipment not available" also saves that equipment as missing in
+   the profile, so future plans avoid it. "It causes pain" also offers to add or update an injury. A swapped-in
+   exercise starts as "find your weight" and progresses from there, and shows a badge with the reason.
+   Rebuilding the plan for a swap or an injury keeps the week's meals and grocery list when the nutrition targets
+   haven't changed.

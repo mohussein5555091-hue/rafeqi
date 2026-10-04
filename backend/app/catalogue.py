@@ -20,6 +20,7 @@ from app.vocab import Vocab, VocabError, get_vocab
 
 DIFFICULTIES = {"beginner", "intermediate", "advanced"}
 ALT_KINDS = {"easier", "injuryFriendly", "equipment"}
+TYPES = {"strength", "cardio", "mobility", "stretch"}
 
 
 class CatalogueError(ValueError):
@@ -54,6 +55,8 @@ def validate_exercises(items: list[dict], vocab: Vocab) -> list[str]:
                 problems.append(f"{where}: {field} must be a non-empty list of {{en, ar}}")
         if not 3 <= len(e.get("cues") or []) <= 5:
             problems.append(f"{where}: needs 3 to 5 cues, has {len(e.get('cues') or [])}")
+        if e.get("type", "strength") not in TYPES:
+            problems.append(f"{where}: type must be one of {sorted(TYPES)}")
         if e.get("difficulty") not in DIFFICULTIES:
             problems.append(f"{where}: difficulty must be one of {sorted(DIFFICULTIES)}")
         for alt in e.get("alternatives") or []:
@@ -85,6 +88,7 @@ def seed_exercises(db: Session, items: list[dict]) -> int:
         row.instructions, row.cues, row.mistakes = e["instructions"], e["cues"], e["mistakes"]
         row.image_url, row.image_frames, row.video_url = e.get("image_url"), e.get("image_frames", []), e.get("video_url")
         row.media_source, row.source = e.get("media_source"), e.get("source", "")
+        row.type = e.get("type", "strength")
         db.merge(row)
     db.flush()
     # Substitutions are rebuilt from the file each time.

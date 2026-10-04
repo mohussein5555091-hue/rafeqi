@@ -1,6 +1,8 @@
 """The rule files and program templates: every rule says where it comes from, placeholders are marked, and the
 program templates only use exercises from the catalogue."""
 
+import json
+
 import pytest
 import yaml
 
@@ -47,8 +49,9 @@ def test_program_templates_only_use_catalogue_exercises():
 
 
 def test_a_template_with_a_broken_rotation_is_refused(tmp_path, monkeypatch):
-    good = (get_settings().programs_dir / "sample_full_body.json").read_text(encoding="utf-8")
-    (tmp_path / "bad.json").write_text(good.replace('"3": ["A", "B", "A"]', '"3": ["A", "B", "C"]'), encoding="utf-8")
+    bad = json.loads((get_settings().programs_dir / "sample_full_body.json").read_text(encoding="utf-8"))
+    bad["rotation"]["3"] = ["A", "B", "C"]
+    (tmp_path / "bad.json").write_text(json.dumps(bad), encoding="utf-8")
     monkeypatch.setattr(get_settings(), "programs_dir", tmp_path)
     load_templates.cache_clear()
     try:

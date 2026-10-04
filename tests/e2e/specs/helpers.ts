@@ -88,7 +88,8 @@ export const PUBLIC_ROUTES = ['/login', '/signup', '/forgot-password'];
 export const APP_ROUTES = [
   ...['about', 'goal', 'training', 'injuries', 'health', 'food', 'review'].map((s) => `/onboarding/${s}`),
   '/plan-ready',
-  '/', '/workouts', '/workouts/:today', '/workouts/:planned', '/workouts/:today/log', '/exercises/:exercise',
+  '/', '/workouts', '/workouts/:today', '/workouts/:planned', '/workouts/:cardio', '/workouts/:today/log', '/exercises/:exercise',
+  '/exercises/ex_cat_cow', '/exercises/ex_quad_stretch', '/exercises/ex_bike',
   '/nutrition', '/nutrition?view=week', `/nutrition/day/${TODAY}`, '/nutrition/recipes/:recipe', '/groceries', '/groceries/pantry',
   '/injuries', '/injuries/:injury', '/injuries/new', '/injuries/:injury/edit', '/injuries/:injury/warning',
   ...['body', 'training', 'injuries', 'nutrition', 'life', 'note'].map((s) => `/check-in/${s}`),
@@ -99,10 +100,12 @@ export const APP_ROUTES = [
 export async function resolve(page: Page, route: string): Promise<string> {
   if (!route.includes(':')) return route;
   const week = await api(page, '/workouts/week');
-  const today = week.sessions.find((s: { status: string }) => s.status === 'today');
+  const lifting = week.sessions.filter((s: { kind: string }) => s.kind === 'strength');
+  const today = lifting.find((s: { status: string }) => s.status === 'today');
   const values: Record<string, () => Promise<string>> = {
     today: async () => today.id,
-    planned: async () => week.sessions.find((s: { status: string }) => s.status === 'planned').id,
+    planned: async () => lifting.find((s: { status: string }) => s.status === 'planned').id,
+    cardio: async () => week.sessions.find((s: { kind: string }) => s.kind === 'cardio').id,
     exercise: async () => today.exercises[0].exerciseId,
     recipe: async () => (await api(page, `/meals/day/${TODAY}`)).meals[0].recipeId,
     injury: async () => (await api(page, '/injuries'))[0].id,

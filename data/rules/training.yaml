@@ -25,20 +25,26 @@ schedules:
 
 # What each training place has. `bodyweight` is always available.
 equipment_by_location:
-  gym: [bodyweight, dumbbells, barbell, bench, cable, machine, landmine, bands, pullUpBar]
-  homeDumbbells: [bodyweight, dumbbells, bench, bands]
-  bodyweight: [bodyweight, bands]
+  gym: [bodyweight, dumbbells, barbell, bench, cable, machine, landmine, bands, pullUpBar, jumpRope]
+  homeDumbbells: [bodyweight, dumbbells, bench, bands, jumpRope]
+  bodyweight: [bodyweight, bands, jumpRope]
 
 # Weight steps by equipment (the smallest jump people can make).
-weight_step_kg: {dumbbells: 2, barbell: 2.5, landmine: 2.5, cable: 2.5, machine: 5, bodyweight: 0, bands: 0, pullUpBar: 0, bench: 0}
+weight_step_kg: {jumpRope: 0, dumbbells: 2, barbell: 2.5, landmine: 2.5, cable: 2.5, machine: 5, bodyweight: 0, bands: 0, pullUpBar: 0, bench: 0}
 
 start_load:
-  # Starting weight = body weight × ratio × experience × sex (× any load factor), rounded down to the weight step.
-  # Dumbbell ratios are per dumbbell. The first session's "Done as planned" then progresses with progression.yaml.
+  # Starting weight = body weight × ratio × experience × sex (× any load factor), rounded down to the weight step,
+  # then capped for the experience level (max_kg, per dumbbell for dumbbells). Starting light on purpose: the first
+  # sessions are for finding your weight, and "Done as planned" then progresses with progression.yaml.
+  # Dumbbell ratios are per dumbbell.
   placeholder: true
   source: "PLACEHOLDER: starting load ratios; to be replaced with the program PDFs' guidance"
-  experience_factor: {beginner: 0.5, intermediate: 1.0, advanced: 1.3}
+  experience_factor: {beginner: 0.4, intermediate: 0.7, advanced: 0.9}
   sex_factor: {male: 1.0, female: 0.6}
+  max_kg:
+    beginner: {dumbbells: 10, barbell: 40, landmine: 15, cable: 25, machine: 60}
+    intermediate: {dumbbells: 22, barbell: 80, landmine: 25, cable: 45, machine: 120}
+    advanced: {dumbbells: 32, barbell: 120, landmine: 35, cable: 60, machine: 180}
   ratio:
     ex_db_floor_press: 0.25
     ex_db_bench_press: 0.25
@@ -62,6 +68,8 @@ start_load:
     ex_seated_leg_curl: 0.45
     ex_leg_extension: 0.4
     ex_calf_raise: 0.6
+    ex_glute_bridge: 0
+    ex_walking_lunge_bw: 0
   explain:
     en: "Starting weight {kg} kg: {ratio} × your weight, adjusted for experience. Adjust it after the first session if it feels off."
     ar: "وزن البداية {kg} كجم: {ratio} × وزنك، متظبط على مستواك. عدّله بعد أول تمرينة لو حاسس إنه مش مظبوط."
@@ -103,3 +111,166 @@ review:
   deload_when: {difficulty_at_least: 5, soreness_at_least: 4, avg_effort_at_least: 9}
   deload_load_factor: 0.9
   pain_up_load_step: 0.1         # pain went up: that area's exercises lose this much load factor
+
+# ── Session length ───────────────────────────────────────────────────
+# How many exercises fit the session length the person chose, and how the time estimate is worked out:
+# warm-up + every set (work + rest) + a minute to change exercise + cool-down. Exercises are taken from the template day
+# in order until the session is full (but at least `min`). backend/app/engine/training.py
+session:
+  placeholder: true
+  source: "PLACEHOLDER: session length and exercise count; to be replaced with the Jeff Nippard programs' session structure"
+  work_sec_per_set: 40
+  change_exercise_sec: 60
+  exercises_by_minutes:
+    45: {min: 4, max: 5}
+    60: {min: 5, max: 6}
+    75: {min: 6, max: 7}
+    90: {min: 6, max: 8}
+  explain:
+    en: "About {minutes} min: warm-up {warmup} min, {exercises} exercises with their sets and rests ({lifting} min), cool-down {cooldown} min."
+    ar: "حوالي {minutes} دقيقة: تسخين {warmup} دقيقة، {exercises} تمارين بمجموعاتها وراحتها ({lifting} دقيقة)، وتهدئة {cooldown} دقيقة."
+
+# Every full-body day trains the legs: if injuries or equipment removed every squat and hip hinge, the engine adds the
+# closest leg exercise that's allowed, in this order of movement patterns.
+full_body_legs:
+  placeholder: true
+  source: "PLACEHOLDER: full-body session structure (Jeff Nippard, Fundamentals Hypertrophy Program)"
+  patterns: [squat, hinge, lunge, kneeExtension, kneeFlexion]
+  explain:
+    en: "{name} added: every full-body day trains your legs, and the squat or hip hinge didn't fit your answers."
+    ar: "{name} اتضاف: كل يوم جسم كامل بيمرّن رجلك، والسكوات أو ثني الوسط ماناسبوش إجاباتك."
+
+# ── Warm-up (about 8–10 min, before every session) ───────────────────
+# 1. General: `general_minutes` of easy movement, the first option that fits the equipment and injuries.
+# 2. Mobility: `moves.min`–`moves.max` moves for the day's muscles (upper / lower / full). A move that an injury's
+#    painful movements or restrictions rule out (data/vocab/movements.yaml) is skipped, with the reason.
+# 3. Ramp-up: lighter sets of the first main exercise, as % of that session's target weight, rounded down to the
+#    weight step. An extra heavier one when the target is at least `extra_from_kg`; none below `min_target_kg`.
+#    backend/app/engine/warmup.py
+warmup:
+  placeholder: true
+  source: "PLACEHOLDER: warm-up protocol; the Jeff Nippard programs include warm-up guidance to extract"
+  general_minutes: 5
+  general_by_location:
+    gym: [ex_bike, ex_incline_walk, ex_brisk_walk]
+    homeDumbbells: [ex_march_in_place, ex_jump_rope, ex_brisk_walk]
+    bodyweight: [ex_march_in_place, ex_jump_rope, ex_brisk_walk]
+  conservative_avoid_patterns: [jump]   # health flag: no jumping in the warm-up
+  moves: {min: 3, max: 4}
+  move_minutes: 0.5
+  moves_by_kind:
+    upper:
+      - {id: ex_arm_circles, amount: {en: "10 each way", ar: "10 في كل اتجاه"}}
+      - {id: ex_band_pull_apart, amount: {en: "15 reps", ar: "15 عدة"}}
+      - {id: ex_dynamic_chest, amount: {en: "10 reps", ar: "10 عدات"}}
+      - {id: ex_cat_cow, amount: {en: "8 slow reps", ar: "8 عدات ببطء"}}
+      - {id: ex_inchworm, amount: {en: "5 reps", ar: "5 عدات"}}
+    lower:
+      - {id: ex_leg_swings, amount: {en: "10 each leg", ar: "10 لكل رجل"}}
+      - {id: ex_hip_circles, amount: {en: "10 each way", ar: "10 في كل اتجاه"}}
+      - {id: ex_bw_squat, amount: {en: "10 reps", ar: "10 عدات"}}
+      - {id: ex_glute_bridge, amount: {en: "12 reps", ar: "12 عدة"}}
+      - {id: ex_walking_lunge_bw, amount: {en: "6 each leg", ar: "6 لكل رجل"}}
+      - {id: ex_cat_cow, amount: {en: "8 slow reps", ar: "8 عدات ببطء"}}
+    full:
+      - {id: ex_arm_circles, amount: {en: "10 each way", ar: "10 في كل اتجاه"}}
+      - {id: ex_leg_swings, amount: {en: "10 each leg", ar: "10 لكل رجل"}}
+      - {id: ex_bw_squat, amount: {en: "10 reps", ar: "10 عدات"}}
+      - {id: ex_glute_bridge, amount: {en: "12 reps", ar: "12 عدة"}}
+      - {id: ex_band_pull_apart, amount: {en: "15 reps", ar: "15 عدة"}}
+      - {id: ex_hip_circles, amount: {en: "10 each way", ar: "10 في كل اتجاه"}}
+  ramp_up:
+    sets: [{pct: 50, reps: 8}, {pct: 75, reps: 4}]
+    extra: {pct: 90, reps: 2}
+    extra_from_kg: 60
+    min_target_kg: 10   # lighter than this: no ramp-up sets (the mobility moves are warm-up enough)
+    set_minutes: 1
+  explain:
+    en: "Warm-up {minutes} min: {general} min of {name}, {moves} mobility moves for today's muscles, then lighter sets of {first}."
+    ar: "تسخين {minutes} دقيقة: {general} دقايق {name}، و{moves} حركات مرونة لعضلات النهارده، وبعدين مجموعات أخف من {first}."
+    no_ramp:
+      en: "Warm-up {minutes} min: {general} min of {name} and {moves} mobility moves for today's muscles."
+      ar: "تسخين {minutes} دقيقة: {general} دقايق {name} و{moves} حركات مرونة لعضلات النهارده."
+    skipped:
+      en: "{name} left out of the warm-up: it involves {why}, which hurts your {area}."
+      ar: "{name} اتشال من التسخين: فيه {why}، وده بيوجع {area}."
+
+# ── Cool-down (about 5–8 min, after every session) ───────────────────
+# Static stretches for the muscles trained that day: the stretches whose muscles had the most sets come first.
+# Big muscles (thighs, hips) are held longer; one-sided stretches count both sides. Then slow breathing.
+cooldown:
+  placeholder: true
+  source: "PLACEHOLDER: cool-down stretching; book + page to be added"
+  stretches: {min: 4, max: 5}
+  hold_sec: 30
+  hold_sec_large: 45
+  large_regions: [thighL, thighR, hipL, hipR]
+  each_side: [ex_chest_stretch, ex_lat_stretch, ex_triceps_stretch, ex_cross_shoulder_stretch, ex_quad_stretch, ex_hamstring_stretch,
+              ex_hip_flexor_stretch, ex_glute_stretch, ex_calf_stretch]
+  candidates: [ex_chest_stretch, ex_lat_stretch, ex_upper_back_stretch, ex_cross_shoulder_stretch, ex_triceps_stretch, ex_biceps_stretch,
+               ex_quad_stretch, ex_hamstring_stretch, ex_hip_flexor_stretch, ex_glute_stretch, ex_calf_stretch, ex_childs_pose]
+  fallback: [ex_childs_pose, ex_upper_back_stretch, ex_hamstring_stretch, ex_quad_stretch, ex_cross_shoulder_stretch]
+  breathing: {id: ex_slow_breathing, minutes: 1}
+  explain:
+    en: "Cool-down {minutes} min: {stretches} stretches for the muscles you trained, held {hold} seconds each, then slow breathing."
+    ar: "تهدئة {minutes} دقيقة: {stretches} إطالات للعضلات اللي اتمرنت، كل واحدة {hold} ثانية، وبعدين تنفّس بطيء."
+
+# ── Cardio (the weekly plan) ─────────────────────────────────────────
+# Sessions and minutes by goal ([low, high]): beginners take the low end, advanced the high end (minutes: intermediate
+# in between). The type is the first option for where they train that every injury allows; injured legs prefer
+# cycling and never jumping or running; the health flag means easy intensity and no jumping.
+# Placement: rest days first, then after lifting; never on the day before a leg day. backend/app/engine/cardio.py
+# Calories: the activity level (nutrition.yaml) already counts training days and this cardio; it's never added twice.
+cardio:
+  placeholder: true
+  source: "PLACEHOLDER: cardio by goal; the recomposition guide covers cardio, values to be extracted"
+  by_goal:
+    loseFat: {sessions: [2, 3], minutes: [20, 30], intensity: easy, steps: 8000}
+    recomp: {sessions: [2, 2], minutes: [20, 25], intensity: easy, steps: 7500}
+    buildMuscle: {sessions: [1, 2], minutes: [15, 20], intensity: moderate, steps: 7000}
+    strength: {sessions: [1, 2], minutes: [15, 20], intensity: moderate, steps: 7000}
+  options_by_location:
+    gym: [ex_incline_walk, ex_bike, ex_elliptical, ex_brisk_walk]
+    homeDumbbells: [ex_brisk_walk, ex_jump_rope, ex_march_in_place]
+    bodyweight: [ex_brisk_walk, ex_jump_rope, ex_march_in_place]
+  leg_regions: [kneeL, kneeR, ankleL, ankleR, shinL, shinR, hipL, hipR]
+  leg_injury_prefer: [cycling, walking]
+  leg_injury_avoid: [jump, locomotion]
+  conservative_avoid: [jump]
+  leg_day_kinds: [lower, full]
+  intensity_names:
+    easy: {en: "easy, talking pace", ar: "سهل، تقدر تتكلم"}
+    moderate: {en: "moderate, a little out of breath", ar: "متوسط، نفسك عالي شوية"}
+  explain:
+    plan:
+      en: "Cardio: {sessions} × {minutes} min of {name} ({intensity}) a week, plus about {steps} steps a day, for your goal ({goal})."
+      ar: "كارديو: {sessions} × {minutes} دقيقة {name} ({intensity}) في الأسبوع، وحوالي {steps} خطوة في اليوم، عشان هدفك ({goal})."
+    legs:
+      en: "{name} rather than running or jumping, to spare your {area}."
+      ar: "{name} بدل الجري أو النط، عشان {area}."
+    conservative:
+      en: "Easy intensity only, because of your health answers."
+      ar: "مجهود سهل بس، بسبب إجاباتك عن الصحة."
+    placement:
+      en: "On rest days or after lifting, never the day before a leg day, so your legs are fresh."
+      ar: "في أيام الراحة أو بعد الحديد، ومش في اليوم اللي قبل يوم الرجل، عشان رجلك تبقى مرتاحة."
+    fewer:
+      en: "{planned} cardio sessions fit your week instead of {wanted}: the other days are before a leg day."
+      ar: "{planned} جلسات كارديو مناسبة لأسبوعك بدل {wanted}: باقي الأيام قبل يوم رجل."
+
+# ── Swapping an exercise (the person's choice, from the session or the logger) ──
+# Alternatives: same movement pattern first (then the same muscles), that fit the equipment and every active injury.
+# "From now on" swaps are kept by every new plan version (weekly review, regenerate), and the exercise taken out is
+# never put back. "Equipment not available" also saves that equipment as missing. backend/app/engine/training.py
+swaps:
+  placeholder: true
+  source: "PLACEHOLDER: exercise substitution rules; to be checked against the Jeff Nippard programs' substitution lists"
+  max_alternatives: 4
+  explain:
+    en: "{from} → {to}: your choice ({why})."
+    ar: "{from} ← {to}: اختيارك ({why})."
+  reasons:
+    equipment: {en: "no {equipment}", ar: "مفيش {equipment}"}
+    busy: {en: "machine busy", ar: "الجهاز مشغول"}
+    cantDo: {en: "you asked for another exercise", ar: "طلبت تمرين تاني"}
+    pain: {en: "it caused pain", ar: "كان بيوجعك"}

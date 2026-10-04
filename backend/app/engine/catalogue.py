@@ -52,7 +52,8 @@ def exercises_from_db(db) -> dict[str, ExerciseInfo]:
     from app.models import Exercise
 
     return {e.id: ExerciseInfo(id=e.id, name={"en": e.name_en, "ar": e.name_ar}, pattern=e.movement_pattern,
-                               joints=tuple(e.joints_loaded), rom=e.range_of_motion, equipment=tuple(e.equipment), difficulty=e.difficulty)
+                               joints=tuple(e.joints_loaded), rom=e.range_of_motion, equipment=tuple(e.equipment), difficulty=e.difficulty,
+                               type=e.type, muscles=tuple(e.primary_muscles or ()))
             for e in db.scalars(select(Exercise))}
 
 

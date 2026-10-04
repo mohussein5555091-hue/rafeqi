@@ -12,7 +12,8 @@ from app.vocab import get_vocab
 def exercise_catalogue() -> dict[str, ExerciseInfo]:
     items = read_exercises(get_settings().catalogue_dir / "exercises.yaml", get_vocab())
     return {e["id"]: ExerciseInfo(id=e["id"], name=e["name"], pattern=e["movement_pattern"], joints=tuple(e["joints_loaded"]),
-                                  rom=e["range_of_motion"], equipment=tuple(e["equipment"]), difficulty=e["difficulty"])
+                                  rom=e["range_of_motion"], equipment=tuple(e["equipment"]), difficulty=e["difficulty"],
+                                  type=e.get("type", "strength"), muscles=tuple(e.get("primary_muscles") or ()))
             for e in items}
 
 
