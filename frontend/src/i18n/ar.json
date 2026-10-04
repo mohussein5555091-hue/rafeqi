@@ -140,7 +140,7 @@
     "media": "شرح التمرين بالصور", "mediaAlt": "{name}: وضع البداية والنهاية", "noMedia": "الشرح بالصور قريب",
     "pause": "وقّف العرض", "play": "شغّل العرض", "watchVideo": "شوف الفيديو", "credit": "الصور:", "howTo": "إزاي تعمله", "cues": "نصايح الأداء",
     "mistakes": "أخطاء شائعة", "muscles": "العضلات الشغالة", "alternatives": "بدائل",
-    "kind": { "easier": "أسهل", "injuryFriendly": "مناسب للإصابة", "equipment": "بأدوات تانية", "noEquipment": "من غير أدوات" }
+    "kind": { "easier": "أسهل", "injuryFriendly": "مناسب للإصابة", "equipment": "أداة تانية", "equipmentWith": "أداة تانية: {equipment}", "noEquipment": "من غير أدوات" }
   },
   "logger": {
     "targetLine": "الهدف {target}", "lastTime": "آخر مرة: {result}", "struggledShort": "آخر مجموعة كانت صعبة",

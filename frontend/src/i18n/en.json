@@ -140,7 +140,7 @@
     "media": "Exercise demonstration", "mediaAlt": "{name}: start and end position", "noMedia": "Demonstration coming soon",
     "pause": "Pause demonstration", "play": "Play demonstration", "watchVideo": "Watch video", "credit": "Photos:", "howTo": "How to do it", "cues": "Form cues",
     "mistakes": "Common mistakes", "muscles": "Muscles worked", "alternatives": "Alternatives",
-    "kind": { "easier": "Easier", "injuryFriendly": "Injury-friendly", "equipment": "Other equipment", "noEquipment": "No equipment needed" }
+    "kind": { "easier": "Easier", "injuryFriendly": "Injury-friendly", "equipment": "Different equipment", "equipmentWith": "Different equipment: {equipment}", "noEquipment": "No equipment needed" }
   },
   "logger": {
     "targetLine": "Target {target}", "lastTime": "Last time: {result}", "struggledShort": "last set was a struggle",

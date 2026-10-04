@@ -315,7 +315,7 @@ export function ExerciseDetail() {
                         {a.imageUrl
                           ? <ExerciseThumb ex={a} size={48} />
                           : <span className={cn('grid h-tap w-tap place-items-center rounded-full', a.kind === 'easier' ? 'bg-sage-200 text-sage-800' : equipmentKind ? 'bg-neutral-200 text-neutral-800' : 'bg-warn-100 text-warn-800')}><Icon as={a.kind === 'easier' ? ArrowDown : equipmentKind ? Dumbbell : Shield} size={18} /></span>}
-                        <div className="flex-1 leading-tight"><strong className="block text-[14.5px]">{l(a.name)}</strong><span className="text-xs text-neutral-700">{t(`exercise.kind.${a.kind}`)}</span></div>
+                        <div className="flex-1 leading-tight"><strong className="block text-[14.5px]">{l(a.name)}</strong><span className="text-xs text-neutral-700">{a.kind === 'equipment' && a.equipment ? t('exercise.kind.equipmentWith', { equipment: l(a.equipment) }) : t(`exercise.kind.${a.kind}`)}</span></div>
                       </>
                     );
                     const cls = 'flex min-h-[60px] items-center gap-3 rounded-pill bg-surface py-2 pe-3 ps-2';

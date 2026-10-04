@@ -4,7 +4,7 @@
   "description": "Rafeqi (رفيقي) — personal trainer and nutritionist for Egypt. Root scripts run everything.",
   "scripts": {
     "setup": "node scripts/setup-env.mjs && npm install && npm --prefix frontend install && npm --prefix tests/e2e install && npm --prefix tests/e2e run install-browser && uv --directory backend sync && npm run db:migrate && npm run db:seed",
-    "dev": "npm run db:migrate && concurrently -k -n api,web -c blue,magenta \"npm:dev:api\" \"npm:dev:web\"",
+    "dev": "npm run db:migrate && npm run db:seed && concurrently -k -n api,web -c blue,magenta \"npm:dev:api\" \"npm:dev:web\"",
     "dev:api": "uv --directory backend run uvicorn app.main:app --reload --host 127.0.0.1 --port 8000",
     "dev:web": "npm --prefix frontend run dev -- --host",
     "db:migrate": "uv --directory backend run alembic upgrade head",

@@ -705,6 +705,7 @@ exercises:
       en: Lying leg curl
       ar: ثني رجل وأنت نايم
     kind: equipment
+    equipment: [machine]
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_calf_raise
   type: strength
@@ -1124,6 +1125,7 @@ exercises:
       en: Cable lateral raise
       ar: رفرفة جانبي بالكابل
     kind: equipment
+    equipment: [cable]
   source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
 - id: ex_push_up
   type: strength

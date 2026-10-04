@@ -350,3 +350,13 @@ def test_week_carries_the_real_program_name(planned, make_user):  # noqa: F811
     c.post("/api/onboarding/complete")
     c.post("/api/plan")
     assert week(c)["programName"]["en"] == "Full body (sample)"
+
+
+def test_equipment_alternatives_name_their_equipment(planned):  # noqa: F811
+    c = planned.client
+    leg_press = c.get("/api/exercises/ex_leg_press").json()["alternatives"]
+    assert leg_press[0]["kind"] == "equipment" and leg_press[0]["equipment"] == {"en": "dumbbells", "ar": "دمبلز"}
+    curl = c.get("/api/exercises/ex_seated_leg_curl").json()["alternatives"][0]  # not in the catalogue: equipment from the file
+    assert curl["equipment"] == {"en": "machine", "ar": "جهاز"}
+    every = c.get("/api/exercises").json()
+    assert all("equipment" in a for e in every for a in e["alternatives"] if a["kind"] == "equipment")

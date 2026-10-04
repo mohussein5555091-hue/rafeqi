@@ -144,7 +144,9 @@ export interface Exercise {
   instructions: LocalizedText[];
   cues: LocalizedText[];
   mistakes: LocalizedText[];
-  alternatives: { exerciseId?: string; name: LocalizedText; kind: 'easier' | 'injuryFriendly' | 'equipment' | 'noEquipment'; imageUrl?: string }[];
+  alternatives: { exerciseId?: string; name: LocalizedText; kind: 'easier' | 'injuryFriendly' | 'equipment' | 'noEquipment'; imageUrl?: string;
+    /** The equipment it uses, e.g. "cable machine" (for "Different equipment: …"). */
+    equipment?: LocalizedText }[];
 }
 
 /**

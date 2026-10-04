@@ -1,3 +1,4 @@
+import type { Locator, Page } from '@playwright/test';
 import { api, expect, freshUser, test, waitForContent } from './helpers';
 
 // Bugs found while testing by hand (docs/OVERNIGHT-REPORT.md, priority 1). Read-only: the shared account.
@@ -34,4 +35,61 @@ test('missing equipment can be changed in Profile & settings, and the plan follo
   const plan = await api(page, '/plan');
   const ids = plan.program.days.flatMap((d: { exercises: { exerciseId: string }[] }) => d.exercises.map((e) => e.exerciseId));
   expect(ids).not.toContain('ex_leg_press');
+});
+
+/** True when the whole photo shows inside its box (object-fit: contain, nothing outside the visible frame). */
+async function wholePhoto(img: Locator) {
+  await img.scrollIntoViewIfNeeded(); // thumbnails load lazily
+  await expect.poll(() => img.evaluate((i: HTMLImageElement) => i.complete && i.naturalWidth > 0)).toBe(true);
+  return img.evaluate((i: HTMLImageElement) => {
+    const box = i.getBoundingClientRect();
+    const frame = (i.closest('figure') ?? i.parentElement!).getBoundingClientRect();
+    const scale = Math.min(box.width / i.naturalWidth, box.height / i.naturalHeight);
+    const w = i.naturalWidth * scale, h = i.naturalHeight * scale;
+    const left = box.left + (box.width - w) / 2, top = box.top + (box.height - h) / 2;
+    return getComputedStyle(i).objectFit === 'contain'
+      && left >= frame.left - 0.5 && top >= frame.top - 0.5 && left + w <= frame.right + 0.5 && top + h <= frame.bottom + 0.5;
+  });
+}
+
+async function everyPhotoWhole(page: Page) {
+  const imgs = await page.locator('main img').all();
+  expect(imgs.length).toBeGreaterThan(0);
+  for (const img of imgs) expect(await wholePhoto(img), await img.getAttribute('src') ?? '').toBe(true);
+}
+
+test('every exercise photo is whole: session (warm-up, exercises, cool-down), logger, swap sheet, alternatives', async ({ page }) => {
+  await freshUser(page);
+  const week = await api(page, '/workouts/week');
+  const today = week.sessions.find((s: { status: string; kind: string }) => s.status === 'today' && s.kind === 'strength');
+  await page.goto(`/workouts/${today.id}`);
+  await waitForContent(page);
+  await everyPhotoWhole(page);
+  await page.goto(`/workouts/${today.id}/log`);
+  await waitForContent(page);
+  await everyPhotoWhole(page);
+  await page.getByRole('button', { name: /^Swap:/ }).first().click();
+  const sheet = page.getByRole('dialog');
+  await sheet.getByRole('radio', { name: /Machine is busy today/ }).click();
+  await expect(sheet.getByRole('radiogroup', { name: 'Pick the new exercise' }).getByRole('radio').first()).toBeVisible();
+  for (const img of await sheet.locator('img').all()) expect(await wholePhoto(img)).toBe(true);
+  for (const id of ['ex_face_pull', 'ex_leg_press', 'ex_seated_leg_curl']) {
+    await page.goto(`/exercises/${id}`);
+    await waitForContent(page);
+    await everyPhotoWhole(page);
+  }
+});
+
+test('alternatives: the band pull-apart has its photo; equipment alternatives name the equipment', async ({ page }) => {
+  await page.goto('/exercises/ex_face_pull');
+  await waitForContent(page);
+  const band = page.getByTestId('alternative').filter({ hasText: 'Band pull-apart' });
+  await expect(band.locator('img')).toHaveAttribute('src', '/exercises/Band_Pull_Apart/0.jpg');
+  await page.goto('/exercises/ex_leg_press');
+  await waitForContent(page);
+  await expect(page.getByTestId('alternative').filter({ hasText: 'Goblet squat' })).toContainText('Different equipment: dumbbells');
+  await page.goto('/exercises/ex_lateral_raise');
+  await waitForContent(page);
+  await expect(page.getByTestId('alternative').filter({ hasText: 'Cable lateral raise' })).toContainText('Different equipment: cable machine');
+  await expect(page.getByText('Other equipment')).toHaveCount(0);
 });

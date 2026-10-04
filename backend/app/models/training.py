@@ -110,6 +110,9 @@ class ExerciseSubstitution(Base):
     name_en: Mapped[str] = mapped_column(String(120), default="")  # for alternatives not in the catalogue yet
     name_ar: Mapped[str] = mapped_column(String(120), default="")
     kind: Mapped[str] = mapped_column(String(16))  # easier | injuryFriendly | equipment | noEquipment
+    # The equipment it uses (vocab ids), for the label "Different equipment: cable machine". From the catalogue entry when
+    # the alternative is one; given in exercises.yaml otherwise.
+    equipment: Mapped[list] = mapped_column(default=list, server_default="[]")
     priority: Mapped[int] = mapped_column(default=0)
 
 

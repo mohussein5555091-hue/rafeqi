@@ -31,6 +31,15 @@ def no_nones(d: dict) -> dict:
     return {k: v for k, v in d.items() if v is not None}
 
 
+def equipment_names(ids: list[str] | None) -> dict | None:
+    """"cable machine, dumbbells" in each language (data/vocab/movements.yaml), or None."""
+    labels = get_vocab().data["equipment"]
+    ids = [i for i in ids or [] if i in labels]
+    if not ids:
+        return None
+    return {"en": ", ".join(labels[i]["en"].lower() for i in ids), "ar": "، ".join(labels[i]["ar"] for i in ids)}
+
+
 def exercise_out(e: Exercise, alternatives: list[ExerciseSubstitution], images: dict[str, str | None] | None = None) -> dict:
     """`images`: the photo of each alternative that is in the catalogue (for its thumbnail)."""
     images = images or {}
@@ -41,7 +50,7 @@ def exercise_out(e: Exercise, alternatives: list[ExerciseSubstitution], images: 
         "muscleNames": bi(e.muscle_names_en, e.muscle_names_ar),
         "instructions": e.instructions, "cues": e.cues, "mistakes": e.mistakes,
         "alternatives": [no_nones({"exerciseId": a.substitute_id, "name": bi(a.name_en, a.name_ar), "kind": a.kind,
-                                   "imageUrl": images.get(a.substitute_id)}) for a in alternatives],
+                                   "imageUrl": images.get(a.substitute_id), "equipment": equipment_names(a.equipment)}) for a in alternatives],
     })
 
 

@@ -94,3 +94,16 @@ Before starting:
   program and starting weights." (**Decision:** required rather than a silent default, as you suggested.)
 - **Note:** "Equipment not available" marks the whole equipment type as missing (e.g. every "Machine"), because the
   catalogue only knows equipment types, not individual machines. Untick it here to get them back.
+
+### 8. Exercise images, the band pull-apart alternative, "Other equipment"
+
+- Photos were already shown whole (object-fit: contain) since the previous update. Checked again with a new browser
+  test that measures **every** photo on the session page (warm-up, exercises, cool-down), the logger, the swap sheet and
+  three exercise pages, on desktop and phone size.
+- The band pull-apart alternative has its photo through the API. The missing photo you saw is almost certainly a
+  database seeded before the photos were added: the catalogue only reaches the database with `npm run db:seed`.
+  **Decision:** `npm run dev` now runs `db:seed` too (it only updates the catalogue, never your data), so a pulled
+  update always shows the current exercises and photos.
+- "Other equipment" is now "Different equipment: dumbbells" / "Different equipment: cable machine" (Arabic: "أداة تانية:
+  …"). The equipment comes from the catalogue entry, or from a new `equipment` field for alternatives that aren't in the
+  catalogue yet (the loader refuses an "equipment" alternative without it). Migration `38c1e339409b` adds the column.
