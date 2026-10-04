@@ -9,7 +9,7 @@ import { WorkoutPlan, Session, ExerciseDetail, WorkoutLogger } from '@/screens/w
 import { NutritionPlan, NutritionDay, RecipeDetail, Groceries, Pantry } from '@/screens/nutrition/NutritionScreens';
 import { Injuries, InjuryDetail, InjuryEdit, InjuryWarning } from '@/screens/injuries/InjuryScreens';
 import { CheckIn } from '@/screens/checkin/CheckIn';
-import { WeeklyReview, ReviewHistory, Progress, Profile, ChangePassword } from '@/screens/review/ReviewAndProgress';
+import { WeeklyReview, ReviewHistory, Progress, Profile, ProfileEquipment, ChangePassword } from '@/screens/review/ReviewAndProgress';
 
 const auth = (el: JSX.Element) => <RequireAuth>{el}</RequireAuth>;
 
@@ -53,6 +53,7 @@ export function App() {
       <Route path="/progress" element={auth(<Progress />)} />
       <Route path="/profile" element={auth(<Profile />)} />
       <Route path="/profile/password" element={auth(<ChangePassword />)} />
+      <Route path="/profile/equipment" element={auth(<ProfileEquipment />)} />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

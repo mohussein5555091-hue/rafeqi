@@ -29,7 +29,7 @@ CATALOGUE_READS = {  # login required, but they only read the shared catalogue (
 }
 SELF_ONLY = {  # no id in the URL: they act on the logged-in user by construction
     ("POST", "/api/auth/logout"), ("POST", "/api/auth/change-password"),
-    ("GET", "/api/me"), ("PATCH", "/api/me"), ("DELETE", "/api/me"),
+    ("GET", "/api/me"), ("PATCH", "/api/me"), ("DELETE", "/api/me"), ("GET", "/api/me/equipment"), ("PUT", "/api/me/equipment"),
     ("GET", "/api/weights"), ("POST", "/api/weights"),
     ("GET", "/api/onboarding"), ("POST", "/api/onboarding/complete"),
     ("GET", "/api/plan"), ("POST", "/api/plan"), ("GET", "/api/plan/why"),

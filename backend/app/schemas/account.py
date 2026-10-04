@@ -67,3 +67,9 @@ class MePatch(ApiModel):
     last_name: str | None = Field(default=None, max_length=80)
     language: Literal["en", "ar"] | None = None
     theme: Literal["light", "dark", "system"] | None = None
+
+
+class EquipmentIn(ApiModel):
+    """The equipment the person doesn't have where they train (ids from data/vocab/movements.yaml)."""
+
+    missing: list[str] = Field(default_factory=list, max_length=20)

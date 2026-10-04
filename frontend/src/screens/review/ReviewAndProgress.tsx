@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import type { LucideIcon } from 'lucide-react';
-import { Flame, Dumbbell, Utensils, Hourglass, ShoppingBasket, ChevronRight, Lock, Trophy, ChevronsLeftRight, Image, Sparkles, User as UserIcon, Target, Bandage, HeartPulse, KeyRound, LogOut, Trash2 } from 'lucide-react';
+import { Flame, Dumbbell, Utensils, Hourglass, ShoppingBasket, ChevronRight, Lock, Trophy, ChevronsLeftRight, Image, Sparkles, User as UserIcon, Target, Bandage, HeartPulse, KeyRound, LogOut, Trash2, Wrench } from 'lucide-react';
 import {
-  AppShell, Breathing, Button, Card, CitationChip, Disclaimer, EmptyState, ErrorState, Icon, LineChart, LinkButton, QueryView, Segmented, StatusBadge, StepList, rollingAverage, cn,
+  AppShell, Breathing, Button, Card, Checkbox, CitationChip, Disclaimer, EmptyState, ErrorState, Icon, LineChart, LinkButton, QueryView, Segmented, StatusBadge, StepList, rollingAverage, cn, useToast,
 } from '@/components';
 import { useI18n } from '@/i18n';
 import { useTheme } from '@/theme';
@@ -211,12 +211,12 @@ export function Profile() {
   const { theme, setTheme } = useTheme();
   const { logout } = useSession();
   const nav = useNavigate();
-  const q = useQuery(() => Promise.all([api.getUser(), api.getInjuries()]));
+  const q = useQuery(() => Promise.all([api.getUser(), api.getInjuries(), api.getEquipment()]));
   const [confirmDelete, setConfirmDelete] = useState(false);
   return (
     <AppShell back hideTabs title={t('nav.profile')}>
       <QueryView query={q}>
-        {([u, injuries]) => (
+        {([u, injuries, equipment]) => (
           <div className="grid max-w-5xl gap-5 lg:grid-cols-2">
             <div className="flex flex-col gap-4">
               <Card className="flex-row items-center gap-3.5">
@@ -235,6 +235,10 @@ export function Profile() {
                       <Icon as={ic} size={19} /><span className="flex-1 text-[14.5px]">{t(`onboarding.${step}.title`)}</span><span className="text-[12.5px] text-neutral-700">{v}</span><Icon as={ChevronRight} size={18} flip />
                     </Link></li>
                   ))}
+                  <li><Link to="/profile/equipment" className="flex min-h-14 items-center gap-3 border-b border-divider px-4 text-ink no-underline hover:bg-neutral-300 hover:text-ink">
+                    <Icon as={Wrench} size={19} /><span className="flex-1 text-[14.5px]">{t('profile.equipment')}</span>
+                    <span className="text-[12.5px] text-neutral-700">{equipment.items.some((i) => !i.available) ? t('profile.equipmentMissing', { n: equipment.items.filter((i) => !i.available).length }) : t('profile.equipmentAll')}</span><Icon as={ChevronRight} size={18} flip />
+                  </Link></li>
                 </ul>
                 <WhyPlanLink className="mt-1.5" />
                 <Button size="lg" icon={Sparkles} className="mt-1.5" onClick={() => nav('/onboarding/generating')}>{t('profile.regenerate')}</Button>
@@ -276,6 +280,45 @@ export function Profile() {
             )}
           </div>
         )}
+      </QueryView>
+    </AppShell>
+  );
+}
+
+/** What the training place has: untick what's missing, and the plan is rebuilt around it. */
+export function ProfileEquipment() {
+  const { t, l } = useI18n();
+  const nav = useNavigate();
+  const toast = useToast();
+  const q = useQuery(() => api.getEquipment());
+  const [missing, setMissing] = useState<string[]>();
+  const [saving, setSaving] = useState(false);
+  return (
+    <AppShell back hideTabs title={t('profile.equipment')}>
+      <QueryView query={q}>
+        {(eq) => {
+          const gone = missing ?? eq.items.filter((i) => !i.available).map((i) => i.id);
+          return (
+            <div className="flex max-w-md flex-col gap-4">
+              <p className="m-0 text-[14.5px] text-neutral-800">{t('profile.equipmentIntro')}</p>
+              <span className="text-[13px] text-neutral-700">{t('profile.equipmentWhere', { place: t(`enums.location.${eq.location}`) })}</span>
+              <ul className="m-0 flex list-none flex-col overflow-hidden rounded-lg bg-surface p-0" data-testid="equipment-list">
+                {eq.items.map((i) => (
+                  <li key={i.id} className="flex min-h-14 items-center gap-2 border-b border-divider pe-4 ps-1">
+                    <Checkbox checked={!gone.includes(i.id)} label={l(i.name)} onChange={(have) => setMissing(have ? gone.filter((x) => x !== i.id) : [...gone, i.id])} />
+                    <span className="flex-1 text-[14.5px]">{l(i.name)}</span>
+                  </li>
+                ))}
+              </ul>
+              <Button size="lg" disabled={saving || missing === undefined} onClick={async () => {
+                setSaving(true);
+                try { await api.saveEquipment(gone); toast({ message: t('profile.equipmentSaved'), tone: 'success' }); nav('/profile'); }
+                catch { toast({ message: t('common.saveFailed'), tone: 'error' }); }
+                finally { setSaving(false); }
+              }}>{t('common.save')}</Button>
+            </div>
+          );
+        }}
       </QueryView>
     </AppShell>
   );

@@ -58,7 +58,7 @@
     },
     "training": {
       "title": "Your training", "intro": "So your program fits your week and your gym.", "experience": "Experience", "days": "Days per week", "length": "Session length", "location": "Where do you train?",
-      "expHint": { "beginner": "New to lifting or back after a long break.", "intermediate": "1–3 years of regular lifting.", "advanced": "3+ years, comfortable with heavy compound lifts." }
+      "expPick": "Pick one to continue: it sets your program and starting weights.", "expHint": { "beginner": "New to lifting or back after a long break.", "intermediate": "1–3 years of regular lifting.", "advanced": "3+ years, comfortable with heavy compound lifts." }
     },
     "injuries": {
       "title": "Any injuries?", "intro": "Tap anywhere that hurts or has been injured. We'll adjust your exercises around it.",
@@ -124,7 +124,7 @@
     "start": "Start workout", "sessionMeta": "{n} exercises · about {min} min", "about": "about {min} min",
     "nExercises": "{n} exercises", "nSets": "{n} sets", "warmup": "Warm-up {n} min",
     "rest": "Rest {t}", "rpe": "RPE {n}", "howTo": "How to do {name}",
-    "swappedFor": "Swapped for your {area}", "addedFor": "Added to support your {area}",
+    "swappedFor": "Swapped for your {area}", "addedFor": "Added because of your {area}",
     "rpeHelp": "RPE = how hard a set feels. RPE 8 means you could do about 2 more reps.",
     "detailsSoon": "This session's exercises appear closer to the day.",
     "range": "Range {reps}", "reason": { "findWeight": "Find your weight: start light", "start": "Starting weight", "addReps": "+1 rep since last time", "addWeight": "+{kg} kg since last time", "repeat": "Same as last time", "dropWeight": "−{kg} kg to get the reps back" },
@@ -257,7 +257,10 @@
     "themes": { "light": "Light", "dark": "Dark", "system": "System" },
     "account": "Account", "changePassword": "Change password", "currentPassword": "Current password", "newPassword": "New password", "wrongPassword": "That isn't your current password.", "saveFailed": "Couldn't save. Please try again.", "logout": "Log out",
     "delete": "Delete my data", "deleteNote": "Permanently removes your answers, logs, photos and reviews.",
-    "deleteConfirmTitle": "Delete all your data?", "deleteConfirmBody": "This can't be undone. Your account, plan, logs, photos and reviews will be removed.", "deleteConfirm": "Delete everything"
+    "deleteConfirmTitle": "Delete all your data?", "deleteConfirmBody": "This can't be undone. Your account, plan, logs, photos and reviews will be removed.", "deleteConfirm": "Delete everything",
+    "equipment": "Equipment", "equipmentMissing": "{n} missing", "equipmentAll": "All available",
+    "equipmentIntro": "Untick anything your training place doesn't have. Your plan is rebuilt around it; your meals stay the same.",
+    "equipmentSaved": "Saved. Your plan now fits your equipment.", "equipmentWhere": "Where you train: {place}"
   },
   "body": {
     "front": "Front", "back": "Back", "frontView": "Body map, front", "backView": "Body map, back", "leftShort": "L", "rightShort": "R",

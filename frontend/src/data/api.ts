@@ -2,7 +2,7 @@
 // (the Vite dev server forwards /api to it, so the session cookie stays on one origin).
 // The function names and types are the same ones the screens were designed against.
 import type {
-  CheckIn, CheckInDraft, Dashboard, Exercise, ExerciseResult, GroceryItem, GroceryList, Injury, InjuryInput, InjuryStatus, LocalizedText,
+  CheckIn, CheckInDraft, Dashboard, EquipmentState, Exercise, ExerciseResult, GroceryItem, GroceryList, Injury, InjuryInput, InjuryStatus, LocalizedText,
   Meal, MealDay, MealWeekDay, OnboardingState, OnboardingStep, PantryItem, Plan, PlanGenerationStep, Progress, QuestionnaireAnswers,
   Recipe, RemoveReason, RemoveScope, ReplacementOptions, User, Weekday, ActiveSwap, ExerciseAlternative, SwapReason, WeeklyReview, WeightLog, WhyPlan, Workout, WorkoutLog, WorkoutWeek,
 } from '@/types';
@@ -73,7 +73,7 @@ const CARDIO = 'cardio-';
 
 /** Shown in the questionnaire until the person changes them. Age, height and weight start empty (typed in). */
 const DEFAULT_ANSWERS: QuestionnaireAnswers = {
-  sex: 'male', goal: 'loseFat', pace: 'steady', experience: 'intermediate', daysPerWeek: 4,
+  sex: 'male', goal: 'loseFat', pace: 'steady', experience: undefined, daysPerWeek: 4,
   sessionMinutes: 60, location: 'gym', injuries: [],
   health: { heartCondition: false, diabetes: false, pregnancy: false, recentSurgery: false, exerciseMedication: false },
   food: { mealsPerDay: 4, dislikes: [], allergies: ['none'], fasting: [], cookingMinutes: 30 },
@@ -96,6 +96,7 @@ function toUser(me: MeOut, o: OnboardingOut): User {
   const a = toAnswers(o);
   return {
     ...a, age: a.age ?? 0, heightCm: a.heightCm ?? 0, weightKg: a.weightKg ?? 0, // filled in once the questionnaire's first step is saved
+    experience: a.experience ?? 'beginner', // only shown once the questionnaire is finished, when it's always answered
     id: me.id, email: me.email, firstName: { en: me.firstName, ar: me.firstName }, lastName: { en: me.lastName, ar: me.lastName },
     language: me.language, theme: me.theme, memberSince: me.memberSince, onboardingComplete: me.onboardingComplete, hasPlan: me.hasPlan,
   };
@@ -189,6 +190,10 @@ export const api = {
     });
     return api.getUser();
   },
+  /** The equipment where the person trains, and what they said is missing. */
+  getEquipment(): Promise<EquipmentState> { return get<EquipmentState>('/me/equipment'); },
+  /** Saves what's missing; the plan is rebuilt around it (meals stay). */
+  saveEquipment(missing: string[]): Promise<EquipmentState> { return send<EquipmentState>('PUT', '/me/equipment', { missing }); },
   async getPlan(): Promise<Plan> { return toPlan(await get<PlanOut>('/plan')); },
   /** "Why this plan": every decision with the answers used, the rule, its source and the result. */
   getWhy(): Promise<WhyPlan> { return get<WhyPlan>('/plan/why'); },

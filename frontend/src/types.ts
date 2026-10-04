@@ -68,8 +68,12 @@ export interface User {
 
 /** What the onboarding questionnaire produces (also used to regenerate). The numbers start empty until typed. */
 export type QuestionnaireAnswers = Pick<User,
-  'sex' | 'waistCm' | 'goal' | 'pace' | 'experience' |
-  'daysPerWeek' | 'sessionMinutes' | 'location' | 'health' | 'food'> & { age?: number; heightCm?: number; weightKg?: number; injuries: InjuryInput[] };
+  'sex' | 'waistCm' | 'goal' | 'pace' |
+  'daysPerWeek' | 'sessionMinutes' | 'location' | 'health' | 'food'> & {
+    age?: number; heightCm?: number; weightKg?: number; injuries: InjuryInput[];
+    /** Required: nothing is picked until the person chooses (it decides the program and the starting weights). */
+    experience?: Experience;
+  };
 
 // ── Plan ─────────────────────────────────────────────────────────────
 export interface ExerciseSwap {
@@ -234,6 +238,12 @@ export interface WorkoutLog {
   /** "How hard was today's workout?" 1–10, asked once at the end. */
   effort: number;
   results: Record<string, ExerciseResult>; // by exerciseId; an exercise that was skipped has no entry
+}
+
+/** The equipment where the person trains (bodyweight is always there), each available or missing. */
+export interface EquipmentState {
+  location: QuestionnaireAnswers['location'];
+  items: { id: string; name: LocalizedText; available: boolean }[];
 }
 
 export interface WorkoutWeek {

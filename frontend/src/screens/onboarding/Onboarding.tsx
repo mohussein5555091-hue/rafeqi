@@ -12,7 +12,7 @@ import { useI18n } from '@/i18n';
 import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
 import { useSession } from '@/data/session';
-import type { BodyRegion, InjuryInput, QuestionnaireAnswers } from '@/types';
+import type { BodyRegion, Experience, InjuryInput, QuestionnaireAnswers } from '@/types';
 import { ALLERGIES, EXPERIENCE, FOODS, GOALS, HEALTH_KEYS, INJURY_TYPES, LOCATIONS, MOVEMENTS, PACES, REGION_LIST, RESTRICTIONS, sideOf } from '@/constants';
 
 export const ONBOARDING_STEPS = ['about', 'goal', 'training', 'injuries', 'health', 'food', 'review'] as const;
@@ -65,7 +65,7 @@ function OnboardingFlow({ initial }: { initial: QuestionnaireAnswers }) {
       onBack={idx > 0 ? () => go(idx - 1) : undefined}
       onNext={next}
       nextLabel={isLast ? t('onboarding.review.build') : undefined}
-      nextDisabled={saving || (step === 'about' && !aboutValid(a))}
+      nextDisabled={saving || (step === 'about' && !aboutValid(a)) || (step === 'training' && !a.experience)}
       footerNote={isLast ? t('onboarding.review.buildNote') : undefined}
     >
       <Step a={a} set={set} />
@@ -142,8 +142,8 @@ function TrainingStep({ a, set }: StepProps) {
   const locIcons: Record<string, LucideIcon> = { gym: Building2, homeDumbbells: House, bodyweight: PersonStanding };
   return (
     <>
-      <Field label={t('onboarding.training.experience')} hint={t(`onboarding.training.expHint.${a.experience}`)}>
-        <Segmented label={t('onboarding.training.experience')} value={a.experience} onChange={(experience) => set({ experience })} options={EXPERIENCE.map((e) => ({ id: e, label: t(`enums.experience.${e}`) }))} />
+      <Field label={t('onboarding.training.experience')} hint={a.experience ? t(`onboarding.training.expHint.${a.experience}`) : t('onboarding.training.expPick')}>
+        <Segmented label={t('onboarding.training.experience')} value={a.experience as Experience} onChange={(experience) => set({ experience })} options={EXPERIENCE.map((e) => ({ id: e, label: t(`enums.experience.${e}`) }))} />
       </Field>
       <Field label={t('onboarding.training.days')}>
         <ScalePicker label={t('onboarding.training.days')} values={[2, 3, 4, 5, 6]} value={a.daysPerWeek} onChange={(v) => set({ daysPerWeek: v as QuestionnaireAnswers['daysPerWeek'] })} />

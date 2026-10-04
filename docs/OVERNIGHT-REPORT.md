@@ -58,3 +58,39 @@ Before starting:
   Arabic versions for each (`training.yaml` `injuries.explain`, `warmup.explain`).
 - Tests: `tests/backend/test_injury_rules.py` (lower back, shoulder, knee; every exercise, warm-up move and stretch in
   36 generated programs checked against the injury; every reason checked for being a full sentence).
+
+### 5. Lower-back injury: back-friendly leg exercises; honest badges; ramp-up on the first compound lift
+
+- With item 4, the leg press, split squat and (new) **dumbbell step-up** are no longer ruled out by a sore lower back;
+  the barbell squat, goblet squat and deadlifts are.
+- **Decision:** a leg exercise ruled out by an injury may now be replaced across the squat ↔ lunge patterns
+  (`training.yaml` `injuries.related_patterns`, penalty `different_pattern: 2`), and replacing a loaded exercise with a
+  bodyweight-only one costs `lose_load: 3`. So the barbell squat becomes the leg press at the gym, a step-up or split
+  squat at home, and never the bodyweight squat while something loaded fits.
+- New catalogue entry `ex_step_up` (photos from Free Exercise DB, public domain; starting load 0.1 × body weight per
+  dumbbell, a marked placeholder like the others).
+- "Added to support your …" is now "Added because of your …" (Arabic: "اتضاف بسبب …"), and it only appears on the
+  leg exercise added because an injury ruled out the day's squat and hinge. An exercise the weekly review swapped
+  because you marked it uncomfortable is now `review`, not `swapped`, so it no longer shows "Swapped for your <area>".
+- Ramp-up sets go on the first main **compound** lift (two or more joints, with a weight): never a leg extension,
+  curl or calf raise. The session screen uses the same rule.
+- Tests in `tests/backend/test_injury_rules.py`.
+
+### 6. Swap alternatives keep the movement direction and main muscles
+
+- Alternatives with the same movement pattern come first, as before. When fewer than two exist, the extra ones must
+  now have the **same direction** (`training.yaml` `swaps.directions`: push, pull, knee-dominant legs, hip-dominant legs,
+  calves, core, carry) as well as a shared main muscle. So a curl is never offered a triceps pushdown and a leg
+  extension is never offered a deadlift.
+- Tests: `tests/backend/test_swap_alternatives.py` checks every strength exercise × 6 kinds of person × 4 reasons.
+
+### 7. Missing equipment in Profile & settings; experience is required
+
+- Profile & settings has a new "Equipment" row ("All available" / "1 missing") opening `/profile/equipment`: the
+  equipment of your training place with a tick for each. Saving rebuilds the plan around it (meals and grocery list
+  stay), and equipment that comes back also ends the "from now on" swaps that were made because it was missing.
+  API: `GET/PUT /api/me/equipment` (added to the isolation test).
+- The experience question starts with nothing picked; "Next" stays disabled with "Pick one to continue: it sets your
+  program and starting weights." (**Decision:** required rather than a silent default, as you suggested.)
+- **Note:** "Equipment not available" marks the whole equipment type as missing (e.g. every "Machine"), because the
+  catalogue only knows equipment types, not individual machines. Untick it here to get them back.

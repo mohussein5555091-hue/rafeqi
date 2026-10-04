@@ -253,3 +253,30 @@ def test_past_and_finished_sessions_cannot_be_swapped(planned):  # noqa: F811
     ex, to = next((e["exerciseId"], a[0]["exerciseId"]) for e in today["exercises"] if (a := alt(c, today, e["exerciseId"])))
     r = c.post(f"/api/workouts/{today['id']}/exercises/{ex}/swap", json={"toExerciseId": to, "reason": "busy", "scope": "today"})
     assert r.status_code == 409
+
+
+# ── Missing equipment, editable in Profile & settings ──
+
+def test_missing_equipment_can_be_seen_and_changed(planned, db):  # noqa: F811
+    c = planned.client
+    eq = c.get("/api/me/equipment").json()
+    assert eq["location"] == "gym" and all(i["available"] for i in eq["items"])
+    assert {"machine", "cable", "barbell"} <= {i["id"] for i in eq["items"]} and "bodyweight" not in {i["id"] for i in eq["items"]}
+    assert next(i for i in eq["items"] if i["id"] == "machine")["name"] == {"en": "Machine", "ar": "جهاز"}
+    out = c.put("/api/me/equipment", json={"missing": ["machine"]}).json()
+    assert not next(i for i in out["items"] if i["id"] == "machine")["available"]
+    assert all("machine" not in EXERCISES[i]["equipment"] for i in program_ids(c))  # the plan was rebuilt without it
+    assert c.put("/api/me/equipment", json={"missing": ["spaceship"]}).status_code == 422
+    assert c.put("/api/me/equipment", json={"missing": []}).status_code == 200
+    assert "ex_leg_press" in program_ids(c)  # back again
+
+
+def test_equipment_back_ends_the_swaps_it_caused(planned):  # noqa: F811
+    c = planned.client
+    s = today_session(c)
+    alts = alt(c, s, "ex_leg_press", "equipment")
+    swap(c, s, "ex_leg_press", alts[0]["exerciseId"], "equipment", "always")
+    assert [x["reason"] for x in c.get("/api/swaps").json()] == ["equipment"]
+    assert "ex_leg_press" not in program_ids(c)
+    c.put("/api/me/equipment", json={"missing": []})
+    assert c.get("/api/swaps").json() == [] and "ex_leg_press" in program_ids(c)
