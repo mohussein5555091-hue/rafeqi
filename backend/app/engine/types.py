@@ -63,6 +63,7 @@ class Person:
     allergies: tuple[str, ...] = ()
     fasting: tuple[str, ...] = ()
     injuries: tuple[InjuryInfo, ...] = ()
+    missing_equipment: tuple[str, ...] = ()  # "Equipment not available" from an exercise swap
 
     @property
     def conservative(self) -> bool:
@@ -82,6 +83,8 @@ class ExerciseInfo:
     rom: str
     equipment: tuple[str, ...]
     difficulty: str
+    type: str = "strength"  # strength | cardio | mobility | stretch
+    muscles: tuple[str, ...] = ()  # primary muscles (body regions)
 
 
 @dataclass(frozen=True)

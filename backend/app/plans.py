@@ -7,7 +7,7 @@ All numbers come from app/engine; this module only reads the inputs and saves th
 """
 
 import datetime as dt
-from dataclasses import asdict
+from dataclasses import asdict, replace
 
 from sqlalchemy import func, select, update
 from sqlalchemy.orm import Session
@@ -16,13 +16,13 @@ from app import clock
 from app.engine.catalogue import exercises_from_db, grocery_from_db, recipes_from_db
 from app.engine.grocery import build_grocery_list
 from app.engine.meals import NoMealPlan, Targets, plan_week
-from app.engine.nutrition import compute_targets
+from app.engine.nutrition import add_cardio_reason, compute_targets
 from app.engine.review import ReviewInput, as_reasons, review_week
 from app.engine.rules import load_rules, rules_version
 from app.engine.training import Adjustments, build_program
 from app.engine.types import Health, InjuryInfo, Person, Reason
 from app.models import (
-    CheckIn, CheckInAnswer, GroceryList, GroceryListItem, Injury, MealPlan, MealPlanItem, PainLog, PantryItem, Plan, Profile,
+    CheckIn, CheckInAnswer, ExerciseSwap, GroceryList, GroceryListItem, Injury, MealPlan, MealPlanItem, PainLog, PantryItem, Plan, Profile,
     ProgramDay, ProgramExercise, RecipeIngredient, TrainingProgram, WeeklyReview, WeightLog, WorkoutLog,
 )
 
@@ -51,7 +51,14 @@ def person_for(db: Session, user_id: str, weight_kg: float | None = None) -> Per
         injuries=tuple(InjuryInfo(id=i.id, region=i.region, status=i.status, severity=i.severity,
                                   painful_movements=tuple(i.painful_movements), restrictions=tuple(i.restrictions),
                                   paused=i.paused_at is not None) for i in injuries),
+        missing_equipment=tuple(p.missing_equipment or ()),
     )
+
+
+def active_swaps(db: Session, user_id: str) -> list[ExerciseSwap]:
+    """The person's "from now on" swaps that haven't been undone, oldest first."""
+    return list(db.scalars(select(ExerciseSwap).where(ExerciseSwap.user_id == user_id, ExerciseSwap.scope == "always",
+                                                      ExerciseSwap.ended_at.is_(None)).order_by(ExerciseSwap.created_at)))
 
 
 def current_plan(db: Session, user_id: str) -> Plan | None:
@@ -64,12 +71,24 @@ def _r(reasons: list[Reason]) -> list[dict]:
 
 def generate_plan(db: Session, user_id: str, trigger: str = "onboarding", *, today: dt.date | None = None,
                   adjust: Adjustments = Adjustments(), calories: int | None = None, banned: frozenset[str] = frozenset(),
-                  weight_kg: float | None = None, extra_reasons: list[Reason] | None = None) -> Plan:
-    """Builds and saves a new plan version from the saved questionnaire answers (plus any weekly-review changes)."""
+                  weight_kg: float | None = None, extra_reasons: list[Reason] | None = None, keep_meals: bool = False) -> Plan:
+    """Builds and saves a new plan version from the saved questionnaire answers (plus any weekly-review changes).
+    `keep_meals`: when only the training changed (a swap, an injury), the week's meals and grocery list (with its ticks)
+    are carried over as they are, as long as the nutrition targets are the same."""
     person = person_for(db, user_id, weight_kg)
     start = week_start(today or clock.today())
     targets = compute_targets(person, calories_override=calories)
+    # The person's own "from now on" swaps are kept by every version (and what they took out never comes back).
+    swaps = active_swaps(db, user_id)
+    adjust = replace(adjust, replace=tuple((s.from_exercise_id, s.to_exercise_id, s.reason) for s in swaps))
     program = build_program(person, exercises_from_db(db), adjust=adjust)
+    if program.cardio and program.cardio.sessions:
+        add_cardio_reason(targets, person, len(program.cardio.sessions), program.cardio.sessions[0].minutes)
+    before = current_plan(db, user_id) if keep_meals else None
+    same_targets = before is not None and (before.calories, before.protein_g, before.carbs_g, before.fat_g) == (
+        targets.calories, targets.protein_g, targets.carbs_g, targets.fat_g)
+    if same_targets:
+        return _new_version_keeping_meals(db, user_id, trigger, person, targets, program, adjust, calories, banned, extra_reasons, before)
     recipes = recipes_from_db(db)
     meal_reasons: list[Reason] = []
     try:
@@ -90,6 +109,7 @@ def generate_plan(db: Session, user_id: str, trigger: str = "onboarding", *, tod
         maintenance_calories=targets.maintenance, protein_g=targets.protein_g, carbs_g=targets.carbs_g, fat_g=targets.fat_g,
         conservative=person.conservative, rules_version=rules_version(), created_at=now,
         reasons={**{k: _r(v) for k, v in targets.reasons.items()}, "training": _r(program.reasons), "meals": _r(meal_reasons),
+                 "cardio": _r(program.cardio.reasons if program.cardio else []),
                  "review": _r(extra_reasons or [])},
         inputs={"person": {k: v for k, v in asdict(person).items() if k != "injuries"},
                 "injuries": [asdict(i) for i in person.injuries], "week_start": start.isoformat(),
@@ -99,22 +119,7 @@ def generate_plan(db: Session, user_id: str, trigger: str = "onboarding", *, tod
     db.add(plan)
     db.flush()
 
-    tp = TrainingProgram(user_id=user_id, plan_id=plan.id, template_id=program.template_id, name_en=program.name["en"],
-                         name_ar=program.name["ar"], days_per_week=program.days_per_week, total_weeks=program.total_weeks,
-                         deload_week=program.deload_week, start_date=start)
-    db.add(tp)
-    db.flush()
-    for d in program.days:
-        pd = ProgramDay(user_id=user_id, program_id=tp.id, day_index=d.day_index, weekday=d.weekday, name_en=d.name["en"],
-                        name_ar=d.name["ar"], est_minutes=d.est_minutes, warmup_minutes=d.warmup_minutes)
-        db.add(pd)
-        db.flush()
-        for e in d.exercises:
-            db.add(ProgramExercise(
-                user_id=user_id, program_day_id=pd.id, exercise_id=e.exercise_id, position=e.position, sets=e.sets, reps=e.reps,
-                rest_sec=e.rest_sec, target_rpe=e.target_rpe, load_factor=e.load_factor, weight_step_kg=e.weight_step_kg,
-                start_weight_kg=e.start_weight_kg, weight_offset_kg=e.weight_offset_kg, replaced_exercise_id=e.replaced_exercise_id,
-                injury_id=e.injury_id, swap_kind=e.swap_kind, swap_reason={"reasons": _r(e.reasons)}))
+    _save_program(db, user_id, plan, program, start)
 
     mp = MealPlan(user_id=user_id, plan_id=plan.id, week_start=start, created_at=now)
     db.add(mp)
@@ -123,6 +128,68 @@ def generate_plan(db: Session, user_id: str, trigger: str = "onboarding", *, tod
         db.add(MealPlanItem(user_id=user_id, meal_plan_id=mp.id, date=m.date, slot=m.slot, time=m.time, recipe_id=m.recipe_id,
                             portion=m.portion, kcal=m.kcal, protein_g=m.protein, carbs_g=m.carbs, fat_g=m.fat))
     regenerate_grocery_list(db, user_id, mp, week_meals=[(m.recipe_id, m.portion) for m in week.meals])
+    db.flush()
+    return plan
+
+
+def _save_program(db: Session, user_id: str, plan: Plan, program, start: dt.date) -> None:
+    tp = TrainingProgram(user_id=user_id, plan_id=plan.id, template_id=program.template_id, name_en=program.name["en"],
+                         name_ar=program.name["ar"], days_per_week=program.days_per_week, total_weeks=program.total_weeks,
+                         deload_week=program.deload_week, start_date=start, cardio=program.cardio.as_dict() if program.cardio else {})
+    db.add(tp)
+    db.flush()
+    for d in program.days:
+        pd = ProgramDay(user_id=user_id, program_id=tp.id, day_index=d.day_index, weekday=d.weekday, name_en=d.name["en"],
+                        name_ar=d.name["ar"], est_minutes=d.est_minutes, warmup_minutes=d.warmup_minutes, kind=d.kind,
+                        warmup=d.warmup, cooldown=d.cooldown, reasons=_r(d.reasons))
+        db.add(pd)
+        db.flush()
+        for e in d.exercises:
+            db.add(ProgramExercise(
+                user_id=user_id, program_day_id=pd.id, exercise_id=e.exercise_id, position=e.position, sets=e.sets, reps=e.reps,
+                rest_sec=e.rest_sec, target_rpe=e.target_rpe, load_factor=e.load_factor, weight_step_kg=e.weight_step_kg,
+                start_weight_kg=e.start_weight_kg, weight_offset_kg=e.weight_offset_kg, replaced_exercise_id=e.replaced_exercise_id,
+                injury_id=e.injury_id, swap_kind=e.swap_kind, user_reason=e.user_reason, swap_reason={"reasons": _r(e.reasons)}))
+
+
+def _new_version_keeping_meals(db: Session, user_id: str, trigger: str, person, targets, program, adjust: Adjustments, calories,
+                               banned, extra_reasons, before: Plan) -> Plan:
+    """A new version with the new program, and the previous version's meals and grocery list copied as they are."""
+    now = clock.now()
+    old_mp = db.scalar(select(MealPlan).where(MealPlan.plan_id == before.id))
+    db.execute(update(Plan).where(Plan.user_id == user_id, Plan.status == "active").values(status="superseded"))
+    version = (db.scalar(select(func.max(Plan.version)).where(Plan.user_id == user_id)) or 0) + 1
+    reasons = dict(before.reasons or {})
+    reasons.update({k: _r(v) for k, v in targets.reasons.items()})
+    reasons.update({"training": _r(program.reasons), "cardio": _r(program.cardio.reasons if program.cardio else []), "review": _r(extra_reasons or [])})
+    inputs = dict(before.inputs or {})
+    inputs["person"] = {k: v for k, v in asdict(person).items() if k != "injuries"}
+    inputs["injuries"] = [asdict(i) for i in person.injuries]
+    inputs["adjustments"] = {"avoid": sorted(adjust.avoid), "injury_factors": dict(adjust.injury_factors), "deload": adjust.deload,
+                             "weight_offsets": dict(adjust.weight_offsets), "calories": calories, "banned_recipes": sorted(banned)}
+    plan = Plan(user_id=user_id, version=version, status="active", trigger=trigger, calories=before.calories,
+                maintenance_calories=targets.maintenance, protein_g=before.protein_g, carbs_g=before.carbs_g, fat_g=before.fat_g,
+                conservative=person.conservative, rules_version=rules_version(), created_at=now, reasons=reasons, inputs=inputs)
+    db.add(plan)
+    db.flush()
+    start = old_mp.week_start if old_mp else week_start(clock.today())
+    _save_program(db, user_id, plan, program, start)
+    if old_mp is not None:
+        mp = MealPlan(user_id=user_id, plan_id=plan.id, week_start=old_mp.week_start, created_at=now)
+        db.add(mp)
+        db.flush()
+        for m in db.scalars(select(MealPlanItem).where(MealPlanItem.meal_plan_id == old_mp.id)):
+            db.add(MealPlanItem(user_id=user_id, meal_plan_id=mp.id, date=m.date, slot=m.slot, time=m.time, recipe_id=m.recipe_id,
+                                portion=m.portion, kcal=m.kcal, protein_g=m.protein_g, carbs_g=m.carbs_g, fat_g=m.fat_g, eaten=m.eaten,
+                                replaced_recipe_id=m.replaced_recipe_id, reason=m.reason))
+        old_gl = db.scalars(select(GroceryList).where(GroceryList.meal_plan_id == old_mp.id).order_by(GroceryList.created_at.desc())).first()
+        if old_gl is not None:
+            gl = GroceryList(user_id=user_id, meal_plan_id=mp.id, week_start=old_gl.week_start, change_note=old_gl.change_note, created_at=now)
+            db.add(gl)
+            db.flush()
+            for g in db.scalars(select(GroceryListItem).where(GroceryListItem.grocery_list_id == old_gl.id)):
+                db.add(GroceryListItem(user_id=user_id, grocery_list_id=gl.id, grocery_item_id=g.grocery_item_id, period=g.period,
+                                       grams_needed=g.grams_needed, qty=g.qty, unit=g.unit, checked=g.checked, have_it=g.have_it))
     db.flush()
     return plan
 
@@ -219,13 +286,13 @@ def run_weekly_review(db: Session, user_id: str, checkin_id: str) -> WeeklyRevie
 
 
 def rebuild_plan(db: Session, user_id: str, trigger: str) -> Plan | None:
-    """A new version after an injury changed (edited, added, removed or paused), keeping what the weekly reviews decided
-    (calories, swapped exercises, lighter loads, replaced meals). One-off changes (deload, ± one step) aren't repeated.
-    Does nothing before the first plan."""
+    """A new version after an injury changed (edited, added, removed or paused) or an exercise swap, keeping what the weekly reviews decided
+    (calories, swapped exercises, lighter loads, replaced meals) and the week's meals. One-off changes (deload, ± one step)
+    aren't repeated. Does nothing before the first plan."""
     before = current_plan(db, user_id)
     if before is None:
         return None
     prev = (before.inputs or {}).get("adjustments") or {}
     adjust = Adjustments(avoid=frozenset(prev.get("avoid") or ()), injury_factors=tuple(sorted((prev.get("injury_factors") or {}).items())))
     return generate_plan(db, user_id, trigger, adjust=adjust, calories=prev.get("calories"),
-                         banned=frozenset(prev.get("banned_recipes") or ()))
+                         banned=frozenset(prev.get("banned_recipes") or ()), keep_meals=True)

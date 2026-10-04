@@ -114,6 +114,7 @@ test('weekly check-in: six short steps, then the review with the engine\'s chang
   await freshUser(page);
   await page.goto('/check-in/body');
   await waitForContent(page);
+  await page.getByRole('textbox', { name: /weight/i }).first().fill('87.5'); // the weight starts empty
   for (const step of ['training', 'injuries', 'nutrition', 'life', 'note']) {
     await page.getByRole('button', { name: 'Next' }).click();
     await expect(page).toHaveURL(new RegExp(`/check-in/${step}$`));
@@ -137,7 +138,7 @@ test.describe('designed states', () => {
     await page.goto('/workouts');
     await expect(page.locator('[aria-busy="true"]').first()).toBeVisible();
     await waitForContent(page);
-    await expect(page.getByText('0 of 4 done')).toBeVisible();
+    await expect(page.getByText('0 of 6 done')).toBeVisible(); // 4 lifting days + 2 cardio days
   });
 
   test('error: "Something didn\'t load", and Try again recovers', async ({ page }) => {

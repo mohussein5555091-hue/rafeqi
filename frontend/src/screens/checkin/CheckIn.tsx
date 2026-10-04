@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { Camera, Lock, Plus, Bandage } from 'lucide-react';
-import { BodyMap, Button, Card, ChipGroup, Field, FlowShell, Icon, NumberStepper, QueryView, ScalePicker, Segmented, Slider, cn, useToast, type RegionState } from '@/components';
+import { BodyMap, Button, Card, ChipGroup, Field, FlowShell, Icon, NumberStepper, QueryView, ScalePicker, Segmented, Slider, cn, inRange, parseNumber, useToast, type RegionState } from '@/components';
 import { useI18n } from '@/i18n';
 import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
@@ -53,7 +53,7 @@ export function CheckIn() {
   return (
     <FlowShell title={t(`checkIn.${step}.title`)} step={idx + 1} total={CHECKIN_STEPS.length}
       onBack={idx > 0 ? () => go(idx - 1) : undefined} backLabel={idx === 0 ? undefined : t('common.back')}
-      onNext={isLast ? submit : () => go(idx + 1)} nextLabel={isLast ? t('checkIn.submit') : undefined} nextDisabled={!c || sending}
+      onNext={isLast ? submit : () => go(idx + 1)} nextLabel={isLast ? t('checkIn.submit') : undefined} nextDisabled={!c || sending || (step === 'body' && !bodyStepValid(c))}
       footerNote={isLast ? t('checkIn.reviewTime') : undefined}>
       <QueryView query={q}>
         {([draft, catalogue, injuries, week]) => {
@@ -70,23 +70,51 @@ export function CheckIn() {
   );
 }
 
-function BodyStep({ c, set, last }: Ctx) {
+/** The same ranges as data/checkin_questions.yaml (the backend checks them again). */
+const WEIGHT: [number, number] = [30, 300];
+const MEASURE_RANGES = { waist: [40, 200], hips: [40, 200], chest: [40, 200], arm: [15, 70], thigh: [25, 100] } as const;
+type MeasureKey = keyof typeof MEASURE_RANGES;
+
+/** Step 1 is ready when the weight is typed and every measurement given is in range. */
+export const bodyStepValid = (c: CheckInData) => inRange(c.body.weightKg, ...WEIGHT)
+  && (Object.keys(MEASURE_RANGES) as MeasureKey[]).every((k) => c.body.measurementsCm[k] === undefined || inRange(c.body.measurementsCm[k], MEASURE_RANGES[k][0], MEASURE_RANGES[k][1]));
+
+/** One measurement tile: type the number (number keyboard with a decimal point); "," and Arabic digits work too. */
+function MeasureInput({ k, value, was, onChange }: { k: MeasureKey; value?: number; was?: number; onChange: (v: number | undefined) => void }) {
   const { t, num } = useI18n();
+  const [text, setText] = useState(value === undefined ? '' : String(value));
+  const [left, setLeft] = useState(false);
+  const label = t(`checkIn.body.m.${k}`);
+  const v = parseNumber(text);
+  const [lo, hi] = MEASURE_RANGES[k];
+  const error = !left || text.trim() === '' ? undefined : Number.isNaN(v) ? t('common.notANumber', { label })
+    : !inRange(v, lo, hi) ? t('common.range', { label, min: lo, max: hi, unit: t('units.cm') }) : undefined;
+  return (
+    <label className={cn('flex min-h-[60px] flex-col rounded-lg bg-surface px-3.5 py-2', error && 'ring-2 ring-inset ring-warn-600')}>
+      <span className="text-[11.5px] text-neutral-700">{label}</span>
+      <input type="text" inputMode="decimal" enterKeyHint="next" dir="ltr" aria-invalid={!!error} className="w-full bg-transparent text-[17px] font-bold"
+        placeholder={was !== undefined ? t('common.eg', { n: num(was, 1) }) : undefined} value={text}
+        onBlur={() => setLeft(true)}
+        onChange={(e) => { setText(e.target.value); const n = parseNumber(e.target.value); onChange(Number.isNaN(n) ? undefined : n); }} />
+      <span className="text-[10.5px] text-neutral-700">{t('checkIn.body.was', { v: was === undefined ? '—' : num(was, 1) })}</span>
+      {error && <span role="alert" className="text-[11.5px] text-warn-700">{error}</span>}
+    </label>
+  );
+}
+
+function BodyStep({ c, set, last }: Ctx) {
+  const { t } = useI18n();
   const m = c.body.measurementsCm;
   return (
     <>
-      <Field label={t('checkIn.body.weight')} hint={t('checkIn.body.lastWeek', { kg: num(last.weightKg, 1) })}>
-        <NumberStepper label={t('checkIn.body.weight')} value={c.body.weightKg} step={0.1} digits={1} onChange={(weightKg) => set({ body: { ...c.body, weightKg } })} unit={t('units.kg')} />
+      <Field label={t('checkIn.body.weight')} hint={t('checkIn.body.lastWeek', { kg: last.weightKg })}>
+        <NumberStepper label={t('checkIn.body.weight')} value={c.body.weightKg} step={0.1} digits={1} min={WEIGHT[0]} max={WEIGHT[1]} placeholder={last.weightKg}
+          onChange={(weightKg) => set({ body: { ...c.body, weightKg } })} unit={t('units.kg')} />
       </Field>
       <Field label={t('checkIn.body.measurements')}>
         <div className="grid grid-cols-3 gap-2">
-          {(['waist', 'hips', 'chest', 'arm', 'thigh'] as const).map((k) => (
-            <label key={k} className="flex min-h-[60px] flex-col rounded-lg bg-surface px-3.5 py-2">
-              <span className="text-[11.5px] text-neutral-700">{t(`checkIn.body.m.${k}`)}</span>
-              <input type="number" inputMode="decimal" step="0.5" className="w-full bg-transparent text-[17px] font-bold" value={m[k] ?? ''}
-                onChange={(e) => set({ body: { ...c.body, measurementsCm: { ...m, [k]: e.target.value ? Number(e.target.value) : undefined } } })} />
-              <span className="text-[10.5px] text-neutral-700">{t('checkIn.body.was', { v: num(last.measurementsCm[k] ?? 0, 1) })}</span>
-            </label>
+          {(Object.keys(MEASURE_RANGES) as MeasureKey[]).map((k) => (
+            <MeasureInput key={k} k={k} value={m[k]} was={last.measurementsCm[k]} onChange={(v) => set({ body: { ...c.body, measurementsCm: { ...m, [k]: v } } })} />
           ))}
         </div>
       </Field>
@@ -228,7 +256,7 @@ function NoteStep({ c, set }: Ctx) {
       </Field>
       <Card className="gap-1.5 text-[13.5px]">
         <strong className="text-[14.5px]">{t('checkIn.note.summary')}</strong>
-        <span>{t('checkIn.note.summary1', { kg: num(c.body.weightKg, 1), done: c.training.sessionsDone, total: c.training.sessionsPlanned, pain: c.injuries[0]?.pain ?? 0, trend: t(`enums.trend.${c.injuries[0]?.trend ?? 'same'}`) })}</span>
+        <span>{t('checkIn.note.summary1', { kg: c.body.weightKg === undefined ? '—' : num(c.body.weightKg, 1), done: c.training.sessionsDone, total: c.training.sessionsPlanned, pain: c.injuries[0]?.pain ?? 0, trend: t(`enums.trend.${c.injuries[0]?.trend ?? 'same'}`) })}</span>
         <span>{t('checkIn.note.summary2', { pct: c.nutrition.adherencePct, hunger: c.nutrition.hunger, sleep: c.life.sleep })}</span>
       </Card>
     </>

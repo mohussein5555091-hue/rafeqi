@@ -155,6 +155,11 @@ def test_review_adjustments():
     normal, adjusted = build_program(person(), CAT), build_program(person(), CAT, adjust=adjust)
     ids = [e.exercise_id for e in all_exercises(adjusted)]
     assert "ex_cs_row" not in ids and any(e.replaced_exercise_id == "ex_cs_row" for e in all_exercises(adjusted))
-    for a, b in zip(all_exercises(normal), all_exercises(adjusted)):
-        assert b.sets == max(1, a.sets - 1) and b.target_rpe == a.target_rpe - 1
+    # Deload: one set less and effort 1 lower on every exercise (fewer sets can leave room for one more exercise).
+    for nd, ad in zip(normal.days, adjusted.days):
+        before = {e.exercise_id: e for e in nd.exercises}
+        for e in ad.exercises:
+            a = before.get(e.replaced_exercise_id or e.exercise_id) or before.get(e.exercise_id)
+            if a is not None:
+                assert e.sets == max(1, a.sets - 1) and e.target_rpe == a.target_rpe - 1, e.exercise_id
     assert {e.exercise_id: e.weight_offset_kg for e in all_exercises(adjusted)}["ex_lat_pulldown"] == 2.5

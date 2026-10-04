@@ -30,6 +30,11 @@ movement_patterns:
   plantarFlexion:           { en: Calf raise, ar: رفع السمانة }
   locomotion:               { en: Walking / running, ar: مشي / جري }
   jump:                     { en: Jumping, ar: نط }
+  walking:                  { en: Walking, ar: مشي }
+  cycling:                  { en: Cycling, ar: عجلة }
+  mobility:                 { en: Mobility drill, ar: تمرين مرونة حركية }
+  stretch:                  { en: Static stretch, ar: إطالة ثابتة }
+  breathing:                { en: Breathing, ar: تنفّس }
 
 # Joints an exercise puts meaningful load on. An exercise lists one or more.
 joints:
@@ -58,6 +63,7 @@ equipment:
   landmine:   { en: Landmine, ar: لاندماين }
   bands:      { en: Resistance bands, ar: أستك مقاومة }
   pullUpBar:  { en: Pull-up bar, ar: بار عقلة }
+  jumpRope:   { en: Jump rope, ar: حبل نط }
 
 # Injury: "which movements hurt?" (the onboarding chips).
 # `excludes` says which exercises that movement rules out: every listed field must match.

@@ -6,7 +6,7 @@ import {
   User as UserIcon, Target, Bandage, HeartPulse, Utensils, Lock, MoonStar,
 } from 'lucide-react';
 import {
-  BodyMap, Button, Card, ChipGroup, Field, FlowShell, Icon, NumberStepper, QueryView, ScalePicker, Segmented, cn, useToast, type RegionState,
+  BodyMap, Button, Card, ChipGroup, Field, FlowShell, Icon, NumberStepper, QueryView, ScalePicker, Segmented, cn, inRange, useToast, type RegionState,
 } from '@/components';
 import { useI18n } from '@/i18n';
 import { api } from '@/data/api';
@@ -65,7 +65,7 @@ function OnboardingFlow({ initial }: { initial: QuestionnaireAnswers }) {
       onBack={idx > 0 ? () => go(idx - 1) : undefined}
       onNext={next}
       nextLabel={isLast ? t('onboarding.review.build') : undefined}
-      nextDisabled={saving || (step === 'about' && a.age < 18)}
+      nextDisabled={saving || (step === 'about' && !aboutValid(a))}
       footerNote={isLast ? t('onboarding.review.buildNote') : undefined}
     >
       <Step a={a} set={set} />
@@ -73,22 +73,32 @@ function OnboardingFlow({ initial }: { initial: QuestionnaireAnswers }) {
   );
 }
 
+/** The same ranges the backend checks (backend/app/schemas/onboarding.py AboutIn). */
+export const ABOUT_RANGES = { age: [18, 90], heightCm: [130, 220], weightKg: [35, 250], waistCm: [50, 180] } as const;
+
+const aboutValid = (a: QuestionnaireAnswers) =>
+  inRange(a.age, ...ABOUT_RANGES.age) && inRange(a.heightCm, ...ABOUT_RANGES.heightCm) && inRange(a.weightKg, ...ABOUT_RANGES.weightKg)
+  && (a.waistCm === undefined || inRange(a.waistCm, ...ABOUT_RANGES.waistCm));
+
+/** Every number starts empty with an "e.g." placeholder: type it, or use − and +. */
 function AboutStep({ a, set }: StepProps) {
   const { t } = useI18n();
+  const R = ABOUT_RANGES;
   return (
     <>
       <Field label={t('onboarding.about.sex')}>
         <Segmented label={t('onboarding.about.sex')} value={a.sex} onChange={(sex) => set({ sex })} options={[{ id: 'male', label: t('enums.sex.male') }, { id: 'female', label: t('enums.sex.female') }]} />
       </Field>
-      <Field label={t('onboarding.about.age')} hint={t('onboarding.about.adultsOnly')} error={a.age < 18 ? t('onboarding.about.under18') : undefined}>
-        <NumberStepper label={t('onboarding.about.age')} value={a.age} min={16} max={90} onChange={(age) => set({ age })} unit={t('units.years')} />
+      <Field label={t('onboarding.about.age')} hint={t('onboarding.about.adultsOnly')}>
+        <NumberStepper label={t('onboarding.about.age')} value={a.age} min={R.age[0]} max={R.age[1]} placeholder={30} onChange={(age) => set({ age })} unit={t('units.years')}
+          rangeError={(v) => (v < 18 ? t('onboarding.about.under18') : undefined)} />
       </Field>
       <div className="grid grid-cols-2 gap-3">
-        <Field label={t('onboarding.about.height')}><NumberStepper label={t('onboarding.about.height')} value={a.heightCm} min={130} max={220} onChange={(heightCm) => set({ heightCm })} unit={t('units.cm')} /></Field>
-        <Field label={t('onboarding.about.weight')}><NumberStepper label={t('onboarding.about.weight')} value={a.weightKg} step={0.5} digits={1} min={35} max={250} onChange={(weightKg) => set({ weightKg })} unit={t('units.kg')} /></Field>
+        <Field label={t('onboarding.about.height')}><NumberStepper label={t('onboarding.about.height')} value={a.heightCm} min={R.heightCm[0]} max={R.heightCm[1]} placeholder={170} onChange={(heightCm) => set({ heightCm })} unit={t('units.cm')} /></Field>
+        <Field label={t('onboarding.about.weight')}><NumberStepper label={t('onboarding.about.weight')} value={a.weightKg} step={0.5} digits={1} min={R.weightKg[0]} max={R.weightKg[1]} placeholder={80} onChange={(weightKg) => set({ weightKg })} unit={t('units.kg')} /></Field>
       </div>
       <Field label={<>{t('onboarding.about.waist')} <span className="text-neutral-600">· {t('common.optional')}</span></>} hint={<span className="flex gap-1.5"><Icon as={Ruler} size={14} />{t('onboarding.about.waistHint')}</span>}>
-        <NumberStepper label={t('onboarding.about.waist')} value={a.waistCm ?? 90} min={50} max={180} onChange={(waistCm) => set({ waistCm })} unit={t('units.cm')} />
+        <NumberStepper label={t('onboarding.about.waist')} value={a.waistCm} min={R.waistCm[0]} max={R.waistCm[1]} placeholder={90} onChange={(waistCm) => set({ waistCm })} unit={t('units.cm')} />
       </Field>
     </>
   );
@@ -271,7 +281,7 @@ function ReviewStep({ a }: StepProps) {
   const nav = useNavigate();
   const anyYes = HEALTH_KEYS.some((k) => a.health[k]);
   const rows: { step: StepId; icon: LucideIcon; value: string }[] = [
-    { step: 'about', icon: UserIcon, value: t('onboarding.review.aboutValue', { sex: t(`enums.sex.${a.sex}`), age: a.age, height: a.heightCm, weight: num(a.weightKg, 1), waist: a.waistCm ?? '—' }) },
+    { step: 'about', icon: UserIcon, value: t('onboarding.review.aboutValue', { sex: t(`enums.sex.${a.sex}`), age: a.age ?? '—', height: a.heightCm ?? '—', weight: a.weightKg === undefined ? '—' : num(a.weightKg, 1), waist: a.waistCm ?? '—' }) },
     { step: 'goal', icon: Target, value: `${t(`enums.goal.${a.goal}`)} · ${t(`enums.pace.${a.pace}`)}` },
     { step: 'training', icon: Dumbbell, value: t('onboarding.review.trainingValue', { exp: t(`enums.experience.${a.experience}`), days: a.daysPerWeek, min: a.sessionMinutes, where: t(`enums.location.${a.location}`) }) },
     { step: 'injuries', icon: Bandage, value: a.injuries.length ? a.injuries.map((i) => `${t(`body.${i.region}`)} · ${t(`enums.injuryType.${i.type}`)} · ${i.severity}/5`).join(' — ') : t('onboarding.review.noInjuries') },

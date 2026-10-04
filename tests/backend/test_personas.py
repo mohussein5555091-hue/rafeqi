@@ -127,3 +127,23 @@ def test_ramadan_two_meals_are_suhoor_and_iftar():
     r = plan("ramadan_two_meals")
     assert {m.slot for m in r.meals.meals} == {"suhoor", "iftar"}
     assert {m.time for m in r.meals.meals} == {"03:30", "18:00"}
+
+
+@pytest.mark.parametrize("key", list(PERSONAS))
+def test_warm_up_cool_down_cardio_and_session_length(key):
+    r = plan(key)
+    p = r.person
+    week = ["sat", "sun", "mon", "tue", "wed", "thu", "fri"]
+    kinds = {d.weekday: d.kind for d in r.program.days}
+    for d in r.program.days:
+        assert d.warmup["general"]["id"] and 3 <= len(d.warmup["moves"]) <= 4
+        assert 4 <= len(d.cooldown["stretches"]) <= 6
+        assert d.est_minutes <= p.session_minutes + 15, (key, d.name, d.est_minutes)
+        if d.kind == "full":
+            assert any(CAT[e.exercise_id].pattern in ("squat", "hinge", "lunge", "kneeExtension", "kneeFlexion") for e in d.exercises), d.name
+    assert r.program.cardio.sessions, key
+    for s in r.program.cardio.sessions:
+        assert kinds.get(week[(week.index(s.weekday) + 1) % 7]) not in ("lower", "full"), (key, s.weekday)
+        if p.conservative:
+            assert s.intensity == "easy"
+    assert any(x.rule == "nutrition.cardio_counted" for x in r.targets.reasons["calories"])

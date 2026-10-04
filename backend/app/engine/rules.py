@@ -72,6 +72,8 @@ def load_templates() -> tuple[dict, ...]:
         for n, rotation in t["rotation"].items():
             if int(n) not in t["days_per_week"] or not set(rotation) <= keys or len(rotation) != int(n):
                 raise RulesError(f"{path.name}: rotation for {n} days doesn't match its days")
+        if bad := [d["key"] for d in t["days"] if d.get("kind", "full") not in ("upper", "lower", "full")]:
+            raise RulesError(f"{path.name}: day kind must be upper, lower or full ({bad})")
         if not t.get("source"):
             raise RulesError(f"{path.name}: needs a source")
         templates.append(t)

@@ -31,8 +31,9 @@ def plan_out(db: Session, plan: Plan) -> dict:
             "name": {"en": tp.name_en, "ar": tp.name_ar}, "templateId": tp.template_id, "daysPerWeek": tp.days_per_week,
             "totalWeeks": tp.total_weeks, "deloadWeek": tp.deload_week, "startDate": tp.start_date.isoformat(),
             "currentWeek": program_week_number(db, plan.user_id, plans.week_start(clock.today()), tp.total_weeks),
+            "cardio": tp.cardio or {},
             "days": [{
-                "id": d.id, "weekday": d.weekday, "name": {"en": d.name_en, "ar": d.name_ar}, "estMinutes": d.est_minutes,
+                "id": d.id, "weekday": d.weekday, "kind": d.kind, "warmup": d.warmup, "cooldown": d.cooldown, "reasons": d.reasons, "name": {"en": d.name_en, "ar": d.name_ar}, "estMinutes": d.est_minutes,
                 "exercises": [{
                     "exerciseId": e.exercise_id, "sets": e.sets, "reps": e.reps, "restSec": e.rest_sec, "rpe": e.target_rpe,
                     "startWeightKg": e.start_weight_kg, "weightStepKg": e.weight_step_kg, "loadFactor": e.load_factor,

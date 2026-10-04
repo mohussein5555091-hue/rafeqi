@@ -81,6 +81,8 @@ class Profile(Base, UserOwned):
     recent_surgery: Mapped[bool | None]
     exercise_medication: Mapped[bool | None]
     conservative: Mapped[bool] = mapped_column(default=False)  # any health answer "yes"
+    # Equipment the person said isn't available ("Equipment not available" when swapping an exercise). Plans avoid it.
+    missing_equipment: Mapped[list] = mapped_column(default=list, server_default="[]")
     updated_at: Mapped[datetime] = timestamp()
 
     __table_args__ = (CheckConstraint("age IS NULL OR age BETWEEN 18 AND 90", name="adult_age"),)

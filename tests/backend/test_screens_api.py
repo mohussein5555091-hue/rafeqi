@@ -23,8 +23,13 @@ def week(c):
     return c.get("/api/workouts/week").json()
 
 
+def lifting(c):
+    """This week's lifting sessions (the week also has cardio-only days)."""
+    return [s for s in week(c)["sessions"] if s["kind"] == "strength"]
+
+
 def today_session(c):
-    return next(s for s in week(c)["sessions"] if s["status"] == "today")
+    return next(s for s in lifting(c) if s["status"] == "today")
 
 
 # ── Account & onboarding ──
@@ -61,8 +66,9 @@ def test_exercise_catalogue(planned):
 def test_workout_week(planned):
     w = week(planned.client)
     assert (w["start"], w["end"], w["weekNumber"]) == ("2026-09-26", "2026-10-02", 1)
-    assert [(s["day"], s["status"]) for s in w["sessions"]] == [("sat", "missed"), ("mon", "today"), ("wed", "planned"), ("thu", "planned")]
-    s = w["sessions"][1]
+    strength = [s for s in w["sessions"] if s["kind"] == "strength"]
+    assert [(s["day"], s["status"]) for s in strength] == [("sat", "missed"), ("mon", "today"), ("wed", "planned"), ("thu", "planned")]
+    s = strength[1]
     assert s["date"] == "2026-09-28" and s["exercises"]
     e = s["exercises"][0]
     assert e["target"]["reason"] == "start" and "lastTime" not in e
@@ -94,7 +100,7 @@ def test_log_one_exercise_then_finish(planned, db):
 
 def test_only_todays_session_can_be_logged(planned):
     c = planned.client
-    later = next(s for s in week(c)["sessions"] if s["status"] == "planned")
+    later = next(s for s in lifting(c) if s["status"] == "planned")
     r = c.put(f"/api/workouts/{later['id']}/exercises/{later['exercises'][0]['exerciseId']}", json={"sets": 3, "reps": 8, "weightKg": 20})
     assert r.status_code == 409 and r.json()["detail"] == "not_today"
 

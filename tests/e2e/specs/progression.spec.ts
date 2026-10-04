@@ -4,10 +4,10 @@ import { api, expect, test, waitForContent } from './helpers';
 // against data/rules/progression_cases.json). This checks the screen shows exactly what the backend decided.
 test('each session shows one exact target per exercise, from the plan engine', async ({ page }) => {
   const week = await api(page, '/workouts/week');
-  const s = week.sessions.find((x: { status: string }) => x.status === 'planned');
+  const s = week.sessions.find((x: { status: string; kind: string }) => x.kind === 'strength' && x.status === 'planned');
   await page.goto(`/workouts/${s.id}`);
   await waitForContent(page);
-  const rows = page.locator('main ol > li');
+  const rows = page.getByTestId('exercise-row');
   for (const [i, e] of s.exercises.entries()) {
     const t = e.target;
     await expect(rows.nth(i)).toContainText(t.weightKg ? `${t.sets} × ${t.reps} @ ${t.weightKg} kg` : `${t.sets} × ${t.reps}`);

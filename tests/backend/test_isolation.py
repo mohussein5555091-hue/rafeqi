@@ -13,7 +13,7 @@ from sqlalchemy import func, inspect, select
 from app.catalogue import read_exercises, seed_exercises
 from app.config import get_settings
 from app.food_catalogue import read_food_catalogue, seed_food_catalogue
-from app.models import Base, Injury, WeightLog
+from app.models import Base, ExerciseSwap, Injury, WeightLog
 from app.vocab import get_vocab
 from populate import populate
 from test_onboarding import answer_all
@@ -37,6 +37,8 @@ SELF_ONLY = {  # no id in the URL: they act on the logged-in user by constructio
     ("GET", "/api/groceries"), ("GET", "/api/pantry"), ("GET", "/api/injuries"), ("POST", "/api/injuries"),
     ("GET", "/api/checkins/next"), ("GET", "/api/checkins/draft"), ("POST", "/api/checkins"),
     ("GET", "/api/reviews"), ("GET", "/api/progress"),
+    ("GET", "/api/cardio/{weekday}"), ("PUT", "/api/cardio/{weekday}"), ("DELETE", "/api/cardio/{weekday}"),  # a weekday, not a row id
+    ("GET", "/api/swaps"),
     *(("PUT", f"/api/onboarding/{step}") for step in ("about", "goal", "training", "injuries", "health", "food")),
 }
 RESULT = {"sets": 3, "reps": 10, "weightKg": 20, "struggled": False}
@@ -55,6 +57,11 @@ BY_ID = {  # id in the URL: tested below with another user's id → (the table t
     ("PUT", "/api/injuries/{injury_id}"): ("injuries", INJURY),
     ("DELETE", "/api/injuries/{injury_id}"): ("injuries", None),
     ("GET", "/api/reviews/{review_id}"): ("weekly_reviews", None),
+    ("GET", "/api/workouts/{day_id}/exercises/{exercise_id}/alternatives"): ("program_days", None),
+    ("POST", "/api/workouts/{day_id}/exercises/{exercise_id}/swap"): ("program_days", {"toExerciseId": "ex_test", "reason": "busy", "scope": "today"}),
+    ("PUT", "/api/workouts/{day_id}/warmup"): ("program_days", {"done": True}),
+    ("PUT", "/api/workouts/{day_id}/cooldown"): ("program_days", {"done": True}),
+    ("DELETE", "/api/swaps/{swap_id}"): ("exercise_swaps", None),
 }
 
 
@@ -99,6 +106,7 @@ def test_user_a_cannot_touch_user_b_rows_by_id(make_user, db):
     db.expire_all()
     assert db.scalar(select(func.count()).select_from(WeightLog).where(WeightLog.user_id == b.id)) == 1
     assert db.scalar(select(func.count()).select_from(Injury).where(Injury.user_id == b.id)) == 1
+    assert db.scalar(select(func.count()).select_from(ExerciseSwap).where(ExerciseSwap.user_id == b.id, ExerciseSwap.ended_at.is_(None))) == 1
 
 
 def test_a_with_a_plan_still_cannot_reach_b_rows(make_user, db):

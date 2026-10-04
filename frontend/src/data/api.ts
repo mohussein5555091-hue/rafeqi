@@ -4,7 +4,7 @@
 import type {
   CheckIn, CheckInDraft, Dashboard, Exercise, ExerciseResult, GroceryItem, GroceryList, Injury, InjuryInput, InjuryStatus, LocalizedText,
   Meal, MealDay, MealWeekDay, OnboardingState, OnboardingStep, PantryItem, Plan, PlanGenerationStep, Progress, QuestionnaireAnswers,
-  Recipe, User, Weekday, WeeklyReview, WeightLog, Workout, WorkoutLog, WorkoutWeek,
+  Recipe, User, Weekday, ActiveSwap, ExerciseAlternative, SwapReason, WeeklyReview, WeightLog, Workout, WorkoutLog, WorkoutWeek,
 } from '@/types';
 
 export class NotFoundError extends Error {
@@ -69,10 +69,11 @@ interface PlanOut {
 }
 
 const WEEK: Weekday[] = ['sat', 'sun', 'mon', 'tue', 'wed', 'thu', 'fri'];
+const CARDIO = 'cardio-';
 
-/** Shown in the questionnaire until the person changes them. */
+/** Shown in the questionnaire until the person changes them. Age, height and weight start empty (typed in). */
 const DEFAULT_ANSWERS: QuestionnaireAnswers = {
-  sex: 'male', age: 30, heightCm: 170, weightKg: 75, goal: 'loseFat', pace: 'steady', experience: 'intermediate', daysPerWeek: 4,
+  sex: 'male', goal: 'loseFat', pace: 'steady', experience: 'intermediate', daysPerWeek: 4,
   sessionMinutes: 60, location: 'gym', injuries: [],
   health: { heartCondition: false, diabetes: false, pregnancy: false, recentSurgery: false, exerciseMedication: false },
   food: { mealsPerDay: 4, dislikes: [], allergies: ['none'], fasting: [], cookingMinutes: 30 },
@@ -92,8 +93,9 @@ function toAnswers(o: OnboardingOut): QuestionnaireAnswers {
 const toState = (o: OnboardingOut): OnboardingState => ({ answers: toAnswers(o), step: o.step, completed: o.completed });
 
 function toUser(me: MeOut, o: OnboardingOut): User {
+  const a = toAnswers(o);
   return {
-    ...toAnswers(o),
+    ...a, age: a.age ?? 0, heightCm: a.heightCm ?? 0, weightKg: a.weightKg ?? 0, // filled in once the questionnaire's first step is saved
     id: me.id, email: me.email, firstName: { en: me.firstName, ar: me.firstName }, lastName: { en: me.lastName, ar: me.lastName },
     language: me.language, theme: me.theme, memberSince: me.memberSince, onboardingComplete: me.onboardingComplete, hasPlan: me.hasPlan,
   };
@@ -214,7 +216,7 @@ export const api = {
   async getOnboarding(): Promise<OnboardingState> { return toState(await get<OnboardingOut>('/onboarding')); },
   /** Saves one step (PUT /api/onboarding/{step}); the backend checks every answer again. */
   async saveOnboardingStep(step: Exclude<OnboardingStep, 'review'>, answers: QuestionnaireAnswers): Promise<OnboardingState> {
-    if (step === 'about' && answers.age < 18) throw new Error('must_be_adult');
+    if (step === 'about' && (answers.age === undefined || answers.age < 18)) throw new Error('must_be_adult');
     return toState(await send<OnboardingOut>('PUT', `/onboarding/${step}`, ONBOARDING_BODY[step](answers)));
   },
   /** POST /api/onboarding/complete: every step must be answered. */
@@ -250,7 +252,32 @@ export const api = {
 
   // ── Training ──
   async getWorkoutWeek(): Promise<WorkoutWeek> { return get<WorkoutWeek>('/workouts/week'); },
-  async getWorkout(id: string): Promise<Workout> { return get<Workout>(`/workouts/${encodeURIComponent(id)}`); },
+  /** A lifting session, or a rest day's cardio (ids "cardio-sat" …). */
+  async getWorkout(id: string): Promise<Workout> {
+    return id.startsWith(CARDIO) ? get<Workout>(`/cardio/${encodeURIComponent(id.slice(CARDIO.length))}`) : get<Workout>(`/workouts/${encodeURIComponent(id)}`);
+  },
+  /** Ticks the warm-up or the cool-down as done (today's session). */
+  async tickSection(workoutId: string, section: 'warmup' | 'cooldown', done: boolean): Promise<void> {
+    await send('PUT', `/workouts/${encodeURIComponent(workoutId)}/${section}`, { done });
+  },
+  /** Marks that day's cardio done with the minutes actually done (null = undo). */
+  async logCardio(day: Weekday, minutes: number | null): Promise<void> {
+    await (minutes === null ? send('DELETE', `/cardio/${day}`) : send('PUT', `/cardio/${day}`, { minutes }));
+  },
+  /** 2–4 exercises to swap to, for this reason (same movement and muscles, fit the equipment and injuries). */
+  async getAlternatives(workoutId: string, exerciseId: string, reason: SwapReason): Promise<ExerciseAlternative[]> {
+    return get<ExerciseAlternative[]>(`/workouts/${encodeURIComponent(workoutId)}/exercises/${encodeURIComponent(exerciseId)}/alternatives?reason=${reason}`);
+  },
+  /**
+   * Swaps an exercise. "today": this session only. "always": the program from now on (a new plan version, so the
+   * session's id changes: use the returned workoutId). "equipment" also saves that equipment as missing.
+   */
+  async swapExercise(workoutId: string, exerciseId: string, toExerciseId: string, reason: SwapReason, scope: 'today' | 'always'): Promise<{ workoutId: string; swapId: string }> {
+    return send('POST', `/workouts/${encodeURIComponent(workoutId)}/exercises/${encodeURIComponent(exerciseId)}/swap`, { toExerciseId, reason, scope });
+  },
+  async getSwaps(): Promise<ActiveSwap[]> { return get<ActiveSwap[]>('/swaps'); },
+  /** Undoes a swap ("from now on" brings the original exercise back). */
+  async undoSwap(id: string): Promise<void> { await send('DELETE', `/swaps/${encodeURIComponent(id)}`); },
   async getExercise(id: string): Promise<Exercise> { return get<Exercise>(`/exercises/${encodeURIComponent(id)}`); },
   async getExercises(): Promise<Exercise[]> {
     exercises ??= get<Exercise[]>('/exercises').catch((e) => { exercises = null; throw e; });
@@ -313,7 +340,11 @@ export const api = {
   // ── Check-in & reviews ──
   /** When the next weekly check-in opens, and whether it's due now. */
   async getNextCheckIn(): Promise<Dashboard['nextCheckIn']> { return get<Dashboard['nextCheckIn']>('/checkins/next'); },
-  async getCheckInDraft(): Promise<CheckInDraft> { return get<CheckInDraft>('/checkins/draft'); },
+  /** The weight starts empty, with last week's as the placeholder. */
+  async getCheckInDraft(): Promise<CheckInDraft> {
+    const d = await get<CheckInDraft>('/checkins/draft');
+    return { ...d, draft: { ...d.draft, body: { ...d.draft.body, weightKg: undefined } } };
+  },
   /** Saves the check-in and runs the weekly review, which builds next week's plan. Returns the review's id. */
   async submitCheckIn(checkIn: CheckIn): Promise<{ reviewId: string }> {
     const { body, ...rest } = checkIn;

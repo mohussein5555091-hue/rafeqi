@@ -6,17 +6,24 @@ For every exercise in the template, in this order:
    avoids them (and fits the equipment). No safe substitute → removed, with the reason.
 3. Paused areas (red flags): exercises loading that area are removed until it's checked.
 4. Load: lighter for "recovering" injuries, load restrictions and the health flag.
-5. Starting weight from body weight, experience and sex (training.yaml start_load), rounded down to the weight step.
+5. Starting weight from body weight, experience and sex (training.yaml start_load), rounded down to the weight step
+   and capped for the experience level.
 6. Health flag: lower target effort (RPE) and longer rests.
+Before that, the person's own "from now on" swaps replace template exercises (and the exercises they took out are never
+used again). After it: every full-body day gets a leg exercise if it lost its squat and hinge; exercises are taken in
+template order until the session length is full (training.yaml `session`); then the warm-up and cool-down are added
+(engine/warmup.py) and the time estimate is worked out from the sets, rests, warm-up and cool-down.
 Every change keeps its reason.
 """
 
 import math
 from dataclasses import dataclass, field
 
+from app.engine.cardio import CardioPlan, build_cardio
 from app.engine.injuries import allowed, load_cuts, paused_by, ruled_out_by
 from app.engine.rules import explain, load_rules, load_templates
-from app.engine.types import ExerciseInfo, InjuryInfo, Person, Reason
+from app.engine.types import ExerciseInfo, Person, Reason
+from app.engine.warmup import build_cooldown, build_warmup
 from app.vocab import get_vocab
 
 LEVELS = {"beginner": 0, "intermediate": 1, "advanced": 2}
@@ -33,6 +40,8 @@ class Adjustments:
     injury_factors: tuple[tuple[str, float], ...] = ()      # (injury_id, extra load factor) where pain went up
     deload: bool = False                                    # one set less, effort 1 lower, this week only
     weight_offsets: tuple[tuple[str, float], ...] = ()      # (exercise_id, kg) for the next session only
+    # The person's own "from now on" swaps: (from exercise, to exercise, reason code). Kept by every plan version.
+    replace: tuple[tuple[str, str, str], ...] = ()
 
 
 @dataclass
@@ -49,7 +58,8 @@ class PlannedExercise:
     weight_offset_kg: float = 0.0
     replaced_exercise_id: str | None = None
     injury_id: str | None = None
-    swap_kind: str | None = None  # swapped (injury) | equipment
+    swap_kind: str | None = None  # swapped (injury) | added (full-body legs) | equipment | user (the person's swap)
+    user_reason: str | None = None  # user swaps: equipment | busy | cantDo | pain
     reasons: list[Reason] = field(default_factory=list)
 
 
@@ -62,6 +72,10 @@ class PlannedDay:
     est_minutes: int
     warmup_minutes: int
     exercises: list[PlannedExercise]
+    kind: str = "full"  # upper | lower | full (warm-up moves, cardio placement)
+    warmup: dict = field(default_factory=dict)
+    cooldown: dict = field(default_factory=dict)
+    reasons: list[Reason] = field(default_factory=list)  # warm-up, cool-down, time estimate
 
 
 @dataclass
@@ -73,6 +87,7 @@ class ProgramPlan:
     deload_week: int | None
     days: list[PlannedDay]
     reasons: list[Reason]  # template choice, removed exercises, paused areas
+    cardio: CardioPlan | None = None
 
 
 def _bi(t: dict, **v) -> Reason | dict:
@@ -106,12 +121,13 @@ def choose_template(p: Person, templates: tuple[dict, ...] | None = None) -> tup
     return best, days, reasons
 
 
-def available_equipment(location: str) -> set[str]:
-    return set(load_rules()["training"]["equipment_by_location"][location]) | {"bodyweight"}
+def available_equipment(location: str, missing: tuple[str, ...] = ()) -> set[str]:
+    """What the training place has, minus equipment the person said isn't available (bodyweight always is)."""
+    return (set(load_rules()["training"]["equipment_by_location"][location]) - set(missing)) | {"bodyweight"}
 
 
-def fits_equipment(ex: ExerciseInfo, location: str) -> bool:
-    return set(ex.equipment) <= available_equipment(location)
+def fits_equipment(ex: ExerciseInfo, location: str, missing: tuple[str, ...] = ()) -> bool:
+    return set(ex.equipment) <= available_equipment(location, missing)
 
 
 def weight_step(ex: ExerciseInfo) -> float:
@@ -126,9 +142,9 @@ def closest_substitute(ex: ExerciseInfo, p: Person, catalogue: dict[str, Exercis
     vocab = get_vocab()
     best, best_score = None, math.inf
     for c in sorted(catalogue.values(), key=lambda c: c.id):
-        if c.id == ex.id or c.id in taken or c.id in avoid or c.pattern != ex.pattern:
+        if c.id == ex.id or c.id in taken or c.id in avoid or c.pattern != ex.pattern or c.type != "strength":
             continue
-        if not fits_equipment(c, p.location) or not allowed(c, p.injuries, vocab):
+        if not fits_equipment(c, p.location, p.missing_equipment) or not allowed(c, p.injuries, vocab):
             continue
         s = (pen["different_range"] * (c.rom != ex.rom)
              + pen["different_equipment"] * (not set(c.equipment) & set(ex.equipment))
@@ -146,7 +162,33 @@ def start_weight(ex: ExerciseInfo, p: Person, load_factor: float) -> float:
     if not ratio or not step:
         return 0.0
     kg = p.weight_kg * ratio * sl["experience_factor"][p.experience] * sl["sex_factor"][p.sex] * load_factor
+    caps = sl["max_kg"][p.experience]
+    cap = min((caps[e] for e in ex.equipment if e in caps), default=math.inf)
+    kg = min(kg, cap)
     return max(step, math.floor(kg / step) * step)
+
+
+def lifting_minutes(exercises: list[PlannedExercise]) -> float:
+    """Every set's work and rest, plus changing exercise (training.yaml `session`)."""
+    s = load_rules()["training"]["session"]
+    sec = sum(e.sets * (s["work_sec_per_set"] + e.rest_sec) + s["change_exercise_sec"] for e in exercises)
+    return sec / 60
+
+
+def exercise_range(minutes: int) -> dict:
+    by = load_rules()["training"]["session"]["exercises_by_minutes"]
+    return by[min(by, key=lambda m: (abs(m - minutes), m))]
+
+
+def _leg_exercise(p: Person, catalogue: dict[str, ExerciseInfo], taken: set[str], avoid: frozenset[str]) -> ExerciseInfo | None:
+    """The leg exercise a full-body day gets when injuries or equipment took its squat and hinge away."""
+    vocab = get_vocab()
+    for pattern in load_rules()["training"]["full_body_legs"]["patterns"]:
+        options = [c for c in catalogue.values() if c.pattern == pattern and c.type == "strength" and c.id not in taken and c.id not in avoid
+                   and fits_equipment(c, p.location, p.missing_equipment) and allowed(c, p.injuries, vocab) and paused_by(c, p.injuries) is None]
+        if options:
+            return min(options, key=lambda c: (abs(LEVELS[c.difficulty] - LEVELS[p.experience]), c.id))
+    return None
 
 
 def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tuple[dict, ...] | None = None,
@@ -159,48 +201,69 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
     template, days, plan_reasons = choose_template(p, templates)
     weekdays = tr["schedules"][days]
     by_key = {d["key"]: d for d in template["days"]}
+    replace = {f: (t, why) for f, t, why in adjust.replace}
+    removed_by_person = frozenset(replace) | adjust.avoid  # never put back
     planned_days: list[PlannedDay] = []
+    sw = tr["swaps"]
 
     def name(ex_id: str) -> dict:
         return catalogue[ex_id].name
 
+    def swap_why(code: str, from_ex: ExerciseInfo) -> dict:
+        t = sw["reasons"][code]
+        missing = [e for e in from_ex.equipment if e in p.missing_equipment] or list(from_ex.equipment)
+        label = vocab.data["equipment"][missing[0]] if missing else {"en": "equipment", "ar": "الأداة"}
+        return {"en": t["en"].format(equipment=label["en"].lower()), "ar": t["ar"].format(equipment=label["ar"])}
+
     for index, (weekday, key) in enumerate(zip(weekdays, template["rotation"][str(days)])):
         tday = by_key[key]
+        kind = tday.get("kind", "full")
         taken: set[str] = set()
         exercises: list[PlannedExercise] = []
-        for t in tday["exercises"]:
+        def plan_one(t: dict, quiet: bool = False) -> None:
+            """Fits one template exercise to the person and adds it to `exercises` (or explains why it's left out)."""
             ex = catalogue[t["exercise"]]
+            if ex.id in taken:
+                return
             reasons: list[Reason] = []
-            replaced, injury_id, swap_kind = None, None, None
+            note = (lambda r: None) if quiet else plan_reasons.append
+            replaced, injury_id, swap_kind, user_reason = None, None, None, None
 
-            if not fits_equipment(ex, p.location):
-                sub = closest_substitute(ex, p, catalogue, taken, adjust.avoid)
+            if ex.id in replace:  # the person's own swap comes first
+                to_id, code = replace[ex.id]
+                to = catalogue.get(to_id)
+                if to is not None and to_id not in taken and fits_equipment(to, p.location, p.missing_equipment) and allowed(to, p.injuries, vocab):
+                    reasons.append(_reason("training.swaps", sw["source"], sw["explain"], **{"from": name(ex.id), "to": to.name, "why": swap_why(code, ex)}))
+                    replaced, swap_kind, user_reason, ex = ex.id, "user", code, to
+
+            if not fits_equipment(ex, p.location, p.missing_equipment):
+                sub = closest_substitute(ex, p, catalogue, taken, removed_by_person)
                 if sub is None:
-                    plan_reasons.append(_reason("training.equipment", tr["start_load"]["source"], inj_rules["equipment_removed"], **{"from": name(ex.id)}))
-                    continue
+                    note(_reason("training.equipment", tr["start_load"]["source"], inj_rules["equipment_removed"], **{"from": name(ex.id)}))
+                    return
                 reasons.append(_reason("training.equipment", tr["start_load"]["source"], inj_rules["equipment"], **{"from": name(ex.id), "to": sub.name}))
-                replaced, swap_kind, ex = ex.id, "equipment", sub
+                replaced, swap_kind, ex = replaced or ex.id, swap_kind or "equipment", sub
 
             blocking = next(((i, tag) for i in p.injuries if (tag := ruled_out_by(ex, i, vocab))), None)
             if blocking:
                 inj, tag = blocking
-                kind = "painful_movements" if tag in vocab.data["painful_movements"] else "restrictions"
-                label = vocab.data[kind][tag]
-                why = {"en": label["en"].lower() if kind == "painful_movements" else label["en"], "ar": label["ar"]}
-                sub = closest_substitute(ex, p, catalogue, taken, adjust.avoid)
+                kind_ = "painful_movements" if tag in vocab.data["painful_movements"] else "restrictions"
+                label = vocab.data[kind_][tag]
+                why = {"en": label["en"].lower() if kind_ == "painful_movements" else label["en"], "ar": label["ar"]}
+                sub = closest_substitute(ex, p, catalogue, taken, removed_by_person)
                 if sub is None:
-                    plan_reasons.append(_reason("training.injuries", inj_rules["source"], inj_rules["explain"]["removed"],
+                    note(_reason("training.injuries", inj_rules["source"], inj_rules["explain"]["removed"],
                                                 **{"from": name(ex.id), "why": why, "area": regions[inj.region]}))
-                    continue
-                wording = inj_rules["explain"]["swapped" if kind == "painful_movements" else "swapped_restriction"]
+                    return
+                wording = inj_rules["explain"]["swapped" if kind_ == "painful_movements" else "swapped_restriction"]
                 reasons.append(_reason("training.injuries", inj_rules["source"], wording,
                                        **{"from": name(ex.id), "to": sub.name, "why": why, "area": regions[inj.region]}))
                 replaced, injury_id, swap_kind, ex = replaced or ex.id, inj.id, "swapped", sub
 
-            if ex.id in adjust.avoid:
-                sub = closest_substitute(ex, p, catalogue, taken, adjust.avoid)
+            if ex.id in adjust.avoid or (ex.id in replace and swap_kind != "user"):
+                sub = closest_substitute(ex, p, catalogue, taken, removed_by_person)
                 if sub is None:
-                    plan_reasons.append(Reason("training.review.uncomfortable", f"{name(ex.id)['en']} kept: you marked it uncomfortable, but nothing "
+                    note(Reason("training.review.uncomfortable", f"{name(ex.id)['en']} kept: you marked it uncomfortable, but nothing "
                                                "in the catalogue does the same movement yet. Go lighter or skip it.",
                                                f"{name(ex.id)['ar']} فاضل: قلت إنه مش مريح، بس لسه مفيش تمرين بنفس الحركة. خفّف الوزن أو اتخطاه.",
                                                tr["review"]["source"]))
@@ -209,10 +272,12 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
                                           f"{name(ex.id)['ar']} ← {sub.name['ar']}: قلت إنه مش مريح.", tr["review"]["source"]))
                     replaced, swap_kind, ex = replaced or ex.id, swap_kind or "swapped", sub
 
+            if ex.id in taken:  # a substitute already used earlier in this session
+                return
             if (inj := paused_by(ex, p.injuries)) is not None:
-                plan_reasons.append(_reason("safety.red_flags", safety["red_flags"]["source"], inj_rules["explain"]["paused"],
+                note(_reason("safety.red_flags", safety["red_flags"]["source"], inj_rules["explain"]["paused"],
                                             name=name(ex.id), area=regions[inj.region], message=safety["red_flags"]["message"]))
-                continue
+                return
 
             factor = 1.0
             for cut in load_cuts(ex, p.injuries, vocab):
@@ -249,8 +314,107 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
                 exercise_id=ex.id, position=len(exercises) + 1, sets=sets, reps=t["reps"], rest_sec=rest, target_rpe=rpe,
                 weight_step_kg=weight_step(ex), start_weight_kg=kg, load_factor=factor,
                 weight_offset_kg=dict(adjust.weight_offsets).get(ex.id, 0.0), replaced_exercise_id=replaced,
-                injury_id=injury_id, swap_kind=swap_kind, reasons=reasons))
-        planned_days.append(PlannedDay(index, weekday, key, tday["name"], tday["est_minutes"], tday["warmup_minutes"], exercises))
+                injury_id=injury_id, swap_kind=swap_kind, user_reason=user_reason, reasons=reasons))
 
+        for t in tday["exercises"]:
+            plan_one(t)
+        rng = exercise_range(p.session_minutes)
+        # Too few left after injuries and equipment: top up from the program's other days of the same kind.
+        for other in template["days"]:
+            if len(exercises) >= rng["min"]:
+                break
+            if other["key"] != key and other.get("kind", "full") == kind:
+                for t in other["exercises"]:
+                    if len(exercises) < rng["min"]:
+                        plan_one(t, quiet=True)
+
+        # Every full-body day trains the legs.
+        day_reasons: list[Reason] = []
+        if kind == "full" and not any(catalogue[e.exercise_id].pattern in ("squat", "hinge") for e in exercises):
+            leg = _leg_exercise(p, catalogue, taken, removed_by_person)
+            if leg is not None and not any(catalogue[e.exercise_id].pattern == leg.pattern for e in exercises):
+                fl = tr["full_body_legs"]
+                why = _reason("training.full_body_legs", fl["source"], fl["explain"], name=leg.name)
+                injury_id = next((i.id for i in p.injuries if any(ruled_out_by(catalogue[x["exercise"]], i, vocab) for x in tday["exercises"]
+                                                                  if catalogue[x["exercise"]].pattern in ("squat", "hinge"))), None)
+                kg = start_weight(leg, p, 1.0)
+                exercises.insert(0, PlannedExercise(exercise_id=leg.id, position=1, sets=3, reps="10–12", rest_sec=90, target_rpe=7,
+                                                    weight_step_kg=weight_step(leg), start_weight_kg=kg, injury_id=injury_id, swap_kind="added",
+                                                    reasons=[why]))
+                taken.add(leg.id)
+
+        # A full-body day's leg exercise always makes the cut: it moves to the front if it's further down.
+        leg_patterns = set(tr["full_body_legs"]["patterns"])
+        if kind == "full" and not any(catalogue[e.exercise_id].pattern in leg_patterns for e in exercises[: rng["min"]]):
+            first_leg = next((e for e in exercises if catalogue[e.exercise_id].pattern in leg_patterns), None)
+            if first_leg is not None:
+                exercises.remove(first_leg)
+                exercises.insert(0, first_leg)
+
+        # As many exercises as the session length allows (template order), then warm-up and cool-down.
+        first_main = next((e for e in exercises if e.weight_step_kg > 0 and e.start_weight_kg > 0), None)
+        warm = build_warmup(kind, p, catalogue, first_main.exercise_id if first_main else None, first_main.start_weight_kg if first_main else 0)
+        kept: list[PlannedExercise] = []
+        for e in exercises:
+            if len(kept) >= rng["max"]:
+                break
+            trial = kept + [e]
+            cool = build_cooldown(_trained(trial, catalogue), p, catalogue)
+            if len(kept) >= rng["min"] and warm.minutes + lifting_minutes(trial) + cool.minutes > p.session_minutes:
+                break
+            kept.append(e)
+        for n, e in enumerate(kept, start=1):
+            e.position = n
+        cool = build_cooldown(_trained(kept, catalogue), p, catalogue)
+        lift = lifting_minutes(kept)
+        est = round(warm.minutes + lift + cool.minutes)
+        s = tr["session"]
+        day_reasons += warm.reasons + cool.reasons
+        day_reasons.append(Reason("training.session", s["explain"]["en"].format(minutes=est, warmup=warm.minutes, exercises=len(kept), lifting=round(lift),
+                                                                                cooldown=cool.minutes),
+                                  s["explain"]["ar"].format(minutes=est, warmup=warm.minutes, exercises=len(kept), lifting=round(lift), cooldown=cool.minutes),
+                                  s["source"]))
+        planned_days.append(PlannedDay(index, weekday, key, tday["name"], est, warm.minutes, kept, kind, warm.as_dict(), cool.as_dict(), day_reasons))
+
+    cardio = build_cardio(p, [(d.weekday, d.kind) for d in planned_days], catalogue)
     return ProgramPlan(template_id=template["id"], name=template["name"], days_per_week=days, total_weeks=template["total_weeks"],
-                       deload_week=template.get("deload_week"), days=planned_days, reasons=plan_reasons)
+                       deload_week=template.get("deload_week"), days=planned_days, reasons=plan_reasons, cardio=cardio)
+
+
+def _trained(exercises: list[PlannedExercise], catalogue: dict[str, ExerciseInfo]) -> dict[str, int]:
+    """Body region → sets that worked it as a primary muscle."""
+    out: dict[str, int] = {}
+    for e in exercises:
+        for m in catalogue[e.exercise_id].muscles:
+            out[m] = out.get(m, 0) + e.sets
+    return out
+
+
+def alternatives(ex: ExerciseInfo, p: Person, catalogue: dict[str, ExerciseInfo], *, preferred: list[str] = (),
+                 taken: set[str] = frozenset(), reason: str = "cantDo", missing: tuple[str, ...] = ()) -> list[ExerciseInfo]:
+    """2–4 exercises to swap `ex` for: the same movement pattern first (then the same muscles), that fit the equipment
+    (minus anything missing) and every active injury, and aren't already in the session. The catalogue's own
+    substitutions (`preferred`) come first. "Machine is busy" prefers other equipment."""
+    vocab = get_vocab()
+    gone = tuple(p.missing_equipment) + tuple(missing)
+    limit = load_rules()["training"]["swaps"]["max_alternatives"]
+    pen = load_rules()["training"]["injuries"]["substitute_penalty"]
+
+    def usable(c: ExerciseInfo) -> bool:
+        return (c.id != ex.id and c.id not in taken and c.type == "strength" and fits_equipment(c, p.location, gone)
+                and allowed(c, p.injuries, vocab) and paused_by(c, p.injuries) is None)
+
+    def score(c: ExerciseInfo) -> tuple:
+        same_eq = bool(set(c.equipment) & set(ex.equipment) - {"bodyweight", "bench"})
+        return (preferred.index(c.id) if c.id in preferred else len(preferred),
+                -len(set(c.muscles) & set(ex.muscles)),
+                (same_eq if reason == "busy" else 0),
+                pen["per_difficulty_step"] * abs(LEVELS[c.difficulty] - LEVELS[p.experience]) + pen["different_range"] * (c.rom != ex.rom),
+                c.id)
+
+    same = sorted((c for c in catalogue.values() if c.pattern == ex.pattern and usable(c)), key=score)
+    out = same[:limit]
+    if len(out) < 2:  # few with the same movement: add exercises for the same muscles
+        more = sorted((c for c in catalogue.values() if c.pattern != ex.pattern and set(c.muscles) & set(ex.muscles) and usable(c)), key=score)
+        out += more[: limit - len(out)]
+    return out

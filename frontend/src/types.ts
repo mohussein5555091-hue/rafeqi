@@ -66,10 +66,10 @@ export interface User {
   hasPlan: boolean;
 }
 
-/** What the onboarding questionnaire produces (also used to regenerate). */
+/** What the onboarding questionnaire produces (also used to regenerate). The numbers start empty until typed. */
 export type QuestionnaireAnswers = Pick<User,
-  'sex' | 'age' | 'heightCm' | 'weightKg' | 'waistCm' | 'goal' | 'pace' | 'experience' |
-  'daysPerWeek' | 'sessionMinutes' | 'location' | 'health' | 'food'> & { injuries: InjuryInput[] };
+  'sex' | 'waistCm' | 'goal' | 'pace' | 'experience' |
+  'daysPerWeek' | 'sessionMinutes' | 'location' | 'health' | 'food'> & { age?: number; heightCm?: number; weightKg?: number; injuries: InjuryInput[] };
 
 // ── Plan ─────────────────────────────────────────────────────────────
 export interface ExerciseSwap {
@@ -119,8 +119,12 @@ export interface MediaSource {
   note?: LocalizedText; // e.g. "Closest match: standing variation"
 }
 
+/** strength: in the program · cardio · mobility: warm-up moves · stretch: cool-down. All have the same how-to page. */
+export type ExerciseType = 'strength' | 'cardio' | 'mobility' | 'stretch';
+
 export interface Exercise {
   id: string;
+  type: ExerciseType;
   name: LocalizedText;
   /** One line: what the exercise is and what it trains. */
   description: LocalizedText;
@@ -146,7 +150,8 @@ export interface Exercise {
 export interface ExerciseResult { sets: number; reps: number; weightKg: number; struggled: boolean }
 
 /** Why the target is what it is (data/rules/progression.yaml). */
-export type TargetReason = 'start' | 'addReps' | 'addWeight' | 'repeat' | 'dropWeight';
+/** findWeight: an exercise the person swapped in, with no history yet: a light suggestion to find their weight. */
+export type TargetReason = 'start' | 'addReps' | 'addWeight' | 'repeat' | 'dropWeight' | 'findWeight';
 export interface Target { sets: number; reps: number; weightKg: number; reason: TargetReason }
 
 export interface SessionExercise {
@@ -155,16 +160,60 @@ export interface SessionExercise {
   reps: string; // "8–10", "10 each side"
   restSec: number;
   rpe: number; // target effort (RPE)
-  swap?: { injuryId: string; kind: 'swapped' | 'added'; region: BodyRegion };
+  /** Changed for an injury (swapped / added), or swapped by the person (user) with their reason. */
+  swap?: ExerciseSwapInfo;
   lastTime?: ExerciseResult;
   /** This session's exact target, from last time and the progression rules. "Done as planned" saves exactly this. */
   target: Target;
   weightStepKg?: number;
 }
 
-/** One training session ("Workout"). */
+export type SwapReason = 'equipment' | 'busy' | 'cantDo' | 'pain';
+export type ExerciseSwapInfo =
+  | { kind: 'swapped' | 'added'; injuryId: string; region: BodyRegion }
+  | { kind: 'user'; scope: 'today' | 'always'; reason: SwapReason; why: LocalizedText; fromExerciseId: string; swapId?: string };
+
+/** An exercise to swap to: same movement and muscles, fits the equipment and injuries, with the target it starts at. */
+export interface ExerciseAlternative { exerciseId: string; name: LocalizedText; imageUrl?: string; muscleNames: LocalizedText; target: Target }
+
+/** A "from now on" swap in effect (can be undone from the exercise's page). */
+export interface ActiveSwap {
+  id: string; fromExerciseId: string; toExerciseId: string; reason: SwapReason; why: LocalizedText;
+  fromName: LocalizedText; toName: LocalizedText; createdAt: string;
+}
+
+/** Before every session: easy movement, mobility moves for the day's muscles, then lighter sets of the first exercise. */
+export interface Warmup {
+  minutes: number;
+  general?: { exerciseId: string; minutes: number };
+  moves: { exerciseId: string; amount: LocalizedText }[];
+  rampUp?: { exerciseId: string; sets: { pct: number; reps: number; weightKg: number }[] };
+  /** Moves left out because they'd hurt an injury, with why. */
+  skipped: { exerciseId: string; why: LocalizedText }[];
+  done: boolean;
+}
+
+/** After every session: stretches for the muscles trained, then slow breathing. */
+export interface Cooldown {
+  minutes: number;
+  stretches: { exerciseId: string; seconds: number; eachSide: boolean }[];
+  breathing?: { exerciseId: string; minutes: number };
+  done: boolean;
+}
+
+export interface CardioSession {
+  exerciseId: string;
+  minutes: number;
+  intensity: 'easy' | 'moderate';
+  intensityName: LocalizedText;
+  when: 'restDay' | 'afterLifting';
+  done?: { minutes: number };
+}
+
+/** One training session ("Workout"): lifting (strength), or a rest day with cardio. */
 export interface Workout {
   id: string;
+  kind: 'strength' | 'cardio';
   name: LocalizedText;
   day: Weekday;
   date: ISODate;
@@ -175,6 +224,10 @@ export interface Workout {
   summary?: { minutes: number; setsDone: number; setsTotal: number; painByInjury: Record<string, number> };
   /** What was logged, once the session is finished. */
   log?: WorkoutLog;
+  warmup?: Warmup;
+  cooldown?: Cooldown;
+  /** Cardio that day: after lifting, or the whole session on a rest day. */
+  cardio?: CardioSession;
 }
 
 export interface WorkoutLog {
@@ -190,6 +243,7 @@ export interface WorkoutWeek {
   end: ISODate;
   deloadWeek: number;
   sessions: Workout[];
+  cardio: { sessionsPerWeek: number; stepsPerDay: number; why: LocalizedText };
 }
 
 // ── Nutrition ────────────────────────────────────────────────────────
@@ -305,7 +359,7 @@ export interface CheckIn {
   weekNumber: number;
   submittedAt?: string;
   body: {
-    weightKg: number;
+    weightKg?: number; // empty until typed (last week's weight is the placeholder)
     measurementsCm: { waist?: number; hips?: number; chest?: number; arm?: number; thigh?: number };
     photos: { front?: string; side?: string; back?: string }; // private storage keys
   };

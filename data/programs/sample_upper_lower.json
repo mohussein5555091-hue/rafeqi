@@ -2,55 +2,303 @@
   "id": "sample_upper_lower",
   "placeholder": true,
   "source": "PLACEHOLDER: small sample in the style of Jeff Nippard's Upper Lower Strength and Size Program; replaced by the real program next session",
-  "name": { "en": "Upper / Lower (sample)", "ar": "علوي / سفلي (عينة)" },
-  "experience": ["intermediate", "advanced"],
-  "days_per_week": [4, 5, 6],
-  "goals": ["loseFat", "buildMuscle", "recomp", "strength"],
-  "locations": ["gym"],
+  "note": "Each day lists exercises in order of priority: the engine takes as many as fit the session length the person chose (data/rules/training.yaml `session`). kind: upper | lower | full (warm-up moves, cardio placement).",
+  "name": {
+    "en": "Upper / Lower (sample)",
+    "ar": "علوي / سفلي (عينة)"
+  },
+  "experience": [
+    "intermediate",
+    "advanced"
+  ],
+  "days_per_week": [
+    4,
+    5,
+    6
+  ],
+  "goals": [
+    "loseFat",
+    "buildMuscle",
+    "recomp",
+    "strength"
+  ],
+  "locations": [
+    "gym"
+  ],
   "total_weeks": 8,
   "deload_week": 5,
-  "rotation": { "4": ["UA", "LA", "UB", "LB"], "5": ["UA", "LA", "UB", "LB", "UA"], "6": ["UA", "LA", "UB", "LB", "UA", "LA"] },
+  "rotation": {
+    "4": [
+      "UA",
+      "LA",
+      "UB",
+      "LB"
+    ],
+    "5": [
+      "UA",
+      "LA",
+      "UB",
+      "LB",
+      "UA"
+    ],
+    "6": [
+      "UA",
+      "LA",
+      "UB",
+      "LB",
+      "UA",
+      "LA"
+    ]
+  },
   "days": [
     {
-      "key": "UA", "name": { "en": "Upper body A", "ar": "الجزء العلوي أ" }, "est_minutes": 60, "warmup_minutes": 6,
+      "key": "UA",
+      "kind": "upper",
+      "name": {
+        "en": "Upper body A",
+        "ar": "الجزء العلوي أ"
+      },
       "exercises": [
-        { "exercise": "ex_bb_bench_press", "sets": 3, "reps": "6–8", "rest_sec": 180, "rpe": 8 },
-        { "exercise": "ex_cs_row", "sets": 3, "reps": "8–10", "rest_sec": 120, "rpe": 8 },
-        { "exercise": "ex_db_shoulder_press", "sets": 3, "reps": "8–10", "rest_sec": 120, "rpe": 8 },
-        { "exercise": "ex_lat_pulldown", "sets": 3, "reps": "10–12", "rest_sec": 90, "rpe": 8 },
-        { "exercise": "ex_incline_curl", "sets": 2, "reps": "10–12", "rest_sec": 60, "rpe": 8 },
-        { "exercise": "ex_pushdown", "sets": 2, "reps": "10–12", "rest_sec": 60, "rpe": 8 }
+        {
+          "exercise": "ex_bb_bench_press",
+          "sets": 3,
+          "reps": "6–8",
+          "rest_sec": 180,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_cs_row",
+          "sets": 3,
+          "reps": "8–10",
+          "rest_sec": 120,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_db_shoulder_press",
+          "sets": 3,
+          "reps": "8–10",
+          "rest_sec": 120,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_lat_pulldown",
+          "sets": 3,
+          "reps": "10–12",
+          "rest_sec": 90,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_incline_curl",
+          "sets": 2,
+          "reps": "10–12",
+          "rest_sec": 60,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_pushdown",
+          "sets": 2,
+          "reps": "10–12",
+          "rest_sec": 60,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_lateral_raise",
+          "sets": 2,
+          "reps": "12–15",
+          "rest_sec": 60,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_face_pull",
+          "sets": 2,
+          "reps": "12–15",
+          "rest_sec": 60,
+          "rpe": 8
+        }
       ]
     },
     {
-      "key": "LA", "name": { "en": "Lower body A", "ar": "الجزء السفلي أ" }, "est_minutes": 55, "warmup_minutes": 6,
+      "key": "LA",
+      "kind": "lower",
+      "name": {
+        "en": "Lower body A",
+        "ar": "الجزء السفلي أ"
+      },
       "exercises": [
-        { "exercise": "ex_bb_squat", "sets": 3, "reps": "6–8", "rest_sec": 180, "rpe": 8 },
-        { "exercise": "ex_db_rdl", "sets": 3, "reps": "8–10", "rest_sec": 120, "rpe": 8 },
-        { "exercise": "ex_leg_press", "sets": 3, "reps": "10–12", "rest_sec": 120, "rpe": 8 },
-        { "exercise": "ex_seated_leg_curl", "sets": 3, "reps": "10–12", "rest_sec": 90, "rpe": 8 },
-        { "exercise": "ex_calf_raise", "sets": 3, "reps": "12–15", "rest_sec": 60, "rpe": 8 }
+        {
+          "exercise": "ex_bb_squat",
+          "sets": 3,
+          "reps": "6–8",
+          "rest_sec": 180,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_db_rdl",
+          "sets": 3,
+          "reps": "8–10",
+          "rest_sec": 120,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_leg_press",
+          "sets": 3,
+          "reps": "10–12",
+          "rest_sec": 120,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_seated_leg_curl",
+          "sets": 3,
+          "reps": "10–12",
+          "rest_sec": 90,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_calf_raise",
+          "sets": 3,
+          "reps": "12–15",
+          "rest_sec": 60,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_split_squat",
+          "sets": 2,
+          "reps": "8–10 each",
+          "rest_sec": 90,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_leg_extension",
+          "sets": 2,
+          "reps": "12–15",
+          "rest_sec": 60,
+          "rpe": 8
+        }
       ]
     },
     {
-      "key": "UB", "name": { "en": "Upper body B", "ar": "الجزء العلوي ب" }, "est_minutes": 60, "warmup_minutes": 6,
+      "key": "UB",
+      "kind": "upper",
+      "name": {
+        "en": "Upper body B",
+        "ar": "الجزء العلوي ب"
+      },
       "exercises": [
-        { "exercise": "ex_ohp", "sets": 3, "reps": "6–8", "rest_sec": 180, "rpe": 8 },
-        { "exercise": "ex_pull_up", "sets": 3, "reps": "6–8", "rest_sec": 120, "rpe": 8 },
-        { "exercise": "ex_db_bench_press", "sets": 3, "reps": "8–10", "rest_sec": 120, "rpe": 8 },
-        { "exercise": "ex_one_arm_db_row", "sets": 3, "reps": "10–12", "rest_sec": 90, "rpe": 8 },
-        { "exercise": "ex_lateral_raise", "sets": 3, "reps": "12–15", "rest_sec": 60, "rpe": 8 },
-        { "exercise": "ex_face_pull", "sets": 2, "reps": "15", "rest_sec": 60, "rpe": 7 }
+        {
+          "exercise": "ex_ohp",
+          "sets": 3,
+          "reps": "6–8",
+          "rest_sec": 180,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_pull_up",
+          "sets": 3,
+          "reps": "6–8",
+          "rest_sec": 120,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_db_bench_press",
+          "sets": 3,
+          "reps": "8–10",
+          "rest_sec": 120,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_one_arm_db_row",
+          "sets": 3,
+          "reps": "10–12",
+          "rest_sec": 90,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_lateral_raise",
+          "sets": 3,
+          "reps": "12–15",
+          "rest_sec": 60,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_face_pull",
+          "sets": 2,
+          "reps": "15",
+          "rest_sec": 60,
+          "rpe": 7
+        },
+        {
+          "exercise": "ex_incline_curl",
+          "sets": 2,
+          "reps": "10–12",
+          "rest_sec": 60,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_pushdown",
+          "sets": 2,
+          "reps": "10–12",
+          "rest_sec": 60,
+          "rpe": 8
+        }
       ]
     },
     {
-      "key": "LB", "name": { "en": "Lower body B", "ar": "الجزء السفلي ب" }, "est_minutes": 55, "warmup_minutes": 6,
+      "key": "LB",
+      "kind": "lower",
+      "name": {
+        "en": "Lower body B",
+        "ar": "الجزء السفلي ب"
+      },
       "exercises": [
-        { "exercise": "ex_bb_deadlift", "sets": 3, "reps": "5", "rest_sec": 180, "rpe": 8 },
-        { "exercise": "ex_split_squat", "sets": 3, "reps": "8–10 each", "rest_sec": 90, "rpe": 8 },
-        { "exercise": "ex_leg_extension", "sets": 3, "reps": "12–15", "rest_sec": 60, "rpe": 8 },
-        { "exercise": "ex_seated_leg_curl", "sets": 3, "reps": "12–15", "rest_sec": 60, "rpe": 8 },
-        { "exercise": "ex_calf_raise", "sets": 3, "reps": "15", "rest_sec": 60, "rpe": 8 }
+        {
+          "exercise": "ex_bb_deadlift",
+          "sets": 3,
+          "reps": "5",
+          "rest_sec": 180,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_split_squat",
+          "sets": 3,
+          "reps": "8–10 each",
+          "rest_sec": 90,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_leg_extension",
+          "sets": 3,
+          "reps": "12–15",
+          "rest_sec": 60,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_seated_leg_curl",
+          "sets": 3,
+          "reps": "12–15",
+          "rest_sec": 60,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_calf_raise",
+          "sets": 3,
+          "reps": "15",
+          "rest_sec": 60,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_glute_bridge",
+          "sets": 2,
+          "reps": "12–15",
+          "rest_sec": 90,
+          "rpe": 8
+        },
+        {
+          "exercise": "ex_leg_press",
+          "sets": 2,
+          "reps": "10–12",
+          "rest_sec": 120,
+          "rpe": 8
+        }
       ]
     }
   ]

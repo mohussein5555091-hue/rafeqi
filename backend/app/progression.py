@@ -12,7 +12,7 @@ import yaml
 from app.config import get_settings
 from app.workouts import ExerciseResult, rep_range
 
-Reason = Literal["start", "addReps", "addWeight", "repeat", "dropWeight"]
+Reason = Literal["start", "addReps", "addWeight", "repeat", "dropWeight", "findWeight"]
 
 
 @dataclass(frozen=True)

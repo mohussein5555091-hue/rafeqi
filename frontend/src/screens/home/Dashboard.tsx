@@ -4,7 +4,7 @@ import type { LucideIcon } from 'lucide-react';
 import { ClipboardCheck, Check, Utensils, Soup, Apple, Drumstick, Egg, NotebookPen, Sprout, Weight, WifiOff, MoonStar, Sunset } from 'lucide-react';
 import {
   AppShell, Button, Card, CitationChip, Disclaimer, EmptyState, Icon, Kicker, LineChart, LinkButton, MacroBars, MacroRing, QueryView, Skeleton, StatusBadge, SwapBadge,
-  TextInput, cn, useToast,
+  TextInput, cn, parseNumber, useToast,
 } from '@/components';
 import { useI18n } from '@/i18n';
 import { api } from '@/data/api';
@@ -41,7 +41,8 @@ function DashboardBody({ d, offline }: { d: DashboardData; offline: boolean }) {
   const { t, l, num, date } = useI18n();
   const eaten = d.mealDay.meals.filter((m) => m.eaten);
   const sum = (k: 'kcal' | 'proteinG' | 'carbsG' | 'fatG') => eaten.reduce((a, m) => a + m[k], 0);
-  const swapped = d.today?.exercises.filter((e) => e.swap) ?? [];
+  // Exercises changed for an injury (the person's own swaps have their own badge on the session).
+  const swapped = (d.today?.exercises ?? []).flatMap((e) => (e.swap && e.swap.kind !== 'user' ? [e.swap] : []));
   const swaps = swapped.length;
   const shoulder = d.injuries[0];
 
@@ -65,10 +66,10 @@ function DashboardBody({ d, offline }: { d: DashboardData; offline: boolean }) {
           <Card>
             <div className="flex items-center justify-between"><Kicker>{t('dashboard.todaySession')}</Kicker><span className="text-[12.5px] text-neutral-700">{t('dashboard.weekOf', { week: d.plan.program.currentWeek, total: d.plan.program.totalWeeks })}</span></div>
             <h2 className="m-0 text-2xl">{l(d.today.name)}</h2>
-            <span className="text-[13.5px] text-neutral-800">{t('workouts.sessionMeta', { n: d.today.exercises.length, min: d.today.estMinutes })}</span>
-            {swaps > 0 && <SwapBadge label={t('dashboard.adjustedFor', { n: swaps, area: t(`body.${swapped[0].swap!.region}`) })} />}
+            <span className="text-[13.5px] text-neutral-800">{d.today.kind === 'cardio' ? t('cardio.minutes', { n: d.today.estMinutes }) : t('workouts.sessionMeta', { n: d.today.exercises.length, min: d.today.estMinutes })}</span>
+            {swaps > 0 && <SwapBadge label={t('dashboard.adjustedFor', { n: swaps, area: t(`body.${swapped[0].region}`) })} />}
             <div className="mt-1 flex gap-2">
-              {d.today.status === 'today' && <LinkButton to={`/workouts/${d.today.id}/log`} className="flex-1">{t('workouts.start')}</LinkButton>}
+              {d.today.status === 'today' && <LinkButton to={d.today.kind === 'cardio' ? `/workouts/${d.today.id}` : `/workouts/${d.today.id}/log`} className="flex-1">{t('workouts.start')}</LinkButton>}
               <LinkButton to={`/workouts/${d.today.id}`} variant="secondary">{t('common.view')}</LinkButton>
             </div>
           </Card>
@@ -142,13 +143,13 @@ function WeightQuickLog({ today, last }: { today: WeightLog | null; last: number
   const toast = useToast();
   const [saved, setSaved] = useState(today);
   const [editing, setEditing] = useState(false);
-  const [value, setValue] = useState(String(today?.weightKg ?? last));
+  const [value, setValue] = useState(today ? String(today.weightKg) : ''); // empty: the average is the placeholder
   const [error, setError] = useState<string>();
   const [busy, setBusy] = useState(false);
 
   const save = async (e: FormEvent) => {
     e.preventDefault();
-    const kg = Number(value.replace(',', '.').replace('٫', '.'));
+    const kg = parseNumber(value);
     if (!Number.isFinite(kg) || kg < 30 || kg > 300) return setError(t('dashboard.weightRange'));
     setBusy(true);
     try {
@@ -177,7 +178,7 @@ function WeightQuickLog({ today, last }: { today: WeightLog | null; last: number
     <form onSubmit={save} noValidate className="flex flex-col gap-1.5">
       <label htmlFor="today-weight" className="text-[12.5px]">{t('dashboard.todayWeightLabel')}</label>
       <div className="flex items-center gap-1.5">
-        <TextInput id="today-weight" inputMode="decimal" dir="ltr" autoFocus value={value} invalid={!!error} className="min-w-0 flex-1 text-start"
+        <TextInput id="today-weight" inputMode="decimal" dir="ltr" autoFocus value={value} invalid={!!error} className="min-w-0 flex-1 text-start" placeholder={t('common.eg', { n: num(last, 1) })}
           aria-describedby={error ? 'today-weight-error' : undefined} onChange={(e) => setValue(e.target.value)} />
         <span className="text-[13px]">{t('units.kg')}</span>
         <Button type="submit" size="icon" icon={Check} aria-label={t('dashboard.saveWeight')} disabled={busy} />
