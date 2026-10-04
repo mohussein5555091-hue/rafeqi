@@ -8,6 +8,8 @@ For the "Why this plan" page (app/views/why.py) every rule section that explains
 - `uses`: the questionnaire answers it reads (Person field names; `checkin` and `swaps` for the weekly check-in and the
   person's own exercise swaps), a list or one list per sub-rule;
 - `ref` once it's no longer a placeholder: {book, chapter, page, quote: {en, ar}}, the quote at most 2 sentences.
+- `kind: formula` for a standard published formula that isn't from the person's books (e.g. Mifflin-St Jeor): the page
+  labels it "Standard formula" with its original source (`ref`), and it doesn't count as "from your books".
 """
 
 import json
@@ -61,6 +63,10 @@ def _check_why(where: str, section: dict) -> list[str]:
     uses = section.get("uses")
     if not (isinstance(uses, list) or (isinstance(uses, dict) and all(isinstance(u, list) for u in uses.values()))):
         problems.append(f"{where} needs `uses`: the answers it reads (a list, or one list per sub-rule)")
+    if section.get("kind", "book") not in ("book", "formula"):
+        problems.append(f"{where}: kind must be book or formula")
+    if section.get("kind") == "formula" and section.get("placeholder") is not False:
+        problems.append(f"{where}: a standard formula isn't a placeholder (placeholder: false, with its original source in ref)")
     if section.get("placeholder") is False:
         ref = section.get("ref") or {}
         if not (ref.get("book") and ref.get("page") and _bilingual_tree(ref.get("quote"))):

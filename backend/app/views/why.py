@@ -39,6 +39,21 @@ def group_of(rule: str, bucket: str | None) -> str:
     return next((g for prefix, g in BY_RULE if _matches(rule, prefix)), "exercises")  # injuries, equipment, swaps…
 
 
+def rule_key(rule: str) -> str:
+    """The rule file section a reason belongs to, as a dotted id ("nutrition.goal.loseFat" → "nutrition.goal"): the
+    page groups repeated decisions under it and counts rules by it."""
+    parts = rule.split(".")
+    node, key = load_rules().get(parts[0]), parts[0]
+    for i in range(1, len(parts)):
+        nxt = node.get(parts[i]) if isinstance(node, dict) else None
+        if not isinstance(nxt, dict):
+            break
+        node = nxt
+        if "source" in node:
+            key = ".".join(parts[: i + 1])
+    return key
+
+
 def rule_section(rule: str) -> tuple[dict, str | None]:
     """The rule file section a reason comes from (the deepest one with a `source` along its id) and the sub-rule
     after it, e.g. "nutrition.goal.loseFat" → (nutrition.yaml goal, "loseFat")."""
@@ -67,8 +82,11 @@ def _pick(tree, sub: str | None):
 
 
 def source_out(section: dict) -> dict:
+    """kind: "book" (from your books), "formula" (a standard published formula, with its original source) or
+    "placeholder" (not yet from a book)."""
     placeholder = section.get("placeholder") is not False or not section.get("ref")
-    out = {"placeholder": placeholder, "text": section["source"]}
+    kind = "placeholder" if placeholder else section.get("kind", "book")
+    out = {"placeholder": placeholder, "kind": kind, "text": section["source"]}
     if not placeholder:
         ref = section["ref"]
         out |= {"book": ref["book"], "chapter": ref.get("chapter"), "page": str(ref["page"]), "quote": ref["quote"]}
@@ -101,7 +119,7 @@ def answers_out(keys: list[str], inputs: dict, injury_id: str | None = None) -> 
 def decision(reason: dict, bucket: str | None, inputs: dict, context: dict | None = None, injury_id: str | None = None) -> dict:
     section, sub = rule_section(reason["rule"])
     return {
-        "rule": reason["rule"], "group": group_of(reason["rule"], bucket), "context": context,
+        "rule": reason["rule"], "ruleKey": rule_key(reason["rule"]), "group": group_of(reason["rule"], bucket), "context": context,
         "answers": answers_out(_pick(section.get("uses") or [], sub) or [], inputs, injury_id),
         "summary": _pick(section["summary"], sub),
         "source": source_out(section),
@@ -131,9 +149,14 @@ def plan_reasons(db: Session, plan: Plan) -> list[tuple[dict, str | None, dict |
 def why_out(db: Session, plan: Plan) -> dict:
     decisions = [decision(r, bucket, plan.inputs or {}, ctx, inj) for r, bucket, ctx, inj in plan_reasons(db, plan)]
     groups = [{"id": g, "decisions": [d for d in decisions if d["group"] == g]} for g in GROUPS]
+    rules = {d["ruleKey"]: d["source"]["kind"] for d in decisions}
     return {
         "planId": plan.id, "version": plan.version, "createdAt": plan.created_at.isoformat(),
         "aiSummary": None,  # filled by the local LLM in the AI phase
-        "total": len(decisions), "backed": sum(not d["source"]["placeholder"] for d in decisions),
+        # Decisions and rules, each counted once: "X of Y rules from your books · A of B decisions".
+        "total": len(decisions), "backed": sum(d["source"]["kind"] == "book" for d in decisions),
+        "formulas": sum(d["source"]["kind"] == "formula" for d in decisions),
+        "rules": {"total": len(rules), "fromBooks": sum(k == "book" for k in rules.values()),
+                  "formulas": sum(k == "formula" for k in rules.values())},
         "groups": [g for g in groups if g["decisions"]],
     }

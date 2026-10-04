@@ -160,3 +160,29 @@ are offered.
   weight again", and reps 10/9/8 means "one more rep than 8". Three new worked examples in
   `data/rules/progression_cases.json`.
 - Tests: backend (`test_workout_logging.py`, `test_progression.py`) and a browser test.
+
+**Priority 2 full run:** backend suite, typecheck and all 299 browser tests pass.
+
+## Priority 3: "Why this plan"
+
+### 11. Three source labels
+
+- **What was counted as "from a book":** only the resting-burn formula (`nutrition.yaml` `bmr`, Mifflin-St Jeor). It
+  isn't from your books: it's a standard formula from a journal article. It's now marked `kind: formula` and shows
+  **"Standard formula"** with "Original source: American Journal of Clinical Nutrition… p. 241–247" and the quote.
+- The three labels: **"From your books"** (a rule with `placeholder: false` and a `ref` to one of your books),
+  **"Standard formula"** (`kind: formula`, original source shown), **"Not yet from a book"** (placeholders). The rule
+  loader refuses any other `kind`, and a formula that is still a placeholder.
+- So today: 0 rules from your books, 1 standard formula, everything else "Not yet from a book" (correct until the books
+  phase).
+
+### 12. Counting rules and decisions; grouping
+
+- The top says "X of Y rules from your books · A of B decisions" (each rule counted once; Y is the rules this plan
+  uses), plus "1 of the decisions use a standard formula, shown with its original source."
+- Decisions that share a rule (a starting weight per exercise, one load reason per injured exercise…) are one card per
+  section: the rule in plain language, the answers and the source once, and "N decisions use this rule" folded
+  (`<details>`, closed by default); a rule used once still shows as a single decision card.
+- API: every decision has `ruleKey` and `source.kind`; the page data has `rules {total, fromBooks, formulas}` and
+  `formulas`.
+- Tests: `test_why.py` (labels, counts, a rule from a book counts as from your books) and `why.spec.ts`.

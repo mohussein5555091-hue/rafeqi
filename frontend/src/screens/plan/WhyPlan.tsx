@@ -1,4 +1,4 @@
-import { BookOpen, ChevronRight, CircleHelp, ClipboardList, Sparkles } from 'lucide-react';
+import { BookOpen, Calculator, ChevronRight, CircleHelp, ClipboardList, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { AppShell, Badge, Card, Icon, Kicker, ProgressBar, QueryView, cn } from '@/components';
 import { useI18n } from '@/i18n';
@@ -40,9 +40,54 @@ function useAnswerText() {
   };
 }
 
+function Answers({ d }: { d: WhyDecision }) {
+  const { t } = useI18n();
+  const answerText = useAnswerText();
+  return (
+    <div className="flex flex-col gap-1.5">
+      <span className="text-xs font-bold text-neutral-800">{t('why.answers')}</span>
+      {d.answers.length ? (
+        <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0">
+          {d.answers.map((a) => (
+            <li key={a.key} className="rounded-pill bg-bg px-3 py-1 text-[12.5px]"><span className="text-neutral-700">{t(`why.answer.${a.key}`)}:</span> <strong>{answerText(a)}</strong></li>
+          ))}
+        </ul>
+      ) : <span className="text-[12.5px] text-neutral-700">{t('why.noAnswers')}</span>}
+    </div>
+  );
+}
+
+/** Where the rule comes from: "From your books" (book, page, quote), "Standard formula" (its original source) or
+ *  "Not yet from a book". */
+function Source({ d }: { d: WhyDecision }) {
+  const { t, l } = useI18n();
+  const s = d.source;
+  return (
+    <div className="flex flex-col gap-1.5 border-t border-divider pt-3" data-testid="source" data-kind={s.kind}>
+      <span className="text-xs font-bold text-neutral-800">{t('why.source')}</span>
+      {s.kind === 'placeholder' ? (
+        <>
+          <Badge className="bg-attn-100 text-attn-800" icon={CircleHelp}><span data-testid="placeholder-badge">{t('why.placeholder')}</span></Badge>
+          <span className="text-xs text-neutral-700">{t('why.placeholderSource', { text: s.text.replace(/^PLACEHOLDER:\s*/, '') })}</span>
+        </>
+      ) : (
+        <>
+          {s.kind === 'book'
+            ? <Badge className="bg-sage-100 text-sage-900" icon={BookOpen}><span data-testid="book-badge">{t('why.fromBooks')}</span></Badge>
+            : <Badge className="bg-neutral-100 text-neutral-900" icon={Calculator}><span data-testid="formula-badge">{t('why.formula')}</span></Badge>}
+          <span className="flex items-start gap-1.5 text-[13px]" data-testid="book">
+            <Icon as={s.kind === 'book' ? BookOpen : Calculator} size={16} className="mt-0.5 text-sage-700" />
+            <span>{s.kind === 'formula' && <>{t('why.originalSource')}: </>}<strong>{s.book}</strong>{s.chapter ? ` · ${s.chapter}` : ''} · {t('why.page', { page: s.page ?? '' })}</span>
+          </span>
+          {s.quote && <blockquote className="m-0 border-s-4 border-sage-300 ps-3 text-[13px] italic text-neutral-800">{l(s.quote)}</blockquote>}
+        </>
+      )}
+    </div>
+  );
+}
+
 function Decision({ d }: { d: WhyDecision }) {
   const { t, l } = useI18n();
-  const answerText = useAnswerText();
   return (
     <li data-testid="decision" data-rule={d.rule} className="flex flex-col gap-3 rounded-card bg-surface p-4 lg:p-5">
       {d.context && <span className="text-[12.5px] font-semibold text-neutral-700">{l(d.context)}</span>}
@@ -50,39 +95,52 @@ function Decision({ d }: { d: WhyDecision }) {
         <Kicker>{t('why.result')}</Kicker>
         <p className="m-0 text-[15px] font-semibold leading-snug" data-testid="result">{l(d.result)}</p>
       </div>
-      <div className="flex flex-col gap-1.5">
-        <span className="text-xs font-bold text-neutral-800">{t('why.answers')}</span>
-        {d.answers.length ? (
-          <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0">
-            {d.answers.map((a) => (
-              <li key={a.key} className="rounded-pill bg-bg px-3 py-1 text-[12.5px]"><span className="text-neutral-700">{t(`why.answer.${a.key}`)}:</span> <strong>{answerText(a)}</strong></li>
-            ))}
-          </ul>
-        ) : <span className="text-[12.5px] text-neutral-700">{t('why.noAnswers')}</span>}
-      </div>
+      <Answers d={d} />
       <div className="flex flex-col gap-0.5">
         <span className="text-xs font-bold text-neutral-800">{t('why.rule')}</span>
         <p className="m-0 text-[13.5px] text-neutral-800">{l(d.summary)}</p>
       </div>
-      <div className="flex flex-col gap-1.5 border-t border-divider pt-3" data-testid="source">
-        <span className="text-xs font-bold text-neutral-800">{t('why.source')}</span>
-        {d.source.placeholder ? (
-          <>
-            <Badge className="bg-attn-100 text-attn-800" icon={CircleHelp}><span data-testid="placeholder-badge">{t('why.placeholder')}</span></Badge>
-            <span className="text-xs text-neutral-700">{t('why.placeholderSource', { text: d.source.text.replace(/^PLACEHOLDER:\s*/, '') })}</span>
-          </>
-        ) : (
-          <>
-            <span className="flex items-start gap-1.5 text-[13px]" data-testid="book">
-              <Icon as={BookOpen} size={16} className="mt-0.5 text-sage-700" />
-              <span><strong>{d.source.book}</strong>{d.source.chapter ? ` · ${d.source.chapter}` : ''} · {t('why.page', { page: d.source.page ?? '' })}</span>
-            </span>
-            {d.source.quote && <blockquote className="m-0 border-s-4 border-sage-300 ps-3 text-[13px] italic text-neutral-800">{l(d.source.quote)}</blockquote>}
-          </>
-        )}
-      </div>
+      <Source d={d} />
     </li>
   );
+}
+
+/** Several decisions from the same rule (a starting weight per exercise…): the rule once, the decisions folded away. */
+function RuleGroup({ ds }: { ds: WhyDecision[] }) {
+  const { t, l, num } = useI18n();
+  const d = ds[0];
+  return (
+    <li data-testid="rule-group" data-rule={d.ruleKey} className="flex flex-col gap-3 rounded-card bg-surface p-4 lg:p-5">
+      <div className="flex flex-col gap-0.5">
+        <span className="text-xs font-bold text-neutral-800">{t('why.rule')}</span>
+        <p className="m-0 text-[15px] font-semibold leading-snug">{l(d.summary)}</p>
+      </div>
+      <details className="group rounded-lg bg-bg px-3 py-2">
+        <summary className="flex min-h-tap cursor-pointer list-none items-center gap-2 text-[13.5px] font-semibold">
+          <Icon as={ChevronRight} size={18} flip className="transition-transform group-open:rotate-90" />
+          {t('why.fromRule', { n: num(ds.length) })}
+        </summary>
+        <ul className="m-0 mt-2 flex list-none flex-col gap-2.5 p-0">
+          {ds.map((x, i) => (
+            <li key={i} data-testid="decision" data-rule={x.rule} className="flex flex-col gap-1.5 border-t border-divider pt-2.5 first:border-0 first:pt-0">
+              {x.context && <span className="text-[12.5px] font-semibold text-neutral-700">{l(x.context)}</span>}
+              <p className="m-0 text-[14px] leading-snug" data-testid="result">{l(x.result)}</p>
+              {JSON.stringify(x.answers) !== JSON.stringify(d.answers) && <Answers d={x} />}
+            </li>
+          ))}
+        </ul>
+      </details>
+      <Answers d={d} />
+      <Source d={d} />
+    </li>
+  );
+}
+
+/** A group's decisions, those sharing a rule folded together (in the order they first appear). */
+function byRule(ds: WhyDecision[]): WhyDecision[][] {
+  const out = new Map<string, WhyDecision[]>();
+  for (const d of ds) out.set(d.ruleKey, [...(out.get(d.ruleKey) ?? []), d]);
+  return [...out.values()];
 }
 
 export function WhyPlan() {
@@ -95,8 +153,9 @@ export function WhyPlan() {
           <div className="flex max-w-3xl flex-col gap-5">
             <p className="m-0 text-[15px] text-neutral-800">{t('why.intro')}</p>
             <Card tone="sage" className="gap-2.5" data-testid="backed">
-              <strong className="text-lg">{t('why.backed', { x: num(why.backed), y: num(why.total) })}</strong>
-              <ProgressBar value={why.backed} max={why.total || 1} label={t('why.backed', { x: num(why.backed), y: num(why.total) })} />
+              <strong className="text-lg">{t('why.backed', { x: num(why.rules.fromBooks), y: num(why.rules.total), a: num(why.backed), b: num(why.total) })}</strong>
+              <ProgressBar value={why.rules.fromBooks} max={why.rules.total || 1} label={t('why.backed', { x: num(why.rules.fromBooks), y: num(why.rules.total), a: num(why.backed), b: num(why.total) })} />
+              {why.formulas > 0 && <span className="text-[13px]" data-testid="formulas-note">{t('why.formulasNote', { n: num(why.formulas) })}</span>}
               <span className="text-[13px]">{t('why.backedNote')}</span>
             </Card>
             {/* The AI summary slot: filled by the local LLM in the AI phase (never a number, only words). */}
@@ -116,7 +175,7 @@ export function WhyPlan() {
               <section key={g.id} id={`why-${g.id}`} className="flex scroll-mt-20 flex-col gap-2.5" aria-labelledby={`why-${g.id}-h`}>
                 <h2 id={`why-${g.id}-h`} className="m-0 text-xl">{t(`why.group.${g.id}`)}</h2>
                 <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
-                  {g.decisions.map((d, i) => <Decision key={i} d={d} />)}
+                  {byRule(g.decisions).map((ds) => (ds.length > 1 ? <RuleGroup key={ds[0].ruleKey} ds={ds} /> : <Decision key={ds[0].ruleKey} d={ds[0]} />))}
                 </ul>
               </section>
             ))}

@@ -514,14 +514,20 @@ export type WhyGroupId = 'calories' | 'protein' | 'carbsFat' | 'program' | 'sche
 /** One questionnaire answer a rule used. `key` is the answer's name (sex, weight_kg, injuries, checkin, …). */
 export interface WhyAnswer { key: string; value: unknown }
 /** Where a rule comes from. Placeholders aren't from a book yet: only `text` (what will be checked) is given. */
-export interface WhySource { placeholder: boolean; text: string; book?: string; chapter?: string | null; page?: string; quote?: LocalizedText }
+/** kind: "book" = from the person's books; "formula" = a standard published formula (book… is its original source);
+ *  "placeholder" = not yet from a book. */
+export interface WhySource { placeholder: boolean; kind: 'book' | 'formula' | 'placeholder'; text: string; book?: string; chapter?: string | null; page?: string; quote?: LocalizedText }
 export interface WhyDecision {
   rule: string; group: WhyGroupId; context: LocalizedText | null; answers: WhyAnswer[];
+  /** The rule file section it comes from ("training.start_load"): repeated decisions are grouped under it. */
+  ruleKey: string;
   summary: LocalizedText; source: WhySource; result: LocalizedText;
 }
 export interface WhyPlan {
   planId: string; version: number; createdAt: string;
   aiSummary: LocalizedText | null; // written by the local LLM in the AI phase; null until then
-  total: number; backed: number;
+  /** Decisions: all, from the books, from a standard formula. Rules (each counted once): the same. */
+  total: number; backed: number; formulas: number;
+  rules: { total: number; fromBooks: number; formulas: number };
   groups: { id: WhyGroupId; decisions: WhyDecision[] }[];
 }
