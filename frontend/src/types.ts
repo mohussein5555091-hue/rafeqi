@@ -140,7 +140,7 @@ export interface Exercise {
   instructions: LocalizedText[];
   cues: LocalizedText[];
   mistakes: LocalizedText[];
-  alternatives: { exerciseId?: string; name: LocalizedText; kind: 'easier' | 'injuryFriendly' | 'equipment' }[];
+  alternatives: { exerciseId?: string; name: LocalizedText; kind: 'easier' | 'injuryFriendly' | 'equipment' | 'noEquipment'; imageUrl?: string }[];
 }
 
 /**
@@ -261,6 +261,33 @@ export interface Meal {
   fatG: number;
   recipeId?: string;
   eaten?: boolean;
+  /** What the meal is made of, after the person's removals and replacements (at this meal's portion). */
+  ingredients?: MealIngredient[];
+  /** The engine moved this portion to keep the day on target after an ingredient change. */
+  portionChange?: { from: number; to: number };
+}
+
+// ── Removing an ingredient (backend/app/views/ingredients.py) ──
+export type RemoveReason = 'dislike' | 'unavailable'; // "I don't like it" / "Not available right now"
+export type RemoveScope = 'meal' | 'always'; // "Just this meal" / "Always"
+export interface MealIngredient {
+  foodId: string;
+  name: LocalizedText;
+  grams: number;
+  amount: LocalizedText;
+  /** What makes the dish: removing it means swapping the meal. */
+  essential: boolean;
+  status: 'kept' | 'removed' | 'replaced';
+  replacement?: { foodId: string; name: LocalizedText; grams: number; amount: LocalizedText };
+  change?: { reason: RemoveReason; scope: RemoveScope };
+}
+export interface IngredientReplacement { foodId: string; name: LocalizedText; grams: number; kcal: number; proteinG: number; carbsG: number; fatG: number }
+export interface ReplacementOptions { foodId: string; name: LocalizedText; essential: boolean; role: string; options: IngredientReplacement[] }
+/** What the engine changed on a day after an ingredient change, and a snack when portions couldn't close the gap. */
+export interface DayNote {
+  lines: LocalizedText[];
+  snack: { recipeId: string; name: LocalizedText; portion: number; kcal: number; protein: number } | null;
+  onTarget: boolean;
 }
 
 export interface MealDay {
@@ -268,6 +295,7 @@ export interface MealDay {
   day: Weekday;
   isTrainingDay: boolean;
   meals: Meal[];
+  note?: DayNote;
 }
 
 export interface MealWeekDay {
@@ -289,8 +317,12 @@ export interface Recipe {
   proteinG: number;
   carbsG: number;
   fatG: number;
-  /** Quantities are already scaled to the user's portion. */
-  ingredients: { name: LocalizedText; grams?: number; amount: LocalizedText }[];
+  /** Quantities are already scaled to the user's portion. With a meal, each says if it was removed or replaced. */
+  ingredients: (Pick<MealIngredient, 'name' | 'amount'> & Partial<MealIngredient>)[];
+  /** The meal this recipe page belongs to (opened from its card): Remove / Undo act on it. */
+  mealId?: string;
+  mealDate?: ISODate;
+  portion?: number;
   steps: { text: LocalizedText; timerSec?: number }[];
   storage: LocalizedText;
   reheating: LocalizedText;
@@ -440,4 +472,22 @@ export interface Dashboard {
   /** Today's entry, if already logged (the dashboard's quick "log today's weight"). */
   weightToday: WeightLog | null;
   weightChangeKg: number;
+}
+
+// ── "Why this plan" (GET /api/plan/why): every decision, built from the engine's stored reasons and the rule files ──
+export type WhyGroupId = 'calories' | 'protein' | 'carbsFat' | 'program' | 'schedule' | 'volume' | 'startWeights' | 'progression'
+  | 'deload' | 'warmup' | 'cooldown' | 'cardio' | 'exercises' | 'meals' | 'review';
+/** One questionnaire answer a rule used. `key` is the answer's name (sex, weight_kg, injuries, checkin, …). */
+export interface WhyAnswer { key: string; value: unknown }
+/** Where a rule comes from. Placeholders aren't from a book yet: only `text` (what will be checked) is given. */
+export interface WhySource { placeholder: boolean; text: string; book?: string; chapter?: string | null; page?: string; quote?: LocalizedText }
+export interface WhyDecision {
+  rule: string; group: WhyGroupId; context: LocalizedText | null; answers: WhyAnswer[];
+  summary: LocalizedText; source: WhySource; result: LocalizedText;
+}
+export interface WhyPlan {
+  planId: string; version: number; createdAt: string;
+  aiSummary: LocalizedText | null; // written by the local LLM in the AI phase; null until then
+  total: number; backed: number;
+  groups: { id: WhyGroupId; decisions: WhyDecision[] }[];
 }

@@ -109,7 +109,7 @@ class ExerciseSubstitution(Base):
     substitute_id: Mapped[str | None] = mapped_column(ForeignKey("exercises.id", ondelete="CASCADE"))
     name_en: Mapped[str] = mapped_column(String(120), default="")  # for alternatives not in the catalogue yet
     name_ar: Mapped[str] = mapped_column(String(120), default="")
-    kind: Mapped[str] = mapped_column(String(16))  # easier | injuryFriendly | equipment
+    kind: Mapped[str] = mapped_column(String(16))  # easier | injuryFriendly | equipment | noEquipment
     priority: Mapped[int] = mapped_column(default=0)
 
 

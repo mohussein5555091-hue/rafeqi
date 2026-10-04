@@ -11,6 +11,7 @@ import { ApiError, api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
 import { useSession } from '@/data/session';
 import type { WeeklyReview as Review } from '@/types';
+import { WhyPlanLink } from '@/screens/plan/WhyPlan';
 import { useNavigate } from 'react-router-dom';
 
 const MEASURES = ['waist', 'hips', 'chest', 'arm', 'thigh'] as const;
@@ -235,6 +236,7 @@ export function Profile() {
                     </Link></li>
                   ))}
                 </ul>
+                <WhyPlanLink className="mt-1.5" />
                 <Button size="lg" icon={Sparkles} className="mt-1.5" onClick={() => nav('/onboarding/generating')}>{t('profile.regenerate')}</Button>
                 <span className="px-1.5 text-xs text-neutral-700">{t('profile.regenerateNote')}</span>
               </section>

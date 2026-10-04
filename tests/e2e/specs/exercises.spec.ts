@@ -57,3 +57,59 @@ test('an exercise swapped for the injury says so on its page', async ({ page }) 
   await waitForContent(page);
   await expect(page.getByText('Swapped for your left shoulder').first()).toBeVisible();
 });
+
+/** Where the photo actually shows inside its <img> box with object-fit: contain, compared with the box around it. */
+async function photoFit(img: Locator) {
+  return img.evaluate((i: HTMLImageElement) => {
+    const box = i.getBoundingClientRect();
+    const frame = (i.closest('figure') ?? i.parentElement!).getBoundingClientRect();
+    const scale = Math.min(box.width / i.naturalWidth, box.height / i.naturalHeight);
+    const w = i.naturalWidth * scale, h = i.naturalHeight * scale;
+    const left = box.left + (box.width - w) / 2, top = box.top + (box.height - h) / 2;
+    return {
+      fit: getComputedStyle(i).objectFit,
+      inside: left >= frame.left - 0.5 && top >= frame.top - 0.5 && left + w <= frame.right + 0.5 && top + h <= frame.bottom + 0.5,
+      onScreen: left >= -0.5 && left + w <= window.innerWidth + 0.5,
+      ratio: w / h, natural: i.naturalWidth / i.naturalHeight, share: (w * h) / (frame.width * frame.height),
+    };
+  });
+}
+
+test('exercise photos are shown whole: nothing cut off, original proportions', async ({ page }) => {
+  await page.goto('/exercises/ex_band_pull_apart');
+  await waitForContent(page);
+  const photo = page.locator('main figure img').first();
+  await loaded(photo);
+  const fit = await photoFit(photo);
+  expect(fit.fit).toBe('contain');
+  expect(fit.inside && fit.onScreen).toBe(true);
+  expect(fit.ratio).toBeCloseTo(fit.natural, 2);
+  expect(fit.share, 'the box follows the photo, so it is mostly photo').toBeGreaterThan(0.6);
+  await page.screenshot({ path: test.info().outputPath('band-pull-apart.png'), fullPage: true });
+
+  // Its alternative, Arm circles: a thumbnail, the right label, and a link to its own page.
+  const alt = page.getByTestId('alternative').filter({ hasText: 'Arm circles' });
+  await expect(alt).toContainText('No equipment needed');
+  await expect(alt).not.toContainText('Other equipment');
+  const thumb = alt.locator('img');
+  await loaded(thumb);
+  expect((await photoFit(thumb)).fit).toBe('contain');
+  expect((await photoFit(thumb)).inside).toBe(true);
+  await alt.click();
+  await expect(page).toHaveURL(/\/exercises\/ex_arm_circles$/);
+  await waitForContent(page);
+  await loaded(page.locator('main figure img').first());
+  expect((await photoFit(page.locator('main figure img').first())).inside).toBe(true);
+});
+
+test('session thumbnails show the whole photo too', async ({ page }) => {
+  const [s] = await sessions(page);
+  await page.goto(`/workouts/${s.id}`);
+  await waitForContent(page);
+  for (const img of await page.getByTestId('exercise-row').locator('img').all()) {
+    await loaded(img);
+    const fit = await photoFit(img);
+    expect(fit.fit).toBe('contain');
+    expect(fit.inside).toBe(true);
+  }
+});

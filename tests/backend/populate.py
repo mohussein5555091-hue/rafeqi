@@ -10,7 +10,8 @@ from sqlalchemy.orm import Session
 
 from app import clock
 from app.models import (
-    CardioLog, CheckIn, CheckInAnswer, Exercise, ExerciseSwap, Food, GroceryItem, GroceryList, GroceryListItem, Injury, LlmCall, MealPlan,
+    CardioLog, CheckIn, CheckInAnswer, Exercise, ExerciseSwap, Food, GroceryItem, GroceryList, GroceryListItem, Injury, LlmCall,
+    MealIngredientChange, MealPlan,
     MealPlanItem, PainLog, PantryItem, Plan, ProgramDay, ProgramExercise, Recipe, SetLog, TrainingProgram, WeeklyReview,
     WeightLog, WorkoutLog,
 )
@@ -62,8 +63,10 @@ def populate(db: Session, user_id: str) -> dict[str, str]:
     add(PainLog(user_id=user_id, injury_id=injury.id, region="shoulderL", pain=3, source="workout", workout_log_id=workout.id))
     add(WeightLog(user_id=user_id, date=today, weight_kg=88.0, source="checkin"))
     meal_plan = add(MealPlan(user_id=user_id, plan_id=plan.id, week_start=today))
-    add(MealPlanItem(user_id=user_id, meal_plan_id=meal_plan.id, date=today, slot="lunch", time="14:00",
-                     recipe_id="r_test", kcal=600, protein_g=40, carbs_g=70, fat_g=15))
+    meal = add(MealPlanItem(user_id=user_id, meal_plan_id=meal_plan.id, date=today, slot="lunch", time="14:00",
+                            recipe_id="r_test", kcal=600, protein_g=40, carbs_g=70, fat_g=15))
+    add(MealIngredientChange(user_id=user_id, meal_plan_item_id=meal.id, group_id="g-test", food_id="food_test",
+                             reason="unavailable", scope="meal"))
     grocery = add(GroceryList(user_id=user_id, meal_plan_id=meal_plan.id, week_start=today))
     add(GroceryListItem(user_id=user_id, grocery_list_id=grocery.id, grocery_item_id="gi_test", period="month",
                         grams_needed=1200, qty=2, unit="kg"))

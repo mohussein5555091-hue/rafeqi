@@ -117,3 +117,31 @@ Run the tests, show me how to try it by hand, and list anything you assumed.
    exercise starts as "find your weight" and progresses from there, and shows a badge with the reason.
    Rebuilding the plan for a swap or an injury keeps the week's meals and grocery list when the nutrition targets
    haven't changed.
+
+### Photos, "Why this plan", and removing ingredients (requested after the workout plan update; these stay as built)
+
+1. **Exercise photos are never cropped:** the photo box takes the photo's own proportions (object-fit: contain on a
+   plain background), on the exercise page and in every thumbnail, on phones and desktop. Catalogue alternatives that
+   are exercises in the catalogue link to their page with a thumbnail; "No equipment needed" is its own label (the
+   loader refuses "Other equipment" for a bodyweight-only alternative). A browser test measures that the whole photo
+   is inside its box at its original proportions.
+2. **"Why this plan"** (`/plan/why`; linked from "Your plan is ready", Home and Profile): every decision in the plan
+   (calories, protein, carbs and fat, program, days and session length, sets/reps/RPE, starting weights,
+   progression, deload, warm-up, cool-down, cardio, each injury or equipment swap or exclusion, every recipe's
+   portions) with the answers it used, the rule in plain language, its source (book, chapter, page and a 1–2 sentence
+   quote) and the result. Built only from the reasons the engine stores with the plan and the rule files' `summary`,
+   `uses`, `source`, `placeholder` and `ref` fields (the rule loader refuses a rule without them, and a
+   non-placeholder rule without a book reference). Placeholders show "Not yet from a book"; the top says
+   "X of Y decisions backed by your books". English and Arabic. The AI summary at the top is a reserved slot until the
+   AI phase.
+3. **Remove an ingredient** from any meal card or recipe page: one-tap reason ("I don't like it" / "Not available right
+   now"), then 1–3 replacements with the same role (`foods.yaml` `role`: eggs → cheese or yogurt), sized to give about
+   the same protein, carbs or fat, or "Remove without replacing"; then "Just this meal" or "Always". "Always" changes
+   every meal of the week that has it; "Always" and every "I don't like it" add it to the profile's disliked foods, so
+   every later plan (weekly review, "regenerate") leaves it out and drops recipes it is essential to. Essential
+   ingredients (`recipes.yaml` `essential: true`, e.g. lentils in lentil soup) can't be removed: the screen offers to
+   swap the whole meal. The meal's and the day's numbers are worked out again at once; if the day fell below its
+   targets (protein first), other portions move by at most ½ portion in quarter steps (a small MILP, calories within
+   ±5%, else ±8%), or a snack is suggested, and the day says what changed. The grocery list is rebuilt from what's
+   really cooked. Removed and replaced ingredients are struck through with Undo (undo reverses the whole choice,
+   including the dislike). Rules: `nutrition.yaml` `ingredients` (placeholder).

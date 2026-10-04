@@ -7,6 +7,10 @@ template_choice:
   # Each one scores points for every match; the highest score wins (ties: file order).
   placeholder: true
   source: "PLACEHOLDER: program choice by experience, days, goal and equipment (Jeff Nippard programs)"
+  uses: [experience, days_per_week, goal, location]
+  summary:
+    en: The program that best matches your experience, training days, goal and training place is chosen.
+    ar: بيتختار البرنامج الأنسب لخبرتك وأيام تمرينك وهدفك ومكان تمرينك.
   points: {experience: 4, days: 4, goal: 1, location: 1}  # ties: the first file wins (sample_full_body, the gentler one)
   explain:
     en: "Program: {name}, chosen for {experience} lifters training {days} days a week."
@@ -39,6 +43,10 @@ start_load:
   # Dumbbell ratios are per dumbbell.
   placeholder: true
   source: "PLACEHOLDER: starting load ratios; to be replaced with the program PDFs' guidance"
+  uses: [weight_kg, sex, experience]
+  summary:
+    en: Starting weights are a share of your body weight for each exercise, lowered for experience and sex, rounded down and capped, so the first sessions are for finding your weight.
+    ar: أوزان البداية نسبة من وزنك لكل تمرين، بتقل حسب خبرتك ونوعك، ومتقرّبة لتحت وليها حد أقصى، عشان أول تمرينات تكون لمعرفة وزنك.
   experience_factor: {beginner: 0.4, intermediate: 0.7, advanced: 0.9}
   sex_factor: {male: 1.0, female: 0.6}
   max_kg:
@@ -77,6 +85,10 @@ start_load:
 injuries:
   placeholder: true
   source: "PLACEHOLDER: training around injuries; book + page to be added (Delavier, Strength Training Anatomy, for joint loading)"
+  uses: [injuries]
+  summary:
+    en: Exercises that use a movement that hurts are swapped for the closest exercise with the same movement that avoids it; recovering areas start lighter.
+    ar: التمارين اللي فيها حركة بتوجعك بتتبدّل بأقرب تمرين بنفس الحركة من غيرها؛ والمناطق اللي بتتعافى بتبدأ بوزن أخف.
   recovering_load_factor: 0.8    # exercises loading a "recovering" area start lighter
   min_load_factor: 0.5
   # How close a substitute is: lower is closer. Only exercises with the same movement pattern are considered.
@@ -108,6 +120,27 @@ review:
   # Weekly review: small, bounded steps (backend/app/engine/review.py).
   placeholder: true
   source: "PLACEHOLDER: weekly adjustments; book + page to be added (Helms, The Muscle & Strength Pyramid: Training)"
+  uses:
+    default:
+    - checkin
+    uncomfortable:
+    - checkin
+    pain_up:
+    - injuries
+    - checkin
+  summary:
+    default:
+      en: 'Each week the lifts change in small steps from your check-in: a lighter week when sessions felt too hard, and ± one step for exercises you marked too easy or too hard.'
+      ar: 'كل أسبوع التمارين بتتغير خطوات صغيرة من متابعتك: أسبوع أخف لو التمرين كان صعب أوي، وخطوة زيادة أو نقص للتمارين اللي قلت إنها سهلة أو صعبة.'
+    deload:
+      en: A lighter week (one set fewer, effort one lower) when your check-in says sessions felt very hard, you're very sore or average effort was RPE 9 or more.
+      ar: أسبوع أخف (مجموعة أقل ومجهود أقل بدرجة) لما متابعتك تقول إن التمرين كان صعب جدًا أو عندك تكسير شديد أو متوسط المجهود ٩ أو أكتر.
+    uncomfortable:
+      en: An exercise you marked uncomfortable is swapped for the closest one with the same movement.
+      ar: التمرين اللي قلت إنه مش مريح بيتبدّل بأقرب تمرين بنفس الحركة.
+    pain_up:
+      en: When pain in an area goes up, the exercises that load it get lighter.
+      ar: لما الألم في منطقة يزيد، التمارين اللي بتحمّل عليها بتخف.
   deload_when: {difficulty_at_least: 5, soreness_at_least: 4, avg_effort_at_least: 9}
   deload_load_factor: 0.9
   pain_up_load_step: 0.1         # pain went up: that area's exercises lose this much load factor
@@ -119,6 +152,10 @@ review:
 session:
   placeholder: true
   source: "PLACEHOLDER: session length and exercise count; to be replaced with the Jeff Nippard programs' session structure"
+  uses: [session_minutes]
+  summary:
+    en: As many exercises as fit the session length you chose; the time is worked out from the warm-up, every set's work and rest, changing exercise, and the cool-down.
+    ar: عدد التمارين اللي يناسب مدة التمرينة اللي اخترتها؛ والوقت بيتحسب من التسخين وكل مجموعة بشغلها وراحتها وتغيير التمرين والتهدئة.
   work_sec_per_set: 40
   change_exercise_sec: 60
   exercises_by_minutes:
@@ -135,6 +172,10 @@ session:
 full_body_legs:
   placeholder: true
   source: "PLACEHOLDER: full-body session structure (Jeff Nippard, Fundamentals Hypertrophy Program)"
+  uses: [injuries, location]
+  summary:
+    en: 'Every full-body day trains your legs: if injuries or equipment rule out the squat and hip hinge, the closest allowed leg exercise is added.'
+    ar: 'كل يوم جسم كامل بيمرّن الرجل: لو الإصابات أو الأدوات منعت السكوات وثني الوسط، بيتضاف أقرب تمرين رجل مسموح.'
   patterns: [squat, hinge, lunge, kneeExtension, kneeFlexion]
   explain:
     en: "{name} added: every full-body day trains your legs, and the squat or hip hinge didn't fit your answers."
@@ -150,6 +191,10 @@ full_body_legs:
 warmup:
   placeholder: true
   source: "PLACEHOLDER: warm-up protocol; the Jeff Nippard programs include warm-up guidance to extract"
+  uses: [location, injuries, health]
+  summary:
+    en: 'Before every session: 5 minutes of easy movement for your equipment, 3–4 mobility moves for the day''s muscles, and lighter ramp-up sets of the first exercise; anything that hurts an injury is left out.'
+    ar: 'قبل كل تمرينة: ٥ دقايق حركة خفيفة حسب أدواتك، ٣–٤ حركات مرونة لعضلات اليوم، ومجموعات أخف لأول تمرين؛ وأي حاجة بتضر إصابة بتتشال.'
   general_minutes: 5
   general_by_location:
     gym: [ex_bike, ex_incline_walk, ex_brisk_walk]
@@ -201,6 +246,10 @@ warmup:
 cooldown:
   placeholder: true
   source: "PLACEHOLDER: cool-down stretching; book + page to be added"
+  uses: [injuries]
+  summary:
+    en: 'After every session: 4–5 static stretches for the muscles trained that day, 30–45 seconds each, then a minute of slow breathing.'
+    ar: 'بعد كل تمرينة: ٤–٥ إطالات ثابتة للعضلات اللي اتمرنت، ٣٠–٤٥ ثانية لكل واحدة، وبعدين دقيقة تنفس بطيء.'
   stretches: {min: 4, max: 5}
   hold_sec: 30
   hold_sec_large: 45
@@ -224,6 +273,10 @@ cooldown:
 cardio:
   placeholder: true
   source: "PLACEHOLDER: cardio by goal; the recomposition guide covers cardio, values to be extracted"
+  uses: [goal, experience, location, health, injuries]
+  summary:
+    en: Cardio by goal (fat loss 2–3 easy sessions plus a daily step target; muscle or strength 1–2 short ones; recomposition about 2), chosen for your equipment and injuries, on rest days or after lifting, never the day before a leg day.
+    ar: كارديو حسب الهدف (خسارة دهون ٢–٣ جلسات سهلة وهدف خطوات يومي؛ عضل أو قوة ١–٢ قصيرين؛ إعادة تشكيل حوالي ٢)، متختار حسب أدواتك وإصاباتك، في أيام الراحة أو بعد الحديد، وأبدًا مش اليوم اللي قبل يوم رجل.
   by_goal:
     loseFat: {sessions: [2, 3], minutes: [20, 30], intensity: easy, steps: 8000}
     recomp: {sessions: [2, 2], minutes: [20, 25], intensity: easy, steps: 7500}
@@ -265,6 +318,10 @@ cardio:
 swaps:
   placeholder: true
   source: "PLACEHOLDER: exercise substitution rules; to be checked against the Jeff Nippard programs' substitution lists"
+  uses: [swaps]
+  summary:
+    en: An exercise you swapped is replaced by one with the same movement and muscles that fits your equipment and injuries, and the weekly review never puts the old one back.
+    ar: التمرين اللي بدّلته بيتحط مكانه تمرين بنفس الحركة والعضلات ومناسب لأدواتك وإصاباتك، والمراجعة الأسبوعية عمرها ما ترجّع القديم.
   max_alternatives: 4
   explain:
     en: "{from} → {to}: your choice ({why})."
@@ -274,3 +331,60 @@ swaps:
     busy: {en: "machine busy", ar: "الجهاز مشغول"}
     cantDo: {en: "you asked for another exercise", ar: "طلبت تمرين تاني"}
     pain: {en: "it caused pain", ar: "كان بيوجعك"}
+
+# ── What the "Why this plan" page explains (and the reasons the engine stores for them) ────────────
+# Training days and session length: the days come from `schedules` above.
+schedule:
+  placeholder: true
+  source: "PLACEHOLDER: training days and session length; to be checked against the Jeff Nippard programs' weekly layout"
+  uses: [days_per_week, session_minutes]
+  summary:
+    en: "You train on the days a week you chose, spread over the week with Friday free, for about the session length you chose."
+    ar: "بتتمرن عدد الأيام اللي اخترته، متوزعين على الأسبوع والجمعة إجازة، لمدة التمرينة اللي اخترتها تقريبًا."
+  explain:
+    en: "{days} training days a week ({names}), about {minutes} min each, as you chose."
+    ar: "{days} أيام تمرين في الأسبوع ({names})، حوالي {minutes} دقيقة كل مرة، زي ما اخترت."
+  day_names:
+    sat: {en: Sat, ar: السبت}
+    sun: {en: Sun, ar: الأحد}
+    mon: {en: Mon, ar: الاتنين}
+    tue: {en: Tue, ar: التلات}
+    wed: {en: Wed, ar: الأربع}
+    thu: {en: Thu, ar: الخميس}
+    fri: {en: Fri, ar: الجمعة}
+
+# Sets, reps and effort (RPE: 10 = nothing left, 8 = two more reps possible) come from the program template's day.
+volume:
+  placeholder: true
+  source: "PLACEHOLDER: sets, reps, rest and RPE per exercise; to be replaced with the Jeff Nippard programs' prescriptions"
+  uses: [experience, goal, health]
+  summary:
+    en: "Each exercise's sets, rep range, rest and effort (RPE) come from the program; effort is lower and rests longer with a health flag."
+    ar: "عدد المجموعات والعدات والراحة والمجهود (RPE) لكل تمرين جايين من البرنامج؛ والمجهود أقل والراحة أطول لو فيه علامة صحية."
+  explain:
+    en: "{name}: {exercises} exercises, {sets} sets in all, {reps} reps, effort RPE {rpe}, rests {rest} s."
+    ar: "{name}: {exercises} تمارين، {sets} مجموعة في المجموع، {reps} عدة، مجهود {rpe}، راحة {rest} ثانية."
+
+# The "lighter week": planned by the program, and triggered early by a hard week in the check-in (`review.deload_when`).
+deload:
+  placeholder: true
+  source: "PLACEHOLDER: deload timing; to be replaced with the Jeff Nippard programs' deload weeks (Helms, The Muscle & Strength Pyramid: Training)"
+  uses: [checkin]
+  summary:
+    en: "A lighter week (one set fewer, effort one lower) lets joints and muscles recover: planned by the program, or sooner when a check-in says training felt too hard."
+    ar: "أسبوع أخف (مجموعة أقل ومجهود أقل بدرجة) بيدّي المفاصل والعضل فرصة تتعافى: البرنامج بيحدده، أو بدري لو المتابعة قالت إن التمرين كان صعب أوي."
+  explain:
+    en: "Week {week} of {total} is a lighter week. A check-in that says sessions felt very hard (difficulty {difficulty}/5, soreness {soreness}/5 or effort RPE {effort}+) makes the next week lighter too."
+    ar: "الأسبوع {week} من {total} أسبوع أخف. ولو المتابعة قالت إن التمرين كان صعب جدًا (صعوبة {difficulty}/5 أو تكسير {soreness}/5 أو مجهود {effort} أو أكتر) الأسبوع اللي بعده هيبقى أخف كمان."
+  explain_none:
+    en: "A check-in that says sessions felt very hard (difficulty {difficulty}/5, soreness {soreness}/5 or effort RPE {effort}+) makes the next week lighter."
+    ar: "لو المتابعة قالت إن التمرين كان صعب جدًا (صعوبة {difficulty}/5 أو تكسير {soreness}/5 أو مجهود {effort} أو أكتر) الأسبوع اللي بعده هيبقى أخف."
+
+# Exercises that need equipment you don't have are swapped for the same movement with what you have.
+equipment:
+  placeholder: true
+  source: "PLACEHOLDER: exercise choice by equipment; to be checked against the Jeff Nippard programs' substitution lists"
+  uses: [location, missing_equipment]
+  summary:
+    en: "Exercises that need equipment your training place doesn't have (or that you said is missing) are swapped for the same movement with what you have."
+    ar: "التمارين اللي محتاجة أدوات مش موجودة في مكان تمرينك (أو قلت إنها مش متاحة) بتتبدّل بنفس الحركة باللي عندك."

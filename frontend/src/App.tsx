@@ -3,6 +3,7 @@ import { RequireAuth } from '@/data/session';
 import { Login, SignUp, ForgotPassword } from '@/screens/auth/AuthScreens';
 import { Onboarding, OnboardingStart } from '@/screens/onboarding/Onboarding';
 import { PlanGenerating, PlanReady } from '@/screens/onboarding/PlanScreens';
+import { WhyPlan } from '@/screens/plan/WhyPlan';
 import { Dashboard } from '@/screens/home/Dashboard';
 import { WorkoutPlan, Session, ExerciseDetail, WorkoutLogger } from '@/screens/workouts/WorkoutScreens';
 import { NutritionPlan, NutritionDay, RecipeDetail, Groceries, Pantry } from '@/screens/nutrition/NutritionScreens';
@@ -24,6 +25,7 @@ export function App() {
       <Route path="/onboarding/:step" element={auth(<Onboarding />)} />
       <Route path="/onboarding" element={auth(<OnboardingStart />)} />
       <Route path="/plan-ready" element={auth(<PlanReady />)} />
+      <Route path="/plan/why" element={auth(<WhyPlan />)} />
 
       <Route path="/" element={auth(<Dashboard />)} />
       <Route path="/workouts" element={auth(<WorkoutPlan />)} />

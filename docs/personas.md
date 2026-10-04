@@ -23,11 +23,14 @@ Rules: `nutrition:v1+training:v1+safety:v1+progression:v1`
 ### Training
 
 - Program: Full body (sample), chosen for beginner lifters training 3 days a week.
+- 3 training days a week (Sat, Mon, Wed), about 45 min each, as you chose.
 - Standing calf raise removed: nothing in the catalogue does this movement with your equipment yet.
 - Neutral-grip lat pulldown removed: nothing in the catalogue does this movement with your equipment yet.
 - Cable triceps pushdown removed: nothing in the catalogue does this movement with your equipment yet.
 - Cable face pull removed: nothing in the catalogue does this movement with your equipment yet.
 - Standing calf raise removed: nothing in the catalogue does this movement with your equipment yet.
+- Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2 kg dumbbells); otherwise add 1 rep a session. A hard session repeats or drops a step.
+- Week 5 of 8 is a lighter week. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
 
 **Sat · Full body A** (full, 47 min)
 
@@ -82,6 +85,15 @@ Rules: `nutrition:v1+training:v1+safety:v1+progression:v1`
 ### Meals
 
 - Meals: 3 a day, each day within 5% of 1500 kcal with at least 133 g protein.
+- White cheese & areesh sandwich with salad: 2× this week (breakfast), 0.5 of the recipe each time (217 kcal, 14 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 5 min to make.
+- Grilled chicken, rice & molokhia: 3× this week (lunch, dinner), 1–1.5 of the recipe each time (610–915 kcal, 72–107 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Beef kofta, baladi bread & tahini salad: 3× this week (dinner, lunch), 0.75–1 of the recipe each time (517–690 kcal, 39–52 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 30 min to make.
+- Zabadi, banana & oats: 3× this week (breakfast), 0.5 of the recipe each time (178 kcal, 7 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 3 min to make.
+- Oven chicken & potatoes: 2× this week (lunch), 1.5 of the recipe each time (1007 kcal, 105 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 55 min to make.
+- Lentil soup, bread & grilled chicken: 2× this week (dinner), 0.5 of the recipe each time (298 kcal, 27 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Ful medames, eggs & baladi bread: 2× this week (breakfast), 0.5 of the recipe each time (325 kcal, 21 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 15 min to make.
+- Koshary, lighter plate: 2× this week (lunch), 0.5 of the recipe each time (272 kcal, 11 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 50 min to make.
+- Grilled fish, rice & salad: 2× this week (dinner), 1.5 of the recipe each time (877 kcal, 89 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 35 min to make.
 
 | Day | Meals (portion) | kcal | Protein | Carbs | Fat |
 |---|---|---|---|---|---|
@@ -178,6 +190,9 @@ Spices & sauces
 ### Training
 
 - Program: Upper / Lower (sample), chosen for intermediate lifters training 4 days a week.
+- 4 training days a week (Sat, Mon, Wed, Thu), about 60 min each, as you chose.
+- Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2 kg dumbbells, 2.5 kg landmine, 2.5 kg cable machine, 2.5 kg barbell, 5 kg machine); otherwise add 1 rep a session. A hard session repeats or drops a step.
+- Week 5 of 8 is a lighter week. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
 
 **Sat · Upper body A** (upper, 59 min)
 
@@ -252,6 +267,16 @@ Spices & sauces
 
 - Meals: 4 a day, each day within 5% of 2250 kcal with at least 162 g protein.
 - Your cooking time didn't leave enough recipes for every day, so some days take a little longer to cook.
+- Zabadi, banana & oats: 5× this week (breakfast, after the gym), 0.5–2 of the recipe each time (178–710 kcal, 7–27 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 3 min to make.
+- Beef kofta, baladi bread & tahini salad: 4× this week (lunch), 0.5–1 of the recipe each time (345–690 kcal, 26–52 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 30 min to make.
+- White cheese & areesh sandwich with salad: 5× this week (after the gym, breakfast), 0.75–2.5 of the recipe each time (326–1086 kcal, 21–71 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 5 min to make.
+- Grilled chicken, rice & molokhia: 2× this week (dinner, lunch), 1–1.25 of the recipe each time (610–762 kcal, 72–90 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Ful medames, eggs & baladi bread: 2× this week (breakfast), 0.75–1 of the recipe each time (487–649 kcal, 31–41 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 15 min to make.
+- Lentil soup, bread & grilled chicken: 3× this week (dinner), 0.5–1.5 of the recipe each time (298–893 kcal, 27–81 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Oven chicken & potatoes: 2× this week (dinner), 1.25–1.5 of the recipe each time (839–1007 kcal, 87–105 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 55 min to make.
+- Shakshuka & baladi bread: 2× this week (breakfast), 0.5–0.75 of the recipe each time (289–434 kcal, 15–23 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 20 min to make.
+- Koshary, lighter plate: 2× this week (lunch), 0.5–0.75 of the recipe each time (272–408 kcal, 11–16 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 50 min to make.
+- Grilled fish, rice & salad: 1× this week (dinner), 2 of the recipe each time (1169 kcal, 118 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 35 min to make.
 
 | Day | Meals (portion) | kcal | Protein | Carbs | Fat |
 |---|---|---|---|---|---|
@@ -349,6 +374,9 @@ Spices & sauces
 ### Training
 
 - Program: Upper / Lower (sample), chosen for advanced lifters training 5 days a week.
+- 5 training days a week (Sat, Sun, Mon, Wed, Thu), about 90 min each, as you chose.
+- Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2.5 kg barbell, 2 kg dumbbells, 2.5 kg cable machine, 5 kg machine); otherwise add 1 rep a session. A hard session repeats or drops a step.
+- Week 5 of 8 is a lighter week. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
 
 **Sat · Upper body A** (upper, 70 min)
 
@@ -448,6 +476,16 @@ Spices & sauces
 ### Meals
 
 - Meals: 5 a day, each day within 5% of 2980 kcal with at least 143 g protein.
+- Ful medames, eggs & baladi bread: 4× this week (breakfast), 0.75 of the recipe each time (487 kcal, 31 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 15 min to make.
+- White cheese & areesh sandwich with salad: 7× this week (after the gym), 1.75–2.5 of the recipe each time (760–1086 kcal, 49–71 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 5 min to make.
+- Koshary, lighter plate: 3× this week (lunch, dinner), 1.25 of the recipe each time (681 kcal, 27 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 50 min to make.
+- Zabadi, banana & oats: 7× this week (after the gym), 1.5–2.5 of the recipe each time (533–888 kcal, 20–34 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 3 min to make.
+- Beef kofta, baladi bread & tahini salad: 3× this week (dinner, lunch), 0.75 of the recipe each time (517 kcal, 39 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 30 min to make.
+- Shakshuka & baladi bread: 3× this week (breakfast), 0.5 of the recipe each time (289 kcal, 15 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 20 min to make.
+- Grilled fish, rice & salad: 2× this week (lunch, dinner), 0.5 of the recipe each time (292 kcal, 30 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 35 min to make.
+- Lentil soup, bread & grilled chicken: 2× this week (dinner, lunch), 0.75 of the recipe each time (446 kcal, 41 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Grilled chicken, rice & molokhia: 2× this week (lunch), 0.5 of the recipe each time (305 kcal, 36 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Oven chicken & potatoes: 2× this week (dinner), 0.5–0.75 of the recipe each time (336–504 kcal, 35–52 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 55 min to make.
 
 | Day | Meals (portion) | kcal | Protein | Carbs | Fat |
 |---|---|---|---|---|---|
@@ -545,6 +583,9 @@ Spices & sauces
 ### Training
 
 - Program: Full body (sample), chosen for beginner lifters training 3 days a week.
+- 3 training days a week (Sat, Mon, Wed), about 45 min each, as you chose.
+- Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2 kg dumbbells, 5 kg machine, 2.5 kg cable machine); otherwise add 1 rep a session. A hard session repeats or drops a step.
+- Week 5 of 8 is a lighter week. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
 
 **Sat · Full body A** (full, 52 min)
 
@@ -601,6 +642,14 @@ Spices & sauces
 
 - Meals: 3 a day, each day within 5% of 2180 kcal with at least 148 g protein.
 - Your cooking time didn't leave enough recipes for every day, so some days take a little longer to cook.
+- Ful medames, eggs & baladi bread: 4× this week (breakfast), 0.5–1.5 of the recipe each time (325–974 kcal, 21–62 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 15 min to make.
+- Oven chicken & potatoes: 2× this week (lunch), 0.5–1.25 of the recipe each time (336–839 kcal, 35–87 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 55 min to make.
+- Beef kofta, baladi bread & tahini salad: 2× this week (dinner, lunch), 1.25–2.25 of the recipe each time (862–1551 kcal, 65–117 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 30 min to make.
+- Lentil soup, bread & grilled chicken: 3× this week (lunch), 0.5–1 of the recipe each time (298–595 kcal, 27–54 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Grilled chicken, rice & molokhia: 2× this week (dinner), 1.5 of the recipe each time (915 kcal, 107 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Koshary, lighter plate: 2× this week (dinner), 0.5 of the recipe each time (272 kcal, 11 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 50 min to make.
+- Shakshuka & baladi bread: 3× this week (breakfast), 1.75 of the recipe each time (1012 kcal, 53 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 20 min to make.
+- Grilled fish, rice & salad: 3× this week (lunch, dinner), 0.5–1.5 of the recipe each time (292–877 kcal, 30–89 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 35 min to make.
 
 | Day | Meals (portion) | kcal | Protein | Carbs | Fat |
 |---|---|---|---|---|---|
@@ -693,6 +742,9 @@ Spices & sauces
 ### Training
 
 - Program: Upper / Lower (sample), chosen for intermediate lifters training 4 days a week.
+- 4 training days a week (Sat, Mon, Wed, Thu), about 60 min each, as you chose.
+- Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2.5 kg barbell, 2 kg dumbbells, 2.5 kg cable machine, 5 kg machine); otherwise add 1 rep a session. A hard session repeats or drops a step.
+- Week 5 of 8 is a lighter week. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
 
 **Sat · Upper body A** (upper, 57 min)
 
@@ -765,6 +817,15 @@ Spices & sauces
 ### Meals
 
 - Meals: 2 a day, each day within 5% of 1810 kcal with at least 128 g protein.
+- Zabadi, banana & oats: 2× this week (suhoor), 2.25 of the recipe each time (799 kcal, 30 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 3 min to make.
+- Grilled fish, rice & salad: 2× this week (iftar), 1.75 of the recipe each time (1023 kcal, 103 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 35 min to make.
+- Ful medames, eggs & baladi bread: 2× this week (suhoor), 1.75 of the recipe each time (1137 kcal, 72 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 15 min to make.
+- Oven chicken & potatoes: 2× this week (iftar), 1 of the recipe each time (671 kcal, 70 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 55 min to make.
+- Shakshuka & baladi bread: 1× this week (suhoor), 1.25 of the recipe each time (723 kcal, 38 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 20 min to make.
+- Lentil soup, bread & grilled chicken: 1× this week (iftar), 1.75 of the recipe each time (1042 kcal, 95 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- White cheese & areesh sandwich with salad: 2× this week (suhoor), 2.25–2.5 of the recipe each time (977–1086 kcal, 64–71 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 5 min to make.
+- Grilled chicken, rice & molokhia: 1× this week (iftar), 1.25 of the recipe each time (762 kcal, 90 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Beef kofta, baladi bread & tahini salad: 1× this week (iftar), 1.25 of the recipe each time (862 kcal, 65 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 30 min to make.
 
 | Day | Meals (portion) | kcal | Protein | Carbs | Fat |
 |---|---|---|---|---|---|

@@ -141,8 +141,10 @@ test('workout week: every day opens its full session, with previous / next arrow
 
   await page.getByRole('link', { name: 'Next workout' }).click();
   await expect(page).toHaveURL(new RegExp(`/workouts/${thu.id}$`));
+  await waitForContent(page);
   await page.getByRole('link', { name: 'Next workout' }).click();
   await expect(page).toHaveURL(new RegExp(`/workouts/${fri.id}$`));
+  await waitForContent(page);
   await expect(page.getByRole('button', { name: 'Next workout' })).toBeDisabled();
   await page.getByRole('link', { name: 'Previous workout' }).click();
   await expect(page).toHaveURL(new RegExp(`/workouts/${thu.id}$`));
@@ -175,9 +177,10 @@ test('nutrition week: each day opens that exact date, with previous / next arrow
   await expect(page.getByText(thursday.meals[0].name.en)).toBeVisible();
 
   // Each meal links to its recipe page.
-  await expect(page.getByRole('link', { name: 'Recipe' }).first()).toHaveAttribute('href', `/nutrition/recipes/${thursday.meals[0].recipeId}`);
+  // (with the meal it belongs to, so its portion and its removed ingredients show)
+  await expect(page.getByRole('link', { name: 'Recipe' }).first()).toHaveAttribute('href', `/nutrition/recipes/${thursday.meals[0].recipeId}?meal=${thursday.meals[0].id}`);
   await page.getByRole('link', { name: 'Recipe' }).first().click();
-  await expect(page).toHaveURL(new RegExp(`/nutrition/recipes/${thursday.meals[0].recipeId}$`));
+  await expect(page).toHaveURL(new RegExp(`/nutrition/recipes/${thursday.meals[0].recipeId}\\?meal=${thursday.meals[0].id}$`));
   await waitForContent(page);
   await expect(page.getByRole('heading', { name: 'Ingredients' })).toBeVisible();
 });

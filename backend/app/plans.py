@@ -21,9 +21,10 @@ from app.engine.review import ReviewInput, as_reasons, review_week
 from app.engine.rules import load_rules, rules_version
 from app.engine.training import Adjustments, build_program
 from app.engine.types import Health, InjuryInfo, Person, Reason
+from app.meal_changes import changes_by_item, copy_changes, item_ingredients, leave_out_disliked, recipe_ingredients
 from app.models import (
     CheckIn, CheckInAnswer, ExerciseSwap, GroceryList, GroceryListItem, Injury, MealPlan, MealPlanItem, PainLog, PantryItem, Plan, Profile,
-    ProgramDay, ProgramExercise, RecipeIngredient, TrainingProgram, WeeklyReview, WeightLog, WorkoutLog,
+    ProgramDay, ProgramExercise, TrainingProgram, WeeklyReview, WeightLog, WorkoutLog,
 )
 
 
@@ -51,7 +52,7 @@ def person_for(db: Session, user_id: str, weight_kg: float | None = None) -> Per
         injuries=tuple(InjuryInfo(id=i.id, region=i.region, status=i.status, severity=i.severity,
                                   painful_movements=tuple(i.painful_movements), restrictions=tuple(i.restrictions),
                                   paused=i.paused_at is not None) for i in injuries),
-        missing_equipment=tuple(p.missing_equipment or ()),
+        missing_equipment=tuple(p.missing_equipment or ()), disliked_foods=tuple(p.disliked_foods or ()),
     )
 
 
@@ -124,10 +125,13 @@ def generate_plan(db: Session, user_id: str, trigger: str = "onboarding", *, tod
     mp = MealPlan(user_id=user_id, plan_id=plan.id, week_start=start, created_at=now)
     db.add(mp)
     db.flush()
-    for m in week.meals:
-        db.add(MealPlanItem(user_id=user_id, meal_plan_id=mp.id, date=m.date, slot=m.slot, time=m.time, recipe_id=m.recipe_id,
-                            portion=m.portion, kcal=m.kcal, protein_g=m.protein, carbs_g=m.carbs, fat_g=m.fat))
-    regenerate_grocery_list(db, user_id, mp, week_meals=[(m.recipe_id, m.portion) for m in week.meals])
+    items = [MealPlanItem(user_id=user_id, meal_plan_id=mp.id, date=m.date, slot=m.slot, time=m.time, recipe_id=m.recipe_id,
+                          portion=m.portion, planned_portion=m.portion, kcal=m.kcal, protein_g=m.protein, carbs_g=m.carbs, fat_g=m.fat)
+             for m in week.meals]
+    db.add_all(items)
+    db.flush()
+    leave_out_disliked(db, user_id, items, person.disliked_foods)
+    regenerate_grocery_list(db, user_id, mp)
     db.flush()
     return plan
 
@@ -178,10 +182,16 @@ def _new_version_keeping_meals(db: Session, user_id: str, trigger: str, person, 
         mp = MealPlan(user_id=user_id, plan_id=plan.id, week_start=old_mp.week_start, created_at=now)
         db.add(mp)
         db.flush()
+        mp.day_notes = dict(old_mp.day_notes or {})
+        id_map = {}
         for m in db.scalars(select(MealPlanItem).where(MealPlanItem.meal_plan_id == old_mp.id)):
-            db.add(MealPlanItem(user_id=user_id, meal_plan_id=mp.id, date=m.date, slot=m.slot, time=m.time, recipe_id=m.recipe_id,
-                                portion=m.portion, kcal=m.kcal, protein_g=m.protein_g, carbs_g=m.carbs_g, fat_g=m.fat_g, eaten=m.eaten,
-                                replaced_recipe_id=m.replaced_recipe_id, reason=m.reason))
+            new = MealPlanItem(user_id=user_id, meal_plan_id=mp.id, date=m.date, slot=m.slot, time=m.time, recipe_id=m.recipe_id,
+                               portion=m.portion, planned_portion=m.planned_portion, kcal=m.kcal, protein_g=m.protein_g, carbs_g=m.carbs_g,
+                               fat_g=m.fat_g, eaten=m.eaten, replaced_recipe_id=m.replaced_recipe_id, reason=m.reason)
+            db.add(new)
+            db.flush()
+            id_map[m.id] = new.id
+        copy_changes(db, user_id, id_map)
         old_gl = db.scalars(select(GroceryList).where(GroceryList.meal_plan_id == old_mp.id).order_by(GroceryList.created_at.desc())).first()
         if old_gl is not None:
             gl = GroceryList(user_id=user_id, meal_plan_id=mp.id, week_start=old_gl.week_start, change_note=old_gl.change_note, created_at=now)
@@ -194,14 +204,13 @@ def _new_version_keeping_meals(db: Session, user_id: str, trigger: str, person, 
     return plan
 
 
-def regenerate_grocery_list(db: Session, user_id: str, meal_plan: MealPlan, week_meals: list[tuple[str, float]] | None = None,
-                            change_note: dict | None = None) -> GroceryList:
-    """Runs whenever a meal plan is created or changes."""
-    if week_meals is None:
-        week_meals = [(i.recipe_id, i.portion) for i in db.scalars(select(MealPlanItem).where(MealPlanItem.meal_plan_id == meal_plan.id))]
-    ingredients: dict[str, list[tuple[str, float]]] = {}
-    for i in db.scalars(select(RecipeIngredient)):
-        ingredients.setdefault(i.recipe_id, []).append((i.food_id, i.grams))
+def regenerate_grocery_list(db: Session, user_id: str, meal_plan: MealPlan, change_note: dict | None = None) -> GroceryList:
+    """Runs whenever a meal plan is created or changes. Each meal counts what it's really made of: its recipe after
+    the person's ingredient changes (removed foods out, replacements in), × its portion."""
+    items_ = list(db.scalars(select(MealPlanItem).where(MealPlanItem.meal_plan_id == meal_plan.id, MealPlanItem.user_id == user_id)))
+    recipes, changes = recipe_ingredients(db), changes_by_item(db, user_id, [i.id for i in items_])
+    ingredients = {i.id: item_ingredients(i, recipes, changes.get(i.id, [])) for i in items_}
+    week_meals = [(i.id, i.portion) for i in items_]
     items, food_map = grocery_from_db(db)
     pantry = {p.grocery_item_id: p.level for p in db.scalars(select(PantryItem).where(PantryItem.user_id == user_id))}
     gl = GroceryList(user_id=user_id, meal_plan_id=meal_plan.id, week_start=meal_plan.week_start, change_note=change_note, created_at=clock.now())

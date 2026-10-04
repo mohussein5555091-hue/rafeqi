@@ -10,6 +10,7 @@ import { useI18n } from '@/i18n';
 import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
 import type { Dashboard as DashboardData, MealSlot, WeightLog } from '@/types';
+import { WhyPlanLink } from '@/screens/plan/WhyPlan';
 
 export const mealIcon: Record<MealSlot, LucideIcon> = { breakfast: Egg, lunch: Soup, snack: Apple, dinner: Drumstick, suhoor: MoonStar, iftar: Sunset };
 
@@ -132,6 +133,7 @@ function DashboardBody({ d, offline }: { d: DashboardData; offline: boolean }) {
       ) : (
         <EmptyState title={t('dashboard.noNotesTitle')} body={t('dashboard.noNotesBody')} />
       )}
+      <WhyPlanLink />
       <Disclaimer className="lg:hidden" />
     </>
   );

@@ -7,6 +7,7 @@ import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
 import { useSession } from '@/data/session';
 import type { PlanGenerationStep } from '@/types';
+import { WhyPlanLink } from '@/screens/plan/WhyPlan';
 
 const STEPS: PlanGenerationStep[] = ['calories', 'program', 'injuries', 'meals'];
 
@@ -107,6 +108,7 @@ export function PlanReady() {
                 )}
               </div>
             </div>
+            <WhyPlanLink />
             <div className="flex flex-col gap-2.5 lg:flex-row">
               <LinkButton to="/workouts" size="lg" icon={Dumbbell} className="lg:flex-1">{t('planReady.seeWorkouts')}</LinkButton>
               <LinkButton to="/nutrition" variant="secondary" size="lg" icon={Salad} className="lg:flex-1">{t('planReady.seeMeals')}</LinkButton>

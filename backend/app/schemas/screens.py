@@ -50,6 +50,12 @@ class SwapIn(ApiModel):
     recipe_id: str = Field(max_length=60)
 
 
+class RemoveIngredientIn(ApiModel):
+    reason: Literal["dislike", "unavailable"]  # "I don't like it" / "Not available right now"
+    scope: Literal["meal", "always"]  # "Just this meal" / "Always"
+    replacement_food_id: str | None = Field(default=None, max_length=60)  # one of the replacements offered, or none
+
+
 class GroceryPatchIn(ApiModel):
     checked: bool | None = None
     have_it: bool | None = None

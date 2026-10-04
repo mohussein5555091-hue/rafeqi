@@ -12,7 +12,7 @@ There is no price or budget logic anywhere.
 """
 
 import datetime as dt
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 import numpy as np
 from scipy.optimize import Bounds, LinearConstraint, milp
@@ -74,8 +74,22 @@ def day_slots(d: dt.date, p: Person) -> list[tuple[str, str]]:
 
 
 def eligible_recipes(recipes: list[RecipeInfo], p: Person, banned: frozenset[str] = frozenset()) -> list[RecipeInfo]:
-    avoid = p.avoided_food_tags
-    return [r for r in sorted(recipes, key=lambda r: r.id) if r.id not in banned and not (r.tags & avoid)]
+    """Recipes without disliked or allergy foods. A food the person removed with "I don't like it" / "Always"
+    (p.disliked_foods) is left out of every recipe that has it, and a recipe it is essential to is left out entirely."""
+    avoid, drop = p.avoided_food_tags, frozenset(p.disliked_foods)
+    out = []
+    for r in sorted(recipes, key=lambda r: r.id):
+        if r.id in banned or r.tags & avoid or r.essential & drop:
+            continue
+        out.append(without_foods(r, drop) if drop & {f for f, _ in r.ingredients} else r)
+    return out
+
+
+def without_foods(r: RecipeInfo, drop: frozenset[str]) -> RecipeInfo:
+    """The recipe minus some (non-essential) foods, with its calories and macros worked out again."""
+    keep = [(ing, n) for ing, n in zip(r.ingredients, r.per100) if ing[0] not in drop]
+    mac = {k: sum(n[j] * g / 100 for (_, g), n in keep) for j, k in enumerate(("kcal", "protein", "carbs", "fat"))}
+    return replace(r, ingredients=tuple(i for i, _ in keep), per100=tuple(n for _, n in keep), **mac)
 
 
 def _solve_day(slots: list[tuple[str, str]], recipes: list[RecipeInfo], t: Targets, p: Person, used: dict[str, int], *,
@@ -182,7 +196,30 @@ def plan_week(week_start: dt.date, p: Person, t: Targets, recipes: list[RecipeIn
         text = m["relaxed"][step]
         v = {"protein": vals, "calories": {"pct": m["relax_calorie_pct"], "tol": m["calorie_tolerance_pct"]}}.get(step, {})
         reasons.append(Reason(f"nutrition.meals.relaxed.{step}", text["en"].format(**v), text["ar"].format(**v), src))
+    by_id = {r.id: r for r in pool}
+    reasons += portion_reasons(meals, by_id)
     return WeekMeals(meals=meals, relaxed=relaxed, reasons=reasons)
+
+
+def portion_reasons(meals: list[MealChoice], recipes: dict[str, RecipeInfo]) -> list[Reason]:
+    """One line per recipe chosen this week: how often, at which meals, and how big a portion (the "Why this plan"
+    page's meal choices and portions). Rule: nutrition.meals.portions."""
+    m = load_rules()["nutrition"]["meals"]
+    t, names = m["explain_portions"], m["slot_names"]
+    out = []
+    for rid in dict.fromkeys(x.recipe_id for x in meals):
+        r, mine = recipes[rid], [x for x in meals if x.recipe_id == rid]
+
+        def span(vals: list, fmt=lambda v: f"{v:g}") -> str:
+            lo, hi = min(vals), max(vals)
+            return fmt(lo) if lo == hi else f"{fmt(lo)}–{fmt(hi)}"
+        slots = list(dict.fromkeys(x.slot for x in mine))
+        v = dict(times=len(mine), portion=span([x.portion for x in mine]), kcal=span([x.kcal for x in mine]),
+                 protein=span([x.protein for x in mine]), minutes=r.prep_min + r.cook_min)
+        out.append(Reason("nutrition.meals.portions",
+                          t["en"].format(name=r.name["en"], slots=", ".join(names[s]["en"] for s in slots), **v),
+                          t["ar"].format(name=r.name["ar"], slots="، ".join(names[s]["ar"] for s in slots), **v), m["source"]))
+    return out
 
 
 def swap_options(day: list[MealChoice], index: int, t: Targets, p: Person, recipes: list[RecipeInfo],

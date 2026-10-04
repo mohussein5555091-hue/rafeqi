@@ -4,6 +4,8 @@
 # prep_min + cook_min = total time. batch: servings worth cooking at once (it keeps for fridge_days), so a big pot of
 #   koshary counts its cooking time once for several meals.
 # ingredients: grams per serving (as eaten), with an everyday amount for the recipe page.
+#   essential: true marks what makes the dish (lentils in lentil soup; rice, lentils and pasta in koshary). Removing an
+#   essential ingredient suggests swapping the whole meal instead; every recipe has at least one.
 source: "PLACEHOLDER: sample recipes; replaced by the Arabic recipe book next session"
 recipes:
 - id: r_ful_eggs
@@ -14,7 +16,7 @@ recipes:
   fridge_days: 2
   batch: 2
   ingredients:
-  - {food: fava_beans, grams: 150, en: ¾ plate, ar: تلت أرباع طبق}
+  - {food: fava_beans, grams: 150, essential: true, en: ¾ plate, ar: تلت أرباع طبق}
   - {food: egg, grams: 100, en: 2 eggs, ar: 2 بيض}
   - {food: egg_white, grams: 66, en: 2 egg whites, ar: 2 بياض}
   - {food: baladi_bread, grams: 90, en: 1 loaf, ar: رغيف}
@@ -36,9 +38,9 @@ recipes:
   fridge_days: 3
   batch: 4
   ingredients:
-  - {food: rice, grams: 120, en: ¾ cup rice, ar: تلت أرباع كوباية رز}
-  - {food: lentils, grams: 120, en: ½ cup lentils, ar: نص كوباية عدس}
-  - {food: pasta, grams: 60, en: ½ cup pasta, ar: نص كوباية مكرونة}
+  - {food: rice, grams: 120, essential: true, en: ¾ cup rice, ar: تلت أرباع كوباية رز}
+  - {food: lentils, grams: 120, essential: true, en: ½ cup lentils, ar: نص كوباية عدس}
+  - {food: pasta, grams: 60, essential: true, en: ½ cup pasta, ar: نص كوباية مكرونة}
   - {food: chickpeas, grams: 30, en: 2 tbsp chickpeas, ar: 2 معلقة حمص}
   - {food: tomato_sauce, grams: 80, en: 1 ladle sauce, ar: مغرفة صلصة}
   - {food: onion, grams: 30, en: ¼ onion, ar: ربع بصلة}
@@ -60,9 +62,9 @@ recipes:
   fridge_days: 3
   batch: 4
   ingredients:
-  - {food: chicken_breast, grams: 200, en: 1 large breast, ar: صدر فراخ كبير}
+  - {food: chicken_breast, grams: 200, essential: true, en: 1 large breast, ar: صدر فراخ كبير}
   - {food: rice, grams: 120, en: ¾ cup rice, ar: تلت أرباع كوباية رز}
-  - {food: molokhia, grams: 200, en: 1 ladle molokhia, ar: مغرفة ملوخية}
+  - {food: molokhia, grams: 200, essential: true, en: 1 ladle molokhia, ar: مغرفة ملوخية}
   - {food: garlic, grams: 5, en: 1 clove, ar: فص توم}
   - {food: vegetable_oil, grams: 5, en: 1 tsp oil, ar: معلقة صغيرة زيت}
   - {food: lemon, grams: 10, en: 2 tsp lemon juice, ar: 2 معلقة صغيرة ليمون}
@@ -80,7 +82,7 @@ recipes:
   fridge_days: 1
   batch: 1
   ingredients:
-  - {food: yogurt, grams: 210, en: 2 cups zabadi, ar: 2 علبة زبادي}
+  - {food: yogurt, grams: 210, essential: true, en: 2 cups zabadi, ar: 2 علبة زبادي}
   - {food: banana, grams: 100, en: 1 banana, ar: موزة}
   - {food: oats, grams: 30, en: 3 tbsp oats, ar: 3 معالق شوفان}
   - {food: honey, grams: 7, en: 1 tsp honey, ar: معلقة صغيرة عسل}
@@ -96,7 +98,7 @@ recipes:
   fridge_days: 3
   batch: 4
   ingredients:
-  - {food: lentils, grams: 200, en: 1 bowl soup, ar: طبق شوربة}
+  - {food: lentils, grams: 200, essential: true, en: 1 bowl soup, ar: طبق شوربة}
   - {food: onion, grams: 30, en: ¼ onion, ar: ربع بصلة}
   - {food: carrot, grams: 40, en: ½ carrot, ar: نص جزراية}
   - {food: chicken_breast, grams: 100, en: 1 small piece chicken, ar: قطعة فراخ صغيرة}
@@ -118,8 +120,8 @@ recipes:
   fridge_days: 1
   batch: 1
   ingredients:
-  - {food: egg, grams: 150, en: 3 eggs, ar: 3 بيض}
-  - {food: tomato, grams: 150, en: 1 large tomato, ar: طماطماية كبيرة}
+  - {food: egg, grams: 150, essential: true, en: 3 eggs, ar: 3 بيض}
+  - {food: tomato, grams: 150, essential: true, en: 1 large tomato, ar: طماطماية كبيرة}
   - {food: bell_pepper, grams: 60, en: ½ pepper, ar: نص فلفلاية}
   - {food: onion, grams: 40, en: ⅓ onion, ar: تلت بصلة}
   - {food: olive_oil, grams: 7, en: 1½ tsp olive oil, ar: معلقة ونص صغيرة زيت زيتون}
@@ -139,7 +141,7 @@ recipes:
   fridge_days: 2
   batch: 2
   ingredients:
-  - {food: fish_fillet, grams: 200, en: 1 large fillet, ar: فيليه كبير}
+  - {food: fish_fillet, grams: 200, essential: true, en: 1 large fillet, ar: فيليه كبير}
   - {food: rice, grams: 150, en: 1 cup rice, ar: كوباية رز}
   - {food: tomato, grams: 80, en: ⅔ tomato, ar: تلتين طماطماية}
   - {food: cucumber, grams: 80, en: ¾ cucumber, ar: تلت أرباع خيارة}
@@ -160,7 +162,7 @@ recipes:
   fridge_days: 3
   batch: 4
   ingredients:
-  - {food: beef_mince, grams: 150, en: 3 kofta fingers, ar: 3 صوابع كفتة}
+  - {food: beef_mince, grams: 150, essential: true, en: 3 kofta fingers, ar: 3 صوابع كفتة}
   - {food: onion, grams: 30, en: ¼ onion, ar: ربع بصلة}
   - {food: parsley, grams: 10, en: 1 handful parsley, ar: حفنة بقدونس}
   - {food: baladi_bread, grams: 90, en: 1 loaf, ar: رغيف}
@@ -181,7 +183,7 @@ recipes:
   fridge_days: 1
   batch: 1
   ingredients:
-  - {food: cottage_cheese, grams: 100, en: 1 piece areesh, ar: قطعة قريش}
+  - {food: cottage_cheese, grams: 100, essential: true, en: 1 piece areesh, ar: قطعة قريش}
   - {food: white_cheese, grams: 30, en: 1 slice white cheese, ar: شريحة جبنة بيضا}
   - {food: baladi_bread, grams: 90, en: 1 loaf, ar: رغيف}
   - {food: tomato, grams: 60, en: ½ tomato, ar: نص طماطماية}
@@ -198,8 +200,8 @@ recipes:
   fridge_days: 3
   batch: 4
   ingredients:
-  - {food: chicken_breast, grams: 200, en: 1 large breast, ar: صدر فراخ كبير}
-  - {food: potato, grams: 250, en: 1½ medium potatoes, ar: بطاطساية ونص وسط}
+  - {food: chicken_breast, grams: 200, essential: true, en: 1 large breast, ar: صدر فراخ كبير}
+  - {food: potato, grams: 250, essential: true, en: 1½ medium potatoes, ar: بطاطساية ونص وسط}
   - {food: onion, grams: 50, en: ½ onion, ar: نص بصلة}
   - {food: tomato, grams: 80, en: ⅔ tomato, ar: تلتين طماطماية}
   - {food: vegetable_oil, grams: 8, en: 1½ tsp oil, ar: معلقة ونص صغيرة زيت}

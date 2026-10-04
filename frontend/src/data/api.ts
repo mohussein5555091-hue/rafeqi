@@ -4,7 +4,7 @@
 import type {
   CheckIn, CheckInDraft, Dashboard, Exercise, ExerciseResult, GroceryItem, GroceryList, Injury, InjuryInput, InjuryStatus, LocalizedText,
   Meal, MealDay, MealWeekDay, OnboardingState, OnboardingStep, PantryItem, Plan, PlanGenerationStep, Progress, QuestionnaireAnswers,
-  Recipe, User, Weekday, ActiveSwap, ExerciseAlternative, SwapReason, WeeklyReview, WeightLog, Workout, WorkoutLog, WorkoutWeek,
+  Recipe, RemoveReason, RemoveScope, ReplacementOptions, User, Weekday, ActiveSwap, ExerciseAlternative, SwapReason, WeeklyReview, WeightLog, WhyPlan, Workout, WorkoutLog, WorkoutWeek,
 } from '@/types';
 
 export class NotFoundError extends Error {
@@ -190,6 +190,8 @@ export const api = {
     return api.getUser();
   },
   async getPlan(): Promise<Plan> { return toPlan(await get<PlanOut>('/plan')); },
+  /** "Why this plan": every decision with the answers used, the rule, its source and the result. */
+  getWhy(): Promise<WhyPlan> { return get<WhyPlan>('/plan/why'); },
   /**
    * Builds a new plan version from the saved answers (POST /api/plan). The engine answers in a second or two;
    * onStep marks each stage on the wait screen as it goes, and the last one only once the plan is saved.
@@ -318,7 +320,22 @@ export const api = {
   async swapMeal(_date: string, mealId: string, replacement: Meal): Promise<MealDay> {
     return send<MealDay>('POST', `/meals/${encodeURIComponent(mealId)}/swap`, { recipeId: replacement.recipeId ?? replacement.id });
   },
-  async getRecipe(id: string): Promise<Recipe> { return get<Recipe>(`/recipes/${encodeURIComponent(id)}`); },
+  /** `mealId`: the meal it was opened from (that meal's portion and ingredient changes). */
+  async getRecipe(id: string, mealId?: string): Promise<Recipe> {
+    return get<Recipe>(`/recipes/${encodeURIComponent(id)}${mealId ? `?meal=${encodeURIComponent(mealId)}` : ''}`);
+  },
+  /** Removing an ingredient: is it essential, and 1–3 same-role replacements for this meal's portion. */
+  async getReplacements(mealId: string, foodId: string): Promise<ReplacementOptions> {
+    return get<ReplacementOptions>(`/meals/${encodeURIComponent(mealId)}/ingredients/${encodeURIComponent(foodId)}/replacements`);
+  },
+  /** Removes (or replaces) it; the day is rebalanced and the grocery list rebuilt. Returns the meal's day. */
+  async removeIngredient(mealId: string, foodId: string, body: { reason: RemoveReason; scope: RemoveScope; replacementFoodId?: string | null }): Promise<MealDay> {
+    return send<MealDay>('POST', `/meals/${encodeURIComponent(mealId)}/ingredients/${encodeURIComponent(foodId)}/remove`, body);
+  },
+  /** Undo: the ingredient is back (in every meal the same choice changed). */
+  async undoIngredient(mealId: string, foodId: string): Promise<MealDay> {
+    return send<MealDay>('DELETE', `/meals/${encodeURIComponent(mealId)}/ingredients/${encodeURIComponent(foodId)}`);
+  },
 
   // ── Groceries ──
   async getGroceryList(): Promise<GroceryList> { return get<GroceryList>('/groceries'); },
