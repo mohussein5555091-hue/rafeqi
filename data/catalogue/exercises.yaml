@@ -291,8 +291,8 @@ exercises:
   primary_muscles:
   - shoulderL
   - shoulderR
-  secondary_muscles:
   - upperBack
+  secondary_muscles: []
   muscle_names:
     en: Rear shoulders · upper back
     ar: خلفية الكتف · أعلى الظهر

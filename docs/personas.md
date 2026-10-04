@@ -30,7 +30,7 @@ Rules: `nutrition:v1+training:v1+safety:v1+progression:v1`
 - Cable face pull removed: nothing in the catalogue does this movement with your equipment yet.
 - Standing calf raise removed: nothing in the catalogue does this movement with your equipment yet.
 - Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2 kg dumbbells); otherwise add 1 rep a session. A hard session repeats or drops a step.
-- Week 5 of 8 is a lighter week. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
+- Week 5 of 8 is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
 
 **Sat · Full body A** (full, 47 min)
 
@@ -47,13 +47,13 @@ Rules: `nutrition:v1+training:v1+safety:v1+progression:v1`
 
 **Mon · Full body B** (full, 44 min)
 
-- Warm-up (7 min): 5 min marching in place; Arm circles (10 each way), Leg swings (10 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Seated dumbbell shoulder press: none (bodyweight)
+- Warm-up (7 min): 5 min marching in place; Arm circles (10 each way), Leg swings (10 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Goblet squat: none (bodyweight)
 - Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Doorway chest stretch 30 s each side; 1 min slow breathing
 - About 44 min: warm-up 7 min, 4 exercises with their sets and rests (29 min), cool-down 8 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Bodyweight squat | 3 × 10–12 | bodyweight | 120 s | 7 | Leg press → Bodyweight squat: Bodyweight squat works the same movement with the equipment you have. |
+| Goblet squat | 3 × 10–12 | 4 kg | 120 s | 7 | Leg press → Goblet squat: Goblet squat works the same movement with the equipment you have. |
 | Seated dumbbell shoulder press | 3 × 8–10 | 2 kg | 120 s | 7 |  |
 | Glute bridge | 2 × 12–15 | bodyweight | 90 s | 7 |  |
 | Dumbbell split squat | 2 × 8–10 each | 2 kg | 90 s | 7 |  |
@@ -192,19 +192,19 @@ Spices & sauces
 - Program: Upper / Lower (sample), chosen for intermediate lifters training 4 days a week.
 - 4 training days a week (Sat, Mon, Wed, Thu), about 60 min each, as you chose.
 - Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2 kg dumbbells, 2.5 kg landmine, 2.5 kg cable machine, 2.5 kg barbell, 5 kg machine); otherwise add 1 rep a session. A hard session repeats or drops a step.
-- Week 5 of 8 is a lighter week. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
+- Week 5 of 8 is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
 
 **Sat · Upper body A** (upper, 59 min)
 
-- Warm-up (9 min): 5 min stationary bike; Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps), Inchworm (5 reps); ramp-up of Neutral-grip dumbbell floor press: 50% × 8 @ 6 kg, 75% × 4 @ 10 kg<br>  Arm circles left out of the warm-up: it involves No overhead lifting, which hurts your left shoulder.
+- Warm-up (9 min): 5 min stationary bike; Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps), Inchworm (5 reps); ramp-up of Neutral-grip dumbbell floor press: 50% × 8 @ 6 kg, 75% × 4 @ 10 kg<br>  Not in your warm-up: Arm circles. It goes against the "No overhead lifting" restriction for your left shoulder.
 - Cool-down (4 min): Doorway chest stretch 30 s each side, Seated biceps stretch 30 s, Upper back stretch 30 s, Cross-body shoulder stretch 30 s each side; 1 min slow breathing
 - About 59 min: warm-up 9 min, 6 exercises with their sets and rests (46 min), cool-down 4 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Neutral-grip dumbbell floor press | 3 × 6–8 | 14 kg | 180 s | 8 | Barbell bench press → Neutral-grip dumbbell floor press: Neutral-grip dumbbell floor press avoids bench press for your left shoulder. |
+| Neutral-grip dumbbell floor press | 3 × 6–8 | 14 kg | 180 s | 8 | Barbell bench press → Neutral-grip dumbbell floor press: Neutral-grip dumbbell floor press avoids bench pressing, which hurts your left shoulder. |
 | Chest-supported dumbbell row | 3 × 8–10 | 14 kg | 120 s | 8 |  |
-| Half-kneeling landmine press | 3 × 8–10 | 10 kg | 120 s | 8 | Seated dumbbell shoulder press → Half-kneeling landmine press: Half-kneeling landmine press avoids overhead press for your left shoulder. |
+| Half-kneeling landmine press | 3 × 8–10 | 10 kg | 120 s | 8 | Seated dumbbell shoulder press → Half-kneeling landmine press: Half-kneeling landmine press avoids pressing overhead, which hurts your left shoulder. |
 | Neutral-grip lat pulldown | 3 × 10–12 | 32.5 kg | 90 s | 8 |  |
 | Incline dumbbell curl | 2 × 10–12 | 6 kg | 60 s | 8 |  |
 | Cable triceps pushdown | 2 × 10–12 | 15 kg | 60 s | 8 |  |
@@ -225,15 +225,15 @@ Spices & sauces
 
 **Wed · Upper body B** (upper, 56 min)
 
-- Warm-up (9 min): 5 min stationary bike; Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps), Inchworm (5 reps); ramp-up of Half-kneeling landmine press: 50% × 8 @ 5 kg, 75% × 4 @ 7.5 kg<br>  Arm circles left out of the warm-up: it involves No overhead lifting, which hurts your left shoulder.
+- Warm-up (9 min): 5 min stationary bike; Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps), Inchworm (5 reps); ramp-up of Half-kneeling landmine press: 50% × 8 @ 5 kg, 75% × 4 @ 7.5 kg<br>  Not in your warm-up: Arm circles. It goes against the "No overhead lifting" restriction for your left shoulder.
 - Cool-down (4 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Upper back stretch 30 s, Child's pose 30 s; 1 min slow breathing
 - About 56 min: warm-up 9 min, 5 exercises with their sets and rests (44 min), cool-down 4 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Half-kneeling landmine press | 3 × 6–8 | 10 kg | 180 s | 8 | Standing barbell overhead press → Half-kneeling landmine press: Half-kneeling landmine press avoids overhead press for your left shoulder. |
-| Neutral-grip lat pulldown | 3 × 6–8 | 32.5 kg | 120 s | 8 | Pull-up → Neutral-grip lat pulldown: Neutral-grip lat pulldown keeps to your "No overhead lifting" restriction for your left shoulder. |
-| Neutral-grip dumbbell floor press | 3 × 8–10 | 14 kg | 120 s | 8 | Dumbbell bench press → Neutral-grip dumbbell floor press: Neutral-grip dumbbell floor press avoids bench press for your left shoulder. |
+| Half-kneeling landmine press | 3 × 6–8 | 10 kg | 180 s | 8 | Standing barbell overhead press → Half-kneeling landmine press: Half-kneeling landmine press avoids pressing overhead, which hurts your left shoulder. |
+| Neutral-grip lat pulldown | 3 × 6–8 | 32.5 kg | 120 s | 8 | Pull-up → Neutral-grip lat pulldown: Neutral-grip lat pulldown keeps to the "No overhead lifting" restriction for your left shoulder. |
+| Neutral-grip dumbbell floor press | 3 × 8–10 | 14 kg | 120 s | 8 | Dumbbell bench press → Neutral-grip dumbbell floor press: Neutral-grip dumbbell floor press avoids bench pressing, which hurts your left shoulder. |
 | One-arm dumbbell row | 3 × 10–12 | 16 kg | 90 s | 8 |  |
 | Dumbbell lateral raise | 3 × 12–15 | 4 kg | 60 s | 8 |  |
 
@@ -376,12 +376,12 @@ Spices & sauces
 - Program: Upper / Lower (sample), chosen for advanced lifters training 5 days a week.
 - 5 training days a week (Sat, Sun, Mon, Wed, Thu), about 90 min each, as you chose.
 - Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2.5 kg barbell, 2 kg dumbbells, 2.5 kg cable machine, 5 kg machine); otherwise add 1 rep a session. A hard session repeats or drops a step.
-- Week 5 of 8 is a lighter week. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
+- Week 5 of 8 is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
 
 **Sat · Upper body A** (upper, 70 min)
 
 - Warm-up (9 min): 5 min stationary bike; Arm circles (10 each way), Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps); ramp-up of Barbell bench press: 50% × 8 @ 25 kg, 75% × 4 @ 37.5 kg
-- Cool-down (6 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Overhead triceps stretch 30 s each side, Seated biceps stretch 30 s, Overhead lat stretch 30 s each side; 1 min slow breathing
+- Cool-down (6 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Overhead lat stretch 30 s each side, Upper back stretch 30 s, Overhead triceps stretch 30 s each side; 1 min slow breathing
 - About 70 min: warm-up 9 min, 8 exercises with their sets and rests (55 min), cool-down 6 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
@@ -414,7 +414,7 @@ Spices & sauces
 **Mon · Upper body B** (upper, 72 min)
 
 - Warm-up (9 min): 5 min stationary bike; Arm circles (10 each way), Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps); ramp-up of Standing barbell overhead press: 50% × 8 @ 15 kg, 75% × 4 @ 22.5 kg
-- Cool-down (6 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Overhead triceps stretch 30 s each side, Seated biceps stretch 30 s, Overhead lat stretch 30 s each side; 1 min slow breathing
+- Cool-down (6 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Overhead lat stretch 30 s each side, Upper back stretch 30 s, Overhead triceps stretch 30 s each side; 1 min slow breathing
 - About 72 min: warm-up 9 min, 8 exercises with their sets and rests (56 min), cool-down 6 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
@@ -447,7 +447,7 @@ Spices & sauces
 **Thu · Upper body A** (upper, 70 min)
 
 - Warm-up (9 min): 5 min stationary bike; Arm circles (10 each way), Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps); ramp-up of Barbell bench press: 50% × 8 @ 25 kg, 75% × 4 @ 37.5 kg
-- Cool-down (6 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Overhead triceps stretch 30 s each side, Seated biceps stretch 30 s, Overhead lat stretch 30 s each side; 1 min slow breathing
+- Cool-down (6 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Overhead lat stretch 30 s each side, Upper back stretch 30 s, Overhead triceps stretch 30 s each side; 1 min slow breathing
 - About 70 min: warm-up 9 min, 8 exercises with their sets and rests (55 min), cool-down 6 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
@@ -585,7 +585,7 @@ Spices & sauces
 - Program: Full body (sample), chosen for beginner lifters training 3 days a week.
 - 3 training days a week (Sat, Mon, Wed), about 45 min each, as you chose.
 - Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2 kg dumbbells, 5 kg machine, 2.5 kg cable machine); otherwise add 1 rep a session. A hard session repeats or drops a step.
-- Week 5 of 8 is a lighter week. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
+- Week 5 of 8 is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
 
 **Sat · Full body A** (full, 52 min)
 
@@ -744,7 +744,7 @@ Spices & sauces
 - Program: Upper / Lower (sample), chosen for intermediate lifters training 4 days a week.
 - 4 training days a week (Sat, Mon, Wed, Thu), about 60 min each, as you chose.
 - Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2.5 kg barbell, 2 kg dumbbells, 2.5 kg cable machine, 5 kg machine); otherwise add 1 rep a session. A hard session repeats or drops a step.
-- Week 5 of 8 is a lighter week. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
+- Week 5 of 8 is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
 
 **Sat · Upper body A** (upper, 57 min)
 

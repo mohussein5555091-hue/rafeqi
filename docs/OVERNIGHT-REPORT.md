@@ -124,3 +124,8 @@ Before starting:
 - The check-in-triggered deload is unchanged.
 - Tests: `test_the_planned_lighter_week_has_fewer_sets_lower_effort_and_the_same_weights`,
   `test_a_check_in_lighter_week_is_not_made_lighter_twice`. New `tests/backend/test_i18n.py` checks en/ar have the same keys.
+
+**Priority 1 full run:** backend suite, typecheck and all 295 browser tests (desktop + phone) pass. The one backend
+failure on the way (the face pull had no alternative without a cable once alternatives had to keep their direction) was
+a tagging gap: the face pull now lists the upper back as a main muscle (it is: rear shoulders and upper back), so rows
+are offered.
