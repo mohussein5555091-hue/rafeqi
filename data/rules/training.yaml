@@ -421,3 +421,16 @@ equipment:
   summary:
     en: "Exercises that need equipment your training place doesn't have (or that you said is missing) are swapped for the same movement with what you have."
     ar: "التمارين اللي محتاجة أدوات مش موجودة في مكان تمرينك (أو قلت إنها مش متاحة) بتتبدّل بنفس الحركة باللي عندك."
+
+# ── Moving a session this week ("Do this workout today" / "Move to another day") ──
+# Only upcoming sessions of this week, to today or a later day of this week that has no other workout. Two sessions
+# that train the same muscles (they share a main muscle) need `min_rest_days` full days between them.
+# backend/app/engine/schedule.py
+reschedule:
+  placeholder: true
+  source: "PLACEHOLDER: rest between sessions for the same muscles; to be checked against the Jeff Nippard programs' weekly layout"
+  uses: [days_per_week]
+  summary:
+    en: "You can move a session to another day this week, as long as sessions for the same muscles keep a rest day between them."
+    ar: "تقدر تنقل تمرينة ليوم تاني في الأسبوع ده، بشرط إن التمرينات اللي لنفس العضلات يفضل بينها يوم راحة."
+  min_rest_days: 1

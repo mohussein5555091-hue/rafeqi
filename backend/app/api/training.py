@@ -12,12 +12,13 @@ from app.api.deps import CurrentAuth, Db
 from app.engine.catalogue import exercises_from_db
 from app.engine.training import alternatives, start_weight, weight_step
 from app.engine.types import ExerciseInfo
-from app.models import CardioLog, Exercise, ExerciseSubstitution, ExerciseSwap, Injury, Profile, ProgramDay
+from app.engine.schedule import OtherSession, check_move
+from app.models import CardioLog, Exercise, ExerciseSubstitution, ExerciseSwap, Injury, Profile, ProgramDay, WorkoutMove
 from app.plans import active_swaps, person_for, rebuild_plan
-from app.schemas.screens import CardioDoneIn, DoneIn, ExerciseResultIn, FinishWorkoutIn, SwapExerciseIn
+from app.schemas.screens import CardioDoneIn, DoneIn, ExerciseResultIn, FinishWorkoutIn, MoveWorkoutIn, SwapExerciseIn
 from app.views import training as v
 from app.views.body import log_pain
-from app.week import WEEKDAYS, NoPlan, Week, this_week
+from app.week import WEEKDAYS, NoPlan, Week, this_week, weekday_of
 from app.workouts import ExerciseResult, finish_workout, save_exercise_result
 
 router = APIRouter(tags=["training"])
@@ -316,3 +317,80 @@ def undo_swap(swap_id: str, auth: CurrentAuth, db: Db):
     if row.scope == "always":
         rebuild_plan(db, auth.user.id, "swap")
     db.commit()
+
+
+# ── Moving a session this week ──
+
+def _muscles(db: Session, user_id: str, week: Week, day: ProgramDay, cat: dict[str, ExerciseInfo]) -> frozenset[str]:
+    ses = v.session_exercises(db, user_id, day, week.date_of(day), v.user_injuries(db, user_id))
+    return frozenset(m for se in ses for m in cat[se.exercise_id].muscles)
+
+
+def _move_checks(db: Session, user_id: str, week: Week, day: ProgramDay) -> list[tuple[dt.date, object]]:
+    """Every day from today to the end of the week (except where it already is), and whether the session can go there."""
+    cat = exercises_from_db(db)
+    others = []
+    for o in week.days:
+        if o.id == day.id:
+            continue
+        log = v.session_log(db, user_id, week.date_of(o))
+        others.append(OtherSession(week.date_of(o), _muscles(db, user_id, week, o, cat), {"en": o.name_en, "ar": o.name_ar},
+                                   bool(log and log.status == "done")))
+    mine = _muscles(db, user_id, week, day, cat)
+    return [(d, check_move(d, week.today, mine, others)) for d in week.dates if d >= week.today and d != week.date_of(day)]
+
+
+def _movable(db: Session, user_id: str, week: Week, day: ProgramDay) -> None:
+    """Only sessions still to come this week (not today's, not done) can move."""
+    d = week.date_of(day)
+    log = v.session_log(db, user_id, d)
+    if d <= week.today or (log is not None and log.status == "done"):
+        raise HTTPException(409, "not_upcoming")
+
+
+def _check_out(d: dt.date, c) -> dict:
+    out = {"date": d.isoformat(), "day": weekday_of(d), "ok": c.ok}
+    if not c.ok:
+        out["why"] = c.why
+        if c.other is not None:
+            out["other"] = {"name": c.other.name, "day": weekday_of(c.other.date)}
+    return out
+
+
+@router.get("/api/workouts/{day_id}/move-options")
+def move_options(day_id: str, auth: CurrentAuth, db: Db):
+    """Where this upcoming session can go this week: each day from today on, ok or why not (another workout that day,
+    or too close to a session for the same muscles)."""
+    uid = auth.user.id
+    week = current_week(db, uid)
+    day = _day(db, week, day_id)
+    _movable(db, uid, week, day)
+    return [_check_out(d, c) for d, c in _move_checks(db, uid, week, day)]
+
+
+@router.post("/api/workouts/{day_id}/move")
+def move_workout(day_id: str, body: MoveWorkoutIn, auth: CurrentAuth, db: Db):
+    """Moves an upcoming session to another day this week ("Do this workout today" sends today's date). Moving it
+    back to its own day undoes the move. 409 with why when the day doesn't work."""
+    uid = auth.user.id
+    week = current_week(db, uid)
+    day = _day(db, week, day_id)
+    _movable(db, uid, week, day)
+    if not week.in_week(body.date):
+        raise HTTPException(409, "outside_week")
+    row = db.scalar(select(WorkoutMove).where(WorkoutMove.user_id == uid, WorkoutMove.week_start == week.start,
+                                              WorkoutMove.from_weekday == day.weekday))
+    if body.date != week.planned_date_of(day) or row is None:
+        check = dict(_move_checks(db, uid, week, day)).get(body.date)
+        if check is None or not check.ok:
+            raise HTTPException(409, {"error": "cant_move", **(_check_out(body.date, check) if check else {"why": "past"})})
+    if body.date == week.planned_date_of(day):
+        if row is not None:
+            db.delete(row)
+    elif row is None:
+        db.add(WorkoutMove(user_id=uid, week_start=week.start, from_weekday=day.weekday, to_date=body.date, created_at=clock.now()))
+    else:
+        row.to_date = body.date
+    db.commit()
+    week = current_week(db, uid)
+    return v.workout_out(db, uid, week, _day(db, week, day_id), v.user_injuries(db, uid))

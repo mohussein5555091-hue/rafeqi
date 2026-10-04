@@ -130,7 +130,11 @@
     "range": "Range {reps}", "reason": { "findWeight": "Find your weight: start light", "deload": "Lighter week: same weight as last time", "start": "Starting weight", "addReps": "+1 rep since last time", "addWeight": "+{kg} kg since last time", "repeat": "Same as last time", "dropWeight": "−{kg} kg to get the reps back" },
     "target": "{sets} × {reps} @ {kg} kg", "targetBw": "{sets} × {reps}", "prevDay": "Previous workout", "nextDay": "Next workout",
     "dayOf": "Workout {n} of {total} this week", "whatYouDid": "What you did", "skipped": "Skipped", "effortLogged": "Effort {n}/10",
-    "painAfter": "{area} after: {n}/10", "startOnDay": "You can start this workout on {day}.", "missed": "Missed", "pastLocked": "Past sessions can't be changed."
+    "painAfter": "{area} after: {n}/10", "startOnDay": "You can start this workout on {day}.", "missed": "Missed", "pastLocked": "Past sessions can't be changed.",
+    "doToday": "Do this workout today", "moveDay": "Move to another day", "moveTitle": "Move {name} to…",
+    "moveIntro": "Sessions for the same muscles keep a rest day between them.", "movedFrom": "Moved from {day}",
+    "movedTo": "Moved to {day}", "moveBack": "Back to {day}",
+    "moveWhy": { "dayTaken": "{day} already has {name}.", "tooClose": "Too close to {name} on {day}: the same muscles need a rest day in between.", "past": "That day has passed." }
   },
   "exercise": {
     "swappedIn": "You swapped this in for {name}, from now on ({why}).",

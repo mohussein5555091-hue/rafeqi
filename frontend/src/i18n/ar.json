@@ -130,7 +130,11 @@
     "range": "المدى {reps}", "reason": { "findWeight": "اختار وزنك: ابدأ خفيف", "deload": "أسبوع أخف: نفس وزن المرة اللي فاتت", "start": "وزن البداية", "addReps": "عدّة زيادة عن آخر مرة", "addWeight": "+{kg} كجم عن آخر مرة", "repeat": "زي آخر مرة", "dropWeight": "−{kg} كجم عشان ترجع العدّات" },
     "target": "{sets} × {reps} @ {kg} كجم", "targetBw": "{sets} × {reps}", "prevDay": "التمرين اللي قبله", "nextDay": "التمرين اللي بعده",
     "dayOf": "تمرين {n} من {total} الأسبوع ده", "whatYouDid": "اللي عملته", "skipped": "ماتعملش", "effortLogged": "المجهود {n}/10",
-    "painAfter": "{area} بعدها: {n}/10", "startOnDay": "تقدر تبدأ التمرين ده يوم {day}.", "missed": "فاتك", "pastLocked": "التمرينات اللي فاتت ماينفعش تتغيّر."
+    "painAfter": "{area} بعدها: {n}/10", "startOnDay": "تقدر تبدأ التمرين ده يوم {day}.", "missed": "فاتك", "pastLocked": "التمرينات اللي فاتت ماينفعش تتغيّر.",
+    "doToday": "اعمل التمرينة دي النهارده", "moveDay": "انقلها ليوم تاني", "moveTitle": "انقل {name} لـ…",
+    "moveIntro": "التمرينات اللي لنفس العضلات بيفضل بينها يوم راحة.", "movedFrom": "اتنقلت من {day}",
+    "movedTo": "اتنقلت لـ {day}", "moveBack": "رجّعها لـ {day}",
+    "moveWhy": { "dayTaken": "يوم {day} فيه {name} أصلًا.", "tooClose": "قريبة أوي من {name} يوم {day}: نفس العضلات محتاجة يوم راحة في النص.", "past": "اليوم ده فات." }
   },
   "exercise": {
     "swappedIn": "أنت بدّلت ده مكان {name} من هنا ورايح ({why}).",

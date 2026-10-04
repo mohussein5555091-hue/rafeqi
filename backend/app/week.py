@@ -6,13 +6,13 @@ Saturday, whichever week it is. Weeks run Saturday to Friday (the Egyptian week)
 """
 
 import datetime as dt
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app import clock
-from app.models import MealPlan, Plan, ProgramDay, TrainingProgram
+from app.models import MealPlan, Plan, ProgramDay, TrainingProgram, WorkoutMove
 from app.plans import current_plan, week_start
 
 WEEKDAYS = ("sat", "sun", "mon", "tue", "wed", "thu", "fri")
@@ -39,6 +39,7 @@ class Week:
     today: dt.date
     start: dt.date  # Saturday
     number: int  # week of the program, 1…total_weeks
+    moves: dict[str, dt.date] = field(default_factory=dict)  # program weekday → the date it was moved to this week
 
     @property
     def end(self) -> dt.date:
@@ -48,11 +49,16 @@ class Week:
     def dates(self) -> list[dt.date]:
         return [self.start + dt.timedelta(days=i) for i in range(7)]
 
-    def date_of(self, day: ProgramDay) -> dt.date:
+    def planned_date_of(self, day: ProgramDay) -> dt.date:
+        """The program's own day this week (before any move)."""
         return self.start + dt.timedelta(days=WEEKDAYS.index(day.weekday))
 
+    def date_of(self, day: ProgramDay) -> dt.date:
+        """The day the session happens this week: the program's day, or the day the person moved it to."""
+        return self.moves.get(day.weekday) or self.planned_date_of(day)
+
     def day_on(self, d: dt.date) -> ProgramDay | None:
-        return next((x for x in self.days if x.weekday == weekday_of(d)), None)
+        return next((x for x in self.days if self.date_of(x) == d), None)
 
     def meal_date(self, d: dt.date) -> dt.date:
         """The date in the stored meal plan whose meals apply on `d` (same weekday)."""
@@ -79,4 +85,6 @@ def this_week(db: Session, user_id: str) -> Week:
     days = list(db.scalars(select(ProgramDay).where(ProgramDay.program_id == tp.id).order_by(ProgramDay.day_index)))
     today = clock.today()
     start = week_start(today)
-    return Week(plan, tp, days, mp, today, start, program_week_number(db, user_id, start, tp.total_weeks))
+    moves = {m.from_weekday: m.to_date for m in db.scalars(select(WorkoutMove).where(WorkoutMove.user_id == user_id,
+                                                                                     WorkoutMove.week_start == start))}
+    return Week(plan, tp, days, mp, today, start, program_week_number(db, user_id, start, tp.total_weeks), moves)

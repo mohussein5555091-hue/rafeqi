@@ -1,5 +1,6 @@
 """Request bodies for the workout, meal, grocery, injury and check-in endpoints (camelCase JSON, like types.ts)."""
 
+import datetime as dt
 from typing import Literal
 
 from pydantic import Field
@@ -135,3 +136,9 @@ class CheckInIn(ApiModel):
     nutrition: NutritionIn
     life: LifeIn
     note: str | None = Field(default=None, max_length=300)  # the one free-text answer
+
+
+class MoveWorkoutIn(ApiModel):
+    """Move an upcoming session to this date (this week; today for "Do this workout today")."""
+
+    date: dt.date

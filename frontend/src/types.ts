@@ -226,6 +226,8 @@ export interface Workout {
   status: 'done' | 'today' | 'planned' | 'missed';
   /** The program's lighter week: sets and effort are already lowered, weights stay at last time's. */
   lighter?: boolean;
+  /** Moved this week from the program's own day ("Do this workout today" / "Move to another day"). */
+  movedFrom?: Weekday;
   estMinutes: number;
   warmupMinutes: number;
   exercises: SessionExercise[];
@@ -248,6 +250,15 @@ export interface WorkoutLog {
 export interface EquipmentState {
   location: QuestionnaireAnswers['location'];
   items: { id: string; name: LocalizedText; available: boolean }[];
+}
+
+/** A day this week an upcoming session could move to, or why not. */
+export interface MoveOption {
+  date: ISODate;
+  day: Weekday;
+  ok: boolean;
+  why?: 'dayTaken' | 'tooClose' | 'past';
+  other?: { name: LocalizedText; day: Weekday };
 }
 
 export interface WorkoutWeek {

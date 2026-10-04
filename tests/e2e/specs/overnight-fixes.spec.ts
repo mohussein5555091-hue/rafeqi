@@ -93,3 +93,23 @@ test('alternatives: the band pull-apart has its photo; equipment alternatives na
   await expect(page.getByTestId('alternative').filter({ hasText: 'Cable lateral raise' })).toContainText('Different equipment: cable machine');
   await expect(page.getByText('Other equipment')).toHaveCount(0);
 });
+
+test('move an upcoming session: today is taken (says why), another day works and the week follows', async ({ page }) => {
+  await freshUser(page);
+  const week = await api(page, '/workouts/week');
+  const wed = week.sessions.find((s: { day: string; kind: string }) => s.day === 'wed' && s.kind === 'strength');
+  await page.goto(`/workouts/${wed.id}`);
+  await waitForContent(page);
+  await expect(page.getByRole('button', { name: 'Do this workout today' })).toBeDisabled();
+  await expect(page.getByTestId('today-why')).toContainText('Monday already has Lower body A');
+  await page.getByRole('button', { name: 'Move to another day' }).click();
+  const sheet = page.getByRole('dialog');
+  await expect(sheet.getByTestId('move-option').filter({ hasText: 'Thursday' })).toBeDisabled();
+  await sheet.getByTestId('move-option').filter({ hasText: 'Tuesday' }).click();
+  await expect(sheet).toHaveCount(0);
+  await expect(page.getByTestId('moved-from')).toHaveText('Moved from Wednesday');
+  const after = await api(page, '/workouts/week');
+  expect(after.sessions.find((s: { id: string }) => s.id === wed.id).day).toBe('tue');
+  await page.getByRole('button', { name: 'Back to Wednesday' }).click();
+  await expect(page.getByTestId('moved-from')).toHaveCount(0);
+});

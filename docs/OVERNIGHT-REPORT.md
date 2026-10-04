@@ -129,3 +129,21 @@ Before starting:
 failure on the way (the face pull had no alternative without a cable once alternatives had to keep their direction) was
 a tagging gap: the face pull now lists the upper back as a main muscle (it is: rear shoulders and upper back), so rows
 are offered.
+
+## Priority 2: logging
+
+### 9. "Do this workout today" and "Move to another day"
+
+- On an upcoming session of this week (status "planned"): **Do this workout today** and **Move to another day** (a sheet
+  with every day from today to Friday; days that don't work are greyed out with why). A moved session says "Moved from
+  Wednesday" and has "Back to Wednesday".
+- Rules (`training.yaml` `reschedule`, placeholder, and `backend/app/engine/schedule.py`): only to today or later this
+  week; not onto a day that already has a workout; two sessions that share a main muscle keep at least
+  `min_rest_days: 1` full day between them. Examples with Upper/Lower: Upper B (Wed) can go to Tuesday or Friday; Lower B
+  (Thu) can't go to Tuesday ("Too close to Lower body A on Monday: the same muscles need a rest day in between").
+- **Decisions:** a move is stored per week and program weekday (`workout_moves`, migration `9c4a13242f74`), so it
+  survives a plan rebuild that week and never leaks into the next week. Cardio stays on its own day. Only upcoming
+  sessions move (not missed ones, as you specified; it would be easy to allow "Do this missed workout today" later).
+  "Do this workout today" isn't offered when today already has a workout.
+- API: `GET /api/workouts/{id}/move-options`, `POST /api/workouts/{id}/move {date}` (both in the isolation test).
+- Tests: `tests/backend/test_move_workout.py`, browser test in `overnight-fixes.spec.ts`.

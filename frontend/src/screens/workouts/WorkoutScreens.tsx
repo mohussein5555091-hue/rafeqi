@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
-  Check, ChevronLeft, ChevronRight, Dumbbell, ExternalLink, Footprints, HeartPulse, X, ArrowDown, Shield, Zap, TrendingDown, Bandage, Pencil, Repeat, Undo2,
+  CalendarDays, Check, ChevronLeft, ChevronRight, Dumbbell, ExternalLink, Footprints, HeartPulse, X, ArrowDown, Shield, Zap, TrendingDown, Bandage, Pencil, Repeat, Undo2,
 } from 'lucide-react';
 import {
   AppShell, BodyMap, Button, Card, ChipGroup, ExerciseMedia, ExerciseThumb, Icon, LinkButton, ProgressBar, QueryView, ScalePicker, SwapBadge,
@@ -10,8 +10,8 @@ import {
 import { useI18n } from '@/i18n';
 import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
-import type { BodyRegion, Exercise, ExerciseResult, Injury, SessionExercise, Workout, WorkoutWeek } from '@/types';
-import { CardioCard, CooldownSection, InfoLink, SwapSheet, WarmupSection, useSwapLabel } from './SessionExtras';
+import type { BodyRegion, Exercise, ExerciseResult, Injury, MoveOption, SessionExercise, Workout, WorkoutWeek } from '@/types';
+import { CardioCard, CooldownSection, InfoLink, SwapSheet, WarmupSection, todayIso, useSwapLabel } from './SessionExtras';
 
 type T = (k: string, v?: Record<string, string | number>) => string;
 
@@ -216,6 +216,7 @@ export function Session() {
         {([s, week, injuries]) => (
           <>
             <DayNav s={s} week={week} />
+            {s.movedFrom && <p data-testid="moved-from" className="m-0 text-[13px] font-semibold text-neutral-800">{t('workouts.movedFrom', { day: t(`enums.weekday.${s.movedFrom}`) })}</p>}
             {s.kind === 'strength' && (
               <div className="flex flex-wrap gap-2">
                 <span className="rounded-pill bg-neutral-100 px-3 py-1 text-xs">{t('workouts.nExercises', { n: s.exercises.length })}</span>
@@ -227,12 +228,76 @@ export function Session() {
             <SessionBody s={s} exMap={exMap} injuries={injuries} onChanged={(newId) => (newId && newId !== s.id ? nav(`/workouts/${newId}`, { replace: true }) : q.reload())} />
             {s.status === 'today' && s.exercises.length > 0 && <LinkButton to={`/workouts/${s.id}/log`} size="lg" block className="lg:w-auto lg:self-start">{t('workouts.start')}</LinkButton>}
             {s.status === 'planned' && s.kind === 'strength' && <p className="m-0 text-[13px] text-neutral-800">{t('workouts.startOnDay', { day: t(`enums.weekday.${s.day}`) })}</p>}
+            {s.status === 'planned' && s.kind === 'strength' && <MoveControls s={s} onMoved={q.reload} />}
             {s.status === 'missed' && <p className="m-0 text-[13px] text-neutral-800">{t('workouts.missed')}</p>}
           </>
         )}
       </QueryView>
     </AppShell>
   );
+}
+
+/** "Do this workout today" and "Move to another day" for a session still to come this week. Days that don't work
+ *  (another workout, or too close to a session for the same muscles) are shown with why. */
+function MoveControls({ s, onMoved }: { s: Workout; onMoved: () => void }) {
+  const { t, l, date } = useI18n();
+  const toast = useToast();
+  const q = useQuery(() => api.getMoveOptions(s.id), [s.id, s.date]);
+  const [open, setOpen] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const why = (o: MoveOption) => (o.why ? t(`workouts.moveWhy.${o.why}`, { day: t(`enums.weekday.${o.other?.day ?? o.day}`), name: o.other ? l(o.other.name) : '' }) : '');
+  const move = async (o: MoveOption) => {
+    setBusy(true);
+    try {
+      await api.moveWorkout(s.id, o.date);
+      toast({ message: t('workouts.movedTo', { day: t(`enums.weekday.${o.day}`) }), tone: 'success' });
+      setOpen(false);
+      onMoved();
+    } catch {
+      toast({ message: t('common.saveFailed'), tone: 'error' });
+    } finally {
+      setBusy(false);
+    }
+  };
+  const options = q.data ?? [];
+  const today = options.find((o) => o.date === todayIso());
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-wrap gap-2">
+        {today && <Button size="lg" icon={Dumbbell} disabled={busy || !today.ok} onClick={() => move(today)}>{t('workouts.doToday')}</Button>}
+        <Button variant="secondary" size="lg" icon={CalendarDays} disabled={busy || !options.length} onClick={() => setOpen(true)}>{t('workouts.moveDay')}</Button>
+        {s.movedFrom && <Button variant="ghost" size="lg" disabled={busy} onClick={() => api.moveWorkout(s.id, plannedDate(s)).then(onMoved, () => toast({ message: t('common.saveFailed'), tone: 'error' }))}>{t('workouts.moveBack', { day: t(`enums.weekday.${s.movedFrom}`) })}</Button>}
+      </div>
+      {today && !today.ok && <p data-testid="today-why" className="m-0 text-[13px] text-neutral-800">{why(today)}</p>}
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-neutral-900/50 lg:items-center" role="dialog" aria-modal="true" aria-label={t('workouts.moveTitle', { name: l(s.name) })} onClick={() => setOpen(false)}>
+          <div className="flex max-h-[90vh] w-full max-w-lg flex-col gap-3 overflow-auto rounded-t-[36px] bg-bg px-4 pb-7 pt-3 shadow-lg lg:rounded-card" onClick={(ev) => ev.stopPropagation()}>
+            <span className="h-1.5 w-11 self-center rounded-pill bg-neutral-400 lg:hidden" />
+            <div className="flex items-center justify-between gap-3"><h2 className="m-0 text-2xl">{t('workouts.moveTitle', { name: l(s.name) })}</h2><Button variant="secondary" size="icon" icon={X} aria-label={t('common.close')} onClick={() => setOpen(false)} /></div>
+            <span className="text-[13.5px] text-neutral-800">{t('workouts.moveIntro')}</span>
+            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+              {options.map((o) => (
+                <li key={o.date}>
+                  <button type="button" disabled={!o.ok || busy} onClick={() => move(o)} data-testid="move-option"
+                    className={cn('flex min-h-[60px] w-full flex-col justify-center rounded-lg px-4 py-2.5 text-start', o.ok ? 'bg-surface hover:bg-neutral-300' : 'cursor-not-allowed bg-neutral-100 text-neutral-700')}>
+                    <strong className="text-[15px]">{t(`enums.weekday.${o.day}`)} {date(o.date, { day: 'numeric' })}</strong>
+                    {!o.ok && <span className="text-[12.5px]">{why(o)}</span>}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** The program's own day for a moved session (the week starts on Saturday). */
+function plannedDate(s: Workout): string {
+  const order = ['sat', 'sun', 'mon', 'tue', 'wed', 'thu', 'fri'];
+  const start = Date.parse(`${s.date}T00:00:00Z`) - order.indexOf(s.day) * 86_400_000;
+  return new Date(start + order.indexOf(s.movedFrom ?? s.day) * 86_400_000).toISOString().slice(0, 10);
 }
 
 function DayNav({ s, week }: { s: Workout; week: WorkoutWeek }) {

@@ -3,7 +3,7 @@
 // The function names and types are the same ones the screens were designed against.
 import type {
   CheckIn, CheckInDraft, Dashboard, EquipmentState, Exercise, ExerciseResult, GroceryItem, GroceryList, Injury, InjuryInput, InjuryStatus, LocalizedText,
-  Meal, MealDay, MealWeekDay, OnboardingState, OnboardingStep, PantryItem, Plan, PlanGenerationStep, Progress, QuestionnaireAnswers,
+  Meal, MealDay, MealWeekDay, MoveOption, OnboardingState, OnboardingStep, PantryItem, Plan, PlanGenerationStep, Progress, QuestionnaireAnswers,
   Recipe, RemoveReason, RemoveScope, ReplacementOptions, User, Weekday, ActiveSwap, ExerciseAlternative, SwapReason, WeeklyReview, WeightLog, WhyPlan, Workout, WorkoutLog, WorkoutWeek,
 } from '@/types';
 
@@ -271,6 +271,10 @@ export const api = {
   async logCardio(day: Weekday, minutes: number | null): Promise<void> {
     await (minutes === null ? send('DELETE', `/cardio/${day}`) : send('PUT', `/cardio/${day}`, { minutes }));
   },
+  /** Where an upcoming session could go this week (today on), each ok or why not. */
+  getMoveOptions(workoutId: string): Promise<MoveOption[]> { return get<MoveOption[]>(`/workouts/${encodeURIComponent(workoutId)}/move-options`); },
+  /** Moves an upcoming session to another day this week (today's date = "Do this workout today"). */
+  moveWorkout(workoutId: string, date: string): Promise<Workout> { return send<Workout>('POST', `/workouts/${encodeURIComponent(workoutId)}/move`, { date }); },
   /** 2–4 exercises to swap to, for this reason (same movement and muscles, fit the equipment and injuries). */
   async getAlternatives(workoutId: string, exerciseId: string, reason: SwapReason): Promise<ExerciseAlternative[]> {
     return get<ExerciseAlternative[]>(`/workouts/${encodeURIComponent(workoutId)}/exercises/${encodeURIComponent(exerciseId)}/alternatives?reason=${reason}`);

@@ -272,11 +272,13 @@ def workout_out(db: Session, user_id: str, week: Week, day: ProgramDay, injuries
             "target": {"sets": t.sets, "reps": t.reps, "weightKg": t.weight_kg, "reason": t.reason},
             "weightStepKg": se.weight_step_kg,
         }))
-    out = {"id": day.id, "kind": "strength", "name": bi(day.name_en, day.name_ar), "day": day.weekday, "date": d.isoformat(), "status": status,
+    out = {"id": day.id, "kind": "strength", "name": bi(day.name_en, day.name_ar), "day": WEEKDAYS[(d - week.start).days], "date": d.isoformat(), "status": status,
            "lighter": any(se.deload for se in ses),
            "estMinutes": day.est_minutes, "warmupMinutes": day.warmup_minutes, "exercises": exercises,
            "warmup": warmup_out(day, ramp_from, bool(log and log.warmup_done)), "cooldown": cooldown_out(day, bool(log and log.cooldown_done))}
-    if (c := cardio_sessions(week).get(day.weekday)) is not None:
+    if d != week.planned_date_of(day):
+        out["movedFrom"] = day.weekday
+    if (c := cardio_sessions(week).get(WEEKDAYS[(d - week.start).days])) is not None:  # cardio stays on its own day
         out["cardio"] = cardio_out(db, user_id, c, d)
     if done:
         results = exercise_results(db, log.id)
@@ -310,7 +312,7 @@ def user_injuries(db: Session, user_id: str) -> dict[str, Injury]:
 def workout_week(db: Session, user_id: str, week: Week) -> dict:
     injuries = user_injuries(db, user_id)
     sessions = [workout_out(db, user_id, week, d, injuries) for d in week.days]
-    lifting = {d.weekday for d in week.days}
+    lifting = {WEEKDAYS[(week.date_of(d) - week.start).days] for d in week.days}
     sessions += [cardio_day_out(db, user_id, week, c) for c in cardio_sessions(week).values() if c["weekday"] not in lifting]
     cardio = week.program.cardio or {}
     why = cardio.get("reasons") or []

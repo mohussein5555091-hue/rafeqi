@@ -64,6 +64,8 @@ BY_ID = {  # id in the URL: tested below with another user's id → (the table t
     ("POST", "/api/workouts/{day_id}/exercises/{exercise_id}/swap"): ("program_days", {"toExerciseId": "ex_test", "reason": "busy", "scope": "today"}),
     ("PUT", "/api/workouts/{day_id}/warmup"): ("program_days", {"done": True}),
     ("PUT", "/api/workouts/{day_id}/cooldown"): ("program_days", {"done": True}),
+    ("GET", "/api/workouts/{day_id}/move-options"): ("program_days", None),
+    ("POST", "/api/workouts/{day_id}/move"): ("program_days", {"date": "2026-10-01"}),
     ("DELETE", "/api/swaps/{swap_id}"): ("exercise_swaps", None),
 }
 

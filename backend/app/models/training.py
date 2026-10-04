@@ -215,3 +215,20 @@ class CardioLog(Base, UserOwned):
     created_at: Mapped[datetime] = timestamp()
 
     __table_args__ = (UniqueConstraint("user_id", "date"), CheckConstraint("minutes BETWEEN 1 AND 300", name="minutes_range"))
+
+
+class WorkoutMove(Base, UserOwned):
+    """The person moved one of this week's sessions to another day ("Do this workout today" / "Move to another day").
+    Keyed by the week (its Saturday) and the program's weekday, so it survives a plan rebuild that week; it only ever
+    applies to that week."""
+
+    __tablename__ = "workout_moves"
+
+    id: Mapped[str] = uuid_pk()
+    user_id: Mapped[str] = owner()
+    week_start: Mapped[dt.date]
+    from_weekday: Mapped[str] = mapped_column(String(3))  # the program's day: sat … fri
+    to_date: Mapped[dt.date]
+    created_at: Mapped[datetime] = timestamp()
+
+    __table_args__ = (UniqueConstraint("user_id", "week_start", "from_weekday"),)
