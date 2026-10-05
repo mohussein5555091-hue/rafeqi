@@ -146,17 +146,24 @@ def plan_reasons(db: Session, plan: Plan) -> list[tuple[dict, str | None, dict |
     return out
 
 
-def why_out(db: Session, plan: Plan) -> dict:
-    decisions = [decision(r, bucket, plan.inputs or {}, ctx, inj) for r, bucket, ctx, inj in plan_reasons(db, plan)]
-    groups = [{"id": g, "decisions": [d for d in decisions if d["group"] == g]} for g in GROUPS]
+def counts(decisions: list[dict]) -> dict:
+    """Decisions and rules, each rule counted once: "X of Y rules from your books · A of B decisions".
+    Also used by scripts/personas.py for the 5 personas."""
     rules = {d["ruleKey"]: d["source"]["kind"] for d in decisions}
     return {
-        "planId": plan.id, "version": plan.version, "createdAt": plan.created_at.isoformat(),
-        "aiSummary": plan.ai_summary,  # app/ai (only words around the engine's numbers), or None while AI is off
-        # Decisions and rules, each counted once: "X of Y rules from your books · A of B decisions".
         "total": len(decisions), "backed": sum(d["source"]["kind"] == "book" for d in decisions),
         "formulas": sum(d["source"]["kind"] == "formula" for d in decisions),
         "rules": {"total": len(rules), "fromBooks": sum(k == "book" for k in rules.values()),
                   "formulas": sum(k == "formula" for k in rules.values())},
+    }
+
+
+def why_out(db: Session, plan: Plan) -> dict:
+    decisions = [decision(r, bucket, plan.inputs or {}, ctx, inj) for r, bucket, ctx, inj in plan_reasons(db, plan)]
+    groups = [{"id": g, "decisions": [d for d in decisions if d["group"] == g]} for g in GROUPS]
+    return {
+        "planId": plan.id, "version": plan.version, "createdAt": plan.created_at.isoformat(),
+        "aiSummary": plan.ai_summary,  # app/ai (only words around the engine's numbers), or None while AI is off
+        **counts(decisions),
         "groups": [g for g in groups if g["decisions"]],
     }

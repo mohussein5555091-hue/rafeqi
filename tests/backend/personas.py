@@ -63,3 +63,16 @@ def run(key: str) -> PersonaPlan:
     ingredients = {r.id: list(r.ingredients) for r in recipe_infos()}
     grocery = build_grocery_list([(m.recipe_id, m.portion) for m in meals.meals], ingredients, food_map, items)
     return PersonaPlan(p, start, targets, program, meals, grocery)
+
+
+def why_counts(r: PersonaPlan) -> dict:
+    """The "Why this plan" counter for a persona's plan: the same reasons the app stores with a plan (app/plans.py)
+    counted the same way as the page (app/views/why.py)."""
+    from app.views.why import counts, decision
+
+    reasons = [(x, b) for b, xs in r.targets.reasons.items() for x in xs]
+    reasons += [(x, "training") for x in r.program.reasons] + [(x, "meals") for x in r.meals.reasons]
+    reasons += [(x, "cardio") for x in (r.program.cardio.reasons if r.program.cardio else [])]
+    reasons += [(x, None) for d in r.program.days for x in d.reasons]
+    reasons += [(x, None) for d in r.program.days for e in d.exercises for x in e.reasons]
+    return counts([decision(x.as_dict(), b, {}) for x, b in reasons])

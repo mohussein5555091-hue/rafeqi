@@ -82,7 +82,7 @@ test('a session has a warm-up above the exercises and a cool-down after, each wi
   await expect(warm).toContainText('Warm-up');
   await expect(warm).toContainText('5 min, easy pace');
   await expect(warm).toContainText(/Lighter sets of .+/);
-  await expect(warm).toContainText(/50% · 8 reps @ [\d.]+ kg/);
+  await expect(warm).toContainText(/40% · 5 reps @ [\d.]+ kg/); // the programs' loading pyramid (Upper/Lower p. 30)
   await expect(cool).toContainText('Cool-down');
   await expect(cool).toContainText(/each side|Hold \d+ s/);
   await expect(cool).toContainText('slow breathing');

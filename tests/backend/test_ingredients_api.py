@@ -2,8 +2,8 @@
 rebalanced, the grocery list, essential ingredients, Undo, and later plans (regenerate, weekly review) never bringing
 a removed food back.
 
-The planned user's Monday (2026-09-28, today on the test clock): ful medames with eggs, kofta, a cheese sandwich and
-lentil soup with chicken. Kofta is on 4 days of the week; parsley is only in kofta.
+Each test works on the first day from today (Monday 2026-09-28 on the test clock) that has the recipes it needs, so the
+tests don't depend on which day the optimizer puts a meal on. Parsley is only in kofta, which is on several days.
 """
 
 from sqlalchemy import select
@@ -20,8 +20,14 @@ def day(c, d=MONDAY):
     return c.get(f"/api/meals/day/{d}").json()
 
 
-def meal(c, recipe, d=MONDAY):
-    return next(m for m in day(c, d)["meals"] if m["recipeId"] == recipe)
+def first_day(c, *recipes):
+    """The first day from today whose meals include every one of these recipes."""
+    dates = sorted(w["date"] for w in c.get("/api/meals/week").json() if w["date"] >= MONDAY)
+    return next(d for d in dates if set(recipes) <= {m["recipeId"] for m in day(c, d)["meals"]})
+
+
+def meal(c, recipe, d=None):
+    return next(m for m in day(c, d or first_day(c, recipe))["meals"] if m["recipeId"] == recipe)
 
 
 def ingredient(m, food):
@@ -60,8 +66,10 @@ def test_every_meal_lists_its_ingredients_with_the_essential_ones_marked(planned
 def test_removing_protein_rebalances_the_day_and_keeps_protein_at_or_above_target(planned):  # noqa: F811
     c = planned.client
     plan = c.get("/api/plan").json()
-    before, sunday = totals(day(c)), day(c, "2026-09-27")
-    ful = meal(c, "r_ful_eggs")
+    d = first_day(c, "r_ful_eggs")
+    other = next(w["date"] for w in c.get("/api/meals/week").json() if w["date"] != d)
+    before, untouched = totals(day(c, d)), day(c, other)
+    ful = meal(c, "r_ful_eggs", d)
     after = remove(c, ful, "egg")  # no eggs at home today
     new = next(m for m in after["meals"] if m["id"] == ful["id"])
     assert ingredient(new, "egg")["status"] == "removed" and new["proteinG"] < ful["proteinG"]
@@ -70,11 +78,16 @@ def test_removing_protein_rebalances_the_day_and_keeps_protein_at_or_above_targe
     assert abs(t["kcal"] - plan["calories"]) <= plan["calories"] * 0.08
     note = after["note"]
     assert note["onTarget"] and note["lines"][0]["en"] == "Egg removed from Ful medames, eggs & baladi bread."
-    assert any(line["en"].startswith("To keep the day on target") for line in note["lines"])
-    assert any("portionChange" in m for m in after["meals"])  # what moved is shown on its meal
+    # Either other portions moved to keep the day on target (shown on the meals that moved), or the day had enough
+    # protein left and nothing else moved. Both cases are tested on exact numbers in test_engine_ingredients.py.
+    rebalanced = any(line["en"].startswith("To keep the day on target") for line in note["lines"])
+    assert rebalanced == any("portionChange" in m for m in after["meals"])
+    if not rebalanced:
+        assert any(line["en"].startswith("The day is still on target") for line in note["lines"])
+        assert t["proteinG"] >= plan["proteinG"]
     assert t["proteinG"] < before["proteinG"] + 15  # small moves, not a new menu
-    # Other days are untouched (Sunday has ful with eggs too).
-    assert day(c, "2026-09-27") == sunday
+    # Other days are untouched.
+    assert day(c, other) == untouched
 
 
 def test_just_this_meal_changes_only_that_meal(planned, db):  # noqa: F811
@@ -133,11 +146,12 @@ def test_an_essential_ingredient_suggests_swapping_the_meal(planned):  # noqa: F
 
 def test_undo_puts_everything_back(planned, db):  # noqa: F811
     c = planned.client
-    start, grams = day(c), grocery_grams(db, planned.id, "gi_parsley")
-    kofta = meal(c, "r_kofta_tahini")
-    remove(c, meal(c, "r_ful_eggs"), "egg")
+    d = first_day(c, "r_ful_eggs", "r_kofta_tahini")
+    start, grams = day(c, d), grocery_grams(db, planned.id, "gi_parsley")
+    kofta = meal(c, "r_kofta_tahini", d)
+    remove(c, meal(c, "r_ful_eggs", d), "egg")
     remove(c, kofta, "parsley", reason="dislike", scope="always")
-    c.delete(f"/api/meals/{meal(c, 'r_ful_eggs')['id']}/ingredients/egg")
+    c.delete(f"/api/meals/{meal(c, 'r_ful_eggs', d)['id']}/ingredients/egg")
     after = c.delete(f"/api/meals/{kofta['id']}/ingredients/parsley").json()
     assert [(m["id"], m["kcal"], m["proteinG"]) for m in after["meals"]] == [(m["id"], m["kcal"], m["proteinG"]) for m in start["meals"]]
     assert "note" not in after and all(i["status"] == "kept" for m in all_week(c) for i in m["ingredients"])
@@ -178,11 +192,12 @@ def test_ingredient_changes_survive_a_rebuild_that_keeps_the_meals(planned):  # 
     from test_swaps_api import alt, swap
 
     c = planned.client
-    after = remove(c, meal(c, "r_ful_eggs"), "egg")
+    d = first_day(c, "r_ful_eggs")
+    after = remove(c, meal(c, "r_ful_eggs", d), "egg")
     s = today_session(c)
     ex = s["exercises"][0]["exerciseId"]
     swap(c, s, ex, alt(c, s, ex)[0]["exerciseId"], scope="always")
     assert c.get("/api/plan").json()["version"] == 2
-    again = day(c)
-    assert ingredient(meal(c, "r_ful_eggs"), "egg")["status"] == "removed"
+    again = day(c, d)
+    assert ingredient(meal(c, "r_ful_eggs", d), "egg")["status"] == "removed"
     assert totals(again) == totals(after) and again["note"] == after["note"]

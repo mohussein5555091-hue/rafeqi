@@ -300,14 +300,14 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
                 factor *= cut.factor
                 injury_id = injury_id or cut.injury.id
                 status = STATUS["recovering"] if cut.why == "recovering" else STATUS["active"]
-                reasons.append(_reason("training.injuries", inj_rules["source"], inj_rules["explain"]["load"], name=ex.name,
+                reasons.append(_reason("training.injury_load", tr["injury_load"]["source"], tr["injury_load"]["explain"], name=ex.name,
                                        pct=round(cut.factor * 100), area=regions[cut.injury.region], status=status))
             for iid, extra in adjust.injury_factors:
                 inj = next((i for i in p.injuries if i.id == iid), None)
                 if inj is not None and set(ex.joints) & set(load_rules()["safety"]["region_joints"].get(inj.region, [])):
                     factor *= extra
                     injury_id = injury_id or iid
-                    reasons.append(_reason("training.review.pain_up", tr["review"]["source"], inj_rules["explain"]["load"], name=ex.name,
+                    reasons.append(_reason("training.review.pain_up", tr["review"]["source"], tr["injury_load"]["explain"], name=ex.name,
                                            pct=round(extra * 100), area=regions[inj.region], status=STATUS["active"]))
             rpe, rest, sets = t["rpe"], t["rest_sec"], t["sets"]
             if adjust.deload:
@@ -320,7 +320,7 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
                                       f"{rest} s rest because of your health answers.",
                                       f"أخف ({round(c['load_factor'] * 100)}% من الوزن)، ومجهود {rpe} وراحة {rest} ثانية بسبب إجاباتك عن الصحة.",
                                       safety["conservative"]["source"]))
-            factor = max(inj_rules["min_load_factor"], round(factor, 3))
+            factor = max(tr["injury_load"]["min_load_factor"], round(factor, 3))
             kg = start_weight(ex, p, factor)
             if kg:
                 ratio = tr["start_load"]["ratio"][ex.id]

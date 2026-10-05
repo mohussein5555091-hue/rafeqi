@@ -46,18 +46,22 @@ def test_every_reason_in_the_plan_is_on_the_page_with_its_source_or_the_placehol
 
 
 def test_three_kinds_of_source_and_the_counts(planned):  # noqa: F811
-    """Today every rule is a placeholder except the resting-burn formula, which is a standard published formula (not
-    from the books): so no decision is "from your books" yet, and 1 is a "Standard formula" with its original source."""
+    """Rules from the books (Phase B1: calories, macros, cardio, warm-up…) are "From your books" with their reference;
+    the body-fat estimate is a "Standard formula" with its original source; the rest are "Not yet from a book"."""
     why = planned.client.get("/api/plan/why").json()
     decisions = [d for g in why["groups"] for d in g["decisions"]]
-    assert {d["source"]["kind"] for d in decisions} == {"formula", "placeholder"}
+    assert {d["source"]["kind"] for d in decisions} == {"book", "formula", "placeholder"}
     formula = [d for d in decisions if d["source"]["kind"] == "formula"]
-    assert [d["rule"] for d in formula] == ["nutrition.bmr"] and why["formulas"] == 1 and why["backed"] == 0
-    assert formula[0]["source"]["page"] == "241–247" and "Clinical Nutrition" in formula[0]["source"]["book"]
+    assert [d["rule"] for d in formula] == ["nutrition.body_fat"] and why["formulas"] == 1
+    assert formula[0]["source"]["page"] == "105–114" and "British Journal of Nutrition" in formula[0]["source"]["book"]
+    books = {d["ruleKey"] for d in decisions if d["source"]["kind"] == "book"}
+    assert {"nutrition.bmr", "nutrition.goal", "nutrition.protein", "nutrition.fat", "nutrition.carbs"} <= books
+    assert all(d["source"]["book"] and d["source"]["page"] for d in decisions if d["source"]["kind"] == "book")
     assert all("PLACEHOLDER" in d["source"]["text"] for d in decisions if d["source"]["kind"] == "placeholder")
     assert all("book" not in d["source"] for d in decisions if d["source"]["placeholder"])
     keys = {d["ruleKey"] for d in decisions}
-    assert why["rules"] == {"total": len(keys), "fromBooks": 0, "formulas": 1}
+    assert why["rules"] == {"total": len(keys), "fromBooks": len(books), "formulas": 1}
+    assert why["backed"] == sum(d["source"]["kind"] == "book" for d in decisions)
     assert len(keys) < len(decisions)  # many decisions share a rule (one starting weight per exercise…)
     assert {"training.start_load", "nutrition.goal", "nutrition.bmr"} <= keys
 
@@ -65,6 +69,7 @@ def test_three_kinds_of_source_and_the_counts(planned):  # noqa: F811
 def test_a_rule_from_a_book_counts_as_from_your_books(planned, monkeypatch):  # noqa: F811
     from app.engine import rules
 
+    before = planned.client.get("/api/plan/why").json()
     real = rules.load_rules()
     fake = {**real, "training": {**real["training"], "start_load": {**real["training"]["start_load"], "placeholder": False,
             "ref": {"book": "Fundamentals Hypertrophy Program", "chapter": "Week 1", "page": 12,
@@ -74,7 +79,8 @@ def test_a_rule_from_a_book_counts_as_from_your_books(planned, monkeypatch):  # 
     decisions = [d for g in why["groups"] for d in g["decisions"]]
     start = [d for d in decisions if d["ruleKey"] == "training.start_load"]
     assert start and all(d["source"]["kind"] == "book" for d in start)
-    assert why["backed"] == len(start) and why["rules"]["fromBooks"] == 1
+    assert why["backed"] == before["backed"] + len(start)
+    assert why["rules"]["fromBooks"] == before["rules"]["fromBooks"] + 1
 
 
 def test_every_kind_of_decision_is_covered(planned):  # noqa: F811

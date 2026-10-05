@@ -67,7 +67,7 @@ class LoadCut:
 def load_cuts(ex: ExerciseInfo, injuries: tuple[InjuryInfo, ...], vocab: Vocab | None = None) -> list[LoadCut]:
     """Lighter loads for exercises that load an injured area: "recovering" injuries and load restrictions."""
     data = (vocab or get_vocab()).data
-    rules = load_rules()["training"]["injuries"]
+    rules = load_rules()["training"]["injury_load"]
     cuts = []
     for inj in injuries:
         if inj.status == "resolved" or not loads_injury(ex, inj):

@@ -82,10 +82,13 @@ def test_health_flag_warm_up_has_no_jumping():
 
 
 def test_ramp_up_sets_are_lighter_and_rounded():
-    assert ramp_up(40, 2.5) == [{"pct": 50, "reps": 8, "weightKg": 20.0}, {"pct": 75, "reps": 4, "weightKg": 30.0}]
+    # The programs' loading pyramid (Upper/Lower p. 30) as a share of the working weight: 40% × 5, 65% × 4, 80% × 3.
+    assert ramp_up(40, 2.5) == [{"pct": 40, "reps": 5, "weightKg": 15.0}, {"pct": 65, "reps": 4, "weightKg": 25.0},
+                                {"pct": 80, "reps": 3, "weightKg": 30.0}]
     heavy = ramp_up(100, 2.5)
-    assert [s["weightKg"] for s in heavy] == [50.0, 75.0, 90.0]  # a third, heavier one from 60 kg
-    assert ramp_up(22, 2) == [{"pct": 50, "reps": 8, "weightKg": 10}, {"pct": 75, "reps": 4, "weightKg": 16}]
+    assert [s["weightKg"] for s in heavy] == [40.0, 65.0, 80.0, 90.0]  # a fourth, heavier one from 60 kg
+    assert ramp_up(22, 2) == [{"pct": 40, "reps": 5, "weightKg": 8}, {"pct": 65, "reps": 4, "weightKg": 14},
+                              {"pct": 80, "reps": 3, "weightKg": 16}]
     assert ramp_up(0, 0) == []  # bodyweight: the mobility moves are the warm-up
     assert ramp_up(8, 2) == []  # too light to need lighter sets
 
@@ -179,14 +182,14 @@ def test_beginner_dumbbells_stay_light_for_heavy_people():
 
 # ── Cardio ──
 
-@pytest.mark.parametrize("goal,sessions,minutes", [("loseFat", (2, 3), (20, 30)), ("recomp", (2, 2), (20, 25)),
-                                                   ("buildMuscle", (1, 2), (15, 20)), ("strength", (1, 2), (15, 20))])
+@pytest.mark.parametrize("goal,sessions,minutes", [("loseFat", (2, 3), (30, 30)), ("recomp", (1, 2), (30, 30)),
+                                                   ("buildMuscle", (1, 1), (15, 15)), ("strength", (1, 1), (15, 15))])
 def test_cardio_by_goal(goal, sessions, minutes):
     for exp in ("beginner", "intermediate", "advanced"):
         c = build_program(person(goal=goal, experience=exp), CAT).cardio
         assert sessions[0] <= len(c.sessions) <= sessions[1]
         assert all(minutes[0] <= s.minutes <= minutes[1] for s in c.sessions)
-        assert c.steps_per_day >= 7000
+        assert c.steps_per_day == 8000  # the recomposition guide's step goal (p. 177)
     assert len(build_program(person(goal="loseFat", experience="beginner"), CAT).cardio.sessions) == 2
     assert len(build_program(person(goal="loseFat", experience="advanced"), CAT).cardio.sessions) == 3
 

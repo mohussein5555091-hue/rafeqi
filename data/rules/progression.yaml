@@ -12,8 +12,15 @@
 # Exercises with no weight step (bodyweight) never add weight: they stay at the top of the range once they reach it.
 version: 1
 reps_per_step: 1
-placeholder: true
+placeholder: false
 uses: []
+ref:
+  book: Intermediate Advanced LPP Program (Jeff Nippard)
+  chapter: "Training variables: weekly progression"
+  page: 94–95
+  quote:
+    en: With a rep range, keep the weight and add reps until every set reaches the top of the range, then add weight and go back to the bottom.
+    ar: لو فيه مدى عدات، ثبّت الوزن وزوّد العدات لحد ما كل المجموعات توصل لآخر المدى، وبعدين زوّد الوزن وارجع لأول المدى.
 summary:
   en: "Double progression: add reps across the range, and when every set reaches the top without a struggle, add one weight step and start again at the bottom."
   ar: "التقدم المزدوج: زوّد العدات جوه المدى، ولما كل المجموعات توصل للآخر من غير صعوبة، زوّد خطوة وزن وابدأ من أول المدى تاني."
@@ -21,5 +28,5 @@ explain:
   en: "Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step ({steps}); otherwise add {reps} rep a session. A hard session repeats or drops a step."
   ar: "كل تمرين بيبدأ من أول مدى العدات. لما كل المجموعات توصل للآخر وآخر واحدة ماكانتش صعبة، الوزن بيزيد خطوة ({steps})؛ غير كده زوّد {reps} عدة كل مرة. والتمرينة الصعبة بتتكرر أو الوزن بينزل خطوة."
 source: >-
-  PLACEHOLDER: double progression (add reps across the range, then add load) as used in the Jeff Nippard programs and
-  Helms' Muscle & Strength Pyramid; page references to be added.
+  Intermediate Advanced LPP Program, Weekly progression, pp. 94-95; Upper Lower Strength and Size Program,
+  Progression, p. 61 (one more rep a session); Fundamentals Hypertrophy Program, How do I progress?, pp. 82-84

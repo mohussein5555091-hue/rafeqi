@@ -278,7 +278,7 @@ def run_weekly_review(db: Session, user_id: str, checkin_id: str) -> WeeklyRevie
     prev = (before.inputs or {}).get("adjustments") or {}
     factors = dict(prev.get("injury_factors") or {})
     for iid, f in result.injury_factors.items():
-        factors[iid] = max(load_rules()["training"]["injuries"]["min_load_factor"], round(factors.get(iid, 1.0) * f, 3))
+        factors[iid] = max(load_rules()["training"]["injury_load"]["min_load_factor"], round(factors.get(iid, 1.0) * f, 3))
     adjust = Adjustments(avoid=frozenset(prev.get("avoid") or ()) | frozenset(result.avoid_exercises),
                          injury_factors=tuple(sorted(factors.items())), deload=result.deload,
                          weight_offsets=tuple(sorted(result.weight_offsets.items())))

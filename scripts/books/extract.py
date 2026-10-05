@@ -440,7 +440,8 @@ def extract_book(book: Book, exe: str | None, workers: int) -> dict:
 
     pdf = find_pdf(book)
     doc = pymupdf.open(pdf)
-    folder = book.folder
+    # Written to a temporary folder first: if this book fails half-way, the previous extraction stays as it was.
+    folder = book.folder.with_name(book.folder.name + ".partial")
     if folder.exists():
         shutil.rmtree(folder)
     (folder / "images").mkdir(parents=True)
@@ -509,12 +510,15 @@ def extract_book(book: Book, exe: str | None, workers: int) -> dict:
                 except Exception:  # the table finder gives up on some odd pages; the text is still there
                     found = []
                 for i, t in enumerate(found):
-                    rows = drop_empty(clean_rows(t.extract()))
+                    grid = clean_rows(t.extract())  # every cell where the PDF draws it
+                    rows = drop_empty(grid)
                     entry = {"page": n, "index": i, "method": "text", "bbox": [round(v, 1) for v in t.bbox],
                              "rows": rows}
                     if book.slug == "diet-cheat-faq":
+                        # The cells are filled from OCR by their position in the full grid, so keep it whole here;
+                        # empty columns are dropped once the cells are filled.
                         entry["method"] = "ocr-words"
-                        entry["text_layer_rows"] = rows
+                        entry["text_layer_rows"] = grid
                         entry["cell_boxes"] = [[r, c, list(cell)] for r, row in enumerate(t.rows)
                                                for c, cell in enumerate(row.cells) if cell is not None]
                         tables.append(entry)
@@ -592,6 +596,9 @@ def extract_book(book: Book, exe: str | None, workers: int) -> dict:
         (folder / "images").rmdir()
     print(f"    done: {meta['text_pages']} text pages, {meta['ocr_pages']} OCR pages, {meta['tables']} tables, "
           f"{meta['links']} links, {len(meta['problems'])} pages hard to read")
+    if book.folder.exists():
+        shutil.rmtree(book.folder)
+    folder.rename(book.folder)
     return meta
 
 

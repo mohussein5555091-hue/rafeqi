@@ -7,7 +7,7 @@ import pytest
 import yaml
 
 from app.config import get_settings
-from app.engine.rules import FILES, RulesError, _check_sources, load_rules, load_templates, rules_version
+from app.engine.rules import FILES, RulesError, _check_sources, _sentences, load_rules, load_templates, rules_version
 from engine_fixtures import exercise_catalogue
 
 
@@ -22,15 +22,26 @@ def test_rule_files_load_and_every_rule_has_a_source():
 
 
 def test_placeholders_are_clearly_marked():
-    """Until the values are extracted from the books, every book-based number says so."""
+    """A rule no book supports yet says so; the ones taken from the books (Phase B1) have a book reference."""
     rules = load_rules()
     marked = [f"{n}.{k}" for n in ("nutrition", "training", "safety") for k, s in rules[n].items()
               if isinstance(s, dict) and s.get("placeholder")]
-    assert {"nutrition.activity", "nutrition.protein", "safety.calorie_floor", "training.start_load"} <= set(marked)
+    assert {"training.start_load", "training.cooldown", "training.injury_load", "safety.red_flags"} <= set(marked)
+    from_books = {"nutrition.activity", "nutrition.goal", "nutrition.protein", "nutrition.fat", "nutrition.carbs",
+                  "safety.calorie_floor", "safety.max_weekly_loss", "training.cardio", "training.warmup", "training.deload"}
+    assert not from_books & set(marked)
+    for key in from_books:
+        n, k = key.split(".")
+        assert rules[n][k]["ref"]["book"] and rules[n][k]["ref"]["page"], key
     for n in ("nutrition", "training", "safety"):
         for k, s in rules[n].items():
             if isinstance(s, dict) and s.get("placeholder"):
                 assert "PLACEHOLDER" in s["source"], f"{n}.{k}: placeholder sources start with PLACEHOLDER"
+
+
+def test_a_decimal_point_is_not_the_end_of_a_sentence():
+    assert _sentences("Eat 1.2–1.6 g per pound. Fat is 6.25 here.") == 2
+    assert _sentences("نسبة ١٫٢ هنا. وكمان جملة؟") == 2
 
 
 def test_a_rule_without_a_source_is_refused():

@@ -55,7 +55,7 @@ def test_resolved_injuries_rule_out_nothing():
 
 def test_load_cuts_for_recovering_injuries_and_load_restrictions():
     recovering = InjuryInfo(id="x", region="kneeR", status="recovering")
-    assert [c.factor for c in load_cuts(CAT["ex_bb_squat"], (recovering,))] == [load_rules()["training"]["injuries"]["recovering_load_factor"]]
+    assert [c.factor for c in load_cuts(CAT["ex_bb_squat"], (recovering,))] == [load_rules()["training"]["injury_load"]["recovering_load_factor"]]
     assert load_cuts(CAT["ex_cs_row"], (recovering,)) == []                   # doesn't load the knee
     heavy = InjuryInfo(id="y", region="lowerBack", restrictions=("noHeavyLoad",))
     assert [c.factor for c in load_cuts(CAT["ex_bb_deadlift"], (heavy,))] == [0.7]

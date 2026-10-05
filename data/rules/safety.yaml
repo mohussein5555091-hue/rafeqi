@@ -1,35 +1,54 @@
 # Safety rules. Applied after the normal targets, and always win.
-# PLACEHOLDER values: clearly marked, to be replaced with values (and page numbers) extracted from the books next session.
+# Values with placeholder: false come from the books (ref); placeholder: true ones are medical safety settings no book
+# gives numbers for (data/REVIEW.md lists them).
 version: 1
 
 calorie_floor:
-  placeholder: true
-  source: "PLACEHOLDER: minimum daily calories without medical supervision; book + page to be added"
+  # The encyclopedia gives one figure for everyone (it was 1200 for women and 1500 for men before; see data/REVIEW.md).
+  placeholder: false
+  source: "Encyclopedia of Foods, ch. 3 (The Food-Health Connection), PDF p. 64 (printed p. 51)"
   uses: [sex]
   summary:
-    en: Calories never go below a minimum (by sex) without a doctor's supervision.
-    ar: السعرات عمرها ما تنزل تحت حد أدنى (حسب النوع) من غير إشراف دكتور.
-  kcal: {female: 1200, male: 1500}
+    en: Calories never go below 1,400 a day, because under that it's hard to get enough nutrients from food.
+    ar: السعرات عمرها ما تنزل تحت ١٤٠٠ في اليوم، لأن تحت كده صعب تاخد كفايتك من العناصر الغذائية من الأكل.
+  kcal: {female: 1400, male: 1400}
+  ref:
+    book: "Encyclopedia of Foods: A Guide to Healthy Nutrition (Dole, Mayo Clinic, UCLA)"
+    chapter: "Chapter 3: The Food-Health Connection"
+    page: "64 (printed 51)"
+    quote:
+      en: Eating fewer than about 1,400 calories a day makes a balanced diet with enough nutrients hard to achieve, so very low-calorie plans can be risky.
+      ar: لما تاكل أقل من حوالي ١٤٠٠ سعرة في اليوم بيبقى صعب تاكل أكل متوازن فيه كفايتك من العناصر، فالأنظمة قليلة السعرات جدًا ممكن تبقى خطر.
   explain:
-    en: "Raised to {floor} kcal: we never go below this without a doctor's supervision."
-    ar: "اتعلّت لـ {floor} سعرة: عمرنا ما ننزل تحت كده من غير إشراف دكتور."
+    en: "Raised to {floor} kcal: below this it's hard to get enough nutrients, and we never go lower without a doctor."
+    ar: "اتعلّت لـ {floor} سعرة: تحت كده صعب تاخد كفايتك من العناصر، وعمرنا ما ننزل أقل من غير دكتور."
 
 max_weekly_loss:
-  placeholder: true
-  source: "PLACEHOLDER: maximum safe weekly loss as % of body weight; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition)"
-  uses: [weight_kg, pace]
+  # 1-2 pounds a week; 2 pounds = 0.9 kg is the cap. (It was 1% of body weight before; see data/REVIEW.md.)
+  placeholder: false
+  source: "Encyclopedia of Foods, ch. 3 (The Food-Health Connection), PDF pp. 64 and 66 (printed pp. 51 and 53)"
+  uses: [pace]
   summary:
-    en: The deficit is capped so you lose at most 1% of your body weight a week.
-    ar: نقص السعرات له حد عشان ماتنزلش أكتر من ١٪ من وزنك في الأسبوع.
-  pct_of_body_weight: 1.0
+    en: The deficit is capped so you lose at most about 0.9 kg (2 pounds) a week, because slow, steady loss is the safe kind.
+    ar: نقص السعرات له حد عشان ماتنزلش أكتر من حوالي ٠٫٩ كجم (٢ رطل) في الأسبوع، لأن النزول البطيء الثابت هو الآمن.
+  max_kg_per_week: 0.9
+  ref:
+    book: "Encyclopedia of Foods: A Guide to Healthy Nutrition (Dole, Mayo Clinic, UCLA)"
+    chapter: "Chapter 3: The Food-Health Connection"
+    page: "64, 66 (printed 51, 53)"
+    quote:
+      en: Weight loss should be slow and steady, about 1 to 2 pounds a week.
+      ar: نزول الوزن لازم يكون بطيء وثابت، حوالي رطل لـ ٢ رطل في الأسبوع.
   explain:
-    en: "Capped at {calories} kcal so you lose no more than {max_kg} kg a week ({pct}% of your weight)."
-    ar: "اتحددت بـ {calories} سعرة عشان ماتنزلش أكتر من {max_kg} كجم في الأسبوع ({pct}% من وزنك)."
+    en: "Capped at {calories} kcal so you lose no more than {max_kg} kg a week."
+    ar: "اتحددت بـ {calories} سعرة عشان ماتنزلش أكتر من {max_kg} كجم في الأسبوع."
 
 conservative:
   # Any "yes" in the onboarding health check.
   placeholder: true
-  source: "PLACEHOLDER: conservative adjustments when a health question is answered yes; book + page to be added"
+  # The encyclopedia (p. 66) says to check with a doctor before exercising with a medical problem, but no book gives
+  # the numbers below.
+  source: "PLACEHOLDER: conservative numbers for a health flag (your books only say to check with a doctor first)"
   uses: [health]
   summary:
     en: 'Any yes in the health check keeps the plan gentler: a smaller deficit or surplus, lighter weights, lower effort and longer rests.'
@@ -44,7 +63,7 @@ conservative:
 pregnancy:
   # Pregnant or gave birth in the last 6 months: no calorie deficit without medical advice.
   placeholder: true
-  source: "PLACEHOLDER: no deficit during pregnancy / postpartum without medical advice; book + page to be added"
+  source: "PLACEHOLDER: no deficit during pregnancy or after giving birth without medical advice (not in your books)"
   uses: [health]
   summary:
     en: No calorie deficit during or soon after pregnancy without a doctor's advice.
@@ -56,7 +75,9 @@ pregnancy:
 red_flags:
   # Pain logs (after workouts and in the check-in). Any of these pauses the body area. We never diagnose.
   placeholder: true
-  source: "PLACEHOLDER: red-flag symptoms and pain thresholds; book + page to be added"
+  # The programs say not to train through pain that stops a full range of motion (Fundamentals FAQ, p. 22); the
+  # symptoms and thresholds below are medical safety settings no book gives.
+  source: "PLACEHOLDER: red-flag symptoms and pain thresholds (medical safety settings, not in your books)"
   uses: [injuries]
   summary:
     en: Sharp pain, swelling, numbness, worsening pain or high pain pauses that body area and asks you to see a doctor or physiotherapist. We never diagnose.

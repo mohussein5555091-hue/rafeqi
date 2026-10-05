@@ -42,13 +42,18 @@ test('every reason in the plan is on the page, with its source or the placeholde
   await expect(page.getByTestId('placeholder-badge')).toHaveCount(kinds.filter((k) => k === 'placeholder').length);
   await expect(page.getByTestId('formula-badge')).toHaveCount(kinds.filter((k) => k === 'formula').length);
   await expect(page.getByTestId('book-badge')).toHaveCount(kinds.filter((k) => k === 'book').length);
-  // The resting-burn formula: a standard formula with its original source, page and a short quote (not "from your books").
+  // The resting burn comes from your books (the recomposition guide recommends Mifflin-St Jeor, p. 49).
   const bmr = page.locator('[data-rule="nutrition.bmr"]');
-  await expect(bmr.getByTestId('formula-badge')).toHaveText('Standard formula');
-  await expect(bmr.getByTestId('book')).toContainText('Original source: American Journal of Clinical Nutrition');
-  await expect(bmr.getByTestId('book')).toContainText('p. 241–247');
+  await expect(bmr.getByTestId('book-badge')).toBeVisible();
+  await expect(bmr.getByTestId('book')).toContainText('The Ultimate Guide to Body Recomposition');
+  await expect(bmr.getByTestId('book')).toContainText('p. 49');
   await expect(bmr.locator('blockquote')).toBeVisible();
   await expect(bmr).toContainText(/Sex: (Male|Female)/);
+  // The body-fat estimate: a standard formula with its original source, page and a short quote (not "from your books").
+  const bf = page.locator('[data-rule="nutrition.body_fat"]');
+  await expect(bf.getByTestId('formula-badge')).toHaveText('Standard formula');
+  await expect(bf.getByTestId('book')).toContainText('Original source: British Journal of Nutrition');
+  await expect(bf.getByTestId('book')).toContainText('p. 105–114');
 });
 
 test('repeated decisions are grouped under their rule, folded until opened', async ({ page }) => {

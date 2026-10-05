@@ -13,13 +13,13 @@ database notes, the engine's rule table).
 - Done: Phases 1–5 (setup, database + auth, onboarding questionnaire, plan engine, frontend connected to the backend),
   plus the updates listed at the end of `docs/PLAN.md` (warm-up, cool-down, cardio, exercise swaps, typed number
   inputs, session length and time estimate; whole exercise photos, the "Why this plan" page, removing ingredients).
-  Every rule value in `data/rules/*.yaml` is still a marked placeholder (`placeholder: true`) until the real values are
-  extracted from the books. The sample data is gone from `frontend/` (the design reference in `design/` still has it).
+  The sample data is gone from `frontend/` (the design reference in `design/` still has it).
 - Done too: Phase 6 (progress photos stored privately, check-in questions from `data/checkin_questions.yaml`, review
   page, past reviews, progress charts, Profile & settings) and the overnight fixes in `docs/OVERNIGHT-REPORT.md`.
 - The books and AI plan is **`docs/PLAN-AI.md`** (phases A–E; re-read it at the start of each of its phases).
-  Done: Phase A (`npm run books:extract` → `data/private/books/`, git-ignored; README "Reading the books").
-  **Next: Phase B** (real rule values, the three Nippard programs, recipes, foods table, `data/REVIEW.md`).
+  Done: Phase A (`npm run books:extract` → `data/private/books/`, git-ignored; README "Reading the books") and Phase B1
+  (rule values from the books with `ref`; the rest stay `placeholder: true`; every conflict, mapping and gap in
+  `data/REVIEW.md`). **Next: B2** (the three Nippard programs + exercise catalogue), then **B3** (recipes + foods table).
   The recipe book's Arabic digits OCR badly (٥ reads as "0", ٠ as "."): check every amount against
   `data/private/books/07-diet-cheat-recipes/images/`. The AI module exists (fake client, off by default).
 

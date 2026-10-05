@@ -29,7 +29,7 @@ def test_calories_are_within_the_safety_bounds(key):
     p, t = r.person, r.targets
     s = load_rules()["safety"]
     assert t.calories >= s["calorie_floor"]["kcal"][p.sex]
-    assert t.expected_weekly_change_kg >= -s["max_weekly_loss"]["pct_of_body_weight"] / 100 * p.weight_kg - 0.01
+    assert t.expected_weekly_change_kg >= -s["max_weekly_loss"]["max_kg_per_week"] - 0.01
     if p.conservative:
         assert t.calories >= t.maintenance * (1 - s["conservative"]["max_deficit_pct"] / 100) - 10
         assert t.calories <= t.maintenance + s["conservative"]["max_surplus_kcal"] + 10
@@ -120,7 +120,8 @@ def test_health_flag_is_conservative_everywhere():
     for d in r.program.days:
         for e in d.exercises:
             assert e.load_factor <= 0.85 and e.target_rpe <= 7  # template RPE 7-8, one lower
-    assert r.targets.protein_g == round(2.0 * 25 * 1.72 ** 2)  # BMI 34: protein from the weight at BMI 25
+    # 101 kg, 172 cm, 52 years: about 36.7% body fat (above 30%), so 1.2 g per pound of lean mass (63.9 kg) = 169 g.
+    assert r.targets.protein_g == 169
 
 
 def test_ramadan_two_meals_are_suhoor_and_iftar():

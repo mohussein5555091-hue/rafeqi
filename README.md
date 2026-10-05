@@ -159,7 +159,7 @@ only writes the explanations and the weekly-review text. Each number keeps a one
 
 | What | Rules | Code |
 |---|---|---|
-| Calories and macros: Mifflin-St Jeor × activity, goal adjustment, protein per kg, fat minimum, carbs from the rest | `data/rules/nutrition.yaml` | `engine/nutrition.py` |
+| Calories and macros: Mifflin-St Jeor × activity, goal as a % of maintenance, estimated body fat → protein per pound of lean mass and fat as a % of calories, carbs from the rest | `data/rules/nutrition.yaml` | `engine/nutrition.py` |
 | Safety: calorie floor, maximum weekly loss, health-flag limits, no deficit in pregnancy, red flags | `data/rules/safety.yaml` | `engine/nutrition.py`, `engine/injuries.py` |
 | Program: template choice, equipment and injury swaps, lighter loads, starting weights (capped per experience), exercises that fit the session length, a leg exercise on every full-body day, the time estimate, the person's own swaps and missing equipment | `data/rules/training.yaml`, `data/programs/*.json` | `engine/training.py`, `engine/injuries.py` |
 | Warm-up (general, mobility moves, ramp-up sets) and cool-down (stretches, breathing) | `data/rules/training.yaml` (`warmup`, `cooldown`) | `engine/warmup.py` |
@@ -171,8 +171,9 @@ only writes the explanations and the weekly-review text. Each number keeps a one
 | Weekly review: calories, deload, too easy / too hard / uncomfortable, pain, meals to change | all of the above | `engine/review.py` |
 | Session targets from last time (double progression) | `data/rules/progression.yaml` | `app/progression.py` |
 
-- **All values are placeholders for now**, clearly marked `placeholder: true` with a `PLACEHOLDER:` source. The real values,
-  with book and page, are extracted from the books next session. Change a value in the YAML and the next plan uses it; no code changes.
+- **Values from the books** have `placeholder: false` and a `ref` (book, chapter, PDF page, a 1–2 sentence summary). Values no
+  book covers yet are marked `placeholder: true` with a `PLACEHOLDER:` source. `data/REVIEW.md` lists every conflict between
+  books, every mapping decision and every gap, for the owner to decide. Change a value in the YAML and the next plan uses it.
 - `backend/app/plans.py` reads the answers, runs the engine and saves a plan version (plans are never edited: each change is version n+1).
 - The 5 test personas are in `tests/backend/personas.py`; `tests/backend/test_personas.py` checks each plan against the safety bounds.
 - **"Why this plan"** (`/plan/why`, linked from "Your plan is ready", Home and Profile) lists every decision in the plan from
@@ -245,4 +246,6 @@ Rafeqi never shows prices, costs or budgets, because people shop at different st
       reviews, progress charts, Profile & settings
 - [x] Ready for friends on Render, prepared (PostgreSQL, production mode, invites, backups; `docs/DEPLOY.md`)
 - [x] Books plan (`docs/PLAN-AI.md`) Phase A: the eight books read into `data/private/books/` (text, OCR, tables, links)
-- [ ] Next: Books plan Phase B (real rule values, the three programs, recipes, foods table, `data/REVIEW.md`)
+- [x] Books plan Phase B1: rule values from the books (calories, macros, warm-up, cardio, progression, deload, injuries,
+      safety), with book and page; open questions in `data/REVIEW.md`
+- [ ] Next: Phase B2 (the three Nippard programs and the exercise catalogue), then B3 (recipes and the foods table)

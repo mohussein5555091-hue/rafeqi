@@ -1,5 +1,6 @@
 # Training rules for the plan engine (backend/app/engine/training.py). Templates live in data/programs/.
-# PLACEHOLDER values: clearly marked, to be replaced with values (and page numbers) extracted from the books next session.
+# Values with placeholder: false come from the books (ref); placeholder: true ones are app settings or wait for the
+# real programs (Phase B2 of docs/PLAN-AI.md). data/REVIEW.md lists every one.
 version: 1
 
 template_choice:
@@ -42,7 +43,9 @@ start_load:
   # sessions are for finding your weight, and "Done as planned" then progresses with progression.yaml.
   # Dumbbell ratios are per dumbbell.
   placeholder: true
-  source: "PLACEHOLDER: starting load ratios; to be replaced with the program PDFs' guidance"
+  # The programs set loads by %1RM (main lifts) or by effort (RPE) for the target reps; neither works before a first
+  # session, so these body-weight ratios stay app settings (data/REVIEW.md).
+  source: "PLACEHOLDER: starting weights from body weight (the programs choose loads by %1RM or RPE instead)"
   uses: [weight_kg, sex, experience]
   summary:
     en: Starting weights are a share of your body weight for each exercise, lowered for experience and sex, rounded down and capped, so the first sessions are for finding your weight.
@@ -84,14 +87,19 @@ start_load:
     ar: "وزن البداية {kg} كجم: {ratio} × وزنك، متظبط على مستواك. عدّله بعد أول تمرينة لو حاسس إنه مش مظبوط."
 
 injuries:
-  placeholder: true
-  source: "PLACEHOLDER: training around injuries; book + page to be added (Delavier, Strength Training Anatomy, for joint loading)"
+  placeholder: false
+  source: "Fundamentals Hypertrophy Program, Exercise substitutions, p. 27; Intermediate Advanced LPP Program, p. 96"
   uses: [injuries]
   summary:
-    en: Exercises that use a movement that hurts are swapped for the closest exercise with the same movement that avoids it; recovering areas start lighter.
-    ar: التمارين اللي فيها حركة بتوجعك بتتبدّل بأقرب تمرين بنفس الحركة من غيرها؛ والمناطق اللي بتتعافى بتبدأ بوزن أخف.
-  recovering_load_factor: 0.8    # exercises loading a "recovering" area start lighter
-  min_load_factor: 0.5
+    en: An exercise that uses a movement that hurts is swapped for the closest exercise with the same movement that avoids it, keeping the same sets, reps and rest.
+    ar: التمرين اللي فيه حركة بتوجعك بيتبدّل بأقرب تمرين بنفس الحركة من غيرها، بنفس المجموعات والعدات والراحة.
+  ref:
+    book: Fundamentals Hypertrophy Program (Jeff Nippard)
+    chapter: Exercise substitutions
+    page: "27"
+    quote:
+      en: If an exercise risks an injury or a flare-up, avoid it and use one you can do safely, keeping the sets, reps and rest times the same.
+      ar: لو تمرين ممكن يعملك إصابة أو يهيّج إصابة قديمة، ابعد عنه واستخدم تمرين تقدر تعمله بأمان، بنفس المجموعات والعدات ووقت الراحة.
   # How close a substitute is: lower is closer. Exercises with the same movement pattern are considered, plus the
   # related leg patterns below (a barbell squat that hurts a lower back → leg press, split squat or step-up).
   # lose_load: a loaded exercise replaced by a bodyweight-only one (only when nothing loaded fits).
@@ -114,9 +122,6 @@ injuries:
     removed_restriction:
       en: "{from} removed: nothing in the catalogue keeps to the \"{why}\" restriction for your {area} yet."
       ar: "{from} اتشال: لسه مفيش تمرين في القائمة ماشي مع قيد «{why}» على {area}."
-    load:
-      en: "{name} at {pct}% load while your {area} is {status}."
-      ar: "{name} بـ {pct}% من الوزن وأنت {area} {status}."
     paused:
       en: "{name} paused: your {area} needs checking first. {message}"
       ar: "{name} متوقف: {area} محتاج كشف الأول. {message}"
@@ -127,10 +132,25 @@ injuries:
     en: "{from} removed: nothing in the catalogue does this movement with your equipment yet."
     ar: "{from} اتشال: لسه مفيش في القائمة تمرين بيعمل الحركة دي بأدواتك."
 
+# Lighter loads for exercises that load an injured area that is "recovering" (or has a load restriction). No book gives
+# these percentages, so this stays a placeholder (data/REVIEW.md).
+injury_load:
+  placeholder: true
+  source: "PLACEHOLDER: how much lighter to go for a recovering area (not in your books)"
+  uses: [injuries]
+  summary:
+    en: Exercises that load an area that is still recovering start lighter.
+    ar: التمارين اللي بتحمّل على منطقة لسه بتتعافى بتبدأ بوزن أخف.
+  recovering_load_factor: 0.8    # exercises loading a "recovering" area start lighter
+  min_load_factor: 0.5
+  explain:
+    en: "{name} at {pct}% load while your {area} is {status}."
+    ar: "{name} بـ {pct}% من الوزن وأنت {area} {status}."
+
 review:
   # Weekly review: small, bounded steps (backend/app/engine/review.py).
   placeholder: true
-  source: "PLACEHOLDER: weekly adjustments; book + page to be added (Helms, The Muscle & Strength Pyramid: Training)"
+  source: "PLACEHOLDER: check-in thresholds for a lighter week and lighter loads when pain rises (not in your books)"
   uses:
     default:
     - checkin
@@ -200,12 +220,22 @@ full_body_legs:
 #    weight step. An extra heavier one when the target is at least `extra_from_kg`; none below `min_target_kg`.
 #    backend/app/engine/warmup.py
 warmup:
-  placeholder: true
-  source: "PLACEHOLDER: warm-up protocol; the Jeff Nippard programs include warm-up guidance to extract"
+  # The programs' warm-up: 5-10 min of easy cardio, dynamic drills (2 sets of 12-15), then a "loading pyramid" of
+  # lighter sets before the first main lift (Upper/Lower p. 30: bar ×15, then about 40%, 65%, 80% and 90% of the working
+  # weight for 5, 4, 3 and 2 reps). The drills themselves come with the real programs (Phase B2).
+  placeholder: false
+  source: "Fundamentals Hypertrophy Program, Warm up, pp. 25–26; Upper Lower Strength and Size Program, Warm up, pp. 29–31"
   uses: [location, injuries, health]
   summary:
-    en: 'Before every session: 5 minutes of easy movement for your equipment, 3–4 mobility moves for the day''s muscles, and lighter ramp-up sets of the first exercise; anything that hurts an injury is left out.'
-    ar: 'قبل كل تمرينة: ٥ دقايق حركة خفيفة حسب أدواتك، ٣–٤ حركات مرونة لعضلات اليوم، ومجموعات أخف لأول تمرين؛ وأي حاجة بتضر إصابة بتتشال.'
+    en: 'Before every session: 5 minutes of easy cardio, a few dynamic moves for the day''s muscles, then lighter "pyramid" sets building up to the first main lift. Anything that hurts an injury is left out.'
+    ar: 'قبل كل تمرينة: ٥ دقايق كارديو خفيف، وكام حركة مرونة لعضلات اليوم، وبعدين مجموعات أخف متدرّجة لحد أول تمرين أساسي. وأي حاجة بتضر إصابة بتتشال.'
+  ref:
+    book: Upper Lower Strength and Size Program (Jeff Nippard)
+    chapter: Warm up
+    page: 29–31
+    quote:
+      en: Do at least 5–10 minutes of easy cardio and some dynamic drills, then build up to your first main lift with 3–4 progressively heavier light sets.
+      ar: اعمل على الأقل ٥–١٠ دقايق كارديو خفيف وكام حركة مرونة، وبعدين اطلع لأول تمرين أساسي بـ ٣–٤ مجموعات خفيفة بتتقل تدريجيًا.
   general_minutes: 5
   general_by_location:
     gym: [ex_bike, ex_incline_walk, ex_brisk_walk]
@@ -222,7 +252,7 @@ warmup:
       - {id: ex_cat_cow, amount: {en: "8 slow reps", ar: "8 عدات ببطء"}}
       - {id: ex_inchworm, amount: {en: "5 reps", ar: "5 عدات"}}
     lower:
-      - {id: ex_leg_swings, amount: {en: "10 each leg", ar: "10 لكل رجل"}}
+      - {id: ex_leg_swings, amount: {en: "2 × 12 each leg", ar: "2 × 12 لكل رجل"}}
       - {id: ex_hip_circles, amount: {en: "10 each way", ar: "10 في كل اتجاه"}}
       - {id: ex_bw_squat, amount: {en: "10 reps", ar: "10 عدات"}}
       - {id: ex_glute_bridge, amount: {en: "12 reps", ar: "12 عدة"}}
@@ -230,15 +260,15 @@ warmup:
       - {id: ex_cat_cow, amount: {en: "8 slow reps", ar: "8 عدات ببطء"}}
     full:
       - {id: ex_arm_circles, amount: {en: "10 each way", ar: "10 في كل اتجاه"}}
-      - {id: ex_leg_swings, amount: {en: "10 each leg", ar: "10 لكل رجل"}}
+      - {id: ex_leg_swings, amount: {en: "2 × 12 each leg", ar: "2 × 12 لكل رجل"}}
       - {id: ex_bw_squat, amount: {en: "10 reps", ar: "10 عدات"}}
       - {id: ex_glute_bridge, amount: {en: "12 reps", ar: "12 عدة"}}
       - {id: ex_band_pull_apart, amount: {en: "15 reps", ar: "15 عدة"}}
       - {id: ex_hip_circles, amount: {en: "10 each way", ar: "10 في كل اتجاه"}}
   ramp_up:
-    sets: [{pct: 50, reps: 8}, {pct: 75, reps: 4}]
+    sets: [{pct: 40, reps: 5}, {pct: 65, reps: 4}, {pct: 80, reps: 3}]
     extra: {pct: 90, reps: 2}
-    extra_from_kg: 60
+    extra_from_kg: 60   # app setting: the 4th set ("3-4 sets") only for heavier lifts
     min_target_kg: 10   # lighter than this: no ramp-up sets (the mobility moves are warm-up enough)
     set_minutes: 1
   explain:
@@ -263,7 +293,9 @@ warmup:
 # Big muscles (thighs, hips) are held longer; one-sided stretches count both sides. Then slow breathing.
 cooldown:
   placeholder: true
-  source: "PLACEHOLDER: cool-down stretching; book + page to be added"
+  # No book gives a stretching cool-down. The programs only suggest 3-5 minutes of foam rolling after workouts if
+  # you're often sore (Fundamentals FAQ p. 22). See data/REVIEW.md.
+  source: "PLACEHOLDER: cool-down stretches (not in your books; they suggest optional foam rolling instead)"
   uses: [injuries]
   summary:
     en: 'After every session: 4–5 static stretches for the muscles trained that day, 30–45 seconds each, then a minute of slow breathing.'
@@ -289,17 +321,27 @@ cooldown:
 # Placement: rest days first, then after lifting; never on the day before a leg day. backend/app/engine/cardio.py
 # Calories: the activity level (nutrition.yaml) already counts training days and this cardio; it's never added twice.
 cardio:
-  placeholder: true
-  source: "PLACEHOLDER: cardio by goal; the recomposition guide covers cardio, values to be extracted"
+  # Keep cardio to an effective minimum: easy steady cardio 30-45 min, 0-5 times a week by goal (fat loss: e.g.
+  # 2 × 30 min); short hard intervals at most 1-2 a week (muscle gain: optional, once); about 8,000 steps a day;
+  # low-impact types (cycling, walking) interfere least. "Never the day before a leg day" is an app setting.
+  placeholder: false
+  source: "The Ultimate Guide to Body Recomposition, ch. 12 (Cardio), pp. 174–181 (Table 12A, p. 178)"
   uses: [goal, experience, location, health, injuries]
   summary:
-    en: Cardio by goal (fat loss 2–3 easy sessions plus a daily step target; muscle or strength 1–2 short ones; recomposition about 2), chosen for your equipment and injuries, on rest days or after lifting, never the day before a leg day.
-    ar: كارديو حسب الهدف (خسارة دهون ٢–٣ جلسات سهلة وهدف خطوات يومي؛ عضل أو قوة ١–٢ قصيرين؛ إعادة تشكيل حوالي ٢)، متختار حسب أدواتك وإصاباتك، في أيام الراحة أو بعد الحديد، وأبدًا مش اليوم اللي قبل يوم رجل.
+    en: Cardio is kept to an effective minimum. For fat loss that's 2–3 easy 30-minute sessions a week, for recomposition 1–2, and for muscle or strength one short interval session. There's also a daily goal of about 8,000 steps, and low-impact types like the bike or walking when your legs are injured.
+    ar: الكارديو بيبقى أقل حاجة تجيب نتيجة. لخسارة الدهون ٢–٣ جلسات سهلة ٣٠ دقيقة في الأسبوع، ولإعادة التشكيل ١–٢، وللعضل أو القوة جلسة واحدة قصيرة متقطعة. وفيه كمان هدف حوالي ٨٠٠٠ خطوة في اليوم، وأنواع خفيفة على المفاصل زي العجلة أو المشي لو رجلك مصابة.
+  ref:
+    book: The Ultimate Guide to Body Recomposition (Jeff Nippard, Chris Barakat)
+    chapter: "Chapter 12: Cardio: to-do or not-to-do"
+    page: 178–181
+    quote:
+      en: Keep cardio to an effective minimum, easy steady sessions of 30–45 minutes up to five times a week depending on your goal, hard intervals no more than once or twice a week, and a rough goal of about 8,000 steps a day.
+      ar: خلّي الكارديو أقل حاجة تجيب نتيجة، جلسات سهلة ثابتة ٣٠–٤٥ دقيقة لحد ٥ مرات في الأسبوع حسب هدفك، والتمارين المتقطعة الصعبة مرة أو اتنين في الأسبوع بالكتير، وهدف تقريبي حوالي ٨٠٠٠ خطوة في اليوم.
   by_goal:
-    loseFat: {sessions: [2, 3], minutes: [20, 30], intensity: easy, steps: 8000}
-    recomp: {sessions: [2, 2], minutes: [20, 25], intensity: easy, steps: 7500}
-    buildMuscle: {sessions: [1, 2], minutes: [15, 20], intensity: moderate, steps: 7000}
-    strength: {sessions: [1, 2], minutes: [15, 20], intensity: moderate, steps: 7000}
+    loseFat: {sessions: [2, 3], minutes: [30, 30], intensity: easy, steps: 8000}
+    recomp: {sessions: [1, 2], minutes: [30, 30], intensity: easy, steps: 8000}
+    buildMuscle: {sessions: [1, 1], minutes: [15, 15], intensity: moderate, steps: 8000}
+    strength: {sessions: [1, 1], minutes: [15, 15], intensity: moderate, steps: 8000}
   options_by_location:
     gym: [ex_incline_walk, ex_bike, ex_elliptical, ex_brisk_walk]
     homeDumbbells: [ex_brisk_walk, ex_jump_rope, ex_march_in_place]
@@ -311,7 +353,7 @@ cardio:
   leg_day_kinds: [lower, full]
   intensity_names:
     easy: {en: "easy, talking pace", ar: "سهل، تقدر تتكلم"}
-    moderate: {en: "moderate, a little out of breath", ar: "متوسط، نفسك عالي شوية"}
+    moderate: {en: "short intervals: 20 s fast, 40 s easy, about 6 times", ar: "متقطع قصير: ٢٠ ثانية سريع و٤٠ ثانية هادي، حوالي ٦ مرات"}
   explain:
     plan:
       en: "Cardio: {sessions} × {minutes} min of {name} ({intensity}) a week, plus about {steps} steps a day, for your goal ({goal})."
@@ -396,8 +438,10 @@ volume:
 
 # The "lighter week": planned by the program, and triggered early by a hard week in the check-in (`review.deload_when`).
 deload:
-  placeholder: true
-  source: "PLACEHOLDER: deload timing; to be replaced with the Jeff Nippard programs' deload weeks (Helms, The Muscle & Strength Pyramid: Training)"
+  # LPP's deload week (week 9) has mostly 2 sets where week 8 had 3, at an effort 1-2 RPE lower; Upper/Lower uses
+  # lighter "mini-deload" weeks (1, 4, 7). The check-in trigger thresholds (training.review) are not from a book.
+  placeholder: false
+  source: "Intermediate Advanced LPP Program, Program explained, p. 85 and week 9, p. 56; Upper Lower Strength and Size Program, p. 11"
   uses: [checkin]
   summary:
     en: "A lighter week (one set fewer, effort one lower, same weights) lets joints and muscles recover: planned by the program, or sooner when a check-in says training felt too hard."
@@ -406,6 +450,13 @@ deload:
   # weights stay at last time's (no progression step that week). backend/app/engine/training.py deload_volume()
   sets_minus: 1
   rpe_minus: 1
+  ref:
+    book: Intermediate Advanced LPP Program (Jeff Nippard)
+    chapter: "Program explained: Block 2"
+    page: "85 (deload week: p. 56)"
+    quote:
+      en: The deload week cuts volume and effort so you recover before the hardest phase, and in the program that means mostly one set fewer at a lower RPE.
+      ar: أسبوع التخفيف بيقلل الحجم والمجهود عشان تتعافى قبل أصعب مرحلة، وفي البرنامج ده معناه غالبًا مجموعة أقل ومجهود أقل.
   explain:
     en: "Week {week} of {total} is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty {difficulty}/5, soreness {soreness}/5 or effort RPE {effort}+) makes the next week lighter too."
     ar: "الأسبوع {week} من {total} أسبوع أخف: مجموعة أقل ومجهود أقل بدرجة، بنفس الأوزان. ولو المتابعة قالت إن التمرين كان صعب جدًا (صعوبة {difficulty}/5 أو تكسير {soreness}/5 أو مجهود {effort} أو أكتر) الأسبوع اللي بعده هيبقى أخف كمان."
@@ -427,10 +478,17 @@ equipment:
 # that train the same muscles (they share a main muscle) need `min_rest_days` full days between them.
 # backend/app/engine/schedule.py
 reschedule:
-  placeholder: true
-  source: "PLACEHOLDER: rest between sessions for the same muscles; to be checked against the Jeff Nippard programs' weekly layout"
+  placeholder: false
+  source: "Fundamentals Hypertrophy Program, Rest days and training days, p. 31"
   uses: [days_per_week]
   summary:
     en: "You can move a session to another day this week, as long as sessions for the same muscles keep a rest day between them."
     ar: "تقدر تنقل تمرينة ليوم تاني في الأسبوع ده، بشرط إن التمرينات اللي لنفس العضلات يفضل بينها يوم راحة."
   min_rest_days: 1
+  ref:
+    book: Fundamentals Hypertrophy Program (Jeff Nippard)
+    chapter: Rest days and training days
+    page: "31"
+    quote:
+      en: Try to keep at least one rest day between full-body sessions; how you space the other rest days matters much less.
+      ar: حاول تسيب على الأقل يوم راحة بين تمرينات الجسم الكامل؛ وتوزيع باقي أيام الراحة مش مهم أوي.

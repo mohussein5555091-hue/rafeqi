@@ -1,127 +1,213 @@
 # Nutrition rules for the plan engine (backend/app/engine/nutrition.py and meals.py).
 # Every number the engine produces comes from here, with a one-line reason built from `explain`.
-# PLACEHOLDER values: clearly marked, to be replaced with values (and page numbers) extracted from the books next session.
+# Values with placeholder: false come from the books (ref: book, chapter, page); placeholder: true ones are app settings
+# no book covers yet (data/REVIEW.md lists them).
 version: 1
 
 bmr:
-  # Mifflin-St Jeor: 10 × kg + 6.25 × cm − 5 × age + 5 (men) or − 161 (women)
-  # A standard published formula, not from your books: "Why this plan" labels it "Standard formula" with this source.
-  kind: formula
+  # Mifflin-St Jeor: 10 × kg + 6.25 × cm − 5 × age + 5 (men) or − 161 (women). The recomposition guide recommends it
+  # (Diet & Cheat Book 1 uses it too); first published by Mifflin, St Jeor et al. (1990).
   placeholder: false
-  source: "Mifflin MD, St Jeor ST et al. (1990) Am J Clin Nutr 51:241-247"
+  source: "The Ultimate Guide to Body Recomposition, ch. 4, p. 49 and ch. 5, p. 68 (Mifflin-St Jeor; first published in Am J Clin Nutr 51:241-247, 1990). Also Diet & Cheat Book 1, p. 45."
   uses: [sex, age, height_cm, weight_kg]
   summary:
     en: Your resting burn (the calories your body uses at rest) is worked out from your sex, age, height and weight with the Mifflin-St Jeor formula.
     ar: الحرق وقت الراحة (السعرات اللي جسمك بيصرفها وأنت مرتاح) بيتحسب من نوعك وسنك وطولك ووزنك بمعادلة ميفلين-سانت جيور.
   ref:
-    book: American Journal of Clinical Nutrition, vol. 51 (Mifflin, St Jeor et al., 1990)
-    chapter: A new predictive equation for resting energy expenditure in healthy individuals
-    page: 241–247
+    book: The Ultimate Guide to Body Recomposition (Jeff Nippard, Chris Barakat)
+    chapter: "Chapter 4: Decoding metabolism"
+    page: "49"
     quote:
-      en: Resting energy expenditure is predicted from weight, height and age, with one constant for men and another for women.
-      ar: الطاقة وقت الراحة بتتحسب من الوزن والطول والسن، برقم ثابت للرجالة ورقم تاني للستات.
+      en: The authors recommend the Mifflin-St Jeor formula (10 × weight + 6.25 × height − 5 × age, plus 5 for men or minus 161 for women) to estimate resting burn.
+      ar: الكتاب بينصح بمعادلة ميفلين-سانت جيور (١٠ × الوزن + ٦٫٢٥ × الطول − ٥ × السن، زائد ٥ للرجالة أو ناقص ١٦١ للستات) عشان تقدّر الحرق وقت الراحة.
   explain:
     en: "Resting burn {bmr} kcal (Mifflin-St Jeor: {sex}, {age} years, {height} cm, {weight} kg)."
     ar: "الحرق وقت الراحة {bmr} سعرة (معادلة ميفلين-سانت جيور: {sex}، {age} سنة، {height} سم، {weight} كجم)."
 
+body_fat:
+  # The recomposition guide sets protein and fat from body fat % (Figures 8B and 8E). The questionnaire doesn't ask for
+  # body fat, so it's estimated from BMI, age and sex with a standard published formula (not from your books):
+  # body fat % = 1.20 × BMI + 0.23 × age − 10.8 × (1 for men, 0 for women) − 5.4, kept between min_pct and max_pct.
+  kind: formula
+  placeholder: false
+  source: "Deurenberg P, Weststrate JA, Seidell JC (1991) Br J Nutr 65:105-114. Used because the recomposition guide's protein and fat rules depend on body fat %, which the questionnaire doesn't ask."
+  uses: [sex, age, weight_kg, height_cm]
+  summary:
+    en: Your body fat is estimated from your BMI, age and sex. It's a rough guess, which the recomposition guide says is good enough for setting protein and fat.
+    ar: نسبة الدهون في جسمك متقدّرة من مؤشر كتلة الجسم وسنك ونوعك. ده تقدير تقريبي، والكتاب بيقول إنه كفاية لحساب البروتين والدهون.
+  min_pct: 5
+  max_pct: 60
+  ref:
+    book: British Journal of Nutrition, vol. 65 (Deurenberg, Weststrate, Seidell, 1991)
+    chapter: "Body mass index as a measure of body fatness: age- and sex-specific prediction formulas"
+    page: 105–114
+    quote:
+      en: Body fat % is estimated as 1.20 × BMI + 0.23 × age − 10.8 × sex (1 for men, 0 for women) − 5.4.
+      ar: نسبة الدهون بتتقدّر كده، ١٫٢ × مؤشر كتلة الجسم + ٠٫٢٣ × السن − ١٠٫٨ × النوع (١ للرجالة، صفر للستات) − ٥٫٤.
+  explain:
+    en: "Body fat estimated at about {bf}% from your BMI ({bmi}), age and sex; protein and fat are set from it."
+    ar: "نسبة الدهون متقدّرة بحوالي {bf}% من مؤشر كتلة الجسم ({bmi}) وسنك ونوعك؛ البروتين والدهون بيتحسبوا منها."
+
 activity:
-  placeholder: true
-  source: "PLACEHOLDER: activity multipliers by training days; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition)"
+  # Table 5B: "Lightly active + training 3-6×/wk" 1.5-1.8 (sedentary + training: 1.2-1.5). The plan's daily step target
+  # (training.yaml cardio) makes people at least lightly active, so this row is used, spread over the training days.
+  # 2 days a week is below the table's 3-6, so it takes the row's lowest value. See data/REVIEW.md.
+  placeholder: false
+  source: "The Ultimate Guide to Body Recomposition, ch. 5, p. 69 (Table 5B: activity multipliers)"
   uses: [days_per_week]
   summary:
-    en: Your resting burn is multiplied by an activity factor that grows with the number of training days a week.
-    ar: الحرق وقت الراحة بيتضرب في معامل نشاط بيزيد مع عدد أيام التمرين في الأسبوع.
-  factor_by_training_days: {2: 1.375, 3: 1.4, 4: 1.5, 5: 1.6, 6: 1.7}
+    en: Your resting burn is multiplied by an activity factor for lifting several days a week with light daily activity (the step target in your plan); more training days, a higher factor.
+    ar: الحرق وقت الراحة بيتضرب في معامل نشاط لحد بيلعب حديد كذا يوم في الأسبوع وعنده حركة خفيفة يومية (هدف الخطوات في خطتك)؛ وكل ما أيام التمرين تزيد المعامل بيزيد.
+  factor_by_training_days: {2: 1.5, 3: 1.5, 4: 1.6, 5: 1.7, 6: 1.8}
+  ref:
+    book: The Ultimate Guide to Body Recomposition (Jeff Nippard, Chris Barakat)
+    chapter: "Chapter 5: Setting up the diet: calorie intake"
+    page: "69"
+    quote:
+      en: Maintenance is resting burn times an activity multiplier; someone lifting 3–6 times a week with a desk job and daily walks uses about 1.5–1.8.
+      ar: سعرات الثبات هي الحرق وقت الراحة × معامل نشاط؛ واللي بيلعب حديد ٣–٦ مرات في الأسبوع وشغله مكتبي وبيتمشى يوميًا بيستخدم حوالي ١٫٥–١٫٨.
   explain:
-    en: "Maintenance about {tdee} kcal: resting burn × {factor} for {days} training days a week."
-    ar: "سعرات الثبات حوالي {tdee} سعرة: الحرق وقت الراحة × {factor} لـ {days} أيام تمرين في الأسبوع."
+    en: "Maintenance about {tdee} kcal: resting burn × {factor} for lifting {days} days a week with light daily activity."
+    ar: "سعرات الثبات حوالي {tdee} سعرة: الحرق وقت الراحة × {factor} لـ {days} أيام حديد في الأسبوع مع حركة خفيفة يومية."
 
 goal:
-  placeholder: true
-  source: "PLACEHOLDER: deficit / surplus sizes; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition; Nippard & Barakat, The Ultimate Guide to Body Recomposition)"
-  uses: [goal, pace, experience, weight_kg]
+  # Table 5A: calories as a percentage of maintenance. Lose fat ~20% under; obese (men above ~25% body fat, women above
+  # ~35%) 20-30% under (p. 67); build muscle 25% / 15-20% / 10-15% over for beginner / intermediate / advanced (the
+  # lower end is used); both goals equally: maintenance. The book has no separate strength goal, so strength uses the
+  # build-muscle surplus. The gentle pace uses the book's small deficit (5-10%, p. 66). See data/REVIEW.md.
+  placeholder: false
+  source: "The Ultimate Guide to Body Recomposition, ch. 5, pp. 60–67 (Table 5A); 3,500 kcal per pound of fat: Encyclopedia of Foods, p. 64"
+  uses:
+    loseFat: [goal, pace, sex, age, weight_kg, height_cm]
+    buildMuscle: [goal, experience]
+    recomp: [goal]
+    strength: [goal, experience]
+    final: [goal]
   summary:
     loseFat:
-      en: 'To lose fat, eat a little under maintenance: the gap is sized for the weekly pace you chose (1 kg of body weight is about 7,700 kcal).'
-      ar: 'عشان تخس دهون، كُل أقل شوية من سعرات الثبات: الفرق متظبط على السرعة اللي اخترتها في الأسبوع (الكيلو من وزنك حوالي ٧٧٠٠ سعرة).'
+      en: To lose fat, eat about 20% under maintenance (10% at the gentle pace). The faster pace goes to 25% only when your estimated body fat is high, as the book allows for people carrying a lot of fat.
+      ar: عشان تخس دهون، كُل حوالي ٢٠٪ أقل من سعرات الثبات (١٠٪ لو اخترت السرعة الهادية). السرعة الأسرع بتوصل لـ ٢٥٪ بس لو نسبة الدهون المتقدّرة عالية، زي ما الكتاب بيسمح للي عندهم دهون كتير.
     buildMuscle:
-      en: To build muscle, eat a small surplus over maintenance, smaller the more experienced you are, so little of it becomes fat.
-      ar: عشان تبني عضل، كُل زيادة صغيرة فوق الثبات، وبتصغر كل ما خبرتك تزيد، عشان أقل جزء منها يبقى دهون.
+      en: To build muscle, eat over maintenance by 25% as a beginner, 15% as an intermediate and 10% when advanced, because the more experienced you are the more of a surplus turns into fat.
+      ar: عشان تبني عضل، كُل فوق سعرات الثبات بـ ٢٥٪ لو مبتدئ، و١٥٪ لو متوسط، و١٠٪ لو متقدّم، لأن كل ما خبرتك تزيد جزء أكبر من الزيادة بيبقى دهون.
     recomp:
-      en: 'For recomposition, eat about 10% under maintenance: enough to lose fat slowly while training builds muscle.'
-      ar: 'لإعادة تشكيل الجسم، كُل حوالي ١٠٪ أقل من الثبات: كفاية تخس دهون ببطء والتمرين بيبني عضل.'
+      en: For recomposition (losing fat and building muscle equally), eat at maintenance. Training and high protein build muscle while fat comes off slowly.
+      ar: لإعادة تشكيل الجسم (خسارة دهون وبناء عضل بنفس الأهمية)، كُل على سعرات الثبات. التمرين والبروتين العالي بيبنوا عضل والدهون بتنزل ببطء.
     strength:
-      en: To get stronger, eat a small surplus so you recover from heavy training.
-      ar: عشان تبقى أقوى، كُل زيادة صغيرة عشان تتعافى من التمرين التقيل.
+      en: To get stronger, eat the same surplus as for building muscle (25%, 15% or 10% over maintenance by experience), so you recover from heavy training.
+      ar: عشان تبقى أقوى، كُل نفس زيادة بناء العضل (٢٥٪ أو ١٥٪ أو ١٠٪ فوق الثبات حسب خبرتك)، عشان تتعافى من التمرين التقيل.
     final:
       en: The calorie target after every safety limit has been applied.
       ar: هدف السعرات بعد ما كل حدود الأمان اتطبقت.
-  kcal_per_kg: 7700              # energy in 1 kg of body weight change
-  loseFat: {kg_per_week: {gentle: 0.25, steady: 0.5, faster: 0.75}}
-  buildMuscle: {surplus_kcal: {beginner: 300, intermediate: 200, advanced: 150}}
-  recomp: {deficit_pct: 10}
-  strength: {surplus_kcal: {beginner: 150, intermediate: 100, advanced: 100}}
+  kcal_per_kg: 7700              # 3,500 kcal per pound of body fat (Encyclopedia of Foods p. 64); for the expected weekly change
+  loseFat:
+    deficit_pct: {gentle: 10, steady: 20, faster: 20}
+    faster_high_body_fat_pct: 25   # "faster" with a high estimated body fat (Table 5A, exception 2: 20-30%)
+    high_body_fat: {male: 25, female: 35}
+  buildMuscle: {surplus_pct: {beginner: 25, intermediate: 15, advanced: 10}}
+  recomp: {deficit_pct: 0}
+  strength: {surplus_pct: {beginner: 25, intermediate: 15, advanced: 10}}
+  experience_names:
+    beginner: {en: beginner, ar: المبتدئين}
+    intermediate: {en: intermediate, ar: المتوسطين}
+    advanced: {en: advanced, ar: المتقدّمين}
+  ref:
+    book: The Ultimate Guide to Body Recomposition (Jeff Nippard, Chris Barakat)
+    chapter: "Chapter 5: Setting up the diet: calorie intake"
+    page: 65–67
+    quote:
+      en: Calories are set as a percentage of maintenance, about 20% under it to lose fat and 25%, 15–20% or 10–15% over it to build muscle for beginners, intermediates and advanced lifters. When both goals matter equally, eat at maintenance.
+      ar: السعرات بتتحدد كنسبة من سعرات الثبات، حوالي ٢٠٪ أقل منها لخسارة الدهون و٢٥٪ أو ١٥–٢٠٪ أو ١٠–١٥٪ فوقها لبناء العضل للمبتدئ والمتوسط والمتقدّم. ولو الهدفين بنفس الأهمية، كُل على سعرات الثبات.
   explain:
     loseFat:
-      en: "Target {calories} kcal: about {deficit} kcal under maintenance, to lose about {rate} kg a week ({pace} pace)."
-      ar: "الهدف {calories} سعرة: حوالي {deficit} سعرة أقل من الثبات، عشان تنزل حوالي {rate} كجم في الأسبوع."
+      en: "Target {calories} kcal: {pct}% under maintenance (about {deficit} kcal), to lose about {rate} kg a week ({pace} pace)."
+      ar: "الهدف {calories} سعرة: {pct}% أقل من الثبات (حوالي {deficit} سعرة)، عشان تنزل حوالي {rate} كجم في الأسبوع."
     buildMuscle:
-      en: "Target {calories} kcal: {surplus} kcal over maintenance, a small surplus to build muscle with little fat."
-      ar: "الهدف {calories} سعرة: {surplus} سعرة فوق الثبات، زيادة بسيطة عشان تبني عضل من غير دهون كتير."
+      en: "Target {calories} kcal: {pct}% over maintenance (+{surplus} kcal), the surplus for {level} lifters."
+      ar: "الهدف {calories} سعرة: {pct}% فوق الثبات (+{surplus} سعرة)، الزيادة المناسبة لـ{level}."
     recomp:
-      en: "Target {calories} kcal: {pct}% under maintenance, to lose fat slowly while building muscle."
-      ar: "الهدف {calories} سعرة: {pct}% أقل من الثبات، عشان تخس دهون ببطء وأنت بتبني عضل."
+      en: "Target {calories} kcal: your maintenance, because losing fat and building muscle matter equally to you."
+      ar: "الهدف {calories} سعرة: سعرات الثبات بتاعتك، لأن خسارة الدهون وبناء العضل بنفس الأهمية عندك."
     strength:
-      en: "Target {calories} kcal: {surplus} kcal over maintenance, enough to recover from heavy training."
-      ar: "الهدف {calories} سعرة: {surplus} سعرة فوق الثبات، كفاية عشان تتعافى من التمرين التقيل."
+      en: "Target {calories} kcal: {pct}% over maintenance (+{surplus} kcal), the surplus for {level} lifters, to recover from heavy training."
+      ar: "الهدف {calories} سعرة: {pct}% فوق الثبات (+{surplus} سعرة)، الزيادة المناسبة لـ{level}، عشان تتعافى من التمرين التقيل."
     final:
       en: "Daily target after the safety limits: {calories} kcal."
       ar: "الهدف اليومي بعد حدود الأمان: {calories} سعرة."
 
 protein:
-  placeholder: true
-  source: "PLACEHOLDER: protein per kg; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition)"
-  uses: [weight_kg, height_cm, goal]
+  # Figure 8B: 1.6 g per pound of lean body mass at low body fat, sliding in a straight line to 1.2 g at high body fat
+  # (men 5% → 30%, women 8% → 40%). Lean mass = weight × (1 − body fat %), body fat from `body_fat` above.
+  placeholder: false
+  source: "The Ultimate Guide to Body Recomposition, ch. 8, pp. 97–106 (Figure 8B, p. 101)"
+  uses: [sex, age, weight_kg, height_cm]
   summary:
-    en: Protein is set per kg of body weight for your goal. Above a BMI of 25 it uses the weight you'd have at BMI 25, because extra body fat doesn't need extra protein.
-    ar: البروتين بيتحسب لكل كيلو من وزنك حسب هدفك. لو مؤشر كتلة الجسم فوق ٢٥ بيتحسب من الوزن اللي عند ٢٥، لأن الدهون الزيادة مش محتاجة بروتين زيادة.
-  g_per_kg: {loseFat: 2.0, buildMuscle: 1.8, recomp: 2.0, strength: 1.8}
-  # Above BMI `bmi_from`, protein is worked out from the weight you'd have at BMI `reference_bmi`
-  # (extra body fat doesn't need extra protein).
-  bmi_from: 25
-  reference_bmi: 25
+    en: Protein comes from your lean mass (your weight without the estimated fat). It's 1.6 g per pound of lean mass when you're lean, sliding down to 1.2 g the more body fat you carry.
+    ar: البروتين بيتحسب من كتلتك الصافية (وزنك من غير الدهون المتقدّرة). بيبقى ١٫٦ جم لكل رطل من الكتلة الصافية لو أنت رفيع، وبينزل لـ ١٫٢ جم كل ما الدهون تزيد.
+  g_per_lb_lean_mass: {lean: 1.6, high_fat: 1.2}
+  body_fat_range: {male: [5, 30], female: [8, 40]}
+  kg_per_lb: 0.4536
+  ref:
+    book: The Ultimate Guide to Body Recomposition (Jeff Nippard, Chris Barakat)
+    chapter: "Chapter 8: Unpacking macros and micros"
+    page: "106 (Figure 8B: p. 101)"
+    quote:
+      en: Eat 1.2–1.6 g of protein per pound of lean body mass, nearer 1.6 the leaner you are and nearer 1.2 the more body fat you have.
+      ar: كُل ١٫٢–١٫٦ جم بروتين لكل رطل من الكتلة الصافية، أقرب لـ ١٫٦ كل ما تكون رفيع وأقرب لـ ١٫٢ كل ما الدهون تزيد.
   explain:
-    en: "Protein {protein} g: {per_kg} g per kg of {basis} kg."
-    ar: "بروتين {protein} جم: {per_kg} جم لكل كيلو من {basis} كجم."
+    en: "Protein {protein} g: {per_lb} g per pound of lean mass ({lean} kg lean at about {bf}% body fat)."
+    ar: "بروتين {protein} جم: {per_lb} جم لكل رطل من الكتلة الصافية ({lean} كجم صافي عند حوالي {bf}% دهون)."
 
 fat:
-  placeholder: true
-  source: "PLACEHOLDER: fat minimum; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition)"
-  uses: [weight_kg]
+  # Figure 8E: 20% of calories at low body fat rising in a straight line to 35% at high body fat (men 5% → 25%,
+  # women 10% → 40%); never below 20% of calories (p. 79, p. 108).
+  placeholder: false
+  source: "The Ultimate Guide to Body Recomposition, ch. 8, pp. 108–110 (Figure 8E); never under 20%: ch. 6, p. 79"
+  uses: [sex, age, weight_kg, height_cm]
   summary:
-    en: Fat never goes below a minimum (per kg of body weight or a share of calories, whichever is higher), for hormones and vitamins.
-    ar: الدهون عمرها ما تنزل تحت حد أدنى (لكل كيلو من وزنك أو نسبة من السعرات، الأعلى فيهم)، عشان الهرمونات والفيتامينات.
-  min_g_per_kg: 0.7
-  min_pct_of_calories: 25
+    en: Fat is 20–35% of your calories, nearer 20% when you're lean and nearer 35% the more body fat you carry, and never under 20% (for hormones and vitamins).
+    ar: الدهون ٢٠–٣٥٪ من سعراتك، أقرب لـ ٢٠٪ لو أنت رفيع وأقرب لـ ٣٥٪ كل ما الدهون تزيد، وعمرها ما تنزل تحت ٢٠٪ (عشان الهرمونات والفيتامينات).
+  pct_range: [20, 35]
+  body_fat_range: {male: [5, 25], female: [10, 40]}
+  min_pct_of_calories: 20
+  ref:
+    book: The Ultimate Guide to Body Recomposition (Jeff Nippard, Chris Barakat)
+    chapter: "Chapter 8: Unpacking macros and micros"
+    page: 108–110
+    quote:
+      en: Get 20–35% of calories from fat and never less than 20%, with people carrying more body fat toward the higher end because they handle carbs less well.
+      ar: خلّي ٢٠–٣٥٪ من السعرات من الدهون وعمرها ما تقل عن ٢٠٪، واللي عندهم دهون أكتر يبقوا ناحية الرقم الأعلى لأن جسمهم بيتعامل مع النشويات أقل.
   explain:
-    en: "Fat {fat} g: the higher of {per_kg} g per kg and {pct}% of calories, for hormones and vitamins."
-    ar: "دهون {fat} جم: الأعلى بين {per_kg} جم لكل كيلو و{pct}% من السعرات، عشان الهرمونات والفيتامينات."
+    en: "Fat {fat} g: {pct}% of your calories at about {bf}% body fat (20–35%, never under 20%)."
+    ar: "دهون {fat} جم: {pct}% من سعراتك عند حوالي {bf}% دهون (من ٢٠ لـ ٣٥٪، وعمرها ما تنزل تحت ٢٠٪)."
 
 carbs:
-  placeholder: true
-  source: "PLACEHOLDER: carbohydrate from the remainder; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition)"
+  # Steps 9-10, p. 111: carbs are the calories left after protein and fat. `min_g` is the app's floor for extreme cases
+  # (the book says never cut a macronutrient out completely, p. 107). See data/REVIEW.md.
+  placeholder: false
+  source: "The Ultimate Guide to Body Recomposition, ch. 8, pp. 109–111 (steps 9–10)"
   uses: [goal]
   summary:
     en: Carbs fill the calories left after protein and fat, to fuel your training.
     ar: الكربوهيدرات بتكمّل السعرات اللي فاضلة بعد البروتين والدهون، عشان تدّي طاقة للتمرين.
   min_g: 50
+  ref:
+    book: The Ultimate Guide to Body Recomposition (Jeff Nippard, Chris Barakat)
+    chapter: "Chapter 8: Unpacking macros and micros"
+    page: "111"
+    quote:
+      en: Once protein and fat are set, the calories left over are divided by four to give your carbs.
+      ar: بعد ما البروتين والدهون يتحددوا، السعرات اللي فاضلة بتتقسم على ٤ عشان تطلع الكربوهيدرات.
   explain:
     en: "Carbs {carbs} g: the calories left after protein and fat, to fuel training."
     ar: "كربوهيدرات {carbs} جم: السعرات اللي باقية بعد البروتين والدهون، عشان طاقة التمرين."
 
 meals:
   placeholder: true
-  source: "PLACEHOLDER: meal planning settings; to be checked against the Arabic recipe book (Diet & Cheat)"
+  # App settings for the meal optimizer: no book gives these numbers. Neither Arabic book covers Ramadan; the
+  # recomposition guide's intermittent-fasting advice (pp. 132-134: protein spread over the eating window) is the
+  # closest. See data/REVIEW.md.
+  source: "PLACEHOLDER: app settings for the meal optimizer (no book gives these); Ramadan meal times are not in your books"
   uses:
     default:
     - meals_per_day
@@ -209,9 +295,19 @@ meals:
 # portions move by at most `max_portion_change` (in the usual quarter steps and portion limits) to bring it back; if
 # that isn't enough, a small snack is suggested.
 ingredients:
-  placeholder: true
-  source: "PLACEHOLDER: ingredient swaps by food role and day rebalancing; to be checked against the Arabic recipe book (Diet & Cheat)"
+  # The swap itself follows the Diet & Cheat FAQ's exchange table (same food group, same weight for proteins,
+  # vegetables and nuts; carbs by the listed equal amounts). The other numbers below (how many choices, rounding,
+  # rebalancing) are app settings: see data/REVIEW.md.
+  placeholder: false
+  source: "Diet & Cheat Nutrition FAQ, p. 2 (البدائل: the exchange table) and p. 10 (any protein by the same weight)"
   uses: [dislikes, allergies]
+  ref:
+    book: Diet & Cheat Nutrition FAQ (Arabic)
+    chapter: "البدائل (Swaps)"
+    page: "2"
+    quote:
+      en: A food can be swapped for another from the same column, vegetables, proteins and unsalted nuts by the same weight, carbs by the amounts the table gives for each, and fruit by the same quantity.
+      ar: ممكن تبدّل أي أكلة بأكلة من نفس الخانة، الخضار والبروتين والمكسرات غير المملحة بنفس الوزن، والكربوهيدرات بالأوزان الموضحة لكل نوع، والفاكهة بنفس الكمية.
   summary:
     en: "A removed ingredient can be replaced by a food with the same role, sized to give about the same protein, carbs or fat; if the day then falls short, other portions grow a little or a snack is suggested."
     ar: "المكوّن اللي بتشيله ممكن يتبدّل بأكلة ليها نفس الدور، بكمية بتدّي نفس البروتين أو الكربوهيدرات أو الدهون تقريبًا؛ ولو اليوم نقص، الكميات التانية بتزيد شوية أو بنقترح سناك."
@@ -242,14 +338,17 @@ ingredients:
 
 grocery:
   placeholder: true
-  source: "PLACEHOLDER: weeks in a month for the monthly staples list"
+  source: "PLACEHOLDER: weeks in a month for the monthly staples list (arithmetic, not a book rule)"
   monthly_factor: 4.3
 
 review:
   # Weekly review: calories move in small, bounded steps (backend/app/engine/review.py).
   # Expected weekly change = (target − maintenance) × 7 / kcal_per_kg. Compared with the 7-day average weight trend.
   placeholder: true
-  source: "PLACEHOLDER: weekly calorie adjustments; book + page to be added (Helms, The Muscle & Strength Pyramid: Nutrition)"
+  # The recomposition guide (ch. 6, pp. 78-80) reviews calories only once or twice a month (7-day average weight, waist,
+  # photos) and moves them by 100-250 kcal down or 100-500 kcal up. This engine reviews every week in 100 kcal steps,
+  # so it stays a placeholder until you decide (data/REVIEW.md).
+  source: "PLACEHOLDER: weekly calorie steps (the recomposition guide, ch. 6, reviews once or twice a month instead; see data/REVIEW.md)"
   uses: [checkin]
   summary:
     en: Each week, calories move by one small step only when your weight trend is clearly faster or slower than planned and you followed most meals.
@@ -273,9 +372,16 @@ review:
 # Cardio and calories: the activity factor above already counts the training days and the weekly cardio, so cardio
 # calories are never added on top (that would count them twice). The plan says so in the calorie reasons.
 cardio_counted:
-  placeholder: true
-  source: "PLACEHOLDER: activity level and cardio; book + page to be added"
+  placeholder: false
+  source: "The Ultimate Guide to Body Recomposition, ch. 5, p. 68 (the activity multiplier covers exercise and daily movement)"
   uses: [days_per_week, goal]
+  ref:
+    book: The Ultimate Guide to Body Recomposition (Jeff Nippard, Chris Barakat)
+    chapter: "Chapter 5: Setting up the diet: calorie intake"
+    page: "68"
+    quote:
+      en: The activity multiplier estimates the calories you burn through all activity, both exercise and everyday movement, on top of your resting burn.
+      ar: معامل النشاط بيقدّر السعرات اللي بتحرقها من كل الحركة، التمرين والحركة العادية في اليوم، فوق الحرق وقت الراحة.
   summary:
     en: 'Cardio calories are counted once: the activity level already includes your weekly cardio, so they''re never added on top.'
     ar: 'سعرات الكارديو بتتحسب مرة واحدة: مستوى النشاط فيه الكارديو بتاع الأسبوع، فمش بتتزاد فوقه.'

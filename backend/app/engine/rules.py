@@ -13,6 +13,7 @@ For the "Why this plan" page (app/views/why.py) every rule section that explains
 """
 
 import json
+import re
 from functools import lru_cache
 from pathlib import Path
 
@@ -51,6 +52,7 @@ def _bilingual_tree(value: object) -> bool:
 
 
 def _sentences(text: str) -> int:
+    text = re.sub(r"(?<=\d)\.(?=\d)", "", text)  # a decimal point (1.6 g, 6.25) doesn't end a sentence
     return len([s for s in text.replace("؟", ".").replace("!", ".").split(".") if s.strip()])
 
 
