@@ -213,3 +213,7 @@ missing, now done:
   controls stay as designed.)
 - Tests: `tests/backend/test_photos.py` (upload, privacy, bad files, size, listing, account deletion, the questions
   endpoint), isolation list updated, and a browser test that uploads a photo and checks another account can't see it.
+
+**Priority 4 full run:** backend suite and typecheck pass; 301 of 303 browser tests passed on the first run. The 2
+failures (desktop + phone, same test) were a real regression from using the file's wording: the measurement error read
+"Waist (cm) must be between…". The tiles now drop the "(cm)" from the file's label; the test passes again.

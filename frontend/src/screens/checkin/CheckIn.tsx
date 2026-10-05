@@ -140,7 +140,7 @@ function BodyStep({ c, set, last, q, range, setPhoto }: Ctx) {
       <Field label={t('checkIn.body.measurements')}>
         <div className="grid grid-cols-3 gap-2">
           {MEASURES.map((k) => (
-            <MeasureInput key={k} label={q(`${k}_cm`)} lo={range(`${k}_cm`, MEASURE_RANGES[k])[0]} hi={range(`${k}_cm`, MEASURE_RANGES[k])[1]} value={m[k]} was={last.measurementsCm[k]} onChange={(v) => set({ body: { ...c.body, measurementsCm: { ...m, [k]: v } } })} />
+            <MeasureInput key={k} label={q(`${k}_cm`).replace(/\s*\((cm|سم)\)$/, '')} lo={range(`${k}_cm`, MEASURE_RANGES[k])[0]} hi={range(`${k}_cm`, MEASURE_RANGES[k])[1]} value={m[k]} was={last.measurementsCm[k]} onChange={(v) => set({ body: { ...c.body, measurementsCm: { ...m, [k]: v } } })} />
           ))}
         </div>
       </Field>
