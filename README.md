@@ -10,7 +10,8 @@ frontend/   React + TypeScript + Tailwind app (copied from design/…/code). The
 backend/    Python 3.12 + FastAPI. The API, database, plan engine.
   app/ai/   Reserved for the local LLM + RAG (next session). Writes text only, never numbers.
 data/       vocab/movements.yaml (the allowed movement & joint tags), catalogue/ (exercises…),
-            rules/ (YAML), programs/ (JSON), uploads/ (private photos, not committed), rafeqi.db (not committed)
+            rules/ (YAML), programs/ (JSON), uploads/ (private photos, not committed), rafeqi.db (not committed),
+            private/ (text extracted from the books, not committed)
 docs/       database.md: the schema diagrams
 tests/      backend/ (pytest) and e2e/ (Playwright, in a browser)
 scripts/    Small helpers used by the npm commands below
@@ -202,6 +203,27 @@ only writes the explanations and the weekly-review text. Each number keeps a one
   (IDs are the folder names in that repo's `exercises/` directory).
 - **Videos:** for now, "Watch video" opens a YouTube search for "<exercise name> proper form". The real links will come from the Jeff Nippard program PDFs.
 
+## Reading the books (`npm run books:extract`)
+
+Phase A of `docs/PLAN-AI.md`: turns the PDFs in `Books/` into text and tables in `data/private/books/` (git-ignored:
+the script refuses to run if it isn't). Runs only on your PC; nothing is uploaded.
+
+One-time setup for the scanned books (OCR):
+
+```powershell
+scoop install tesseract        # the OCR program (no admin needed)
+npm run books:extract          # downloads the Arabic + English OCR models into tools	essdata the first time
+```
+
+- `npm run books:extract` reads every book not done yet (about 5 minutes for all eight); `-- --force` redoes them,
+  `-- --book diet-cheat-recipes --force` redoes one, `-- --report` only rewrites the summary.
+- Per book, in `data/private/books/<NN>-<name>/`: `pages.jsonl` (one line per PDF page, with how it was read),
+  `tables.jsonl` (rows and columns kept), `links.jsonl` (video links), `images/` (the recipe pages' cropped text, to
+  check amounts by eye) and `meta.json`. `data/private/books/REPORT.md` is the summary.
+- Page numbers are **PDF page numbers** (what a PDF viewer shows), so later citations can be checked in the PDF.
+- The script is `scripts/books/extract.py` (its own dependencies, so the backend doesn't get PyMuPDF);
+  its helpers are tested in `tests/backend/test_book_extract.py`, which also checks the private folders stay git-ignored.
+
 ## No prices, anywhere
 
 Rafeqi never shows prices, costs or budgets, because people shop at different stores. The grocery list gives generic item names and amounts only. `tests/e2e/specs/every-page.spec.ts` checks every page in English and Arabic.
@@ -221,4 +243,6 @@ Rafeqi never shows prices, costs or budgets, because people shop at different st
       labels on "Why this plan"
 - [x] Phase 6: progress photos (private), check-in questions from `data/checkin_questions.yaml`, weekly review, past
       reviews, progress charts, Profile & settings
-- [ ] Next: ready for friends on Render (PostgreSQL, production mode, invites, backups); then the local LLM + RAG
+- [x] Ready for friends on Render, prepared (PostgreSQL, production mode, invites, backups; `docs/DEPLOY.md`)
+- [x] Books plan (`docs/PLAN-AI.md`) Phase A: the eight books read into `data/private/books/` (text, OCR, tables, links)
+- [ ] Next: Books plan Phase B (real rule values, the three programs, recipes, foods table, `data/REVIEW.md`)

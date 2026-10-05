@@ -10,6 +10,8 @@ Books/
 
 # User data: database file(s) and private uploads (progress photos)
 data/uploads/
+# Text, tables and page images extracted from the books (npm run books:extract): private, never committed
+data/private/
 data/*.db
 data/*.db-journal
 data/*.db-wal
