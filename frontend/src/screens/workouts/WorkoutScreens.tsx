@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   CalendarDays, Check, ChevronLeft, ChevronRight, Dumbbell, ExternalLink, Footprints, HeartPulse, X, ArrowDown, Shield, Zap, TrendingDown, Bandage, Pencil, Repeat, Undo2,
@@ -424,6 +424,11 @@ export function WorkoutLogger() {
   const [swapping, setSwapping] = useState<SessionExercise>();
   const [pain, setPain] = useState<Record<string, number>>({});
   const [flags, setFlags] = useState<string[]>(['none']);
+  // Exercise results go to the server one after another, and "Save & finish" waits for the last one. Sent at the same
+  // time, two saves could each start today's log on the server, or a finish could arrive first and log the exercise as
+  // planned (the late save is then refused because the session is finished).
+  const queue = useRef<Promise<unknown>>(Promise.resolve());
+  const send = (save: () => Promise<unknown>) => { queue.current = queue.current.then(save, save); };
   useEffect(() => { if (finished) window.scrollTo?.(0, 0); }, [finished]);
 
   return (
@@ -437,7 +442,7 @@ export function WorkoutLogger() {
             const next = { ...results };
             if (r) next[exerciseId] = r; else delete next[exerciseId];
             setResults(next);
-            api.logExercise(w.id, exerciseId, r).catch(() => toast({ message: t('common.saveFailed'), tone: 'error' }));
+            send(() => api.logExercise(w.id, exerciseId, r).catch(() => toast({ message: t('common.saveFailed'), tone: 'error' })));
           };
 
           if (finished) {
@@ -478,6 +483,7 @@ export function WorkoutLogger() {
                 <Button size="lg" disabled={effort === null || saving} onClick={async () => {
                   if (effort === null) return;
                   setSaving(true);
+                  await queue.current.catch(() => undefined);
                   const saved = await api.finishWorkout(w.id, { effort, results: Object.fromEntries(Object.entries(results).filter(([, r]) => r.sets > 0)) }, pain, flags.filter((f) => f !== 'none'))
                     .catch(() => { toast({ message: t('common.saveFailed'), tone: 'error' }); return null; });
                   setSaving(false);
@@ -522,7 +528,7 @@ export function WorkoutLogger() {
                 <Button size="lg" icon={Check} className="flex-1" onClick={() => {
                   const all = { ...results };
                   for (const e of w.exercises) {
-                    if (!all[e.exerciseId]) { all[e.exerciseId] = asPlanned(e); api.logExercise(w.id, e.exerciseId, all[e.exerciseId]).catch(() => undefined); }
+                    if (!all[e.exerciseId]) { all[e.exerciseId] = asPlanned(e); const planned = all[e.exerciseId]; send(() => api.logExercise(w.id, e.exerciseId, planned).catch(() => undefined)); }
                   }
                   setResults(all); setEditing(null); setFinished(true);
                 }}>{t('logger.finish')}</Button>
