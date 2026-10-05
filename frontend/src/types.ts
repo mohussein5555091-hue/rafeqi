@@ -531,3 +531,10 @@ export interface WhyPlan {
   rules: { total: number; fromBooks: number; formulas: number };
   groups: { id: WhyGroupId; decisions: WhyDecision[] }[];
 }
+
+/** One weekly check-in question (data/checkin_questions.yaml): the screens show its wording and use its ranges. */
+export interface CheckInQuestion {
+  id: string; step: string; type: string; text: LocalizedText; required: boolean;
+  min?: number; max?: number; maxFrom?: string; stepSize?: number; options?: string[]; maxLength?: number; trendOptions?: string[];
+}
+export interface CheckInQuestions { steps: string[]; questions: CheckInQuestion[] }

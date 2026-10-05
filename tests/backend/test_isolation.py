@@ -26,6 +26,7 @@ NOT_USER_DATA = {"login_attempts"}  # keyed by email hash and IP; may not belong
 PUBLIC = {("GET", "/api/health"), ("POST", "/api/auth/signup"), ("POST", "/api/auth/login")}
 CATALOGUE_READS = {  # login required, but they only read the shared catalogue (the recipe is scaled to your own plan)
     ("GET", "/api/exercises"), ("GET", "/api/exercises/{exercise_id}"), ("GET", "/api/recipes/{recipe_id}"),
+    ("GET", "/api/checkins/questions"),  # the fixed questions from data/checkin_questions.yaml
 }
 SELF_ONLY = {  # no id in the URL: they act on the logged-in user by construction
     ("POST", "/api/auth/logout"), ("POST", "/api/auth/change-password"),
@@ -67,6 +68,8 @@ BY_ID = {  # id in the URL: tested below with another user's id → (the table t
     ("GET", "/api/workouts/{day_id}/move-options"): ("program_days", None),
     ("POST", "/api/workouts/{day_id}/move"): ("program_days", {"date": "2026-10-01"}),
     ("DELETE", "/api/swaps/{swap_id}"): ("exercise_swaps", None),
+    ("PUT", "/api/checkins/{checkin_id}/photos/{view}"): ("checkins", None),
+    ("GET", "/api/photos/{checkin_id}/{view}"): ("checkins", None),
 }
 
 

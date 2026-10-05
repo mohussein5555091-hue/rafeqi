@@ -188,3 +188,28 @@ are offered.
 - Tests: `test_why.py` (labels, counts, a rule from a book counts as from your books) and `why.spec.ts`.
 
 **Priority 3 full run:** backend suite, typecheck and all 301 browser tests pass.
+
+## Priority 4: Phase 6
+
+### 13. Check-in, review, progress, profile
+
+Already built and connected before tonight (checked, with their existing tests): the weekly review page with the
+engine's changes and reasons (the AI text slot stays empty until the AI phase), past reviews, progress charts from real
+data (weight entries with the 7-day average, measurements, strength per lift, personal records), and Profile & settings
+(edit each questionnaire step, "Regenerate my plan", language, theme, change password, delete account). What was
+missing, now done:
+
+- **Progress photos** (front, side, back): picked in the check-in's first step, sent after the check-in is saved, made
+  smaller in the browser first (at most 1600 px, JPEG). Stored on disk as `data/uploads/<user_id>/<checkin>-<view>.jpg`
+  (git-ignored), never in a public folder; served only to their owner by `GET /api/photos/{checkin}/{view}` with
+  `Cache-Control: private, no-store` (anyone else gets 404). Only real JPEG/PNG/WebP files (checked by their first
+  bytes, not the file name) up to 8 MB. Sending one again replaces it. They show in Progress → Photos (compare first and
+  latest), and deleting the account deletes the folder.
+  **Decision:** the upload sends the image itself as the request body instead of a multipart form, so no new Python
+  package is needed.
+- **Questions from `data/checkin_questions.yaml`:** new `GET /api/checkins/questions`; the check-in screens now show
+  each question's wording (English and Arabic) and use its ranges from the file (weight, measurements, note length).
+  Changing the wording or a range in the file changes the screens with no code change. (The step layout and answer
+  controls stay as designed.)
+- Tests: `tests/backend/test_photos.py` (upload, privacy, bad files, size, listing, account deletion, the questions
+  endpoint), isolation list updated, and a browser test that uploads a photo and checks another account can't see it.

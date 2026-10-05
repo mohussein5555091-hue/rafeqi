@@ -13,6 +13,7 @@ from app.models import (
     CheckIn, CheckInAnswer, Exercise, Injury, MealPlanItem, PainLog, Plan, ProgramDay, ProgramExercise, Recipe, SetLog,
     TrainingProgram, WeeklyReview, WeightLog, WorkoutLog,
 )
+from app.photos import VIEWS, photo_url
 from app.plans import week_start
 from app.views.training import bi
 from app.week import CHECKIN_OPENS_DAYS_BEFORE_END, Week
@@ -253,7 +254,10 @@ def progress_out(db: Session, user_id: str, since: dt.date) -> dict:
         d, (kg, reps) = max(top[ex].items(), key=lambda x: (x[1], -x[0].toordinal()))
         records.append({"exerciseId": ex, "name": bi(names[ex].name_en, names[ex].name_ar), "date": d.isoformat(),
                         "value": bi(f"{kg:g} kg × {reps}", f"{kg:g} كجم × {reps}")})
-    return {"since": since.isoformat(), "weights": weights, "measurements": measurements, "lifts": lifts, "records": records, "photos": []}
+    photos = [{"date": ci.week_start.isoformat(), "view": view, "url": photo_url(ci, view)}
+              for ci in db.scalars(select(CheckIn).where(CheckIn.user_id == user_id, CheckIn.status == "submitted").order_by(CheckIn.week_start))
+              for view in VIEWS if getattr(ci, f"photo_{view}_path")]
+    return {"since": since.isoformat(), "weights": weights, "measurements": measurements, "lifts": lifts, "records": records, "photos": photos}
 
 
 def first_plan_date(db: Session, user_id: str) -> dt.date | None:

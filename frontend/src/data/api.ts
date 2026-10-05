@@ -2,7 +2,7 @@
 // (the Vite dev server forwards /api to it, so the session cookie stays on one origin).
 // The function names and types are the same ones the screens were designed against.
 import type {
-  CheckIn, CheckInDraft, Dashboard, EquipmentState, Exercise, ExerciseResult, GroceryItem, GroceryList, Injury, InjuryInput, InjuryStatus, LocalizedText,
+  CheckIn, CheckInDraft, CheckInQuestions, Dashboard, EquipmentState, Exercise, ExerciseResult, GroceryItem, GroceryList, Injury, InjuryInput, InjuryStatus, LocalizedText,
   Meal, MealDay, MealWeekDay, MoveOption, OnboardingState, OnboardingStep, PantryItem, Plan, PlanGenerationStep, Progress, QuestionnaireAnswers,
   Recipe, RemoveReason, RemoveScope, ReplacementOptions, User, Weekday, ActiveSwap, ExerciseAlternative, SwapReason, WeeklyReview, WeightLog, WhyPlan, Workout, WorkoutLog, WorkoutWeek,
 } from '@/types';
@@ -143,6 +143,23 @@ const ONBOARDING_BODY: Record<Exclude<OnboardingStep, 'review'>, (a: Questionnai
 
 function injuryBody(i: InjuryInput) {
   return { region: i.region, side: i.side, type: i.type, severity: i.severity, painfulMovements: i.painfulMovements, restrictions: i.restrictions };
+}
+
+export type PhotoView = 'front' | 'side' | 'back';
+
+/** Phone photos are large: scale to at most 1600 px on the long side as JPEG before uploading (the original if that fails). */
+async function shrinkPhoto(file: Blob, max = 1600): Promise<Blob> {
+  try {
+    const bmp = await createImageBitmap(file);
+    const scale = Math.min(1, max / Math.max(bmp.width, bmp.height));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(bmp.width * scale); canvas.height = Math.round(bmp.height * scale);
+    canvas.getContext('2d')!.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+    const out = await new Promise<Blob | null>((r) => canvas.toBlob(r, 'image/jpeg', 0.85));
+    return out ?? file;
+  } catch {
+    return file;
+  }
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -371,10 +388,26 @@ export const api = {
     const d = await get<CheckInDraft>('/checkins/draft');
     return { ...d, draft: { ...d.draft, body: { ...d.draft.body, weightKg: undefined } } };
   },
-  /** Saves the check-in and runs the weekly review, which builds next week's plan. Returns the review's id. */
-  async submitCheckIn(checkIn: CheckIn): Promise<{ reviewId: string }> {
+  /** The check-in's fixed questions (data/checkin_questions.yaml): wording, ranges, options. */
+  getCheckInQuestions(): Promise<CheckInQuestions> { return get<CheckInQuestions>('/checkins/questions'); },
+  /**
+   * Saves the check-in and runs the weekly review, which builds next week's plan; then uploads the progress photos
+   * (made smaller first), stored privately for this person only. Returns the review's id.
+   */
+  async submitCheckIn(checkIn: CheckIn, photos: Partial<Record<PhotoView, Blob>> = {}): Promise<{ reviewId: string; checkinId: string }> {
     const { body, ...rest } = checkIn;
-    return send<{ reviewId: string }>('POST', '/checkins', { ...rest, body: { ...body, photos: {} } }); // photo upload: Phase 6
+    const out = await send<{ reviewId: string; checkinId: string }>('POST', '/checkins', { ...rest, body: { ...body, photos: {} } });
+    for (const [view, file] of Object.entries(photos) as [PhotoView, Blob][]) {
+      await api.uploadPhoto(out.checkinId, view, await shrinkPhoto(file)).catch(() => undefined); // a failed photo never undoes the check-in
+    }
+    return out;
+  },
+  /** One progress photo (the body is the image itself). */
+  async uploadPhoto(checkinId: string, view: PhotoView, image: Blob): Promise<void> {
+    const res = await fetch(`/api/checkins/${encodeURIComponent(checkinId)}/photos/${view}`, {
+      method: 'PUT', credentials: 'same-origin', headers: { 'Content-Type': image.type || 'image/jpeg' }, body: image,
+    });
+    if (!res.ok) throw new ApiError(res.status, await res.json().then((j) => j?.detail, () => undefined));
   },
   async getReviews(): Promise<WeeklyReview[]> { return get<WeeklyReview[]>('/reviews'); },
   async getReview(id: string): Promise<WeeklyReview> { return get<WeeklyReview>(`/reviews/${encodeURIComponent(id)}`); },

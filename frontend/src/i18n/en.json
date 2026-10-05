@@ -209,22 +209,22 @@
       "view": { "front": "Front", "side": "Side", "back": "Back" }
     },
     "training": {
-      "title": "Training", "sessions": "Sessions done · {n} planned", "difficulty": "How hard did sessions feel? · {label}", "difficultyLabel": "Session difficulty",
-      "soreness": "Muscle soreness · {label}", "sorenessLabel": "Muscle soreness", "feltOff": "Any exercise that felt off?",
+      "title": "Training", "sessions": "{q} · {n} planned", "difficulty": "{q} · {label}", "difficultyLabel": "Session difficulty",
+      "soreness": "{q} · {label}", "sorenessLabel": "Muscle soreness", "feltOff": "Any exercise that felt off?",
       "pick": "Pick an exercise", "pickAnother": "Pick another exercise"
     },
     "injuries": {
-      "title": "Injuries", "painQ": "{area} · pain this week", "trend": "Compared with last week", "newPain": "Any new pain?",
+      "title": "Injuries", "painQ": "{area} · {q}", "trend": "Compared with last week", "newPain": "Any new pain?",
       "newPainHint": "Tap the area. Nothing new? Skip it.", "safety": "Safety questions",
       "flag": { "sharpPain": "Sharp or stabbing pain", "swelling": "Swelling", "numbness": "Numbness or tingling" },
       "flagNote": "A \"yes\" pauses affected exercises and asks you to see a doctor or physio."
     },
     "nutrition": {
-      "title": "Nutrition", "adherence": "How closely did you follow your meals?", "hunger": "Hunger · {label}", "hungerLabel": "Hunger",
+      "title": "Nutrition", "adherence": "How closely did you follow your meals?", "hunger": "{q} · {label}", "hungerLabel": "Hunger",
       "change": "Meals you'd like to change", "more": "More of", "less": "Less of"
     },
     "life": {
-      "title": "Life this week", "sleep": "Sleep quality · {n}", "energy": "Energy · {n}", "stress": "Stress · {n}",
+      "title": "Life this week", "sleep": "Sleep quality · {n}", "energy": "Energy · {n}", "stress": "Stress · {n}", "scale": "{q} · {n}",
       "days": "Days you can train next week", "obstacles": "Anything get in the way?"
     },
     "note": {

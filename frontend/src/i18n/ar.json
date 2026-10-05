@@ -209,22 +209,22 @@
       "view": { "front": "قدام", "side": "جنب", "back": "ضهر" }
     },
     "training": {
-      "title": "التمرين", "sessions": "الجلسات اللي خلصت · {n} مخططة", "difficulty": "الجلسات كانت صعبة قد إيه؟ · {label}", "difficultyLabel": "صعوبة الجلسات",
-      "soreness": "تكسير العضلات · {label}", "sorenessLabel": "تكسير العضلات", "feltOff": "في تمرين كان مش مظبوط؟",
+      "title": "التمرين", "sessions": "{q} · {n} مخططة", "difficulty": "{q} · {label}", "difficultyLabel": "صعوبة الجلسات",
+      "soreness": "{q} · {label}", "sorenessLabel": "تكسير العضلات", "feltOff": "في تمرين كان مش مظبوط؟",
       "pick": "اختار تمرين", "pickAnother": "اختار تمرين تاني"
     },
     "injuries": {
-      "title": "الإصابات", "painQ": "{area} · الألم الأسبوع ده", "trend": "مقارنة بالأسبوع اللي فات", "newPain": "في ألم جديد؟",
+      "title": "الإصابات", "painQ": "{area} · {q}", "trend": "مقارنة بالأسبوع اللي فات", "newPain": "في ألم جديد؟",
       "newPainHint": "اضغط على المكان. مفيش جديد؟ عدّيها.", "safety": "أسئلة أمان",
       "flag": { "sharpPain": "ألم حاد أو زي الطعن", "swelling": "ورم", "numbness": "تنميل أو شكشكة" },
       "flagNote": "أي \"أيوه\" بتوقّف التمارين المتأثرة وبنطلب منك تروح لدكتور أو علاج طبيعي."
     },
     "nutrition": {
-      "title": "التغذية", "adherence": "التزمت بوجباتك قد إيه؟", "hunger": "الجوع · {label}", "hungerLabel": "الجوع",
+      "title": "التغذية", "adherence": "التزمت بوجباتك قد إيه؟", "hunger": "{q} · {label}", "hungerLabel": "الجوع",
       "change": "وجبات عايز تغيّرها", "more": "أكتر من", "less": "أقل من"
     },
     "life": {
-      "title": "حياتك الأسبوع ده", "sleep": "جودة النوم · {n}", "energy": "الطاقة · {n}", "stress": "التوتر · {n}",
+      "title": "حياتك الأسبوع ده", "sleep": "جودة النوم · {n}", "energy": "الطاقة · {n}", "stress": "التوتر · {n}", "scale": "{q} · {n}",
       "days": "أيام تقدر تتمرن فيها الأسبوع الجاي", "obstacles": "في حاجة عطّلتك؟"
     },
     "note": {

@@ -1,5 +1,5 @@
 import type { Locator, Page } from '@playwright/test';
-import { api, expect, freshUser, test, waitForContent } from './helpers';
+import { api, createUser, expect, freshUser, test, waitForContent } from './helpers';
 
 // Bugs found while testing by hand (docs/OVERNIGHT-REPORT.md, priority 1). Read-only: the shared account.
 
@@ -139,4 +139,36 @@ test('log each set: one row per set, prefilled; the result and "last time" show 
   await expect(page).toHaveURL(new RegExp(`/workouts/${today.id}$`));
   const done = (await api(page, '/workouts/week')).sessions.find((s: { id: string }) => s.id === today.id);
   expect(done.log.results[ex.exerciseId].perSet.at(-1)).toEqual({ reps: ex.target.reps, weightKg: Number(lighter) });
+});
+
+// A tiny real JPEG (1×1 pixel), so the browser can read it and the server accepts it as a photo.
+const JPEG_1PX = Buffer.from('/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=', 'base64');
+
+test('weekly check-in: the questions come from the questions file, and a progress photo is stored privately', async ({ page }) => {
+  await freshUser(page);
+  const questions = await api(page, '/checkins/questions');
+  const weight = questions.questions.find((q: { id: string }) => q.id === 'weight_kg');
+  await page.goto('/check-in/body');
+  await waitForContent(page);
+  await expect(page.getByText(weight.text.en).first()).toBeVisible();
+  await page.getByRole('textbox', { name: weight.text.en }).fill('87.5');
+  await page.getByTestId('photo-front').setInputFiles({ name: 'front.jpg', mimeType: 'image/jpeg', buffer: JPEG_1PX });
+  await expect(page.getByText('Added')).toBeVisible();
+  for (const step of ['training', 'injuries', 'nutrition', 'life', 'note']) {
+    await page.getByRole('button', { name: 'Next' }).click();
+    await expect(page).toHaveURL(new RegExp(`/check-in/${step}$`));
+  }
+  await page.getByRole('button', { name: 'Submit check-in' }).click();
+  await expect(page).toHaveURL(/\/reviews\/[\w-]+/);
+  await expect.poll(async () => (await api(page, '/progress')).photos.length).toBe(1);
+  const [photo] = (await api(page, '/progress')).photos;
+  expect(photo.view).toBe('front');
+  const mine = await page.request.get(photo.url);
+  expect(mine.status()).toBe(200);
+  expect(mine.headers()['cache-control']).toBe('private, no-store');
+  // Someone else (a new account in a fresh browser context) can't see it.
+  const other = await page.context().browser()!.newContext({ baseURL: 'http://localhost:5174' });
+  await createUser(other.request, { plan: false });
+  expect((await other.request.get(photo.url)).status()).toBe(404);
+  await other.close();
 });
