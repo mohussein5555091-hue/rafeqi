@@ -202,6 +202,29 @@ The two sample programs moved to `tests/backend/fixtures/programs/` (the tests s
 - [ ] **Close photos, not exact:** barbell floor skull crusher (EZ-bar skull crusher on a bench), seal row (lying
   cambered-bar row), lateral band walk ("monster walk"), dip (chest dip on bars; tagged "machine", as a dip station).
 
+### Upper/Lower (1): size and strength, 9 weeks, 5 or 6 days
+
+- [ ] **U1. Who gets it:** intermediate and advanced lifters training 5–6 days whose goal is strength (it's the strength
+  and size program); for muscle on 6 days LPP scores higher. On 5 days it uses the book's order Upper 1, Lower 1,
+  Upper 2, Lower 2, Upper 3 ((1) p. 28). Persona 3 (advanced, strength, 5 days) moved to it from Fundamentals.
+- [ ] **U2. Lighter weeks:** weeks 1, 4 and 7 open each 3-week wave with lower %1RM ((1) pp. 11, 60), so week 1's main
+  lifts read as about RPE 5 (e.g. 70% for 6 reps). That's the book's ramp-in, already in the tables.
+- [ ] **U3. Weak-point slots:** 36 entries say "pick an exercise for your weak point" ((1) p. 59 table). The app has no
+  question for weak points, so it fills each slot with the first option from the book's table that isn't already in the
+  session (upper: dumbbell curl, cable lateral raise, cable fly, hammer curl, cable kickback, shrug; lower: standing
+  calf raise, seated calf raise, leg extension, lying leg curl, hip abduction, bicycle crunch), with a reason line saying
+  it can be swapped. Alternative: a "weak point" question in onboarding.
+- [ ] **U4. Rep notation** like "10/10" or "7/7/7" (two or three back-to-back parts of one set: complexes and 21s) is
+  shown as the book writes it.
+- **Video links:** this book prints its own demo videos ((1) pp. 79–82), different ones for some of the same exercises.
+  An exercise keeps the first book's video (Fundamentals, then LPP); this book's video was used for the 12 new
+  exercises that have one and for 21 older exercises that only had a search link.
+- **Without a photo:** standing cable hip abduction, sliding leg curl.
+- [ ] **Close photos, not exact:** California press (JM press photo), Bulgarian split squat (split squat photo),
+  chest-supported machine row ("lever iso row").
+- **Swap change seen here:** for a sore shoulder, the bench press now becomes the new barbell floor press (same bar,
+  shorter range) instead of the dumbbell floor press.
+
 ### Exercise catalogue (so far: the Fundamentals exercises)
 
 - 35 new exercises, each with its movement tags, muscles, how-to, cues and common mistakes written in my own words

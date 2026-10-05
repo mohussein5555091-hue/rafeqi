@@ -93,6 +93,12 @@ programs:
       - {key: "L3", kind: lower, name: {en: "Lower 3", ar: "سفلي ٣"}}
       - {key: "U3", kind: upper, name: {en: "Upper 3", ar: "علوي ٣"}}
 
+# Upper/Lower's "weak point" slots (exercise_names.yaml `choose`): the book's table (p. 59) lists exercises per muscle
+# to pick from. The app fills a slot with the first of these that isn't already in that session (the person can swap it).
+weak_points:
+  upperWeakPoint: [ex_db_curl, ex_cable_lateral_raise, ex_cable_flye, ex_hammer_curl, ex_cable_kickback, ex_shrug]
+  lowerWeakPoint: [ex_calf_raise, ex_seated_calf_raise, ex_leg_extension, ex_lying_leg_curl, ex_hip_abduction, ex_bicycle_crunch]
+
 # Ways of doing an exercise that the programs ask for (data/programs/exercise_names.yaml `technique`), in plain words.
 techniques:
   tempo: {en: "Tempo: lower the weight slowly (about 3 seconds)", ar: "ببطء: نزّل الوزن على حوالي ٣ ثواني"}

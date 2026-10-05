@@ -199,6 +199,9 @@ def build(check_only: bool = False, only: list[str] | None = None) -> int:
             doc["weeks"] = out_weeks
             used = sorted({e["technique"] for w in out_weeks for es in w["days"].values() for e in es if "technique" in e})
             doc["techniques"] = {k: techniques[k] for k in used}
+            chosen = sorted({e["choose"] for w in out_weeks for es in w["days"].values() for e in es if "choose" in e})
+            if chosen:
+                doc["weak_points"] = {k: meta_doc["weak_points"][k] for k in chosen}
             if not check_only and (not only or program in only):
                 path = OUT / f"{program}.json"
                 path.write_text(json.dumps({"id": program, **doc}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

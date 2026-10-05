@@ -103,7 +103,7 @@ def test_shoulder_injury_swaps_to_the_closest_safe_exercise():
     for e in exs:
         assert allowed(CAT[e.exercise_id], (SHOULDER,)), e.exercise_id
     swaps = {e.replaced_exercise_id: e.exercise_id for e in exs if e.swap_kind == "swapped"}
-    assert swaps["ex_bb_bench_press"] == "ex_db_floor_press"    # same movement pattern, partial range
+    assert swaps["ex_bb_bench_press"] == "ex_bb_floor_press"    # same movement pattern and equipment, partial range
     assert swaps["ex_ohp"] == "ex_landmine_press"
     assert swaps["ex_pull_up"] == "ex_lat_pulldown"
     for e in exs:

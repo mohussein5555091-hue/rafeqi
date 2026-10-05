@@ -136,7 +136,8 @@ SAMPLE_ENTRIES = {"ex_bb_squat", "ex_bb_deadlift", "ex_leg_extension", "ex_calf_
                   "ex_lateral_raise", "ex_face_pull", "ex_lat_pulldown", "ex_leg_press", "ex_seated_leg_curl", "ex_pushdown",
                   "ex_db_rdl", "ex_one_arm_db_row", "ex_db_bench_press", "ex_db_shoulder_press", "ex_pull_up", "ex_push_up",
                   "ex_goblet_squat", "ex_split_squat", "ex_incline_curl", "ex_cs_row", "ex_glute_bridge", "ex_step_up",
-                  "ex_db_floor_press", "ex_landmine_press", "ex_inverted_row", "ex_bw_squat", "ex_walking_lunge_bw"}
+                  "ex_db_floor_press", "ex_landmine_press", "ex_inverted_row", "ex_bw_squat", "ex_walking_lunge_bw",
+                  "ex_band_pull_apart"}
 
 
 # ── Following the program week by week ───────────────────────────────────────────────────────────────────────────────
@@ -163,6 +164,8 @@ def test_rpe_from_a_percentage(reps, pct, rpe):
     ("advanced", 4, "fundamentals_upper_lower", 4),
     ("intermediate", 6, "lpp_legs_push_pull", 6),
     ("advanced", 6, "lpp_legs_push_pull", 6),
+    ("intermediate", 5, "upper_lower_size_strength", 5),
+    ("advanced", 5, "upper_lower_size_strength", 5),
 ])
 def test_real_program_choice(real_programs, experience, days, program, used):
     t, n, _ = choose_template(person(experience=experience, days_per_week=days))
@@ -204,6 +207,20 @@ def test_lpp_percentages_techniques_and_lighter_week(real_programs):
     t = next(x for x in load_templates() if x["id"] == "lpp_legs_push_pull")
     sets = lambda w: sum(e["sets"] for d in template_days(t, w).values() for e in d["exercises"])  # noqa: E731
     assert sets(9) < sets(8)  # the lighter week has fewer sets than the week before it
+
+
+def test_upper_lower_waves_and_weak_points(real_programs):
+    """Upper/Lower: 5 days uses the book's day order (p. 28), the first week of each 3-week wave is lighter, and its
+    weak-point slots say they can be swapped."""
+    plan = build_program(person(experience="advanced", days_per_week=5, goal="strength"), CAT)
+    assert plan.template_id == "upper_lower_size_strength" and [d.key for d in plan.days] == ["U1", "L1", "U2", "L2", "U3"]
+    assert any(r.rule == "training.deload" and "Weeks 1, 4, 7 of 9" in r.en for r in plan.reasons)
+    t = next(x for x in load_templates() if x["id"] == "upper_lower_size_strength")
+    effort = lambda w: sum(e.get("rpe", 0) for d in template_days(t, w).values() for e in d["exercises"])  # noqa: E731
+    assert effort(4) < effort(3) and effort(7) < effort(6)
+    weak = [r for wk in range(3) for d in build_program(person(experience="advanced", days_per_week=6, goal="strength"), CAT, weeks_done=wk).days
+            for e in d.exercises for r in e.reasons if "weak-point slot" in r.en]
+    assert weak and all(r.ar for r in weak)
 
 
 def test_a_new_program_week_makes_a_new_plan_version(real_programs, onboarded, clock, db):  # noqa: F811

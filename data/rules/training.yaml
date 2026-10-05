@@ -143,6 +143,21 @@ start_load:
     ex_spider_curl: 0.06
     ex_straight_arm_pulldown: 0.15
     ex_upright_row: 0.2
+    # The Upper/Lower program's exercises.
+    ex_bb_floor_press: 0.55
+    ex_bb_incline_press: 0.55
+    ex_bulgarian_split_squat: 0.1
+    ex_cable_crunch: 0.3
+    ex_cable_hip_abduction: 0.05
+    ex_california_press: 0.4
+    ex_good_morning: 0.4
+    ex_machine_chest_press: 0.5
+    ex_machine_row: 0.45
+    ex_machine_shoulder_press: 0.35
+    ex_push_press: 0.5
+    ex_reverse_hyper: 0.2
+    ex_seated_calf_raise: 0.4
+    ex_stiff_leg_deadlift: 0.7
   explain:
     en: "Starting weight {kg} kg: {ratio} × your weight, adjusted for experience. Adjust it after the first session if it feels off."
     ar: "وزن البداية {kg} كجم: {ratio} × وزنك، متظبط على مستواك. عدّله بعد أول تمرينة لو حاسس إنه مش مظبوط."
@@ -511,6 +526,10 @@ volume:
   explain_technique:
     en: "{name}: {technique}."
     ar: "{name}: {technique}."
+  # Upper/Lower's "weak point" slots: the book lets you pick an exercise for a muscle you want to bring up.
+  explain_choose:
+    en: "{name} fills your program's weak-point slot: the book lets you pick an exercise for a muscle you want to bring up. Swap it for one you prefer."
+    ar: "{name} في خانة نقطة الضعف في برنامجك: الكتاب بيسيبك تختار تمرين لعضلة عايز تقوّيها. بدّله بتمرين تحبه."
 
 # %1RM in a program (the main lifts of LPP and Upper/Lower): the app doesn't know anyone's one-rep max, so the effort
 # target is read from the standard RPE chart (backend/app/engine/training.py RPE_CHART): the % you can lift for a number

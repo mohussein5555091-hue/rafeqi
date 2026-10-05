@@ -32,6 +32,9 @@ const DEFAULT = [
   'Leverage_High_Row', 'Lying_Cambered_Barbell_Row', 'Monster_Walk', 'One_Arm_Dumbbell_Preacher_Curl', 'Pull_Through',
   'Reverse_Barbell_Curl', 'Smith_Machine_Close-Grip_Bench_Press', 'Spider_Curl', 'Straight-Arm_Pulldown',
   'Upright_Cable_Row',
+  'Barbell_Incline_Bench_Press_-_Medium_Grip', 'Cable_Crunch', 'Floor_Press', 'Good_Morning', 'JM_Press', 'Leverage_Chest_Press',
+  'Leverage_Iso_Row', 'Leverage_Shoulder_Press', 'Push_Press', 'Reverse_Hyperextension', 'Seated_Calf_Raise', 'Split_Squats',
+  'Stiff-Legged_Barbell_Deadlift',
 ];
 
 const ids = process.argv.slice(2).length ? process.argv.slice(2) : DEFAULT;

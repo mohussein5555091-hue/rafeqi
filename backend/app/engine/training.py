@@ -283,6 +283,12 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
         exercises: list[PlannedExercise] = []
         def plan_one(t: dict, quiet: bool = False) -> None:
             """Fits one template exercise to the person and adds it to `exercises` (or explains why it's left out)."""
+            if t.get("choose") and t["exercise"] in taken:  # a weak-point slot: the book's next option (program_meta.yaml)
+                options = (template.get("weak_points") or {}).get(t["choose"], [])
+                pick = next((o for o in options if o in catalogue and o not in taken), None)
+                if pick is None:
+                    return
+                t = {k: v for k, v in t.items() if k != "technique"} | {"exercise": pick}
             ex = catalogue[t["exercise"]]
             if ex.id in taken:
                 return
@@ -361,6 +367,10 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
                 f = tr["pct_1rm"]
                 reasons.append(_reason("training.pct_1rm", f["source"], f["explain"], name=ex.name, sets=sets, reps=t["reps"],
                                        pct=f"{t['pct_1rm']:g}", rpe=f"{rpe:g}"))
+            if t.get("choose"):
+                v = tr["volume"]["explain_choose"]
+                reasons.append(Reason("training.volume", v["en"].format(name=ex.name["en"]), v["ar"].format(name=ex.name["ar"]),
+                                      tr["volume"]["source"]))
             if t.get("technique") in techniques:
                 tq = techniques[t["technique"]]
                 v = tr["volume"]["explain_technique"]
