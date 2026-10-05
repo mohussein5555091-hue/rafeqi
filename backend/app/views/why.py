@@ -4,7 +4,7 @@ language, its source and the result.
 Built only from what the plan engine stored with the plan (plans.reasons, program_days.reasons and each program
 exercise's reasons) and the rule files' `summary`, `uses`, `source`, `placeholder` and `ref` fields
 (data/rules/*.yaml, checked by app/engine/rules.py). No AI text: the AI summary at the top comes in the AI phase, so
-`aiSummary` is always null for now.
+`aiSummary` is the plan's summary written by app/ai when AI is on (or its template), null while AI is off.
 """
 
 from sqlalchemy import select
@@ -152,7 +152,7 @@ def why_out(db: Session, plan: Plan) -> dict:
     rules = {d["ruleKey"]: d["source"]["kind"] for d in decisions}
     return {
         "planId": plan.id, "version": plan.version, "createdAt": plan.created_at.isoformat(),
-        "aiSummary": None,  # filled by the local LLM in the AI phase
+        "aiSummary": plan.ai_summary,  # app/ai (only words around the engine's numbers), or None while AI is off
         # Decisions and rules, each counted once: "X of Y rules from your books · A of B decisions".
         "total": len(decisions), "backed": sum(d["source"]["kind"] == "book" for d in decisions),
         "formulas": sum(d["source"]["kind"] == "formula" for d in decisions),

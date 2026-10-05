@@ -28,6 +28,10 @@ class Plan(Base, UserOwned):
     reasons: Mapped[dict] = mapped_column(default=dict)  # one line per number, with its rule and source
     inputs: Mapped[dict] = mapped_column(default=dict)  # snapshot of the answers used
     rules_version: Mapped[str] = mapped_column(String(120), default="")
+    # The plan's short summary for "Why this plan", written by the AI (app/ai) or the template; never holds a number
+    # that the engine didn't produce. ai_model: the model, or "template".
+    ai_summary: Mapped[dict | None]
+    ai_model: Mapped[str | None] = mapped_column(String(80))
     created_at: Mapped[datetime] = timestamp()
 
     __table_args__ = (UniqueConstraint("user_id", "version"),)

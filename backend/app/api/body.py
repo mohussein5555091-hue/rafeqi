@@ -1,10 +1,11 @@
 """Injuries, the weekly check-in, weekly reviews and progress."""
 
-from fastapi import APIRouter, HTTPException, Request, status
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Request, status
 from fastapi.responses import FileResponse, Response
 from sqlalchemy import select
 
 from app import clock
+from app.ai import hooks as ai
 from app.api.deps import CurrentAuth, Db
 from app.api.training import current_week
 from app.engine.checkin import load_questions
@@ -128,7 +129,7 @@ def checkin_draft(auth: CurrentAuth, db: Db):
 
 
 @router.post("/api/checkins", status_code=status.HTTP_201_CREATED)
-def submit_checkin(body: CheckInIn, auth: CurrentAuth, db: Db):
+def submit_checkin(body: CheckInIn, auth: CurrentAuth, db: Db, background: BackgroundTasks):
     """Saves this week's check-in and runs the weekly review, which builds next week's plan. One check-in a week."""
     uid = auth.user.id
     week = current_week(db, uid)
@@ -142,6 +143,8 @@ def submit_checkin(body: CheckInIn, auth: CurrentAuth, db: Db):
     except (NotReady, NoMealPlan):
         raise HTTPException(409, "no_plan_yet") from None
     db.commit()
+    if ai.enabled():  # the review's text, written after this answer is sent
+        background.add_task(ai.after_review, db.get_bind(), review.id)
     return {"reviewId": review.id, "checkinId": ci.id}
 
 

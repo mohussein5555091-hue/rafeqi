@@ -290,3 +290,38 @@ failures (desktop + phone, same test) were a real regression from using the file
 - One detail for hosted PostgreSQL: server-side prepared statements are off, so Neon's and Supabase's connection
   poolers work too.
 - `.env.example` lists the new variables.
+
+## Priority 6: the AI module (Phase D), without calling the real API
+
+`docs/PLAN-AI.md` isn't in the repository, so this follows your description in the request plus the existing rules
+(no chat; the LLM runs only after onboarding and after each check-in; it never produces a plan number).
+
+- `backend/app/ai/` (see its `__init__.py`):
+  - **Two tasks:** `plan_explanation` (after a plan is built: onboarding or "Regenerate my plan"; shown at the top of
+    "Why this plan", the slot that was reserved) and `weekly_review` (after a check-in: the review's summary).
+  - **Model config** (`config.py`, from the environment): `RAFEQI_AI_MODEL_PLAN`, `RAFEQI_AI_MODEL_REVIEW` (both
+    default `claude-sonnet-5-5`), `max_tokens`. AI is **off** unless `RAFEQI_AI_ENABLED=true` and `ANTHROPIC_API_KEY`
+    are both set; off, nothing runs and every screen keeps today's wording.
+  - **2 runs per person per week** (Saturday–Friday, `RAFEQI_AI_RUNS_PER_WEEK`), counted from `llm_calls`.
+  - **Monthly spending cap** (`RAFEQI_AI_MONTHLY_LIMIT_USD`, default 5): every call is recorded in `llm_calls` (task,
+    model, tokens, latency, cost, status, error); when the month's total reaches the cap, the template is used.
+  - **Number check** (`checks.py`): every number in the reply, in Western or Arabic digits, must be one of the numbers
+    in the engine's facts; any other number rejects the whole reply.
+  - **Template fallback:** built from the same facts with no model (and it passes the number check itself). Used when
+    AI is limited, the call fails, the reply isn't `{"en", "ar"}` JSON, or a number doesn't match. A red-flag review
+    never goes to the model: it keeps the fixed safety message.
+  - **Retrieval** (`retrieval.py`): a `Retriever.search(query, k) → [Passage(book, chapter, page, text)]` interface;
+    `NoRetriever` (finds nothing) until the books phase plugs in a real index. Passages are passed to the model as
+    `book_passages` when there are any.
+  - The runs happen in the background after the answer is sent, so a slow model never slows a screen down.
+  - New columns `plans.ai_summary` and `plans.ai_model` (migration `46d696142439`).
+- **Tests:** `tests/backend/test_ai.py` (15 tests) with a fake Claude client: the number check, JSON parsing, off by
+  default, a good reply stored and recorded with its cost, each failure falling back to the template, the weekly
+  limit, the monthly cap, the review text, red flags never sent, both tasks wired into the API, the real client's
+  request format (with the network call faked), and retrieval.
+- **Needs you before turning it on:** the per-model rates in `config.py` (`RATES_PER_MTOK`) are my best guess for
+  keeping the cap; check them against Anthropic's current pricing page. And the prompt (`prompts.py`) is a first
+  draft for you to tune once real books and replies exist.
+- **Decision:** the monthly AI cap is the app owner's spending limit for the AI service. It lives only in the
+  environment and `llm_calls`, never in the data files, the API or the screens, so the "no prices anywhere" rule (which
+  is about what users see) still holds.
