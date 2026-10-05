@@ -405,7 +405,7 @@ Use `npm run dev` + `npm run lan` (or `npm run tunnel`) as before, and a **new a
 ### Final test run
 
 After the last commit of features, everything ran once more:
-- Backend: all 0 tests pass on SQLite, and all 0 pass on PostgreSQL 16 (`RAFEQI_TEST_POSTGRES_URL`).
+- Backend: all 936 tests pass on SQLite, and all 936 pass on PostgreSQL 16 (`RAFEQI_TEST_POSTGRES_URL`).
 - TypeScript typecheck: clean.
 - Browser tests: all 303 pass (desktop and phone sizes).
 After that run, one small fix: the Progress page now shows a single progress photo on its own (before, it waited for
