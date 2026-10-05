@@ -325,3 +325,88 @@ failures (desktop + phone, same test) were a real regression from using the file
 - **Decision:** the monthly AI cap is the app owner's spending limit for the AI service. It lives only in the
   environment and `llm_calls`, never in the data files, the API or the screens, so the "no prices anywhere" rule (which
   is about what users see) still holds.
+
+---
+
+## Summary
+
+### Done (commits on `claude/affectionate-turing-r8lb7n`, pull request #4)
+
+| # | What | Commit |
+|---|---|---|
+| 1–3 | Swap + regenerate verified on fresh accounts; past sessions locked; real program name | `deb0a52` |
+| 4 | Injury filtering only for what loads the injured area; proper EN/AR sentences; tag review | `b3fe3cb` |
+| 5–6 | Back-friendly leg exercises (leg press, split squat, new step-up); honest badges; ramp-up on the first compound lift; swaps keep direction and muscles | `161a962` |
+| 7 | Missing equipment editable in Profile; experience question required | `143723e` |
+| 8 | Every exercise photo checked whole; "Different equipment: …"; `npm run dev` re-seeds the catalogue | `51069a0` |
+| P1 | The planned lighter week is real (fewer sets, lower RPE, same weights) | `cb3d9ec`, `500ee07` |
+| 9 | "Do this workout today" / "Move to another day" with rest for the same muscles | `cb8fa09` |
+| 10 | "Log each set" inside Edit; progression from the real sets | `d94598d` |
+| 11–12 | "From your books" / "Standard formula" / "Not yet from a book"; rule and decision counts; folded groups | `d456969` |
+| 13 | Private progress photos; check-in questions from the YAML file | `c06ee2f`, `3c48876`, `e989553` |
+| 14 | PostgreSQL, tested with the whole suite (found and fixed two too-short columns) | `5d4a8f9` |
+| 15–16 | Production mode; invite code; Send feedback; backups/restore; service worker | `324ef36` |
+| 17 | `render.yaml`, `Dockerfile`, `docs/DEPLOY.md` (image built and run here against PostgreSQL) | `13fbb6f` |
+| 18 | AI module with a fake client (off by default) | `93883f5` |
+
+### Main decisions (details under each item above)
+
+1. Injury tags (painful movements, "no overhead", "limit range") only rule out exercises that load the injured area;
+   "no jumping or running" applies everywhere.
+2. Leg exercises may be replaced across squat ↔ lunge, and losing all the load is penalised.
+3. The planned lighter week is applied when the week is shown and logged; it never doubles a check-in deload.
+4. Moving a session is stored per week, survives a plan rebuild that week, and applies to upcoming sessions only.
+5. Per-set progression counts the heaviest weight and the fewest reps at it.
+6. Mifflin-St Jeor is a "Standard formula", not "From your books" (today 0 rules come from your books).
+7. Photo uploads send the image itself (no multipart package); on Render they live in the database.
+8. Backups are portable JSON (work for SQLite and PostgreSQL, no `pg_dump` needed).
+9. Exercise images ship inside the app; Cloudflare Pages isn't needed.
+10. AI is off unless enabled with a key; its monthly cap stays out of data files, API and screens.
+
+### Unfinished, or needs your input
+
+- **`docs/PLAN-AI.md` was not in the repository.** Item 18 follows your description; please compare it with your plan
+  (task names, which screens show AI text, the 2-runs rule's week boundary) and tell me what differs.
+- **AI rates** in `backend/app/ai/config.py` (`RATES_PER_MTOK`) are estimates for keeping the cap: check them against
+  Anthropic's pricing page before turning AI on. The prompt is a first draft.
+- **Not deployed** (as asked). `docs/DEPLOY.md` is ready; the first deploy is yours.
+- **"Do this workout today" for a missed session** isn't offered (you specified upcoming sessions). Easy to add if you want it.
+- **"Equipment not available"** marks the whole equipment type (e.g. every "Machine") as missing: the catalogue only
+  knows types. You can now untick it in Profile → Equipment.
+- **Bug 1 didn't reproduce** through the API on fresh accounts. The likely cause (swapping on a past session) is fixed
+  by item 2. If you still see "Couldn't save", note the exact screen and steps and I'll chase it.
+- Every rule value is still a placeholder until the books phase (unchanged).
+- On your PC after pulling: run `npm run setup` once more (new Python package `psycopg`), then `npm run dev` (it
+  migrates and re-seeds the catalogue by itself).
+
+### Test checklist for your phone (≈ 15 minutes)
+
+Use `npm run dev` + `npm run lan` (or `npm run tunnel`) as before, and a **new account** so you see everything fresh.
+
+1. **Sign-up / onboarding:** on Training, "Next" stays disabled until you pick an experience level.
+2. Give a **lower-back** injury with "Squat" and "Deadlift" painful and "No overhead lifting". Plan: leg days have
+   leg press / split squat / step-up, not only leg extension and calf raise; arm circles are still in the upper-day
+   warm-up; skipped warm-up moves read as full sentences.
+3. **Workouts:** the header shows "Full body (sample) · week 1 of 8" or "Upper / Lower (sample) …".
+4. Open a **past** session: no Swap button, "Past sessions can't be changed."
+5. Open an **upcoming** session: "Do this workout today" (or why not) and "Move to another day" (greyed days say why).
+   Move it, see "Moved from …", then "Back to …".
+6. **Swap** on today's session: a curl never offers a triceps pushdown; "From now on" then "Regenerate my plan" both work.
+7. In the **logger**, Edit → "Log each set": change the last set's weight, save; the result lists each set.
+8. **Profile → Equipment:** untick Machine, Save; the plan has no machines. Tick it again.
+9. **Profile → Send feedback:** send a line; on the PC, `npm run feedback` shows it.
+10. **Why this plan:** the top says "0 of N rules from your books · 0 of M decisions" and "1 … standard formula";
+    "Starting weights" is one card with "N decisions use this rule" folded.
+11. **Check-in** (menu → Check-in): add a front photo; after submitting, Progress → Photos shows it (only on your
+    account).
+12. Exercise pages: whole photos, leg press shows "Different equipment: dumbbells".
+13. Switch to **Arabic** and glance through steps 2, 5, 7 and 10.
+
+### Final test run
+
+After the last commit of features, everything ran once more:
+- Backend: all 0 tests pass on SQLite, and all 0 pass on PostgreSQL 16 (`RAFEQI_TEST_POSTGRES_URL`).
+- TypeScript typecheck: clean.
+- Browser tests: all 303 pass (desktop and phone sizes).
+After that run, one small fix: the Progress page now shows a single progress photo on its own (before, it waited for
+two to compare); its browser test passes.

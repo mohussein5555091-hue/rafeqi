@@ -18,7 +18,8 @@ database notes, the engine's rule table).
 - Done too: Phase 6 (progress photos stored privately, check-in questions from `data/checkin_questions.yaml`, review
   page, past reviews, progress charts, Profile & settings) and the overnight fixes in `docs/OVERNIGHT-REPORT.md`.
 - **Next: getting ready for friends on Render** (see `docs/OVERNIGHT-REPORT.md` and `docs/DEPLOY.md` once written).
-- After that, the local LLM + RAG (`backend/app/ai/`, still empty): it fills `weekly_reviews.ai_summary_*` and plan explanations.
+- Then the books phase: real rule values and a retriever for `backend/app/ai/retrieval.py`. The AI module itself
+  exists (tested with a fake client, off by default; `docs/OVERNIGHT-REPORT.md`, priority 6).
 
 Update this section and the Status list in README.md at the end of every phase.
 
@@ -55,7 +56,8 @@ backend/            Python 3.12 + FastAPI, SQLAlchemy 2, Alembic (managed by uv)
                     ingredients (replacements, day rebalancing), grocery, check-in, review
   app/views/why.py  "Why this plan": every stored reason + its rule's summary/uses/source/ref from data/rules/*.yaml
   app/models/       Database tables          app/schemas/  Request/response shapes (Pydantic)
-  app/ai/           Reserved for the local LLM + RAG (empty)
+  app/ai/           The AI layer: words around the engine's numbers (plan summary, weekly review); off unless enabled;
+                    number check + template fallback; retrieval is an empty interface until the books phase
   migrations/       Alembic migrations (a test fails if models and migrations disagree)
 frontend/           React + TypeScript + Vite + Tailwind; all data access goes through src/data/api.ts
 data/               vocab/movements.yaml, catalogue/*.yaml, rules/*.yaml, programs/*.json, checkin_questions.yaml
@@ -103,7 +105,9 @@ How the tests stay independent of local files:
   `auth.setup.ts` creates the shared read-only account; tests that change data call `freshUser(page)` for their own.
   Routes with ids are written as `/workouts/:today` etc. and filled in by `resolve()`.
 
-Other commands: `npm run db:migrate`, `npm run db:seed` (loads `data/catalogue/`, refuses on any bad tag/price/brand),
+Other commands: `npm run backup` / `npm run restore -- <file>`, `npm run feedback`, `npm run build` / `npm start`
+(production mode; deploying: `docs/DEPLOY.md`). Backend tests on PostgreSQL: set `RAFEQI_TEST_POSTGRES_URL`.
+`npm run db:migrate`, `npm run db:seed` (loads `data/catalogue/`, refuses on any bad tag/price/brand),
 `npm run personas` (rewrites `docs/personas.md`), `npm run reset-password -- someone@example.com`.
 Changing tables: edit `backend/app/models/`, then
 `uv --directory backend run alembic revision --autogenerate -m "what changed"` and `npm run db:migrate`.

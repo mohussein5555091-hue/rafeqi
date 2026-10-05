@@ -193,6 +193,11 @@ export function Progress() {
                       <span className="absolute inset-y-0 left-1/2 w-[3px] -translate-x-1/2 bg-bg" />
                       <span className="absolute left-1/2 top-1/2 grid h-tap w-tap -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-bg shadow-md" aria-label={t('progress.drag')}><Icon as={ChevronsLeftRight} /></span>
                     </div>
+                  ) : photos.length === 1 && photos[0].url ? (
+                    <figure className="m-0 flex flex-col gap-1.5" data-testid="single-photo">
+                      <img src={photos[0].url} alt="" className="h-64 w-full rounded-lg bg-neutral-100 object-contain" />
+                      <figcaption className="text-[12.5px] text-neutral-700">{date(photos[0].date)} · {t('progress.onePhoto')}</figcaption>
+                    </figure>
                   ) : <p className="m-0 text-sm text-neutral-800">{t('progress.noPhotos')}</p>}
                   <Segmented className="min-h-tap" label={t('progress.photos')} value={view} onChange={setView} options={(['front', 'side', 'back'] as const).map((v) => ({ id: v, label: t(`checkIn.body.view.${v}`) }))} />
                 </Card>

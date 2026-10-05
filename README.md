@@ -102,6 +102,12 @@ that changes data signs up its own new account, so tests can run side by side.
 
 After a Playwright run, `npm --prefix tests/e2e run report` opens the HTML report (with traces of any failures).
 
+- **Backend tests on PostgreSQL** (optional; SQLite is the default): with a PostgreSQL server running, set
+  `RAFEQI_TEST_POSTGRES_URL=postgresql://postgres:PASSWORD@localhost:5432/postgres` and run `npm run test:backend`.
+  Each test gets its own database copied from a migrated template.
+- **Browser tests with an already-installed Chromium** (e.g. when Playwright can't download its own): set
+  `PW_CHROMIUM_PATH` to the browser's path.
+
 ## Database and accounts
 
 | Command | What it does |
@@ -109,6 +115,10 @@ After a Playwright run, `npm --prefix tests/e2e run report` opens the HTML repor
 | `npm run db:migrate` | Creates or updates the tables to the latest version (runs automatically with `npm run dev`). |
 | `npm run db:seed` | Loads the catalogue from `data/catalogue/`: exercises, foods, generic grocery items and recipes. It refuses to load and lists every problem (an unknown tag, a missing translation, a link to something that doesn't exist, a price or brand field). Safe to re-run. |
 | `npm run personas` | Writes [`docs/personas.md`](docs/personas.md): the plan the engine builds for each of the 5 test personas. |
+| `npm run backup` | Saves every table (and photos on disk) into `backups/rafeqi-<date>.json.gz`, keeping the newest 14. Works for SQLite and PostgreSQL. See [`docs/DEPLOY.md`](docs/DEPLOY.md) for daily backups. |
+| `npm run restore -- backups/….json.gz [--url …]` | Loads a backup into an **empty** database (refuses one that has accounts). |
+| `npm run feedback` | Lists what people sent with "Send feedback" in Profile & settings. |
+| `npm run build` / `npm start` | Builds the screens; `start` serves everything from the backend in production mode (see `docs/DEPLOY.md`). |
 | `npm run reset-password -- someone@example.com` | Admin: sets a new password for someone. You type it twice, hidden. It logs them out everywhere and lifts any login lock-out. Email reset comes later. |
 
 - The tables are described, with diagrams, in [`docs/database.md`](docs/database.md).
@@ -176,8 +186,11 @@ only writes the explanations and the weekly-review text. Each number keeps a one
 | Variable | Meaning |
 |---|---|
 | `RAFEQI_ENV` | `development` or `production` |
-| `RAFEQI_SECRET_KEY` | Random secret, for anything that needs signing later |
-| `RAFEQI_DATABASE_URL` | Optional. Defaults to SQLite at `data/rafeqi.db`. For PostgreSQL later, set this one line. |
+| `RAFEQI_SECRET_KEY` | Random secret. Required (at least 32 characters) in production. |
+| `RAFEQI_DATABASE_URL` | Optional. Defaults to SQLite at `data/rafeqi.db`. PostgreSQL: paste the connection string (`postgres://…` from Neon/Supabase works as is). |
+| `RAFEQI_INVITE_CODE` | Optional. When set, sign-up needs this code. |
+| `RAFEQI_PHOTO_STORAGE` | `disk` (default, `data/uploads/`) or `database` (hosts that wipe the disk on deploy, like Render's free plan). |
+| `RAFEQI_AI_ENABLED`, `ANTHROPIC_API_KEY` | AI texts (plan summary, weekly review). Off unless both are set. Limits: `RAFEQI_AI_RUNS_PER_WEEK`, `RAFEQI_AI_MONTHLY_LIMIT_USD`; models: `RAFEQI_AI_MODEL_PLAN`, `RAFEQI_AI_MODEL_REVIEW`. |
 | `RAFEQI_TODAY` | Testing only, e.g. `2026-10-05`: the app acts as if today were that date (the browser tests use it). Ignored in production. |
 
 ## Exercise images and videos

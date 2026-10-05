@@ -163,6 +163,9 @@ test('weekly check-in: the questions come from the questions file, and a progres
   await expect.poll(async () => (await api(page, '/progress')).photos.length).toBe(1);
   const [photo] = (await api(page, '/progress')).photos;
   expect(photo.view).toBe('front');
+  await page.goto('/progress');
+  await waitForContent(page);
+  await expect(page.getByTestId('single-photo').locator('img')).toHaveAttribute('src', photo.url); // one photo shows on its own
   const mine = await page.request.get(photo.url);
   expect(mine.status()).toBe(200);
   expect(mine.headers()['cache-control']).toBe('private, no-store');

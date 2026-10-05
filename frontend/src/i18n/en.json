@@ -252,7 +252,7 @@
   "progress": {
     "since": "Since {date}", "weight": "Weight", "weighIns": "Weigh-ins", "avg7": "7-day average", "measurements": "Measurements", "waistCm": "Waist, cm",
     "strength": "Strength", "topSet": "Top set, {unit}", "records": "Personal records", "photos": "Before & after", "private": "Private",
-    "drag": "Drag to compare", "noPhotos": "Add photos in your weekly check-in to compare.",
+    "drag": "Drag to compare", "noPhotos": "Add photos in your weekly check-in to compare.", "onePhoto": "Add another next week to compare.",
     "noData": "Not enough entries yet. Your chart appears here as you log.", "noLifts": "Finish a workout and your strength shows here."
   },
   "profile": {
