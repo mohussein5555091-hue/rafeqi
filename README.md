@@ -203,4 +203,9 @@ Rafeqi never shows prices, costs or budgets, because people shop at different st
 - [x] Workout plan update: warm-up and cool-down in every session, cardio in the week, swap any exercise, typed number
       inputs, fuller sessions with honest time estimates (see "Added since" in `docs/PLAN.md`)
 - [x] Whole exercise photos (never cropped), "Why this plan" page, removing an ingredient from a meal (see "Added since")
-- [ ] Phase 6: remaining screens
+- [x] Overnight fixes and additions (see `docs/OVERNIGHT-REPORT.md`): injury filtering and wording, back-friendly legs,
+      swaps keep direction, editable equipment, a real lighter week, moving a session, logging each set, three source
+      labels on "Why this plan"
+- [x] Phase 6: progress photos (private), check-in questions from `data/checkin_questions.yaml`, weekly review, past
+      reviews, progress charts, Profile & settings
+- [ ] Next: ready for friends on Render (PostgreSQL, production mode, invites, backups); then the local LLM + RAG

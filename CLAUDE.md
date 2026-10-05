@@ -15,9 +15,9 @@ database notes, the engine's rule table).
   inputs, session length and time estimate; whole exercise photos, the "Why this plan" page, removing ingredients).
   Every rule value in `data/rules/*.yaml` is still a marked placeholder (`placeholder: true`) until the real values are
   extracted from the books. The sample data is gone from `frontend/` (the design reference in `design/` still has it).
-- **Next: Phase 6, the rest of the screens** (see `docs/PLAN.md`): progress photo upload (`data/uploads/<user_id>/`,
-  owner-only), weekly review page polish, grocery pantry editing ("Mark low", "Add a staple"), progress charts,
-  "regenerate my plan". Most endpoints already exist (README "API endpoints"); check-in photos are not sent yet.
+- Done too: Phase 6 (progress photos stored privately, check-in questions from `data/checkin_questions.yaml`, review
+  page, past reviews, progress charts, Profile & settings) and the overnight fixes in `docs/OVERNIGHT-REPORT.md`.
+- **Next: getting ready for friends on Render** (see `docs/OVERNIGHT-REPORT.md` and `docs/DEPLOY.md` once written).
 - After that, the local LLM + RAG (`backend/app/ai/`, still empty): it fills `weekly_reviews.ai_summary_*` and plan explanations.
 
 Update this section and the Status list in README.md at the end of every phase.
