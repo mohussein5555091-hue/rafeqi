@@ -57,6 +57,7 @@ erDiagram
     int days_per_week
     int session_minutes
     text location "gym, homeDumbbells, bodyweight"
+    text daily_activity "sitting, onFeet, active; empty until answered"
     int meals_per_day "2 to 5"
     int cooking_minutes
     json dislikes
@@ -222,7 +223,7 @@ erDiagram
     uuid plan_id FK
     uuid program_day_id FK
     int week_number
-    date date
+    date date "one log per person per day (unique with user_id)"
     text status "inProgress, done, skipped"
     int effort "how hard was today's workout, 1-10"
     bool warmup_done

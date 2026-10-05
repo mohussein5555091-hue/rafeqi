@@ -8,19 +8,19 @@ Rules: `nutrition:v1+training:v1+safety:v1+progression:v1`
 
 ## Beginner woman losing fat (home, dumbbells)
 
-**Answers:** female, 27 years, 163 cm, 74 kg · goal loseFat (steady) · beginner, 3 days × 45 min at homeDumbbells · 3 meals/day, 30 min cooking · dislikes: okra, liver · allergies: none · fasting: none · health flags: none · injuries: none
+**Answers:** female, 27 years, 163 cm, 74 kg · goal loseFat (steady) · beginner, 3 days × 45 min at homeDumbbells · 3 meals/day, 30 min cooking · dislikes: okra, liver · allergies: none · fasting: none · health flags: none · injuries: none · day outside training: sitting · waist: not given
 **Plan week:** 2026-10-03 (Saturday)
 
-**Why this plan:** 11 of 20 rules from your books · 14 of 53 decisions · 1 standard formula
+**Why this plan:** 11 of 20 rules from your books · 14 of 53 decisions · 1 standard formula · 0 Rafeqi safety rules
 
 ### Targets
 
 | | Value | Why |
 |---|---|---|
-| Calories | **1760 kcal** (maintenance 2190, -0.39 kg/week) | Resting burn 1463 kcal (Mifflin-St Jeor: woman, 27 years, 163 cm, 74 kg).<br>Maintenance about 2190 kcal: resting burn × 1.5 for lifting 3 days a week with light daily activity.<br>Your 2 cardio sessions a week (30 min each) are already counted in the activity level (× 1.5); their calories aren't added again.<br>Target 1760 kcal: 20% under maintenance (about 440 kcal), to lose about 0.4 kg a week (steady pace). |
-| Protein | **136 g** | Body fat estimated at about 34% from your BMI (27.9), age and sex; protein and fat are set from it.<br>Protein 136 g: 1.27 g per pound of lean mass (48.7 kg lean at about 34% body fat). |
-| Fat | **63 g** | Fat 63 g: 32% of your calories at about 34% body fat (20–35%, never under 20%). |
-| Carbs | **162 g** | Carbs 162 g: the calories left after protein and fat, to fuel training. |
+| Calories | **1400 kcal** (maintenance 1760, -0.33 kg/week) | Resting burn 1463 kcal (Mifflin-St Jeor: woman, 27 years, 163 cm, 74 kg).<br>Maintenance about 1760 kcal: resting burn × 1.2 for lifting 3 days a week, mostly sitting the rest of the day.<br>Your 2 cardio sessions a week (30 min each) are already counted in the activity level (× 1.2); their calories aren't added again.<br>Target 1400 kcal: 20% under maintenance (about 350 kcal), to lose about 0.32 kg a week (steady pace). |
+| Protein | **136 g** | Body fat estimated at about 34% from your BMI (27.9), age and sex; protein and fat are set from it. Add your waist for a better estimate.<br>Protein 136 g: 1.27 g per pound of lean mass (48.7 kg lean at about 34% body fat). |
+| Fat | **50 g** | Fat 50 g: 32% of your calories at about 34% body fat (20–35%, never under 20%). |
+| Carbs | **101 g** | Carbs 101 g: the calories left after protein and fat, to fuel training. |
 
 ### Training
 
@@ -86,27 +86,27 @@ Rules: `nutrition:v1+training:v1+safety:v1+progression:v1`
 
 ### Meals
 
-- Meals: 3 a day, each day within 5% of 1760 kcal with at least 136 g protein.
-- White cheese & areesh sandwich with salad: 2× this week (breakfast), 0.5 of the recipe each time (217 kcal, 14 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 5 min to make.
-- Oven chicken & potatoes: 2× this week (lunch, dinner), 0.5 of the recipe each time (336 kcal, 35 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 55 min to make.
-- Beef kofta, baladi bread & tahini salad: 4× this week (dinner, lunch), 1.25–1.75 of the recipe each time (862–1207 kcal, 65–91 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 30 min to make.
-- Zabadi, banana & oats: 3× this week (breakfast), 0.5–0.75 of the recipe each time (178–266 kcal, 7–10 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 3 min to make.
-- Grilled chicken, rice & molokhia: 3× this week (lunch, dinner), 2 of the recipe each time (1220 kcal, 143 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
-- Lentil soup, bread & grilled chicken: 2× this week (dinner), 0.5 of the recipe each time (298 kcal, 27 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
-- Grilled fish, rice & salad: 2× this week (dinner), 1.25 of the recipe each time (731 kcal, 74 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 35 min to make.
+- Meals: 3 a day, each day within 5% of 1400 kcal with at least 136 g protein.
+- Your cooking time didn't leave enough recipes for every day, so some days take a little longer to cook.
+- White cheese & areesh sandwich with salad: 3× this week (breakfast), 0.5–0.75 of the recipe each time (217–326 kcal, 14–21 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 5 min to make.
+- Grilled chicken, rice & molokhia: 4× this week (lunch, dinner), 1.25–1.5 of the recipe each time (762–915 kcal, 90–107 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Beef kofta, baladi bread & tahini salad: 2× this week (dinner), 0.5 of the recipe each time (345 kcal, 26 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 30 min to make.
+- Zabadi, banana & oats: 2× this week (breakfast), 0.5 of the recipe each time (178 kcal, 7 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 3 min to make.
+- Oven chicken & potatoes: 4× this week (dinner, lunch), 0.5–1.25 of the recipe each time (336–839 kcal, 35–87 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 55 min to make.
 - Ful medames, eggs & baladi bread: 2× this week (breakfast), 0.5 of the recipe each time (325 kcal, 21 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 15 min to make.
-- Koshary, lighter plate: 1× this week (lunch), 0.5 of the recipe each time (272 kcal, 11 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 50 min to make.
+- Lentil soup, bread & grilled chicken: 1× this week (lunch), 0.5 of the recipe each time (298 kcal, 27 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Grilled fish, rice & salad: 3× this week (lunch, dinner), 0.5–1.5 of the recipe each time (292–877 kcal, 30–89 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 35 min to make.
 
 | Day | Meals (portion) | kcal | Protein | Carbs | Fat |
 |---|---|---|---|---|---|
-| Sat 2026-10-03 | breakfast 08:30: White cheese & areesh sandwich with salad ×0.5<br>lunch 14:30: Oven chicken & potatoes ×0.5<br>dinner 21:00: Beef kofta, baladi bread & tahini salad ×1.75 | 1760 | 140 g | 165 g | 64 g |
-| Sun 2026-10-04 | breakfast 08:30: Zabadi, banana & oats ×0.75<br>lunch 14:30: Grilled chicken, rice & molokhia ×2<br>dinner 21:00: Lentil soup, bread & grilled chicken ×0.5 | 1784 | 180 g | 172 g | 40 g |
-| Mon 2026-10-05 | breakfast 08:30: Zabadi, banana & oats ×0.5<br>lunch 14:30: Beef kofta, baladi bread & tahini salad ×1.25<br>dinner 21:00: Grilled fish, rice & salad ×1.25 | 1771 | 146 g | 169 g | 62 g |
-| Tue 2026-10-06 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Koshary, lighter plate ×0.5<br>dinner 21:00: Grilled chicken, rice & molokhia ×2 | 1817 | 175 g | 182 g | 42 g |
-| Wed 2026-10-07 | breakfast 08:30: White cheese & areesh sandwich with salad ×0.5<br>lunch 14:30: Beef kofta, baladi bread & tahini salad ×1.75<br>dinner 21:00: Oven chicken & potatoes ×0.5 | 1760 | 140 g | 165 g | 64 g |
-| Thu 2026-10-08 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Grilled chicken, rice & molokhia ×2<br>dinner 21:00: Lentil soup, bread & grilled chicken ×0.5 | 1843 | 191 g | 171 g | 42 g |
-| Fri 2026-10-09 | breakfast 08:30: Zabadi, banana & oats ×0.5<br>lunch 14:30: Beef kofta, baladi bread & tahini salad ×1.25<br>dinner 21:00: Grilled fish, rice & salad ×1.25 | 1771 | 146 g | 169 g | 62 g |
-| **Target** | | **1760** (±5%) | **≥ 136 g** | 162 g | 63 g |
+| Sat 2026-10-03 | breakfast 08:30: White cheese & areesh sandwich with salad ×0.75<br>lunch 14:30: Grilled chicken, rice & molokhia ×1.25<br>dinner 21:00: Beef kofta, baladi bread & tahini salad ×0.5 | 1433 | 137 g | 130 g | 40 g |
+| Sun 2026-10-04 | breakfast 08:30: Zabadi, banana & oats ×0.5<br>lunch 14:30: Grilled chicken, rice & molokhia ×1.5<br>dinner 21:00: Oven chicken & potatoes ×0.5 | 1429 | 149 g | 128 g | 34 g |
+| Mon 2026-10-05 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Lentil soup, bread & grilled chicken ×0.5<br>dinner 21:00: Grilled chicken, rice & molokhia ×1.25 | 1385 | 138 g | 136 g | 31 g |
+| Tue 2026-10-06 | breakfast 08:30: White cheese & areesh sandwich with salad ×0.75<br>lunch 14:30: Grilled chicken, rice & molokhia ×1.25<br>dinner 21:00: Beef kofta, baladi bread & tahini salad ×0.5 | 1433 | 137 g | 130 g | 40 g |
+| Wed 2026-10-07 | breakfast 08:30: Zabadi, banana & oats ×0.5<br>lunch 14:30: Grilled fish, rice & salad ×0.75<br>dinner 21:00: Oven chicken & potatoes ×1.25 | 1455 | 138 g | 143 g | 37 g |
+| Thu 2026-10-08 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Oven chicken & potatoes ×1.25<br>dinner 21:00: Grilled fish, rice & salad ×0.5 | 1456 | 138 g | 145 g | 37 g |
+| Fri 2026-10-09 | breakfast 08:30: White cheese & areesh sandwich with salad ×0.5<br>lunch 14:30: Grilled fish, rice & salad ×1.5<br>dinner 21:00: Oven chicken & potatoes ×0.5 | 1430 | 138 g | 136 g | 39 g |
+| **Target** | | **1400** (±5%) | **≥ 136 g** | 101 g | 50 g |
 
 ### Grocery list
 
@@ -116,46 +116,43 @@ Rafeqi grocery list — this week
 Vegetables & fruit
 - Bananas · 0.5 kg
 - Carrots · 0.5 kg
-- Cucumbers · 1 kg
+- Cucumbers · 0.5 kg
 - Garlic · 0.25 kg
-- Lemons · 0.5 kg
+- Lemons · 0.25 kg
 - Onions · 0.5 kg
 - Parsley · 1
-- Potatoes · 0.5 kg
+- Potatoes · 1 kg
 - Tomatoes · 1 kg
 
 Meat, chicken & fish
 - Chicken breast · 2.5 kg
 - Fish fillet · 1 kg
-- Lean beef mince · 1.5 kg
+- Lean beef mince · 0.5 kg
 
 Dairy & eggs
 - Cottage cheese (areesh) · 0.25 kg
 - Eggs · 6
 - White cheese · 0.25 kg
-- Yogurt (zabadi) · 4 cups
+- Yogurt (zabadi) · 2 cups
 
 Bread & bakery
-- Baladi bread · 10
+- Baladi bread · 5
 
 Rafeqi grocery list — this month
 
 Pantry staples
-- Chickpeas · 0.5 kg
 - Fava beans (ful) · 1 kg
-- Frozen molokhia · 2.8 kg
+- Frozen molokhia · 2.4 kg
 - Honey · 1 jars
 - Lentils · 0.5 kg
 - Oats · 0.5 kg
 - Olive oil · 0.5 L
-- Pasta · 0.5 kg
 - Rice · 2 kg
 - Vegetable oil · 1 L
 
 Spices & sauces
 - Cumin · 50 g
-- Tahini · 2 jars
-- Tomato paste · 1 jars
+- Tahini · 1 jars
 ```
 
 ### Safety checks
@@ -171,25 +168,25 @@ Spices & sauces
 - ✅ Starting weights within the beginner caps
 - ✅ No cardio the day before a leg day
 - ✅ Every warm-up move and stretch is safe for the injuries
-- ✅ Limits eased for meals
+- ⚠️ Limits eased for meals: cooking
 
 ---
 
 ## Intermediate man with a left shoulder injury
 
-**Answers:** male, 29 years, 180 cm, 88 kg · goal loseFat (steady) · intermediate, 4 days × 60 min at gym · 4 meals/day, 30 min cooking · dislikes: liver, eggplant · allergies: none · fasting: ramadan · health flags: none · injuries: shoulderL (active, painful: overheadPress, benchPress, dips, restrictions: noOverhead)
+**Answers:** male, 29 years, 180 cm, 88 kg · goal loseFat (steady) · intermediate, 4 days × 60 min at gym · 4 meals/day, 30 min cooking · dislikes: liver, eggplant · allergies: none · fasting: ramadan · health flags: none · injuries: shoulderL (active, painful: overheadPress, benchPress, dips, restrictions: noOverhead) · day outside training: onFeet · waist: 96 cm
 **Plan week:** 2026-10-03 (Saturday)
 
-**Why this plan:** 12 of 20 rules from your books · 22 of 69 decisions · 1 standard formula
+**Why this plan:** 12 of 20 rules from your books · 22 of 69 decisions · 1 standard formula · 0 Rafeqi safety rules
 
 ### Targets
 
 | | Value | Why |
 |---|---|---|
-| Calories | **2390 kcal** (maintenance 2980, -0.54 kg/week) | Resting burn 1865 kcal (Mifflin-St Jeor: man, 29 years, 180 cm, 88 kg).<br>Maintenance about 2980 kcal: resting burn × 1.6 for lifting 4 days a week with light daily activity.<br>Your 3 cardio sessions a week (30 min each) are already counted in the activity level (× 1.6); their calories aren't added again.<br>Target 2390 kcal: 20% under maintenance (about 600 kcal), to lose about 0.54 kg a week (steady pace). |
-| Protein | **196 g** | Body fat estimated at about 23% from your BMI (27.2), age and sex; protein and fat are set from it.<br>Protein 196 g: 1.31 g per pound of lean mass (67.7 kg lean at about 23% body fat). |
-| Fat | **90 g** | Fat 90 g: 34% of your calories at about 23% body fat (20–35%, never under 20%). |
-| Carbs | **199 g** | Carbs 199 g: the calories left after protein and fat, to fuel training. |
+| Calories | **2390 kcal** (maintenance 2980, -0.54 kg/week) | Resting burn 1865 kcal (Mifflin-St Jeor: man, 29 years, 180 cm, 88 kg).<br>Maintenance about 2980 kcal: resting burn × 1.6 for lifting 4 days a week, on your feet part of the day.<br>Your 3 cardio sessions a week (30 min each) are already counted in the activity level (× 1.6); their calories aren't added again.<br>Target 2390 kcal: 20% under maintenance (about 600 kcal), to lose about 0.54 kg a week (steady pace). |
+| Protein | **180 g** | Body fat estimated at about 26% from your height (180 cm) and waist (96 cm); protein and fat are set from it.<br>Protein 180 g: 1.26 g per pound of lean mass (64.7 kg lean at about 26% body fat). |
+| Fat | **93 g** | Fat 93 g: 35% of your calories at about 26% body fat (20–35%, never under 20%). |
+| Carbs | **208 g** | Carbs 208 g: the calories left after protein and fat, to fuel training. |
 
 ### Training
 
@@ -268,29 +265,29 @@ Spices & sauces
 
 ### Meals
 
-- Meals: 4 a day, each day within 5% of 2390 kcal with at least 196 g protein.
+- Meals: 4 a day, each day within 5% of 2390 kcal with at least 180 g protein.
 - Your cooking time didn't leave enough recipes for every day, so some days take a little longer to cook.
 - Zabadi, banana & oats: 5× this week (breakfast, after the gym), 0.5 of the recipe each time (178 kcal, 7 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 3 min to make.
-- Grilled chicken, rice & molokhia: 3× this week (lunch), 1–2.5 of the recipe each time (610–1525 kcal, 72–179 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
-- White cheese & areesh sandwich with salad: 5× this week (after the gym, breakfast), 0.5–1 of the recipe each time (217–434 kcal, 14–28 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 5 min to make.
-- Beef kofta, baladi bread & tahini salad: 4× this week (dinner, lunch), 0.75–2 of the recipe each time (517–1379 kcal, 39–104 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 30 min to make.
+- Grilled chicken, rice & molokhia: 3× this week (lunch), 0.5–2.5 of the recipe each time (305–1525 kcal, 36–179 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- White cheese & areesh sandwich with salad: 5× this week (after the gym), 0.5–0.75 of the recipe each time (217–326 kcal, 14–21 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 5 min to make.
+- Beef kofta, baladi bread & tahini salad: 4× this week (dinner), 2.25–2.5 of the recipe each time (1551–1724 kcal, 117–130 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 30 min to make.
 - Ful medames, eggs & baladi bread: 2× this week (breakfast), 0.5 of the recipe each time (325 kcal, 21 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 15 min to make.
-- Oven chicken & potatoes: 2× this week (lunch, dinner), 0.5–1.25 of the recipe each time (336–839 kcal, 35–87 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 55 min to make.
-- Lentil soup, bread & grilled chicken: 2× this week (dinner), 0.75–2.5 of the recipe each time (446–1488 kcal, 41–136 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
-- Shakshuka & baladi bread: 2× this week (breakfast), 0.5–1.25 of the recipe each time (289–723 kcal, 15–38 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 20 min to make.
+- Lentil soup, bread & grilled chicken: 2× this week (lunch, dinner), 0.5–0.75 of the recipe each time (298–446 kcal, 27–41 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Oven chicken & potatoes: 2× this week (lunch, dinner), 0.5 of the recipe each time (336 kcal, 35 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 55 min to make.
+- Shakshuka & baladi bread: 2× this week (breakfast), 1.25–1.75 of the recipe each time (723–1012 kcal, 38–53 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 20 min to make.
 - Koshary, lighter plate: 1× this week (lunch), 0.5 of the recipe each time (272 kcal, 11 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 50 min to make.
-- Grilled fish, rice & salad: 2× this week (dinner, lunch), 2–2.5 of the recipe each time (1169–1461 kcal, 118–148 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 35 min to make.
+- Grilled fish, rice & salad: 2× this week (dinner, lunch), 1.5–2 of the recipe each time (877–1169 kcal, 89–118 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 35 min to make.
 
 | Day | Meals (portion) | kcal | Protein | Carbs | Fat |
 |---|---|---|---|---|---|
-| Sat 2026-10-03 | breakfast 08:30: Zabadi, banana & oats ×0.5<br>lunch 14:30: Grilled chicken, rice & molokhia ×1<br>snack 18:30: White cheese & areesh sandwich with salad ×0.5<br>dinner 21:00: Beef kofta, baladi bread & tahini salad ×2 | 2384 | 197 g | 225 g | 82 g |
-| Sun 2026-10-04 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Grilled chicken, rice & molokhia ×1<br>snack 18:30: White cheese & areesh sandwich with salad ×0.5<br>dinner 21:00: Beef kofta, baladi bread & tahini salad ×1.75 | 2359 | 198 g | 224 g | 79 g |
-| Mon 2026-10-05 | breakfast 08:30: White cheese & areesh sandwich with salad ×0.5<br>lunch 14:30: Oven chicken & potatoes ×1.25<br>snack 18:30: Zabadi, banana & oats ×0.5<br>dinner 21:00: Beef kofta, baladi bread & tahini salad ×1.75 | 2441 | 199 g | 240 g | 81 g |
-| Tue 2026-10-06 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Beef kofta, baladi bread & tahini salad ×0.75<br>snack 18:30: Zabadi, banana & oats ×0.5<br>dinner 21:00: Lentil soup, bread & grilled chicken ×2.5 | 2508 | 203 g | 298 g | 63 g |
+| Sat 2026-10-03 | breakfast 08:30: Zabadi, banana & oats ×0.5<br>lunch 14:30: Grilled chicken, rice & molokhia ×0.5<br>snack 18:30: White cheese & areesh sandwich with salad ×0.5<br>dinner 21:00: Beef kofta, baladi bread & tahini salad ×2.5 | 2424 | 187 g | 232 g | 90 g |
+| Sun 2026-10-04 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Lentil soup, bread & grilled chicken ×0.5<br>snack 18:30: White cheese & areesh sandwich with salad ×0.75<br>dinner 21:00: Beef kofta, baladi bread & tahini salad ×2.25 | 2500 | 186 g | 258 g | 88 g |
+| Mon 2026-10-05 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Grilled chicken, rice & molokhia ×0.5<br>snack 18:30: Zabadi, banana & oats ×0.5<br>dinner 21:00: Beef kofta, baladi bread & tahini salad ×2.25 | 2359 | 181 g | 231 g | 86 g |
+| Tue 2026-10-06 | breakfast 08:30: Zabadi, banana & oats ×0.5<br>lunch 14:30: Oven chicken & potatoes ×0.5<br>snack 18:30: White cheese & areesh sandwich with salad ×0.5<br>dinner 21:00: Beef kofta, baladi bread & tahini salad ×2.5 | 2455 | 186 g | 239 g | 91 g |
 | Wed 2026-10-07 | breakfast 08:30: Zabadi, banana & oats ×0.5<br>lunch 14:30: Grilled chicken, rice & molokhia ×2.5<br>snack 18:30: White cheese & areesh sandwich with salad ×0.5<br>dinner 21:00: Lentil soup, bread & grilled chicken ×0.75 | 2366 | 241 g | 227 g | 54 g |
-| Thu 2026-10-08 | breakfast 08:30: Shakshuka & baladi bread ×0.5<br>lunch 14:30: Koshary, lighter plate ×0.5<br>snack 18:30: White cheese & areesh sandwich with salad ×1<br>dinner 21:00: Grilled fish, rice & salad ×2.5 | 2456 | 202 g | 265 g | 71 g |
-| Fri 2026-10-09 | breakfast 08:30: Shakshuka & baladi bread ×1.25<br>lunch 14:30: Grilled fish, rice & salad ×2<br>snack 18:30: Zabadi, banana & oats ×0.5<br>dinner 21:00: Oven chicken & potatoes ×0.5 | 2406 | 198 g | 241 g | 76 g |
-| **Target** | | **2390** (±5%) | **≥ 196 g** | 199 g | 90 g |
+| Thu 2026-10-08 | breakfast 08:30: Shakshuka & baladi bread ×1.25<br>lunch 14:30: Koshary, lighter plate ×0.5<br>snack 18:30: White cheese & areesh sandwich with salad ×0.5<br>dinner 21:00: Grilled fish, rice & salad ×2 | 2381 | 181 g | 258 g | 74 g |
+| Fri 2026-10-09 | breakfast 08:30: Shakshuka & baladi bread ×1.75<br>lunch 14:30: Grilled fish, rice & salad ×1.5<br>snack 18:30: Zabadi, banana & oats ×0.5<br>dinner 21:00: Oven chicken & potatoes ×0.5 | 2403 | 184 g | 248 g | 81 g |
+| **Target** | | **2390** (±5%) | **≥ 180 g** | 208 g | 93 g |
 
 ### Grocery list
 
@@ -301,45 +298,45 @@ Vegetables & fruit
 - Bananas · 0.5 kg
 - Bell peppers · 0.5 kg
 - Carrots · 0.5 kg
-- Cucumbers · 1 kg
+- Cucumbers · 1.5 kg
 - Garlic · 0.25 kg
-- Lemons · 0.5 kg
-- Onions · 0.5 kg
+- Lemons · 0.25 kg
+- Onions · 1 kg
 - Parsley · 2
 - Potatoes · 0.5 kg
-- Tomatoes · 1.5 kg
+- Tomatoes · 2 kg
 
 Meat, chicken & fish
-- Chicken breast · 2.5 kg
-- Fish fillet · 1.5 kg
-- Lean beef mince · 1.5 kg
+- Chicken breast · 1.5 kg
+- Fish fillet · 1 kg
+- Lean beef mince · 2 kg
 
 Dairy & eggs
 - Cottage cheese (areesh) · 0.5 kg
-- Eggs · 12
+- Eggs · 18
 - White cheese · 0.25 kg
 - Yogurt (zabadi) · 5 cups
 
 Bread & bakery
-- Baladi bread · 15
+- Baladi bread · 20
 
 Rafeqi grocery list — this month
 
 Pantry staples
 - Chickpeas · 0.5 kg
 - Fava beans (ful) · 1 kg
-- Frozen molokhia · 2 kg
+- Frozen molokhia · 1.6 kg
 - Honey · 1 jars
-- Lentils · 1.5 kg
+- Lentils · 1 kg
 - Oats · 0.5 kg
 - Olive oil · 0.5 L
 - Pasta · 0.5 kg
-- Rice · 3 kg
+- Rice · 2 kg
 - Vegetable oil · 1 L
 
 Spices & sauces
 - Cumin · 50 g
-- Tahini · 2 jars
+- Tahini · 3 jars
 - Tomato paste · 1 jars
 ```
 
@@ -362,17 +359,17 @@ Spices & sauces
 
 ## Advanced lifter (strength, 5 days, recovering right knee)
 
-**Answers:** male, 34 years, 178 cm, 85 kg · goal strength (steady) · advanced, 5 days × 90 min at gym · 5 meals/day, 60 min cooking · dislikes: none · allergies: none · fasting: none · health flags: none · injuries: kneeR (recovering)
+**Answers:** male, 34 years, 178 cm, 85 kg · goal strength (steady) · advanced, 5 days × 90 min at gym · 5 meals/day, 60 min cooking · dislikes: none · allergies: none · fasting: none · health flags: none · injuries: kneeR (recovering) · day outside training: onFeet · waist: not given
 **Plan week:** 2026-10-03 (Saturday)
 
-**Why this plan:** 11 of 20 rules from your books · 17 of 92 decisions · 1 standard formula
+**Why this plan:** 11 of 20 rules from your books · 17 of 92 decisions · 1 standard formula · 1 Rafeqi safety rule
 
 ### Targets
 
 | | Value | Why |
 |---|---|---|
-| Calories | **3360 kcal** (maintenance 3060, +0.27 kg/week) | Resting burn 1798 kcal (Mifflin-St Jeor: man, 34 years, 178 cm, 85 kg).<br>Maintenance about 3060 kcal: resting burn × 1.7 for lifting 5 days a week with light daily activity.<br>Your 1 cardio sessions a week (15 min each) are already counted in the activity level (× 1.7); their calories aren't added again.<br>Target 3360 kcal: 10% over maintenance (+310 kcal), the surplus for advanced lifters, to recover from heavy training. |
-| Protein | **186 g** | Body fat estimated at about 24% from your BMI (26.8), age and sex; protein and fat are set from it.<br>Protein 186 g: 1.3 g per pound of lean mass (64.8 kg lean at about 24% body fat). |
+| Calories | **3360 kcal** (maintenance 3060, +0.27 kg/week) | Resting burn 1798 kcal (Mifflin-St Jeor: man, 34 years, 178 cm, 85 kg).<br>Maintenance about 3060 kcal: resting burn × 1.7 for lifting 5 days a week, on your feet part of the day.<br>Your 1 cardio sessions a week (15 min each) are already counted in the activity level (× 1.7); their calories aren't added again.<br>Target 3360 kcal: 10% over maintenance (+310 kcal), the surplus for advanced lifters, to recover from heavy training. |
+| Protein | **186 g** | Body fat estimated at about 24% from your BMI (26.8), age and sex; protein and fat are set from it. Add your waist for a better estimate.<br>Protein 186 g: 1.3 g per pound of lean mass (64.8 kg lean at about 24% body fat). |
 | Fat | **127 g** | Fat 127 g: 34% of your calories at about 24% body fat (20–35%, never under 20%). |
 | Carbs | **368 g** | Carbs 368 g: the calories left after protein and fat, to fuel training. |
 
@@ -572,19 +569,19 @@ Spices & sauces
 
 ## Health flag: diabetes and blood-pressure medication, wants to lose fat fast
 
-**Answers:** male, 52 years, 172 cm, 101 kg · goal loseFat (faster) · beginner, 3 days × 45 min at gym · 3 meals/day, 30 min cooking · dislikes: none · allergies: lactose · fasting: none · health flags: diabetes, exercise_medication · injuries: none
+**Answers:** male, 52 years, 172 cm, 101 kg · goal loseFat (faster) · beginner, 3 days × 45 min at gym · 3 meals/day, 30 min cooking · dislikes: none · allergies: lactose · fasting: none · health flags: diabetes, exercise_medication · injuries: none · day outside training: sitting · waist: not given
 **Plan week:** 2026-10-03 (Saturday)
 
-**Why this plan:** 11 of 20 rules from your books · 16 of 62 decisions · 1 standard formula
+**Why this plan:** 11 of 20 rules from your books · 16 of 62 decisions · 1 standard formula · 1 Rafeqi safety rule
 
 ### Targets
 
 | | Value | Why |
 |---|---|---|
-| Calories | **2330 kcal** (maintenance 2740, -0.37 kg/week) | Resting burn 1830 kcal (Mifflin-St Jeor: man, 52 years, 172 cm, 101 kg).<br>Maintenance about 2740 kcal: resting burn × 1.5 for lifting 3 days a week with light daily activity.<br>Your 2 cardio sessions a week (30 min each) are already counted in the activity level (× 1.5); their calories aren't added again.<br>Target 2060 kcal: 25% under maintenance (about 690 kcal), to lose about 0.62 kg a week (faster pace).<br>Kept conservative because of your health answers: deficit at most 15%, surplus at most 150 kcal. Please check with your doctor before starting.<br>Daily target after the safety limits: 2330 kcal. |
-| Protein | **169 g** | Body fat estimated at about 37% from your BMI (34.1), age and sex; protein and fat are set from it.<br>Protein 169 g: 1.2 g per pound of lean mass (63.9 kg lean at about 37% body fat). |
-| Fat | **91 g** | Fat 91 g: 35% of your calories at about 37% body fat (20–35%, never under 20%). |
-| Carbs | **208 g** | Carbs 208 g: the calories left after protein and fat, to fuel training. |
+| Calories | **1870 kcal** (maintenance 2200, -0.30 kg/week) | Resting burn 1830 kcal (Mifflin-St Jeor: man, 52 years, 172 cm, 101 kg).<br>Maintenance about 2200 kcal: resting burn × 1.2 for lifting 3 days a week, mostly sitting the rest of the day.<br>Your 2 cardio sessions a week (30 min each) are already counted in the activity level (× 1.2); their calories aren't added again.<br>Target 1650 kcal: 25% under maintenance (about 550 kcal), to lose about 0.5 kg a week (faster pace).<br>Kept conservative because of your health answers: deficit at most 15%, surplus at most 150 kcal. Please check with your doctor before starting.<br>Daily target after the safety limits: 1870 kcal. |
+| Protein | **169 g** | Body fat estimated at about 37% from your BMI (34.1), age and sex; protein and fat are set from it. Add your waist for a better estimate.<br>Protein 169 g: 1.2 g per pound of lean mass (63.9 kg lean at about 37% body fat). |
+| Fat | **73 g** | Fat 73 g: 35% of your calories at about 37% body fat (20–35%, never under 20%). |
+| Carbs | **134 g** | Carbs 134 g: the calories left after protein and fat, to fuel training. |
 
 ### Training
 
@@ -646,27 +643,27 @@ Spices & sauces
 
 ### Meals
 
-- Meals: 3 a day, each day within 5% of 2330 kcal with at least 169 g protein.
+- Meals: 3 a day, each day within 5% of 1870 kcal with at least 169 g protein.
 - Your cooking time didn't leave enough recipes for every day, so some days take a little longer to cook.
-- Ful medames, eggs & baladi bread: 4× this week (breakfast), 0.5–1.25 of the recipe each time (325–812 kcal, 21–51 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 15 min to make.
-- Beef kofta, baladi bread & tahini salad: 3× this week (lunch, dinner), 2.5 of the recipe each time (1724 kcal, 130 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 30 min to make.
-- Grilled chicken, rice & molokhia: 3× this week (dinner, lunch), 0.5–2.5 of the recipe each time (305–1525 kcal, 36–179 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
-- Oven chicken & potatoes: 2× this week (dinner), 0.5 of the recipe each time (336 kcal, 35 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 55 min to make.
-- Lentil soup, bread & grilled chicken: 2× this week (dinner), 0.5–2 of the recipe each time (298–1191 kcal, 27–109 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
-- Koshary, lighter plate: 2× this week (lunch), 0.5 of the recipe each time (272 kcal, 11 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 50 min to make.
-- Shakshuka & baladi bread: 3× this week (breakfast), 0.5–2.5 of the recipe each time (289–1445 kcal, 15–76 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 20 min to make.
-- Grilled fish, rice & salad: 2× this week (lunch, dinner), 1–2 of the recipe each time (584–1169 kcal, 59–118 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 35 min to make.
+- Ful medames, eggs & baladi bread: 4× this week (breakfast), 0.5 of the recipe each time (325 kcal, 21 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 15 min to make.
+- Beef kofta, baladi bread & tahini salad: 2× this week (lunch, dinner), 1.25 of the recipe each time (862 kcal, 65 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 30 min to make.
+- Grilled chicken, rice & molokhia: 4× this week (dinner, lunch), 1.25–2 of the recipe each time (762–1220 kcal, 90–143 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Lentil soup, bread & grilled chicken: 2× this week (dinner, lunch), 0.5 of the recipe each time (298 kcal, 27 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 40 min to make.
+- Koshary, lighter plate: 1× this week (dinner), 0.5 of the recipe each time (272 kcal, 11 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 50 min to make.
+- Shakshuka & baladi bread: 3× this week (breakfast), 0.5 of the recipe each time (289 kcal, 15 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 20 min to make.
+- Grilled fish, rice & salad: 3× this week (lunch, dinner), 1.25–2.25 of the recipe each time (731–1315 kcal, 74–133 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 35 min to make.
+- Oven chicken & potatoes: 2× this week (dinner), 1.25 of the recipe each time (839 kcal, 87 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 55 min to make.
 
 | Day | Meals (portion) | kcal | Protein | Carbs | Fat |
 |---|---|---|---|---|---|
-| Sat 2026-10-03 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Beef kofta, baladi bread & tahini salad ×2.5<br>dinner 21:00: Grilled chicken, rice & molokhia ×0.5 | 2354 | 187 g | 217 g | 88 g |
-| Sun 2026-10-04 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Beef kofta, baladi bread & tahini salad ×2.5<br>dinner 21:00: Oven chicken & potatoes ×0.5 | 2385 | 186 g | 224 g | 89 g |
-| Mon 2026-10-05 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.75<br>lunch 14:30: Grilled chicken, rice & molokhia ×2.5<br>dinner 21:00: Lentil soup, bread & grilled chicken ×0.5 | 2310 | 237 g | 215 g | 53 g |
-| Tue 2026-10-06 | breakfast 08:30: Ful medames, eggs & baladi bread ×1.25<br>lunch 14:30: Koshary, lighter plate ×0.5<br>dinner 21:00: Lentil soup, bread & grilled chicken ×2 | 2275 | 171 g | 298 g | 49 g |
-| Wed 2026-10-07 | breakfast 08:30: Shakshuka & baladi bread ×2.5<br>lunch 14:30: Grilled fish, rice & salad ×1<br>dinner 21:00: Oven chicken & potatoes ×0.5 | 2365 | 170 g | 241 g | 86 g |
-| Thu 2026-10-08 | breakfast 08:30: Shakshuka & baladi bread ×1.5<br>lunch 14:30: Koshary, lighter plate ×0.5<br>dinner 21:00: Grilled fish, rice & salad ×2 | 2308 | 174 g | 245 g | 74 g |
-| Fri 2026-10-09 | breakfast 08:30: Shakshuka & baladi bread ×0.5<br>lunch 14:30: Grilled chicken, rice & molokhia ×0.5<br>dinner 21:00: Beef kofta, baladi bread & tahini salad ×2.5 | 2318 | 181 g | 206 g | 91 g |
-| **Target** | | **2330** (±5%) | **≥ 169 g** | 208 g | 91 g |
+| Sat 2026-10-03 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Beef kofta, baladi bread & tahini salad ×1.25<br>dinner 21:00: Grilled chicken, rice & molokhia ×1.25 | 1949 | 176 g | 176 g | 62 g |
+| Sun 2026-10-04 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Grilled chicken, rice & molokhia ×2<br>dinner 21:00: Lentil soup, bread & grilled chicken ×0.5 | 1843 | 191 g | 171 g | 42 g |
+| Mon 2026-10-05 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Grilled chicken, rice & molokhia ×2<br>dinner 21:00: Koshary, lighter plate ×0.5 | 1817 | 175 g | 182 g | 42 g |
+| Tue 2026-10-06 | breakfast 08:30: Ful medames, eggs & baladi bread ×0.5<br>lunch 14:30: Grilled chicken, rice & molokhia ×1.25<br>dinner 21:00: Beef kofta, baladi bread & tahini salad ×1.25 | 1949 | 176 g | 176 g | 62 g |
+| Wed 2026-10-07 | breakfast 08:30: Shakshuka & baladi bread ×0.5<br>lunch 14:30: Grilled fish, rice & salad ×1.25<br>dinner 21:00: Oven chicken & potatoes ×1.25 | 1859 | 176 g | 172 g | 53 g |
+| Thu 2026-10-08 | breakfast 08:30: Shakshuka & baladi bread ×0.5<br>lunch 14:30: Grilled fish, rice & salad ×1.25<br>dinner 21:00: Oven chicken & potatoes ×1.25 | 1859 | 176 g | 172 g | 53 g |
+| Fri 2026-10-09 | breakfast 08:30: Shakshuka & baladi bread ×0.5<br>lunch 14:30: Lentil soup, bread & grilled chicken ×0.5<br>dinner 21:00: Grilled fish, rice & salad ×2.25 | 1902 | 175 g | 183 g | 54 g |
+| **Target** | | **1870** (±5%) | **≥ 169 g** | 134 g | 73 g |
 
 ### Grocery list
 
@@ -679,37 +676,37 @@ Vegetables & fruit
 - Cucumbers · 1 kg
 - Garlic · 0.25 kg
 - Lemons · 0.5 kg
-- Onions · 1 kg
-- Parsley · 2
-- Potatoes · 0.5 kg
-- Tomatoes · 2 kg
+- Onions · 0.5 kg
+- Parsley · 1
+- Potatoes · 1 kg
+- Tomatoes · 1.5 kg
 
 Meat, chicken & fish
-- Chicken breast · 2 kg
-- Fish fillet · 1 kg
-- Lean beef mince · 1.5 kg
+- Chicken breast · 3 kg
+- Fish fillet · 1.5 kg
+- Lean beef mince · 0.5 kg
 
 Dairy & eggs
-- Eggs · 30
+- Eggs · 12
 
 Bread & bakery
-- Baladi bread · 20
+- Baladi bread · 10
 
 Rafeqi grocery list — this month
 
 Pantry staples
 - Chickpeas · 0.5 kg
-- Fava beans (ful) · 2 kg
-- Frozen molokhia · 1.6 kg
-- Lentils · 1.5 kg
+- Fava beans (ful) · 1.5 kg
+- Frozen molokhia · 2.8 kg
+- Lentils · 0.5 kg
 - Olive oil · 0.5 L
 - Pasta · 0.5 kg
-- Rice · 2 kg
+- Rice · 3 kg
 - Vegetable oil · 1 L
 
 Spices & sauces
-- Cumin · 100 g
-- Tahini · 3 jars
+- Cumin · 50 g
+- Tahini · 2 jars
 - Tomato paste · 1 jars
 ```
 
@@ -733,17 +730,17 @@ Spices & sauces
 
 ## Fasting in Ramadan, 2 meals a day (suhoor and iftar)
 
-**Answers:** female, 36 years, 160 cm, 68 kg · goal recomp (steady) · intermediate, 4 days × 60 min at gym · 2 meals/day, 60 min cooking · dislikes: none · allergies: none · fasting: ramadan · health flags: none · injuries: none
+**Answers:** female, 36 years, 160 cm, 68 kg · goal recomp (steady) · intermediate, 4 days × 60 min at gym · 2 meals/day, 60 min cooking · dislikes: none · allergies: none · fasting: ramadan · health flags: none · injuries: none · day outside training: onFeet · waist: not given
 **Plan week:** 2027-02-13 (Saturday)
 
-**Why this plan:** 11 of 19 rules from your books · 15 of 59 decisions · 1 standard formula
+**Why this plan:** 11 of 20 rules from your books · 15 of 60 decisions · 1 standard formula · 0 Rafeqi safety rules
 
 ### Targets
 
 | | Value | Why |
 |---|---|---|
-| Calories | **2140 kcal** (maintenance 2140, +0.00 kg/week) | Resting burn 1339 kcal (Mifflin-St Jeor: woman, 36 years, 160 cm, 68 kg).<br>Maintenance about 2140 kcal: resting burn × 1.6 for lifting 4 days a week with light daily activity.<br>Your 2 cardio sessions a week (30 min each) are already counted in the activity level (× 1.6); their calories aren't added again.<br>Target 2140 kcal: your maintenance, because losing fat and building muscle matter equally to you. |
-| Protein | **124 g** | Body fat estimated at about 35% from your BMI (26.6), age and sex; protein and fat are set from it.<br>Protein 124 g: 1.27 g per pound of lean mass (44.4 kg lean at about 35% body fat). |
+| Calories | **2140 kcal** (maintenance 2140, +0.00 kg/week) | Resting burn 1339 kcal (Mifflin-St Jeor: woman, 36 years, 160 cm, 68 kg).<br>Maintenance about 2140 kcal: resting burn × 1.6 for lifting 4 days a week, on your feet part of the day.<br>Your 2 cardio sessions a week (30 min each) are already counted in the activity level (× 1.6); their calories aren't added again.<br>Target 2140 kcal: your maintenance, because losing fat and building muscle matter equally to you. |
+| Protein | **124 g** | Body fat estimated at about 35% from your BMI (26.6), age and sex; protein and fat are set from it. Add your waist for a better estimate.<br>Protein 124 g: 1.27 g per pound of lean mass (44.4 kg lean at about 35% body fat). |
 | Fat | **76 g** | Fat 76 g: 32% of your calories at about 35% body fat (20–35%, never under 20%). |
 | Carbs | **240 g** | Carbs 240 g: the calories left after protein and fat, to fuel training. |
 
@@ -824,6 +821,7 @@ Spices & sauces
 ### Meals
 
 - Meals: 2 a day, each day within 5% of 2140 kcal with at least 124 g protein.
+- Ramadan: 7 days this week have their meals at suhoor (03:30) and iftar (18:00), with the same daily targets.
 - Ful medames, eggs & baladi bread: 2× this week (suhoor), 1.75 of the recipe each time (1137 kcal, 72 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 15 min to make.
 - Beef kofta, baladi bread & tahini salad: 2× this week (iftar), 1.5 of the recipe each time (1034 kcal, 78 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 30 min to make.
 - Shakshuka & baladi bread: 2× this week (suhoor), 2.25–2.5 of the recipe each time (1301–1445 kcal, 68–76 g protein), sized so each day hits your targets. No food you dislike or are allergic to; about 20 min to make.

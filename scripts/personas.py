@@ -35,7 +35,8 @@ def kg(x: float) -> str:
 def why_line(r) -> str:
     c = why_counts(r)
     return (f"{c['rules']['fromBooks']} of {c['rules']['total']} rules from your books · "
-            f"{c['backed']} of {c['total']} decisions · {c['rules']['formulas']} standard formula")
+            f"{c['backed']} of {c['total']} decisions · {c['rules']['formulas']} standard formula · "
+            f"{c['rules']['safety']} Rafeqi safety rule{'s' if c['rules']['safety'] != 1 else ''}")
 
 
 def persona_md(key: str) -> list[str]:
@@ -50,7 +51,8 @@ def persona_md(key: str) -> list[str]:
         f"**Answers:** {p.sex}, {p.age} years, {p.height_cm:g} cm, {p.weight_kg:g} kg · goal {p.goal} ({p.pace}) · {p.experience}, "
         f"{p.days_per_week} days × {p.session_minutes} min at {p.location} · {p.meals_per_day} meals/day, {p.cooking_minutes} min cooking"
         f" · dislikes: {', '.join(p.dislikes) or 'none'} · allergies: {', '.join(a for a in p.allergies if a != 'none') or 'none'}"
-        f" · fasting: {', '.join(p.fasting) or 'none'} · health flags: {', '.join(p.health.yes()) or 'none'} · injuries: {inj}",
+        f" · fasting: {', '.join(p.fasting) or 'none'} · health flags: {', '.join(p.health.yes()) or 'none'} · injuries: {inj}"
+        f" · day outside training: {p.daily_activity or 'not answered'} · waist: {f'{p.waist_cm:g} cm' if p.waist_cm else 'not given'}",
         f"**Plan week:** {start.isoformat()} (Saturday)", "",
         f"**Why this plan:** {why_line(r)}", "",
         "### Targets", "",

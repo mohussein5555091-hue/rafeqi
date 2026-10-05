@@ -8,8 +8,10 @@ For the "Why this plan" page (app/views/why.py) every rule section that explains
 - `uses`: the questionnaire answers it reads (Person field names; `checkin` and `swaps` for the weekly check-in and the
   person's own exercise swaps), a list or one list per sub-rule;
 - `ref` once it's no longer a placeholder: {book, chapter, page, quote: {en, ar}}, the quote at most 2 sentences.
-- `kind: formula` for a standard published formula that isn't from the person's books (e.g. Mifflin-St Jeor): the page
-  labels it "Standard formula" with its original source (`ref`), and it doesn't count as "from your books".
+- `kind: formula` for a standard published formula that isn't from the person's books (e.g. the body-fat estimate): the
+  page labels it "Standard formula" with its original source (`ref`), and it doesn't count as "from your books".
+- `kind: safety` for Rafeqi's own safety rules (red flags, health flag, pregnancy, recovering-injury loads): deliberately
+  conservative, not from a fitness book. No `ref`; `source` says what the rule protects. Labelled "Rafeqi safety rule".
 """
 
 import json
@@ -65,11 +67,14 @@ def _check_why(where: str, section: dict) -> list[str]:
     uses = section.get("uses")
     if not (isinstance(uses, list) or (isinstance(uses, dict) and all(isinstance(u, list) for u in uses.values()))):
         problems.append(f"{where} needs `uses`: the answers it reads (a list, or one list per sub-rule)")
-    if section.get("kind", "book") not in ("book", "formula"):
-        problems.append(f"{where}: kind must be book or formula")
-    if section.get("kind") == "formula" and section.get("placeholder") is not False:
-        problems.append(f"{where}: a standard formula isn't a placeholder (placeholder: false, with its original source in ref)")
-    if section.get("placeholder") is False:
+    kind = section.get("kind", "book")
+    if kind not in ("book", "formula", "safety"):
+        problems.append(f"{where}: kind must be book, formula or safety")
+    if kind in ("formula", "safety") and section.get("placeholder") is not False:
+        problems.append(f"{where}: a standard formula or a safety rule isn't a placeholder (placeholder: false)")
+    if kind == "safety" and "PLACEHOLDER" in section.get("source", ""):
+        problems.append(f"{where}: a safety rule's source says what it protects, not PLACEHOLDER")
+    if section.get("placeholder") is False and kind != "safety":
         ref = section.get("ref") or {}
         if not (ref.get("book") and ref.get("page") and _bilingual_tree(ref.get("quote"))):
             problems.append(f"{where} isn't a placeholder, so it needs `ref` with book, page and a short quote (en and ar)")

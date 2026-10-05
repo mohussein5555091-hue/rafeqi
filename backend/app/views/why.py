@@ -82,8 +82,10 @@ def _pick(tree, sub: str | None):
 
 
 def source_out(section: dict) -> dict:
-    """kind: "book" (from your books), "formula" (a standard published formula, with its original source) or
-    "placeholder" (not yet from a book)."""
+    """kind: "book" (from your books), "formula" (a standard published formula, with its original source), "safety"
+    (a Rafeqi safety rule: conservative on purpose, not from a book) or "placeholder" (not yet from a book)."""
+    if section.get("kind") == "safety" and section.get("placeholder") is False:
+        return {"placeholder": False, "kind": "safety", "text": section["source"]}
     placeholder = section.get("placeholder") is not False or not section.get("ref")
     kind = "placeholder" if placeholder else section.get("kind", "book")
     out = {"placeholder": placeholder, "kind": kind, "text": section["source"]}
@@ -153,8 +155,9 @@ def counts(decisions: list[dict]) -> dict:
     return {
         "total": len(decisions), "backed": sum(d["source"]["kind"] == "book" for d in decisions),
         "formulas": sum(d["source"]["kind"] == "formula" for d in decisions),
+        "safety": sum(d["source"]["kind"] == "safety" for d in decisions),
         "rules": {"total": len(rules), "fromBooks": sum(k == "book" for k in rules.values()),
-                  "formulas": sum(k == "formula" for k in rules.values())},
+                  "formulas": sum(k == "formula" for k in rules.values()), "safety": sum(k == "safety" for k in rules.values())},
     }
 
 

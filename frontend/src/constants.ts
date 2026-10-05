@@ -1,10 +1,11 @@
 // Option ids used by forms. Labels live in the translation files under `enums.*`.
-import type { BodyRegion, Goal, Pace, Experience, TrainingLocation, InjuryType, Obstacle } from '@/types';
+import type { BodyRegion, DailyActivity, Goal, Pace, Experience, TrainingLocation, InjuryType, Obstacle } from '@/types';
 
 export const GOALS: Goal[] = ['loseFat', 'buildMuscle', 'recomp', 'strength'];
 export const PACES: Pace[] = ['gentle', 'steady', 'faster'];
 export const EXPERIENCE: Experience[] = ['beginner', 'intermediate', 'advanced'];
 export const LOCATIONS: TrainingLocation[] = ['gym', 'homeDumbbells', 'bodyweight'];
+export const DAILY_ACTIVITY: DailyActivity[] = ['sitting', 'onFeet', 'active'];
 export const INJURY_TYPES: InjuryType[] = ['joint', 'tendon', 'strain', 'sprain', 'postSurgery', 'unsure'];
 export const MOVEMENTS = ['overheadPress', 'benchPress', 'dips', 'pullUps', 'lateralRaise', 'pushUps', 'squat', 'deadlift', 'lunges', 'running'] as const;
 export const RESTRICTIONS = ['noOverhead', 'limitRange', 'noImpact', 'noHeavyLoad', 'noneSeen'] as const;

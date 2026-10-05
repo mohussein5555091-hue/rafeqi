@@ -2,7 +2,7 @@
 
 import pytest
 
-from app.engine.nutrition import bmr_mifflin, body_fat_pct, compute_targets, slide
+from app.engine.nutrition import activity_factor, bmr_mifflin, body_fat_pct, compute_targets, slide
 from app.engine.rules import load_rules
 from app.engine.types import Health, Person
 
@@ -22,10 +22,28 @@ def test_mifflin_st_jeor():
     assert bmr_mifflin("female", 60, 165, 30) == 10 * 60 + 6.25 * 165 - 5 * 30 - 161 == 1320.25
 
 
-def test_maintenance_is_bmr_times_the_activity_factor():
-    for days, factor in rules("nutrition")["activity"]["factor_by_training_days"].items():
-        t = compute_targets(person(days_per_week=days, goal="strength"))
+@pytest.mark.parametrize("activity, factors", [
+    ("sitting", {2: 1.2, 3: 1.2, 4: 1.3, 5: 1.4, 6: 1.5}),     # Table 5B sedentary + training: 1.2-1.5
+    ("onFeet", {2: 1.5, 3: 1.5, 4: 1.6, 5: 1.7, 6: 1.8}),      # lightly active: 1.5-1.8
+    ("active", {2: 1.8, 3: 1.8, 4: 1.87, 5: 1.93, 6: 2.0}),    # moderately active: 1.8-2.0
+    (None, {2: 1.5, 3: 1.5, 4: 1.6, 5: 1.7, 6: 1.8}),          # not answered yet: counted as on their feet
+])
+def test_maintenance_is_bmr_times_the_activity_factor(activity, factors):
+    for days, factor in factors.items():
+        p = person(days_per_week=days, goal="strength", daily_activity=activity)
+        assert activity_factor(p) == factor
+        t = compute_targets(p)
         assert t.maintenance == round(bmr_mifflin("male", 75, 180, 29) * factor / 10) * 10
+        assert ("Until you answer" in t.reasons["calories"][1].en) == (activity is None)
+
+
+def test_body_fat_from_height_and_waist_when_a_waist_is_known():
+    # Relative Fat Mass: 64 − 20 × 180 / 85 = 21.6% (man); a woman 165 cm, waist 80: 76 − 20 × 165 / 80 = 34.75%.
+    assert body_fat_pct("male", 75, 180, 29, waist_cm=85) == pytest.approx(21.65, abs=0.01)
+    assert body_fat_pct("female", 60, 165, 30, waist_cm=80) == pytest.approx(34.75, abs=0.01)
+    t = compute_targets(person(waist_cm=85))
+    assert [r.rule for r in t.reasons["protein"]] == ["nutrition.body_fat", "nutrition.protein"]
+    assert "waist (85 cm)" in t.reasons["protein"][0].en
 
 
 def test_body_fat_is_estimated_from_bmi_age_and_sex():
@@ -74,6 +92,13 @@ def test_calorie_floor():
     assert any(r.rule == "safety.calorie_floor" for r in t.reasons["calories"])
 
 
+def test_the_weekly_loss_cap_is_the_lower_of_0_9_kg_and_1_percent_of_body_weight():
+    # 60 kg woman, 160 cm, 30 years, 6 days, faster: 1% = 0.6 kg a week, lower than 0.9 kg.
+    t = compute_targets(person(sex="female", age=30, height_cm=160, weight_kg=60, days_per_week=6, pace="faster",
+                               daily_activity="active"))
+    assert t.expected_weekly_change_kg >= -0.6 - 0.01
+
+
 def test_never_lose_more_than_the_maximum_weekly_rate():
     # 160 kg man, 190 cm, 25 years, 6 days: maintenance about 4800; 25% under (high body fat) would be 1200 kcal a day
     # = 1.09 kg a week, more than the 0.9 kg cap.
@@ -101,7 +126,7 @@ def test_protein_slides_from_1_6_to_1_2_g_per_pound_of_lean_mass():
     # lean mass 75 × 0.8175 = 61.3 kg = 135.2 lb → 188 g.
     t = compute_targets(person(weight_kg=75))
     assert t.protein_g == 188
-    assert [r.rule for r in t.reasons["protein"]] == ["nutrition.body_fat", "nutrition.protein"]
+    assert [r.rule for r in t.reasons["protein"]] == ["nutrition.body_fat_bmi", "nutrition.protein"]
     # Above 30% body fat (men) it's 1.2 g: 120 kg, about 35% body fat → lean 78.1 kg = 172.1 lb → 207 g.
     heavy = compute_targets(person(weight_kg=120))
     bf = body_fat_pct("male", 120, 180, 29)

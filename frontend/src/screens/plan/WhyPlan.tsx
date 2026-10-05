@@ -1,4 +1,4 @@
-import { BookOpen, Calculator, ChevronRight, CircleHelp, ClipboardList, Sparkles } from 'lucide-react';
+import { BookOpen, Calculator, ChevronRight, CircleHelp, ClipboardList, ShieldCheck, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { AppShell, Badge, Card, Icon, Kicker, ProgressBar, QueryView, cn } from '@/components';
 import { useI18n } from '@/i18n';
@@ -7,7 +7,7 @@ import { useQuery } from '@/data/useQuery';
 import type { LocalizedText, WhyAnswer, WhyDecision } from '@/types';
 
 type Injury = { region: string; status: string; severity: number; painful_movements?: string[]; restrictions?: string[] };
-const ENUM_KEYS: Record<string, string> = { sex: 'sex', goal: 'goal', pace: 'pace', experience: 'experience', location: 'location' };
+const ENUM_KEYS: Record<string, string> = { sex: 'sex', goal: 'goal', pace: 'pace', experience: 'experience', location: 'location', daily_activity: 'dailyActivity' };
 const HEALTH: Record<string, string> = {
   heart_condition: 'heartCondition', diabetes: 'diabetes', pregnancy: 'pregnancy', recent_surgery: 'recentSurgery', exercise_medication: 'exerciseMedication',
 };
@@ -17,10 +17,12 @@ function useAnswerText() {
   const { t, l, num } = useI18n();
   const list = (xs: string[], label: (x: string) => string) => (xs.length ? xs.map(label).join(', ') : t('why.value.none'));
   return ({ key, value }: WhyAnswer): string => {
+    if (key === 'daily_activity' && value == null) return t('why.value.notAnswered');
     if (key in ENUM_KEYS) return t(`enums.${ENUM_KEYS[key]}.${value}`);
     switch (key) {
       case 'age': return t('why.value.years', { n: value as number });
       case 'height_cm': return `${num(value as number)} ${t('units.cm')}`;
+      case 'waist_cm': return value == null ? t('why.value.notGiven') : `${num(value as number)} ${t('units.cm')}`;
       case 'weight_kg': return `${num(value as number, 1)} ${t('units.kg')}`;
       case 'days_per_week': return t('common.daysPerWeek', { n: value as number });
       case 'session_minutes': case 'cooking_minutes': return t('units.minutesShort', { n: value as number });
@@ -57,8 +59,8 @@ function Answers({ d }: { d: WhyDecision }) {
   );
 }
 
-/** Where the rule comes from: "From your books" (book, page, quote), "Standard formula" (its original source) or
- *  "Not yet from a book". */
+/** Where the rule comes from: "From your books" (book, page, quote), "Standard formula" (its original source),
+ *  "Rafeqi safety rule" (conservative on purpose, not from a book) or "Not yet from a book". */
 function Source({ d }: { d: WhyDecision }) {
   const { t, l } = useI18n();
   const s = d.source;
@@ -69,6 +71,11 @@ function Source({ d }: { d: WhyDecision }) {
         <>
           <Badge className="bg-attn-100 text-attn-800" icon={CircleHelp}><span data-testid="placeholder-badge">{t('why.placeholder')}</span></Badge>
           <span className="text-xs text-neutral-700">{t('why.placeholderSource', { text: s.text.replace(/^PLACEHOLDER:\s*/, '') })}</span>
+        </>
+      ) : s.kind === 'safety' ? (
+        <>
+          <Badge className="bg-accent-100 text-accent-800" icon={ShieldCheck}><span data-testid="safety-badge">{t('why.safety')}</span></Badge>
+          <span className="text-xs text-neutral-700" data-testid="safety-note">{t('why.safetyNote')}</span>
         </>
       ) : (
         <>
@@ -156,6 +163,7 @@ export function WhyPlan() {
               <strong className="text-lg">{t('why.backed', { x: num(why.rules.fromBooks), y: num(why.rules.total), a: num(why.backed), b: num(why.total) })}</strong>
               <ProgressBar value={why.rules.fromBooks} max={why.rules.total || 1} label={t('why.backed', { x: num(why.rules.fromBooks), y: num(why.rules.total), a: num(why.backed), b: num(why.total) })} />
               {why.formulas > 0 && <span className="text-[13px]" data-testid="formulas-note">{t('why.formulasNote', { n: num(why.formulas) })}</span>}
+              {why.safety > 0 && <span className="text-[13px]" data-testid="safety-count">{t('why.safetyCount', { n: num(why.safety) })}</span>}
               <span className="text-[13px]">{t('why.backedNote')}</span>
             </Card>
             {/* The AI summary slot: filled by the local LLM in the AI phase (never a number, only words). */}

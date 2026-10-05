@@ -16,6 +16,9 @@ Goal = Literal["loseFat", "buildMuscle", "recomp", "strength"]
 Pace = Literal["gentle", "steady", "faster"]
 Experience = Literal["beginner", "intermediate", "advanced"]
 Location = Literal["gym", "homeDumbbells", "bodyweight"]
+# Outside training: mostly sitting / on my feet part of the day / a physically active job (the recomposition guide's
+# activity levels, Table 5B: data/rules/nutrition.yaml activity).
+DailyActivity = Literal["sitting", "onFeet", "active"]
 
 
 class AboutIn(ApiModel):
@@ -45,6 +48,13 @@ class TrainingIn(ApiModel):
     days_per_week: int = Field(ge=2, le=6)
     session_minutes: Literal[45, 60, 75, 90]
     location: Location
+    daily_activity: DailyActivity  # required whenever the step is saved (onboarding, or editing it from Profile)
+
+
+class TrainingOut(TrainingIn):
+    """The saved answers: daily_activity is empty for people who answered before the question existed."""
+
+    daily_activity: DailyActivity | None = None
 
 
 class InjuriesIn(ApiModel):
@@ -118,7 +128,7 @@ class OnboardingOut(ApiModel):
     conservative: bool  # any health answer "yes": lighter loads, lower effort, more rest
     about: AboutIn | None
     goal: GoalIn | None
-    training: TrainingIn | None
+    training: TrainingOut | None
     injuries: list[InjuryOut]
     injuries_answered: bool
     health: HealthIn | None

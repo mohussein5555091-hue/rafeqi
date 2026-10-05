@@ -36,12 +36,30 @@ def bmr_mifflin(sex: str, weight_kg: float, height_cm: float, age: int) -> float
     return 10 * weight_kg + 6.25 * height_cm - 5 * age + (5 if sex == "male" else -161)
 
 
-def body_fat_pct(sex: str, weight_kg: float, height_cm: float, age: int) -> float:
-    """Deurenberg et al. (1991): an estimate from BMI, age and sex (nutrition.yaml body_fat), kept within its limits."""
+def body_fat_pct(sex: str, weight_kg: float, height_cm: float, age: int, waist_cm: float | None = None) -> float:
+    """Estimated body fat %, kept within its limits (nutrition.yaml): from height and waist with Relative Fat Mass
+    (Woolcott & Bergman 2018) when a waist is known, else from BMI, age and sex (Deurenberg et al. 1991)."""
     r = load_rules()["nutrition"]["body_fat"]
-    bmi = weight_kg / (height_cm / 100) ** 2
-    bf = 1.20 * bmi + 0.23 * age - 10.8 * (1 if sex == "male" else 0) - 5.4
+    if waist_cm:
+        bf = 64 - 20 * height_cm / waist_cm + (12 if sex == "female" else 0)
+    else:
+        bmi = weight_kg / (height_cm / 100) ** 2
+        bf = 1.20 * bmi + 0.23 * age - 10.8 * (1 if sex == "male" else 0) - 5.4
     return min(max(bf, r["min_pct"]), r["max_pct"])
+
+
+def activity_level(p: Person) -> str:
+    """sitting | onFeet | active: the answer, or the default for people who haven't answered yet."""
+    return p.daily_activity or load_rules()["nutrition"]["activity"]["default_level"]
+
+
+def activity_factor(p: Person) -> float:
+    """The recomposition guide's Table 5B: the person's lifestyle row, from its low end at 3 training days a week to its
+    high end at 6 (2 days use the low end)."""
+    a = load_rules()["nutrition"]["activity"]
+    low, high = a["levels"][activity_level(p)]
+    d0, d1 = a["days_range"]
+    return round(slide(p.days_per_week, [d0, d1], [low, high]), 2)
 
 
 def slide(x: float, x_range: list[float], y_range: list[float]) -> float:
@@ -75,13 +93,16 @@ def compute_targets(p: Person, calories_override: int | None = None) -> Nutritio
     bmr = bmr_mifflin(p.sex, p.weight_kg, p.height_cm, p.age)
     cal_lines.append(_reason(n["bmr"], "nutrition.bmr", bmr=round(bmr), sex=SEX[p.sex], age=p.age,
                              height=round(p.height_cm), weight=round(p.weight_kg, 1)))
-    factor = n["activity"]["factor_by_training_days"][p.days_per_week]
+    factor = activity_factor(p)
     tdee = bmr * factor
     maintenance = round_to(tdee, 10)
-    cal_lines.append(explain(n["activity"], "nutrition.activity", tdee=maintenance, factor=factor, days=p.days_per_week))
+    level = activity_level(p)
+    template = n["activity"]["explain"] if p.daily_activity else n["activity"]["explain_default"]
+    cal_lines.append(_reason(n["activity"], "nutrition.activity", template, tdee=maintenance, factor=factor, days=p.days_per_week,
+                             level=n["activity"]["level_names"][level]))
 
     goal = n["goal"]
-    bf = body_fat_pct(p.sex, p.weight_kg, p.height_cm, p.age)
+    bf = body_fat_pct(p.sex, p.weight_kg, p.height_cm, p.age, p.waist_cm)
     if calories_override is not None:
         calories = float(calories_override)
     elif p.goal == "loseFat":
@@ -122,7 +143,7 @@ def compute_targets(p: Person, calories_override: int | None = None) -> Nutritio
 
     # Never lose faster than the maximum weekly rate.
     mx = s["max_weekly_loss"]
-    max_kg = mx["max_kg_per_week"]
+    max_kg = round(min(mx["max_kg_per_week"], mx["max_pct_of_body_weight"] / 100 * p.weight_kg), 2)
     lowest = tdee - max_kg * goal["kcal_per_kg"] / 7
     if calories < lowest:
         calories = lowest
@@ -140,7 +161,10 @@ def compute_targets(p: Person, calories_override: int | None = None) -> Nutritio
 
     # Estimated body fat → protein from lean mass (Figure 8B) and fat as a share of calories (Figure 8E).
     bmi = p.weight_kg / (p.height_cm / 100) ** 2
-    bf_line = explain(n["body_fat"], "nutrition.body_fat", bf=round(bf), bmi=round(bmi, 1))
+    if p.waist_cm:
+        bf_line = explain(n["body_fat"], "nutrition.body_fat", bf=round(bf), waist=round(p.waist_cm), height=round(p.height_cm))
+    else:
+        bf_line = explain(n["body_fat_bmi"], "nutrition.body_fat_bmi", bf=round(bf), bmi=round(bmi, 1))
 
     pr = n["protein"]
     g = pr["g_per_lb_lean_mass"]
@@ -180,5 +204,5 @@ def add_cardio_reason(targets: NutritionTargets, p: Person, sessions: int, minut
     if sessions <= 0:
         return
     n = load_rules()["nutrition"]
-    factor = n["activity"]["factor_by_training_days"][p.days_per_week]
+    factor = activity_factor(p)
     targets.reasons["calories"].insert(2, explain(n["cardio_counted"], "nutrition.cardio_counted", sessions=sessions, minutes=minutes, factor=factor))

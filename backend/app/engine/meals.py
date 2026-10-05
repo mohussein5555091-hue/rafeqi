@@ -191,6 +191,11 @@ def plan_week(week_start: dt.date, p: Person, t: Targets, recipes: list[RecipeIn
     src = m["source"]
     reasons = [Reason("nutrition.meals", m["explain"]["en"].format(meals=p.meals_per_day, tol=m["calorie_tolerance_pct"], calories=t.calories, protein=t.protein),
                       m["explain"]["ar"].format(meals=p.meals_per_day, tol=m["calorie_tolerance_pct"], calories=t.calories, protein=t.protein), src)]
+    ramadan_days = sorted({x.date for x in meals if x.slot in ("suhoor", "iftar")})
+    if ramadan_days:  # Ramadan moves the meal times only; the day's targets stay the same
+        rr = load_rules()["nutrition"]["ramadan"]
+        v = {"days": len(ramadan_days), "suhoor": m["ramadan_times"]["suhoor"], "iftar": m["ramadan_times"]["iftar"]}
+        reasons.append(Reason("nutrition.ramadan", rr["explain"]["en"].format(**v), rr["explain"]["ar"].format(**v), rr["source"]))
     vals = {"pct": m["relax_protein_pct"]}
     for step in relaxed:
         text = m["relaxed"][step]

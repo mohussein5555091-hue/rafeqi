@@ -24,14 +24,16 @@ calorie_floor:
     ar: "اتعلّت لـ {floor} سعرة: تحت كده صعب تاخد كفايتك من العناصر، وعمرنا ما ننزل أقل من غير دكتور."
 
 max_weekly_loss:
-  # 1-2 pounds a week; 2 pounds = 0.9 kg is the cap. (It was 1% of body weight before; see data/REVIEW.md.)
+  # 1-2 pounds a week (the encyclopedia): at most 0.9 kg, and never more than 1% of body weight a week (your decision,
+  # data/REVIEW.md C9), whichever is lower.
   placeholder: false
   source: "Encyclopedia of Foods, ch. 3 (The Food-Health Connection), PDF pp. 64 and 66 (printed pp. 51 and 53)"
-  uses: [pace]
+  uses: [pace, weight_kg]
   summary:
-    en: The deficit is capped so you lose at most about 0.9 kg (2 pounds) a week, because slow, steady loss is the safe kind.
-    ar: نقص السعرات له حد عشان ماتنزلش أكتر من حوالي ٠٫٩ كجم (٢ رطل) في الأسبوع، لأن النزول البطيء الثابت هو الآمن.
+    en: The deficit is capped so you lose at most about 0.9 kg (2 pounds) or 1% of your body weight a week, whichever is lower, because slow, steady loss is the safe kind.
+    ar: نقص السعرات له حد عشان ماتنزلش أكتر من حوالي ٠٫٩ كجم (٢ رطل) أو ١٪ من وزنك في الأسبوع، الأقل فيهم، لأن النزول البطيء الثابت هو الآمن.
   max_kg_per_week: 0.9
+  max_pct_of_body_weight: 1.0
   ref:
     book: "Encyclopedia of Foods: A Guide to Healthy Nutrition (Dole, Mayo Clinic, UCLA)"
     chapter: "Chapter 3: The Food-Health Connection"
@@ -45,10 +47,11 @@ max_weekly_loss:
 
 conservative:
   # Any "yes" in the onboarding health check.
-  placeholder: true
-  # The encyclopedia (p. 66) says to check with a doctor before exercising with a medical problem, but no book gives
-  # the numbers below.
-  source: "PLACEHOLDER: conservative numbers for a health flag (your books only say to check with a doctor first)"
+  # A Rafeqi safety rule: deliberately conservative, not from a fitness book. (The encyclopedia, p. 66, only says to
+  # check with a doctor before exercising with a medical problem.)
+  kind: safety
+  placeholder: false
+  source: "Rafeqi safety rule: a smaller deficit or surplus, lighter loads, lower effort and longer rests whenever a health answer is yes."
   uses: [health]
   summary:
     en: 'Any yes in the health check keeps the plan gentler: a smaller deficit or surplus, lighter weights, lower effort and longer rests.'
@@ -62,8 +65,9 @@ conservative:
 
 pregnancy:
   # Pregnant or gave birth in the last 6 months: no calorie deficit without medical advice.
-  placeholder: true
-  source: "PLACEHOLDER: no deficit during pregnancy or after giving birth without medical advice (not in your books)"
+  kind: safety
+  placeholder: false
+  source: "Rafeqi safety rule: no calorie deficit during pregnancy or in the 6 months after giving birth without a doctor's advice."
   uses: [health]
   summary:
     en: No calorie deficit during or soon after pregnancy without a doctor's advice.
@@ -74,10 +78,11 @@ pregnancy:
 
 red_flags:
   # Pain logs (after workouts and in the check-in). Any of these pauses the body area. We never diagnose.
-  placeholder: true
-  # The programs say not to train through pain that stops a full range of motion (Fundamentals FAQ, p. 22); the
-  # symptoms and thresholds below are medical safety settings no book gives.
-  source: "PLACEHOLDER: red-flag symptoms and pain thresholds (medical safety settings, not in your books)"
+  # A Rafeqi safety rule. (The programs only say not to train through pain that stops a full range of motion,
+  # Fundamentals FAQ p. 22.)
+  kind: safety
+  placeholder: false
+  source: "Rafeqi safety rule: warning signs pause the body area and ask you to see a doctor or physiotherapist; we never diagnose."
   uses: [injuries]
   summary:
     en: Sharp pain, swelling, numbness, worsening pain or high pain pauses that body area and asks you to see a doctor or physiotherapist. We never diagnose.

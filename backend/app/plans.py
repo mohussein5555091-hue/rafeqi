@@ -53,7 +53,27 @@ def person_for(db: Session, user_id: str, weight_kg: float | None = None) -> Per
                                   painful_movements=tuple(i.painful_movements), restrictions=tuple(i.restrictions),
                                   paused=i.paused_at is not None) for i in injuries),
         missing_equipment=tuple(p.missing_equipment or ()), disliked_foods=tuple(p.disliked_foods or ()),
+        daily_activity=p.daily_activity, waist_cm=latest_waist(db, user_id, p),
     )
+
+
+def calories_since(db: Session, user_id: str, plan: Plan) -> dt.date:
+    """The day the current calorie target started: the oldest of the newest plan versions that all have these calories
+    (the weekly review changes calories at most every 2 weeks, nutrition.yaml review)."""
+    since = plan.created_at
+    for older in db.scalars(select(Plan).where(Plan.user_id == user_id, Plan.version < plan.version).order_by(Plan.version.desc())):
+        if older.calories != plan.calories:
+            break
+        since = older.created_at
+    return since.date()
+
+
+def latest_waist(db: Session, user_id: str, p: Profile) -> float | None:
+    """The newest waist measurement: from the latest submitted check-in that has one, else the onboarding answer."""
+    w = db.scalar(select(CheckIn.waist_cm).where(CheckIn.user_id == user_id, CheckIn.waist_cm.is_not(None),
+                                                 CheckIn.status == "submitted")
+                  .order_by(CheckIn.week_start.desc()).limit(1))
+    return w if w is not None else p.waist_cm
 
 
 def active_swaps(db: Session, user_id: str) -> list[ExerciseSwap]:
@@ -262,7 +282,8 @@ def run_weekly_review(db: Session, user_id: str, checkin_id: str) -> WeeklyRevie
         weights_this_week=weights(start, start + dt.timedelta(days=6)),
         weights_last_week=weights(start - dt.timedelta(days=7), start - dt.timedelta(days=1)),
         answers=answers, avg_effort=sum(efforts) / len(efforts) if efforts else None, program_exercise_ids=pe_ids,
-        previous_pain=previous_pain, plan_recipe_ids=recipe_ids, sessions_planned=tp.days_per_week), exercises_from_db(db))
+        previous_pain=previous_pain, plan_recipe_ids=recipe_ids, sessions_planned=tp.days_per_week,
+        days_since_calorie_change=(clock.today() - calories_since(db, user_id, before)).days), exercises_from_db(db))
 
     now = clock.now()
     for iid in result.pause_injuries:

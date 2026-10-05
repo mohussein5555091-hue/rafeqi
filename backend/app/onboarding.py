@@ -12,7 +12,7 @@ from sqlalchemy.orm import Session
 from app import clock
 from app.models import Injury, Profile
 from app.schemas.onboarding import (
-    STEPS, AboutIn, FoodIn, GoalIn, HealthIn, InjuriesIn, InjuryOut, OnboardingOut, TrainingIn,
+    STEPS, AboutIn, FoodIn, GoalIn, HealthIn, InjuriesIn, InjuryOut, OnboardingOut, TrainingIn, TrainingOut,
 )
 
 ORDER = (*STEPS, "review")
@@ -20,12 +20,16 @@ HEALTH_FIELDS = ("heart_condition", "diabetes", "pregnancy", "recent_surgery", "
 FIELDS = {
     "about": ("sex", "age", "height_cm", "weight_kg", "waist_cm"),
     "goal": ("goal", "pace"),
-    "training": ("experience", "days_per_week", "session_minutes", "location"),
+    "training": ("experience", "days_per_week", "session_minutes", "location", "daily_activity"),
     "health": HEALTH_FIELDS,
     "food": ("meals_per_day", "dislikes", "allergies", "fasting", "cooking_minutes"),
 }
 MODELS: dict[str, type[BaseModel]] = {"about": AboutIn, "goal": GoalIn, "training": TrainingIn, "health": HealthIn, "food": FoodIn}
-REQUIRED = {"about": ("sex", "age", "height_cm", "weight_kg"), "food": ("meals_per_day", "cooking_minutes")}
+# What a finished step must have. daily_activity is required when the training step is saved (TrainingIn), but not
+# here: people who finished before the question existed keep their plan and answer it on their next edit.
+REQUIRED = {"about": ("sex", "age", "height_cm", "weight_kg"), "food": ("meals_per_day", "cooking_minutes"),
+            "training": ("experience", "days_per_week", "session_minutes", "location")}
+OUT_MODELS: dict[str, type[BaseModel]] = {**MODELS, "training": TrainingOut}
 
 
 class Incomplete(Exception):
@@ -118,7 +122,7 @@ def state(db: Session, user_id: str) -> OnboardingOut:
     def step(name: str):
         if any(getattr(p, f) is None for f in REQUIRED.get(name, FIELDS[name])):
             return None
-        return MODELS[name].model_validate({f: getattr(p, f) for f in FIELDS[name]})
+        return OUT_MODELS[name].model_validate({f: getattr(p, f) for f in FIELDS[name]})
 
     return OnboardingOut(
         step=p.onboarding_step, completed=p.completed_at is not None, missing=missing_steps(db, p),

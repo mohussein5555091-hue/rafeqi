@@ -132,11 +132,12 @@ injuries:
     en: "{from} removed: nothing in the catalogue does this movement with your equipment yet."
     ar: "{from} اتشال: لسه مفيش في القائمة تمرين بيعمل الحركة دي بأدواتك."
 
-# Lighter loads for exercises that load an injured area that is "recovering" (or has a load restriction). No book gives
-# these percentages, so this stays a placeholder (data/REVIEW.md).
+# Lighter loads for exercises that load an injured area that is "recovering" (or has a load restriction). A Rafeqi
+# safety rule: deliberately conservative, not from a fitness book.
 injury_load:
-  placeholder: true
-  source: "PLACEHOLDER: how much lighter to go for a recovering area (not in your books)"
+  kind: safety
+  placeholder: false
+  source: "Rafeqi safety rule: exercises that load an area that is still recovering start at 80% of the usual weight (never under 50%)."
   uses: [injuries]
   summary:
     en: Exercises that load an area that is still recovering start lighter.

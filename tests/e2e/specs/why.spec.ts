@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test';
-import { api, expect, test, waitForContent } from './helpers';
+import { ANSWERS, api, expect, freshUser, test, waitForContent } from './helpers';
 
 // "Why this plan": every reason the plan engine stored with the plan is on the page, each with its source or the
 // "Not yet from a book" badge. Uses the shared read-only account (intermediate, left shoulder injury).
@@ -49,11 +49,14 @@ test('every reason in the plan is on the page, with its source or the placeholde
   await expect(bmr.getByTestId('book')).toContainText('p. 49');
   await expect(bmr.locator('blockquote')).toBeVisible();
   await expect(bmr).toContainText(/Sex: (Male|Female)/);
-  // The body-fat estimate: a standard formula with its original source, page and a short quote (not "from your books").
+  // The body-fat estimate (the shared account gave a waist: Relative Fat Mass): a standard formula with its original
+  // source, page and a short quote (not "from your books").
   const bf = page.locator('[data-rule="nutrition.body_fat"]');
   await expect(bf.getByTestId('formula-badge')).toHaveText('Standard formula');
-  await expect(bf.getByTestId('book')).toContainText('Original source: British Journal of Nutrition');
-  await expect(bf.getByTestId('book')).toContainText('p. 105–114');
+  await expect(bf.getByTestId('book')).toContainText('Original source: Scientific Reports');
+  await expect(bf.getByTestId('book')).toContainText('p. 10980');
+  await expect(bf).toContainText('Waist:');
+  await expect(page.getByTestId('safety-badge')).toHaveCount(kinds.filter((k) => k === 'safety').length);
 });
 
 test('repeated decisions are grouped under their rule, folded until opened', async ({ page }) => {
@@ -104,4 +107,19 @@ test('linked from "Your plan is ready", the dashboard and Profile', async ({ pag
     await page.getByTestId('why-link').click();
     await expect(page, from).toHaveURL(/\/plan\/why$/);
   }
+});
+
+test('a health "yes" shows the Rafeqi safety rule label, with its one-line explanation', async ({ page }) => {
+  await freshUser(page);
+  const put = await page.request.put('/api/onboarding/health', { data: { ...ANSWERS.health, diabetes: true } });
+  expect(put.ok()).toBeTruthy();
+  expect((await page.request.post('/api/plan')).ok()).toBeTruthy();
+  const why = await api(page, '/plan/why');
+  expect(why.safety).toBeGreaterThan(0);
+  await page.goto('/plan/why');
+  await waitForContent(page);
+  const card = page.locator('[data-rule="safety.conservative"]').first();
+  await expect(card.getByTestId('safety-badge')).toHaveText('Rafeqi safety rule');
+  await expect(card.getByTestId('safety-note')).toContainText('deliberately conservative and not taken from a fitness book');
+  await expect(page.getByTestId('safety-count')).toContainText('follow a Rafeqi safety rule');
 });

@@ -48,7 +48,7 @@ interface OnboardingOut {
   step: OnboardingStep; completed: boolean; missing: string[]; conservative: boolean;
   about: Pick<QuestionnaireAnswers, 'sex' | 'age' | 'heightCm' | 'weightKg'> & { waistCm: number | null } | null;
   goal: Pick<QuestionnaireAnswers, 'goal' | 'pace'> | null;
-  training: Pick<QuestionnaireAnswers, 'experience' | 'daysPerWeek' | 'sessionMinutes' | 'location'> | null;
+  training: Pick<QuestionnaireAnswers, 'experience' | 'daysPerWeek' | 'sessionMinutes' | 'location'> & { dailyActivity: QuestionnaireAnswers['dailyActivity'] | null } | null;
   injuries: (InjuryInput & { id: string; status: InjuryStatus })[];
   injuriesAnswered: boolean;
   health: QuestionnaireAnswers['health'] | null;
@@ -83,7 +83,7 @@ function toAnswers(o: OnboardingOut): QuestionnaireAnswers {
   const d = DEFAULT_ANSWERS;
   const about = o.about ? { ...o.about, waistCm: o.about.waistCm ?? undefined } : {};
   return {
-    ...d, ...about, ...(o.goal ?? {}), ...(o.training ?? {}),
+    ...d, ...about, ...(o.goal ?? {}), ...(o.training ? { ...o.training, dailyActivity: o.training.dailyActivity ?? undefined } : {}),
     injuries: o.injuries.map(({ region, side, type, severity, painfulMovements, restrictions }) => ({ region, side, type, severity, painfulMovements, restrictions })),
     health: o.health ?? d.health,
     food: o.food ?? d.food,
@@ -135,7 +135,7 @@ function toPlan(p: PlanOut): Plan {
 const ONBOARDING_BODY: Record<Exclude<OnboardingStep, 'review'>, (a: QuestionnaireAnswers) => unknown> = {
   about: (a) => ({ sex: a.sex, age: a.age, heightCm: a.heightCm, weightKg: a.weightKg, waistCm: a.waistCm ?? null }),
   goal: (a) => ({ goal: a.goal, pace: a.pace }),
-  training: (a) => ({ experience: a.experience, daysPerWeek: a.daysPerWeek, sessionMinutes: a.sessionMinutes, location: a.location }),
+  training: (a) => ({ experience: a.experience, daysPerWeek: a.daysPerWeek, sessionMinutes: a.sessionMinutes, location: a.location, dailyActivity: a.dailyActivity }),
   injuries: (a) => ({ injuries: a.injuries.map(injuryBody) }),
   health: (a) => a.health,
   food: (a) => a.food,

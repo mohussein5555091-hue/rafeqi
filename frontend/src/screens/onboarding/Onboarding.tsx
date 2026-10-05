@@ -3,7 +3,7 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import type { LucideIcon } from 'lucide-react';
 import {
   Flame, BicepsFlexed, RefreshCw, Dumbbell, Building2, House, PersonStanding, CircleCheck, HeartHandshake, Ruler, X, Sparkles,
-  User as UserIcon, Target, Bandage, HeartPulse, Utensils, Lock, MoonStar,
+  User as UserIcon, Target, Bandage, HeartPulse, Utensils, Lock, MoonStar, Armchair, Footprints, HardHat,
 } from 'lucide-react';
 import {
   BodyMap, Button, Card, ChipGroup, Field, FlowShell, Icon, NumberStepper, QueryView, ScalePicker, Segmented, cn, inRange, useToast, type RegionState,
@@ -13,7 +13,7 @@ import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
 import { useSession } from '@/data/session';
 import type { BodyRegion, Experience, InjuryInput, QuestionnaireAnswers } from '@/types';
-import { ALLERGIES, EXPERIENCE, FOODS, GOALS, HEALTH_KEYS, INJURY_TYPES, LOCATIONS, MOVEMENTS, PACES, REGION_LIST, RESTRICTIONS, sideOf } from '@/constants';
+import { ALLERGIES, DAILY_ACTIVITY, EXPERIENCE, FOODS, GOALS, HEALTH_KEYS, INJURY_TYPES, LOCATIONS, MOVEMENTS, PACES, REGION_LIST, RESTRICTIONS, sideOf } from '@/constants';
 
 export const ONBOARDING_STEPS = ['about', 'goal', 'training', 'injuries', 'health', 'food', 'review'] as const;
 type StepId = (typeof ONBOARDING_STEPS)[number];
@@ -65,7 +65,7 @@ function OnboardingFlow({ initial }: { initial: QuestionnaireAnswers }) {
       onBack={idx > 0 ? () => go(idx - 1) : undefined}
       onNext={next}
       nextLabel={isLast ? t('onboarding.review.build') : undefined}
-      nextDisabled={saving || (step === 'about' && !aboutValid(a)) || (step === 'training' && !a.experience)}
+      nextDisabled={saving || (step === 'about' && !aboutValid(a)) || (step === 'training' && (!a.experience || !a.dailyActivity))}
       footerNote={isLast ? t('onboarding.review.buildNote') : undefined}
     >
       <Step a={a} set={set} />
@@ -140,6 +140,7 @@ function GoalStep({ a, set }: StepProps) {
 function TrainingStep({ a, set }: StepProps) {
   const { t } = useI18n();
   const locIcons: Record<string, LucideIcon> = { gym: Building2, homeDumbbells: House, bodyweight: PersonStanding };
+  const dayIcons: Record<string, LucideIcon> = { sitting: Armchair, onFeet: Footprints, active: HardHat };
   return (
     <>
       <Field label={t('onboarding.training.experience')} hint={a.experience ? t(`onboarding.training.expHint.${a.experience}`) : t('onboarding.training.expPick')}>
@@ -160,6 +161,12 @@ function TrainingStep({ a, set }: StepProps) {
               <Icon as={locIcons[l]} />{t(`enums.location.${l}`)}{a.location === l && <Icon as={CircleCheck} className="ms-auto text-accent-700" />}
             </button>
           ))}
+        </div>
+      </Field>
+      <Field label={t('onboarding.training.daily')} hint={a.dailyActivity ? undefined : t('onboarding.training.dailyPick')}>
+        <div role="radiogroup" aria-label={t('onboarding.training.daily')} className="flex flex-col gap-2.5">
+          {DAILY_ACTIVITY.map((d) => <OptionCard key={d} selected={a.dailyActivity === d} onClick={() => set({ dailyActivity: d })} icon={dayIcons[d]}
+            title={t(`enums.dailyActivity.${d}`)} sub={t(`onboarding.training.dailySub.${d}`)} />)}
         </div>
       </Field>
     </>

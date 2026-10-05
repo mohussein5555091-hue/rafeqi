@@ -10,7 +10,7 @@ from app.catalogue import read_exercises, seed_exercises
 from app.config import get_settings
 from app.food_catalogue import read_food_catalogue, seed_food_catalogue
 from app.models import CheckIn, CheckInAnswer, GroceryListItem, Injury, PantryItem, Plan, WeeklyReview, WeightLog
-from app.plans import current_plan, regenerate_grocery_list, run_weekly_review, week_start
+from app.plans import current_plan, person_for, regenerate_grocery_list, run_weekly_review, week_start
 from app.vocab import get_vocab
 from test_onboarding import ALL, answer_all
 
@@ -114,11 +114,26 @@ def test_weekly_review_makes_a_new_version_with_its_changes(onboarded, db):
     assert (review.plan_before_id, review.plan_after_id) == (before.id, after.id)
     assert after.version == before.version + 1 and after.trigger == "checkin"
     kinds = [c["kind"] for c in review.changes]
-    assert "calories" in kinds and after.calories == before.calories - 100  # no weight change on a fat-loss plan
+    # The plan is days old: calories wait for the 2-week review (the weekly check-in still changed the exercise).
+    assert "calories" in kinds and after.calories == before.calories
+    assert any("every 2 weeks" in c["why"]["en"] for c in review.changes if c["kind"] == "calories")
     plan = onboarded.client.get("/api/plan").json()
     assert "ex_cs_row" not in {e["exerciseId"] for d in plan["program"]["days"] for e in d["exercises"]}
     assert plan["reasons"]["review"]
     assert db.scalar(select(WeeklyReview).where(WeeklyReview.user_id == onboarded.id)).state == "ready"
+
+
+def test_calories_change_once_two_weeks_have_passed(onboarded, db, clock):
+    onboarded.client.post("/api/plan")
+    before = current_plan(db, onboarded.id)
+    clock.advance(days=15)
+    ci = checkin(db, onboarded.id, BASE)  # the same weight both weeks on a fat-loss plan: too slow
+    run_weekly_review(db, onboarded.id, ci.id)
+    db.commit()
+    after = current_plan(db, onboarded.id)
+    expected = (before.calories - before.maintenance_calories) * 7 / 7700  # kg a week
+    step = 10 * round(min(max(abs(expected) * 1100, 100), 250) / 10)  # the book's 100-250 kcal down
+    assert after.calories == before.calories - step
 
 
 def test_red_flag_pauses_the_area_and_skips_the_normal_review(onboarded, db):
@@ -138,3 +153,19 @@ def test_red_flag_pauses_the_area_and_skips_the_normal_review(onboarded, db):
                 {"ex_db_floor_press", "ex_landmine_press", "ex_lat_pulldown", "ex_cs_row", "ex_face_pull"}]
     assert shoulder == []  # every exercise loading the shoulder is paused
     assert any("doctor or physiotherapist" in r["en"] for r in plan["reasons"]["training"])
+
+
+def test_people_who_answered_before_the_question_keep_their_plan_until_their_next_edit(onboarded, db):
+    """Finished before daily activity was asked: still complete (no missing step), the answer shows as empty, and the
+    plan counts them as on their feet part of the day; saving the training step again then needs the answer."""
+    from app.models import Profile
+
+    u = onboarded
+    db.get(Profile, u.id).daily_activity = None  # as for someone who answered before the question existed
+    db.commit()
+    s = u.client.get("/api/onboarding").json()
+    assert s["completed"] and s["missing"] == [] and s["training"]["dailyActivity"] is None
+    assert person_for(db, u.id).daily_activity is None
+    assert u.client.post("/api/plan").status_code == 200
+    reasons = [r["en"] for r in u.client.get("/api/plan").json()["reasons"]["calories"]]
+    assert any("Until you answer the daily-activity question" in r for r in reasons)

@@ -20,13 +20,14 @@ def ask(**answers):
     return GOOD | answers
 
 
-def review(answers=None, *, this=(87.5, 87.4), last=(88.0, 88.0), expected=-0.5, effort=7.0, previous_pain=None, recipes=()):
+def review(answers=None, *, this=(87.5, 87.4), last=(88.0, 88.0), expected=-0.5, effort=7.0, previous_pain=None, recipes=(),
+           days_since=30):
     p = Person(sex="male", age=29, height_cm=180, weight_kg=88, goal="loseFat", pace="steady", experience="intermediate",
                days_per_week=4, session_minutes=60, location="gym", meals_per_day=4, cooking_minutes=30, injuries=(SHOULDER,))
     return review_week(ReviewInput(person=p, calories=2250, maintenance=2800, expected_weekly_change_kg=expected,
                                    weights_this_week=this, weights_last_week=last, answers=answers or GOOD, avg_effort=effort,
                                    program_exercise_ids=PROGRAM, previous_pain=previous_pain or {}, plan_recipe_ids=frozenset(recipes),
-                                   sessions_planned=4), CAT)
+                                   sessions_planned=4, days_since_calorie_change=days_since), CAT)
 
 
 # ── Check-in answers ──────────────────────────────────────────────────────────
@@ -86,14 +87,31 @@ def test_worsening_pain_is_a_red_flag():
     assert r.red_flag and r.pause_injuries == ["inj1"]
 
 
+# Steps follow the recomposition guide (ch. 6): 100-250 kcal down or 100-500 kcal up, sized by the gap between the
+# planned and actual weekly change (1 kg a week ≈ 7,700 / 7 = 1,100 kcal a day).
+
 def test_losing_too_fast_adds_calories():
-    r = review(this=(86.6,), last=(88.0,))  # −1.4 kg vs −0.5 planned
-    assert r.calories == 2350 and r.changes[0].kind == "calories"
+    r = review(this=(86.6,), last=(88.0,))  # −1.4 kg vs −0.5 planned: 0.9 kg gap = 990 kcal → the book's maximum, +500
+    assert r.calories == 2750 and r.changes[0].kind == "calories"
 
 
 def test_losing_too_slowly_removes_calories_when_meals_were_followed():
-    r = review(this=(88.0,), last=(88.0,))
+    r = review(this=(88.0,), last=(88.0,))  # 0 vs −0.5 planned: 550 kcal → the book's maximum, −250
+    assert r.calories == 2000
+
+
+def test_a_small_gap_still_moves_at_least_100_kcal():
+    r = review(this=(87.82,), last=(88.0,), expected=-0.1)  # −0.18 vs −0.1: not "too fast" (1.5 × 0.1 + 0.2 noise)
+    assert r.calories is None
+    r = review(this=(88.0,), last=(88.0,), expected=-0.06)  # 0 vs −0.06: 66 kcal → the book's minimum, −100
     assert r.calories == 2150
+
+
+def test_calories_wait_two_weeks_between_changes():
+    r = review(this=(88.0,), last=(88.0,), days_since=7)
+    assert r.calories is None and r.status == "onTrack"
+    assert "every 2 weeks" in r.changes[0].why["en"] and "7 days" in r.changes[0].why["en"]
+    assert review(this=(88.0,), last=(88.0,), days_since=14).calories == 2000
 
 
 def test_low_adherence_keeps_calories():
@@ -102,8 +120,8 @@ def test_low_adherence_keeps_calories():
 
 
 def test_gaining_goal_works_the_other_way():
-    r = review(this=(70.0,), last=(70.0,), expected=0.25)
-    assert r.calories == 2350
+    r = review(this=(70.0,), last=(70.0,), expected=0.25)  # 0 vs +0.25 planned: 275 kcal → +280
+    assert r.calories == 2530
 
 
 def test_deload_when_sessions_were_too_hard():

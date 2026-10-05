@@ -28,7 +28,7 @@ export const TEST_USER = { email: 'omar@example.com', password: 'password1', fir
 export const ANSWERS = {
   about: { sex: 'male', age: 29, heightCm: 180, weightKg: 88, waistCm: 96 },
   goal: { goal: 'loseFat', pace: 'steady' },
-  training: { experience: 'intermediate', daysPerWeek: 4, sessionMinutes: 60, location: 'gym' },
+  training: { experience: 'intermediate', daysPerWeek: 4, sessionMinutes: 60, location: 'gym', dailyActivity: 'onFeet' },
   injuries: { injuries: [{ region: 'shoulderL', side: 'left', type: 'tendon', severity: 3, painfulMovements: ['overheadPress', 'benchPress'], restrictions: ['noOverhead'] }] },
   health: { heartCondition: false, diabetes: false, pregnancy: false, recentSurgery: false, exerciseMedication: false },
   food: { mealsPerDay: 4, dislikes: ['liver'], allergies: ['none'], fasting: [], cookingMinutes: 30 },

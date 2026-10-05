@@ -14,11 +14,12 @@ Books: (1) Upper Lower Strength and Size, (2) The Ultimate Guide to Body Recompo
 
 ### Conflicts between books
 
-- [ ] **C1. Protein.**
+- [x] **C1. Protein.**
   - (2) pp. 98–106: 1.2–1.6 g per **pound of lean mass**, more the leaner you are. For a 75 kg man at about 18% body fat that's about 188 g (2.5 g/kg of body weight).
   - (7) p. 50: 1.6–2.5 g per kg of body weight for athletic men, but only **0.8–1.2 g/kg for women**.
   - (1)/(3)/(4) FAQ (e.g. (4) p. 23): "0.8–1 g per pound of body weight as a ballpark" (1.8–2.2 g/kg).
   - **Now:** (2)'s sliding model for everyone. A 68 kg woman gets 124 g (1.8 g/kg); (7) would give 54–82 g.
+  **Decided:** keep the recomposition guide's protein (no change).
 - [ ] **C2. Fat.** (2) p. 108: 20–35% of calories, more with more body fat. (7) p. 50: 20–30%. **Now:** (2), so heavier
   people get up to 35%.
 - [ ] **C3. Activity factors.**
@@ -35,20 +36,24 @@ Books: (1) Upper Lower Strength and Size, (2) The Ultimate Guide to Body Recompo
   **Now:** neither (the app has no cheat or refeed days). Decide whether you want one.
 - [ ] **C7. Water.** (8) p. 5: 4.5 litres a day. (2) p. 162: about 1 ml per kcal (about 2–3 L). (7) p. 60: "at least … litres a
   day" (the digit isn't readable in the OCR; to check by eye in B3). **Now:** the app gives no water target.
-- [ ] **C8. Calorie floor.** (5) p. 64: under about 1,400 kcal it's hard to eat enough nutrients. Before B1 the app used
+- [x] **C8. Calorie floor.** (5) p. 64: under about 1,400 kcal it's hard to eat enough nutrients. Before B1 the app used
   1,200 (women) / 1,500 (men), not from a book. **Now:** 1,400 for everyone (lower than before for men, higher for women).
-- [ ] **C9. Maximum weekly loss.** (5) pp. 64, 66: 1–2 pounds a week. Before B1 the app used 1% of body weight a week (not from a
+  **Decided:** 1,400 kcal for everyone (no change).
+- [x] **C9. Maximum weekly loss.** (5) pp. 64, 66: 1–2 pounds a week. Before B1 the app used 1% of body weight a week (not from a
   book). **Now:** at most 0.9 kg (2 lb) a week. For people under 90 kg that's looser than 1% was. Keep 1% as an extra limit?
+  **Decided:** the lower of 0.9 kg and 1% of body weight a week (`safety.yaml` `max_pct_of_body_weight`).
 
 ### How the books' values were mapped onto the questionnaire
 
-- [ ] **D1. No lifestyle question.** (2)'s activity table needs your job and daily activity. **Now:** everyone is treated as
+- [x] **D1. No lifestyle question.** (2)'s activity table needs your job and daily activity. **Now:** everyone is treated as
   "lightly active" (1.5–1.8 by training days), because the plan gives a daily step target (about 8,000, (2) p. 177),
   which matches (2)'s example of "a desk job plus daily walks". 2 training days use 1.5, the row's lowest value, since the
   table starts at 3 days. *Option:* add a lifestyle question so the full table can be used.
-- [ ] **D2. No body-fat question.** (2)'s protein (Figure 8B, p. 101) and fat (Figure 8E, p. 110) depend on body fat %.
+  **Decided:** a required onboarding question on the training step, "Your day outside training": mostly sitting → sedentary (1.2–1.5), on my feet part of the day → lightly active (1.5–1.8), physically active job → moderately active (1.8–2.0). (2)'s "highly active" row (2.0–2.2, construction work) isn't offered. People who answered before keep "on my feet" until they next save the training step from Profile; their calorie reason says so.
+- [x] **D2. No body-fat question.** (2)'s protein (Figure 8B, p. 101) and fat (Figure 8E, p. 110) depend on body fat %.
   **Now:** estimated from BMI, age and sex with the Deurenberg formula (1991). "Why this plan" labels it "Standard formula";
   it's not from your books. (2) p. 96 says a rough estimate is good enough. *Option:* add an optional body-fat question.
+  **Decided:** with a waist (the latest check-in, else onboarding): Relative Fat Mass (Woolcott & Bergman 2018); without one: the BMI formula (Deurenberg 1991). Both labelled "Standard formula" with their source.
 - [ ] **D3. Fat-loss pace.** (2) gives about 20% under maintenance (p. 65), up to 20% for recomposition (p. 174), 20–30% for obese
   people (men above ~25% body fat, women above ~35%, p. 67), and 5–10% as a "small deficit" (p. 66).
   **Now:** gentle 10%, steady 20%, faster 20%. "Faster" becomes 25% only when the estimated body fat is above those
@@ -86,23 +91,26 @@ Books: (1) Upper Lower Strength and Size, (2) The Ultimate Guide to Body Recompo
 
 ### Rules no book covers (still "Not yet from a book")
 
-- [ ] **N1. Ramadan.** Neither Arabic book mentions Ramadan, fasting, suhoor or iftar: searched in the OCR text and in the
+- [x] **N1. Ramadan.** Neither Arabic book mentions Ramadan, fasting, suhoor or iftar: searched in the OCR text and in the
   FAQ's own text layer. The closest is (2) pp. 132–134 on intermittent fasting: a moderate eating window, protein spread
   across it, and a slow-digesting last meal. **Now:** the app's Ramadan meal times (suhoor 03:30, iftar 18:00). Do you have
   another source for Ramadan?
-- [ ] **N2. Weekly calorie review.** (2) ch. 6 (pp. 78–80) reviews calories only **once or twice a month**, using the 7-day
+  **Decided:** Ramadan stays meal timing only (suhoor, iftar, snacks), with the same daily targets, as its own rule `nutrition.ramadan`, labelled "Not yet from a book".
+- [x] **N2. Weekly calorie review.** (2) ch. 6 (pp. 78–80) reviews calories only **once or twice a month**, using the 7-day
   average weight, waist and photos together. It then removes 100–250 kcal (from carbs or fat, never protein, fat ≥ 20%)
   or adds 1–2 × 30-min easy cardio; for muscle gain it adds 100–500 kcal. **Now:** the app checks every week and moves
   100 kcal. Switch to every 2 weeks with the book's steps?
+  **Decided:** follow the book. Calories change at most every 2 weeks (from when the current target started), comparing the average weight of the last two weeks; steps 100–250 kcal down or 100–500 up, sized by the gap. The weekly check-in still adjusts training, pain and meals every week.
 - [ ] **N3. Cool-down.** No book gives a stretching cool-down. The programs only suggest 3–5 min of foam rolling after workouts
   if you're often sore ((4) p. 22). **Now:** 4–5 static stretches and a minute of breathing (the app's design). Keep,
   replace with foam rolling, or both?
 - [ ] **N4. Starting weights.** The programs choose loads by %1RM or by effort (RPE) for the target reps; neither works before
   a first session. **Now:** body-weight ratios, capped by experience (the app's numbers).
-- [ ] **N5. Lighter loads for a recovering injury** (80%, never below 50%), **red-flag thresholds** (pain 7/10, rising 3
+- [x] **N5. Lighter loads for a recovering injury** (80%, never below 50%), **red-flag thresholds** (pain 7/10, rising 3
   logs in a row), **health-flag numbers** (deficit ≤ 15%, RPE −1, 85% load, +30 s rest) and **no deficit in pregnancy**.
   These are medical safety settings. The books only say to check with a doctor ((5) pp. 64, 66) and not to train through
   pain that stops a full range of motion ((4) p. 22).
+  **Decided:** these four (red flags, health flag, pregnancy, recovering-injury loads) are labelled "Rafeqi safety rule" on "Why this plan", with the line "Set by Rafeqi on purpose to keep you safe. It's deliberately conservative and not taken from a fitness book."
 - [ ] **N6. Meal optimizer settings** (±5% calories, quarter portions, ½–2½ servings, a recipe at most 4 times a week)
   and the 4.3 weeks a month for staples: app settings.
 - [ ] **N7. Check-in trigger for a lighter week** (difficulty 5/5, soreness 4/5 or effort RPE 9+): the app's thresholds.
@@ -122,11 +130,12 @@ swaps and equipment substitutions. Their values come from the three program PDFs
 
 ### Found while working on B1 (not about the books)
 
-- [ ] **F1. Saving a workout at the same moment from two places.** The logger now sends exercise results one after
+- [x] **F1. Saving a workout at the same moment from two places.** The logger now sends exercise results one after
   another and finishes only after the last one. That fixes a real race where a "Log each set" edit could be lost if
   "Save & finish" reached the server first. The server itself still allows two "today" workout logs if two devices save
   at the very same instant (no unique rule on user + date). Fixing that needs a migration that first merges any duplicate
   logs already in the database. Do it in the Render prep, or now?
+  **Decided:** fixed. The database allows one workout log per person per day (migration `4efa72e27bbd` first merges any duplicates), and a save that loses the race uses the log just created. While testing this, SQLite migrations were found to delete dependent rows when they rebuild a table (foreign keys were on): `migrations/env.py` now turns them off while migrating and checks integrity afterwards. Your local database was checked and is intact.
 
 ---
 

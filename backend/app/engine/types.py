@@ -65,6 +65,8 @@ class Person:
     injuries: tuple[InjuryInfo, ...] = ()
     missing_equipment: tuple[str, ...] = ()  # "Equipment not available" from an exercise swap
     disliked_foods: tuple[str, ...] = ()  # food ids removed from meals with "I don't like it" / "Always"
+    daily_activity: str | None = None  # sitting | onFeet | active; None (not answered yet) counts as onFeet
+    waist_cm: float | None = None  # latest waist (check-in, else onboarding): body fat from Relative Fat Mass
 
     @property
     def conservative(self) -> bool:

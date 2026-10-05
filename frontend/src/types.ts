@@ -21,6 +21,8 @@ export type Goal = 'loseFat' | 'buildMuscle' | 'recomp' | 'strength';
 export type Pace = 'gentle' | 'steady' | 'faster';
 export type Experience = 'beginner' | 'intermediate' | 'advanced';
 export type TrainingLocation = 'gym' | 'homeDumbbells' | 'bodyweight';
+/** Outside training: mostly sitting / on my feet part of the day / a physically active job (the activity level for calories). */
+export type DailyActivity = 'sitting' | 'onFeet' | 'active';
 export type FastingHabit = 'ramadan' | 'intermittent';
 
 export interface HealthAnswers {
@@ -55,6 +57,8 @@ export interface User {
   daysPerWeek: 2 | 3 | 4 | 5 | 6;
   sessionMinutes: 45 | 60 | 75 | 90;
   location: TrainingLocation;
+  /** Empty for people who answered before the question existed (counted as on their feet until they answer). */
+  dailyActivity?: DailyActivity;
   health: HealthAnswers;
   food: FoodPreferences;
   language: Lang;
@@ -69,7 +73,7 @@ export interface User {
 /** What the onboarding questionnaire produces (also used to regenerate). The numbers start empty until typed. */
 export type QuestionnaireAnswers = Pick<User,
   'sex' | 'waistCm' | 'goal' | 'pace' |
-  'daysPerWeek' | 'sessionMinutes' | 'location' | 'health' | 'food'> & {
+  'daysPerWeek' | 'sessionMinutes' | 'location' | 'dailyActivity' | 'health' | 'food'> & {
     age?: number; heightCm?: number; weightKg?: number; injuries: InjuryInput[];
     /** Required: nothing is picked until the person chooses (it decides the program and the starting weights). */
     experience?: Experience;
@@ -515,8 +519,9 @@ export type WhyGroupId = 'calories' | 'protein' | 'carbsFat' | 'program' | 'sche
 export interface WhyAnswer { key: string; value: unknown }
 /** Where a rule comes from. Placeholders aren't from a book yet: only `text` (what will be checked) is given. */
 /** kind: "book" = from the person's books; "formula" = a standard published formula (book… is its original source);
+ *  "safety" = a Rafeqi safety rule (deliberately conservative, not from a book; `text` says what it protects);
  *  "placeholder" = not yet from a book. */
-export interface WhySource { placeholder: boolean; kind: 'book' | 'formula' | 'placeholder'; text: string; book?: string; chapter?: string | null; page?: string; quote?: LocalizedText }
+export interface WhySource { placeholder: boolean; kind: 'book' | 'formula' | 'safety' | 'placeholder'; text: string; book?: string; chapter?: string | null; page?: string; quote?: LocalizedText }
 export interface WhyDecision {
   rule: string; group: WhyGroupId; context: LocalizedText | null; answers: WhyAnswer[];
   /** The rule file section it comes from ("training.start_load"): repeated decisions are grouped under it. */
@@ -527,8 +532,8 @@ export interface WhyPlan {
   planId: string; version: number; createdAt: string;
   aiSummary: LocalizedText | null; // written by the local LLM in the AI phase; null until then
   /** Decisions: all, from the books, from a standard formula. Rules (each counted once): the same. */
-  total: number; backed: number; formulas: number;
-  rules: { total: number; fromBooks: number; formulas: number };
+  total: number; backed: number; formulas: number; safety: number;
+  rules: { total: number; fromBooks: number; formulas: number; safety: number };
   groups: { id: WhyGroupId; decisions: WhyDecision[] }[];
 }
 

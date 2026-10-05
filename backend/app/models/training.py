@@ -159,7 +159,9 @@ class WorkoutLog(Base, UserOwned):
     started_at: Mapped[datetime] = timestamp()
     finished_at: Mapped[datetime | None]
 
-    __table_args__ = (CheckConstraint("effort BETWEEN 1 AND 10", name="effort_range"),)
+    # One log per person per day: two saves arriving at once can't each start their own (app/views/training.py open_log).
+    __table_args__ = (CheckConstraint("effort BETWEEN 1 AND 10", name="effort_range"),
+                      UniqueConstraint("user_id", "date", name="uq_workout_logs_user_date"))
 
 
 class SetLog(Base, UserOwned):

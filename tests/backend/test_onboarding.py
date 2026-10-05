@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 ABOUT = {"sex": "male", "age": 29, "heightCm": 180, "weightKg": 88, "waistCm": 96}
 GOAL = {"goal": "loseFat", "pace": "steady"}
-TRAINING = {"experience": "intermediate", "daysPerWeek": 4, "sessionMinutes": 60, "location": "gym"}
+TRAINING = {"experience": "intermediate", "daysPerWeek": 4, "sessionMinutes": 60, "location": "gym", "dailyActivity": "onFeet"}
 INJURIES = {"injuries": [{"region": "shoulderL", "side": "left", "type": "tendon", "severity": 3,
                           "painfulMovements": ["overheadPress", "benchPress"], "restrictions": ["noOverhead"]}]}
 HEALTH = {"heartCondition": False, "diabetes": False, "pregnancy": False, "recentSurgery": False, "exerciseMedication": False}
@@ -127,6 +127,16 @@ def test_answers_can_be_changed_after_completing(make_user):
     c.post("/api/onboarding/complete")
     s = c.put("/api/onboarding/training", json=TRAINING | {"daysPerWeek": 3}).json()
     assert s["completed"] is True and s["training"]["daysPerWeek"] == 3
+
+
+def test_daily_activity_is_required_when_the_training_step_is_saved(make_user):
+    c = make_user().client
+    no_answer = {k: v for k, v in TRAINING.items() if k != "dailyActivity"}
+    assert c.put("/api/onboarding/training", json=no_answer).status_code == 422
+    assert c.put("/api/onboarding/training", json=TRAINING | {"dailyActivity": "standing"}).status_code == 422
+    for answer in ("sitting", "onFeet", "active"):
+        s = c.put("/api/onboarding/training", json=TRAINING | {"dailyActivity": answer}).json()
+        assert s["training"]["dailyActivity"] == answer
 
 
 def test_frontend_food_options_match():

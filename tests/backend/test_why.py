@@ -9,7 +9,7 @@ from collections import Counter
 import pytest
 
 from app.engine.rules import _check_sources, load_rules
-from app.views.why import GROUPS, decision, rule_section
+from app.views.why import GROUPS, counts, decision, rule_section, source_out
 from personas import PERSONAS, run
 from test_plans import catalogue, onboarded  # noqa: F401 (fixtures)
 from test_screens_api import planned  # noqa: F401 (fixtures)
@@ -45,25 +45,36 @@ def test_every_reason_in_the_plan_is_on_the_page_with_its_source_or_the_placehol
     assert why["aiSummary"] is None  # comes in the AI phase
 
 
-def test_three_kinds_of_source_and_the_counts(planned):  # noqa: F811
-    """Rules from the books (Phase B1: calories, macros, cardio, warm-up…) are "From your books" with their reference;
-    the body-fat estimate is a "Standard formula" with its original source; the rest are "Not yet from a book"."""
+def test_four_kinds_of_source_and_the_counts(planned):  # noqa: F811
+    """Rules from the books are "From your books" with their reference; the body-fat estimate is a "Standard formula" with
+    its original source (Relative Fat Mass here: the planned user gave a waist); Rafeqi's own safety rules are labelled
+    as such; the rest are "Not yet from a book"."""
     why = planned.client.get("/api/plan/why").json()
     decisions = [d for g in why["groups"] for d in g["decisions"]]
-    assert {d["source"]["kind"] for d in decisions} == {"book", "formula", "placeholder"}
+    kinds = {d["source"]["kind"] for d in decisions}
+    assert {"book", "formula", "placeholder"} <= kinds <= {"book", "formula", "safety", "placeholder"}
     formula = [d for d in decisions if d["source"]["kind"] == "formula"]
     assert [d["rule"] for d in formula] == ["nutrition.body_fat"] and why["formulas"] == 1
-    assert formula[0]["source"]["page"] == "105–114" and "British Journal of Nutrition" in formula[0]["source"]["book"]
+    assert formula[0]["source"]["page"] == "10980" and "Scientific Reports" in formula[0]["source"]["book"]
     books = {d["ruleKey"] for d in decisions if d["source"]["kind"] == "book"}
     assert {"nutrition.bmr", "nutrition.goal", "nutrition.protein", "nutrition.fat", "nutrition.carbs"} <= books
     assert all(d["source"]["book"] and d["source"]["page"] for d in decisions if d["source"]["kind"] == "book")
     assert all("PLACEHOLDER" in d["source"]["text"] for d in decisions if d["source"]["kind"] == "placeholder")
     assert all("book" not in d["source"] for d in decisions if d["source"]["placeholder"])
-    keys = {d["ruleKey"] for d in decisions}
-    assert why["rules"] == {"total": len(keys), "fromBooks": len(books), "formulas": 1}
+    keys = {d["ruleKey"]: d["source"]["kind"] for d in decisions}
+    assert why["rules"] == {"total": len(keys), "fromBooks": len(books), "formulas": 1,
+                            "safety": sum(k == "safety" for k in keys.values())}
     assert why["backed"] == sum(d["source"]["kind"] == "book" for d in decisions)
     assert len(keys) < len(decisions)  # many decisions share a rule (one starting weight per exercise…)
-    assert {"training.start_load", "nutrition.goal", "nutrition.bmr"} <= keys
+
+
+def test_a_rafeqi_safety_rule_is_labelled_as_one_not_as_a_book_or_a_placeholder():
+    for key in ("safety.red_flags", "safety.conservative", "safety.pregnancy", "training.injury_load"):
+        section, _ = rule_section(key)
+        out = source_out(section)
+        assert out == {"placeholder": False, "kind": "safety", "text": section["source"]}, key
+        assert out["text"].startswith("Rafeqi safety rule:")
+    assert counts([{"ruleKey": "safety.red_flags", "source": {"kind": "safety"}}])["rules"]["safety"] == 1
 
 
 def test_a_rule_from_a_book_counts_as_from_your_books(planned, monkeypatch):  # noqa: F811
@@ -144,7 +155,7 @@ def test_rule_files_need_what_the_why_page_shows():
     assert _check_sources("nutrition", {"fat": good}) == []
     assert "needs a summary" in _check_sources("nutrition", {"fat": good | {"summary": {"en": "only English"}}})[0]
     assert "needs `uses`" in _check_sources("nutrition", {"fat": {k: v for k, v in good.items() if k != "uses"}})[0]
-    assert "kind must be book or formula" in _check_sources("nutrition", {"fat": good | {"kind": "guess"}})[0]
+    assert "kind must be book, formula or safety" in _check_sources("nutrition", {"fat": good | {"kind": "guess"}})[0]
     assert "isn't a placeholder" in _check_sources("nutrition", {"fat": good | {"kind": "formula"}})[0]
     backed = good | {"placeholder": False}
     assert "needs `ref` with book, page" in _check_sources("nutrition", {"fat": backed})[0]

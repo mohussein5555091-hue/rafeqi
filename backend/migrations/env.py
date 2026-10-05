@@ -36,11 +36,22 @@ def run_migrations_offline() -> None:
 def run_migrations_online() -> None:
     engine = make_engine(db_url())
     with engine.connect() as connection:
-        # render_as_batch: SQLite can't ALTER most things, so Alembic rebuilds the table instead.
+        sqlite = connection.dialect.name == "sqlite"
+        if sqlite:
+            # render_as_batch: SQLite can't ALTER most things, so Alembic rebuilds the table (copy, drop, rename). With
+            # foreign keys on, dropping the old table would delete every row that points at it (ON DELETE CASCADE),
+            # so they're off while migrating (they can only change outside a transaction) and checked afterwards.
+            connection.connection.driver_connection.execute("PRAGMA foreign_keys=OFF")
         context.configure(connection=connection, target_metadata=target_metadata, render_as_batch=True,
                           compare_type=True, render_item=render_item)
         with context.begin_transaction():
             context.run_migrations()
+            if sqlite:
+                broken = connection.exec_driver_sql("PRAGMA foreign_key_check").fetchall()
+                if broken:
+                    raise RuntimeError(f"rows point at missing rows after migrating: {broken[:5]}")
+        if sqlite:
+            connection.connection.driver_connection.execute("PRAGMA foreign_keys=ON")
     engine.dispose()
 
 

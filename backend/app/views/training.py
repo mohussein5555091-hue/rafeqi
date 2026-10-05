@@ -5,6 +5,7 @@ import datetime as dt
 from dataclasses import dataclass
 
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app import clock
@@ -355,7 +356,13 @@ def open_log(db: Session, user_id: str, week: Week, day: ProgramDay) -> WorkoutL
     if log is None:
         log = WorkoutLog(user_id=user_id, plan_id=week.plan.id, program_day_id=day.id, week_number=week.number, date=d,
                          started_at=clock.now())
-        db.add(log)
-        db.flush()
+        try:
+            with db.begin_nested():  # one log per person per day (uq_workout_logs_user_date)
+                db.add(log)
+                db.flush()
+        except IntegrityError:  # another save started today's log a moment ago: use that one
+            log = session_log(db, user_id, d)
+            if log is not None and log.status == "done":
+                raise AlreadyFinished from None
     return log
 

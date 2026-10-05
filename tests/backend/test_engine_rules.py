@@ -26,7 +26,11 @@ def test_placeholders_are_clearly_marked():
     rules = load_rules()
     marked = [f"{n}.{k}" for n in ("nutrition", "training", "safety") for k, s in rules[n].items()
               if isinstance(s, dict) and s.get("placeholder")]
-    assert {"training.start_load", "training.cooldown", "training.injury_load", "safety.red_flags"} <= set(marked)
+    assert {"training.start_load", "training.cooldown", "nutrition.ramadan"} <= set(marked)
+    safety = {f"{n}.{k}" for n in ("nutrition", "training", "safety") for k, s in rules[n].items()
+              if isinstance(s, dict) and s.get("kind") == "safety"}
+    assert safety == {"safety.red_flags", "safety.conservative", "safety.pregnancy", "training.injury_load"}
+    assert all(rules[k.split(".")[0]][k.split(".")[1]]["source"].startswith("Rafeqi safety rule") for k in safety)
     from_books = {"nutrition.activity", "nutrition.goal", "nutrition.protein", "nutrition.fat", "nutrition.carbs",
                   "safety.calorie_floor", "safety.max_weekly_loss", "training.cardio", "training.warmup", "training.deload"}
     assert not from_books & set(marked)

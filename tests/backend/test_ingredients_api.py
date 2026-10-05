@@ -72,7 +72,10 @@ def test_removing_protein_rebalances_the_day_and_keeps_protein_at_or_above_targe
     ful = meal(c, "r_ful_eggs", d)
     after = remove(c, ful, "egg")  # no eggs at home today
     new = next(m for m in after["meals"] if m["id"] == ful["id"])
-    assert ingredient(new, "egg")["status"] == "removed" and new["proteinG"] < ful["proteinG"]
+    assert ingredient(new, "egg")["status"] == "removed"
+    # The meal has less protein at the same portion; the rebalance may then enlarge this meal too (shown as portionChange).
+    portion = new.get("portionChange", {}).get("to", 1) / new.get("portionChange", {}).get("from", 1)
+    assert new["proteinG"] / portion < ful["proteinG"]
     t = totals(after)
     assert t["proteinG"] >= min(plan["proteinG"], before["proteinG"]) - 1, (t, plan["proteinG"])
     assert abs(t["kcal"] - plan["calories"]) <= plan["calories"] * 0.08

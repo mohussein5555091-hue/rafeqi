@@ -70,6 +70,9 @@ class Profile(Base, UserOwned):
     days_per_week: Mapped[int | None]
     session_minutes: Mapped[int | None]
     location: Mapped[str | None] = mapped_column(String(20))
+    # Daily activity outside training (sitting | onFeet | active): the activity level for calories. Empty for people who
+    # answered before the question existed: they count as "on my feet part of the day" until they answer.
+    daily_activity: Mapped[str | None] = mapped_column(String(10))
     meals_per_day: Mapped[int | None]
     cooking_minutes: Mapped[int | None]
     dislikes: Mapped[list] = mapped_column(default=list)

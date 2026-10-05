@@ -25,18 +25,40 @@ bmr:
     ar: "الحرق وقت الراحة {bmr} سعرة (معادلة ميفلين-سانت جيور: {sex}، {age} سنة، {height} سم، {weight} كجم)."
 
 body_fat:
-  # The recomposition guide sets protein and fat from body fat % (Figures 8B and 8E). The questionnaire doesn't ask for
-  # body fat, so it's estimated from BMI, age and sex with a standard published formula (not from your books):
-  # body fat % = 1.20 × BMI + 0.23 × age − 10.8 × (1 for men, 0 for women) − 5.4, kept between min_pct and max_pct.
+  # The recomposition guide sets protein and fat from body fat % (Figures 8B and 8E); the questionnaire doesn't ask for
+  # it, so it's estimated. With a waist measurement (the latest check-in, else onboarding): Relative Fat Mass,
+  # body fat % = 64 − 20 × height / waist, + 12 for women. Without one: `body_fat_bmi` below. Kept between min_pct and
+  # max_pct. A standard published formula, not from your books.
   kind: formula
   placeholder: false
-  source: "Deurenberg P, Weststrate JA, Seidell JC (1991) Br J Nutr 65:105-114. Used because the recomposition guide's protein and fat rules depend on body fat %, which the questionnaire doesn't ask."
-  uses: [sex, age, weight_kg, height_cm]
+  source: "Woolcott OO, Bergman RN (2018) Relative fat mass (RFM) as a new estimator of whole-body fat percentage, Sci Rep 8:10980. Used because the recomposition guide's protein and fat rules depend on body fat %."
+  uses: [sex, height_cm, waist_cm]
   summary:
-    en: Your body fat is estimated from your BMI, age and sex. It's a rough guess, which the recomposition guide says is good enough for setting protein and fat.
-    ar: نسبة الدهون في جسمك متقدّرة من مؤشر كتلة الجسم وسنك ونوعك. ده تقدير تقريبي، والكتاب بيقول إنه كفاية لحساب البروتين والدهون.
+    en: Your body fat is estimated from your height and waist (Relative Fat Mass). It's a rough guess, which the recomposition guide says is good enough for setting protein and fat.
+    ar: نسبة الدهون في جسمك متقدّرة من طولك ومقاس وسطك (معادلة كتلة الدهون النسبية). ده تقدير تقريبي، والكتاب بيقول إنه كفاية لحساب البروتين والدهون.
   min_pct: 5
   max_pct: 60
+  ref:
+    book: Scientific Reports, vol. 8 (Woolcott, Bergman, 2018)
+    chapter: "Relative fat mass (RFM) as a new estimator of whole-body fat percentage"
+    page: "10980"
+    quote:
+      en: Body fat % is estimated as 64 − 20 × height / waist for men and 76 − 20 × height / waist for women.
+      ar: نسبة الدهون بتتقدّر كده، ٦٤ − ٢٠ × الطول ÷ الوسط للرجالة، و٧٦ − ٢٠ × الطول ÷ الوسط للستات.
+  explain:
+    en: "Body fat estimated at about {bf}% from your height ({height} cm) and waist ({waist} cm); protein and fat are set from it."
+    ar: "نسبة الدهون متقدّرة بحوالي {bf}% من طولك ({height} سم) ومقاس وسطك ({waist} سم)؛ البروتين والدهون بيتحسبوا منها."
+
+body_fat_bmi:
+  # The fallback when no waist measurement has been given yet: body fat % = 1.20 × BMI + 0.23 × age − 10.8 × (1 for
+  # men, 0 for women) − 5.4 (kept within body_fat's min_pct and max_pct). A standard published formula.
+  kind: formula
+  placeholder: false
+  source: "Deurenberg P, Weststrate JA, Seidell JC (1991) Br J Nutr 65:105-114. Used until you give a waist measurement."
+  uses: [sex, age, weight_kg, height_cm]
+  summary:
+    en: Without a waist measurement, your body fat is estimated from your BMI, age and sex. Adding your waist (in a check-in or your profile) makes it more accurate.
+    ar: من غير مقاس الوسط، نسبة الدهون متقدّرة من مؤشر كتلة الجسم وسنك ونوعك. لو ضفت مقاس وسطك (في المتابعة أو ملفك) التقدير هيبقى أدق.
   ref:
     book: British Journal of Nutrition, vol. 65 (Deurenberg, Weststrate, Seidell, 1991)
     chapter: "Body mass index as a measure of body fatness: age- and sex-specific prediction formulas"
@@ -45,30 +67,40 @@ body_fat:
       en: Body fat % is estimated as 1.20 × BMI + 0.23 × age − 10.8 × sex (1 for men, 0 for women) − 5.4.
       ar: نسبة الدهون بتتقدّر كده، ١٫٢ × مؤشر كتلة الجسم + ٠٫٢٣ × السن − ١٠٫٨ × النوع (١ للرجالة، صفر للستات) − ٥٫٤.
   explain:
-    en: "Body fat estimated at about {bf}% from your BMI ({bmi}), age and sex; protein and fat are set from it."
-    ar: "نسبة الدهون متقدّرة بحوالي {bf}% من مؤشر كتلة الجسم ({bmi}) وسنك ونوعك؛ البروتين والدهون بيتحسبوا منها."
+    en: "Body fat estimated at about {bf}% from your BMI ({bmi}), age and sex; protein and fat are set from it. Add your waist for a better estimate."
+    ar: "نسبة الدهون متقدّرة بحوالي {bf}% من مؤشر كتلة الجسم ({bmi}) وسنك ونوعك؛ البروتين والدهون بيتحسبوا منها. ضيف مقاس وسطك لتقدير أدق."
 
 activity:
-  # Table 5B: "Lightly active + training 3-6×/wk" 1.5-1.8 (sedentary + training: 1.2-1.5). The plan's daily step target
-  # (training.yaml cardio) makes people at least lightly active, so this row is used, spread over the training days.
-  # 2 days a week is below the table's 3-6, so it takes the row's lowest value. See data/REVIEW.md.
+  # Table 5B, for people lifting 3-6 times a week: sedentary 1.2-1.5, lightly active 1.5-1.8, moderately active 1.8-2.0
+  # (highly active 2.0-2.2 isn't offered). The questionnaire's daily-activity answer picks the row; the factor goes from
+  # the row's low end at 3 training days to its high end at 6 (2 days: the low end). People who answered before the
+  # question existed count as "on my feet part of the day" (lightly active) until they answer.
   placeholder: false
   source: "The Ultimate Guide to Body Recomposition, ch. 5, p. 69 (Table 5B: activity multipliers)"
-  uses: [days_per_week]
+  uses: [days_per_week, daily_activity]
   summary:
-    en: Your resting burn is multiplied by an activity factor for lifting several days a week with light daily activity (the step target in your plan); more training days, a higher factor.
-    ar: الحرق وقت الراحة بيتضرب في معامل نشاط لحد بيلعب حديد كذا يوم في الأسبوع وعنده حركة خفيفة يومية (هدف الخطوات في خطتك)؛ وكل ما أيام التمرين تزيد المعامل بيزيد.
-  factor_by_training_days: {2: 1.5, 3: 1.5, 4: 1.6, 5: 1.7, 6: 1.8}
+    en: Your resting burn is multiplied by an activity factor from your day outside training (mostly sitting, on your feet part of the day, or a physically active job) and your training days.
+    ar: الحرق وقت الراحة بيتضرب في معامل نشاط حسب يومك برّه التمرين (قاعد أغلب الوقت، واقف جزء من اليوم، أو شغل فيه مجهود بدني) وعدد أيام تمرينك.
+  levels: {sitting: [1.2, 1.5], onFeet: [1.5, 1.8], active: [1.8, 2.0]}
+  default_level: onFeet
+  days_range: [3, 6]
+  level_names:
+    sitting: {en: "mostly sitting the rest of the day", ar: "قاعد أغلب باقي اليوم"}
+    onFeet: {en: "on your feet part of the day", ar: "واقف جزء من اليوم"}
+    active: {en: "with a physically active job", ar: "شغلك فيه مجهود بدني"}
   ref:
     book: The Ultimate Guide to Body Recomposition (Jeff Nippard, Chris Barakat)
     chapter: "Chapter 5: Setting up the diet: calorie intake"
     page: "69"
     quote:
-      en: Maintenance is resting burn times an activity multiplier; someone lifting 3–6 times a week with a desk job and daily walks uses about 1.5–1.8.
-      ar: سعرات الثبات هي الحرق وقت الراحة × معامل نشاط؛ واللي بيلعب حديد ٣–٦ مرات في الأسبوع وشغله مكتبي وبيتمشى يوميًا بيستخدم حوالي ١٫٥–١٫٨.
+      en: Maintenance is resting burn times an activity multiplier, about 1.2–1.5 for a desk job with lifting, 1.5–1.8 when you also walk daily and 1.8–2.0 for an active job like waiting tables.
+      ar: سعرات الثبات هي الحرق وقت الراحة × معامل نشاط، حوالي ١٫٢–١٫٥ لشغل مكتبي مع الحديد، و١٫٥–١٫٨ لو كمان بتتمشى يوميًا، و١٫٨–٢٫٠ لشغل فيه حركة زي الجرسون.
   explain:
-    en: "Maintenance about {tdee} kcal: resting burn × {factor} for lifting {days} days a week with light daily activity."
-    ar: "سعرات الثبات حوالي {tdee} سعرة: الحرق وقت الراحة × {factor} لـ {days} أيام حديد في الأسبوع مع حركة خفيفة يومية."
+    en: "Maintenance about {tdee} kcal: resting burn × {factor} for lifting {days} days a week, {level}."
+    ar: "سعرات الثبات حوالي {tdee} سعرة: الحرق وقت الراحة × {factor} لـ {days} أيام حديد في الأسبوع، و{level}."
+  explain_default:
+    en: "Maintenance about {tdee} kcal: resting burn × {factor} for lifting {days} days a week. Until you answer the daily-activity question in your profile, we count you as {level}."
+    ar: "سعرات الثبات حوالي {tdee} سعرة: الحرق وقت الراحة × {factor} لـ {days} أيام حديد في الأسبوع. لحد ما تجاوب على سؤال نشاطك اليومي في ملفك، بنحسبك {level}."
 
 goal:
   # Table 5A: calories as a percentage of maintenance. Lose fat ~20% under; obese (men above ~25% body fat, women above
@@ -140,7 +172,7 @@ protein:
   # (men 5% → 30%, women 8% → 40%). Lean mass = weight × (1 − body fat %), body fat from `body_fat` above.
   placeholder: false
   source: "The Ultimate Guide to Body Recomposition, ch. 8, pp. 97–106 (Figure 8B, p. 101)"
-  uses: [sex, age, weight_kg, height_cm]
+  uses: [sex, age, weight_kg, height_cm, waist_cm]
   summary:
     en: Protein comes from your lean mass (your weight without the estimated fat). It's 1.6 g per pound of lean mass when you're lean, sliding down to 1.2 g the more body fat you carry.
     ar: البروتين بيتحسب من كتلتك الصافية (وزنك من غير الدهون المتقدّرة). بيبقى ١٫٦ جم لكل رطل من الكتلة الصافية لو أنت رفيع، وبينزل لـ ١٫٢ جم كل ما الدهون تزيد.
@@ -163,7 +195,7 @@ fat:
   # women 10% → 40%); never below 20% of calories (p. 79, p. 108).
   placeholder: false
   source: "The Ultimate Guide to Body Recomposition, ch. 8, pp. 108–110 (Figure 8E); never under 20%: ch. 6, p. 79"
-  uses: [sex, age, weight_kg, height_cm]
+  uses: [sex, age, weight_kg, height_cm, waist_cm]
   summary:
     en: Fat is 20–35% of your calories, nearer 20% when you're lean and nearer 35% the more body fat you carry, and never under 20% (for hormones and vitamins).
     ar: الدهون ٢٠–٣٥٪ من سعراتك، أقرب لـ ٢٠٪ لو أنت رفيع وأقرب لـ ٣٥٪ كل ما الدهون تزيد، وعمرها ما تنزل تحت ٢٠٪ (عشان الهرمونات والفيتامينات).
@@ -288,6 +320,20 @@ meals:
     suhoor: {en: suhoor, ar: السحور}
     iftar: {en: iftar, ar: الفطار}
 
+# Ramadan (fasting chosen in the questionnaire, on Ramadan dates): meals move to suhoor and iftar (and snacks after
+# iftar); calories, protein, carbs and fat stay the same as any other day. Neither Arabic book covers Ramadan, so this
+# stays "Not yet from a book" (data/REVIEW.md N1).
+ramadan:
+  placeholder: true
+  source: "PLACEHOLDER: Ramadan meal timing (neither of your Arabic books covers Ramadan)"
+  uses: [fasting, meals_per_day]
+  summary:
+    en: During Ramadan your meals move to suhoor and iftar (and snacks after iftar). Your daily calories and protein stay the same.
+    ar: في رمضان وجباتك بتتنقل للسحور والفطار (وسناكس بعد الفطار). سعراتك والبروتين في اليوم زي ما هم.
+  explain:
+    en: "Ramadan: {days} days this week have their meals at suhoor ({suhoor}) and iftar ({iftar}), with the same daily targets."
+    ar: "رمضان: {days} أيام الأسبوع ده وجباتهم في السحور ({suhoor}) والفطار ({iftar})، بنفس أهداف اليوم."
+
 # ── Removing an ingredient from a meal (backend/app/engine/ingredients.py) ──────────────────
 # Replacements have the same role (data/catalogue/foods.yaml `role`) and are sized to match what the removed food gave:
 # its protein for a protein, carbs for a carb, fat for a fat, the same grams for vegetables and fruit; flavours
@@ -342,32 +388,45 @@ grocery:
   monthly_factor: 4.3
 
 review:
-  # Weekly review: calories move in small, bounded steps (backend/app/engine/review.py).
-  # Expected weekly change = (target − maintenance) × 7 / kcal_per_kg. Compared with the 7-day average weight trend.
-  placeholder: true
-  # The recomposition guide (ch. 6, pp. 78-80) reviews calories only once or twice a month (7-day average weight, waist,
-  # photos) and moves them by 100-250 kcal down or 100-500 kcal up. This engine reviews every week in 100 kcal steps,
-  # so it stays a placeholder until you decide (data/REVIEW.md).
-  source: "PLACEHOLDER: weekly calorie steps (the recomposition guide, ch. 6, reviews once or twice a month instead; see data/REVIEW.md)"
+  # The recomposition guide's self-coaching (ch. 6, pp. 78-80): calories are reviewed at most every 2 weeks, from the
+  # average weight of the last week compared with the week before (its two-week "guess-and-check", p. 69). Not losing
+  # (or gaining) as planned: 100-250 kcal down (from carbs and fat, never protein; fat stays ≥ 20%) or 100-500 kcal up,
+  # sized by how far off the trend is. The weekly check-in still adjusts training, pain and meals every week.
+  # The thresholds below (adherence 70%, 1.5× / 0.5× the expected change, 0.2 kg daily noise) are app settings.
+  # backend/app/engine/review.py
+  placeholder: false
+  source: "The Ultimate Guide to Body Recomposition, ch. 6 (The art of self-coaching), pp. 78–80; two-week comparison: ch. 5, pp. 69–70"
   uses: [checkin]
   summary:
-    en: Each week, calories move by one small step only when your weight trend is clearly faster or slower than planned and you followed most meals.
-    ar: كل أسبوع، السعرات بتتحرك خطوة صغيرة بس لو وزنك بيتغير أسرع أو أبطأ من المخطط بوضوح وأنت ملتزم بأغلب الوجبات.
-  calorie_step: 100
-  min_adherence_pct: 70          # below this, calories stay the same: follow the plan first
-  too_fast_factor: 1.5           # changing more than 1.5 × expected (plus slack) → move calories back by one step
-  too_slow_factor: 0.5           # changing less than half of expected → move calories on by one step
-  slack_kg: 0.2                  # daily weight noise
+    en: Calories are reviewed every 2 weeks, not every week, from your average weight this week compared with the week before. If the change is clearly slower or faster than planned while you follow most meals, they move 100–250 kcal down or 100–500 kcal up; protein never drops.
+    ar: السعرات بتتراجع كل أسبوعين، مش كل أسبوع، من متوسط وزنك الأسبوع ده مقارنة بالأسبوع اللي قبله. لو التغيير أبطأ أو أسرع من المخطط بوضوح وأنت ملتزم بأغلب الوجبات، بتنزل ١٠٠–٢٥٠ سعرة أو تزيد ١٠٠–٥٠٠؛ والبروتين عمره ما بيقل.
+  min_days_between_changes: 14
+  step_down: [100, 250]
+  step_up: [100, 500]
+  min_adherence_pct: 70          # app setting: below this, calories stay the same (follow the plan first)
+  too_fast_factor: 1.5           # app setting: changing more than 1.5 × expected (plus noise) → move back
+  too_slow_factor: 0.5           # app setting: changing less than half of expected → move on
+  slack_kg: 0.2                  # app setting: daily weight noise
+  ref:
+    book: The Ultimate Guide to Body Recomposition (Jeff Nippard, Chris Barakat)
+    chapter: "Chapter 6: The art of self-coaching"
+    page: 78–80
+    quote:
+      en: Review your progress once or twice a month and only change calories when it has stalled, taking 100–250 kcal from carbs or fat (never protein) to lose fat or adding 100–500 kcal to build muscle.
+      ar: راجع تقدمك مرة أو مرتين في الشهر وغيّر السعرات بس لو التقدم وقف، شيل ١٠٠–٢٥٠ سعرة من النشويات أو الدهون (مش البروتين أبدًا) عشان تخس، أو زوّد ١٠٠–٥٠٠ سعرة عشان تبني عضل.
   explain:
     too_fast:
-      en: "{before} → {after} kcal: you changed {actual} kg this week, faster than the {expected} kg planned."
-      ar: "{before} ← {after} سعرة: وزنك اتغيّر {actual} كجم الأسبوع ده، أسرع من الـ {expected} كجم المخططين."
+      en: "{before} → {after} kcal: your weekly average changed {actual} kg, faster than the {expected} kg planned."
+      ar: "{before} ← {after} سعرة: متوسط وزنك الأسبوعي اتغيّر {actual} كجم، أسرع من الـ {expected} كجم المخططين."
     too_slow:
-      en: "{before} → {after} kcal: you changed {actual} kg this week, slower than the {expected} kg planned, while following {adherence}% of meals."
-      ar: "{before} ← {after} سعرة: وزنك اتغيّر {actual} كجم الأسبوع ده، أبطأ من الـ {expected} كجم المخططين، وأنت ملتزم بـ {adherence}% من الوجبات."
+      en: "{before} → {after} kcal: your weekly average changed {actual} kg, slower than the {expected} kg planned, while following {adherence}% of meals."
+      ar: "{before} ← {after} سعرة: متوسط وزنك الأسبوعي اتغيّر {actual} كجم، أبطأ من الـ {expected} كجم المخططين، وأنت ملتزم بـ {adherence}% من الوجبات."
     low_adherence:
       en: "Calories stay at {calories} kcal: you followed {adherence}% of meals, so let's get closer to the plan first."
       ar: "السعرات تفضل {calories} سعرة: التزمت بـ {adherence}% من الوجبات، فخلّينا نقرّب من الخطة الأول."
+    wait:
+      en: "Calories stay at {calories} kcal for now: they're reviewed every 2 weeks, so the next check is in about {days} days."
+      ar: "السعرات تفضل {calories} سعرة دلوقتي: بتتراجع كل أسبوعين، فالمراجعة الجاية بعد حوالي {days} أيام."
 
 # Cardio and calories: the activity factor above already counts the training days and the weekly cardio, so cardio
 # calories are never added on top (that would count them twice). The plan says so in the calorie reasons.

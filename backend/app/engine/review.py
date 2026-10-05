@@ -3,8 +3,10 @@
 Order:
 1. Red flags (sharp pain, swelling, numbness, pain getting worse, or pain at the pause level) → skip the normal review:
    pause those areas and show "see a doctor or physiotherapist".
-2. Calories: one step (nutrition.yaml review.calorie_step) towards the planned rate of change, only when meals were
-   followed well enough. The new number still goes through every safety bound (nutrition.compute_targets).
+2. Calories (at most every 2 weeks, nutrition.yaml review): this week's average weight against last week's; when the
+   change is clearly faster or slower than planned and meals were followed well enough, calories move 100-250 kcal down
+   or 100-500 kcal up, sized by how far off the trend is. The new number still goes through every safety bound
+   (nutrition.compute_targets).
 3. Lifts: a deload week (one set less, lower effort) when sessions felt too hard; "too easy" / "too hard" exercises
    move one weight step for their next session; "uncomfortable" ones are swapped for the closest alternative.
 4. Pain went up (without a red flag): that area's exercises get lighter (training.yaml review.pain_up_load_step).
@@ -33,6 +35,7 @@ class ReviewInput:
     previous_pain: dict[str, int]          # injury_id → last pain before this check-in
     plan_recipe_ids: frozenset[str] = frozenset()
     sessions_planned: int = 0
+    days_since_calorie_change: int = 10_000  # since the current calorie target started (app/plans.py)
 
 
 @dataclass
@@ -101,21 +104,31 @@ def review_week(inp: ReviewInput, catalogue: dict[str, ExerciseInfo]) -> ReviewR
     adherence = a.get("adherence_pct", 0)
     now, before = _mean(inp.weights_this_week), _mean(inp.weights_last_week)
     expected = inp.expected_weekly_change_kg
-    step = nut["calorie_step"]
     if now is not None and before is not None and abs(expected) > 0.01:
         actual = round(now - before, 2)
         direction = 1 if expected > 0 else -1  # +1 gaining, −1 losing
         too_fast = direction * actual > direction * expected * nut["too_fast_factor"] + nut["slack_kg"]
         too_slow = direction * actual < direction * expected * nut["too_slow_factor"]
         vals = dict(before=inp.calories, actual=f"{actual:+.2f}", expected=f"{expected:+.2f}", adherence=adherence)
-        if adherence < nut["min_adherence_pct"] and (too_fast or too_slow):
+        waiting = nut["min_days_between_changes"] - inp.days_since_calorie_change
+        if waiting > 0 and (too_fast or too_slow):
+            t = nut["explain"]["wait"]
+            res.changes.append(Change("calories", _bi(f"Calories stay at {inp.calories} kcal", f"السعرات تفضل {inp.calories} سعرة"),
+                                      _bi(t["en"].format(calories=inp.calories, days=waiting), t["ar"].format(calories=inp.calories, days=waiting)),
+                                      "nutrition.review", nut["source"]))
+        elif adherence < nut["min_adherence_pct"] and (too_fast or too_slow):
             t = nut["explain"]["low_adherence"]
             res.changes.append(Change("calories", _bi(f"Calories stay at {inp.calories} kcal", f"السعرات تفضل {inp.calories} سعرة"),
                                       _bi(t["en"].format(calories=inp.calories, adherence=adherence), t["ar"].format(calories=inp.calories, adherence=adherence)),
                                       "nutrition.review", nut["source"]))
             res.status = "attention"
         elif too_fast or too_slow:
-            after = inp.calories - direction * step if too_fast else inp.calories + direction * step
+            # Up when gaining too slowly or losing too fast, down otherwise; sized by the gap, within the book's range.
+            up = (direction > 0) != too_fast
+            gap = abs(actual - expected) * rules["nutrition"]["goal"]["kcal_per_kg"] / 7
+            low, high = nut["step_up" if up else "step_down"]
+            step = int(10 * round(min(max(gap, low), high) / 10))
+            after = inp.calories + step if up else inp.calories - step
             t = nut["explain"]["too_fast" if too_fast else "too_slow"]
             vals["after"] = after
             res.calories = after
