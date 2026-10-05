@@ -127,7 +127,7 @@ def test_program_exercises_have_the_book_video_or_a_search_link():
     used = {e["exercise"] for f in FILES for w in json.loads(f.read_text(encoding="utf-8"))["weeks"]
             for day in w["days"].values() for e in day}
     for ex_id in used:
-        assert by_id[ex_id]["video_url"].startswith("https://www.youtube.com/"), ex_id
+        assert by_id[ex_id]["video_url"].startswith(("https://www.youtube.com/", "https://youtu.be/")), ex_id
         assert "PLACEHOLDER" not in by_id[ex_id]["source"] or ex_id in SAMPLE_ENTRIES, ex_id
 
 
@@ -161,6 +161,8 @@ def test_rpe_from_a_percentage(reps, pct, rpe):
     ("beginner", 6, "fundamentals_body_part", 5),   # beginners stay on Fundamentals, the closest days it has
     ("intermediate", 3, "fundamentals_full_body", 3),
     ("advanced", 4, "fundamentals_upper_lower", 4),
+    ("intermediate", 6, "lpp_legs_push_pull", 6),
+    ("advanced", 6, "lpp_legs_push_pull", 6),
 ])
 def test_real_program_choice(real_programs, experience, days, program, used):
     t, n, _ = choose_template(person(experience=experience, days_per_week=days))
@@ -187,6 +189,21 @@ def test_technique_and_reasons_are_explained(real_programs):
     reasons = [r for d in plan.days for e in d.exercises for r in e.reasons]
     assert all(r.en and r.ar and r.source for r in reasons)
     assert any(r.rule == "training.template_choice" and "Fundamentals" in r.en for r in plan.reasons)
+
+
+def test_lpp_percentages_techniques_and_lighter_week(real_programs):
+    """LPP loads its main lifts as a % of a one-rep max (shown as the effort it means), names techniques, and its
+    block 2 starts with a lighter week that's already in its tables."""
+    p = person(experience="intermediate", days_per_week=6)
+    plan = build_program(p, CAT)
+    assert plan.template_id == "lpp_legs_push_pull" and [d.key for d in plan.days] == ["LE1", "PU1", "PL1", "LE2", "PU2", "PL2"]
+    reasons = [r for d in plan.days for e in d.exercises for r in e.reasons]
+    assert any(r.rule == "training.pct_1rm" and "% of your one-rep max" in r.en for r in reasons)
+    assert any(r.rule == "training.volume" and ": " in r.en for r in reasons)  # a technique line
+    assert any(r.rule == "training.deload" and "Weeks 9 of 16" in r.en for r in plan.reasons)
+    t = next(x for x in load_templates() if x["id"] == "lpp_legs_push_pull")
+    sets = lambda w: sum(e["sets"] for d in template_days(t, w).values() for e in d["exercises"])  # noqa: E731
+    assert sets(9) < sets(8)  # the lighter week has fewer sets than the week before it
 
 
 def test_a_new_program_week_makes_a_new_plan_version(real_programs, onboarded, clock, db):  # noqa: F811

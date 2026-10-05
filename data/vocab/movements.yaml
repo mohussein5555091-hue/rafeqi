@@ -28,6 +28,7 @@ movement_patterns:
   kneeExtension:            { en: Knee straighten, ar: فرد الركبة }
   kneeFlexion:              { en: Knee bend (hamstrings), ar: ثني الركبة }
   hipAbduction:             { en: Leg out to the side (side glutes), ar: فتح الرجل للجنب }
+  shoulderElevation:        { en: Shoulder shrug, ar: رفع الكتف لفوق }
   plantarFlexion:           { en: Calf raise, ar: رفع السمانة }
   locomotion:               { en: Walking / running, ar: مشي / جري }
   jump:                     { en: Jumping, ar: نط }
@@ -64,6 +65,8 @@ equipment:
   landmine:   { en: Landmine, ar: لاندماين }
   bands:      { en: Resistance bands, ar: أستك مقاومة }
   pullUpBar:  { en: Pull-up bar, ar: بار عقلة }
+  exerciseBall: { en: Exercise ball, ar: كورة تمارين }
+  abWheel:    { en: Ab wheel, ar: عجلة بطن }
   jumpRope:   { en: Jump rope, ar: حبل نط }
 
 # Injury: "which movements hurt?" (the onboarding chips).

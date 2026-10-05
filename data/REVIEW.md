@@ -180,6 +180,28 @@ The two sample programs moved to `tests/backend/fixtures/programs/` (the tests s
   The exercise catalogue commit adds them (the book's own substitutions: dumbbell calf raise, dumbbell leg curl; and
   dumbbell or band versions of the others).
 
+### LPP (3): Legs/Push/Pull, 16 weeks (two 8-week blocks), 6 days
+
+- [ ] **L1. Who gets it:** intermediate and advanced lifters who train 6 days ((3) p. 8; days in the order Legs, Push,
+  Pull, Legs, Push, Pull, p. 27). None of the 5 personas trains 6 days, so their plans didn't change.
+- [ ] **L2. %1RM:** 104 of the 704 exercise entries load the main lifts as a % of a one-rep max. The app doesn't know
+  anyone's one-rep max, so it shows the effort that % means for those reps (standard RPE chart, Tuchscherer 2008; a
+  formula, not from your books). Example: 5 reps at 81% → about RPE 8. Alternative: ask for a one-rep max (or estimate
+  it from logged sets) and show kilograms.
+- [ ] **L3. The lighter week:** block 2 starts with a deload week (week 9, (3) p. 85). Its lower sets and effort are
+  already in the tables, so the app doesn't lower them again; it only keeps last time's weights that week.
+- [ ] **L4. Supersets:** 72 entries are supersets (see P5: shown one after the other for now).
+- [ ] **L5. New tag `shoulderElevation`** (shrugs) and **new equipment `exerciseBall` and `abWheel`** (gym only), so
+  the Swiss-ball leg curl and the ab-wheel rollout aren't given to people training at home without them.
+- [ ] **L6. Swap rule change:** a substitute that loads different joints now costs 2 points (`training.yaml`
+  `substitute_penalty.different_joints`), so a pull-up is swapped for a lat pulldown, not the new one-joint
+  "lat pull-in". App setting, not from a book.
+- **Video links:** LPP has both clickable and printed links ((3) pp. 101–103). 4 are new: cable pull-through,
+  snatch-grip shrug, spider curl, cable upright row. The rest are the same as Fundamentals'.
+- **Without a photo:** single-arm lat pull-in, machine lateral raise, single-leg leg press, Smith machine reverse lunge.
+- [ ] **Close photos, not exact:** barbell floor skull crusher (EZ-bar skull crusher on a bench), seal row (lying
+  cambered-bar row), lateral band walk ("monster walk"), dip (chest dip on bars; tagged "machine", as a dip station).
+
 ### Exercise catalogue (so far: the Fundamentals exercises)
 
 - 35 new exercises, each with its movement tags, muscles, how-to, cues and common mistakes written in my own words

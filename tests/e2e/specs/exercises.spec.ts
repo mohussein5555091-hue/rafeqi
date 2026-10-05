@@ -42,7 +42,7 @@ test('tapping an exercise opens a full explanation', async ({ page }) => {
     const video = page.getByRole('link', { name: /Watch video/ });
     await expect(video).toHaveAttribute('target', '_blank');
     // The program book's demo video when it prints one (Fundamentals pp. 88–91), a YouTube search otherwise.
-    await expect(video).toHaveAttribute('href', /^https:\/\/www\.youtube\.com\/(watch\?v=[\w-]+|results\?search_query=.+proper\+form$)/);
+    await expect(video).toHaveAttribute('href', /^https:\/\/(www\.youtube\.com\/(watch\?v=[\w-]+|results\?search_query=.+proper\+form$)|youtu\.be\/[\w-]+)/);
     const media = NO_PHOTO.has(id) ? 'main [aria-label="Exercise demonstration"]' : 'main figure';
     await expect(page.locator(`${media} + p`)).not.toBeEmpty(); // one-line description
     expect(await page.locator('section', { has: page.getByRole('heading', { name: 'How to do it' }) }).locator('ol > li').count(), id).toBeGreaterThanOrEqual(3);

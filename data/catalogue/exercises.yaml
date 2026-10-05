@@ -5308,3 +5308,1395 @@ exercises:
       ar: عقلة
     kind: equipment
   source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_ab_wheel
+  type: strength
+  name:
+    en: Ab wheel rollout
+    ar: رول آوت بعجلة البطن
+  description:
+    en: Roll a wheel forward from your knees and pull it back with your abs. A hard exercise for the whole midsection.
+    ar: زقّ العجلة لقدام وأنت على ركبك وارجعها بعضلات بطنك. تمرين صعب لعضلات الوسط كلها.
+  movement_pattern: core
+  joints_loaded:
+  - spine
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - abWheel
+  difficulty: intermediate
+  primary_muscles:
+  - abdomen
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  - upperBack
+  muscle_names:
+    en: Abs, core · shoulders, lats
+    ar: البطن، عضلات الجذع · الكتف، الجانبية
+  instructions:
+  - en: Kneel on a mat holding the ab wheel under your shoulders.
+    ar: اركع على مرتبة وامسك العجلة تحت كتفك.
+  - en: Brace your stomach and roll the wheel forward as far as you can keep your back flat.
+    ar: اشدّ بطنك وزقّ العجلة لقدام على قد ما تقدر وضهرك مفرود.
+  - en: Pull it back to the start with your abs, not your hips.
+    ar: رجّعها لمكانها ببطنك مش بوسطك.
+  cues:
+  - en: Ribs down
+    ar: الضلوع لتحت
+  - en: Squeeze your glutes
+    ar: اعصر المؤخرة
+  - en: Only as far as you control
+    ar: على قد ما تقدر تتحكم بس
+  mistakes:
+  - en: Lower back sagging
+    ar: أسفل الضهر يهبط
+  - en: Pulling back with the hips first
+    ar: ترجع بوسطك الأول
+  image_url: /exercises/Ab_Roller/0.jpg
+  image_frames:
+  - /exercises/Ab_Roller/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Ab+wheel+rollout+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Ab_Roller
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_plank
+    name:
+      en: Plank
+      ar: بلانك
+    kind: easier
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_arnold_press
+  type: strength
+  name:
+    en: Arnold press
+    ar: أرنولد بريس
+  description:
+    en: A seated dumbbell press that starts palms toward you and turns as you press. Trains the shoulders.
+    ar: ضغط دمبلز وأنت قاعد بيبدأ والكف ناحيتك ويلف وأنت بتضغط. بيشتغل على الكتف.
+  movement_pattern: verticalPush
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: overhead
+  equipment:
+  - dumbbells
+  - bench
+  difficulty: intermediate
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Shoulders · triceps
+    ar: الكتف · الترايسبس
+  instructions:
+  - en: Sit upright with the dumbbells at shoulder height, palms facing you.
+    ar: اقعد مفرود والدمبلز عند كتفك والكف ناحيتك.
+  - en: Press up while turning your palms to face forward.
+    ar: اضغط لفوق وأنت بتلف كفك يبص لقدام.
+  - en: Lower the same way, turning your palms back toward you.
+    ar: نزّل بنفس الطريقة وكفك يرجع ناحيتك.
+  cues:
+  - en: Back on the pad
+    ar: ضهرك على المسند
+  - en: Smooth turn
+    ar: لفّة ناعمة
+  - en: Stop just short of locking
+    ar: وقّف قبل ما تقفل الكوع خالص
+  mistakes:
+  - en: Arching the lower back
+    ar: تقوّس أسفل ضهرك
+  - en: Bouncing at the bottom
+    ar: تنطّ من تحت
+  image_url: /exercises/Arnold_Dumbbell_Press/0.jpg
+  image_frames:
+  - /exercises/Arnold_Dumbbell_Press/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Arnold+press+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Arnold_Dumbbell_Press
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_db_shoulder_press
+    name:
+      en: Dumbbell shoulder press
+      ar: ضغط كتف دمبلز
+    kind: easier
+  - exercise_id: ex_landmine_press
+    name:
+      en: Half-kneeling landmine press
+      ar: ضغط لاندماين على ركبة
+    kind: injuryFriendly
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_back_extension
+  type: strength
+  name:
+    en: 45° back extension
+    ar: باك إكستنشن ٤٥ درجة
+  description:
+    en: Bend at the hips over a 45° bench and lift back up. Trains the glutes, hamstrings and lower back.
+    ar: انحني من وسطك على بنش ٤٥ درجة واطلع تاني. بيشتغل على المؤخرة وخلفية الفخد وأسفل الضهر.
+  movement_pattern: hinge
+  joints_loaded:
+  - hip
+  - spine
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - hipL
+  - hipR
+  - lowerBack
+  secondary_muscles:
+  - thighL
+  - thighR
+  muscle_names:
+    en: Glutes, lower back · hamstrings
+    ar: المؤخرة، أسفل الضهر · خلفية الفخد
+  instructions:
+  - en: Set the pad just below your hips and hook your heels under the foot pads.
+    ar: ظبّط المسند تحت وسطك على طول وثبّت كعبك تحت مساند الرجل.
+  - en: Cross your arms or hold a plate at your chest.
+    ar: اقفل دراعك على صدرك أو امسك طارة.
+  - en: Bend at the hips until you feel a stretch, then lift until your body is straight.
+    ar: انحني من وسطك لحد ما تحس بشدّ، وبعدين اطلع لحد ما جسمك يتفرد.
+  cues:
+  - en: Squeeze your glutes to come up
+    ar: اعصر المؤخرة وأنت طالع
+  - en: Stop at a straight line
+    ar: وقّف عند الخط المستقيم
+  - en: Slow down
+    ar: نزول بطيء
+  mistakes:
+  - en: Leaning back past straight
+    ar: ترجع لورا أكتر من المستقيم
+  - en: Swinging up fast
+    ar: تطلع بسرعة بمرجحة
+  image_url: /exercises/Hyperextensions_Back_Extensions/0.jpg
+  image_frames:
+  - /exercises/Hyperextensions_Back_Extensions/1.jpg
+  video_url: https://www.youtube.com/results?search_query=45°+back+extension+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Hyperextensions_Back_Extensions
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_glute_bridge
+    name:
+      en: Glute bridge
+      ar: جلوت بريدج
+    kind: noEquipment
+  - exercise_id: ex_hip_thrust
+    name:
+      en: Barbell hip thrust
+      ar: هيب ثراست بالبار
+    kind: equipment
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_cable_pull_through
+  type: strength
+  name:
+    en: Cable pull-through
+    ar: كابل بول ثرو
+  description:
+    en: Facing away from a low cable, hinge and pull the rope through your legs. Trains the glutes and hamstrings.
+    ar: وضهرك للكابل الواطي، انحني واسحب الحبل من بين رجلك. بيشتغل على المؤخرة وخلفية الفخد.
+  movement_pattern: hinge
+  joints_loaded:
+  - hip
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - hipL
+  - hipR
+  secondary_muscles:
+  - thighL
+  - thighR
+  muscle_names:
+    en: Glutes · hamstrings
+    ar: المؤخرة · خلفية الفخد
+  instructions:
+  - en: Set a rope on a low pulley, face away and hold it between your legs.
+    ar: ركّب حبل على بكرة واطية، ادّيها ضهرك وامسكه بين رجلك.
+  - en: Step forward, feet a little wider than hips, and push your hips back.
+    ar: اخطي لقدام، رجلك أوسع من وسطك سنّة، وزق وسطك لورا.
+  - en: Drive your hips forward to stand tall, squeezing your glutes.
+    ar: ادفع وسطك لقدام لحد ما تقف مفرود واعصر المؤخرة.
+  cues:
+  - en: Hips back, not down
+    ar: الوسط لورا مش لتحت
+  - en: Arms just hold the rope
+    ar: الدراع ماسك الحبل بس
+  - en: Squeeze at the top
+    ar: اعصر فوق
+  mistakes:
+  - en: Squatting down
+    ar: تنزل سكوات
+  - en: Pulling with the arms
+    ar: تسحب بدراعك
+  image_url: /exercises/Pull_Through/0.jpg
+  image_frames:
+  - /exercises/Pull_Through/1.jpg
+  video_url: https://youtu.be/0MGx97YdFg0?t=11m35s
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Pull_Through
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_db_rdl
+    name:
+      en: Dumbbell Romanian deadlift
+      ar: رفعة رومانية بالدمبلز
+    kind: equipment
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 101–103; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_dip
+  type: strength
+  name:
+    en: Dip
+    ar: ديبس
+  description:
+    en: Lower and push your body up between parallel bars. Trains the lower chest, triceps and front shoulders.
+    ar: انزل واطلع بجسمك بين بارين متوازيين. بيشتغل على أسفل الصدر والترايسبس ومقدمة الكتف.
+  movement_pattern: dip
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: intermediate
+  primary_muscles:
+  - chest
+  - armL
+  - armR
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Lower chest, triceps · front shoulders
+    ar: أسفل الصدر، الترايسبس · مقدمة الكتف
+  instructions:
+  - en: Hold the bars with straight arms and lift your body.
+    ar: امسك البارين ودراعك مفرود وارفع جسمك.
+  - en: Lean forward a little and lower until your shoulders are just below your elbows.
+    ar: ميّل لقدام شوية وانزل لحد ما كتفك يبقى تحت الكوع بشوية.
+  - en: Push back up to straight arms.
+    ar: ادفع لفوق لحد ما دراعك يفرد.
+  cues:
+  - en: Shoulders down
+    ar: الكتف لتحت
+  - en: Slight forward lean
+    ar: ميلة لقدام سنّة
+  - en: Control the bottom
+    ar: اتحكّم تحت
+  mistakes:
+  - en: Dropping too deep
+    ar: تنزل عميق أوي
+  - en: Shrugging the shoulders up
+    ar: ترفع كتفك لودانك
+  image_url: /exercises/Dips_-_Chest_Version/0.jpg
+  image_frames:
+  - /exercises/Dips_-_Chest_Version/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Dip+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dips_-_Chest_Version
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_assisted_dip
+    name:
+      en: Assisted dip
+      ar: ديبس بمساعدة
+    kind: easier
+  - exercise_id: ex_close_grip_bench
+    name:
+      en: Close-grip bench press
+      ar: بنش بقبضة ضيقة
+    kind: equipment
+  - exercise_id: ex_db_floor_press
+    name:
+      en: Dumbbell floor press
+      ar: ضغط دمبلز على الأرض
+    kind: injuryFriendly
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_floor_skull_crusher
+  type: strength
+  name:
+    en: Barbell floor skull crusher
+    ar: سكل كراشر بالبار على الأرض
+  description:
+    en: Lying on the floor, lower a bar toward your forehead by bending your elbows. The floor stops the stretch at a safe point. Trains the triceps.
+    ar: وأنت نايم على الأرض، نزّل البار ناحية جبهتك بثني كوعك. الأرض بتوقّف الحركة في نقطة آمنة. بيشتغل على الترايسبس.
+  movement_pattern: elbowExtension
+  joints_loaded:
+  - elbow
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - barbell
+  difficulty: intermediate
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles: []
+  muscle_names:
+    en: Triceps
+    ar: الترايسبس
+  instructions:
+  - en: Lie on the floor holding an EZ bar or barbell straight up over your chest.
+    ar: نام على الأرض وامسك بار زجزاج أو بار مستقيم فوق صدرك ودراعك مفرود.
+  - en: Bend your elbows to lower the bar behind your head until it touches the floor lightly.
+    ar: اثني كوعك ونزّل البار ورا راسك لحد ما يلمس الأرض بالراحة.
+  - en: Straighten your arms back up.
+    ar: افرد دراعك تاني لفوق.
+  cues:
+  - en: Elbows point up
+    ar: الكوع بيشاور لفوق
+  - en: Touch the floor softly
+    ar: المس الأرض بالراحة
+  - en: Upper arms still
+    ar: الدراع العلوي ثابت
+  mistakes:
+  - en: Elbows flaring out
+    ar: الكوع يفتح لبرّه
+  - en: Bouncing the bar off the floor
+    ar: تخبط البار في الأرض
+  image_url: /exercises/EZ-Bar_Skullcrusher/0.jpg
+  image_frames:
+  - /exercises/EZ-Bar_Skullcrusher/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Barbell+floor+skull+crusher+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/EZ-Bar_Skullcrusher
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_db_skull_crusher
+    name:
+      en: Dumbbell skull crusher
+      ar: سكل كراشر دمبلز
+    kind: equipment
+  - exercise_id: ex_pushdown
+    name:
+      en: Triceps pushdown
+      ar: ترايسبس بوش داون
+    kind: injuryFriendly
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_front_squat
+  type: strength
+  name:
+    en: Front squat
+    ar: فرونت سكوات
+  description:
+    en: A squat with the barbell resting on the front of your shoulders. Keeps you upright and works the front of the thighs hard.
+    ar: سكوات والبار على مقدمة كتفك. بيخلّيك مفرود وبيشغّل قدام الفخد جامد.
+  movement_pattern: squat
+  joints_loaded:
+  - knee
+  - hip
+  - spine
+  - wrist
+  range_of_motion: full
+  equipment:
+  - barbell
+  difficulty: advanced
+  primary_muscles:
+  - thighL
+  - thighR
+  - hipL
+  - hipR
+  secondary_muscles:
+  - abdomen
+  - upperBack
+  muscle_names:
+    en: Front of the thighs, glutes · core, upper back
+    ar: قدام الفخد، المؤخرة · عضلات الجذع، أعلى الضهر
+  instructions:
+  - en: Rest the bar on the front of your shoulders, elbows high, fingers lightly under the bar.
+    ar: حط البار على مقدمة كتفك، الكوع عالي، وصوابعك تحت البار بالراحة.
+  - en: Feet shoulder-width; brace and sit straight down.
+    ar: رجلك بعرض كتفك؛ اشدّ بطنك وانزل لتحت على طول.
+  - en: Go as deep as you can with your chest up, then stand up.
+    ar: انزل على قد ما تقدر وصدرك لفوق، وبعدين اقف.
+  cues:
+  - en: Elbows up
+    ar: الكوع لفوق
+  - en: Chest tall
+    ar: صدرك مفرود
+  - en: Knees forward over the toes
+    ar: الركبة لقدام فوق صوابعك
+  mistakes:
+  - en: Elbows dropping so the bar rolls forward
+    ar: الكوع ينزل فالبار يتزحلق لقدام
+  - en: Heels lifting
+    ar: الكعب يترفع
+  image_url: /exercises/Front_Barbell_Squat/0.jpg
+  image_frames:
+  - /exercises/Front_Barbell_Squat/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Front+squat+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Front_Barbell_Squat
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_goblet_squat
+    name:
+      en: Goblet squat
+      ar: جوبلت سكوات
+    kind: easier
+  - exercise_id: ex_leg_press
+    name:
+      en: Leg press
+      ar: ليج برس
+    kind: injuryFriendly
+  - exercise_id: ex_bw_squat
+    name:
+      en: Bodyweight squat
+      ar: سكوات بوزن الجسم
+    kind: noEquipment
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_lat_pull_in
+  type: strength
+  name:
+    en: Single-arm lat pull-in
+    ar: سحب جانبي بإيد واحدة
+  description:
+    en: Pull a high cable down and in toward your hip with one arm, keeping it fairly straight. Trains the lats.
+    ar: اسحب كابل عالي لتحت ولجوه ناحية وسطك بإيد واحدة ودراعك شبه مفرود. بيشتغل على العضلات الجانبية.
+  movement_pattern: verticalPull
+  joints_loaded:
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: intermediate
+  primary_muscles:
+  - upperBack
+  secondary_muscles: []
+  muscle_names:
+    en: Lats
+    ar: العضلات الجانبية
+  instructions:
+  - en: Set a handle high and kneel or stand side-on, holding it with the far arm up and out.
+    ar: ركّب مسكة فوق، اركع أو اقف جنبها وامسكها بالإيد البعيدة لفوق ولبرّه.
+  - en: With a small bend in the elbow, sweep your arm down and in to your hip.
+    ar: والكوع مثني سنّة، نزّل دراعك لتحت ولجوه لحد وسطك.
+  - en: Let it rise slowly back to a full stretch.
+    ar: سيبه يطلع ببطء لحد ما يتمدّ على الآخر.
+  cues:
+  - en: Lead with the elbow
+    ar: الكوع هو اللي يقود
+  - en: Squeeze at the hip
+    ar: اعصر عند الوسط
+  - en: Full stretch at the top
+    ar: تمدّد كامل فوق
+  mistakes:
+  - en: Bending the elbow into a row
+    ar: تثني الكوع كأنه تجديف
+  - en: Twisting the body
+    ar: تلف جسمك
+  video_url: https://www.youtube.com/results?search_query=Single-arm+lat+pull-in+proper+form
+  alternatives:
+  - exercise_id: ex_single_arm_pulldown
+    name:
+      en: Single-arm pulldown
+      ar: سحب علوي بإيد واحدة
+    kind: easier
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_lateral_band_walk
+  type: strength
+  name:
+    en: Lateral band walk
+    ar: مشي جانبي بالأستك
+  description:
+    en: Step sideways with a band around your legs. Trains the side glutes.
+    ar: اخطي للجنب وأستك حوالين رجلك. بيشتغل على جانب المؤخرة.
+  movement_pattern: hipAbduction
+  joints_loaded:
+  - hip
+  - knee
+  range_of_motion: partial
+  equipment:
+  - bands
+  difficulty: beginner
+  primary_muscles:
+  - hipL
+  - hipR
+  secondary_muscles: []
+  muscle_names:
+    en: Side glutes
+    ar: جانب المؤخرة
+  instructions:
+  - en: Put a light band around your legs just above the knees or at the ankles.
+    ar: حط أستك خفيف حوالين رجلك فوق الركبة أو عند الكاحل.
+  - en: Bend your knees a little and sit your hips back slightly.
+    ar: اثني ركبك سنّة ورجّع وسطك لورا شوية.
+  - en: Step sideways, keeping tension on the band, then walk back the other way.
+    ar: اخطي للجنب والأستك مشدود، وبعدين ارجع للناحية التانية.
+  cues:
+  - en: Keep the band tight
+    ar: الأستك مشدود دايمًا
+  - en: Toes forward
+    ar: صوابعك لقدام
+  - en: Stay low
+    ar: خليك واطي
+  mistakes:
+  - en: Feet coming together
+    ar: رجليك تقرّب من بعض
+  - en: Swaying the upper body
+    ar: تهز الجزء العلوي
+  image_url: /exercises/Monster_Walk/0.jpg
+  image_frames:
+  - /exercises/Monster_Walk/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Lateral+band+walk+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Monster_Walk
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_hip_abduction
+    name:
+      en: Machine hip abduction
+      ar: جهاز فتح الرجل
+    kind: equipment
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_machine_high_row
+  type: strength
+  name:
+    en: Machine high row
+    ar: هاي رو على الجهاز
+  description:
+    en: Pull machine handles down and back from above. Trains the upper back and lats.
+    ar: اسحب مسكات الجهاز من فوق لتحت ولورا. بيشتغل على أعلى الضهر والجانبية.
+  movement_pattern: horizontalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Upper back, lats · biceps
+    ar: أعلى الضهر، الجانبية · البايسبس
+  instructions:
+  - en: Sit with your chest against the pad and hold the handles above and in front of you.
+    ar: اقعد وصدرك على المسند وامسك المسكات فوقك وقدامك.
+  - en: Pull the handles down and back, elbows going behind you.
+    ar: اسحب المسكات لتحت ولورا والكوع رايح وراك.
+  - en: Let them go back up slowly to a stretch.
+    ar: رجّعها لفوق ببطء لحد ما تتمدّ.
+  cues:
+  - en: Chest on the pad
+    ar: صدرك على المسند
+  - en: Elbows back
+    ar: الكوع لورا
+  - en: Squeeze your shoulder blades
+    ar: اقفل لوحين الكتف
+  mistakes:
+  - en: Shrugging up
+    ar: ترفع كتفك
+  - en: Letting the weight yank you forward
+    ar: تسيب الوزن يشدّك لقدام
+  image_url: /exercises/Leverage_High_Row/0.jpg
+  image_frames:
+  - /exercises/Leverage_High_Row/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Machine+high+row+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Leverage_High_Row
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_one_arm_db_row
+    name:
+      en: One-arm dumbbell row
+      ar: تجديف دمبل بإيد واحدة
+    kind: equipment
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_machine_lateral_raise
+  type: strength
+  name:
+    en: Machine lateral raise
+    ar: رفرفة جانبي على الجهاز
+  description:
+    en: Raise the machine's pads out to the sides. Trains the side shoulders with a steady path.
+    ar: ارفع مساند الجهاز للجنب. بيشتغل على جانب الكتف والحركة ثابتة.
+  movement_pattern: shoulderAbduction
+  joints_loaded:
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles: []
+  muscle_names:
+    en: Side shoulders
+    ar: جانب الكتف
+  instructions:
+  - en: Set the seat so your shoulders line up with the machine's pivot.
+    ar: ظبّط الكرسي عشان كتفك يبقى على محور الجهاز.
+  - en: Raise your arms out to the sides until they're level with your shoulders.
+    ar: ارفع دراعاتك للجنب لحد ما يبقوا في مستوى كتفك.
+  - en: Lower slowly.
+    ar: نزّل ببطء.
+  cues:
+  - en: Lead with the elbows
+    ar: الكوع هو اللي يقود
+  - en: Shoulders down
+    ar: الكتف لتحت
+  - en: Slow lowering
+    ar: نزول بطيء
+  mistakes:
+  - en: Shrugging
+    ar: ترفع كتفك
+  - en: Going above shoulder height
+    ar: تطلع أعلى من الكتف
+  video_url: https://www.youtube.com/results?search_query=Machine+lateral+raise+proper+form
+  alternatives:
+  - exercise_id: ex_lateral_raise
+    name:
+      en: Dumbbell lateral raise
+      ar: رفرفة جانبي دمبلز
+    kind: equipment
+  - exercise_id: ex_cable_lateral_raise
+    name:
+      en: Cable lateral raise
+      ar: رفرفة جانبي كابل
+    kind: equipment
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_overhead_triceps_extension
+  type: strength
+  name:
+    en: Rope overhead triceps extension
+    ar: ترايسبس فوق الراس بالحبل
+  description:
+    en: Facing away from a cable, straighten your arms overhead with a rope. Trains the long head of the triceps in a stretch.
+    ar: وضهرك للكابل، افرد دراعك فوق راسك بالحبل. بيشتغل على الرأس الطويلة للترايسبس وهي متمدّدة.
+  movement_pattern: elbowExtension
+  joints_loaded:
+  - elbow
+  - shoulder
+  range_of_motion: overhead
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles: []
+  muscle_names:
+    en: Triceps
+    ar: الترايسبس
+  instructions:
+  - en: Set a rope at about chest height, face away and hold it behind your head, one foot forward.
+    ar: ركّب الحبل على مستوى صدرك تقريبًا، ادّيله ضهرك وامسكه ورا راسك، ورجل قدام.
+  - en: Keep your elbows pointing forward and straighten your arms.
+    ar: خلّي الكوع بيشاور لقدام وافرد دراعك.
+  - en: Bend back slowly to a deep stretch.
+    ar: اثني تاني ببطء لحد شدّ عميق.
+  cues:
+  - en: Elbows in and still
+    ar: الكوع لجوه وثابت
+  - en: Full stretch
+    ar: تمدّد كامل
+  - en: Brace your stomach
+    ar: اشدّ بطنك
+  mistakes:
+  - en: Elbows flaring
+    ar: الكوع يفتح
+  - en: Arching the back
+    ar: تقوّس ضهرك
+  image_url: /exercises/Cable_Rope_Overhead_Triceps_Extension/0.jpg
+  image_frames:
+  - /exercises/Cable_Rope_Overhead_Triceps_Extension/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Rope+overhead+triceps+extension+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Cable_Rope_Overhead_Triceps_Extension
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_pushdown
+    name:
+      en: Triceps pushdown
+      ar: ترايسبس بوش داون
+    kind: injuryFriendly
+  - name:
+      en: Dumbbell overhead triceps extension
+      ar: ترايسبس فوق الراس بالدمبل
+    kind: equipment
+    equipment:
+    - dumbbells
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_preacher_curl
+  type: strength
+  name:
+    en: Dumbbell preacher curl
+    ar: بريتشر كيرل دمبل
+  description:
+    en: Curl a dumbbell with your upper arm resting on a sloped pad. Trains the biceps, hardest at the bottom.
+    ar: ارفع دمبل ودراعك العلوي على مسند مايل. بيشتغل على البايسبس وأصعب حتة تحت.
+  movement_pattern: elbowFlexion
+  joints_loaded:
+  - elbow
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles:
+  - forearmL
+  - forearmR
+  muscle_names:
+    en: Biceps · forearms
+    ar: البايسبس · الساعد
+  instructions:
+  - en: Rest the back of your upper arm on the preacher pad, dumbbell in hand.
+    ar: سند ضهر دراعك العلوي على مسند البريتشر والدمبل في إيدك.
+  - en: Lower until your arm is almost straight.
+    ar: نزّل لحد ما دراعك يتفرد تقريبًا.
+  - en: Curl it back up and squeeze.
+    ar: ارفعه تاني واعصر.
+  cues:
+  - en: Arm stays on the pad
+    ar: الدراع فاضل على المسند
+  - en: Slow at the bottom
+    ar: بالراحة تحت
+  - en: Squeeze at the top
+    ar: اعصر فوق
+  mistakes:
+  - en: Dropping fast into the bottom
+    ar: تنزل بسرعة لتحت
+  - en: Lifting the elbow off the pad
+    ar: ترفع الكوع من المسند
+  image_url: /exercises/One_Arm_Dumbbell_Preacher_Curl/0.jpg
+  image_frames:
+  - /exercises/One_Arm_Dumbbell_Preacher_Curl/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Dumbbell+preacher+curl+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/One_Arm_Dumbbell_Preacher_Curl
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_db_curl
+    name:
+      en: Dumbbell curl
+      ar: بايسبس دمبلز
+    kind: easier
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_reverse_ez_curl
+  type: strength
+  name:
+    en: Reverse-grip EZ-bar curl
+    ar: بايسبس بالبار الزجزاج بقبضة مقلوبة
+  description:
+    en: Curl an EZ bar with your palms facing down. Trains the forearms and the muscle under the biceps.
+    ar: ارفع البار الزجزاج والكف لتحت. بيشتغل على الساعد والعضلة اللي تحت البايسبس.
+  movement_pattern: elbowFlexion
+  joints_loaded:
+  - elbow
+  - wrist
+  range_of_motion: full
+  equipment:
+  - barbell
+  difficulty: beginner
+  primary_muscles:
+  - forearmL
+  - forearmR
+  - armL
+  - armR
+  secondary_muscles: []
+  muscle_names:
+    en: Forearms, biceps
+    ar: الساعد، البايسبس
+  instructions:
+  - en: Hold the EZ bar palms down, arms straight.
+    ar: امسك البار الزجزاج والكف لتحت ودراعك مفرود.
+  - en: Curl it up, keeping your wrists straight and elbows by your sides.
+    ar: ارفعه والرسغ مفرود والكوع جنبك.
+  - en: Lower slowly.
+    ar: نزّل ببطء.
+  cues:
+  - en: Wrists straight
+    ar: الرسغ مفرود
+  - en: Elbows still
+    ar: الكوع ثابت
+  - en: Light weight
+    ar: وزن خفيف
+  mistakes:
+  - en: Wrists bending back
+    ar: الرسغ يتني لورا
+  - en: Swinging
+    ar: مرجحة
+  image_url: /exercises/Reverse_Barbell_Curl/0.jpg
+  image_frames:
+  - /exercises/Reverse_Barbell_Curl/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Reverse-grip+EZ-bar+curl+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Reverse_Barbell_Curl
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_hammer_curl
+    name:
+      en: Hammer curl
+      ar: هامر كيرل
+    kind: equipment
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_seal_row
+  type: strength
+  name:
+    en: Seal row
+    ar: سيل رو
+  description:
+    en: Lying face down on a high bench, row a bar or dumbbells up. The bench takes your lower back out of it.
+    ar: وأنت نايم على بطنك على بنش عالي، اسحب البار أو الدمبلز لفوق. البنش بيريّح أسفل ضهرك.
+  movement_pattern: horizontalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - barbell
+  - bench
+  difficulty: intermediate
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Upper and middle back · biceps
+    ar: أعلى ونص الضهر · البايسبس
+  instructions:
+  - en: Lie face down on a raised bench with the bar below you.
+    ar: نام على بطنك على بنش عالي والبار تحتك.
+  - en: Pull the bar up to the bench, elbows going back.
+    ar: اسحب البار لحد البنش والكوع رايح لورا.
+  - en: Lower to straight arms.
+    ar: نزّل لحد ما دراعك يفرد.
+  cues:
+  - en: Chest stays down
+    ar: صدرك فاضل على البنش
+  - en: Squeeze your shoulder blades
+    ar: اقفل لوحين الكتف
+  - en: Full stretch at the bottom
+    ar: تمدّد كامل تحت
+  mistakes:
+  - en: Lifting the chest off the bench
+    ar: ترفع صدرك من البنش
+  - en: Jerking the weight
+    ar: تشدّ الوزن
+  image_url: /exercises/Lying_Cambered_Barbell_Row/0.jpg
+  image_frames:
+  - /exercises/Lying_Cambered_Barbell_Row/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Seal+row+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Lying_Cambered_Barbell_Row
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_cs_row
+    name:
+      en: Chest-supported dumbbell row
+      ar: تجديف دمبلز وصدرك على البنش
+    kind: equipment
+  - exercise_id: ex_bb_row
+    name:
+      en: Barbell bent-over row
+      ar: تجديف بالبار وأنت منحني
+    kind: equipment
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_shrug
+  type: strength
+  name:
+    en: Snatch-grip barbell shrug
+    ar: شراج بالبار بقبضة واسعة
+  description:
+    en: Hold a bar with a wide grip and shrug your shoulders up. Trains the upper back (traps).
+    ar: امسك البار بقبضة واسعة وارفع كتفك لفوق. بيشتغل على أعلى الضهر (الترابيس).
+  movement_pattern: shoulderElevation
+  joints_loaded:
+  - shoulder
+  - spine
+  range_of_motion: partial
+  equipment:
+  - barbell
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - forearmL
+  - forearmR
+  muscle_names:
+    en: Traps · forearms
+    ar: الترابيس · الساعد
+  instructions:
+  - en: Stand holding the bar with a wide grip, arms straight.
+    ar: اقف وامسك البار بقبضة واسعة ودراعك مفرود.
+  - en: Lean forward slightly and shrug your shoulders up and back.
+    ar: ميّل لقدام سنّة وارفع كتفك لفوق ولورا.
+  - en: Hold a moment, then lower slowly.
+    ar: اثبت لحظة، وبعدين نزّل ببطء.
+  cues:
+  - en: Arms stay straight
+    ar: الدراع مفرود
+  - en: Up and slightly back
+    ar: لفوق ولورا سنّة
+  - en: Pause at the top
+    ar: وقفة فوق
+  mistakes:
+  - en: Rolling the shoulders
+    ar: تلف كتفك
+  - en: Bending the elbows
+    ar: تثني كوعك
+  image_url: /exercises/Barbell_Shrug/0.jpg
+  image_frames:
+  - /exercises/Barbell_Shrug/1.jpg
+  video_url: https://youtu.be/9B-5irFdB3c?t=6m28s
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Barbell_Shrug
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Dumbbell shrug
+      ar: شراج دمبلز
+    kind: equipment
+    equipment:
+    - dumbbells
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 101–103; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_single_leg_press
+  type: strength
+  name:
+    en: Single-leg leg press
+    ar: ليج برس برجل واحدة
+  description:
+    en: A leg press with one leg at a time. Trains each thigh and glute on its own.
+    ar: ليج برس رجل رجل. بيشتغل على كل فخد ومؤخرة لوحدها.
+  movement_pattern: squat
+  joints_loaded:
+  - knee
+  - hip
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  - hipL
+  - hipR
+  secondary_muscles: []
+  muscle_names:
+    en: Thighs, glutes
+    ar: الفخد، المؤخرة
+  instructions:
+  - en: Sit in the leg press and put one foot in the middle of the platform.
+    ar: اقعد على الليج برس وحط رجل واحدة في نص القاعدة.
+  - en: Lower the platform until your knee is well bent, without your hips lifting.
+    ar: نزّل القاعدة لحد ما ركبتك تتني كويس من غير ما وسطك يترفع.
+  - en: Push back up; do the same reps on the other leg.
+    ar: ادفع لفوق؛ واعمل نفس العدد بالرجل التانية.
+  cues:
+  - en: Knee over the toes
+    ar: الركبة فوق صوابعك
+  - en: Hips stay down
+    ar: الوسط فاضل تحت
+  - en: Don't lock the knee
+    ar: متقفلش الركبة
+  mistakes:
+  - en: Knee caving in
+    ar: الركبة تدخل لجوه
+  - en: Too deep so the lower back rounds
+    ar: تنزل عميق أوي فأسفل ضهرك يتقوّس
+  video_url: https://www.youtube.com/results?search_query=Single-leg+leg+press+proper+form
+  alternatives:
+  - exercise_id: ex_leg_press
+    name:
+      en: Leg press
+      ar: ليج برس
+    kind: easier
+  - exercise_id: ex_step_up
+    name:
+      en: Dumbbell step-up
+      ar: طلوع على بنش بالدمبلز
+    kind: equipment
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_smith_close_grip_press
+  type: strength
+  name:
+    en: Close-grip Smith machine press
+    ar: ضغط ضيق على السميث
+  description:
+    en: A close-grip bench press on the Smith machine. Trains the triceps and chest with a fixed path.
+    ar: بنش بقبضة ضيقة على جهاز السميث. بيشتغل على الترايسبس والصدر والحركة ثابتة.
+  movement_pattern: horizontalPush
+  joints_loaded:
+  - shoulder
+  - elbow
+  - wrist
+  range_of_motion: full
+  equipment:
+  - machine
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  - chest
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Triceps, chest · front shoulders
+    ar: الترايسبس، الصدر · مقدمة الكتف
+  instructions:
+  - en: Set a bench under the Smith bar so it lowers to your lower chest.
+    ar: حط البنش تحت بار السميث عشان ينزل على أسفل صدرك.
+  - en: Grip about shoulder-width, unhook and lower with elbows close to your sides.
+    ar: امسك بعرض كتفك، فك البار ونزّل والكوع قريب من جنبك.
+  - en: Press back up.
+    ar: ادفع لفوق.
+  cues:
+  - en: Elbows tucked
+    ar: الكوع لجوه
+  - en: Wrists over elbows
+    ar: الرسغ فوق الكوع
+  - en: Touch lightly
+    ar: المس بالراحة
+  mistakes:
+  - en: Bench in the wrong spot
+    ar: البنش في مكان غلط
+  - en: Bouncing off the chest
+    ar: تخبط البار في صدرك
+  image_url: /exercises/Smith_Machine_Close-Grip_Bench_Press/0.jpg
+  image_frames:
+  - /exercises/Smith_Machine_Close-Grip_Bench_Press/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Close-grip+Smith+machine+press+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Smith_Machine_Close-Grip_Bench_Press
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_close_grip_bench
+    name:
+      en: Close-grip bench press
+      ar: بنش بقبضة ضيقة
+    kind: equipment
+  - exercise_id: ex_db_floor_press
+    name:
+      en: Dumbbell floor press
+      ar: ضغط دمبلز على الأرض
+    kind: injuryFriendly
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_smith_reverse_lunge
+  type: strength
+  name:
+    en: Smith machine reverse lunge
+    ar: طعن لورا على السميث
+  description:
+    en: Step back into a lunge with the Smith bar on your back. Trains the thighs and glutes with help balancing.
+    ar: اخطي لورا في طعنة وبار السميث على ضهرك. بيشتغل على الفخد والمؤخرة والجهاز بيساعدك في التوازن.
+  movement_pattern: lunge
+  joints_loaded:
+  - knee
+  - hip
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: intermediate
+  primary_muscles:
+  - thighL
+  - thighR
+  - hipL
+  - hipR
+  secondary_muscles: []
+  muscle_names:
+    en: Thighs, glutes
+    ar: الفخد، المؤخرة
+  instructions:
+  - en: Set the bar on your upper back and unhook it, feet under the bar.
+    ar: حط البار على أعلى ضهرك وفكّه، ورجلك تحت البار.
+  - en: Step one leg back and lower your back knee toward the floor.
+    ar: رجّع رجل لورا ونزّل ركبتها ناحية الأرض.
+  - en: Push through the front foot to stand; do all reps on one side, then the other.
+    ar: ادفع برجلك اللي قدام عشان تقف؛ كمّل العدد على ناحية وبعدين التانية.
+  cues:
+  - en: Front shin upright
+    ar: قصبة الرجل اللي قدام عمودية
+  - en: Push through the front heel
+    ar: ادفع بكعب الرجل اللي قدام
+  - en: Stay tall
+    ar: خليك مفرود
+  mistakes:
+  - en: Stepping too short
+    ar: خطوة قصيرة أوي
+  - en: Pushing off the back foot
+    ar: تدفع بالرجل اللي ورا
+  video_url: https://www.youtube.com/results?search_query=Smith+machine+reverse+lunge+proper+form
+  alternatives:
+  - exercise_id: ex_walking_lunge_db
+    name:
+      en: Dumbbell walking lunge
+      ar: طعن بالمشي بالدمبلز
+    kind: equipment
+  - exercise_id: ex_split_squat
+    name:
+      en: Dumbbell split squat
+      ar: سبليت سكوات بالدمبلز
+    kind: equipment
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_spider_curl
+  type: strength
+  name:
+    en: Spider curl
+    ar: سبايدر كيرل
+  description:
+    en: Lying chest-down on an incline bench, curl dumbbells with your arms hanging straight down. Trains the biceps, hardest at the top.
+    ar: وصدرك على بنش مايل، ارفع الدمبلز ودراعك متدلّي لتحت. بيشتغل على البايسبس وأصعب حتة فوق.
+  movement_pattern: elbowFlexion
+  joints_loaded:
+  - elbow
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles:
+  - forearmL
+  - forearmR
+  muscle_names:
+    en: Biceps · forearms
+    ar: البايسبس · الساعد
+  instructions:
+  - en: Lie chest-down on an incline bench with a dumbbell in each hand, arms hanging.
+    ar: نام وصدرك على بنش مايل ودمبل في كل إيد ودراعك متدلّي.
+  - en: Curl the weights up without moving your upper arms.
+    ar: ارفع الأوزان من غير ما دراعك العلوي يتحرك.
+  - en: Squeeze hard at the top, then lower slowly.
+    ar: اعصر جامد فوق، وبعدين نزّل ببطء.
+  cues:
+  - en: Upper arms straight down
+    ar: الدراع العلوي لتحت على طول
+  - en: Squeeze at the top
+    ar: اعصر فوق
+  - en: No swinging
+    ar: من غير مرجحة
+  mistakes:
+  - en: Elbows drifting back
+    ar: الكوع يرجع لورا
+  - en: Half reps
+    ar: نص عدّات
+  image_url: /exercises/Spider_Curl/0.jpg
+  image_frames:
+  - /exercises/Spider_Curl/1.jpg
+  video_url: https://youtu.be/ebyOmAZUqzo?t=11m38s
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Spider_Curl
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_db_curl
+    name:
+      en: Dumbbell curl
+      ar: بايسبس دمبلز
+    kind: easier
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 101–103. How-to written for Rafeqi.'
+- id: ex_straight_arm_pulldown
+  type: strength
+  name:
+    en: Straight-arm cable pullover
+    ar: بول أوفر بالكابل والدراع مفرود
+  description:
+    en: With arms nearly straight, pull a high cable down to your thighs. Trains the lats without the biceps.
+    ar: ودراعك شبه مفرود، اسحب كابل عالي لحد فخدك. بيشتغل على العضلات الجانبية من غير البايسبس.
+  movement_pattern: verticalPull
+  joints_loaded:
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles: []
+  muscle_names:
+    en: Lats
+    ar: العضلات الجانبية
+  instructions:
+  - en: Set a rope or bar high; kneel or stand facing it, arms up and nearly straight.
+    ar: ركّب حبل أو بار فوق؛ اركع أو اقف في وشّه ودراعك لفوق وشبه مفرود.
+  - en: Pull it down in an arc to your thighs, keeping the elbows fixed.
+    ar: اسحبه لتحت في قوس لحد فخدك والكوع ثابت.
+  - en: Let it rise slowly to a stretch.
+    ar: سيبه يطلع ببطء لحد ما تتمدّ.
+  cues:
+  - en: Elbows fixed
+    ar: الكوع ثابت
+  - en: Hinge forward a little
+    ar: انحني لقدام سنّة
+  - en: Stretch at the top
+    ar: تمدّد فوق
+  mistakes:
+  - en: Bending the elbows into a pushdown
+    ar: تثني الكوع كأنه بوش داون
+  - en: Using body swing
+    ar: تتمرجح بجسمك
+  image_url: /exercises/Straight-Arm_Pulldown/0.jpg
+  image_frames:
+  - /exercises/Straight-Arm_Pulldown/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Straight-arm+cable+pullover+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Straight-Arm_Pulldown
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Dumbbell pullover
+      ar: بول أوفر بالدمبل
+    kind: equipment
+    equipment:
+    - dumbbells
+    - bench
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_swiss_ball_leg_curl
+  type: strength
+  name:
+    en: Swiss ball single-leg curl
+    ar: ليج كيرل برجل واحدة على الكورة
+  description:
+    en: Lying on your back with a heel on a big ball, lift your hips and curl the ball in. Trains the hamstrings without a machine.
+    ar: وأنت نايم على ضهرك وكعبك على كورة كبيرة، ارفع وسطك واسحب الكورة ناحيتك. بيشتغل على خلفية الفخد من غير جهاز.
+  movement_pattern: kneeFlexion
+  joints_loaded:
+  - knee
+  - hip
+  range_of_motion: full
+  equipment:
+  - exerciseBall
+  difficulty: intermediate
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles:
+  - hipL
+  - hipR
+  muscle_names:
+    en: Hamstrings · glutes
+    ar: خلفية الفخد · المؤخرة
+  instructions:
+  - en: Lie on your back with one heel on a Swiss ball and the other leg up.
+    ar: نام على ضهرك وكعب رجل على الكورة والرجل التانية مرفوعة.
+  - en: Lift your hips off the floor.
+    ar: ارفع وسطك من على الأرض.
+  - en: Curl the ball toward you with your heel, then roll it back out slowly, hips up.
+    ar: اسحب الكورة ناحيتك بكعبك، وبعدين رجّعها ببطء ووسطك مرفوع.
+  cues:
+  - en: Hips stay up
+    ar: الوسط فاضل مرفوع
+  - en: Slow on the way out
+    ar: بالراحة وأنت بترجّعها
+  - en: Use both legs if it's too hard
+    ar: استخدم الرجلين لو صعبة
+  mistakes:
+  - en: Hips dropping
+    ar: الوسط يهبط
+  - en: Rushing the reps
+    ar: عدّات مستعجلة
+  image_url: /exercises/Ball_Leg_Curl/0.jpg
+  image_frames:
+  - /exercises/Ball_Leg_Curl/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Swiss+ball+single-leg+curl+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Ball_Leg_Curl
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_lying_leg_curl
+    name:
+      en: Lying leg curl
+      ar: ليج كيرل وأنت نايم
+    kind: equipment
+  - exercise_id: ex_seated_leg_curl
+    name:
+      en: Seated leg curl
+      ar: ليج كيرل وأنت قاعد
+    kind: equipment
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'
+- id: ex_upright_row
+  type: strength
+  name:
+    en: Cable upright row
+    ar: أبرايت رو بالكابل
+  description:
+    en: Pull a rope from a low cable up to your chest, elbows leading out to the sides. Trains the side shoulders and traps.
+    ar: اسحب حبل من كابل واطي لحد صدرك والكوع رايح للجناب. بيشتغل على جانب الكتف والترابيس.
+  movement_pattern: shoulderAbduction
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: partial
+  equipment:
+  - cable
+  difficulty: intermediate
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles:
+  - upperBack
+  muscle_names:
+    en: Side shoulders · traps
+    ar: جانب الكتف · الترابيس
+  instructions:
+  - en: Set a rope on a low pulley and stand close, holding it with straight arms.
+    ar: ركّب حبل على بكرة واطية واقف قريب وامسكه ودراعك مفرود.
+  - en: Pull it up toward your chest, elbows going out and up.
+    ar: اسحبه لفوق ناحية صدرك والكوع رايح لبرّه ولفوق.
+  - en: Stop when your elbows reach shoulder height, then lower slowly.
+    ar: وقّف لما الكوع يوصل لمستوى الكتف، وبعدين نزّل ببطء.
+  cues:
+  - en: Elbows lead
+    ar: الكوع هو اللي يقود
+  - en: Stop at shoulder height
+    ar: وقّف عند مستوى الكتف
+  - en: Stay tall
+    ar: خليك مفرود
+  mistakes:
+  - en: Pulling too high so the shoulder pinches
+    ar: تسحب لفوق أوي فالكتف يتقرص
+  - en: Leaning back
+    ar: ترجع لورا
+  image_url: /exercises/Upright_Cable_Row/0.jpg
+  image_frames:
+  - /exercises/Upright_Cable_Row/1.jpg
+  video_url: https://youtu.be/KyTAraGimfE?t=6m35s
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Upright_Cable_Row
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_cable_lateral_raise
+    name:
+      en: Cable lateral raise
+      ar: رفرفة جانبي كابل
+    kind: injuryFriendly
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 101–103; the book''s substitutions, pp. 96–100. How-to written for Rafeqi.'

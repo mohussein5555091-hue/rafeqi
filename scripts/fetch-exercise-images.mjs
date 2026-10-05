@@ -27,6 +27,11 @@ const DEFAULT = [
   'Reverse_Machine_Flyes', 'Romanian_Deadlift', 'Seated_Bent-Over_Rear_Delt_Raise', 'Seated_Cable_Rows',
   'Single-Leg_Leg_Extension', 'Single_Leg_Glute_Bridge', 'Standing_Biceps_Cable_Curl', 'Thigh_Abductor',
   'Underhand_Cable_Pulldowns', 'Wide-Grip_Lat_Pulldown',
+  'Ab_Roller', 'Arnold_Dumbbell_Press', 'Ball_Leg_Curl', 'Barbell_Shrug', 'Cable_Rope_Overhead_Triceps_Extension',
+  'Dips_-_Chest_Version', 'EZ-Bar_Skullcrusher', 'Front_Barbell_Squat', 'Hyperextensions_Back_Extensions',
+  'Leverage_High_Row', 'Lying_Cambered_Barbell_Row', 'Monster_Walk', 'One_Arm_Dumbbell_Preacher_Curl', 'Pull_Through',
+  'Reverse_Barbell_Curl', 'Smith_Machine_Close-Grip_Bench_Press', 'Spider_Curl', 'Straight-Arm_Pulldown',
+  'Upright_Cable_Row',
 ];
 
 const ids = process.argv.slice(2).length ? process.argv.slice(2) : DEFAULT;

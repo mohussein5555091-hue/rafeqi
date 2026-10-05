@@ -40,12 +40,12 @@ schedules:
 
 # What each training place has. `bodyweight` is always available.
 equipment_by_location:
-  gym: [bodyweight, dumbbells, barbell, bench, cable, machine, landmine, bands, pullUpBar, jumpRope]
+  gym: [bodyweight, dumbbells, barbell, bench, cable, machine, landmine, bands, pullUpBar, jumpRope, exerciseBall, abWheel]
   homeDumbbells: [bodyweight, dumbbells, bench, bands, jumpRope]
   bodyweight: [bodyweight, bands, jumpRope]
 
 # Weight steps by equipment (the smallest jump people can make).
-weight_step_kg: {jumpRope: 0, dumbbells: 2, barbell: 2.5, landmine: 2.5, cable: 2.5, machine: 5, bodyweight: 0, bands: 0, pullUpBar: 0, bench: 0}
+weight_step_kg: {jumpRope: 0, dumbbells: 2, barbell: 2.5, landmine: 2.5, cable: 2.5, machine: 5, bodyweight: 0, bands: 0, pullUpBar: 0, bench: 0, exerciseBall: 0, abWheel: 0}
 
 start_load:
   # Starting weight = body weight × ratio × experience × sex (× any load factor), rounded down to the weight step,
@@ -122,6 +122,27 @@ start_load:
     ex_tbar_row: 0.4
     ex_walking_lunge_db: 0.1
     ex_wide_pulldown: 0.55
+    # The LPP program's exercises.
+    ex_arnold_press: 0.15
+    ex_back_extension: 0
+    ex_cable_pull_through: 0.3
+    ex_dip: 0
+    ex_floor_skull_crusher: 0.2
+    ex_front_squat: 0.6
+    ex_lat_pull_in: 0.1
+    ex_machine_high_row: 0.4
+    ex_machine_lateral_raise: 0.1
+    ex_overhead_triceps_extension: 0.12
+    ex_preacher_curl: 0.08
+    ex_reverse_ez_curl: 0.15
+    ex_seal_row: 0.4
+    ex_shrug: 0.6
+    ex_single_leg_press: 0.6
+    ex_smith_close_grip_press: 0.45
+    ex_smith_reverse_lunge: 0.3
+    ex_spider_curl: 0.06
+    ex_straight_arm_pulldown: 0.15
+    ex_upright_row: 0.2
   explain:
     en: "Starting weight {kg} kg: {ratio} × your weight, adjusted for experience. Adjust it after the first session if it feels off."
     ar: "وزن البداية {kg} كجم: {ratio} × وزنك، متظبط على مستواك. عدّله بعد أول تمرينة لو حاسس إنه مش مظبوط."
@@ -143,7 +164,9 @@ injuries:
   # How close a substitute is: lower is closer. Exercises with the same movement pattern are considered, plus the
   # related leg patterns below (a barbell squat that hurts a lower back → leg press, split squat or step-up).
   # lose_load: a loaded exercise replaced by a bodyweight-only one (only when nothing loaded fits).
-  substitute_penalty: {different_range: 1, different_equipment: 1, harder_than_you: 3, per_difficulty_step: 1, different_pattern: 2, lose_load: 3}
+  # different_joints: a lift that bends two joints (a pull-up) is swapped for another that does (a pulldown), not for a
+  # one-joint isolation move (a straight-arm pull-in).
+  substitute_penalty: {different_range: 1, different_equipment: 1, harder_than_you: 3, per_difficulty_step: 1, different_pattern: 2, lose_load: 3, different_joints: 2}
   related_patterns:
     squat: [lunge]
     lunge: [squat]
@@ -429,7 +452,7 @@ swaps:
   # stays one (a leg extension is never swapped for a deadlift).
   directions:
     push: [horizontalPush, verticalPush, dip, elbowExtension, shoulderAbduction]
-    pull: [horizontalPull, verticalPull, elbowFlexion, shoulderExternalRotation]
+    pull: [horizontalPull, verticalPull, elbowFlexion, shoulderExternalRotation, shoulderElevation]
     kneeDominant: [squat, lunge, kneeExtension]
     hipDominant: [hinge, kneeFlexion, hipAbduction]
     calves: [plantarFlexion]
