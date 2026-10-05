@@ -1,0 +1,22 @@
+# Render Blueprint (docs/DEPLOY.md walks through it). One free web service running the Dockerfile: the app and the
+# API at one https address. The database is a free PostgreSQL elsewhere (Neon or Supabase): paste its connection
+# string as RAFEQI_DATABASE_URL in the Render dashboard. Secrets are never written in this file.
+services:
+  - type: web
+    name: rafeqi
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: RAFEQI_ENV
+        value: production
+      - key: RAFEQI_SECRET_KEY
+        generateValue: true          # Render makes a long random value once
+      - key: RAFEQI_DATABASE_URL
+        sync: false                  # you paste it (Neon / Supabase connection string)
+      - key: RAFEQI_INVITE_CODE
+        sync: false                  # the code you give your friends; sign-up is closed without it
+      - key: RAFEQI_PHOTO_STORAGE
+        value: database              # Render's free disk is wiped on every deploy: keep progress photos in PostgreSQL
