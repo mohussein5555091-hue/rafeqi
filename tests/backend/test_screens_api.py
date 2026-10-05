@@ -338,3 +338,77 @@ def test_finish_with_skipped_exercises(planned):
     c.post(f"/api/workouts/{s['id']}/finish", json={"effort": 6, "done": [first["exerciseId"]]})
     results = c.get(f"/api/workouts/{s['id']}").json()["log"]["results"]
     assert list(results) == [first["exerciseId"]]  # the rest were skipped, not saved as planned
+
+
+def test_week_carries_the_real_program_name(planned, make_user):  # noqa: F811
+    """The Workouts header shows the program's own name (it used to say "Upper / Lower" for every program)."""
+    from test_onboarding import TRAINING, answer_all
+
+    assert week(planned.client)["programName"] == {"en": "Upper / Lower (sample)", "ar": "علوي / سفلي (عينة)"}
+    c = make_user().client
+    answer_all(c, training=TRAINING | {"experience": "beginner", "daysPerWeek": 3})
+    c.post("/api/onboarding/complete")
+    c.post("/api/plan")
+    assert week(c)["programName"]["en"] == "Full body (sample)"
+
+
+def test_equipment_alternatives_name_their_equipment(planned):  # noqa: F811
+    c = planned.client
+    leg_press = c.get("/api/exercises/ex_leg_press").json()["alternatives"]
+    assert leg_press[0]["kind"] == "equipment" and leg_press[0]["equipment"] == {"en": "dumbbells", "ar": "دمبلز"}
+    curl = c.get("/api/exercises/ex_seated_leg_curl").json()["alternatives"][0]  # not in the catalogue: equipment from the file
+    assert curl["equipment"] == {"en": "machine", "ar": "جهاز"}
+    every = c.get("/api/exercises").json()
+    assert all("equipment" in a for e in every for a in e["alternatives"] if a["kind"] == "equipment")
+
+
+# ── The program's lighter (deload) week ──
+
+def test_the_planned_lighter_week_has_fewer_sets_lower_effort_and_the_same_weights(planned, clock):  # noqa: F811
+    from app.engine.rules import load_rules
+
+    dl = load_rules()["training"]["deload"]
+    c = planned.client
+    w1 = week(c)
+    assert w1["weekNumber"] == 1 and w1["deload"] == {"week": 5, "thisWeek": False, "byCheckIn": False,
+                                                      "setsMinus": dl["sets_minus"], "rpeMinus": dl["rpe_minus"]}
+    mon = today_session(c)
+    assert not mon["lighter"]
+    normal = {e["exerciseId"]: e for e in mon["exercises"]}
+    # Log Monday's session a bit above target, so a normal week would add weight or reps.
+    for e in mon["exercises"]:
+        t = e["target"]
+        assert c.put(f"/api/workouts/{mon['id']}/exercises/{e['exerciseId']}",
+                     json={"sets": t["sets"], "reps": 12, "weightKg": t["weightKg"]}).status_code == 204
+    assert c.post(f"/api/workouts/{mon['id']}/finish", json={"effort": 7}).status_code == 200
+
+    clock.advance(days=7 * 4)  # Monday of week 5
+    w5 = week(c)
+    assert w5["weekNumber"] == 5 and w5["deload"]["thisWeek"] is True
+    s = today_session(c)
+    assert s["lighter"] is True
+    for e in s["exercises"]:
+        before = normal[e["exerciseId"]]
+        assert e["sets"] == max(1, before["sets"] - dl["sets_minus"])
+        assert e["rpe"] == before["rpe"] - dl["rpe_minus"]
+        assert e["target"]["reason"] == "deload" and e["target"]["sets"] == e["sets"]
+        assert e["target"]["weightKg"] == e["lastTime"]["weightKg"]  # same weight as last time: no step up
+    clock.advance(days=7)  # week 6: back to normal
+    assert not today_session(c)["lighter"] and week(c)["deload"]["thisWeek"] is False
+
+
+def test_a_check_in_lighter_week_is_not_made_lighter_twice(planned, clock, db):  # noqa: F811
+    from sqlalchemy import select
+
+    from app.models import Plan
+
+    c = planned.client
+    before = {e["exerciseId"]: e["sets"] for e in today_session(c)["exercises"]}
+    clock.advance(days=7 * 4)  # week 5, the planned lighter week
+    plan = db.scalar(select(Plan).where(Plan.user_id == planned.id, Plan.status == "active"))
+    plan.inputs = {**plan.inputs, "adjustments": {**plan.inputs["adjustments"], "deload": True}}  # as a check-in deload would
+    db.commit()
+    w = week(c)
+    assert w["deload"]["thisWeek"] is True and w["deload"]["byCheckIn"] is True
+    s = today_session(c)
+    assert not s["lighter"] and {e["exerciseId"]: e["sets"] for e in s["exercises"]} == before  # the plan's own sets, unchanged here

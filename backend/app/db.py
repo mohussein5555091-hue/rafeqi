@@ -6,12 +6,16 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 
-from app.config import get_settings
+from app.config import get_settings, normalize_db_url
 
 
 def make_engine(url: str) -> Engine:
+    url = normalize_db_url(url)
     is_sqlite = url.startswith("sqlite")
-    engine = create_engine(url, connect_args={"check_same_thread": False} if is_sqlite else {})
+    # PostgreSQL: check a pooled connection still works before using it (hosted databases close idle connections), and
+    # no server-side prepared statements, which connection poolers like Neon's and Supabase's don't support.
+    engine = (create_engine(url, connect_args={"check_same_thread": False}) if is_sqlite
+              else create_engine(url, pool_pre_ping=True, pool_size=5, connect_args={"prepare_threshold": None}))
     if is_sqlite:
         @event.listens_for(engine, "connect")
         def _sqlite_pragmas(dbapi_conn, _record):  # noqa: ANN001

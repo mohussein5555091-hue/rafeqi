@@ -1,19 +1,36 @@
 """Sign up, log in, log out, change password."""
 
+import hmac
+
 from fastapi import APIRouter, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 
 from app import accounts, clock
 from app.api.deps import CurrentAuth, Db, clear_session_cookie, client_ip, set_session_cookie
 from app.api.me import me_out
+from app.config import get_settings
 from app.schemas.account import ChangePasswordIn, LoginIn, MeOut, SignupIn
 from app.security import verify_password
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
 
+@router.get("/config")
+def auth_config():
+    """What the sign-up form needs to know before anyone is logged in: whether an invite code is required."""
+    return {"inviteOnly": bool(get_settings().invite_code.strip())}
+
+
+def invite_ok(given: str | None) -> bool:
+    """Sign-up is open when no invite code is set; otherwise the code must match (spaces and letter case ignored)."""
+    code = get_settings().invite_code.strip().lower()
+    return not code or hmac.compare_digest((given or "").strip().lower().encode(), code.encode())
+
+
 @router.post("/signup", status_code=status.HTTP_201_CREATED, response_model=MeOut)
 def signup(body: SignupIn, request: Request, response: Response, db: Db):
+    if not invite_ok(body.invite_code):
+        raise HTTPException(403, "invite_required" if not (body.invite_code or "").strip() else "invite_wrong")
     try:
         user = accounts.create_user(db, email=body.email, password=body.password, first_name=body.first_name)
     except accounts.EmailTaken:

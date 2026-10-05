@@ -23,13 +23,14 @@ CATALOGUE = {"exercises", "exercise_substitutions", "foods", "grocery_items", "f
 NOT_USER_DATA = {"login_attempts"}  # keyed by email hash and IP; may not belong to any account
 
 # Every endpoint, and how it's kept to the logged-in user.
-PUBLIC = {("GET", "/api/health"), ("POST", "/api/auth/signup"), ("POST", "/api/auth/login")}
+PUBLIC = {("GET", "/api/health"), ("POST", "/api/auth/signup"), ("POST", "/api/auth/login"), ("GET", "/api/auth/config")}
 CATALOGUE_READS = {  # login required, but they only read the shared catalogue (the recipe is scaled to your own plan)
     ("GET", "/api/exercises"), ("GET", "/api/exercises/{exercise_id}"), ("GET", "/api/recipes/{recipe_id}"),
+    ("GET", "/api/checkins/questions"),  # the fixed questions from data/checkin_questions.yaml
 }
 SELF_ONLY = {  # no id in the URL: they act on the logged-in user by construction
     ("POST", "/api/auth/logout"), ("POST", "/api/auth/change-password"),
-    ("GET", "/api/me"), ("PATCH", "/api/me"), ("DELETE", "/api/me"),
+    ("GET", "/api/me"), ("PATCH", "/api/me"), ("DELETE", "/api/me"), ("GET", "/api/me/equipment"), ("PUT", "/api/me/equipment"), ("POST", "/api/me/feedback"),
     ("GET", "/api/weights"), ("POST", "/api/weights"),
     ("GET", "/api/onboarding"), ("POST", "/api/onboarding/complete"),
     ("GET", "/api/plan"), ("POST", "/api/plan"), ("GET", "/api/plan/why"),
@@ -64,7 +65,11 @@ BY_ID = {  # id in the URL: tested below with another user's id → (the table t
     ("POST", "/api/workouts/{day_id}/exercises/{exercise_id}/swap"): ("program_days", {"toExerciseId": "ex_test", "reason": "busy", "scope": "today"}),
     ("PUT", "/api/workouts/{day_id}/warmup"): ("program_days", {"done": True}),
     ("PUT", "/api/workouts/{day_id}/cooldown"): ("program_days", {"done": True}),
+    ("GET", "/api/workouts/{day_id}/move-options"): ("program_days", None),
+    ("POST", "/api/workouts/{day_id}/move"): ("program_days", {"date": "2026-10-01"}),
     ("DELETE", "/api/swaps/{swap_id}"): ("exercise_swaps", None),
+    ("PUT", "/api/checkins/{checkin_id}/photos/{view}"): ("checkins", None),
+    ("GET", "/api/photos/{checkin_id}/{view}"): ("checkins", None),
 }
 
 

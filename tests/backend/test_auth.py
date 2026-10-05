@@ -79,7 +79,7 @@ def test_logout_ends_that_session_only(make_user, client_factory):
 
 def test_every_private_endpoint_needs_login(client_factory):
     c = client_factory()
-    public = {("get", "/api/health"), ("post", "/api/auth/signup"), ("post", "/api/auth/login")}
+    public = {("get", "/api/health"), ("post", "/api/auth/signup"), ("post", "/api/auth/login"), ("get", "/api/auth/config")}
     for path, ops in c.app.openapi()["paths"].items():
         for method in ops:
             if (method, path) in public:
@@ -165,3 +165,38 @@ def test_changes_from_another_website_are_refused(make_user):
     assert (evil.status_code, evil.json()["detail"]) == (403, "cross_origin_request")
     same = u.client.patch("/api/me", json={"language": "ar"}, headers={"Origin": "http://testserver"})
     assert same.status_code == 200
+
+
+# ── Invite-only sign-up (RAFEQI_INVITE_CODE) ──
+
+def test_sign_up_is_open_without_an_invite_code(client_factory):
+    c = client_factory()
+    assert c.get("/api/auth/config").json() == {"inviteOnly": False}
+    assert c.post("/api/auth/signup", json=signup_body("open@example.com")).status_code == 201
+
+
+def test_sign_up_needs_the_invite_code_when_one_is_set(client_factory, monkeypatch):
+    from app.config import get_settings
+
+    monkeypatch.setattr(get_settings(), "invite_code", "Nile-2026")
+    c = client_factory()
+    assert c.get("/api/auth/config").json() == {"inviteOnly": True}
+    r = c.post("/api/auth/signup", json=signup_body("a@example.com"))
+    assert (r.status_code, r.json()["detail"]) == (403, "invite_required")
+    r = c.post("/api/auth/signup", json=signup_body("a@example.com", inviteCode="wrong"))
+    assert (r.status_code, r.json()["detail"]) == (403, "invite_wrong")
+    assert c.post("/api/auth/signup", json=signup_body("a@example.com", inviteCode=" nile-2026 ")).status_code == 201
+
+
+# ── Send feedback (Profile & settings) ──
+
+def test_feedback_is_saved_for_the_people_running_the_app(make_user, db):
+    from app.models import Feedback
+
+    u = make_user()
+    r = u.client.post("/api/me/feedback", json={"message": "  The leg day was great.  ", "page": "/workouts", "appVersion": "0.6.0"})
+    assert r.status_code == 201
+    row = db.scalar(select(Feedback).where(Feedback.user_id == u.id))
+    assert (row.message, row.page, row.app_version) == ("The leg day was great.", "/workouts", "0.6.0")
+    assert u.client.post("/api/me/feedback", json={"message": "   "}).status_code == 422
+    assert u.client.post("/api/me/feedback", json={"message": "x" * 1001}).status_code == 422

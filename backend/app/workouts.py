@@ -1,8 +1,8 @@
 """Workout logging, one result per exercise.
 
-People log an exercise in one tap ("done as planned") or one row (sets, reps, weight, "struggled on the last set").
-It is stored in the existing tables so anything reading set by set keeps working:
-- set_logs: one row per set done, all with the same reps and weight. rpe is set only on the last set, to
+People log an exercise in one tap ("done as planned"), one row (sets, reps, weight, "struggled on the last set"), or
+set by set ("Log each set": reps and weight for each set). It is stored in the existing tables:
+- set_logs: one row per set done, with that set's reps and weight. rpe is set only on the last set, to
   STRUGGLED_RPE, when the person struggled on it; otherwise it stays empty.
 - workout_logs.effort: one "how hard was today's workout?" rating (1–10) for the whole session.
 """
@@ -21,10 +21,15 @@ STRUGGLED_RPE = 10.0
 
 @dataclass(frozen=True)
 class ExerciseResult:
+    """One exercise's result. Logged as one row (every set the same), or set by set ("Log each set"): then `per_set`
+    holds (reps, kg) for each set, and sets / reps / weight_kg sum it up: the number of sets, the heaviest weight, and
+    the fewest reps done at that weight."""
+
     sets: int
     reps: int
     weight_kg: float
     struggled: bool = False
+    per_set: tuple[tuple[int, float], ...] | None = None
 
     def __post_init__(self) -> None:
         if not 0 <= self.sets <= 20:
@@ -33,6 +38,31 @@ class ExerciseResult:
             raise ValueError("reps must be between 0 and 100")
         if not 0 <= self.weight_kg <= 500:
             raise ValueError("weight must be between 0 and 500 kg")
+        if self.per_set is not None:
+            if len(self.per_set) != self.sets:
+                raise ValueError("per_set must have one entry per set")
+            if not all(0 <= r <= 100 and 0 <= kg <= 500 for r, kg in self.per_set):
+                raise ValueError("each set: reps 0–100, weight 0–500 kg")
+
+    @classmethod
+    def from_sets(cls, per_set: list[tuple[int, float]], struggled: bool = False) -> "ExerciseResult":
+        """Sums up a set-by-set log (an even log is stored as one row's worth: per_set stays empty)."""
+        if not per_set:
+            return cls(0, 0, 0)
+        top = max(kg for _, kg in per_set)
+        reps = min(r for r, kg in per_set if kg == top)
+        even = len({(r, kg) for r, kg in per_set}) == 1
+        return cls(len(per_set), reps, top, struggled, None if even else tuple(per_set))
+
+    @property
+    def top_sets(self) -> int:
+        """Sets done at the heaviest weight (all of them for a one-row log): progression only counts these."""
+        if self.per_set is None:
+            return self.sets
+        return sum(1 for _, kg in self.per_set if kg == self.weight_kg)
+
+    def sets_done(self) -> list[tuple[int, float]]:
+        return list(self.per_set) if self.per_set is not None else [(self.reps, self.weight_kg)] * self.sets
 
 
 def rep_range(reps: str) -> tuple[int, int]:
@@ -48,9 +78,9 @@ def save_exercise_result(db: Session, log: WorkoutLog, exercise_id: str, result:
     db.execute(delete(SetLog).where(SetLog.workout_log_id == log.id, SetLog.exercise_id == exercise_id))
     now = clock.now()
     rows = [
-        SetLog(user_id=log.user_id, workout_log_id=log.id, exercise_id=exercise_id, set_number=n, reps=result.reps,
-               weight_kg=result.weight_kg, rpe=STRUGGLED_RPE if result.struggled and n == result.sets else None, logged_at=now)
-        for n in range(1, result.sets + 1)
+        SetLog(user_id=log.user_id, workout_log_id=log.id, exercise_id=exercise_id, set_number=n, reps=reps,
+               weight_kg=kg, rpe=STRUGGLED_RPE if result.struggled and n == result.sets else None, logged_at=now)
+        for n, (reps, kg) in enumerate(result.sets_done(), start=1)
     ]
     db.add_all(rows)
     db.flush()
@@ -63,11 +93,8 @@ def exercise_results(db: Session, workout_log_id: str) -> dict[str, ExerciseResu
     by_exercise: dict[str, list[SetLog]] = {}
     for r in rows:
         by_exercise.setdefault(r.exercise_id, []).append(r)
-    return {
-        ex: ExerciseResult(sets=len(sets), reps=min(s.reps for s in sets), weight_kg=max(s.weight_kg for s in sets),
-                           struggled=(sets[-1].rpe or 0) >= STRUGGLED_RPE)
-        for ex, sets in by_exercise.items()
-    }
+    return {ex: ExerciseResult.from_sets([(s.reps, s.weight_kg) for s in sets], struggled=(sets[-1].rpe or 0) >= STRUGGLED_RPE)
+            for ex, sets in by_exercise.items()}
 
 
 def last_result(db: Session, user_id: str, exercise_id: str, before_log: WorkoutLog | None = None) -> ExerciseResult | None:

@@ -1,10 +1,11 @@
 """The person's plan: build it (after onboarding, or "regenerate my plan") and read the current version."""
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, BackgroundTasks, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app import clock, plans
+from app.ai import hooks as ai
 from app.api.deps import CurrentAuth, Db
 from app.models import (
     Exercise, GroceryList, GroceryListItem, Injury, MealPlan, MealPlanItem, Plan, ProgramDay, ProgramExercise, TrainingProgram,
@@ -71,7 +72,7 @@ def get_why(auth: CurrentAuth, db: Db):
 
 
 @router.post("")
-def build_plan(auth: CurrentAuth, db: Db):
+def build_plan(auth: CurrentAuth, db: Db, background: BackgroundTasks):
     """Builds a new plan version from the saved questionnaire answers (409 until onboarding is complete)."""
     try:
         first = plans.current_plan(db, auth.user.id) is None
@@ -79,4 +80,6 @@ def build_plan(auth: CurrentAuth, db: Db):
     except plans.NotReady as e:
         raise HTTPException(409, "onboarding_incomplete") from e
     db.commit()
+    if ai.enabled():  # the plan's summary for "Why this plan", written after this answer is sent
+        background.add_task(ai.after_plan, db.get_bind(), plan.id)
     return plan_out(db, plan)

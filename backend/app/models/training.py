@@ -27,7 +27,11 @@ class Plan(Base, UserOwned):
     conservative: Mapped[bool] = mapped_column(default=False)
     reasons: Mapped[dict] = mapped_column(default=dict)  # one line per number, with its rule and source
     inputs: Mapped[dict] = mapped_column(default=dict)  # snapshot of the answers used
-    rules_version: Mapped[str] = mapped_column(String(40), default="")
+    rules_version: Mapped[str] = mapped_column(String(120), default="")
+    # The plan's short summary for "Why this plan", written by the AI (app/ai) or the template; never holds a number
+    # that the engine didn't produce. ai_model: the model, or "template".
+    ai_summary: Mapped[dict | None]
+    ai_model: Mapped[str | None] = mapped_column(String(80))
     created_at: Mapped[datetime] = timestamp()
 
     __table_args__ = (UniqueConstraint("user_id", "version"),)
@@ -110,6 +114,9 @@ class ExerciseSubstitution(Base):
     name_en: Mapped[str] = mapped_column(String(120), default="")  # for alternatives not in the catalogue yet
     name_ar: Mapped[str] = mapped_column(String(120), default="")
     kind: Mapped[str] = mapped_column(String(16))  # easier | injuryFriendly | equipment | noEquipment
+    # The equipment it uses (vocab ids), for the label "Different equipment: cable machine". From the catalogue entry when
+    # the alternative is one; given in exercises.yaml otherwise.
+    equipment: Mapped[list] = mapped_column(default=list, server_default="[]")
     priority: Mapped[int] = mapped_column(default=0)
 
 
@@ -131,7 +138,7 @@ class ProgramExercise(Base, UserOwned):
     weight_offset_kg: Mapped[float] = mapped_column(default=0.0, server_default="0")  # weekly review: ± one step, next session only
     replaced_exercise_id: Mapped[str | None] = mapped_column(ForeignKey("exercises.id"))
     injury_id: Mapped[str | None] = mapped_column(ForeignKey("injuries.id", ondelete="SET NULL"))
-    swap_kind: Mapped[str | None] = mapped_column(String(8))  # swapped (injury) | added | equipment | user (the person's swap)
+    swap_kind: Mapped[str | None] = mapped_column(String(12))  # swapped (injury) | added | equipment | review (marked uncomfortable) | user (the person's swap)
     user_reason: Mapped[str | None] = mapped_column(String(10))  # user swaps: equipment | busy | cantDo | pain
     swap_reason: Mapped[dict | None]
 
@@ -212,3 +219,20 @@ class CardioLog(Base, UserOwned):
     created_at: Mapped[datetime] = timestamp()
 
     __table_args__ = (UniqueConstraint("user_id", "date"), CheckConstraint("minutes BETWEEN 1 AND 300", name="minutes_range"))
+
+
+class WorkoutMove(Base, UserOwned):
+    """The person moved one of this week's sessions to another day ("Do this workout today" / "Move to another day").
+    Keyed by the week (its Saturday) and the program's weekday, so it survives a plan rebuild that week; it only ever
+    applies to that week."""
+
+    __tablename__ = "workout_moves"
+
+    id: Mapped[str] = uuid_pk()
+    user_id: Mapped[str] = owner()
+    week_start: Mapped[dt.date]
+    from_weekday: Mapped[str] = mapped_column(String(3))  # the program's day: sat … fri
+    to_date: Mapped[dt.date]
+    created_at: Mapped[datetime] = timestamp()
+
+    __table_args__ = (UniqueConstraint("user_id", "week_start", "from_weekday"),)

@@ -12,7 +12,7 @@ import yaml
 from app.config import get_settings
 from app.workouts import ExerciseResult, rep_range
 
-Reason = Literal["start", "addReps", "addWeight", "repeat", "dropWeight", "findWeight"]
+Reason = Literal["start", "addReps", "addWeight", "repeat", "dropWeight", "findWeight", "deload"]
 
 
 @dataclass(frozen=True)
@@ -37,13 +37,14 @@ def load_rules() -> dict:
 
 def next_target(sets: int, reps: str, weight_step_kg: float, start_weight_kg: float, last: ExerciseResult | None,
                 rules: dict | None = None) -> Target:
-    """sets / reps (e.g. "8–10") / weight step come from the program; `last` is the previous result for this exercise."""
+    """sets / reps (e.g. "8–10") / weight step come from the program; `last` is the previous result for this exercise.
+    A set-by-set log counts what was really done: the heaviest weight, and the fewest reps at that weight."""
     rules = rules or load_rules()
     low, high = rep_range(reps)
     if last is None or last.sets == 0:
         return Target(sets, low, start_weight_kg, "start")
     weight = last.weight_kg
-    if last.struggled or last.sets < sets:
+    if last.struggled or last.top_sets < sets:  # set by set: only sets at the heaviest weight count
         if last.struggled and last.reps < low and weight_step_kg > 0:
             return Target(sets, low, max(0.0, weight - weight_step_kg), "dropWeight")
         return Target(sets, min(max(last.reps, low), high), weight, "repeat")

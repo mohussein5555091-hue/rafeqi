@@ -1,5 +1,5 @@
 {
-  "_comment": "Worked examples of data/rules/progression.yaml. Each case: planned sets, rep range, weight step, starting weight, last time (or null) → expected target.",
+  "_comment": "Worked examples of data/rules/progression.yaml. Each case: planned sets, rep range, weight step, starting weight, last time (or null; perSet = logged set by set as [reps, kg]) → expected target.",
   "cases": [
     { "name": "first time: bottom of the range at the starting weight", "sets": 3, "reps": "8–10", "step": 2, "start": 22.5, "last": null, "target": { "sets": 3, "reps": 8, "weightKg": 22.5, "reason": "start" } },
     { "name": "struggled inside the range: same again", "sets": 3, "reps": "8–10", "step": 2, "start": 20, "last": { "sets": 3, "reps": 9, "weightKg": 22.5, "struggled": true }, "target": { "sets": 3, "reps": 9, "weightKg": 22.5, "reason": "repeat" } },
@@ -11,6 +11,9 @@
     { "name": "below the range, no struggle: one more rep", "sets": 3, "reps": "8–10", "step": 2, "start": 20, "last": { "sets": 3, "reps": 6, "weightKg": 24, "struggled": false }, "target": { "sets": 3, "reps": 7, "weightKg": 24, "reason": "addReps" } },
     { "name": "previous range was different: kept inside this range", "sets": 3, "reps": "10–12", "step": 2, "start": 20, "last": { "sets": 3, "reps": 13, "weightKg": 22, "struggled": true }, "target": { "sets": 3, "reps": 12, "weightKg": 22, "reason": "repeat" } },
     { "name": "bodyweight at the top: stays there", "sets": 3, "reps": "10–15", "step": 0, "start": 0, "last": { "sets": 3, "reps": 15, "weightKg": 0, "struggled": false }, "target": { "sets": 3, "reps": 15, "weightKg": 0, "reason": "repeat" } },
-    { "name": "skipped last time: start again", "sets": 3, "reps": "8–10", "step": 2, "start": 20, "last": { "sets": 0, "reps": 0, "weightKg": 0, "struggled": false }, "target": { "sets": 3, "reps": 8, "weightKg": 20, "reason": "start" } }
+    { "name": "skipped last time: start again", "sets": 3, "reps": "8–10", "step": 2, "start": 20, "last": { "sets": 0, "reps": 0, "weightKg": 0, "struggled": false }, "target": { "sets": 3, "reps": 8, "weightKg": 20, "reason": "start" } },
+    { "name": "set by set, a lighter last set: same weight again", "sets": 3, "reps": "8–10", "step": 2.5, "start": 20, "last": { "perSet": [[10, 22.5], [10, 22.5], [10, 20]], "struggled": false }, "target": { "sets": 3, "reps": 10, "weightKg": 22.5, "reason": "repeat" } },
+    { "name": "set by set, fewer reps on later sets: one more rep than the fewest", "sets": 3, "reps": "8–10", "step": 2.5, "start": 20, "last": { "perSet": [[10, 20], [9, 20], [8, 20]], "struggled": false }, "target": { "sets": 3, "reps": 9, "weightKg": 20, "reason": "addReps" } },
+    { "name": "set by set, every set at the top: add weight", "sets": 3, "reps": "8–10", "step": 2.5, "start": 20, "last": { "perSet": [[10, 20], [10, 20], [10, 20]], "struggled": false }, "target": { "sets": 3, "reps": 8, "weightKg": 22.5, "reason": "addWeight" } }
   ]
 }

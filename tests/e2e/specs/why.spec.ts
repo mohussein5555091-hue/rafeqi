@@ -15,35 +15,53 @@ async function storedReasons(page: Page): Promise<Reason[]> {
   ];
 }
 
+type Why = { total: number; backed: number; formulas: number; rules: { total: number; fromBooks: number; formulas: number };
+  groups: { id: string; decisions: { ruleKey: string; source: { kind: string } }[] }[] };
+
+/** One card per rule in each section: (section, rule) pairs, with their source kind. */
+const units = (why: Why) => why.groups.flatMap((g) => [...new Map(g.decisions.map((d) => [d.ruleKey, d.source.kind])).values()]);
+
 test('every reason in the plan is on the page, with its source or the placeholder badge', async ({ page }) => {
   const reasons = await storedReasons(page);
-  const why = await api(page, '/plan/why');
+  const why: Why = await api(page, '/plan/why');
   expect(why.total).toBe(reasons.length);
   await page.goto('/plan/why');
   await waitForContent(page);
   await expect(page.getByRole('heading', { name: 'Why this plan', level: 1 })).toBeVisible();
-  await expect(page.getByTestId('backed')).toContainText(`${why.backed} of ${why.total} decisions backed by your books`);
+  await expect(page.getByTestId('backed')).toContainText(
+    `${why.rules.fromBooks} of ${why.rules.total} rules from your books · ${why.backed} of ${why.total} decisions`);
+  await expect(page.getByTestId('formulas-note')).toContainText('1 of the decisions use a standard formula');
   await expect(page.getByTestId('ai-summary')).toBeVisible(); // the slot for the AI phase's summary
 
-  const cards = page.getByTestId('decision');
-  await expect(cards).toHaveCount(reasons.length);
-  const shown = await page.getByTestId('result').allInnerTexts();
+  await expect(page.getByTestId('decision')).toHaveCount(reasons.length);
+  const shown = await page.getByTestId('result').allTextContents();
   for (const r of reasons) expect(shown, r.rule).toContain(r.en);
-  // Every card: the answers used (or "Not from your answers"), the rule, and a source or the badge.
-  for (const card of await cards.all()) {
-    await expect(card).toContainText('Your answers used');
-    await expect(card).toContainText('The rule');
-    const badge = await card.getByTestId('placeholder-badge').count();
-    const book = await card.getByTestId('book').count();
-    expect(badge + book, await card.getAttribute('data-rule') ?? '').toBe(1);
-  }
-  await expect(page.getByTestId('placeholder-badge')).toHaveCount(why.total - why.backed);
-  // The one rule from a published source: book, page and a short quote.
+  // One source block per rule card: from your books, standard formula, or "Not yet from a book".
+  const kinds = units(why);
+  await expect(page.getByTestId('source')).toHaveCount(kinds.length);
+  await expect(page.getByTestId('placeholder-badge')).toHaveCount(kinds.filter((k) => k === 'placeholder').length);
+  await expect(page.getByTestId('formula-badge')).toHaveCount(kinds.filter((k) => k === 'formula').length);
+  await expect(page.getByTestId('book-badge')).toHaveCount(kinds.filter((k) => k === 'book').length);
+  // The resting-burn formula: a standard formula with its original source, page and a short quote (not "from your books").
   const bmr = page.locator('[data-rule="nutrition.bmr"]');
-  await expect(bmr.getByTestId('book')).toContainText('Clinical Nutrition');
+  await expect(bmr.getByTestId('formula-badge')).toHaveText('Standard formula');
+  await expect(bmr.getByTestId('book')).toContainText('Original source: American Journal of Clinical Nutrition');
   await expect(bmr.getByTestId('book')).toContainText('p. 241–247');
   await expect(bmr.locator('blockquote')).toBeVisible();
   await expect(bmr).toContainText(/Sex: (Male|Female)/);
+});
+
+test('repeated decisions are grouped under their rule, folded until opened', async ({ page }) => {
+  await page.goto('/plan/why');
+  await waitForContent(page);
+  const start = page.getByTestId('rule-group').and(page.locator('[data-rule="training.start_load"]'));
+  await expect(start).toHaveCount(1);
+  await expect(start.getByTestId('source')).toHaveCount(1); // the rule and its source once
+  const first = start.getByTestId('decision').first();
+  await expect(first).toBeHidden();
+  await start.locator('summary').click();
+  await expect(first).toBeVisible();
+  await expect(start.locator('summary')).toContainText(/\d+ decisions use this rule/);
 });
 
 test('every kind of decision has its section, and the injury swap names the injury', async ({ page }) => {
@@ -67,10 +85,10 @@ test('in Arabic too', async ({ page }) => {
   await waitForContent(page);
   await page.locator('button:visible', { hasText: 'عربي' }).first().click();
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
-  await expect(page.getByTestId('backed')).toContainText(`${why.backed} من ${why.total} قرار مدعومين من كتبك`);
+  await expect(page.getByTestId('backed')).toContainText(`${why.rules.fromBooks} من ${why.rules.total} قواعد من كتبك · ${why.backed} من ${why.total} قرار`);
   await expect(page.getByTestId('placeholder-badge').first()).toHaveText('لسه مش من كتاب');
   const reasons = await storedReasons(page);
-  const shown = await page.getByTestId('result').allInnerTexts();
+  const shown = await page.getByTestId('result').allTextContents();
   for (const r of reasons) expect(shown, r.rule).toContain(r.ar);
 });
 

@@ -44,3 +44,6 @@ Thumbs.db
 tests/e2e/.auth/
 # Throwaway database + uploads made fresh by each Playwright run
 tests/e2e/.data/
+
+# Database backups (npm run backup): everyone's private data
+backups/

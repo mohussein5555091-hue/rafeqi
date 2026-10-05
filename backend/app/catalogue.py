@@ -65,6 +65,10 @@ def validate_exercises(items: list[dict], vocab: Vocab) -> list[str]:
                 problems.append(f"{where}: alternative kind must be one of {sorted(ALT_KINDS)}")
             if alt.get("exercise_id") and alt["exercise_id"] not in ids:
                 problems.append(f"{where}: alternative points at unknown exercise {alt['exercise_id']}")
+            elif alt.get("kind") == "equipment" and not alt.get("exercise_id") and not alt.get("equipment"):
+                problems.append(f"{where}: alternative {alt['name']['en']} isn't in the catalogue, so it needs its equipment (for the label)")
+            elif alt.get("equipment") and (bad := [x for x in alt["equipment"] if x not in vocab.ids("equipment")]):
+                problems.append(f"{where}: alternative {alt['name']['en']} has unknown equipment {bad}")
             elif alt.get("kind") == "equipment" and alt.get("exercise_id") and equipment[alt["exercise_id"]] <= {"bodyweight"}:
                 problems.append(f"{where}: alternative {alt['exercise_id']} needs no equipment, so its kind is noEquipment")
     return problems
@@ -96,10 +100,14 @@ def seed_exercises(db: Session, items: list[dict]) -> int:
     db.flush()
     # Substitutions are rebuilt from the file each time.
     db.execute(delete(ExerciseSubstitution).where(ExerciseSubstitution.exercise_id.in_([e["id"] for e in items])))
+    by_id = {e["id"]: e for e in items}
     for e in items:
         for priority, alt in enumerate(e.get("alternatives") or []):
+            sub = by_id.get(alt.get("exercise_id") or "")
+            equipment = list(sub["equipment"]) if sub else list(alt.get("equipment") or [])
             db.add(ExerciseSubstitution(exercise_id=e["id"], substitute_id=alt.get("exercise_id"), kind=alt["kind"],
-                                        name_en=alt["name"]["en"], name_ar=alt["name"]["ar"], priority=priority))
+                                        name_en=alt["name"]["en"], name_ar=alt["name"]["ar"], priority=priority,
+                                        equipment=[x for x in equipment if x not in ("bodyweight", "bench")]))
     return len(items)
 
 

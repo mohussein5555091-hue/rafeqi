@@ -73,6 +73,7 @@ start_load:
     ex_db_rdl: 0.25
     ex_bb_deadlift: 1.1
     ex_split_squat: 0.12
+    ex_step_up: 0.1
     ex_seated_leg_curl: 0.45
     ex_leg_extension: 0.4
     ex_calf_raise: 0.6
@@ -91,18 +92,28 @@ injuries:
     ar: التمارين اللي فيها حركة بتوجعك بتتبدّل بأقرب تمرين بنفس الحركة من غيرها؛ والمناطق اللي بتتعافى بتبدأ بوزن أخف.
   recovering_load_factor: 0.8    # exercises loading a "recovering" area start lighter
   min_load_factor: 0.5
-  # How close a substitute is: lower is closer. Only exercises with the same movement pattern are considered.
-  substitute_penalty: {different_range: 1, different_equipment: 1, harder_than_you: 3, per_difficulty_step: 1}
+  # How close a substitute is: lower is closer. Exercises with the same movement pattern are considered, plus the
+  # related leg patterns below (a barbell squat that hurts a lower back → leg press, split squat or step-up).
+  # lose_load: a loaded exercise replaced by a bodyweight-only one (only when nothing loaded fits).
+  substitute_penalty: {different_range: 1, different_equipment: 1, harder_than_you: 3, per_difficulty_step: 1, different_pattern: 2, lose_load: 3}
+  related_patterns:
+    squat: [lunge]
+    lunge: [squat]
+  # {why}: a painful movement's phrase ("pressing overhead") or a restriction's name ("No overhead lifting"),
+  # data/vocab/movements.yaml.
   explain:
     swapped:
-      en: "{from} → {to}: {to} avoids {why} for your {area}."
-      ar: "{from} ← {to}: {to} بيتجنب {why} عشان {area}."
+      en: "{from} → {to}: {to} avoids {why}, which hurts your {area}."
+      ar: "{from} ← {to}: {to} مافيهوش {why}، اللي بيوجع {area}."
     swapped_restriction:
-      en: "{from} → {to}: {to} keeps to your \"{why}\" restriction for your {area}."
-      ar: "{from} ← {to}: {to} ماشي مع ممنوع \"{why}\" عشان {area}."
+      en: "{from} → {to}: {to} keeps to the \"{why}\" restriction for your {area}."
+      ar: "{from} ← {to}: {to} ماشي مع قيد «{why}» على {area}."
     removed:
-      en: "{from} removed: no exercise in the catalogue avoids {why} for your {area} yet."
-      ar: "{from} اتشال: لسه مفيش تمرين في القائمة بيتجنب {why} عشان {area}."
+      en: "{from} removed: nothing in the catalogue avoids {why}, which hurts your {area}, yet."
+      ar: "{from} اتشال: لسه مفيش تمرين في القائمة من غير {why}، اللي بيوجع {area}."
+    removed_restriction:
+      en: "{from} removed: nothing in the catalogue keeps to the \"{why}\" restriction for your {area} yet."
+      ar: "{from} اتشال: لسه مفيش تمرين في القائمة ماشي مع قيد «{why}» على {area}."
     load:
       en: "{name} at {pct}% load while your {area} is {status}."
       ar: "{name} بـ {pct}% من الوزن وأنت {area} {status}."
@@ -236,9 +247,16 @@ warmup:
     no_ramp:
       en: "Warm-up {minutes} min: {general} min of {name} and {moves} mobility moves for today's muscles."
       ar: "تسخين {minutes} دقيقة: {general} دقايق {name} و{moves} حركات مرونة لعضلات النهارده."
+    # Moves an injury rules out: a painful movement (its phrase), a restriction (its name), or a paused area.
     skipped:
-      en: "{name} left out of the warm-up: it involves {why}, which hurts your {area}."
-      ar: "{name} اتشال من التسخين: فيه {why}، وده بيوجع {area}."
+      en: "Not in your warm-up: {name}. It involves {why}, which hurts your {area}."
+      ar: "{name} اتشال من التسخين: فيه {why}، اللي بيوجع {area}."
+    skipped_restriction:
+      en: "Not in your warm-up: {name}. It goes against the \"{why}\" restriction for your {area}."
+      ar: "{name} اتشال من التسخين عشان قيد «{why}» على {area}."
+    skipped_paused:
+      en: "Not in your warm-up: {name}, until your {area} has been checked."
+      ar: "{name} اتشال من التسخين لحد ما تكشف على {area}."
 
 # ── Cool-down (about 5–8 min, after every session) ───────────────────
 # Static stretches for the muscles trained that day: the stretches whose muscles had the most sets come first.
@@ -323,6 +341,17 @@ swaps:
     en: An exercise you swapped is replaced by one with the same movement and muscles that fits your equipment and injuries, and the weekly review never puts the old one back.
     ar: التمرين اللي بدّلته بيتحط مكانه تمرين بنفس الحركة والعضلات ومناسب لأدواتك وإصاباتك، والمراجعة الأسبوعية عمرها ما ترجّع القديم.
   max_alternatives: 4
+  # When too few exercises share the movement pattern, others for the same main muscles are offered, but only in the
+  # same direction: a push stays a push (a curl is never swapped for a triceps pushdown), a knee-bending leg exercise
+  # stays one (a leg extension is never swapped for a deadlift).
+  directions:
+    push: [horizontalPush, verticalPush, dip, elbowExtension, shoulderAbduction]
+    pull: [horizontalPull, verticalPull, elbowFlexion, shoulderExternalRotation]
+    kneeDominant: [squat, lunge, kneeExtension]
+    hipDominant: [hinge, kneeFlexion]
+    calves: [plantarFlexion]
+    core: [core]
+    carry: [carry]
   explain:
     en: "{from} → {to}: your choice ({why})."
     ar: "{from} ← {to}: اختيارك ({why})."
@@ -371,11 +400,15 @@ deload:
   source: "PLACEHOLDER: deload timing; to be replaced with the Jeff Nippard programs' deload weeks (Helms, The Muscle & Strength Pyramid: Training)"
   uses: [checkin]
   summary:
-    en: "A lighter week (one set fewer, effort one lower) lets joints and muscles recover: planned by the program, or sooner when a check-in says training felt too hard."
-    ar: "أسبوع أخف (مجموعة أقل ومجهود أقل بدرجة) بيدّي المفاصل والعضل فرصة تتعافى: البرنامج بيحدده، أو بدري لو المتابعة قالت إن التمرين كان صعب أوي."
+    en: "A lighter week (one set fewer, effort one lower, same weights) lets joints and muscles recover: planned by the program, or sooner when a check-in says training felt too hard."
+    ar: "أسبوع أخف (مجموعة أقل ومجهود أقل بدرجة، بنفس الأوزان) بيدّي المفاصل والعضل فرصة تتعافى: البرنامج بيحدده، أو بدري لو المتابعة قالت إن التمرين كان صعب أوي."
+  # The lighter week: every exercise loses `sets_minus` sets (never below 1) and its target effort drops by `rpe_minus`;
+  # weights stay at last time's (no progression step that week). backend/app/engine/training.py deload_volume()
+  sets_minus: 1
+  rpe_minus: 1
   explain:
-    en: "Week {week} of {total} is a lighter week. A check-in that says sessions felt very hard (difficulty {difficulty}/5, soreness {soreness}/5 or effort RPE {effort}+) makes the next week lighter too."
-    ar: "الأسبوع {week} من {total} أسبوع أخف. ولو المتابعة قالت إن التمرين كان صعب جدًا (صعوبة {difficulty}/5 أو تكسير {soreness}/5 أو مجهود {effort} أو أكتر) الأسبوع اللي بعده هيبقى أخف كمان."
+    en: "Week {week} of {total} is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty {difficulty}/5, soreness {soreness}/5 or effort RPE {effort}+) makes the next week lighter too."
+    ar: "الأسبوع {week} من {total} أسبوع أخف: مجموعة أقل ومجهود أقل بدرجة، بنفس الأوزان. ولو المتابعة قالت إن التمرين كان صعب جدًا (صعوبة {difficulty}/5 أو تكسير {soreness}/5 أو مجهود {effort} أو أكتر) الأسبوع اللي بعده هيبقى أخف كمان."
   explain_none:
     en: "A check-in that says sessions felt very hard (difficulty {difficulty}/5, soreness {soreness}/5 or effort RPE {effort}+) makes the next week lighter."
     ar: "لو المتابعة قالت إن التمرين كان صعب جدًا (صعوبة {difficulty}/5 أو تكسير {soreness}/5 أو مجهود {effort} أو أكتر) الأسبوع اللي بعده هيبقى أخف."
@@ -388,3 +421,16 @@ equipment:
   summary:
     en: "Exercises that need equipment your training place doesn't have (or that you said is missing) are swapped for the same movement with what you have."
     ar: "التمارين اللي محتاجة أدوات مش موجودة في مكان تمرينك (أو قلت إنها مش متاحة) بتتبدّل بنفس الحركة باللي عندك."
+
+# ── Moving a session this week ("Do this workout today" / "Move to another day") ──
+# Only upcoming sessions of this week, to today or a later day of this week that has no other workout. Two sessions
+# that train the same muscles (they share a main muscle) need `min_rest_days` full days between them.
+# backend/app/engine/schedule.py
+reschedule:
+  placeholder: true
+  source: "PLACEHOLDER: rest between sessions for the same muscles; to be checked against the Jeff Nippard programs' weekly layout"
+  uses: [days_per_week]
+  summary:
+    en: "You can move a session to another day this week, as long as sessions for the same muscles keep a rest day between them."
+    ar: "تقدر تنقل تمرينة ليوم تاني في الأسبوع ده، بشرط إن التمرينات اللي لنفس العضلات يفضل بينها يوم راحة."
+  min_rest_days: 1

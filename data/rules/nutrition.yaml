@@ -5,6 +5,8 @@ version: 1
 
 bmr:
   # Mifflin-St Jeor: 10 × kg + 6.25 × cm − 5 × age + 5 (men) or − 161 (women)
+  # A standard published formula, not from your books: "Why this plan" labels it "Standard formula" with this source.
+  kind: formula
   placeholder: false
   source: "Mifflin MD, St Jeor ST et al. (1990) Am J Clin Nutr 51:241-247"
   uses: [sex, age, height_cm, weight_kg]

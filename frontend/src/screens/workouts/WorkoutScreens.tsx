@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
-  Check, ChevronLeft, ChevronRight, Dumbbell, ExternalLink, Footprints, HeartPulse, X, ArrowDown, Shield, Zap, TrendingDown, Bandage, Pencil, Repeat, Undo2,
+  CalendarDays, Check, ChevronLeft, ChevronRight, Dumbbell, ExternalLink, Footprints, HeartPulse, X, ArrowDown, Shield, Zap, TrendingDown, Bandage, Pencil, Repeat, Undo2,
 } from 'lucide-react';
 import {
   AppShell, BodyMap, Button, Card, ChipGroup, ExerciseMedia, ExerciseThumb, Icon, LinkButton, ProgressBar, QueryView, ScalePicker, SwapBadge,
@@ -10,8 +10,8 @@ import {
 import { useI18n } from '@/i18n';
 import { api } from '@/data/api';
 import { useQuery } from '@/data/useQuery';
-import type { BodyRegion, Exercise, ExerciseResult, Injury, SessionExercise, Workout, WorkoutWeek } from '@/types';
-import { CardioCard, CooldownSection, InfoLink, SwapSheet, WarmupSection, useSwapLabel } from './SessionExtras';
+import type { BodyRegion, Exercise, ExerciseResult, Injury, MoveOption, SessionExercise, Workout, WorkoutWeek } from '@/types';
+import { CardioCard, CooldownSection, InfoLink, SwapSheet, WarmupSection, todayIso, useSwapLabel } from './SessionExtras';
 
 type T = (k: string, v?: Record<string, string | number>) => string;
 
@@ -24,8 +24,10 @@ export const asPlanned = (e: SessionExercise): ExerciseResult => ({ sets: e.targ
 function useFormat() {
   const { t, num } = useI18n();
   /** "3 × 9 @ 22.5 kg" (or "3 × 12" for bodyweight) */
-  const result = (r: Pick<ExerciseResult, 'sets' | 'reps' | 'weightKg'>) =>
-    (r.weightKg ? t('workouts.target', { sets: r.sets, reps: r.reps, kg: num(r.weightKg, 1) }) : t('workouts.targetBw', { sets: r.sets, reps: r.reps }));
+  const result = (r: Pick<ExerciseResult, 'sets' | 'reps' | 'weightKg' | 'perSet'>) =>
+    (r.perSet?.length // logged set by set: each set as it was done
+      ? r.perSet.map((s) => (s.weightKg ? t('workouts.setLine', { reps: s.reps, kg: num(s.weightKg, 1) }) : t('workouts.setLineBw', { reps: s.reps }))).join(', ')
+      : r.weightKg ? t('workouts.target', { sets: r.sets, reps: r.reps, kg: num(r.weightKg, 1) }) : t('workouts.targetBw', { sets: r.sets, reps: r.reps }));
   return {
     result,
     target: (e: SessionExercise) => result(e.target),
@@ -48,7 +50,7 @@ export function WorkoutPlan() {
   const exMap = useExerciseMap();
   const [selected, setSelected] = useState<string>();
   return (
-    <AppShell title={t('nav.workouts')} sub={q.data ? t('workouts.programSub', { week: q.data.weekNumber, total: q.data.totalWeeks }) : undefined}>
+    <AppShell title={t('nav.workouts')} sub={q.data ? t('workouts.programSub', { program: l(q.data.programName), week: q.data.weekNumber, total: q.data.totalWeeks }) : undefined}>
       <QueryView query={q}>
         {(w) => {
           const current = w.sessions.find((s) => s.id === selected) ?? w.sessions.find((s) => s.status === 'today') ?? w.sessions[0];
@@ -94,7 +96,11 @@ export function WorkoutPlan() {
                   <Icon as={HeartPulse} size={16} className="text-warn-600" />{t('cardio.perWeek', { n: w.cardio.sessionsPerWeek })} · <Footprints size={16} aria-hidden />{t('cardio.steps', { n: num(w.cardio.stepsPerDay) })}
                 </p>
               )}
-              <p className="m-0 text-[12.5px] text-neutral-700">{t('workouts.deload', { week: w.deloadWeek })}</p>
+              {w.deload.thisWeek ? (
+                <p data-testid="deload-now" className="m-0 rounded-lg bg-sage-100 px-4 py-3 text-[13.5px] text-sage-900">
+                  {w.deload.byCheckIn ? t('workouts.deloadCheckIn') : t('workouts.deloadNow', { sets: w.deload.setsMinus, rpe: w.deload.rpeMinus })}
+                </p>
+              ) : w.deload.week && w.deload.week > w.weekNumber ? <p className="m-0 text-[12.5px] text-neutral-700">{t('workouts.deload', { week: w.deload.week })}</p> : null}
               <div className="hidden lg:block"><SessionPanel s={current} exMap={exMap} onChanged={q.reload} /></div>
             </>
           );
@@ -169,6 +175,7 @@ function SessionBody({ s, exMap, injuries, twoCols, onChanged }: { s: Workout; e
         {s.exercises.map((e, i) => <ExerciseRow key={e.exerciseId} e={e} i={i} ex={exMap.get(e.exerciseId)} result={log ? log.results[e.exerciseId] ?? null : undefined}
           onSwap={canSwap ? () => setSwapping(e) : undefined} />)}
       </ol>
+      {!canSwap && <p data-testid="past-locked" className="m-0 text-[13px] text-neutral-800">{t('workouts.pastLocked')}</p>}
       <p className="m-0 text-[12.5px] text-neutral-700">{t('workouts.rpeHelp')}</p>
       <CooldownSection w={s} exMap={exMap} />
       {s.cardio && <CardioCard w={s} c={s.cardio} exMap={exMap} />}
@@ -211,22 +218,88 @@ export function Session() {
         {([s, week, injuries]) => (
           <>
             <DayNav s={s} week={week} />
+            {s.movedFrom && <p data-testid="moved-from" className="m-0 text-[13px] font-semibold text-neutral-800">{t('workouts.movedFrom', { day: t(`enums.weekday.${s.movedFrom}`) })}</p>}
             {s.kind === 'strength' && (
               <div className="flex flex-wrap gap-2">
                 <span className="rounded-pill bg-neutral-100 px-3 py-1 text-xs">{t('workouts.nExercises', { n: s.exercises.length })}</span>
                 <span className="rounded-pill bg-neutral-100 px-3 py-1 text-xs">{t('workouts.nSets', { n: s.exercises.reduce((a, e) => a + e.sets, 0) })}</span>
                 <span className="rounded-pill bg-neutral-100 px-3 py-1 text-xs">{t('workouts.warmup', { n: s.warmupMinutes })}</span>
+                {s.lighter && <span className="rounded-pill bg-sage-100 px-3 py-1 text-xs font-semibold text-sage-900">{t('workouts.lighter')}</span>}
               </div>
             )}
             <SessionBody s={s} exMap={exMap} injuries={injuries} onChanged={(newId) => (newId && newId !== s.id ? nav(`/workouts/${newId}`, { replace: true }) : q.reload())} />
             {s.status === 'today' && s.exercises.length > 0 && <LinkButton to={`/workouts/${s.id}/log`} size="lg" block className="lg:w-auto lg:self-start">{t('workouts.start')}</LinkButton>}
             {s.status === 'planned' && s.kind === 'strength' && <p className="m-0 text-[13px] text-neutral-800">{t('workouts.startOnDay', { day: t(`enums.weekday.${s.day}`) })}</p>}
+            {s.status === 'planned' && s.kind === 'strength' && <MoveControls s={s} onMoved={q.reload} />}
             {s.status === 'missed' && <p className="m-0 text-[13px] text-neutral-800">{t('workouts.missed')}</p>}
           </>
         )}
       </QueryView>
     </AppShell>
   );
+}
+
+/** "Do this workout today" and "Move to another day" for a session still to come this week. Days that don't work
+ *  (another workout, or too close to a session for the same muscles) are shown with why. */
+function MoveControls({ s, onMoved }: { s: Workout; onMoved: () => void }) {
+  const { t, l, date } = useI18n();
+  const toast = useToast();
+  const q = useQuery(() => api.getMoveOptions(s.id), [s.id, s.date]);
+  const [open, setOpen] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const why = (o: MoveOption) => (o.why ? t(`workouts.moveWhy.${o.why}`, { day: t(`enums.weekday.${o.other?.day ?? o.day}`), name: o.other ? l(o.other.name) : '' }) : '');
+  const move = async (o: MoveOption) => {
+    setBusy(true);
+    try {
+      await api.moveWorkout(s.id, o.date);
+      toast({ message: t('workouts.movedTo', { day: t(`enums.weekday.${o.day}`) }), tone: 'success' });
+      setOpen(false);
+      onMoved();
+    } catch {
+      toast({ message: t('common.saveFailed'), tone: 'error' });
+    } finally {
+      setBusy(false);
+    }
+  };
+  const options = q.data ?? [];
+  const today = options.find((o) => o.date === todayIso());
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-wrap gap-2">
+        {today && <Button size="lg" icon={Dumbbell} disabled={busy || !today.ok} onClick={() => move(today)}>{t('workouts.doToday')}</Button>}
+        <Button variant="secondary" size="lg" icon={CalendarDays} disabled={busy || !options.length} onClick={() => setOpen(true)}>{t('workouts.moveDay')}</Button>
+        {s.movedFrom && <Button variant="ghost" size="lg" disabled={busy} onClick={() => api.moveWorkout(s.id, plannedDate(s)).then(onMoved, () => toast({ message: t('common.saveFailed'), tone: 'error' }))}>{t('workouts.moveBack', { day: t(`enums.weekday.${s.movedFrom}`) })}</Button>}
+      </div>
+      {today && !today.ok && <p data-testid="today-why" className="m-0 text-[13px] text-neutral-800">{why(today)}</p>}
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-neutral-900/50 lg:items-center" role="dialog" aria-modal="true" aria-label={t('workouts.moveTitle', { name: l(s.name) })} onClick={() => setOpen(false)}>
+          <div className="flex max-h-[90vh] w-full max-w-lg flex-col gap-3 overflow-auto rounded-t-[36px] bg-bg px-4 pb-7 pt-3 shadow-lg lg:rounded-card" onClick={(ev) => ev.stopPropagation()}>
+            <span className="h-1.5 w-11 self-center rounded-pill bg-neutral-400 lg:hidden" />
+            <div className="flex items-center justify-between gap-3"><h2 className="m-0 text-2xl">{t('workouts.moveTitle', { name: l(s.name) })}</h2><Button variant="secondary" size="icon" icon={X} aria-label={t('common.close')} onClick={() => setOpen(false)} /></div>
+            <span className="text-[13.5px] text-neutral-800">{t('workouts.moveIntro')}</span>
+            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+              {options.map((o) => (
+                <li key={o.date}>
+                  <button type="button" disabled={!o.ok || busy} onClick={() => move(o)} data-testid="move-option"
+                    className={cn('flex min-h-[60px] w-full flex-col justify-center rounded-lg px-4 py-2.5 text-start', o.ok ? 'bg-surface hover:bg-neutral-300' : 'cursor-not-allowed bg-neutral-100 text-neutral-700')}>
+                    <strong className="text-[15px]">{t(`enums.weekday.${o.day}`)} {date(o.date, { day: 'numeric' })}</strong>
+                    {!o.ok && <span className="text-[12.5px]">{why(o)}</span>}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** The program's own day for a moved session (the week starts on Saturday). */
+function plannedDate(s: Workout): string {
+  const order = ['sat', 'sun', 'mon', 'tue', 'wed', 'thu', 'fri'];
+  const start = Date.parse(`${s.date}T00:00:00Z`) - order.indexOf(s.day) * 86_400_000;
+  return new Date(start + order.indexOf(s.movedFrom ?? s.day) * 86_400_000).toISOString().slice(0, 10);
 }
 
 function DayNav({ s, week }: { s: Workout; week: WorkoutWeek }) {
@@ -314,7 +387,7 @@ export function ExerciseDetail() {
                         {a.imageUrl
                           ? <ExerciseThumb ex={a} size={48} />
                           : <span className={cn('grid h-tap w-tap place-items-center rounded-full', a.kind === 'easier' ? 'bg-sage-200 text-sage-800' : equipmentKind ? 'bg-neutral-200 text-neutral-800' : 'bg-warn-100 text-warn-800')}><Icon as={a.kind === 'easier' ? ArrowDown : equipmentKind ? Dumbbell : Shield} size={18} /></span>}
-                        <div className="flex-1 leading-tight"><strong className="block text-[14.5px]">{l(a.name)}</strong><span className="text-xs text-neutral-700">{t(`exercise.kind.${a.kind}`)}</span></div>
+                        <div className="flex-1 leading-tight"><strong className="block text-[14.5px]">{l(a.name)}</strong><span className="text-xs text-neutral-700">{a.kind === 'equipment' && a.equipment ? t('exercise.kind.equipmentWith', { equipment: l(a.equipment) }) : t(`exercise.kind.${a.kind}`)}</span></div>
                       </>
                     );
                     const cls = 'flex min-h-[60px] items-center gap-3 rounded-pill bg-surface py-2 pe-3 ps-2';
@@ -433,7 +506,7 @@ export function WorkoutLogger() {
                   <LogCard key={e.exerciseId} e={e} ex={exMap.get(e.exerciseId)} result={results[e.exerciseId]} editing={editing === e.exerciseId}
                     onEdit={() => setEditing(e.exerciseId)} onCancel={() => setEditing(null)}
                     onLog={(r) => { log(e.exerciseId, r); setEditing(null); }}
-                    onSwap={results[e.exerciseId] ? undefined : () => setSwapping(e)} />
+                    onSwap={results[e.exerciseId] || w.status !== 'today' ? undefined : () => setSwapping(e)} />
                 ))}
               </ol>
               <CooldownSection w={w} exMap={exMap} />
@@ -510,33 +583,80 @@ function LogCard({ e, ex, result, editing, onEdit, onCancel, onLog, onSwap }: {
   );
 }
 
-/** One row: sets done, reps (one number), weight, and "struggled on the last set". */
+/** One row: sets done, reps (one number), weight, and "struggled on the last set". Or "Log each set": one row per set
+ *  (prefilled from the row), each with its own reps and weight. */
 function ResultEditor({ initial, name, onSave, onCancel }: { initial: ExerciseResult; name: string; onSave: (r: ExerciseResult) => void; onCancel: () => void }) {
   const { t } = useI18n();
   const [v, setV] = useState({ sets: String(initial.sets), reps: String(initial.reps), weightKg: String(initial.weightKg) });
   const [struggled, setStruggled] = useState(initial.struggled);
+  const [each, setEach] = useState(!!initial.perSet?.length);
+  const [rows, setRows] = useState(() => (initial.perSet?.length ? initial.perSet : Array.from({ length: initial.sets }, () => ({ reps: initial.reps, weightKg: initial.weightKg })))
+    .map((s) => ({ reps: String(s.reps), weightKg: String(s.weightKg) })));
   const parse = (s: string) => Number(s.trim().replace(',', '.').replace(/[٠-٩]/g, (d) => String('٠١٢٣٤٥٦٧٨٩'.indexOf(d))));
+  const badReps = (s: string) => !(Number.isInteger(parse(s)) && parse(s) >= 0 && parse(s) <= 100);
+  const badKg = (s: string) => !(s.trim() !== '' && parse(s) >= 0 && parse(s) <= 500);
   const sets = parse(v.sets), reps = parse(v.reps), weightKg = parse(v.weightKg);
   const bad = {
     sets: !(Number.isInteger(sets) && sets >= 0 && sets <= 20),
-    reps: !(Number.isInteger(reps) && reps >= 0 && reps <= 100),
-    weightKg: !(v.weightKg.trim() !== '' && weightKg >= 0 && weightKg <= 500),
+    reps: badReps(v.reps),
+    weightKg: badKg(v.weightKg),
+  };
+  const rowsBad = rows.some((r) => badReps(r.reps) || badKg(r.weightKg));
+  const invalid = each ? rowsBad : Object.values(bad).some(Boolean);
+  const startEach = (on: boolean) => {
+    if (on && !bad.sets) { // prefill one row per set from the single row
+      setRows(Array.from({ length: sets }, (_, i) => rows[i] ?? { reps: v.reps, weightKg: v.weightKg }));
+    }
+    setEach(on);
+  };
+  const save = () => {
+    if (!each) {
+      onSave({ sets, reps: sets ? reps : 0, weightKg: sets ? Math.round(weightKg * 4) / 4 : 0, struggled: sets > 0 && struggled });
+      return;
+    }
+    const perSet = rows.map((r) => ({ reps: parse(r.reps), weightKg: Math.round(parse(r.weightKg) * 4) / 4 }));
+    const top = Math.max(0, ...perSet.map((s) => s.weightKg));
+    const atTop = perSet.filter((s) => s.weightKg === top).map((s) => s.reps);
+    onSave({ sets: perSet.length, reps: atTop.length ? Math.min(...atTop) : 0, weightKg: top, struggled: perSet.length > 0 && struggled, perSet });
   };
   const fields = [['sets', t('logger.sets'), 'numeric'], ['reps', t('logger.reps'), 'numeric'], ['weightKg', t('logger.weightKg'), 'decimal']] as const;
+  const input = (value: string, invalidField: boolean, label: string, mode: 'numeric' | 'decimal', onChange: (s: string) => void) => (
+    <TextInput aria-label={label} inputMode={mode} enterKeyHint="done" value={value} invalid={invalidField} className="px-3 text-center text-lg font-semibold tabular"
+      onFocus={(ev) => ev.target.select()} onChange={(ev) => onChange(ev.target.value)} />
+  );
   return (
-    <form className="flex flex-col gap-3" aria-label={t('logger.editResult', { name })}
-      onSubmit={(ev) => { ev.preventDefault(); if (!Object.values(bad).some(Boolean)) onSave({ sets, reps: sets ? reps : 0, weightKg: sets ? Math.round(weightKg * 4) / 4 : 0, struggled: sets > 0 && struggled }); }}>
-      <div className="grid grid-cols-3 gap-2">
-        {fields.map(([k, label, mode]) => (
-          <label key={k} className="flex min-w-0 flex-col gap-1 text-xs text-neutral-800">{label}
-            <TextInput inputMode={mode} enterKeyHint="done" value={v[k]} invalid={bad[k]} className="px-3 text-center text-lg font-semibold tabular"
-              onFocus={(ev) => ev.target.select()} onChange={(ev) => setV({ ...v, [k]: ev.target.value })} />
-          </label>
-        ))}
-      </div>
+    <form className="flex flex-col gap-3" aria-label={t('logger.editResult', { name })} onSubmit={(ev) => { ev.preventDefault(); if (!invalid) save(); }}>
+      {each ? (
+        <ol className="m-0 flex list-none flex-col gap-2 p-0" data-testid="set-rows">
+          {rows.map((r, i) => (
+            <li key={i} className="grid grid-cols-[4.5rem_1fr_1fr] items-end gap-2">
+              <span className="pb-3 text-[13px] font-semibold text-neutral-800">{t('logger.setN', { n: i + 1 })}</span>
+              <label className="flex min-w-0 flex-col gap-1 text-xs text-neutral-800">{t('logger.reps')}
+                {input(r.reps, badReps(r.reps), `${t('logger.setN', { n: i + 1 })}: ${t('logger.reps')}`, 'numeric', (s) => setRows(rows.map((x, j) => (j === i ? { ...x, reps: s } : x))))}
+              </label>
+              <label className="flex min-w-0 flex-col gap-1 text-xs text-neutral-800">{t('logger.weightKg')}
+                {input(r.weightKg, badKg(r.weightKg), `${t('logger.setN', { n: i + 1 })}: ${t('logger.weightKg')}`, 'decimal', (s) => setRows(rows.map((x, j) => (j === i ? { ...x, weightKg: s } : x))))}
+              </label>
+            </li>
+          ))}
+          <li className="flex flex-wrap gap-2">
+            <Button variant="secondary" size="sm" disabled={rows.length >= 20} onClick={() => setRows([...rows, rows.at(-1) ?? { reps: v.reps, weightKg: v.weightKg }])}>{t('logger.addSet')}</Button>
+            <Button variant="ghost" size="sm" disabled={!rows.length} onClick={() => setRows(rows.slice(0, -1))}>{t('logger.removeSet')}</Button>
+          </li>
+        </ol>
+      ) : (
+        <div className="grid grid-cols-3 gap-2">
+          {fields.map(([k, label, mode]) => (
+            <label key={k} className="flex min-w-0 flex-col gap-1 text-xs text-neutral-800">{label}
+              {input(v[k], bad[k], label, mode, (s) => setV({ ...v, [k]: s }))}
+            </label>
+          ))}
+        </div>
+      )}
+      <Toggle checked={each} onChange={startEach} label={<span className="text-[13px]">{t('logger.logEachSet')}</span>} />
       <Toggle checked={struggled} onChange={setStruggled} label={<span className="text-[13px]">{t('logger.struggled')}</span>} />
       <div className="flex gap-2">
-        <Button type="submit" className="flex-1" disabled={Object.values(bad).some(Boolean)}>{t('logger.saveResult')}</Button>
+        <Button type="submit" className="flex-1" disabled={invalid}>{t('logger.saveResult')}</Button>
         <Button variant="secondary" onClick={onCancel}>{t('common.cancel')}</Button>
       </div>
     </form>

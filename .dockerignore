@@ -1,0 +1,16 @@
+# Never sent into the image: secrets, private data, books, local installs and test output.
+.env
+.env.*
+data/*.db*
+data/uploads/
+books/
+Books/
+*.pdf
+**/node_modules/
+**/.venv/
+**/__pycache__/
+frontend/dist/
+tests/
+design/
+tools/
+.git/

@@ -41,19 +41,40 @@ def test_every_reason_in_the_plan_is_on_the_page_with_its_source_or_the_placehol
         assert d["source"]["text"], d["rule"]
         if not d["source"]["placeholder"]:
             assert d["source"]["book"] and d["source"]["page"] and d["source"]["quote"]["en"] and d["source"]["quote"]["ar"]
-    assert why["backed"] == sum(not d["source"]["placeholder"] for d in decisions)
+    assert why["backed"] == sum(d["source"]["kind"] == "book" for d in decisions)
     assert why["aiSummary"] is None  # comes in the AI phase
 
 
-def test_only_rules_with_a_book_reference_count_as_backed(planned):  # noqa: F811
-    """Today every rule but the resting-burn formula is a placeholder, so 1 decision is backed."""
+def test_three_kinds_of_source_and_the_counts(planned):  # noqa: F811
+    """Today every rule is a placeholder except the resting-burn formula, which is a standard published formula (not
+    from the books): so no decision is "from your books" yet, and 1 is a "Standard formula" with its original source."""
     why = planned.client.get("/api/plan/why").json()
     decisions = [d for g in why["groups"] for d in g["decisions"]]
-    backed = [d for d in decisions if not d["source"]["placeholder"]]
-    assert [d["rule"] for d in backed] == ["nutrition.bmr"] and why["backed"] == 1
-    assert backed[0]["source"]["page"] == "241–247" and "Clinical Nutrition" in backed[0]["source"]["book"]
-    assert all("PLACEHOLDER" in d["source"]["text"] for d in decisions if d["source"]["placeholder"])
+    assert {d["source"]["kind"] for d in decisions} == {"formula", "placeholder"}
+    formula = [d for d in decisions if d["source"]["kind"] == "formula"]
+    assert [d["rule"] for d in formula] == ["nutrition.bmr"] and why["formulas"] == 1 and why["backed"] == 0
+    assert formula[0]["source"]["page"] == "241–247" and "Clinical Nutrition" in formula[0]["source"]["book"]
+    assert all("PLACEHOLDER" in d["source"]["text"] for d in decisions if d["source"]["kind"] == "placeholder")
     assert all("book" not in d["source"] for d in decisions if d["source"]["placeholder"])
+    keys = {d["ruleKey"] for d in decisions}
+    assert why["rules"] == {"total": len(keys), "fromBooks": 0, "formulas": 1}
+    assert len(keys) < len(decisions)  # many decisions share a rule (one starting weight per exercise…)
+    assert {"training.start_load", "nutrition.goal", "nutrition.bmr"} <= keys
+
+
+def test_a_rule_from_a_book_counts_as_from_your_books(planned, monkeypatch):  # noqa: F811
+    from app.engine import rules
+
+    real = rules.load_rules()
+    fake = {**real, "training": {**real["training"], "start_load": {**real["training"]["start_load"], "placeholder": False,
+            "ref": {"book": "Fundamentals Hypertrophy Program", "chapter": "Week 1", "page": 12,
+                    "quote": {"en": "Start light.", "ar": "ابدأ خفيف."}}}}}
+    monkeypatch.setattr("app.views.why.load_rules", lambda: fake)
+    why = planned.client.get("/api/plan/why").json()
+    decisions = [d for g in why["groups"] for d in g["decisions"]]
+    start = [d for d in decisions if d["ruleKey"] == "training.start_load"]
+    assert start and all(d["source"]["kind"] == "book" for d in start)
+    assert why["backed"] == len(start) and why["rules"]["fromBooks"] == 1
 
 
 def test_every_kind_of_decision_is_covered(planned):  # noqa: F811
@@ -117,6 +138,8 @@ def test_rule_files_need_what_the_why_page_shows():
     assert _check_sources("nutrition", {"fat": good}) == []
     assert "needs a summary" in _check_sources("nutrition", {"fat": good | {"summary": {"en": "only English"}}})[0]
     assert "needs `uses`" in _check_sources("nutrition", {"fat": {k: v for k, v in good.items() if k != "uses"}})[0]
+    assert "kind must be book or formula" in _check_sources("nutrition", {"fat": good | {"kind": "guess"}})[0]
+    assert "isn't a placeholder" in _check_sources("nutrition", {"fat": good | {"kind": "formula"}})[0]
     backed = good | {"placeholder": False}
     assert "needs `ref` with book, page" in _check_sources("nutrition", {"fat": backed})[0]
     ref = {"book": "B", "page": 12, "quote": {"en": "One. Two. Three.", "ar": "واحد. اتنين."}}

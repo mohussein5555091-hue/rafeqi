@@ -39,6 +39,10 @@ test('sign up, then the questionnaire: saved step by step, survives a reload, re
   await page.goto('/onboarding');
   await expect(page).toHaveURL(/\/onboarding\/training$/);
   await page.getByRole('radio', { name: '3', exact: true }).click(); // days per week
+  // Experience is required: nothing is picked until the person chooses.
+  await expect(page.getByText('Pick one to continue')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Next' })).toBeDisabled();
+  await page.getByRole('radio', { name: 'Intermediate' }).check({ force: true });
   await page.getByRole('button', { name: 'Next' }).click();
   for (const step of ['injuries', 'health', 'food']) {
     await expect(page).toHaveURL(new RegExp(`/onboarding/${step}$`));

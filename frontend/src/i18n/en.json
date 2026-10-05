@@ -35,11 +35,11 @@
     "resetLaterTitle": "Password reset by email is coming later",
     "resetLaterBody": "For now, ask the person who runs Rafeqi to set a new password for you. Then log in with it and change it in Profile & settings.",
     "sendLink": "Send reset link", "backToLogin": "Back to log in",
-    "errors": {
+    "inviteCode": "Invite code", "inviteHint": "Rafeqi is invite-only for now: ask the person who invited you.", "errors": {
       "email": "Enter a full email, like name@gmail.com", "passwordRequired": "Enter your password",
       "invalid": "That email and password don't match. Check them and try again, or reset your password.",
       "firstName": "Enter your first name", "passwordRules": "Use at least 8 characters with one number.",
-      "consent": "Please confirm you're 18+ to continue.",
+      "consent": "Please confirm you're 18+ to continue.", "inviteRequired": "Enter the invite code you were given.", "inviteWrong": "That invite code isn't right. Check it with the person who invited you.",
       "emailTaken": "There's already an account with this email. Log in instead.",
       "failed": "Something went wrong. Please try again."
     }
@@ -58,7 +58,7 @@
     },
     "training": {
       "title": "Your training", "intro": "So your program fits your week and your gym.", "experience": "Experience", "days": "Days per week", "length": "Session length", "location": "Where do you train?",
-      "expHint": { "beginner": "New to lifting or back after a long break.", "intermediate": "1–3 years of regular lifting.", "advanced": "3+ years, comfortable with heavy compound lifts." }
+      "expPick": "Pick one to continue: it sets your program and starting weights.", "expHint": { "beginner": "New to lifting or back after a long break.", "intermediate": "1–3 years of regular lifting.", "advanced": "3+ years, comfortable with heavy compound lifts." }
     },
     "injuries": {
       "title": "Any injuries?", "intro": "Tap anywhere that hurts or has been injured. We'll adjust your exercises around it.",
@@ -118,19 +118,23 @@
     "noNotesTitle": "No coach notes yet", "noNotesBody": "Your first review appears after your first weekly check-in."
   },
   "workouts": {
-    "programSub": "Upper / Lower · week {week} of {total}", "prevWeek": "Previous week", "nextWeek": "Next week",
+    "programSub": "{program} · week {week} of {total}", "prevWeek": "Previous week", "nextWeek": "Next week",
     "doneMeta": "Done · {min} min · {done}/{total} sets", "todayMeta": "Today · {min} min", "weekProgress": "Sessions done this week",
-    "doneOf": "{done} of {total} done", "deload": "Week {week} is a lighter week to let your joints recover.",
+    "doneOf": "{done} of {total} done", "deload": "Week {week} is a lighter week to let your joints recover.", "deloadNow": "This is your lighter week: {sets} set fewer and effort {rpe} lower on every exercise, at the same weights, so your joints and muscles recover.", "deloadCheckIn": "This week is lighter because your check-in said training felt very hard.", "lighter": "Lighter week",
     "start": "Start workout", "sessionMeta": "{n} exercises · about {min} min", "about": "about {min} min",
     "nExercises": "{n} exercises", "nSets": "{n} sets", "warmup": "Warm-up {n} min",
     "rest": "Rest {t}", "rpe": "RPE {n}", "howTo": "How to do {name}",
-    "swappedFor": "Swapped for your {area}", "addedFor": "Added to support your {area}",
+    "swappedFor": "Swapped for your {area}", "addedFor": "Added because of your {area}",
     "rpeHelp": "RPE = how hard a set feels. RPE 8 means you could do about 2 more reps.",
     "detailsSoon": "This session's exercises appear closer to the day.",
-    "range": "Range {reps}", "reason": { "findWeight": "Find your weight: start light", "start": "Starting weight", "addReps": "+1 rep since last time", "addWeight": "+{kg} kg since last time", "repeat": "Same as last time", "dropWeight": "−{kg} kg to get the reps back" },
-    "target": "{sets} × {reps} @ {kg} kg", "targetBw": "{sets} × {reps}", "prevDay": "Previous workout", "nextDay": "Next workout",
+    "range": "Range {reps}", "reason": { "findWeight": "Find your weight: start light", "deload": "Lighter week: same weight as last time", "start": "Starting weight", "addReps": "+1 rep since last time", "addWeight": "+{kg} kg since last time", "repeat": "Same as last time", "dropWeight": "−{kg} kg to get the reps back" },
+    "target": "{sets} × {reps} @ {kg} kg", "targetBw": "{sets} × {reps}", "setLine": "{reps} × {kg} kg", "setLineBw": "{reps} reps", "prevDay": "Previous workout", "nextDay": "Next workout",
     "dayOf": "Workout {n} of {total} this week", "whatYouDid": "What you did", "skipped": "Skipped", "effortLogged": "Effort {n}/10",
-    "painAfter": "{area} after: {n}/10", "startOnDay": "You can start this workout on {day}.", "missed": "Missed"
+    "painAfter": "{area} after: {n}/10", "startOnDay": "You can start this workout on {day}.", "missed": "Missed", "pastLocked": "Past sessions can't be changed.",
+    "doToday": "Do this workout today", "moveDay": "Move to another day", "moveTitle": "Move {name} to…",
+    "moveIntro": "Sessions for the same muscles keep a rest day between them.", "movedFrom": "Moved from {day}",
+    "movedTo": "Moved to {day}", "moveBack": "Back to {day}",
+    "moveWhy": { "dayTaken": "{day} already has {name}.", "tooClose": "Too close to {name} on {day}: the same muscles need a rest day in between.", "past": "That day has passed." }
   },
   "exercise": {
     "swappedIn": "You swapped this in for {name}, from now on ({why}).",
@@ -140,7 +144,7 @@
     "media": "Exercise demonstration", "mediaAlt": "{name}: start and end position", "noMedia": "Demonstration coming soon",
     "pause": "Pause demonstration", "play": "Play demonstration", "watchVideo": "Watch video", "credit": "Photos:", "howTo": "How to do it", "cues": "Form cues",
     "mistakes": "Common mistakes", "muscles": "Muscles worked", "alternatives": "Alternatives",
-    "kind": { "easier": "Easier", "injuryFriendly": "Injury-friendly", "equipment": "Other equipment", "noEquipment": "No equipment needed" }
+    "kind": { "easier": "Easier", "injuryFriendly": "Injury-friendly", "equipment": "Different equipment", "equipmentWith": "Different equipment: {equipment}", "noEquipment": "No equipment needed" }
   },
   "logger": {
     "targetLine": "Target {target}", "lastTime": "Last time: {result}", "struggledShort": "last set was a struggle",
@@ -152,7 +156,8 @@
     "effortQ": "How hard was today's workout?", "effortLabel": "Workout effort from 1 to 10", "effort1": "1 · very easy", "effort10": "10 · couldn't do more",
     "pickEffort": "Pick how hard it was to save the workout.",
     "painQ": "How is your {area} now?", "painLabel": "Pain from 0 to 10", "pain0": "0 · no pain", "pain10": "10 · worst imaginable",
-    "anyOfThese": "Any of these?", "painDown": "Down from {prev} last time. Nice — we'll keep the current swaps for now.", "saveFinish": "Save & finish"
+    "anyOfThese": "Any of these?", "painDown": "Down from {prev} last time. Nice — we'll keep the current swaps for now.", "saveFinish": "Save & finish",
+    "logEachSet": "Log each set", "setN": "Set {n}", "addSet": "Add a set", "removeSet": "Remove the last set"
   },
   "redFlags": { "sharpPain": "Sharp pain", "swelling": "Swelling", "numbness": "Numbness", "none": "None" },
   "nutrition": {
@@ -204,22 +209,22 @@
       "view": { "front": "Front", "side": "Side", "back": "Back" }
     },
     "training": {
-      "title": "Training", "sessions": "Sessions done · {n} planned", "difficulty": "How hard did sessions feel? · {label}", "difficultyLabel": "Session difficulty",
-      "soreness": "Muscle soreness · {label}", "sorenessLabel": "Muscle soreness", "feltOff": "Any exercise that felt off?",
+      "title": "Training", "sessions": "{q} · {n} planned", "difficulty": "{q} · {label}", "difficultyLabel": "Session difficulty",
+      "soreness": "{q} · {label}", "sorenessLabel": "Muscle soreness", "feltOff": "Any exercise that felt off?",
       "pick": "Pick an exercise", "pickAnother": "Pick another exercise"
     },
     "injuries": {
-      "title": "Injuries", "painQ": "{area} · pain this week", "trend": "Compared with last week", "newPain": "Any new pain?",
+      "title": "Injuries", "painQ": "{area} · {q}", "trend": "Compared with last week", "newPain": "Any new pain?",
       "newPainHint": "Tap the area. Nothing new? Skip it.", "safety": "Safety questions",
       "flag": { "sharpPain": "Sharp or stabbing pain", "swelling": "Swelling", "numbness": "Numbness or tingling" },
       "flagNote": "A \"yes\" pauses affected exercises and asks you to see a doctor or physio."
     },
     "nutrition": {
-      "title": "Nutrition", "adherence": "How closely did you follow your meals?", "hunger": "Hunger · {label}", "hungerLabel": "Hunger",
+      "title": "Nutrition", "adherence": "How closely did you follow your meals?", "hunger": "{q} · {label}", "hungerLabel": "Hunger",
       "change": "Meals you'd like to change", "more": "More of", "less": "Less of"
     },
     "life": {
-      "title": "Life this week", "sleep": "Sleep quality · {n}", "energy": "Energy · {n}", "stress": "Stress · {n}",
+      "title": "Life this week", "sleep": "Sleep quality · {n}", "energy": "Energy · {n}", "stress": "Stress · {n}", "scale": "{q} · {n}",
       "days": "Days you can train next week", "obstacles": "Anything get in the way?"
     },
     "note": {
@@ -247,7 +252,7 @@
   "progress": {
     "since": "Since {date}", "weight": "Weight", "weighIns": "Weigh-ins", "avg7": "7-day average", "measurements": "Measurements", "waistCm": "Waist, cm",
     "strength": "Strength", "topSet": "Top set, {unit}", "records": "Personal records", "photos": "Before & after", "private": "Private",
-    "drag": "Drag to compare", "noPhotos": "Add photos in your weekly check-in to compare.",
+    "drag": "Drag to compare", "noPhotos": "Add photos in your weekly check-in to compare.", "onePhoto": "Add another next week to compare.",
     "noData": "Not enough entries yet. Your chart appears here as you log.", "noLifts": "Finish a workout and your strength shows here."
   },
   "profile": {
@@ -257,7 +262,12 @@
     "themes": { "light": "Light", "dark": "Dark", "system": "System" },
     "account": "Account", "changePassword": "Change password", "currentPassword": "Current password", "newPassword": "New password", "wrongPassword": "That isn't your current password.", "saveFailed": "Couldn't save. Please try again.", "logout": "Log out",
     "delete": "Delete my data", "deleteNote": "Permanently removes your answers, logs, photos and reviews.",
-    "deleteConfirmTitle": "Delete all your data?", "deleteConfirmBody": "This can't be undone. Your account, plan, logs, photos and reviews will be removed.", "deleteConfirm": "Delete everything"
+    "deleteConfirmTitle": "Delete all your data?", "deleteConfirmBody": "This can't be undone. Your account, plan, logs, photos and reviews will be removed.", "deleteConfirm": "Delete everything",
+    "equipment": "Equipment", "equipmentMissing": "{n} missing", "equipmentAll": "All available",
+    "equipmentIntro": "Untick anything your training place doesn't have. Your plan is rebuilt around it; your meals stay the same.",
+    "equipmentSaved": "Saved. Your plan now fits your equipment.", "equipmentWhere": "Where you train: {place}",
+    "feedback": "Send feedback", "feedbackIntro": "Something confusing, broken or missing? Tell the people building Rafeqi. This goes to them, not to the AI coach.",
+    "feedbackLabel": "Your message", "feedbackSend": "Send", "feedbackSent": "Thanks! Your message was sent."
   },
   "body": {
     "front": "Front", "back": "Back", "frontView": "Body map, front", "backView": "Body map, back", "leftShort": "L", "rightShort": "R",
@@ -293,6 +303,6 @@
   "cooldown": {"title": "Cool-down", "about": "About {n} min", "hold": "Hold {s} s", "eachSide": "{s} s each side", "breathing": "{min} min slow breathing to finish", "done": "Cool-down done"},
   "cardio": {"title": "Cardio", "afterLifting": "After lifting", "restDay": "Cardio day", "minutes": "{n} min", "minutesDone": "Minutes done", "markDone": "Mark done", "done": "Done: {n} min", "undo": "Undo", "steps": "Every day: about {n} steps", "notYet": "You can mark it done on {day}.", "perWeek": "{n} cardio sessions a week"},
   "swap": {"button": "Swap", "title": "Swap {name}", "why": "Why do you want to swap it?", "pick": "Pick the new exercise", "none": "Nothing else fits your equipment and injuries for this movement yet.", "reason": {"equipment": "Equipment not available", "busy": "Machine is busy today", "cantDo": "I can't do this exercise", "pain": "It causes pain"}, "reasonHint": {"equipment": "We'll leave it out of future plans too", "busy": "Something similar on other equipment", "cantDo": "Too hard, or I don't know it", "pain": "Then tell us where"}, "scope": "Just today, or from now on?", "today": "Just today", "todayHint": "Only this session changes.", "always": "From now on", "alwaysHint": "Your program changes for every week from now on. You can undo it from the exercise's page.", "confirm": "Swap to {name}", "badge": "Swapped: {why}", "done": "Swapped to {name}", "back": "Back", "painTitle": "Did it hurt?", "painBody": "Add it as an injury, so your whole plan avoids the movements that hurt and checks in on the pain.", "addInjury": "Add an injury", "updateInjury": "Update: {area}", "notNow": "Not now"},
-  "why": {"title": "Why this plan", "link": "Why this plan", "linkSub": "Every decision, the rule behind it and where it comes from", "intro": "Every number in your plan comes from a rule. Here is each decision: the answers it used, the rule in plain language, where the rule comes from, and the result.", "backed": "{x} of {y} decisions backed by your books", "backedNote": "The rest use placeholder values, marked “Not yet from a book”, until the real values are taken from the books.", "aiSlot": "A short summary written for you will appear here.", "jump": "Jump to", "result": "Result", "answers": "Your answers used", "rule": "The rule", "source": "Source", "placeholder": "Not yet from a book", "placeholderSource": "To be checked against: {text}", "page": "p. {page}", "noAnswers": "Not from your answers", "group": {"calories": "Calories", "protein": "Protein", "carbsFat": "Carbs and fat", "program": "Program choice", "schedule": "Days and session length", "volume": "Sets, reps and effort (RPE)", "startWeights": "Starting weights", "progression": "Progression", "deload": "Lighter weeks (deload)", "warmup": "Warm-up", "cooldown": "Cool-down", "cardio": "Cardio", "exercises": "Exercise swaps and exclusions", "meals": "Meal choices and portions", "review": "Changes from your weekly review"}, "answer": {"sex": "Sex", "age": "Age", "height_cm": "Height", "weight_kg": "Weight", "goal": "Goal", "pace": "Pace", "experience": "Experience", "days_per_week": "Training days", "session_minutes": "Session length", "location": "Where you train", "meals_per_day": "Meals a day", "cooking_minutes": "Cooking time", "dislikes": "Foods you don't eat", "allergies": "Allergies", "fasting": "Fasting", "health": "Health check", "injuries": "Injuries", "missing_equipment": "Equipment not available", "checkin": "Your weekly check-in", "swaps": "Your swap"}, "value": {"none": "None", "checkin": "Your answers that week", "swaps": "The reason you chose", "years": "{n} years", "perDay": "{n} a day"}},
+  "why": {"title": "Why this plan", "link": "Why this plan", "linkSub": "Every decision, the rule behind it and where it comes from", "intro": "Every number in your plan comes from a rule. Here is each decision: the answers it used, the rule in plain language, where the rule comes from, and the result.", "backed": "{x} of {y} rules from your books · {a} of {b} decisions", "formulasNote": "{n} of the decisions use a standard formula, shown with its original source.", "fromBooks": "From your books", "formula": "Standard formula", "originalSource": "Original source", "fromRule": "{n} decisions use this rule", "showAll": "Show all {n}", "backedNote": "The rest use placeholder values, marked “Not yet from a book”, until the real values are taken from the books.", "aiSlot": "A short summary written for you will appear here.", "jump": "Jump to", "result": "Result", "answers": "Your answers used", "rule": "The rule", "source": "Source", "placeholder": "Not yet from a book", "placeholderSource": "To be checked against: {text}", "page": "p. {page}", "noAnswers": "Not from your answers", "group": {"calories": "Calories", "protein": "Protein", "carbsFat": "Carbs and fat", "program": "Program choice", "schedule": "Days and session length", "volume": "Sets, reps and effort (RPE)", "startWeights": "Starting weights", "progression": "Progression", "deload": "Lighter weeks (deload)", "warmup": "Warm-up", "cooldown": "Cool-down", "cardio": "Cardio", "exercises": "Exercise swaps and exclusions", "meals": "Meal choices and portions", "review": "Changes from your weekly review"}, "answer": {"sex": "Sex", "age": "Age", "height_cm": "Height", "weight_kg": "Weight", "goal": "Goal", "pace": "Pace", "experience": "Experience", "days_per_week": "Training days", "session_minutes": "Session length", "location": "Where you train", "meals_per_day": "Meals a day", "cooking_minutes": "Cooking time", "dislikes": "Foods you don't eat", "allergies": "Allergies", "fasting": "Fasting", "health": "Health check", "injuries": "Injuries", "missing_equipment": "Equipment not available", "checkin": "Your weekly check-in", "swaps": "Your swap"}, "value": {"none": "None", "checkin": "Your answers that week", "swaps": "The reason you chose", "years": "{n} years", "perDay": "{n} a day"}},
   "ingredients": {"title": "Ingredients", "show": "Ingredients ({n})", "hide": "Hide ingredients", "remove": "Remove", "removeLabel": "Remove: {name}", "undo": "Undo", "undoLabel": "Undo: {name}", "removedBecause": {"dislike": "Removed: you don't like it", "unavailable": "Removed: not available"}, "replacedBy": "→ {name} {amount}", "essential": "Main ingredient", "sheetTitle": "Remove {name}", "why": "Why remove it?", "reason": {"dislike": "I don't like it", "unavailable": "Not available right now"}, "reasonHint": {"dislike": "New plans will leave it out too", "unavailable": "Something similar can go in instead"}, "replace": "Put something similar instead?", "none": "Remove without replacing", "noReplacements": "Nothing similar to put instead: it's simply left out.", "option": "{g} g · {kcal} kcal · {p} g protein", "scope": "Just this meal, or always?", "meal": "Just this meal", "always": "Always", "mealHint": "Only this meal changes.", "dislikeHint": "Only this meal changes now, and new plans will leave it out.", "alwaysHint": "Every meal this week that has it, and every new plan, leaves it out. You can undo it.", "confirmRemove": "Remove {name}", "confirmReplace": "Replace with {name}", "updates": "Your day's calories and protein and your grocery list update right away.", "essentialTitle": "{name} is what makes this meal", "essentialBody": "Without it, it isn't {meal} any more. Swap the whole meal for another one that fits your day.", "swapMeal": "Swap the meal", "keep": "Keep it", "done": "Removed {name}", "replacedDone": "Replaced {name}", "undone": "{name} is back", "noteTitle": "What changed today", "snack": "Suggested snack: {name} · {kcal} kcal · {p} g protein", "portion": "Portion {from} → {to}"}
 }

@@ -35,7 +35,14 @@ def test_painful_movement_rules_out_matching_tags_only():
 
 def test_restrictions_and_joint_of_injury():
     no_overhead = InjuryInfo(id="x", region="kneeL", restrictions=("noOverhead",))
-    assert ruled_out_by(CAT["ex_pull_up"], no_overhead) == "noOverhead"        # any overhead exercise, whatever the joint
+    assert ruled_out_by(CAT["ex_pull_up"], no_overhead) is None                # overhead, but it doesn't load the knee
+    shoulder = InjuryInfo(id="x", region="shoulderL", restrictions=("noOverhead",))
+    assert ruled_out_by(CAT["ex_pull_up"], shoulder) == "noOverhead"           # overhead and loads the shoulder
+    back = InjuryInfo(id="x", region="lowerBack", restrictions=("noOverhead",))
+    assert ruled_out_by(CAT["ex_ohp"], back) == "noOverhead"                   # standing press: the spine carries the bar
+    assert ruled_out_by(CAT["ex_arm_circles"], back) is None                   # arm circles don't load the spine
+    impact = InjuryInfo(id="x", region="lowerBack", restrictions=("noImpact",))
+    assert ruled_out_by(CAT["ex_jump_rope"], impact) == "noImpact"             # impact counts whatever the area
     limit = InjuryInfo(id="x", region="kneeL", restrictions=("limitRange",))
     assert ruled_out_by(CAT["ex_goblet_squat"], limit) == "limitRange"         # loads the knee, full range
     assert ruled_out_by(CAT["ex_cs_row"], limit) is None                       # full range, but not the knee

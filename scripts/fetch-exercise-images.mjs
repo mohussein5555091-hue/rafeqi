@@ -12,7 +12,7 @@ const DEFAULT = [
   'Arm_Circles', 'Band_Pull_Apart', 'Barbell_Bench_Press_-_Medium_Grip', 'Barbell_Deadlift', 'Barbell_Squat',
   'Bicycling_Stationary', 'Bodyweight_Squat', 'Bodyweight_Walking_Lunge', 'Butt_Lift_Bridge',
   'Calf_Stretch_Hands_Against_Wall', 'Cat_Stretch', 'Chest_And_Front_Of_Shoulder_Stretch', 'Childs_Pose',
-  'Dumbbell_Bench_Press', 'Dumbbell_Floor_Press', 'Dumbbell_Incline_Row', 'Dumbbell_Shoulder_Press',
+  'Dumbbell_Bench_Press', 'Dumbbell_Floor_Press', 'Dumbbell_Incline_Row', 'Dumbbell_Shoulder_Press', 'Dumbbell_Step_Ups',
   'Dynamic_Chest_Stretch', 'Elliptical_Trainer', 'Face_Pull', 'Front_Leg_Raises', 'Goblet_Squat', 'Hamstring_Stretch',
   'Inchworm', 'Incline_Dumbbell_Curl', 'Inverted_Row', 'Kneeling_Hip_Flexor', 'Leg_Extensions', 'Leg_Press',
   'Middle_Back_Stretch', 'One-Arm_Dumbbell_Row', 'Overhead_Lat', 'Overhead_Triceps', 'Pullups', 'Pushups',

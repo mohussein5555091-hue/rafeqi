@@ -10,16 +10,18 @@ from sqlalchemy.orm import Session
 from app import clock
 from app.engine.catalogue import exercises_from_db
 from app.engine.rules import load_rules
-from app.engine.training import start_weight, weight_step
+from app.engine.training import deload_volume, start_weight, weight_step
 from app.engine.warmup import ramp_up
 from app.models import (
-    CardioLog, Exercise, ExerciseSubstitution, ExerciseSwap, Injury, PainLog, Profile, ProgramDay, ProgramExercise, SetLog, WorkoutLog,
+    CardioLog, Exercise, ExerciseSubstitution, ExerciseSwap, Injury, PainLog, Plan, Profile, ProgramDay, ProgramExercise, SetLog,
+    TrainingProgram, WorkoutLog,
 )
+from app.plans import week_start
 from app.plans import person_for
 from app.progression import Target, session_target
 from app.vocab import get_vocab
-from app.week import WEEKDAYS, Week
-from app.workouts import ExerciseResult, exercise_results
+from app.week import WEEKDAYS, Week, program_week_number
+from app.workouts import ExerciseResult, exercise_results, rep_range
 
 
 def bi(en: str, ar: str) -> dict:
@@ -29,6 +31,15 @@ def bi(en: str, ar: str) -> dict:
 def no_nones(d: dict) -> dict:
     """Optional fields are left out rather than sent as null (they are `field?:` in types.ts)."""
     return {k: v for k, v in d.items() if v is not None}
+
+
+def equipment_names(ids: list[str] | None) -> dict | None:
+    """"cable machine, dumbbells" in each language (data/vocab/movements.yaml), or None."""
+    labels = get_vocab().data["equipment"]
+    ids = [i for i in ids or [] if i in labels]
+    if not ids:
+        return None
+    return {"en": ", ".join(labels[i]["en"].lower() for i in ids), "ar": "، ".join(labels[i]["ar"] for i in ids)}
 
 
 def exercise_out(e: Exercise, alternatives: list[ExerciseSubstitution], images: dict[str, str | None] | None = None) -> dict:
@@ -41,7 +52,7 @@ def exercise_out(e: Exercise, alternatives: list[ExerciseSubstitution], images: 
         "muscleNames": bi(e.muscle_names_en, e.muscle_names_ar),
         "instructions": e.instructions, "cues": e.cues, "mistakes": e.mistakes,
         "alternatives": [no_nones({"exerciseId": a.substitute_id, "name": bi(a.name_en, a.name_ar), "kind": a.kind,
-                                   "imageUrl": images.get(a.substitute_id)}) for a in alternatives],
+                                   "imageUrl": images.get(a.substitute_id), "equipment": equipment_names(a.equipment)}) for a in alternatives],
     })
 
 
@@ -66,7 +77,10 @@ def one_exercise(db: Session, exercise_id: str) -> dict | None:
 
 
 def result_out(r: ExerciseResult) -> dict:
-    return {"sets": r.sets, "reps": r.reps, "weightKg": r.weight_kg, "struggled": r.struggled}
+    out = {"sets": r.sets, "reps": r.reps, "weightKg": r.weight_kg, "struggled": r.struggled}
+    if r.per_set is not None:  # logged set by set, with different sets
+        out["perSet"] = [{"reps": reps, "weightKg": kg} for reps, kg in r.per_set]
+    return out
 
 
 def day_exercises(db: Session, day: ProgramDay) -> list[ProgramExercise]:
@@ -106,6 +120,7 @@ class SessionExercise:
     weight_offset_kg: float
     swap: dict | None  # what the screen shows (injury swap, or the person's own swap with its reason)
     user_swap: bool  # the person chose it: with no history yet, its first target is "find your weight"
+    deload: bool = False  # the program's lighter week: sets and effort already lowered; weights stay at last time's
 
 
 def today_swaps(db: Session, user_id: str, d: dt.date) -> dict[str, ExerciseSwap]:
@@ -124,7 +139,28 @@ def swap_why(db: Session, reason: str, from_id: str, missing: list[str]) -> dict
     return {"en": t["en"].format(equipment=label["en"].lower()), "ar": t["ar"].format(equipment=label["ar"])}
 
 
+def scheduled_deload(db: Session, user_id: str, day: ProgramDay, d: dt.date) -> bool:
+    """True in the program's planned lighter week (training.yaml `deload`), unless a check-in already made this plan
+    version lighter (that deload is built into the plan's sets and effort, so it isn't applied twice)."""
+    tp = db.get(TrainingProgram, day.program_id)
+    if tp is None or not tp.deload_week:
+        return False
+    plan = db.get(Plan, tp.plan_id)
+    if ((plan.inputs or {}).get("adjustments") or {}).get("deload") if plan else False:
+        return False
+    return program_week_number(db, user_id, week_start(d), tp.total_weeks) == tp.deload_week
+
+
 def session_exercises(db: Session, user_id: str, day: ProgramDay, d: dt.date, injuries: dict[str, Injury]) -> list[SessionExercise]:
+    out = _session_exercises(db, user_id, day, d, injuries)
+    if scheduled_deload(db, user_id, day, d):
+        for se in out:
+            se.sets, se.target_rpe = deload_volume(se.sets, se.target_rpe)
+            se.deload = True
+    return out
+
+
+def _session_exercises(db: Session, user_id: str, day: ProgramDay, d: dt.date, injuries: dict[str, Injury]) -> list[SessionExercise]:
     swaps = today_swaps(db, user_id, d)
     profile = db.get(Profile, user_id)
     missing = list(profile.missing_equipment or []) if profile else []
@@ -170,6 +206,9 @@ def target_for(db: Session, user_id: str, week: Week, se: SessionExercise | Prog
                        load_ratio=ratio, weight_offset_kg=se.weight_offset_kg)
     if last is None and getattr(se, "user_swap", False):
         t = Target(t.sets, t.reps, t.weight_kg, "findWeight")
+    if getattr(se, "deload", False):  # lighter week: fewer sets, same weight and reps as last time (no step up)
+        low, high = rep_range(se.reps)
+        t = Target(se.sets, min(max(last.reps, low), high) if last else low, last.weight_kg if last and last.sets else t.weight_kg, "deload")
     return t, last
 
 
@@ -223,10 +262,12 @@ def workout_out(db: Session, user_id: str, week: Week, day: ProgramDay, injuries
     done = log is not None and log.status == "done"
     status = "done" if done else "today" if d == week.today else "missed" if d < week.today else "planned"
     ses = session_exercises(db, user_id, day, d, injuries)
+    joints = dict(db.execute(select(Exercise.id, Exercise.joints_loaded).where(Exercise.id.in_([se.exercise_id for se in ses]))).all()) if ses else {}
     exercises, ramp_from = [], None
     for se in ses:
         t, last = target_for(db, user_id, week, se, log)
-        if ramp_from is None and se.weight_step_kg > 0 and t.weight_kg > 0:
+        # Ramp-up sets: the first main compound lift (several joints) with a weight, as in engine/training.py.
+        if ramp_from is None and se.weight_step_kg > 0 and t.weight_kg > 0 and len(set(joints.get(se.exercise_id) or ())) >= 2:
             ramp_from = (se.exercise_id, t.weight_kg, se.weight_step_kg)
         exercises.append(no_nones({
             "exerciseId": se.exercise_id, "sets": se.sets, "reps": se.reps.replace("-", "–"), "restSec": se.rest_sec,
@@ -234,10 +275,13 @@ def workout_out(db: Session, user_id: str, week: Week, day: ProgramDay, injuries
             "target": {"sets": t.sets, "reps": t.reps, "weightKg": t.weight_kg, "reason": t.reason},
             "weightStepKg": se.weight_step_kg,
         }))
-    out = {"id": day.id, "kind": "strength", "name": bi(day.name_en, day.name_ar), "day": day.weekday, "date": d.isoformat(), "status": status,
+    out = {"id": day.id, "kind": "strength", "name": bi(day.name_en, day.name_ar), "day": WEEKDAYS[(d - week.start).days], "date": d.isoformat(), "status": status,
+           "lighter": any(se.deload for se in ses),
            "estMinutes": day.est_minutes, "warmupMinutes": day.warmup_minutes, "exercises": exercises,
            "warmup": warmup_out(day, ramp_from, bool(log and log.warmup_done)), "cooldown": cooldown_out(day, bool(log and log.cooldown_done))}
-    if (c := cardio_sessions(week).get(day.weekday)) is not None:
+    if d != week.planned_date_of(day):
+        out["movedFrom"] = day.weekday
+    if (c := cardio_sessions(week).get(WEEKDAYS[(d - week.start).days])) is not None:  # cardio stays on its own day
         out["cardio"] = cardio_out(db, user_id, c, d)
     if done:
         results = exercise_results(db, log.id)
@@ -271,14 +315,25 @@ def user_injuries(db: Session, user_id: str) -> dict[str, Injury]:
 def workout_week(db: Session, user_id: str, week: Week) -> dict:
     injuries = user_injuries(db, user_id)
     sessions = [workout_out(db, user_id, week, d, injuries) for d in week.days]
-    lifting = {d.weekday for d in week.days}
+    lifting = {WEEKDAYS[(week.date_of(d) - week.start).days] for d in week.days}
     sessions += [cardio_day_out(db, user_id, week, c) for c in cardio_sessions(week).values() if c["weekday"] not in lifting]
     cardio = week.program.cardio or {}
     why = cardio.get("reasons") or []
-    return {"weekNumber": week.number, "totalWeeks": week.program.total_weeks, "start": week.start.isoformat(),
-            "end": week.end.isoformat(), "deloadWeek": week.program.deload_week, "sessions": sorted(sessions, key=lambda s: s["date"]),
+    return {"programName": bi(week.program.name_en, week.program.name_ar), "weekNumber": week.number, "totalWeeks": week.program.total_weeks, "start": week.start.isoformat(),
+            "end": week.end.isoformat(), "deloadWeek": week.program.deload_week, "deload": deload_out(db, user_id, week),
+            "sessions": sorted(sessions, key=lambda s: s["date"]),
             "cardio": {"sessionsPerWeek": len(cardio.get("sessions", [])), "stepsPerDay": cardio.get("stepsPerDay", 0),
                        "why": bi(" ".join(r["en"] for r in why), " ".join(r["ar"] for r in why))}}
+
+
+def deload_out(db: Session, user_id: str, week: Week) -> dict:
+    """The lighter week: planned by the program (`week`), whether it's this week, and whether a check-in made this week
+    lighter instead. `setsMinus` / `rpeMinus` come from training.yaml `deload`."""
+    dl = load_rules()["training"]["deload"]
+    by_checkin = bool(((week.plan.inputs or {}).get("adjustments") or {}).get("deload"))
+    planned = bool(week.program.deload_week) and week.number == week.program.deload_week
+    return {"week": week.program.deload_week, "thisWeek": planned or by_checkin, "byCheckIn": by_checkin,
+            "setsMinus": dl["sets_minus"], "rpeMinus": dl["rpe_minus"]}
 
 
 class NotToday(Exception):

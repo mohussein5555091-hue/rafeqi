@@ -68,8 +68,12 @@ export interface User {
 
 /** What the onboarding questionnaire produces (also used to regenerate). The numbers start empty until typed. */
 export type QuestionnaireAnswers = Pick<User,
-  'sex' | 'waistCm' | 'goal' | 'pace' | 'experience' |
-  'daysPerWeek' | 'sessionMinutes' | 'location' | 'health' | 'food'> & { age?: number; heightCm?: number; weightKg?: number; injuries: InjuryInput[] };
+  'sex' | 'waistCm' | 'goal' | 'pace' |
+  'daysPerWeek' | 'sessionMinutes' | 'location' | 'health' | 'food'> & {
+    age?: number; heightCm?: number; weightKg?: number; injuries: InjuryInput[];
+    /** Required: nothing is picked until the person chooses (it decides the program and the starting weights). */
+    experience?: Experience;
+  };
 
 // ── Plan ─────────────────────────────────────────────────────────────
 export interface ExerciseSwap {
@@ -140,18 +144,25 @@ export interface Exercise {
   instructions: LocalizedText[];
   cues: LocalizedText[];
   mistakes: LocalizedText[];
-  alternatives: { exerciseId?: string; name: LocalizedText; kind: 'easier' | 'injuryFriendly' | 'equipment' | 'noEquipment'; imageUrl?: string }[];
+  alternatives: { exerciseId?: string; name: LocalizedText; kind: 'easier' | 'injuryFriendly' | 'equipment' | 'noEquipment'; imageUrl?: string;
+    /** The equipment it uses, e.g. "cable machine" (for "Different equipment: …"). */
+    equipment?: LocalizedText }[];
 }
 
 /**
  * One exercise's result. Logged in one tap ("Done as planned") or one row when something was different.
  * The backend stores it as one set_logs row per set, all with the same reps and weight.
  */
-export interface ExerciseResult { sets: number; reps: number; weightKg: number; struggled: boolean }
+export interface ExerciseResult {
+  sets: number; reps: number; weightKg: number; struggled: boolean;
+  /** Logged set by set ("Log each set") with sets that differ: reps and weight of each. sets / reps / weightKg sum it up. */
+  perSet?: SetResult[];
+}
+export interface SetResult { reps: number; weightKg: number }
 
 /** Why the target is what it is (data/rules/progression.yaml). */
 /** findWeight: an exercise the person swapped in, with no history yet: a light suggestion to find their weight. */
-export type TargetReason = 'start' | 'addReps' | 'addWeight' | 'repeat' | 'dropWeight' | 'findWeight';
+export type TargetReason = 'start' | 'addReps' | 'addWeight' | 'repeat' | 'dropWeight' | 'findWeight' | 'deload';
 export interface Target { sets: number; reps: number; weightKg: number; reason: TargetReason }
 
 export interface SessionExercise {
@@ -218,6 +229,10 @@ export interface Workout {
   day: Weekday;
   date: ISODate;
   status: 'done' | 'today' | 'planned' | 'missed';
+  /** The program's lighter week: sets and effort are already lowered, weights stay at last time's. */
+  lighter?: boolean;
+  /** Moved this week from the program's own day ("Do this workout today" / "Move to another day"). */
+  movedFrom?: Weekday;
   estMinutes: number;
   warmupMinutes: number;
   exercises: SessionExercise[];
@@ -236,12 +251,31 @@ export interface WorkoutLog {
   results: Record<string, ExerciseResult>; // by exerciseId; an exercise that was skipped has no entry
 }
 
+/** The equipment where the person trains (bodyweight is always there), each available or missing. */
+export interface EquipmentState {
+  location: QuestionnaireAnswers['location'];
+  items: { id: string; name: LocalizedText; available: boolean }[];
+}
+
+/** A day this week an upcoming session could move to, or why not. */
+export interface MoveOption {
+  date: ISODate;
+  day: Weekday;
+  ok: boolean;
+  why?: 'dayTaken' | 'tooClose' | 'past';
+  other?: { name: LocalizedText; day: Weekday };
+}
+
 export interface WorkoutWeek {
+  /** The program's own name ("Full body (sample)", "Upper / Lower (sample)"). */
+  programName: LocalizedText;
   weekNumber: number;
   totalWeeks: number;
   start: ISODate;
   end: ISODate;
   deloadWeek: number;
+  /** The lighter week: which week the program plans it, and whether it's this week (planned, or after a hard check-in). */
+  deload: { week: number | null; thisWeek: boolean; byCheckIn: boolean; setsMinus: number; rpeMinus: number };
   sessions: Workout[];
   cardio: { sessionsPerWeek: number; stepsPerDay: number; why: LocalizedText };
 }
@@ -480,14 +514,27 @@ export type WhyGroupId = 'calories' | 'protein' | 'carbsFat' | 'program' | 'sche
 /** One questionnaire answer a rule used. `key` is the answer's name (sex, weight_kg, injuries, checkin, …). */
 export interface WhyAnswer { key: string; value: unknown }
 /** Where a rule comes from. Placeholders aren't from a book yet: only `text` (what will be checked) is given. */
-export interface WhySource { placeholder: boolean; text: string; book?: string; chapter?: string | null; page?: string; quote?: LocalizedText }
+/** kind: "book" = from the person's books; "formula" = a standard published formula (book… is its original source);
+ *  "placeholder" = not yet from a book. */
+export interface WhySource { placeholder: boolean; kind: 'book' | 'formula' | 'placeholder'; text: string; book?: string; chapter?: string | null; page?: string; quote?: LocalizedText }
 export interface WhyDecision {
   rule: string; group: WhyGroupId; context: LocalizedText | null; answers: WhyAnswer[];
+  /** The rule file section it comes from ("training.start_load"): repeated decisions are grouped under it. */
+  ruleKey: string;
   summary: LocalizedText; source: WhySource; result: LocalizedText;
 }
 export interface WhyPlan {
   planId: string; version: number; createdAt: string;
   aiSummary: LocalizedText | null; // written by the local LLM in the AI phase; null until then
-  total: number; backed: number;
+  /** Decisions: all, from the books, from a standard formula. Rules (each counted once): the same. */
+  total: number; backed: number; formulas: number;
+  rules: { total: number; fromBooks: number; formulas: number };
   groups: { id: WhyGroupId; decisions: WhyDecision[] }[];
 }
+
+/** One weekly check-in question (data/checkin_questions.yaml): the screens show its wording and use its ranges. */
+export interface CheckInQuestion {
+  id: string; step: string; type: string; text: LocalizedText; required: boolean;
+  min?: number; max?: number; maxFrom?: string; stepSize?: number; options?: string[]; maxLength?: number; trendOptions?: string[];
+}
+export interface CheckInQuestions { steps: string[]; questions: CheckInQuestion[] }
