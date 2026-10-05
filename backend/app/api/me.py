@@ -7,9 +7,9 @@ from app import accounts, clock
 from app.api.deps import CurrentAuth, Db, clear_session_cookie
 from app.engine.catalogue import exercises_from_db
 from app.engine.rules import load_rules
-from app.models import Profile, User
+from app.models import Feedback, Profile, User
 from app.plans import active_swaps, current_plan, rebuild_plan
-from app.schemas.account import EquipmentIn, MeOut, MePatch
+from app.schemas.account import EquipmentIn, FeedbackIn, MeOut, MePatch
 from app.vocab import get_vocab
 
 router = APIRouter(prefix="/api/me", tags=["me"])
@@ -85,3 +85,12 @@ def save_equipment(body: EquipmentIn, auth: CurrentAuth, db: Db):
         rebuild_plan(db, auth.user.id, "equipment")
     db.commit()
     return _equipment_out(profile)
+
+
+@router.post("/feedback", status_code=status.HTTP_201_CREATED)
+def send_feedback(body: FeedbackIn, auth: CurrentAuth, db: Db):
+    """"Send feedback" in Profile & settings: saved for the people running the app (`npm run feedback` lists it).
+    It never goes to the AI."""
+    db.add(Feedback(user_id=auth.user.id, message=body.message, page=body.page, app_version=body.app_version, created_at=clock.now()))
+    db.commit()
+    return {"ok": True}

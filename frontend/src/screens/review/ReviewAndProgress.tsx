@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import type { LucideIcon } from 'lucide-react';
-import { Flame, Dumbbell, Utensils, Hourglass, ShoppingBasket, ChevronRight, Lock, Trophy, ChevronsLeftRight, Image, Sparkles, User as UserIcon, Target, Bandage, HeartPulse, KeyRound, LogOut, Trash2, Wrench } from 'lucide-react';
+import { Flame, Dumbbell, Utensils, Hourglass, ShoppingBasket, ChevronRight, Lock, Trophy, ChevronsLeftRight, Image, Sparkles, User as UserIcon, Target, Bandage, HeartPulse, KeyRound, LogOut, MessageSquare, Trash2, Wrench } from 'lucide-react';
 import {
   AppShell, Breathing, Button, Card, Checkbox, CitationChip, Disclaimer, EmptyState, ErrorState, Icon, LineChart, LinkButton, QueryView, Segmented, StatusBadge, StepList, rollingAverage, cn, useToast,
 } from '@/components';
@@ -259,6 +259,7 @@ export function Profile() {
                 <h2 className="m-0 px-1.5 text-xs font-bold uppercase tracking-[.08em] rtl:normal-case">{t('profile.account')}</h2>
                 <ul className="m-0 flex list-none flex-col overflow-hidden rounded-lg bg-surface p-0">
                   <li><Link to="/profile/password" className="flex min-h-14 items-center gap-3 border-b border-divider px-4 text-ink no-underline hover:bg-neutral-300 hover:text-ink"><Icon as={KeyRound} size={19} /><span className="flex-1">{t('profile.changePassword')}</span><Icon as={ChevronRight} size={18} flip /></Link></li>
+                  <li><Link to="/profile/feedback" className="flex min-h-14 items-center gap-3 border-b border-divider px-4 text-ink no-underline hover:bg-neutral-300 hover:text-ink"><Icon as={MessageSquare} size={19} /><span className="flex-1">{t('profile.feedback')}</span><Icon as={ChevronRight} size={18} flip /></Link></li>
                   <li><button type="button" onClick={async () => { await logout(); nav('/login', { replace: true }); }} className="flex min-h-14 w-full items-center gap-3 px-4 text-start hover:bg-neutral-300"><Icon as={LogOut} size={19} flip /><span>{t('profile.logout')}</span></button></li>
                 </ul>
                 <Button variant="danger" size="lg" icon={Trash2} className="mt-1.5" onClick={() => setConfirmDelete(true)}>{t('profile.delete')}</Button>
@@ -320,6 +321,37 @@ export function ProfileEquipment() {
           );
         }}
       </QueryView>
+    </AppShell>
+  );
+}
+
+const FEEDBACK_MAX = 1000;
+
+/** "Send feedback": a few lines to the people running the app (saved in the database; never sent to the AI). */
+export function SendFeedback() {
+  const { t, num } = useI18n();
+  const nav = useNavigate();
+  const toast = useToast();
+  const [text, setText] = useState('');
+  const [busy, setBusy] = useState(false);
+  return (
+    <AppShell back hideTabs title={t('profile.feedback')}>
+      <form className="flex max-w-md flex-col gap-4" onSubmit={async (e) => {
+        e.preventDefault();
+        if (!text.trim()) return;
+        setBusy(true);
+        try { await api.sendFeedback(text.trim(), document.referrer ? new URL(document.referrer).pathname : '/profile'); toast({ message: t('profile.feedbackSent'), tone: 'success' }); nav('/profile'); }
+        catch { toast({ message: t('common.saveFailed'), tone: 'error' }); }
+        finally { setBusy(false); }
+      }}>
+        <p className="m-0 text-[14.5px] text-neutral-800">{t('profile.feedbackIntro')}</p>
+        <label htmlFor="fb" className="flex flex-col gap-1.5 text-[13px]">{t('profile.feedbackLabel')}
+          <textarea id="fb" maxLength={FEEDBACK_MAX} value={text} onChange={(e) => setText(e.target.value.slice(0, FEEDBACK_MAX))}
+            className="min-h-[168px] resize-none rounded-lg border border-divider bg-surface px-4 py-4 text-[15.5px] focus-visible:border-accent-700" />
+        </label>
+        <span className="text-end text-xs text-neutral-700" aria-live="polite">{t('checkIn.note.count', { n: num(text.length), max: num(FEEDBACK_MAX) })}</span>
+        <Button type="submit" size="lg" disabled={busy || !text.trim()}>{t('profile.feedbackSend')}</Button>
+      </form>
     </AppShell>
   );
 }

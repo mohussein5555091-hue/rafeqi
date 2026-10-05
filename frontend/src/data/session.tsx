@@ -11,7 +11,7 @@ interface Session {
   ready: boolean;
   checkInDue: boolean;
   login: (email: string, password: string) => Promise<User>;
-  signup: (input: { firstName: string; email: string; password: string }) => Promise<User>;
+  signup: (input: { firstName: string; email: string; password: string; inviteCode?: string }) => Promise<User>;
   logout: () => Promise<void>;
   /** Reads the account again (after onboarding, a new plan or a check-in). */
   refresh: () => Promise<void>;

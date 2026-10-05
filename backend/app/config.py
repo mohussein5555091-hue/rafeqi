@@ -4,6 +4,7 @@ import datetime as dt
 from functools import lru_cache
 from pathlib import Path
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT_DIR = Path(__file__).resolve().parents[2]  # D:\rafeqi (the repo root)
@@ -24,6 +25,13 @@ class Settings(BaseSettings):
     programs_dir: Path = DATA_DIR / "programs"
     vocab_file: Path = DATA_DIR / "vocab" / "movements.yaml"
     catalogue_dir: Path = DATA_DIR / "catalogue"
+    # Production: the built React app (npm run build → frontend/dist), served by the backend at the same address.
+    frontend_dist: Path = ROOT_DIR / "frontend" / "dist"
+    # Invite-only sign-up: when set, signing up needs this code (give it to your friends). Empty = open sign-up.
+    invite_code: str = ""
+    # Where progress photos live: "disk" (data/uploads/<user_id>/) or "database" (for hosts whose disk is wiped on
+    # every deploy, like Render's free plan).
+    photo_storage: str = "disk"
     # Testing only: pretend today is this date (e.g. 2026-10-05), so browser tests don't depend on the real weekday.
     # The clock keeps running; only the date moves. Ignored in production.
     today: dt.date | None = None
@@ -36,9 +44,28 @@ class Settings(BaseSettings):
     login_max_failures_per_email: int = 5
     login_max_failures_per_ip: int = 20
 
+    @field_validator("database_url")
+    @classmethod
+    def _driver(cls, url: str) -> str:
+        return normalize_db_url(url)
+
     @property
     def is_production(self) -> bool:
         return self.env == "production"
+
+    def check_production(self) -> None:
+        """Refuse to start in production without a real secret key (it must come from the environment)."""
+        if self.is_production and (self.secret_key in ("dev-only-change-me", "replace-me") or len(self.secret_key) < 32):
+            raise RuntimeError("RAFEQI_SECRET_KEY must be set to a long random value (at least 32 characters) in production")
+
+
+def normalize_db_url(url: str) -> str:
+    """Hosting sites (Neon, Supabase, Render) hand out "postgres://…" or "postgresql://…"; SQLAlchemy needs the driver
+    named: "postgresql+psycopg://…". SQLite URLs pass through unchanged."""
+    for prefix in ("postgres://", "postgresql://"):
+        if url.startswith(prefix):
+            return "postgresql+psycopg://" + url[len(prefix):]
+    return url
 
 
 @lru_cache

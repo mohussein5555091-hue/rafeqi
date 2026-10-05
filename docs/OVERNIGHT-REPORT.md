@@ -233,3 +233,41 @@ failures (desktop + phone, same test) were a real regression from using the file
 - **Bugs this found** (SQLite never checks text lengths; PostgreSQL does): `plans.rules_version` was 40 characters
   for a 50-character value, and `program_exercises.swap_kind` was 8 for "equipment". Both widened (migration
   `ca0a41b6cb56`), with a test that the values fit.
+
+### 15. Production mode
+
+- `RAFEQI_ENV=production`: the backend serves the built React app (`npm run build` → `frontend/dist`) at the same
+  address as the API (every non-`/api` path is a file from `dist` or the app itself, so links like `/workouts/…` work
+  on reload). Hashed scripts are cached for a year, `index.html` never.
+- **https only:** plain http is redirected to https (308), except `/api/health` for the host's health check; answers
+  carry HSTS, `X-Content-Type-Options`, `X-Frame-Options: DENY` and `Referrer-Policy`. The session cookie is
+  `Secure` (it already was in production) as well as `HttpOnly` and `SameSite=Lax`. Behind Render's proxy, uvicorn
+  runs with `--proxy-headers` so the app sees the visitor's https.
+- **Secret key from the environment:** in production the app refuses to start unless `RAFEQI_SECRET_KEY` is set to a
+  random value of at least 32 characters.
+- **Progress photos on a host with a wiped disk (Decision):** Render's free plan loses its disk on every deploy, so
+  `RAFEQI_PHOTO_STORAGE=database` keeps photos in a `photo_blobs` table (migration `9ca9d581002d`) instead of
+  `data/uploads/`. Same private API either way. Locally the default stays on disk, as in the plan.
+- Tried for real here: a production server on port 8099 answered the app, an exercise photo and the API at one
+  address, redirected http to https, and set a `Secure` cookie.
+- `npm run start` builds the frontend and runs the backend in this mode on your PC (with `RAFEQI_ENV=production` and a
+  secret in `.env`).
+- Tests: `tests/backend/test_production.py`, `test_photos.py` (database storage).
+
+### 16. Invite-only sign-up, "Send feedback", daily backups, installable app
+
+- **Invite code:** set `RAFEQI_INVITE_CODE` (in `.env` or on Render). The sign-up form then shows "Invite code" and the
+  server refuses sign-ups without the right code ("That invite code isn't right…"; spaces and capitals don't matter).
+  Without the variable, sign-up stays open (as now, and as the tests use). `GET /api/auth/config` tells the form.
+- **Send feedback:** Profile & settings → "Send feedback" (up to 1000 characters) → saved in a new `feedback` table
+  (migration `a6147c496007`) with the page and time. It goes to you, never to the AI (this isn't chat with the
+  coach). Read it with `npm run feedback`. Deleting an account deletes its feedback.
+- **Backups:** `npm run backup` writes `backups/rafeqi-<date>.json.gz` (git-ignored) with every table and any photo
+  files, keeping the newest 14 (`--keep`). It reads through SQLAlchemy, so it works the same on SQLite and PostgreSQL
+  and needs no `pg_dump`. `npm run restore -- <file> [--url …]` upgrades the target to the latest schema, refuses a
+  database that already has accounts, then loads everything. Tested: a backup restores row for row, and a backup taken
+  from PostgreSQL restores into SQLite. Daily scheduling and restore steps: `docs/DEPLOY.md`.
+- **Installable app:** the manifest and icons were already there (Phase 5). Added a small service worker
+  (`frontend/public/sw.js`, registered only in the built app) so it opens quickly and offline shows the app instead of
+  a browser error. It never stores anything from `/api`. Checked in Chromium against a production server: it registers
+  and the manifest loads with its 192/512/maskable icons.

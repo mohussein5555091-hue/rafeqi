@@ -180,7 +180,9 @@ export const api = {
     return api.getUser();
   },
   /** Ticking "I'm 18 or older" on the sign-up form is required to get here. */
-  async signup(input: { firstName: string; email: string; password: string }): Promise<User> {
+  /** Whether sign-up needs an invite code (RAFEQI_INVITE_CODE is set on the server). */
+  async getAuthConfig(): Promise<{ inviteOnly: boolean }> { return request('GET', '/auth/config', undefined, { authCheck: false }); },
+  async signup(input: { firstName: string; email: string; password: string; inviteCode?: string }): Promise<User> {
     await request('POST', '/auth/signup', { ...input, adultConfirmed: true }, { authCheck: false });
     return api.getUser();
   },
@@ -207,6 +209,8 @@ export const api = {
     });
     return api.getUser();
   },
+  /** "Send feedback": a short message to the people running the app (never to the AI). */
+  async sendFeedback(message: string, page: string): Promise<void> { await send('POST', '/me/feedback', { message, page }); },
   /** The equipment where the person trains, and what they said is missing. */
   getEquipment(): Promise<EquipmentState> { return get<EquipmentState>('/me/equipment'); },
   /** Saves what's missing; the plan is rebuilt around it (meals stay). */

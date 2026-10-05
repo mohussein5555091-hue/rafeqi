@@ -3,7 +3,7 @@
 import datetime as dt
 from datetime import datetime
 
-from sqlalchemy import CheckConstraint, ForeignKey, String, Text, UniqueConstraint
+from sqlalchemy import CheckConstraint, ForeignKey, LargeBinary, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.models.base import Base, UserOwned, owner, timestamp, uuid_pk
@@ -89,3 +89,20 @@ class LlmCall(Base, UserOwned):
     status: Mapped[str] = mapped_column(String(10), default="ok")
     error: Mapped[str | None] = mapped_column(Text)
     created_at: Mapped[datetime] = timestamp()
+
+
+class PhotoBlob(Base, UserOwned):
+    """A progress photo kept in the database instead of on disk (RAFEQI_PHOTO_STORAGE=database), for hosts whose disk
+    is wiped on every deploy. Never public: served only to its owner, like the files (app/photos.py)."""
+
+    __tablename__ = "photo_blobs"
+
+    id: Mapped[str] = uuid_pk()
+    user_id: Mapped[str] = owner()
+    checkin_id: Mapped[str] = mapped_column(ForeignKey("checkins.id", ondelete="CASCADE"), index=True)
+    view: Mapped[str] = mapped_column(String(5))  # front | side | back
+    content_type: Mapped[str] = mapped_column(String(20))
+    data: Mapped[bytes] = mapped_column(LargeBinary)
+    created_at: Mapped[datetime] = timestamp()
+
+    __table_args__ = (UniqueConstraint("checkin_id", "view"),)

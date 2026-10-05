@@ -23,14 +23,14 @@ CATALOGUE = {"exercises", "exercise_substitutions", "foods", "grocery_items", "f
 NOT_USER_DATA = {"login_attempts"}  # keyed by email hash and IP; may not belong to any account
 
 # Every endpoint, and how it's kept to the logged-in user.
-PUBLIC = {("GET", "/api/health"), ("POST", "/api/auth/signup"), ("POST", "/api/auth/login")}
+PUBLIC = {("GET", "/api/health"), ("POST", "/api/auth/signup"), ("POST", "/api/auth/login"), ("GET", "/api/auth/config")}
 CATALOGUE_READS = {  # login required, but they only read the shared catalogue (the recipe is scaled to your own plan)
     ("GET", "/api/exercises"), ("GET", "/api/exercises/{exercise_id}"), ("GET", "/api/recipes/{recipe_id}"),
     ("GET", "/api/checkins/questions"),  # the fixed questions from data/checkin_questions.yaml
 }
 SELF_ONLY = {  # no id in the URL: they act on the logged-in user by construction
     ("POST", "/api/auth/logout"), ("POST", "/api/auth/change-password"),
-    ("GET", "/api/me"), ("PATCH", "/api/me"), ("DELETE", "/api/me"), ("GET", "/api/me/equipment"), ("PUT", "/api/me/equipment"),
+    ("GET", "/api/me"), ("PATCH", "/api/me"), ("DELETE", "/api/me"), ("GET", "/api/me/equipment"), ("PUT", "/api/me/equipment"), ("POST", "/api/me/feedback"),
     ("GET", "/api/weights"), ("POST", "/api/weights"),
     ("GET", "/api/onboarding"), ("POST", "/api/onboarding/complete"),
     ("GET", "/api/plan"), ("POST", "/api/plan"), ("GET", "/api/plan/why"),

@@ -20,6 +20,7 @@ class SignupIn(ApiModel):
     email: EmailStr
     password: str = Field(max_length=PASSWORD_MAX)
     adult_confirmed: bool  # "I'm 18 or older and I understand…"
+    invite_code: str | None = Field(default=None, max_length=100)  # needed when RAFEQI_INVITE_CODE is set
 
     _pw = field_validator("password")(_check_password)
 
@@ -73,3 +74,16 @@ class EquipmentIn(ApiModel):
     """The equipment the person doesn't have where they train (ids from data/vocab/movements.yaml)."""
 
     missing: list[str] = Field(default_factory=list, max_length=20)
+
+
+class FeedbackIn(ApiModel):
+    message: str = Field(min_length=1, max_length=1000)
+    page: str = Field(default="", max_length=120)
+    app_version: str = Field(default="", max_length=20)
+
+    @field_validator("message")
+    @classmethod
+    def _not_blank(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError("message_required")
+        return v.strip()

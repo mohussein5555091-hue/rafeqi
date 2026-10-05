@@ -78,3 +78,25 @@ def test_check_in_questions_come_from_the_file(planned):  # noqa: F811
     assert by_id["weight_kg"] == by_id["weight_kg"] | {"type": "number", "min": 30, "max": 300, "required": True,
                                                        "text": {"en": "This week's weight · morning, before eating", "ar": "وزنك الأسبوع ده · الصبح قبل الأكل"}}
     assert by_id["note"]["maxLength"] == 300 and by_id["obstacles"]["options"][0] == "work"
+
+
+
+def test_photos_can_live_in_the_database(planned, clock, uploads_dir, monkeypatch, db):  # noqa: F811
+    """RAFEQI_PHOTO_STORAGE=database (Render's free disk is wiped on every deploy): same API, nothing on disk."""
+    from app.config import get_settings
+    from app.models import PhotoBlob
+
+    monkeypatch.setattr(get_settings(), "photo_storage", "database")
+    c = planned.client
+    ci = checked_in(c, clock)
+    assert put(c, ci, "back", PNG, "image/png").status_code == 204
+    assert not (uploads_dir / planned.id).exists()
+    r = c.get(f"/api/photos/{ci}/back")
+    assert (r.status_code, r.content, r.headers["content-type"]) == (200, PNG, "image/png")
+    assert put(c, ci, "back", JPEG).status_code == 204  # replaced, still one row
+    assert len(db.query(PhotoBlob).filter_by(user_id=planned.id).all()) == 1
+    assert c.get(f"/api/photos/{ci}/back").content == JPEG
+    assert c.get("/api/progress").json()["photos"][0]["url"] == f"/api/photos/{ci}/back"
+    assert c.delete("/api/me").status_code == 204
+    db.expire_all()
+    assert db.query(PhotoBlob).count() == 0

@@ -1,10 +1,10 @@
-import { useState, type FormEvent, type ReactNode } from 'react';
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CircleAlert, Check, Info } from 'lucide-react';
 import { Button, Field, Icon, PageControls, PasswordInput, TextInput, cn } from '@/components';
 import { useI18n } from '@/i18n';
 import { useSession } from '@/data/session';
-import { ApiError } from '@/data/api';
+import { ApiError, api } from '@/data/api';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -94,8 +94,10 @@ export function SignUp() {
   const { t } = useI18n();
   const { signup } = useSession();
   const nav = useNavigate();
-  const [form, setForm] = useState({ firstName: '', email: '', password: '' });
+  const [form, setForm] = useState({ firstName: '', email: '', password: '', inviteCode: '' });
   const [consent, setConsent] = useState(false);
+  const [inviteOnly, setInviteOnly] = useState(false);
+  useEffect(() => { api.getAuthConfig().then((c) => setInviteOnly(c.inviteOnly), () => undefined); }, []);
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
   const [busy, setBusy] = useState(false);
   const rules = { len: form.password.length >= 8, num: /\d/.test(form.password) };
@@ -107,16 +109,18 @@ export function SignUp() {
       email: !EMAIL_RE.test(form.email) ? t('auth.errors.email') : undefined,
       password: !(rules.len && rules.num) ? t('auth.errors.passwordRules') : undefined,
       consent: !consent ? t('auth.errors.consent') : undefined,
+      inviteCode: inviteOnly && !form.inviteCode.trim() ? t('auth.errors.inviteRequired') : undefined,
     };
     setErrors(next);
     if (Object.values(next).some(Boolean)) return;
     setBusy(true);
     try {
-      await signup(form);
+      await signup(inviteOnly ? form : { firstName: form.firstName, email: form.email, password: form.password });
       nav('/onboarding/about');
     } catch (err) {
-      const taken = err instanceof ApiError && err.message === 'email_taken';
-      setErrors(taken ? { email: t('auth.errors.emailTaken') } : { form: t('auth.errors.failed') });
+      const code = err instanceof ApiError ? err.message : '';
+      setErrors(code === 'email_taken' ? { email: t('auth.errors.emailTaken') }
+        : code === 'invite_wrong' || code === 'invite_required' ? { inviteCode: t('auth.errors.inviteWrong') } : { form: t('auth.errors.failed') });
     } finally {
       setBusy(false);
     }
@@ -136,6 +140,11 @@ export function SignUp() {
             ))}
           </div>
         </Field>
+        {inviteOnly && (
+          <Field label={t('auth.inviteCode')} htmlFor="ic" error={errors.inviteCode} hint={t('auth.inviteHint')}>
+            <TextInput id="ic" autoComplete="off" dir="ltr" className="text-start" value={form.inviteCode} invalid={!!errors.inviteCode} onChange={(e) => setForm({ ...form, inviteCode: e.target.value })} />
+          </Field>
+        )}
         <label className="flex min-h-tap cursor-pointer items-start gap-3 text-sm">
           <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 h-6 w-6 shrink-0 accent-accent" />
           <span>{t('auth.consent')}</span>

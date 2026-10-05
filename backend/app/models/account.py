@@ -3,7 +3,7 @@
 import datetime as dt
 from datetime import datetime
 
-from sqlalchemy import Boolean, CheckConstraint, ForeignKey, Integer, String, UniqueConstraint
+from sqlalchemy import Boolean, CheckConstraint, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.models.base import Base, UserOwned, owner, timestamp, uuid_pk
@@ -148,3 +148,19 @@ class WeightLog(Base, UserOwned):
         CheckConstraint("source IN ('daily', 'checkin')", name="source_values"),
     )
 
+
+
+class Feedback(Base, UserOwned):
+    """"Send feedback" from Profile & settings: a short message to the people running the app (not to the AI; it is
+    never sent to any model). Read with `npm run feedback`."""
+
+    __tablename__ = "feedback"
+
+    id: Mapped[str] = uuid_pk()
+    user_id: Mapped[str] = owner()
+    message: Mapped[str] = mapped_column(Text)
+    page: Mapped[str] = mapped_column(String(120), default="")  # where they were in the app
+    app_version: Mapped[str] = mapped_column(String(20), default="")
+    created_at: Mapped[datetime] = timestamp()
+
+    __table_args__ = (CheckConstraint("length(message) BETWEEN 1 AND 1000", name="message_length"),)

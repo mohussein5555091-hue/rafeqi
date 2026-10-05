@@ -16,7 +16,12 @@
     "test:e2e": "npm --prefix tests/e2e test",
     "lan": "node scripts/lan.mjs",
     "tunnel": "node scripts/tunnel.mjs",
-    "personas": "uv --directory backend run python ../scripts/personas.py"
+    "personas": "uv --directory backend run python ../scripts/personas.py",
+    "build": "npm --prefix frontend run build",
+    "start": "npm run build && npm run db:migrate && npm run db:seed && uv --directory backend run uvicorn app.main:app --host 0.0.0.0 --port 8000 --proxy-headers",
+    "backup": "uv --directory backend run python ../scripts/backup.py",
+    "restore": "uv --directory backend run python ../scripts/restore.py",
+    "feedback": "uv --directory backend run python ../scripts/feedback.py"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"

@@ -35,11 +35,11 @@
     "resetLaterTitle": "Password reset by email is coming later",
     "resetLaterBody": "For now, ask the person who runs Rafeqi to set a new password for you. Then log in with it and change it in Profile & settings.",
     "sendLink": "Send reset link", "backToLogin": "Back to log in",
-    "errors": {
+    "inviteCode": "Invite code", "inviteHint": "Rafeqi is invite-only for now: ask the person who invited you.", "errors": {
       "email": "Enter a full email, like name@gmail.com", "passwordRequired": "Enter your password",
       "invalid": "That email and password don't match. Check them and try again, or reset your password.",
       "firstName": "Enter your first name", "passwordRules": "Use at least 8 characters with one number.",
-      "consent": "Please confirm you're 18+ to continue.",
+      "consent": "Please confirm you're 18+ to continue.", "inviteRequired": "Enter the invite code you were given.", "inviteWrong": "That invite code isn't right. Check it with the person who invited you.",
       "emailTaken": "There's already an account with this email. Log in instead.",
       "failed": "Something went wrong. Please try again."
     }
@@ -265,7 +265,9 @@
     "deleteConfirmTitle": "Delete all your data?", "deleteConfirmBody": "This can't be undone. Your account, plan, logs, photos and reviews will be removed.", "deleteConfirm": "Delete everything",
     "equipment": "Equipment", "equipmentMissing": "{n} missing", "equipmentAll": "All available",
     "equipmentIntro": "Untick anything your training place doesn't have. Your plan is rebuilt around it; your meals stay the same.",
-    "equipmentSaved": "Saved. Your plan now fits your equipment.", "equipmentWhere": "Where you train: {place}"
+    "equipmentSaved": "Saved. Your plan now fits your equipment.", "equipmentWhere": "Where you train: {place}",
+    "feedback": "Send feedback", "feedbackIntro": "Something confusing, broken or missing? Tell the people building Rafeqi. This goes to them, not to the AI coach.",
+    "feedbackLabel": "Your message", "feedbackSend": "Send", "feedbackSent": "Thanks! Your message was sent."
   },
   "body": {
     "front": "Front", "back": "Back", "frontView": "Body map, front", "backView": "Body map, back", "leftShort": "L", "rightShort": "R",

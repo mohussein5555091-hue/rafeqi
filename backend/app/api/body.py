@@ -1,7 +1,7 @@
 """Injuries, the weekly check-in, weekly reviews and progress."""
 
 from fastapi import APIRouter, HTTPException, Request, status
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from sqlalchemy import select
 
 from app import clock
@@ -10,7 +10,7 @@ from app.api.training import current_week
 from app.engine.checkin import load_questions
 from app.engine.meals import NoMealPlan
 from app.models import CheckIn, Injury, Profile, WeeklyReview
-from app.photos import MAX_BYTES, PhotoProblem, photo_file, save_photo
+from app.photos import MAX_BYTES, PhotoProblem, read_photo, save_photo
 from app.plans import NotReady, rebuild_plan, run_weekly_review
 from app.schemas.screens import CheckInIn, InjurySaveIn
 from app.views import body as v
@@ -162,7 +162,7 @@ async def upload_photo(checkin_id: str, view: str, request: Request, auth: Curre
     if int(request.headers.get("content-length") or 0) > MAX_BYTES:
         raise HTTPException(413, "too_large")
     try:
-        save_photo(ci, view, await request.body())
+        save_photo(db, ci, view, await request.body())
     except PhotoProblem as e:
         raise HTTPException(413 if str(e) == "too_large" else 422, str(e)) from None
     db.commit()
@@ -171,10 +171,13 @@ async def upload_photo(checkin_id: str, view: str, request: Request, auth: Curre
 @router.get("/api/photos/{checkin_id}/{view}")
 def get_photo(checkin_id: str, view: str, auth: CurrentAuth, db: Db):
     """A progress photo, only for its owner (anyone else gets 404). Never cached by shared caches."""
-    path = photo_file(_checkin(db, auth.user.id, checkin_id), view)
-    if path is None:
+    found = read_photo(db, _checkin(db, auth.user.id, checkin_id), view)
+    if found is None:
         raise HTTPException(404, "not_found")
-    return FileResponse(path, headers={"Cache-Control": "private, no-store"})
+    headers = {"Cache-Control": "private, no-store"}
+    if isinstance(found, tuple):
+        return Response(found[0], media_type=found[1], headers=headers)
+    return FileResponse(found, headers=headers)
 
 
 # ── Reviews & progress ──
