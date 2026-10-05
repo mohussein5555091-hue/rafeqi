@@ -186,3 +186,5 @@ are offered.
 - API: every decision has `ruleKey` and `source.kind`; the page data has `rules {total, fromBooks, formulas}` and
   `formulas`.
 - Tests: `test_why.py` (labels, counts, a rule from a book counts as from your books) and `why.spec.ts`.
+
+**Priority 3 full run:** backend suite, typecheck and all 301 browser tests pass.
