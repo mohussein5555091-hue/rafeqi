@@ -1,0 +1,165 @@
+# Every exercise name the three Jeff Nippard programs use → the catalogue exercise it is (data/catalogue/exercises.yaml).
+# `technique` marks a way of doing that exercise (program_meta.yaml `techniques` explains each one); `choose` marks a
+# slot the person fills (the Upper/Lower program's "weak point" exercises): `id` is the default.
+# Read by scripts/books/programs.py (npm run books:programs).
+names:
+  # ── Legs: squat, hinge, single leg ──
+  BACK SQUAT: {id: ex_bb_squat}
+  TEMPO BACK SQUAT: {id: ex_bb_squat, technique: tempo}
+  FRONT SQUAT: {id: ex_front_squat}
+  GOBLET SQUAT: {id: ex_goblet_squat}
+  SLOW ECCENTRIC GOBLET SQUAT: {id: ex_goblet_squat, technique: slowEccentric}
+  DEADLIFT: {id: ex_bb_deadlift}
+  DEFICIT DEADLIFT: {id: ex_bb_deadlift, technique: deficit}
+  ROMANIAN DEADLIFT: {id: ex_bb_rdl}
+  ECCENTRIC-ACCENTUATED STIFF LEG DEADLIFT: {id: ex_stiff_leg_deadlift, technique: slowEccentric}
+  GOOD MORNING: {id: ex_good_morning}
+  BARBELL HIP THRUST: {id: ex_hip_thrust}
+  PAUSE BARBELL HIP THRUST: {id: ex_hip_thrust, technique: pause}
+  DUMBBELL SINGLE-LEG HIP THRUST: {id: ex_single_leg_hip_thrust}
+  BARBELL 45° HYPEREXTENSION: {id: ex_back_extension}
+  ROUND-BACK DUMBBELL 45° HYPEREXTENSION: {id: ex_back_extension, technique: roundBack}
+  REVERSE HYPER: {id: ex_reverse_hyper}
+  CABLE PULL THROUGH: {id: ex_cable_pull_through}
+  CABLE PULL-THROUGH: {id: ex_cable_pull_through}
+  CABLE ROPE PULLTHROUGH: {id: ex_cable_pull_through}
+  DUMBBELL WALKING LUNGE: {id: ex_walking_lunge_db}
+  BULGARIAN SPLIT SQUAT: {id: ex_bulgarian_split_squat}
+  DUMBBELL STEP-UP: {id: ex_step_up}
+  SMITH MACHINE REVERSE LUNGE: {id: ex_smith_reverse_lunge}
+  LEG PRESS: {id: ex_leg_press}
+  CONSTANT-TENSION LEG PRESS: {id: ex_leg_press, technique: constantTension}
+  KNEE-BANDED LEG PRESS: {id: ex_leg_press, technique: kneeBand}
+  SINGLE-LEG LEG PRESS: {id: ex_single_leg_press}
+  # ── Legs: knee extension and curl, hips, calves ──
+  LEG EXTENSION: {id: ex_leg_extension}
+  ENHANCED-ECCENTRIC LEG EXTENSION: {id: ex_leg_extension, technique: enhancedEccentric}
+  SINGLE-LEG LEG EXTENSION: {id: ex_single_leg_extension}
+  UNILATERAL ECCENTRIC- OVERLOADED LEG EXTENSION: {id: ex_single_leg_extension, technique: enhancedEccentric}
+  LYING LEG CURL: {id: ex_lying_leg_curl}
+  LEG CURL: {id: ex_lying_leg_curl}
+  ENHANCED-ECCENTRIC LYING LEG CURL: {id: ex_lying_leg_curl, technique: enhancedEccentric}
+  CONSTANT-TENSION LYING LEG CURL: {id: ex_lying_leg_curl, technique: constantTension}
+  SINGLE-LEG LYING LEG CURL: {id: ex_single_leg_lying_curl}
+  SEATED LEG CURL: {id: ex_seated_leg_curl}
+  SWISS BALL SINGLE-LEG LEG CURL: {id: ex_swiss_ball_leg_curl}
+  SLIDING LEG CURL: {id: ex_sliding_leg_curl}
+  MACHINE SEATED HIP ABDUCTION: {id: ex_hip_abduction}
+  MACHINE HIP ABDUCTION: {id: ex_hip_abduction}
+  CABLE STANDING HIP ABDUCTION: {id: ex_cable_hip_abduction}
+  LATERAL BAND WALK: {id: ex_lateral_band_walk}
+  STANDING CALF RAISE: {id: ex_calf_raise}
+  TEMPO STANDING CALF RAISE: {id: ex_calf_raise, technique: tempo}
+  ECCENTRIC-ACCENTAUTED/ CONSTANT-TENSION STANDING CALF RAISE: {id: ex_calf_raise, technique: slowEccentric}
+  CONSTANT-TENSION SEATED CALF RAISE: {id: ex_seated_calf_raise, technique: constantTension}
+  # ── Push: chest ──
+  BARBELL BENCH PRESS: {id: ex_bb_bench_press}
+  CLOSE-GRIP BENCH PRESS: {id: ex_close_grip_bench}
+  BARBELL CLOSE GRIP BENCH PRESS: {id: ex_close_grip_bench}
+  CLOSE-GRIP SMITH MACHINE PRESS: {id: ex_smith_close_grip_press}
+  BARBELL FLOOR PRESS: {id: ex_bb_floor_press}
+  DUMBBELL FLOOR PRESS: {id: ex_db_floor_press}
+  BARBELL INCLINE PRESS: {id: ex_bb_incline_press}
+  DUMBBELL INCLINE PRESS: {id: ex_db_incline_press}
+  PAUSE DUMBBELL INCLINE PRESS: {id: ex_db_incline_press, technique: pause}
+  MACHINE CHEST PRESS: {id: ex_machine_chest_press}
+  MACHINE INCLINE CHEST PRESS: {id: ex_machine_incline_press}
+  PUSH-UP: {id: ex_push_up}
+  CABLE FLYE: {id: ex_cable_flye}
+  CABLE FLYE 21s: {id: ex_cable_flye, technique: twentyOnes}
+  LOW-TO-HIGH CABLE FLYE: {id: ex_cable_flye, technique: lowToHigh}
+  PEC DECK: {id: ex_pec_deck}
+  # ── Push: shoulders ──
+  MILITARY PRESS: {id: ex_ohp}
+  BARBELL OVERHEAD PRESS: {id: ex_ohp}
+  MILITARY PRESS / PUSH PRESS COMPLEX: {id: ex_ohp, technique: pushPressComplex}
+  BARBELL PUSH PRESS: {id: ex_push_press}
+  DUMBBELL SEATED SHOULDER PRESS: {id: ex_db_shoulder_press}
+  ARNOLD PRESS: {id: ex_arnold_press}
+  MACHINE SHOULDER PRESS: {id: ex_machine_shoulder_press}
+  CONSTANT-TENSION MACHINE SHOULDER PRESS: {id: ex_machine_shoulder_press, technique: constantTension}
+  DUMBBELL LATERAL RAISE: {id: ex_lateral_raise}
+  EGYPTIAN LATERAL RAISE: {id: ex_lateral_raise, technique: egyptian}
+  DB FRONT RAISE/LATERAL RAISE: {id: ex_lateral_raise, technique: frontAndSide}
+  CABLE LATERAL RAISE: {id: ex_cable_lateral_raise}
+  MACHINE LATERAL RAISE: {id: ex_machine_lateral_raise}
+  # ── Push: dips and triceps ──
+  DIP: {id: ex_dip}
+  WEIGHTED DIP: {id: ex_dip, technique: weighted}
+  SLOW ECCENTRIC DIP: {id: ex_dip, technique: slowEccentric}
+  ASSISTED DIP: {id: ex_assisted_dip}
+  DUMBBELL SKULL CRUSHER: {id: ex_db_skull_crusher}
+  DUMBBELL ISOLATERAL SKULL CRUSHER: {id: ex_db_skull_crusher, technique: oneArmAtATime}
+  BARBELL FLOOR SKULL CRUSHER: {id: ex_floor_skull_crusher}
+  MYO REPS FLOOR SKULL CRUSHER: {id: ex_floor_skull_crusher, technique: myoReps}
+  ROPE OVERHEAD TRICEPS EXTENSION: {id: ex_overhead_triceps_extension}
+  ECCENTRIC-OVERLOADED ROPE OVERHEAD TRICEPS EXTENSION: {id: ex_overhead_triceps_extension, technique: enhancedEccentric}
+  SINGLE-ARM ROPE TRICEP EXTENSION: {id: ex_single_arm_rope_extension}
+  TRICEPS V-BAR PRESSDOWN: {id: ex_pushdown}
+  CABLE TRICEP KICKBACK: {id: ex_cable_kickback}
+  CABLE TRICEPS KICKBACK: {id: ex_cable_kickback}
+  CALIFORNIA PRESS: {id: ex_california_press}
+  # ── Pull: vertical ──
+  LAT PULLDOWN: {id: ex_wide_pulldown}
+  NEUTRAL-GRIP PULLDOWN: {id: ex_lat_pulldown}
+  REVERSE GRIP LAT PULLDOWN: {id: ex_reverse_grip_pulldown}
+  SUPINATED LAT PULLDOWN: {id: ex_reverse_grip_pulldown}
+  SINGLE-ARM PULLDOWN: {id: ex_single_arm_pulldown}
+  1 ARM LAT PULL-IN: {id: ex_lat_pull_in}
+  PULL-UP: {id: ex_pull_up}
+  WIDE-GRIP PULL-UP: {id: ex_pull_up, technique: wideGrip}
+  NEUTRAL-GRIP PULL-UP / NEGATIVE NEUTRAL-GRIP PULL-U: {id: ex_pull_up, technique: amrapNegatives}
+  KNEELING STRAIGHT-ARM CABLE PULL-OVER: {id: ex_straight_arm_pulldown}
+  # ── Pull: rows ──
+  CABLE SEATED ROW: {id: ex_cable_row}
+  CABLE CLOSE-GRIP ROW: {id: ex_cable_row}
+  ECCENTRIC-ACCENTUATED CABLE ROW: {id: ex_cable_row, technique: slowEccentric}
+  CABLE SEATED ELBOWS OUT ROW: {id: ex_cable_row, technique: elbowsOut}
+  CHEST-SUPPORTED T-BAR ROW: {id: ex_tbar_row}
+  CHEST-SUPPORTED T-BAR ROW W/ BAND: {id: ex_tbar_row, technique: band}
+  BANDED CHEST-SUPPORTED T-BAR ROW: {id: ex_tbar_row, technique: band}
+  SEATED T-BAR ROW: {id: ex_tbar_row}
+  MACHINE CHEST-SUPPORTED ROW W/ BAND: {id: ex_machine_row, technique: band}
+  MACHINE HIGH ROW: {id: ex_machine_high_row}
+  BARBELL BENT OVER ROW: {id: ex_bb_row}
+  PENDLAY ROW: {id: ex_bb_row, technique: pendlay}
+  PENDLAY ROW / BARBELL BENT OVER ROW: {id: ex_bb_row, technique: pendlayThenBentOver}
+  BARBELL SUPINATED ROW: {id: ex_bb_row, technique: underhand}
+  DUMBBELL ROW: {id: ex_one_arm_db_row}
+  DUMBBELL ONE-ARM ROW: {id: ex_one_arm_db_row}
+  SEAL ROW: {id: ex_seal_row}
+  # ── Pull: rear shoulders, traps ──
+  SEATED FACE PULL: {id: ex_face_pull}
+  REVERSE PEC DECK: {id: ex_reverse_pec_deck}
+  CABLE REVERSE FLYE: {id: ex_cable_reverse_flye}
+  LOW-TO-HIGH REVERSE FLYE: {id: ex_cable_reverse_flye, technique: lowToHigh}
+  DUMBBELL BENT OVER LATERAL RAISE: {id: ex_rear_delt_raise}
+  BAND PULL-APART: {id: ex_band_pull_apart}
+  ROPE UPRIGHT ROW: {id: ex_upright_row}
+  CABLE UPRIGHT ROW: {id: ex_upright_row}
+  SNATCH GRIP BARBELL SHRUG: {id: ex_shrug}
+  # ── Arms: biceps ──
+  DUMBBELL SUPINATED CURL: {id: ex_db_curl}
+  SUPINATED DUMBBELL CURL: {id: ex_db_curl}
+  HAMMER CURL: {id: ex_hammer_curl}
+  DUMBBELL HAMMER CURL: {id: ex_hammer_curl}
+  ECCENTRIC-ACCENTUATED HAMMER CURL: {id: ex_hammer_curl, technique: slowEccentric}
+  EZ BAR CURL: {id: ex_ez_curl}
+  SUPINATED EZ BAR CURL: {id: ex_ez_curl}
+  EZ BAR CURL 21S: {id: ex_ez_curl, technique: twentyOnes}
+  REVERSE GRIP EZ BAR CURL: {id: ex_reverse_ez_curl}
+  DUMBBELL PRONATED CURL: {id: ex_reverse_ez_curl, technique: dumbbells}
+  DUMBBELL PREACHER CURL: {id: ex_preacher_curl}
+  SPIDER CURL: {id: ex_spider_curl}
+  SINGLE-ARM CABLE CURL: {id: ex_cable_curl}
+  # ── Core ──
+  CRUNCH: {id: ex_crunch}
+  WEIGHTED CRUNCH: {id: ex_crunch, technique: weighted}
+  CABLE CRUNCH: {id: ex_cable_crunch}
+  BICYCLE CRUNCH: {id: ex_bicycle_crunch}
+  HANGING LEG RAISE: {id: ex_hanging_leg_raise}
+  PLANK: {id: ex_plank}
+  AB WHEEL ROLLOUT: {id: ex_ab_wheel}
+  # ── Upper/Lower: the person's weak points (book p. 59). Defaults: Jeff's own example (p. 61), biceps and calves. ──
+  UPPER BODY WEAK POINT 1: {id: ex_db_curl, technique: enhancedEccentric, choose: upperWeakPoint}
+  LOWER BODY WEAK POINT 1: {id: ex_calf_raise, choose: lowerWeakPoint}

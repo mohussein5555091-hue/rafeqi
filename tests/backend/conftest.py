@@ -26,7 +26,14 @@ from sqlalchemy.orm import Session, sessionmaker
 from app import clock as clock_module
 from app.config import get_settings
 from app.db import get_db, make_engine
+from app.engine.rules import load_templates
 from app.main import app
+
+# The backend tests build plans from two small, stable sample programs (tests/backend/fixtures/programs/), so their
+# exact exercises and numbers don't change when the real programs (data/programs/) do. Tests of the real programs ask
+# for the `real_programs` fixture.
+SAMPLE_PROGRAMS = Path(__file__).resolve().parent / "fixtures" / "programs"
+REAL_PROGRAMS = get_settings().programs_dir
 
 BACKEND = Path(__file__).resolve().parents[2] / "backend"
 PASSWORD = "correct-horse-1"
@@ -160,3 +167,23 @@ def make_user(client_factory) -> Callable[..., TestUser]:
         return TestUser(c, r.json()["id"], email)
 
     return make
+
+
+def _use_programs(folder: Path) -> None:
+    get_settings().programs_dir = folder
+    load_templates.cache_clear()
+
+
+@pytest.fixture(autouse=True, scope="session")
+def sample_programs() -> Iterator[None]:
+    _use_programs(SAMPLE_PROGRAMS)
+    yield
+    _use_programs(REAL_PROGRAMS)
+
+
+@pytest.fixture
+def real_programs() -> Iterator[None]:
+    """The real programs in data/programs/ for this test (back to the samples afterwards)."""
+    _use_programs(REAL_PROGRAMS)
+    yield
+    _use_programs(SAMPLE_PROGRAMS)

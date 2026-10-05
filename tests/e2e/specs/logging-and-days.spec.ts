@@ -98,10 +98,11 @@ test.describe('own account', () => {
 
 test('workout week: every day opens its full session, with previous / next arrows', async ({ page, isMobile }) => {
   const week = await api(page, '/workouts/week');
-  // Lifting on Sat, Mon, Wed, Thu; cardio on the rest days Tue and Fri (never the day before a leg day).
+  // Fundamentals Upper/Lower: lower on Sat and Wed, upper on Mon and Thu. Cardio is never the day before a leg day, so the
+  // only rest day for it is Sunday (the other sessions are after lifting on Mon and Thu).
   expect(week.sessions.map((s: { day: string; kind: string; status: string }) => `${s.day}:${s.kind}:${s.status}`)).toEqual(
-    ['sat:strength:missed', 'mon:strength:today', 'tue:cardio:planned', 'wed:strength:planned', 'thu:strength:planned', 'fri:cardio:planned']);
-  const [sat, mon, tue, wed, thu, fri] = week.sessions;
+    ['sat:strength:missed', 'sun:cardio:missed', 'mon:strength:today', 'wed:strength:planned', 'thu:strength:planned']);
+  const [sat, sun, mon, wed, thu] = week.sessions;
 
   await page.goto('/workouts');
   await waitForContent(page);
@@ -122,14 +123,14 @@ test('workout week: every day opens its full session, with previous / next arrow
   await expect(page.getByRole('link', { name: 'Start workout' })).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Previous workout' })).toBeDisabled();
 
+  await page.getByRole('link', { name: 'Next workout' }).click(); // a cardio day
+  await expect(page).toHaveURL(new RegExp(`/workouts/${sun.id}$`));
+  await waitForContent(page);
+  await expect(page.getByTestId('cardio')).toBeVisible();
+
   await page.getByRole('link', { name: 'Next workout' }).click(); // today
   await expect(page).toHaveURL(new RegExp(`/workouts/${mon.id}$`));
   await expect(page.getByRole('link', { name: 'Start workout' })).toBeVisible();
-
-  await page.getByRole('link', { name: 'Next workout' }).click(); // a cardio day
-  await expect(page).toHaveURL(new RegExp(`/workouts/${tue.id}$`));
-  await waitForContent(page);
-  await expect(page.getByTestId('cardio')).toContainText('You can mark it done on Tuesday.');
 
   await page.getByRole('link', { name: 'Next workout' }).click(); // a future lifting day
   await expect(page).toHaveURL(new RegExp(`/workouts/${wed.id}$`));
@@ -142,12 +143,9 @@ test('workout week: every day opens its full session, with previous / next arrow
   await page.getByRole('link', { name: 'Next workout' }).click();
   await expect(page).toHaveURL(new RegExp(`/workouts/${thu.id}$`));
   await waitForContent(page);
-  await page.getByRole('link', { name: 'Next workout' }).click();
-  await expect(page).toHaveURL(new RegExp(`/workouts/${fri.id}$`));
-  await waitForContent(page);
   await expect(page.getByRole('button', { name: 'Next workout' })).toBeDisabled();
   await page.getByRole('link', { name: 'Previous workout' }).click();
-  await expect(page).toHaveURL(new RegExp(`/workouts/${thu.id}$`));
+  await expect(page).toHaveURL(new RegExp(`/workouts/${wed.id}$`));
 });
 
 test('nutrition week: each day opens that exact date, with previous / next arrows and its own totals', async ({ page }) => {

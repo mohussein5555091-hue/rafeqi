@@ -27,6 +27,7 @@ movement_patterns:
   shoulderExternalRotation: { en: Shoulder outward rotation, ar: لف الكتف لبرّه }
   kneeExtension:            { en: Knee straighten, ar: فرد الركبة }
   kneeFlexion:              { en: Knee bend (hamstrings), ar: ثني الركبة }
+  hipAbduction:             { en: Leg out to the side (side glutes), ar: فتح الرجل للجنب }
   plantarFlexion:           { en: Calf raise, ar: رفع السمانة }
   locomotion:               { en: Walking / running, ar: مشي / جري }
   jump:                     { en: Jumping, ar: نط }

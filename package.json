@@ -22,7 +22,8 @@
     "backup": "uv --directory backend run python ../scripts/backup.py",
     "restore": "uv --directory backend run python ../scripts/restore.py",
     "feedback": "uv --directory backend run python ../scripts/feedback.py",
-    "books:extract": "uv run --quiet scripts/books/extract.py"
+    "books:extract": "uv run --quiet scripts/books/extract.py",
+    "books:programs": "uv run --quiet scripts/books/programs.py"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"

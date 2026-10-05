@@ -19,7 +19,14 @@ const DEFAULT = [
   'Quad_Stretch', 'Rope_Jumping', 'Seated_Biceps', 'Seated_Glute', 'Seated_Leg_Curl', 'Shoulder_Stretch',
   'Side_Lateral_Raise', 'Single-Arm_Linear_Jammer', 'Split_Squat_with_Dumbbells', 'Standing_Calf_Raises',
   'Standing_Hip_Circles', 'Standing_Military_Press', 'Stiff-Legged_Dumbbell_Deadlift', 'Triceps_Pushdown',
-  'V-Bar_Pulldown', 'Walking_Treadmill',
+  'V-Bar_Pulldown', 'Walking_Treadmill', 'Air_Bike', 'Barbell_Hip_Thrust', 'Bent_Over_Barbell_Row', 'Butterfly',
+  'Cable_Crossover', 'Cable_One_Arm_Tricep_Extension', 'Cable_Rear_Delt_Fly', 'Cable_Seated_Lateral_Raise',
+  'Close-Grip_Barbell_Bench_Press', 'Crunches', 'Dip_Machine', 'Dumbbell_Bicep_Curl', 'Dumbbell_Lunges',
+  'EZ-Bar_Curl', 'Hammer_Curls', 'Hanging_Leg_Raise', 'Incline_Dumbbell_Press', 'Leverage_Incline_Chest_Press',
+  'Lying_Dumbbell_Tricep_Extension', 'Lying_Leg_Curls', 'Lying_T-Bar_Row', 'One_Arm_Lat_Pulldown', 'Plank',
+  'Reverse_Machine_Flyes', 'Romanian_Deadlift', 'Seated_Bent-Over_Rear_Delt_Raise', 'Seated_Cable_Rows',
+  'Single-Leg_Leg_Extension', 'Single_Leg_Glute_Bridge', 'Standing_Biceps_Cable_Curl', 'Thigh_Abductor',
+  'Underhand_Cable_Pulldowns', 'Wide-Grip_Lat_Pulldown',
 ];
 
 const ids = process.argv.slice(2).length ? process.argv.slice(2) : DEFAULT;

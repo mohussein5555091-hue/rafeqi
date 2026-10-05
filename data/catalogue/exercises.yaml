@@ -324,7 +324,7 @@ exercises:
   image_url: /exercises/Face_Pull/0.jpg
   image_frames:
   - /exercises/Face_Pull/1.jpg
-  video_url: https://www.youtube.com/results?search_query=Cable+face+pull+proper+form
+  video_url: https://www.youtube.com/watch?v=HSoHeSjvIdY
   media_source:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Face_Pull
@@ -753,7 +753,7 @@ exercises:
   image_url: /exercises/Standing_Calf_Raises/0.jpg
   image_frames:
   - /exercises/Standing_Calf_Raises/1.jpg
-  video_url: https://www.youtube.com/results?search_query=Standing+calf+raise+proper+form
+  video_url: https://www.youtube.com/watch?v=7AVIgDN72c0
   media_source:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Standing_Calf_Raises
@@ -932,7 +932,7 @@ exercises:
   image_url: /exercises/Leg_Extensions/0.jpg
   image_frames:
   - /exercises/Leg_Extensions/1.jpg
-  video_url: https://www.youtube.com/results?search_query=Leg+extension+proper+form
+  video_url: https://www.youtube.com/watch?v=YyvSfVjQeL0
   media_source:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Leg_Extensions
@@ -1115,7 +1115,7 @@ exercises:
   image_url: /exercises/Side_Lateral_Raise/0.jpg
   image_frames:
   - /exercises/Side_Lateral_Raise/1.jpg
-  video_url: https://www.youtube.com/results?search_query=Dumbbell+lateral+raise+proper+form
+  video_url: https://www.youtube.com/watch?v=6m7JO28RqZg
   media_source:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Side_Lateral_Raise
@@ -1241,7 +1241,7 @@ exercises:
   image_url: /exercises/Barbell_Squat/0.jpg
   image_frames:
   - /exercises/Barbell_Squat/1.jpg
-  video_url: https://www.youtube.com/results?search_query=Barbell+back+squat+proper+form
+  video_url: https://www.youtube.com/watch?v=dW5-C1fsMjk
   media_source:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Barbell_Squat
@@ -1307,7 +1307,7 @@ exercises:
   image_url: /exercises/Barbell_Bench_Press_-_Medium_Grip/0.jpg
   image_frames:
   - /exercises/Barbell_Bench_Press_-_Medium_Grip/1.jpg
-  video_url: https://www.youtube.com/results?search_query=Barbell+bench+press+proper+form
+  video_url: https://www.youtube.com/watch?v=esQi683XR44
   media_source:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Barbell_Bench_Press_-_Medium_Grip
@@ -1373,7 +1373,7 @@ exercises:
   image_url: /exercises/Barbell_Deadlift/0.jpg
   image_frames:
   - /exercises/Barbell_Deadlift/1.jpg
-  video_url: https://www.youtube.com/results?search_query=Barbell+deadlift+proper+form
+  video_url: https://www.youtube.com/watch?v=fc4_hq7tjkU
   media_source:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Barbell_Deadlift
@@ -1674,7 +1674,7 @@ exercises:
   image_url: /exercises/Standing_Military_Press/0.jpg
   image_frames:
   - /exercises/Standing_Military_Press/1.jpg
-  video_url: https://www.youtube.com/results?search_query=Standing+barbell+overhead+press+proper+form
+  video_url: https://www.youtube.com/watch?v=CnBmiBqp-AI
   media_source:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Standing_Military_Press
@@ -3189,3 +3189,2122 @@ exercises:
       en: Shown in child's pose; lying on your back works too
       ar: في الصورة وضعية الطفل؛ النوم على الضهر برضه ينفع
   source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+- id: ex_assisted_dip
+  type: strength
+  name:
+    en: Assisted dip
+    ar: ديبس بمساعدة
+  description:
+    en: Dips on a machine that takes part of your weight. Trains the lower chest, triceps and front shoulders.
+    ar: ديبس على جهاز بيشيل جزء من وزنك. بيشتغل على أسفل الصدر والترايسبس ومقدمة الكتف.
+  movement_pattern: dip
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - chest
+  - armL
+  - armR
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Lower chest, triceps · front shoulders
+    ar: أسفل الصدر، الترايسبس · مقدمة الكتف
+  instructions:
+  - en: 'Pick the help weight: more weight on the stack means more help.'
+    ar: 'اختار وزن المساعدة: وزن أكتر يعني مساعدة أكتر.'
+  - en: Kneel or stand on the pad and hold the handles with straight arms.
+    ar: اركع أو اقف على المسند وامسك المسكات ودراعك مفرود.
+  - en: Lean forward a little and bend your elbows until your shoulders are just below your elbows.
+    ar: ميّل لقدام شوية وانزل بكوعك لحد ما كتفك يبقى تحت مستوى الكوع بشوية.
+  - en: Push back up until your arms are straight.
+    ar: ادفع لفوق لحد ما دراعك يفرد.
+  cues:
+  - en: Lean slightly forward
+    ar: ميّل لقدام سنّة
+  - en: Shoulders down, away from your ears
+    ar: الكتف لتحت بعيد عن ودانك
+  - en: Control the way down
+    ar: اتحكّم في النزول
+  mistakes:
+  - en: Dropping too deep with shrugged shoulders
+    ar: النزول عميق أوي والكتف مرفوع
+  - en: Bouncing at the bottom
+    ar: النطّ من تحت
+  image_url: /exercises/Dip_Machine/0.jpg
+  image_frames:
+  - /exercises/Dip_Machine/1.jpg
+  video_url: https://www.youtube.com/watch?v=wjUmnZH528Y
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dip_Machine
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Decline dumbbell press
+      ar: ضغط دمبلز على بنش مايل لتحت
+    kind: equipment
+    equipment:
+    - dumbbells
+    - bench
+  - exercise_id: ex_push_up
+    name:
+      en: Push-up
+      ar: ضغط
+    kind: noEquipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91; the book''s substitutions, pp. 27–29. How-to written for Rafeqi.'
+- id: ex_bb_rdl
+  type: strength
+  name:
+    en: Barbell Romanian deadlift
+    ar: رفعة رومانية بالبار
+  description:
+    en: Hinge at the hips with a barbell and a soft bend in the knees. Trains the hamstrings and glutes.
+    ar: انحناء من الوسط بالبار والركبة مثنية سنّة. بيشتغل على العضلة الخلفية للفخد والمؤخرة.
+  movement_pattern: hinge
+  joints_loaded:
+  - hip
+  - spine
+  range_of_motion: full
+  equipment:
+  - barbell
+  difficulty: intermediate
+  primary_muscles:
+  - thighL
+  - thighR
+  - hipL
+  - hipR
+  secondary_muscles:
+  - lowerBack
+  muscle_names:
+    en: Hamstrings, glutes · lower back
+    ar: خلفية الفخد، المؤخرة · أسفل الضهر
+  instructions:
+  - en: Stand tall holding the bar at your thighs, hands just outside your legs.
+    ar: اقف مفرود والبار عند فخدك، وإيديك برّه رجلك على طول.
+  - en: Unlock your knees a little and push your hips back.
+    ar: افك ركبتك سنّة وزق وسطك لورا.
+  - en: Slide the bar down your legs until you feel a strong stretch in the back of your thighs.
+    ar: نزّل البار على رجلك لحد ما تحس بشدّ قوي في خلفية الفخد.
+  - en: Squeeze your glutes to stand back up.
+    ar: اقفل المؤخرة وأنت طالع لحد ما تقف.
+  cues:
+  - en: Hips back, not down
+    ar: الوسط لورا مش لتحت
+  - en: Bar close to your legs
+    ar: البار لازق في رجلك
+  - en: Back flat
+    ar: الضهر مفرود
+  mistakes:
+  - en: Rounding the lower back
+    ar: تقويس أسفل الضهر
+  - en: Bending the knees into a squat
+    ar: ثني الركبة كأنه سكوات
+  - en: Bar drifting away from the legs
+    ar: البار يبعد عن الرجل
+  image_url: /exercises/Romanian_Deadlift/0.jpg
+  image_frames:
+  - /exercises/Romanian_Deadlift/1.jpg
+  video_url: https://www.youtube.com/watch?v=SE-2Y-3a1pY
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Romanian_Deadlift
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_db_rdl
+    name:
+      en: Dumbbell Romanian deadlift
+      ar: رفعة رومانية بالدمبلز
+    kind: easier
+  - name:
+      en: Glute-ham raise
+      ar: جلوت هام ريز
+    kind: equipment
+    equipment:
+    - machine
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91; the book''s substitutions, pp. 27–29. How-to written for Rafeqi.'
+- id: ex_bb_row
+  type: strength
+  name:
+    en: Barbell bent-over row
+    ar: تجديف بالبار وأنت منحني
+  description:
+    en: Row a barbell to your stomach while bent forward. Builds the whole back.
+    ar: اسحب البار لبطنك وأنت منحني لقدام. بيبني الضهر كله.
+  movement_pattern: horizontalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  - spine
+  range_of_motion: full
+  equipment:
+  - barbell
+  difficulty: intermediate
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  - lowerBack
+  muscle_names:
+    en: Upper and middle back · biceps, lower back
+    ar: أعلى ونص الضهر · البايسبس، أسفل الضهر
+  instructions:
+  - en: Hold the bar a little wider than shoulder-width and hinge forward until your chest faces the floor at an angle.
+    ar: امسك البار أوسع من كتفك سنّة وانحني لقدام لحد ما صدرك يبص للأرض بزاوية.
+  - en: Keep your back flat and your knees a little bent.
+    ar: خلّي ضهرك مفرود وركبتك مثنية سنّة.
+  - en: Pull the bar to your lower ribs, elbows going back.
+    ar: اسحب البار لآخر ضلوعك والكوع رايح لورا.
+  - en: Lower it under control until your arms are straight.
+    ar: نزّله بتحكّم لحد ما دراعك يفرد.
+  cues:
+  - en: Back flat, chest proud
+    ar: الضهر مفرود والصدر لقدام
+  - en: Pull with the elbows
+    ar: اسحب بالكوع
+  - en: Squeeze your shoulder blades
+    ar: اقفل لوحين الكتف
+  mistakes:
+  - en: Standing up more with each rep
+    ar: تقف أكتر مع كل عدّة
+  - en: Jerking the weight with the hips
+    ar: تشدّ الوزن بوسطك
+  - en: Rounding the back
+    ar: تقويس الضهر
+  image_url: /exercises/Bent_Over_Barbell_Row/0.jpg
+  image_frames:
+  - /exercises/Bent_Over_Barbell_Row/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Barbell+bent-over+row+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Bent_Over_Barbell_Row
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_cs_row
+    name:
+      en: Chest-supported dumbbell row
+      ar: تجديف دمبلز وصدرك على البنش
+    kind: injuryFriendly
+  - exercise_id: ex_one_arm_db_row
+    name:
+      en: One-arm dumbbell row
+      ar: تجديف دمبل بإيد واحدة
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_bicycle_crunch
+  type: strength
+  name:
+    en: Bicycle crunch
+    ar: كرانش العجلة
+  description:
+    en: Lying on your back, bring each elbow toward the opposite knee in turn. Trains the abs and the sides of your waist.
+    ar: وأنت نايم على ضهرك، قرّب كل كوع من الركبة العكسية بالتبادل. بيشتغل على البطن وجناب الوسط.
+  movement_pattern: core
+  joints_loaded:
+  - spine
+  - hip
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - abdomen
+  secondary_muscles:
+  - hipL
+  - hipR
+  muscle_names:
+    en: Abs, sides of the waist · hip flexors
+    ar: البطن، جناب الوسط · عضلات ثني الحوض
+  instructions:
+  - en: Lie on your back, hands lightly behind your head, knees lifted.
+    ar: نام على ضهرك، إيديك ورا راسك من غير ما تشدّ، وركبك مرفوعة.
+  - en: Lift your shoulders off the floor.
+    ar: ارفع كتفك من على الأرض.
+  - en: Bring one elbow toward the opposite knee while the other leg straightens.
+    ar: قرّب كوع من الركبة العكسية والرجل التانية تتفرد.
+  - en: Switch sides slowly, like pedalling.
+    ar: بدّل الناحيتين ببطء كأنك بتبدّل عجلة.
+  cues:
+  - en: Turn from your ribs, not your elbows
+    ar: اللفّة من ضلوعك مش من كوعك
+  - en: Slow and controlled
+    ar: ببطء وبتحكّم
+  - en: Lower back stays down
+    ar: أسفل ضهرك على الأرض
+  mistakes:
+  - en: Pulling on your neck
+    ar: تشدّ رقبتك
+  - en: Pedalling too fast
+    ar: تبدّل بسرعة أوي
+  image_url: /exercises/Air_Bike/0.jpg
+  image_frames:
+  - /exercises/Air_Bike/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Bicycle+crunch+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Air_Bike
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_crunch
+    name:
+      en: Crunch
+      ar: كرانش
+    kind: easier
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_cable_curl
+  type: strength
+  name:
+    en: Cable curl
+    ar: بايسبس كابل
+  description:
+    en: Curl a cable bar up while standing. The cable keeps tension on the biceps the whole way.
+    ar: ارفع مسكة الكابل بكوعك وأنت واقف. الكابل بيخلّي الشدّ على البايسبس طول الحركة.
+  movement_pattern: elbowFlexion
+  joints_loaded:
+  - elbow
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles:
+  - forearmL
+  - forearmR
+  muscle_names:
+    en: Biceps · forearms
+    ar: البايسبس · الساعد
+  instructions:
+  - en: Set the pulley low with a straight or EZ bar and stand facing it.
+    ar: نزّل البكرة لتحت وركّب بار مستقيم أو زجزاج واقف في وشّها.
+  - en: Hold the bar palms up, elbows by your sides.
+    ar: امسك البار وكفك لفوق والكوع جنبك.
+  - en: Curl the bar up without moving your elbows forward.
+    ar: ارفع البار من غير ما الكوع يتحرك لقدام.
+  - en: Lower slowly until your arms are straight.
+    ar: نزّل ببطء لحد ما دراعك يفرد.
+  cues:
+  - en: Elbows pinned to your sides
+    ar: الكوع لازق في جنبك
+  - en: Squeeze at the top
+    ar: اعصر فوق
+  - en: Slow on the way down
+    ar: بالراحة وأنت نازل
+  mistakes:
+  - en: Swinging the body
+    ar: تهز جسمك
+  - en: Elbows drifting forward
+    ar: الكوع يطلع لقدام
+  image_url: /exercises/Standing_Biceps_Cable_Curl/0.jpg
+  image_frames:
+  - /exercises/Standing_Biceps_Cable_Curl/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Cable+curl+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Standing_Biceps_Cable_Curl
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_db_curl
+    name:
+      en: Dumbbell curl
+      ar: بايسبس دمبلز
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_cable_flye
+  type: strength
+  name:
+    en: Cable fly
+    ar: فلاي كابل
+  description:
+    en: Bring two cable handles together in front of your chest in a wide hug. Trains the chest with tension all the way.
+    ar: قرّب مسكتين الكابل قدام صدرك كأنك بتحضن حد. بيشتغل على الصدر والشدّ مستمر طول الحركة.
+  movement_pattern: horizontalPush
+  joints_loaded:
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - chest
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Chest · front shoulders
+    ar: الصدر · مقدمة الكتف
+  instructions:
+  - en: Set both pulleys at about chest height and take one handle in each hand.
+    ar: ظبّط البكرتين على مستوى صدرك تقريبًا وامسك مسكة في كل إيد.
+  - en: Step forward, slight bend in the elbows, arms open wide.
+    ar: اخطي لقدام، الكوع مثني سنّة والدراعات مفتوحة.
+  - en: Bring your hands together in front of your chest in an arc.
+    ar: قرّب إيديك قدام صدرك في قوس.
+  - en: Open back slowly until you feel a stretch across your chest.
+    ar: افتح تاني ببطء لحد ما تحس بشدّ في صدرك.
+  cues:
+  - en: Keep the elbow bend fixed
+    ar: ثنية الكوع ثابتة
+  - en: Hug a big tree
+    ar: كأنك بتحضن شجرة كبيرة
+  - en: Chest up
+    ar: صدرك لفوق
+  mistakes:
+  - en: Turning it into a press by bending the elbows
+    ar: تحوّلها ضغط وتثني الكوع
+  - en: Opening so wide it pulls the shoulders
+    ar: تفتح أوسع من اللازم فتشدّ الكتف
+  image_url: /exercises/Cable_Crossover/0.jpg
+  image_frames:
+  - /exercises/Cable_Crossover/1.jpg
+  video_url: https://www.youtube.com/watch?v=KJwiu8ttuZ0
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Cable_Crossover
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_pec_deck
+    name:
+      en: Pec deck
+      ar: بيك دك
+    kind: equipment
+  - name:
+      en: Dumbbell fly
+      ar: فلاي دمبلز
+    kind: equipment
+    equipment:
+    - dumbbells
+    - bench
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91; the book''s substitutions, pp. 27–29. How-to written for Rafeqi.'
+- id: ex_cable_kickback
+  type: strength
+  name:
+    en: Cable triceps kickback
+    ar: كيك باك ترايسبس كابل
+  description:
+    en: Bent forward, straighten your arm back against a cable. Trains the triceps.
+    ar: وأنت منحني لقدام، افرد دراعك لورا ضد الكابل. بيشتغل على الترايسبس.
+  movement_pattern: elbowExtension
+  joints_loaded:
+  - elbow
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles: []
+  muscle_names:
+    en: Triceps
+    ar: الترايسبس
+  instructions:
+  - en: Set the pulley low, hold the cable (no handle) in one hand and hinge forward.
+    ar: نزّل البكرة لتحت، امسك الكابل من غير مسكة بإيد واحدة وانحني لقدام.
+  - en: Bring your upper arm back alongside your body.
+    ar: رجّع دراعك العلوي لورا جنب جسمك.
+  - en: Straighten your elbow until your arm points back.
+    ar: افرد كوعك لحد ما دراعك يشاور لورا.
+  - en: Bend back slowly, keeping the upper arm still.
+    ar: اثنيه تاني ببطء ودراعك العلوي ثابت.
+  cues:
+  - en: Upper arm still
+    ar: الدراع العلوي ثابت
+  - en: Squeeze the triceps when straight
+    ar: اعصر الترايسبس وهو مفرود
+  - en: Slow return
+    ar: رجوع بطيء
+  mistakes:
+  - en: Swinging the whole arm
+    ar: تهز الدراع كله
+  - en: Going too heavy to straighten fully
+    ar: وزن تقيل مش قادر تفرد بيه
+  video_url: https://www.youtube.com/results?search_query=Cable+triceps+kickback+proper+form
+  alternatives:
+  - exercise_id: ex_pushdown
+    name:
+      en: Triceps pushdown
+      ar: ترايسبس بوش داون
+    kind: easier
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_cable_lateral_raise
+  type: strength
+  name:
+    en: Cable lateral raise
+    ar: رفرفة جانبي كابل
+  description:
+    en: Raise a low cable out to your side. Trains the side shoulders, with tension even at the bottom.
+    ar: ارفع كابل واطي للجنب. بيشتغل على جانب الكتف، والشدّ موجود حتى تحت.
+  movement_pattern: shoulderAbduction
+  joints_loaded:
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles:
+  - upperBack
+  muscle_names:
+    en: Side shoulders · upper traps
+    ar: جانب الكتف · أعلى الترابيس
+  instructions:
+  - en: Set the pulley low and stand side-on, holding the handle with the far hand.
+    ar: نزّل البكرة لتحت واقف جنبها، وامسك المسكة بالإيد البعيدة.
+  - en: Raise your arm out to the side until it is level with your shoulder.
+    ar: ارفع دراعك للجنب لحد ما يبقى في مستوى كتفك.
+  - en: Lower slowly across your body.
+    ar: نزّله ببطء قدام جسمك.
+  cues:
+  - en: Lead with the elbow
+    ar: الكوع هو اللي يقود
+  - en: Stop at shoulder height
+    ar: وقّف عند مستوى الكتف
+  - en: Stay tall
+    ar: خليك مفرود
+  mistakes:
+  - en: Shrugging the shoulder up
+    ar: رفع الكتف لودنك
+  - en: Leaning away to swing it up
+    ar: تميل بعيد عشان ترميه لفوق
+  image_url: /exercises/Cable_Seated_Lateral_Raise/0.jpg
+  image_frames:
+  - /exercises/Cable_Seated_Lateral_Raise/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Cable+lateral+raise+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Cable_Seated_Lateral_Raise
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_lateral_raise
+    name:
+      en: Dumbbell lateral raise
+      ar: رفرفة جانبي دمبلز
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_cable_reverse_flye
+  type: strength
+  name:
+    en: Cable reverse fly
+    ar: ريفرس فلاي كابل
+  description:
+    en: Pull two crossed cables apart at shoulder height. Trains the rear shoulders and upper back.
+    ar: افتح كابلين متقاطعين على مستوى الكتف. بيشتغل على خلفية الكتف وأعلى الضهر.
+  movement_pattern: horizontalPull
+  joints_loaded:
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles:
+  - upperBack
+  muscle_names:
+    en: Rear shoulders · upper back
+    ar: خلفية الكتف · أعلى الضهر
+  instructions:
+  - en: Set both pulleys at shoulder height; take the left cable in your right hand and the right in your left.
+    ar: ظبّط البكرتين على مستوى الكتف؛ امسك الكابل الشمال بإيدك اليمين واليمين بالشمال.
+  - en: Step back so your arms are in front of you, slightly bent.
+    ar: ارجع خطوة ودراعاتك قدامك مثنية سنّة.
+  - en: Pull your arms out and back until they are in line with your body.
+    ar: افتح دراعاتك لبرّه ولورا لحد ما يبقوا على خط جسمك.
+  - en: Return slowly.
+    ar: رجّعهم ببطء.
+  cues:
+  - en: Arms wide, not down
+    ar: الدراع للجنب مش لتحت
+  - en: Think of pushing your hands apart
+    ar: كأنك بتزق إيديك بعيد عن بعض
+  - en: Keep the neck relaxed
+    ar: رقبتك مرتاحة
+  mistakes:
+  - en: Squeezing the shoulder blades hard so the back takes over
+    ar: تقفل لوحين الكتف جامد فالضهر ياخد الشغل
+  - en: Bending the elbows more each rep
+    ar: تثني الكوع أكتر كل عدّة
+  image_url: /exercises/Cable_Rear_Delt_Fly/0.jpg
+  image_frames:
+  - /exercises/Cable_Rear_Delt_Fly/1.jpg
+  video_url: https://www.youtube.com/watch?v=QnXb1dh_RjQ
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Cable_Rear_Delt_Fly
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_rear_delt_raise
+    name:
+      en: Seated rear delt raise
+      ar: رفرفة خلفي وأنت قاعد
+    kind: equipment
+  - exercise_id: ex_band_pull_apart
+    name:
+      en: Band pull-apart
+      ar: فتح الأستك
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91. How-to written for Rafeqi.'
+- id: ex_cable_row
+  type: strength
+  name:
+    en: Seated cable row
+    ar: تجديف كابل وأنت قاعد
+  description:
+    en: Sit and pull a cable handle to your stomach. Builds the middle back and lats.
+    ar: اقعد واسحب مسكة الكابل لبطنك. بيبني نص الضهر والعضلات الجانبية.
+  movement_pattern: horizontalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Middle back, lats · biceps
+    ar: نص الضهر، الجانبية · البايسبس
+  instructions:
+  - en: Sit with your feet on the platform and knees slightly bent, holding the handle with straight arms.
+    ar: اقعد ورجلك على المسند وركبتك مثنية سنّة، وامسك المسكة ودراعك مفرود.
+  - en: Sit tall, chest up.
+    ar: اقعد مفرود وصدرك لفوق.
+  - en: Pull the handle to your stomach, elbows close to your body.
+    ar: اسحب المسكة لبطنك والكوع قريب من جسمك.
+  - en: Let it go forward slowly until your arms are straight and your back stretches.
+    ar: سيبها تروح لقدام ببطء لحد ما دراعك يفرد وضهرك يتشدّ.
+  cues:
+  - en: Chest up
+    ar: صدرك لفوق
+  - en: Elbows back past your body
+    ar: الكوع يعدّي جسمك لورا
+  - en: Control the stretch
+    ar: اتحكّم في الشدّة
+  mistakes:
+  - en: Rocking back and forth
+    ar: تتمرجح لقدام ولورا
+  - en: Shrugging up
+    ar: ترفع كتفك
+  image_url: /exercises/Seated_Cable_Rows/0.jpg
+  image_frames:
+  - /exercises/Seated_Cable_Rows/1.jpg
+  video_url: https://www.youtube.com/watch?v=4mRy8U542Fo
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Seated_Cable_Rows
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_one_arm_db_row
+    name:
+      en: One-arm dumbbell row
+      ar: تجديف دمبل بإيد واحدة
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91; the book''s substitutions, pp. 27–29. How-to written for Rafeqi.'
+- id: ex_close_grip_bench
+  type: strength
+  name:
+    en: Close-grip bench press
+    ar: بنش بقبضة ضيقة
+  description:
+    en: A bench press with the hands about shoulder-width apart. Puts more of the work on the triceps.
+    ar: بنش بريس والإيدين بعرض الكتف تقريبًا. بيحطّ شغل أكتر على الترايسبس.
+  movement_pattern: horizontalPush
+  joints_loaded:
+  - shoulder
+  - elbow
+  - wrist
+  range_of_motion: full
+  equipment:
+  - barbell
+  - bench
+  difficulty: intermediate
+  primary_muscles:
+  - armL
+  - armR
+  - chest
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Triceps, chest · front shoulders
+    ar: الترايسبس، الصدر · مقدمة الكتف
+  instructions:
+  - en: Lie on the bench and grip the bar about shoulder-width apart.
+    ar: نام على البنش وامسك البار بعرض كتفك تقريبًا.
+  - en: Unrack and lower the bar to your lower chest, elbows close to your sides.
+    ar: شيل البار ونزّله لأسفل صدرك والكوع قريب من جنبك.
+  - en: Press back up until your arms are straight.
+    ar: ادفع لفوق لحد ما دراعك يفرد.
+  cues:
+  - en: Elbows tucked
+    ar: الكوع لجوه
+  - en: Wrists straight over elbows
+    ar: الرسغ مفرود فوق الكوع
+  - en: Feet planted
+    ar: رجلك ثابتة في الأرض
+  mistakes:
+  - en: Hands so close the wrists hurt
+    ar: الإيدين قريبين أوي فالرسغ يوجع
+  - en: Bouncing the bar off the chest
+    ar: تخبط البار في صدرك
+  image_url: /exercises/Close-Grip_Barbell_Bench_Press/0.jpg
+  image_frames:
+  - /exercises/Close-Grip_Barbell_Bench_Press/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Close-grip+bench+press+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Close-Grip_Barbell_Bench_Press
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_db_floor_press
+    name:
+      en: Dumbbell floor press
+      ar: ضغط دمبلز على الأرض
+    kind: injuryFriendly
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_crunch
+  type: strength
+  name:
+    en: Crunch
+    ar: كرانش
+  description:
+    en: Lying on your back, curl your shoulders up toward your hips. Trains the abs.
+    ar: وأنت نايم على ضهرك، اطوي كتفك لفوق ناحية وسطك. بيشتغل على البطن.
+  movement_pattern: core
+  joints_loaded:
+  - spine
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - abdomen
+  secondary_muscles: []
+  muscle_names:
+    en: Abs
+    ar: البطن
+  instructions:
+  - en: Lie on your back with knees bent and feet flat (or calves on a bench).
+    ar: نام على ضهرك وركبتك مثنية ورجلك على الأرض (أو سمانتك على بنش).
+  - en: Curl your head and shoulders up by rounding your upper back.
+    ar: ارفع راسك وكتفك بإنك تقوّس أعلى ضهرك.
+  - en: Squeeze your abs at the top, then lower slowly.
+    ar: اعصر بطنك فوق وبعدين نزّل ببطء.
+  cues:
+  - en: Ribs toward hips
+    ar: الضلوع ناحية الوسط
+  - en: Breathe out going up
+    ar: طلّع النفس وأنت طالع
+  - en: Chin slightly tucked
+    ar: دقنك لجوه سنّة
+  mistakes:
+  - en: Pulling your head with your hands
+    ar: تشدّ راسك بإيدك
+  - en: Sitting all the way up with the hips
+    ar: تقعد خالص بوسطك
+  image_url: /exercises/Crunches/0.jpg
+  image_frames:
+  - /exercises/Crunches/1.jpg
+  video_url: https://www.youtube.com/watch?v=NGRKFMKhF8s
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Crunches
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_plank
+    name:
+      en: Plank
+      ar: بلانك
+    kind: injuryFriendly
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91. How-to written for Rafeqi.'
+- id: ex_db_curl
+  type: strength
+  name:
+    en: Dumbbell curl
+    ar: بايسبس دمبلز
+  description:
+    en: Curl two dumbbells up with your palms turning up. Builds the biceps.
+    ar: ارفع دمبلتين بكوعك والكف بيلف لفوق. بيبني البايسبس.
+  movement_pattern: elbowFlexion
+  joints_loaded:
+  - elbow
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles:
+  - forearmL
+  - forearmR
+  muscle_names:
+    en: Biceps · forearms
+    ar: البايسبس · الساعد
+  instructions:
+  - en: Stand with a dumbbell in each hand, arms straight by your sides.
+    ar: اقف ومعاك دمبل في كل إيد ودراعك مفرود جنبك.
+  - en: Curl the weights up, turning your palms to face up.
+    ar: ارفع الأوزان ولفّ كفك يبص لفوق.
+  - en: Squeeze at the top, then lower slowly to straight arms.
+    ar: اعصر فوق، وبعدين نزّل ببطء لحد ما دراعك يفرد.
+  cues:
+  - en: Elbows by your sides
+    ar: الكوع جنبك
+  - en: Palms up at the top
+    ar: الكف لفوق في الآخر
+  - en: Lower slowly
+    ar: نزّل بالراحة
+  mistakes:
+  - en: Swinging the weight
+    ar: ترمي الوزن
+  - en: Cutting the bottom short
+    ar: متنزلش لآخر
+  image_url: /exercises/Dumbbell_Bicep_Curl/0.jpg
+  image_frames:
+  - /exercises/Dumbbell_Bicep_Curl/1.jpg
+  video_url: https://www.youtube.com/watch?v=ykJmrZ5v0Oo
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dumbbell_Bicep_Curl
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_hammer_curl
+    name:
+      en: Hammer curl
+      ar: هامر كيرل
+    kind: injuryFriendly
+  - exercise_id: ex_cable_curl
+    name:
+      en: Cable curl
+      ar: بايسبس كابل
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91. How-to written for Rafeqi.'
+- id: ex_db_incline_press
+  type: strength
+  name:
+    en: Incline dumbbell press
+    ar: ضغط دمبلز على بنش مايل
+  description:
+    en: Press two dumbbells up on a bench set at a slight incline. Trains the upper chest and front shoulders.
+    ar: اضغط دمبلتين لفوق على بنش مايل سنّة. بيشتغل على أعلى الصدر ومقدمة الكتف.
+  movement_pattern: horizontalPush
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - chest
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  - armL
+  - armR
+  muscle_names:
+    en: Upper chest · front shoulders, triceps
+    ar: أعلى الصدر · مقدمة الكتف، الترايسبس
+  instructions:
+  - en: Set the bench to a low incline (about 30 degrees) and sit back with the dumbbells on your thighs.
+    ar: خلّي البنش مايل شوية (حوالي ٣٠ درجة) واقعد والدمبلز على فخدك.
+  - en: Lie back and bring the dumbbells to your chest, elbows a little below your shoulders.
+    ar: نام لورا وهات الدمبلز عند صدرك، والكوع تحت كتفك شوية.
+  - en: Press them up until your arms are straight.
+    ar: اضغطهم لفوق لحد ما دراعك يفرد.
+  - en: Lower slowly to a stretch at the chest.
+    ar: نزّل ببطء لحد ما صدرك يتشدّ.
+  cues:
+  - en: Shoulder blades back and down
+    ar: لوحين الكتف لورا ولتحت
+  - en: Elbows at about 45 degrees
+    ar: الكوع حوالي ٤٥ درجة
+  - en: Control the stretch
+    ar: اتحكّم في الشدّة
+  mistakes:
+  - en: Bench set too steep
+    ar: البنش مايل أوي
+  - en: Elbows flared straight out
+    ar: الكوع مفتوح على الآخر
+  image_url: /exercises/Incline_Dumbbell_Press/0.jpg
+  image_frames:
+  - /exercises/Incline_Dumbbell_Press/1.jpg
+  video_url: https://www.youtube.com/watch?v=ggJycLjz01E
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Incline_Dumbbell_Press
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_machine_incline_press
+    name:
+      en: Machine incline press
+      ar: ضغط مايل على الجهاز
+    kind: equipment
+  - exercise_id: ex_push_up
+    name:
+      en: Push-up
+      ar: ضغط
+    kind: noEquipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91; the book''s substitutions, pp. 27–29. How-to written for Rafeqi.'
+- id: ex_db_skull_crusher
+  type: strength
+  name:
+    en: Dumbbell skull crusher
+    ar: سكل كراشر دمبلز
+  description:
+    en: Lying on a bench, lower two dumbbells beside your head by bending your elbows. Trains the triceps.
+    ar: وأنت نايم على بنش، نزّل دمبلتين جنب راسك بثني كوعك. بيشتغل على الترايسبس.
+  movement_pattern: elbowExtension
+  joints_loaded:
+  - elbow
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles: []
+  muscle_names:
+    en: Triceps
+    ar: الترايسبس
+  instructions:
+  - en: Lie on a bench holding the dumbbells straight up over your chest, palms facing each other.
+    ar: نام على بنش والدمبلز فوق صدرك ودراعك مفرود، والكفوف في وش بعض.
+  - en: Bend your elbows to lower the dumbbells beside your head.
+    ar: اثني كوعك ونزّل الدمبلز جنب راسك.
+  - en: Straighten your arms back up.
+    ar: افرد دراعك تاني لفوق.
+  cues:
+  - en: Upper arms stay still
+    ar: الدراع العلوي ثابت
+  - en: Elbows point up
+    ar: الكوع بيشاور لفوق
+  - en: Slow on the way down
+    ar: بالراحة وأنت نازل
+  mistakes:
+  - en: Elbows flaring out
+    ar: الكوع يفتح لبرّه
+  - en: Turning it into a press
+    ar: تحوّلها ضغط
+  image_url: /exercises/Lying_Dumbbell_Tricep_Extension/0.jpg
+  image_frames:
+  - /exercises/Lying_Dumbbell_Tricep_Extension/1.jpg
+  video_url: https://www.youtube.com/watch?v=ZUZOn9c1VVI
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Lying_Dumbbell_Tricep_Extension
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_pushdown
+    name:
+      en: Triceps pushdown
+      ar: ترايسبس بوش داون
+    kind: injuryFriendly
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91. How-to written for Rafeqi.'
+- id: ex_ez_curl
+  type: strength
+  name:
+    en: EZ-bar curl
+    ar: بايسبس بالبار الزجزاج
+  description:
+    en: Curl a bent (EZ) bar up while standing. The angled grip is easier on the wrists than a straight bar.
+    ar: ارفع البار الزجزاج بكوعك وأنت واقف. المسكة المايلة أريح للرسغ من البار المستقيم.
+  movement_pattern: elbowFlexion
+  joints_loaded:
+  - elbow
+  - wrist
+  range_of_motion: full
+  equipment:
+  - barbell
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles:
+  - forearmL
+  - forearmR
+  muscle_names:
+    en: Biceps · forearms
+    ar: البايسبس · الساعد
+  instructions:
+  - en: Hold the EZ bar on its angled grips, palms up, arms straight.
+    ar: امسك البار الزجزاج من الحتة المايلة، الكف لفوق والدراع مفرود.
+  - en: Curl it up without moving your elbows forward.
+    ar: ارفعه من غير ما الكوع يتحرك لقدام.
+  - en: Lower slowly to straight arms.
+    ar: نزّل ببطء لحد ما دراعك يفرد.
+  cues:
+  - en: Elbows by your sides
+    ar: الكوع جنبك
+  - en: Stand still
+    ar: جسمك ثابت
+  - en: Full stretch at the bottom
+    ar: افرد على الآخر تحت
+  mistakes:
+  - en: Leaning back to swing it up
+    ar: ترجع لورا عشان ترميه لفوق
+  - en: Half reps
+    ar: نص عدّات
+  image_url: /exercises/EZ-Bar_Curl/0.jpg
+  image_frames:
+  - /exercises/EZ-Bar_Curl/1.jpg
+  video_url: https://www.youtube.com/results?search_query=EZ-bar+curl+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/EZ-Bar_Curl
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_db_curl
+    name:
+      en: Dumbbell curl
+      ar: بايسبس دمبلز
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_hammer_curl
+  type: strength
+  name:
+    en: Hammer curl
+    ar: هامر كيرل
+  description:
+    en: Curl dumbbells with your palms facing each other. Trains the biceps and the forearm muscle beside them.
+    ar: ارفع الدمبلز والكفوف في وش بعض. بيشتغل على البايسبس وعضلة الساعد اللي جنبها.
+  movement_pattern: elbowFlexion
+  joints_loaded:
+  - elbow
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  - forearmL
+  - forearmR
+  secondary_muscles: []
+  muscle_names:
+    en: Biceps, forearms
+    ar: البايسبس، الساعد
+  instructions:
+  - en: Stand with a dumbbell in each hand, palms facing your body.
+    ar: اقف ومعاك دمبل في كل إيد والكف ناحية جسمك.
+  - en: Curl the weights up, keeping your palms facing in.
+    ar: ارفع الأوزان والكف لسه بيبص لجوه.
+  - en: Lower slowly to straight arms.
+    ar: نزّل ببطء لحد ما دراعك يفرد.
+  cues:
+  - en: Thumbs up
+    ar: الصباع الكبير لفوق
+  - en: Elbows by your sides
+    ar: الكوع جنبك
+  - en: No swinging
+    ar: من غير مرجحة
+  mistakes:
+  - en: Swinging the body
+    ar: تهز جسمك
+  - en: Wrists bending
+    ar: الرسغ يتني
+  image_url: /exercises/Hammer_Curls/0.jpg
+  image_frames:
+  - /exercises/Hammer_Curls/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Hammer+curl+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Hammer_Curls
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_cable_curl
+    name:
+      en: Cable curl
+      ar: بايسبس كابل
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_hanging_leg_raise
+  type: strength
+  name:
+    en: Hanging leg raise
+    ar: رفع الرجل وأنت متعلق
+  description:
+    en: Hang from a bar and lift your legs. Trains the lower abs and hip flexors, and your grip.
+    ar: اتعلق في بار وارفع رجلك. بيشتغل على أسفل البطن وعضلات ثني الحوض، وقبضتك.
+  movement_pattern: core
+  joints_loaded:
+  - hip
+  - shoulder
+  - spine
+  range_of_motion: full
+  equipment:
+  - pullUpBar
+  difficulty: intermediate
+  primary_muscles:
+  - abdomen
+  secondary_muscles:
+  - hipL
+  - hipR
+  - forearmL
+  - forearmR
+  muscle_names:
+    en: Abs · hip flexors, grip
+    ar: البطن · عضلات ثني الحوض، القبضة
+  instructions:
+  - en: Hang from a pull-up bar with straight arms.
+    ar: اتعلق في بار العقلة ودراعك مفرود.
+  - en: Without swinging, lift your knees (easier) or straight legs up in front of you.
+    ar: من غير مرجحة، ارفع ركبك (أسهل) أو رجلك مفرودة قدامك.
+  - en: Curl your hips up at the top, then lower slowly.
+    ar: لف وسطك لفوق في الآخر، وبعدين نزّل ببطء.
+  cues:
+  - en: No swinging
+    ar: من غير مرجحة
+  - en: Tilt the hips up
+    ar: ميّل الوسط لفوق
+  - en: Lower slowly
+    ar: نزّل بالراحة
+  mistakes:
+  - en: Using momentum
+    ar: تعتمد على الاندفاع
+  - en: Only lifting the legs, not the hips
+    ar: ترفع الرجل بس من غير الوسط
+  image_url: /exercises/Hanging_Leg_Raise/0.jpg
+  image_frames:
+  - /exercises/Hanging_Leg_Raise/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Hanging+leg+raise+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Hanging_Leg_Raise
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_crunch
+    name:
+      en: Crunch
+      ar: كرانش
+    kind: easier
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_hip_abduction
+  type: strength
+  name:
+    en: Machine hip abduction
+    ar: جهاز فتح الرجل
+  description:
+    en: Seated on the machine, push your knees out against the pads. Trains the side glutes.
+    ar: وأنت قاعد على الجهاز، افتح ركبك لبرّه ضد المساند. بيشتغل على جانب المؤخرة.
+  movement_pattern: hipAbduction
+  joints_loaded:
+  - hip
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - hipL
+  - hipR
+  secondary_muscles: []
+  muscle_names:
+    en: Side glutes
+    ar: جانب المؤخرة
+  instructions:
+  - en: Sit in the machine with the pads on the outside of your knees.
+    ar: اقعد على الجهاز والمساند على برّه ركبك.
+  - en: Push your knees out as far as you comfortably can.
+    ar: افتح ركبك لبرّه على قد ما تقدر براحة.
+  - en: Hold a moment, then let them come back in slowly.
+    ar: اثبت لحظة، وبعدين رجّعهم لجوه ببطء.
+  cues:
+  - en: Lean slightly forward for more glute
+    ar: ميّل لقدام سنّة عشان المؤخرة تشتغل أكتر
+  - en: Control the way in
+    ar: اتحكّم في الرجوع
+  - en: Full range
+    ar: مدى كامل
+  mistakes:
+  - en: Letting the stack slam
+    ar: تسيب الأوزان تخبط
+  - en: Bouncing quick reps
+    ar: عدّات سريعة بنطّ
+  image_url: /exercises/Thigh_Abductor/0.jpg
+  image_frames:
+  - /exercises/Thigh_Abductor/1.jpg
+  video_url: https://www.youtube.com/watch?v=-seSnS4N8Xo
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Thigh_Abductor
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Standing cable hip abduction
+      ar: فتح الرجل بالكابل وأنت واقف
+    kind: equipment
+    equipment:
+    - cable
+  - name:
+      en: Side-lying leg raise
+      ar: رفع الرجل للجنب وأنت نايم على جنبك
+    kind: noEquipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91; the book''s substitutions, pp. 27–29. How-to written for Rafeqi.'
+- id: ex_hip_thrust
+  type: strength
+  name:
+    en: Barbell hip thrust
+    ar: هيب ثراست بالبار
+  description:
+    en: With your upper back on a bench, drive a barbell up with your hips. One of the best glute exercises.
+    ar: وأعلى ضهرك على بنش، ارفع البار بوسطك. من أحسن تمارين المؤخرة.
+  movement_pattern: hinge
+  joints_loaded:
+  - hip
+  range_of_motion: full
+  equipment:
+  - barbell
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - hipL
+  - hipR
+  secondary_muscles:
+  - thighL
+  - thighR
+  muscle_names:
+    en: Glutes · hamstrings
+    ar: المؤخرة · خلفية الفخد
+  instructions:
+  - en: Sit on the floor with your upper back against a bench and the bar (padded) over your hips.
+    ar: اقعد على الأرض وأعلى ضهرك على البنش والبار (عليه مخدة) فوق وسطك.
+  - en: Feet flat, about hip-width, knees bent.
+    ar: رجلك على الأرض بعرض وسطك تقريبًا، والركبة مثنية.
+  - en: Drive through your heels to lift your hips until your body is flat from shoulders to knees.
+    ar: ادفع بكعبك وارفع وسطك لحد ما جسمك يبقى مستقيم من الكتف للركبة.
+  - en: Squeeze your glutes at the top, then lower slowly.
+    ar: اعصر المؤخرة فوق، وبعدين نزّل ببطء.
+  cues:
+  - en: Chin tucked, eyes forward
+    ar: دقنك لجوه وعينك لقدام
+  - en: Shins upright at the top
+    ar: قصبة رجلك عمودية فوق
+  - en: Squeeze the glutes
+    ar: اعصر المؤخرة
+  mistakes:
+  - en: Arching the lower back at the top
+    ar: تقوّس أسفل ضهرك فوق
+  - en: Pushing through the toes
+    ar: تدفع بصوابعك
+  image_url: /exercises/Barbell_Hip_Thrust/0.jpg
+  image_frames:
+  - /exercises/Barbell_Hip_Thrust/1.jpg
+  video_url: https://www.youtube.com/watch?v=RjWiwq1wgFg&t=2s
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Barbell_Hip_Thrust
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_glute_bridge
+    name:
+      en: Glute bridge
+      ar: جلوت بريدج
+    kind: noEquipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91; the book''s substitutions, pp. 27–29. How-to written for Rafeqi.'
+- id: ex_lying_leg_curl
+  type: strength
+  name:
+    en: Lying leg curl
+    ar: ليج كيرل وأنت نايم
+  description:
+    en: Lying face down on a machine, curl the pad toward your glutes. Trains the hamstrings.
+    ar: وأنت نايم على بطنك على الجهاز، اثني رجلك ناحية المؤخرة. بيشتغل على خلفية الفخد.
+  movement_pattern: kneeFlexion
+  joints_loaded:
+  - knee
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles:
+  - shinL
+  - shinR
+  muscle_names:
+    en: Hamstrings · calves
+    ar: خلفية الفخد · السمانة
+  instructions:
+  - en: Lie face down with the pad just above your heels and your knees just off the bench.
+    ar: نام على بطنك والمسند فوق كعبك على طول، وركبتك برّه البنش سنّة.
+  - en: Curl the pad up as far as you can.
+    ar: اثني رجلك وارفع المسند على قد ما تقدر.
+  - en: Lower slowly until your legs are almost straight.
+    ar: نزّل ببطء لحد ما رجلك تتفرد تقريبًا.
+  cues:
+  - en: Hips pressed into the pad
+    ar: وسطك لازق في المسند
+  - en: Squeeze at the top
+    ar: اعصر فوق
+  - en: Slow on the way down
+    ar: بالراحة وأنت نازل
+  mistakes:
+  - en: Hips lifting off the bench
+    ar: وسطك يترفع من البنش
+  - en: Letting the weight drop
+    ar: تسيب الوزن يقع
+  image_url: /exercises/Lying_Leg_Curls/0.jpg
+  image_frames:
+  - /exercises/Lying_Leg_Curls/1.jpg
+  video_url: https://www.youtube.com/watch?v=1Tq3QdYUuHs
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Lying_Leg_Curls
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Dumbbell leg curl
+      ar: ليج كيرل بالدمبل
+    kind: equipment
+    equipment:
+    - dumbbells
+    - bench
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91; the book''s substitutions, pp. 27–29. How-to written for Rafeqi.'
+- id: ex_machine_incline_press
+  type: strength
+  name:
+    en: Machine incline press
+    ar: ضغط مايل على الجهاز
+  description:
+    en: Press the handles of an incline chest machine. Trains the upper chest with a guided path.
+    ar: اضغط مسكات جهاز الصدر المايل. بيشتغل على أعلى الصدر والحركة متوجهة.
+  movement_pattern: horizontalPush
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - chest
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  - armL
+  - armR
+  muscle_names:
+    en: Upper chest · front shoulders, triceps
+    ar: أعلى الصدر · مقدمة الكتف، الترايسبس
+  instructions:
+  - en: Set the seat so the handles start at upper-chest height.
+    ar: ظبّط الكرسي عشان المسكات تبدأ عند أعلى صدرك.
+  - en: Press the handles up and forward until your arms are straight.
+    ar: اضغط المسكات لفوق ولقدام لحد ما دراعك يفرد.
+  - en: Bring them back slowly to a stretch.
+    ar: رجّعها ببطء لحد ما صدرك يتشدّ.
+  cues:
+  - en: Back on the pad
+    ar: ضهرك على المسند
+  - en: Shoulder blades back
+    ar: لوحين الكتف لورا
+  - en: Smooth reps
+    ar: عدّات ناعمة
+  mistakes:
+  - en: Seat too low or too high
+    ar: الكرسي واطي أو عالي أوي
+  - en: Shoulders rolling forward
+    ar: الكتف يلف لقدام
+  image_url: /exercises/Leverage_Incline_Chest_Press/0.jpg
+  image_frames:
+  - /exercises/Leverage_Incline_Chest_Press/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Machine+incline+press+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Leverage_Incline_Chest_Press
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_db_incline_press
+    name:
+      en: Incline dumbbell press
+      ar: ضغط دمبلز على بنش مايل
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_pec_deck
+  type: strength
+  name:
+    en: Pec deck
+    ar: بيك دك
+  description:
+    en: Seated on a machine, bring the arms together in front of your chest. Trains the chest.
+    ar: وأنت قاعد على الجهاز، قفّل الدراعات قدام صدرك. بيشتغل على الصدر.
+  movement_pattern: horizontalPush
+  joints_loaded:
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - chest
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Chest · front shoulders
+    ar: الصدر · مقدمة الكتف
+  instructions:
+  - en: Set the seat so the handles are at chest height and sit with your back on the pad.
+    ar: ظبّط الكرسي عشان المسكات تبقى على مستوى صدرك واقعد وضهرك على المسند.
+  - en: Bring the handles together in front of you in an arc.
+    ar: قرّب المسكات من بعض قدامك في قوس.
+  - en: Open slowly until you feel a stretch across your chest.
+    ar: افتح ببطء لحد ما تحس بشدّ في صدرك.
+  cues:
+  - en: Chest up
+    ar: صدرك لفوق
+  - en: Slight bend in the elbows
+    ar: الكوع مثني سنّة
+  - en: Squeeze in the middle
+    ar: اعصر في النص
+  mistakes:
+  - en: Opening too far back
+    ar: تفتح لورا أوي
+  - en: Shrugging the shoulders
+    ar: ترفع كتفك
+  image_url: /exercises/Butterfly/0.jpg
+  image_frames:
+  - /exercises/Butterfly/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Pec+deck+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Butterfly
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_cable_flye
+    name:
+      en: Cable fly
+      ar: فلاي كابل
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_plank
+  type: strength
+  name:
+    en: Plank
+    ar: بلانك
+  description:
+    en: Hold your body straight on your forearms and toes. Trains the whole midsection to stay still.
+    ar: اثبت وجسمك مستقيم على ساعدك وصوابع رجلك. بيدرّب عضلات الوسط كلها على الثبات.
+  movement_pattern: core
+  joints_loaded:
+  - spine
+  - shoulder
+  range_of_motion: partial
+  equipment:
+  - bodyweight
+  difficulty: beginner
+  primary_muscles:
+  - abdomen
+  secondary_muscles:
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Abs, core · shoulders
+    ar: البطن، عضلات الجذع · الكتف
+  instructions:
+  - en: Lie face down, then lift onto your forearms and toes, elbows under your shoulders.
+    ar: نام على بطنك، وبعدين اترفع على ساعدك وصوابع رجلك والكوع تحت كتفك.
+  - en: Make a straight line from head to heels.
+    ar: خلّي جسمك خط مستقيم من راسك لكعبك.
+  - en: Squeeze your glutes and stomach and hold, breathing normally.
+    ar: اعصر المؤخرة والبطن واثبت، وانت بتتنفس عادي.
+  cues:
+  - en: Straight line
+    ar: خط مستقيم
+  - en: Squeeze the glutes
+    ar: اعصر المؤخرة
+  - en: Keep breathing
+    ar: كمّل تنفّس
+  mistakes:
+  - en: Hips sagging
+    ar: الوسط يهبط
+  - en: Hips too high
+    ar: الوسط عالي أوي
+  - en: Holding your breath
+    ar: تكتم نفسك
+  image_url: /exercises/Plank/0.jpg
+  image_frames:
+  - /exercises/Plank/1.jpg
+  video_url: https://www.youtube.com/watch?v=kL_NJAkCQBg
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Plank
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Plank on the knees
+      ar: بلانك على الركبة
+    kind: easier
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91. How-to written for Rafeqi.'
+- id: ex_rear_delt_raise
+  type: strength
+  name:
+    en: Seated rear delt raise
+    ar: رفرفة خلفي وأنت قاعد
+  description:
+    en: Seated and bent forward, raise light dumbbells out to the sides. Trains the rear shoulders.
+    ar: وأنت قاعد ومنحني لقدام، ارفع دمبلز خفاف للجنب. بيشتغل على خلفية الكتف.
+  movement_pattern: horizontalPull
+  joints_loaded:
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  difficulty: beginner
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles:
+  - upperBack
+  muscle_names:
+    en: Rear shoulders · upper back
+    ar: خلفية الكتف · أعلى الضهر
+  instructions:
+  - en: Sit on the end of a bench and lean forward with your chest near your thighs.
+    ar: اقعد على طرف البنش وميّل لقدام وصدرك قريب من فخدك.
+  - en: Let the dumbbells hang under your legs, elbows slightly bent.
+    ar: سيب الدمبلز متدلّية تحت رجلك والكوع مثني سنّة.
+  - en: Raise them out to the sides until your arms are level with your back.
+    ar: ارفعهم للجنب لحد ما دراعك يبقى في مستوى ضهرك.
+  - en: Lower slowly.
+    ar: نزّل ببطء.
+  cues:
+  - en: Lead with the elbows
+    ar: الكوع هو اللي يقود
+  - en: Light weight, slow reps
+    ar: وزن خفيف وعدّات بطيئة
+  - en: Stay bent over
+    ar: خليك منحني
+  mistakes:
+  - en: Sitting up to swing it
+    ar: تقعد مفرود عشان ترميه
+  - en: Shrugging
+    ar: ترفع كتفك
+  image_url: /exercises/Seated_Bent-Over_Rear_Delt_Raise/0.jpg
+  image_frames:
+  - /exercises/Seated_Bent-Over_Rear_Delt_Raise/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Seated+rear+delt+raise+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Seated_Bent-Over_Rear_Delt_Raise
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_cable_reverse_flye
+    name:
+      en: Cable reverse fly
+      ar: ريفرس فلاي كابل
+    kind: equipment
+  - exercise_id: ex_band_pull_apart
+    name:
+      en: Band pull-apart
+      ar: فتح الأستك
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_reverse_grip_pulldown
+  type: strength
+  name:
+    en: Reverse-grip pulldown
+    ar: سحب علوي بقبضة مقلوبة
+  description:
+    en: A lat pulldown with your palms facing you. Trains the lats with more help from the biceps.
+    ar: سحب علوي والكف بيبص ناحيتك. بيشتغل على العضلات الجانبية بمساعدة أكبر من البايسبس.
+  movement_pattern: verticalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Lats · biceps
+    ar: العضلات الجانبية · البايسبس
+  instructions:
+  - en: Sit with your thighs under the pad and hold the bar shoulder-width, palms facing you.
+    ar: اقعد ورجلك تحت المسند وامسك البار بعرض كتفك والكف ناحيتك.
+  - en: Lift your chest and pull the bar to your upper chest.
+    ar: ارفع صدرك واسحب البار لأعلى صدرك.
+  - en: Let it rise slowly until your arms are straight.
+    ar: سيبه يطلع ببطء لحد ما دراعك يفرد.
+  cues:
+  - en: Elbows down to your sides
+    ar: الكوع لتحت ناحية جنبك
+  - en: Chest up
+    ar: صدرك لفوق
+  - en: Full stretch at the top
+    ar: اتمدّ على الآخر فوق
+  mistakes:
+  - en: Leaning far back
+    ar: ترجع لورا كتير
+  - en: Pulling behind the neck
+    ar: تسحب ورا رقبتك
+  image_url: /exercises/Underhand_Cable_Pulldowns/0.jpg
+  image_frames:
+  - /exercises/Underhand_Cable_Pulldowns/1.jpg
+  video_url: https://www.youtube.com/watch?v=apzFTbsm7HU
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Underhand_Cable_Pulldowns
+    license: Unlicense (public domain)
+  alternatives:
+  - name:
+      en: Reverse-grip assisted pull-up
+      ar: عقلة بمساعدة بقبضة مقلوبة
+    kind: equipment
+    equipment:
+    - machine
+  - exercise_id: ex_pull_up
+    name:
+      en: Pull-up
+      ar: عقلة
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91; the book''s substitutions, pp. 27–29. How-to written for Rafeqi.'
+- id: ex_reverse_pec_deck
+  type: strength
+  name:
+    en: Reverse pec deck
+    ar: ريفرس بيك دك
+  description:
+    en: Facing the pec deck, push the handles back and apart. Trains the rear shoulders.
+    ar: وأنت في وش جهاز البيك دك، افتح المسكات لورا. بيشتغل على خلفية الكتف.
+  movement_pattern: horizontalPull
+  joints_loaded:
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles:
+  - upperBack
+  muscle_names:
+    en: Rear shoulders · upper back
+    ar: خلفية الكتف · أعلى الضهر
+  instructions:
+  - en: Sit facing the pad with the handles in front of you at shoulder height.
+    ar: اقعد وصدرك على المسند والمسكات قدامك على مستوى كتفك.
+  - en: With a slight bend in the elbows, sweep the handles out and back.
+    ar: والكوع مثني سنّة، افتح المسكات لبرّه ولورا.
+  - en: Stop when your arms are in line with your body, then return slowly.
+    ar: وقّف لما دراعك يبقى على خط جسمك، وبعدين رجّع ببطء.
+  cues:
+  - en: Arms wide
+    ar: الدراع واسع
+  - en: Chest on the pad
+    ar: صدرك على المسند
+  - en: Slow return
+    ar: رجوع بطيء
+  mistakes:
+  - en: Squeezing the shoulder blades so the back takes over
+    ar: تقفل لوحين الكتف فالضهر ياخد الشغل
+  - en: Going too heavy
+    ar: وزن تقيل أوي
+  image_url: /exercises/Reverse_Machine_Flyes/0.jpg
+  image_frames:
+  - /exercises/Reverse_Machine_Flyes/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Reverse+pec+deck+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Reverse_Machine_Flyes
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_rear_delt_raise
+    name:
+      en: Seated rear delt raise
+      ar: رفرفة خلفي وأنت قاعد
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_single_arm_pulldown
+  type: strength
+  name:
+    en: Single-arm pulldown
+    ar: سحب علوي بإيد واحدة
+  description:
+    en: Pull a cable handle down one arm at a time. Lets each side of your back work on its own.
+    ar: اسحب مسكة الكابل لتحت بإيد واحدة. بيخلّي كل ناحية من ضهرك تشتغل لوحدها.
+  movement_pattern: verticalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Lats · biceps
+    ar: العضلات الجانبية · البايسبس
+  instructions:
+  - en: Set a handle high and sit or half-kneel below it, holding it with one arm straight.
+    ar: ركّب مسكة فوق واقعد أو انزل على ركبة تحتها، وامسكها بإيد ودراعك مفرود.
+  - en: Pull your elbow down to your side.
+    ar: اسحب كوعك لتحت لحد جنبك.
+  - en: Let your arm rise slowly to a full stretch.
+    ar: سيب دراعك يطلع ببطء لحد ما يتمدّ على الآخر.
+  cues:
+  - en: Elbow to your hip
+    ar: الكوع ناحية وسطك
+  - en: Stretch at the top
+    ar: اتمدّ فوق
+  - en: Keep your body still
+    ar: جسمك ثابت
+  mistakes:
+  - en: Twisting the body to pull
+    ar: تلف جسمك عشان تسحب
+  - en: Shrugging up
+    ar: ترفع كتفك
+  image_url: /exercises/One_Arm_Lat_Pulldown/0.jpg
+  image_frames:
+  - /exercises/One_Arm_Lat_Pulldown/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Single-arm+pulldown+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/One_Arm_Lat_Pulldown
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_lat_pulldown
+    name:
+      en: Neutral-grip lat pulldown
+      ar: سحب علوي بقبضة محايدة
+    kind: easier
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_single_arm_rope_extension
+  type: strength
+  name:
+    en: Single-arm cable triceps extension
+    ar: ترايسبس كابل بإيد واحدة
+  description:
+    en: Push a cable down with one arm until it's straight. Trains the triceps one side at a time.
+    ar: ادفع الكابل لتحت بإيد واحدة لحد ما تفرد. بيشتغل على الترايسبس كل ناحية لوحدها.
+  movement_pattern: elbowExtension
+  joints_loaded:
+  - elbow
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles: []
+  muscle_names:
+    en: Triceps
+    ar: الترايسبس
+  instructions:
+  - en: Set the pulley high and hold one end of a rope (or a handle) in one hand.
+    ar: ركّب البكرة فوق وامسك طرف الحبل (أو مسكة) بإيد واحدة.
+  - en: Elbow by your side, push down until your arm is straight.
+    ar: والكوع جنبك، ادفع لتحت لحد ما دراعك يفرد.
+  - en: Let it come back up slowly, keeping the elbow still.
+    ar: رجّعه لفوق ببطء والكوع ثابت.
+  cues:
+  - en: Elbow pinned
+    ar: الكوع ثابت
+  - en: Squeeze at the bottom
+    ar: اعصر تحت
+  - en: Slow return
+    ar: رجوع بطيء
+  mistakes:
+  - en: Elbow moving forward
+    ar: الكوع يطلع لقدام
+  - en: Leaning over the weight
+    ar: تميل على الوزن
+  image_url: /exercises/Cable_One_Arm_Tricep_Extension/0.jpg
+  image_frames:
+  - /exercises/Cable_One_Arm_Tricep_Extension/1.jpg
+  video_url: https://www.youtube.com/watch?v=FxK2mF0iPXs
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Cable_One_Arm_Tricep_Extension
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_pushdown
+    name:
+      en: Triceps pushdown
+      ar: ترايسبس بوش داون
+    kind: easier
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91. How-to written for Rafeqi.'
+- id: ex_single_leg_extension
+  type: strength
+  name:
+    en: Single-leg leg extension
+    ar: ليج إكستنشن برجل واحدة
+  description:
+    en: A leg extension one leg at a time. Trains the front of each thigh on its own.
+    ar: ليج إكستنشن رجل رجل. بيشتغل على قدام كل فخد لوحده.
+  movement_pattern: kneeExtension
+  joints_loaded:
+  - knee
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles: []
+  muscle_names:
+    en: Front of the thigh
+    ar: قدام الفخد
+  instructions:
+  - en: Sit in the machine with one ankle behind the pad.
+    ar: اقعد على الجهاز وكاحل رجل واحدة ورا المسند.
+  - en: Straighten that leg until it is fully extended.
+    ar: افرد الرجل دي لحد ما تتفرد خالص.
+  - en: Lower slowly; do the same reps on the other leg.
+    ar: نزّل ببطء؛ واعمل نفس العدد بالرجل التانية.
+  cues:
+  - en: Squeeze at the top
+    ar: اعصر فوق
+  - en: Hold the handles
+    ar: امسك المسكات
+  - en: Slow on the way down
+    ar: بالراحة وأنت نازل
+  mistakes:
+  - en: Kicking the weight up
+    ar: ترفس الوزن لفوق
+  - en: Hips lifting off the seat
+    ar: وسطك يترفع من الكرسي
+  image_url: /exercises/Single-Leg_Leg_Extension/0.jpg
+  image_frames:
+  - /exercises/Single-Leg_Leg_Extension/1.jpg
+  video_url: https://www.youtube.com/watch?v=3VIpG6rtFAc
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Single-Leg_Leg_Extension
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_leg_extension
+    name:
+      en: Leg extension
+      ar: ليج إكستنشن
+    kind: easier
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91. How-to written for Rafeqi.'
+- id: ex_single_leg_hip_thrust
+  type: strength
+  name:
+    en: Single-leg hip thrust
+    ar: هيب ثراست برجل واحدة
+  description:
+    en: With your upper back on a bench, lift your hips with one leg. Trains each glute on its own.
+    ar: وأعلى ضهرك على بنش، ارفع وسطك برجل واحدة. بيشتغل على كل ناحية من المؤخرة لوحدها.
+  movement_pattern: hinge
+  joints_loaded:
+  - hip
+  range_of_motion: full
+  equipment:
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - hipL
+  - hipR
+  secondary_muscles:
+  - thighL
+  - thighR
+  muscle_names:
+    en: Glutes · hamstrings
+    ar: المؤخرة · خلفية الفخد
+  instructions:
+  - en: Sit with your upper back against a bench, one foot flat and the other leg lifted.
+    ar: اقعد وأعلى ضهرك على البنش، رجل على الأرض والتانية مرفوعة.
+  - en: Drive through the heel on the floor to lift your hips until your body is flat.
+    ar: ادفع بكعب الرجل اللي على الأرض وارفع وسطك لحد ما جسمك يتفرد.
+  - en: Lower slowly; hold a dumbbell on the hip to make it harder.
+    ar: نزّل ببطء؛ ولو عايزها أصعب امسك دمبل على وسطك.
+  cues:
+  - en: Hips level
+    ar: الوسط مستوي
+  - en: Push through the heel
+    ar: ادفع بالكعب
+  - en: Squeeze at the top
+    ar: اعصر فوق
+  mistakes:
+  - en: Hips tilting to one side
+    ar: الوسط يميل لناحية
+  - en: Arching the lower back
+    ar: تقوّس أسفل ضهرك
+  image_url: /exercises/Single_Leg_Glute_Bridge/0.jpg
+  image_frames:
+  - /exercises/Single_Leg_Glute_Bridge/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Single-leg+hip+thrust+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Single_Leg_Glute_Bridge
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_glute_bridge
+    name:
+      en: Glute bridge
+      ar: جلوت بريدج
+    kind: easier
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'
+- id: ex_single_leg_lying_curl
+  type: strength
+  name:
+    en: Single-leg lying leg curl
+    ar: ليج كيرل برجل واحدة وأنت نايم
+  description:
+    en: A lying leg curl one leg at a time. Trains each hamstring on its own.
+    ar: ليج كيرل وأنت نايم رجل رجل. بيشتغل على كل خلفية فخد لوحدها.
+  movement_pattern: kneeFlexion
+  joints_loaded:
+  - knee
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles:
+  - shinL
+  - shinR
+  muscle_names:
+    en: Hamstrings · calves
+    ar: خلفية الفخد · السمانة
+  instructions:
+  - en: Lie face down with one heel under the pad.
+    ar: نام على بطنك وكعب رجل واحدة تحت المسند.
+  - en: Curl the pad up with that leg as far as you can.
+    ar: اثني الرجل دي وارفع المسند على قد ما تقدر.
+  - en: Lower slowly; do the same reps on the other leg.
+    ar: نزّل ببطء؛ واعمل نفس العدد بالرجل التانية.
+  cues:
+  - en: Hips down
+    ar: الوسط لتحت
+  - en: Squeeze at the top
+    ar: اعصر فوق
+  - en: Slow lowering
+    ar: نزول بطيء
+  mistakes:
+  - en: Hips lifting
+    ar: الوسط يترفع
+  - en: Twisting to help
+    ar: تلف جسمك عشان تساعد
+  video_url: https://www.youtube.com/watch?v=lQSlJHtsnRA
+  alternatives:
+  - exercise_id: ex_lying_leg_curl
+    name:
+      en: Lying leg curl
+      ar: ليج كيرل وأنت نايم
+    kind: easier
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91. How-to written for Rafeqi.'
+- id: ex_tbar_row
+  type: strength
+  name:
+    en: Chest-supported T-bar row
+    ar: تجديف تي بار وصدرك مسنود
+  description:
+    en: Row a T-bar with your chest on a pad. Builds the middle back without loading the lower back.
+    ar: اسحب التي بار وصدرك على المسند. بيبني نص الضهر من غير حمل على أسفل الضهر.
+  movement_pattern: horizontalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - machine
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Middle back, lats · biceps
+    ar: نص الضهر، الجانبية · البايسبس
+  instructions:
+  - en: Stand on the platform and lean your chest on the pad, holding the handles with straight arms.
+    ar: اقف على القاعدة وسند صدرك على المسند، وامسك المسكات ودراعك مفرود.
+  - en: Pull the handles toward your chest, elbows going back.
+    ar: اسحب المسكات ناحية صدرك والكوع رايح لورا.
+  - en: Lower slowly to a full stretch.
+    ar: نزّل ببطء لحد ما تتمدّ على الآخر.
+  cues:
+  - en: Chest stays on the pad
+    ar: صدرك يفضل على المسند
+  - en: Squeeze your shoulder blades
+    ar: اقفل لوحين الكتف
+  - en: Full stretch
+    ar: تمدّد كامل
+  mistakes:
+  - en: Lifting the chest off the pad
+    ar: ترفع صدرك من المسند
+  - en: Short, jerky reps
+    ar: عدّات قصيرة بشدّ
+  image_url: /exercises/Lying_T-Bar_Row/0.jpg
+  image_frames:
+  - /exercises/Lying_T-Bar_Row/1.jpg
+  video_url: https://www.youtube.com/watch?v=w0KnlQ-b7jw
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Lying_T-Bar_Row
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_cs_row
+    name:
+      en: Chest-supported dumbbell row
+      ar: تجديف دمبلز وصدرك على البنش
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91; the book''s substitutions, pp. 27–29. How-to written for Rafeqi.'
+- id: ex_walking_lunge_db
+  type: strength
+  name:
+    en: Dumbbell walking lunge
+    ar: طعن بالمشي بالدمبلز
+  description:
+    en: Step forward into lunges while holding dumbbells. Trains the thighs and glutes, and your balance.
+    ar: اخطي لقدام في طعنات وأنت ماسك دمبلز. بيشتغل على الفخد والمؤخرة وتوازنك.
+  movement_pattern: lunge
+  joints_loaded:
+  - knee
+  - hip
+  - ankle
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  difficulty: intermediate
+  primary_muscles:
+  - thighL
+  - thighR
+  - hipL
+  - hipR
+  secondary_muscles: []
+  muscle_names:
+    en: Thighs, glutes
+    ar: الفخد، المؤخرة
+  instructions:
+  - en: Stand holding a dumbbell in each hand at your sides.
+    ar: اقف ومعاك دمبل في كل إيد جنبك.
+  - en: Take a long step forward and lower your back knee toward the floor.
+    ar: اخطي خطوة طويلة لقدام ونزّل ركبتك اللي ورا ناحية الأرض.
+  - en: Push through the front foot and step the back leg through into the next lunge.
+    ar: ادفع برجلك اللي قدام وعدّي الرجل اللي ورا للطعنة اللي بعدها.
+  cues:
+  - en: Long steps
+    ar: خطوات طويلة
+  - en: Front knee over the foot
+    ar: الركبة اللي قدام فوق رجلك
+  - en: Stay tall
+    ar: خليك مفرود
+  mistakes:
+  - en: Short steps that load the knee
+    ar: خطوات قصيرة بتحمّل على الركبة
+  - en: Wobbling side to side
+    ar: تتهز يمين وشمال
+  image_url: /exercises/Dumbbell_Lunges/0.jpg
+  image_frames:
+  - /exercises/Dumbbell_Lunges/1.jpg
+  video_url: https://www.youtube.com/watch?v=vni4lElTvsY
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dumbbell_Lunges
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_single_leg_hip_thrust
+    name:
+      en: Single-leg hip thrust
+      ar: هيب ثراست برجل واحدة
+    kind: injuryFriendly
+  - exercise_id: ex_walking_lunge_bw
+    name:
+      en: Bodyweight walking lunge
+      ar: طعن بالمشي بوزن الجسم
+    kind: noEquipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 88–91; the book''s substitutions, pp. 27–29. How-to written for Rafeqi.'
+- id: ex_wide_pulldown
+  type: strength
+  name:
+    en: Wide-grip lat pulldown
+    ar: سحب علوي بقبضة واسعة
+  description:
+    en: A lat pulldown with a wide overhand grip. Builds the width of the back.
+    ar: سحب علوي بقبضة واسعة من فوق. بيبني عرض الضهر.
+  movement_pattern: verticalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - cable
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Lats · biceps
+    ar: العضلات الجانبية · البايسبس
+  instructions:
+  - en: Sit with your thighs under the pad and hold the bar wider than your shoulders, palms facing away.
+    ar: اقعد ورجلك تحت المسند وامسك البار أوسع من كتفك والكف بيبص لقدام.
+  - en: Lift your chest and pull the bar to your upper chest.
+    ar: ارفع صدرك واسحب البار لأعلى صدرك.
+  - en: Let it rise slowly until your arms are straight.
+    ar: سيبه يطلع ببطء لحد ما دراعك يفرد.
+  cues:
+  - en: Chest up to the bar
+    ar: صدرك يطلع للبار
+  - en: Elbows down and back
+    ar: الكوع لتحت ولورا
+  - en: Control the way up
+    ar: اتحكّم في الطلعة
+  mistakes:
+  - en: Pulling behind the neck
+    ar: تسحب ورا رقبتك
+  - en: Swinging the body
+    ar: تتمرجح بجسمك
+  image_url: /exercises/Wide-Grip_Lat_Pulldown/0.jpg
+  image_frames:
+  - /exercises/Wide-Grip_Lat_Pulldown/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Wide-grip+lat+pulldown+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Wide-Grip_Lat_Pulldown
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_lat_pulldown
+    name:
+      en: Neutral-grip lat pulldown
+      ar: سحب علوي بقبضة محايدة
+    kind: injuryFriendly
+  - exercise_id: ex_pull_up
+    name:
+      en: Pull-up
+      ar: عقلة
+    kind: equipment
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi.'

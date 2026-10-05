@@ -6,7 +6,7 @@ import { api, createUser, expect, freshUser, test, waitForContent } from './help
 test('the Workouts header shows the real program name', async ({ page }) => {
   await page.goto('/workouts');
   await waitForContent(page);
-  await expect(page.getByText('Upper / Lower (sample) · week')).toBeVisible();
+  await expect(page.getByText('Fundamentals: Upper / Lower · week')).toBeVisible();
 });
 
 test('a past session has no Swap button and says it can\'t be changed', async ({ page }) => {
@@ -101,7 +101,7 @@ test('move an upcoming session: today is taken (says why), another day works and
   await page.goto(`/workouts/${wed.id}`);
   await waitForContent(page);
   await expect(page.getByRole('button', { name: 'Do this workout today' })).toBeDisabled();
-  await expect(page.getByTestId('today-why')).toContainText('Monday already has Lower body A');
+  await expect(page.getByTestId('today-why')).toContainText('Monday already has Upper body 1');
   await page.getByRole('button', { name: 'Move to another day' }).click();
   const sheet = page.getByRole('dialog');
   await expect(sheet.getByTestId('move-option').filter({ hasText: 'Thursday' })).toBeDisabled();

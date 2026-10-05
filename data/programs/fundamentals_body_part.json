@@ -1,0 +1,1834 @@
+{
+ "id": "fundamentals_body_part",
+ "name": {
+  "en": "Fundamentals: Body-part split",
+  "ar": "الأساسيات: تقسيم العضلات"
+ },
+ "source": "Fundamentals Hypertrophy Program (Jeff Nippard), Body part split program, pp. 65–80; the week's layout, p. 31",
+ "book": "Fundamentals Hypertrophy Program (Jeff Nippard)",
+ "experience": [
+  "beginner"
+ ],
+ "days_per_week": [
+  5
+ ],
+ "goals": [
+  "loseFat",
+  "buildMuscle",
+  "recomp",
+  "strength"
+ ],
+ "locations": [
+  "gym",
+  "homeDumbbells",
+  "bodyweight"
+ ],
+ "total_weeks": 8,
+ "deload_weeks": [],
+ "rotation": {
+  "5": [
+   "CT",
+   "LA1",
+   "BB",
+   "LA2",
+   "SA"
+  ]
+ },
+ "days": [
+  {
+   "key": "CT",
+   "kind": "upper",
+   "name": {
+    "en": "Chest and triceps",
+    "ar": "صدر وترايسبس"
+   }
+  },
+  {
+   "key": "LA1",
+   "kind": "lower",
+   "name": {
+    "en": "Legs and abs 1",
+    "ar": "رجل وبطن ١"
+   }
+  },
+  {
+   "key": "BB",
+   "kind": "upper",
+   "name": {
+    "en": "Back and biceps",
+    "ar": "ضهر وبايسبس"
+   }
+  },
+  {
+   "key": "LA2",
+   "kind": "lower",
+   "name": {
+    "en": "Legs and abs 2",
+    "ar": "رجل وبطن ٢"
+   }
+  },
+  {
+   "key": "SA",
+   "kind": "upper",
+   "name": {
+    "en": "Shoulders and arms",
+    "ar": "أكتاف ودراعات"
+   }
+  }
+ ],
+ "weeks": [
+  {
+   "week": 1,
+   "pages": "66",
+   "days": {
+    "CT": [
+     {
+      "exercise": "ex_bb_bench_press",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_db_incline_press",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_cable_flye",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_assisted_dip",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 7,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_db_skull_crusher",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA1": [
+     {
+      "exercise": "ex_bb_squat",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_bb_rdl",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 7,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_hip_thrust",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_leg_extension",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_lying_leg_curl",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 2,
+      "reps": "8",
+      "rpe": 7,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_crunch",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 7,
+      "rest_sec": 90
+     }
+    ],
+    "BB": [
+     {
+      "exercise": "ex_reverse_grip_pulldown",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_cable_row",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_tbar_row",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_face_pull",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_db_curl",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA2": [
+     {
+      "exercise": "ex_bb_deadlift",
+      "sets": 3,
+      "reps": "5",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_walking_lunge_db",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_single_leg_extension",
+      "sets": 2,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_single_leg_lying_curl",
+      "sets": 2,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hip_abduction",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 7,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_plank",
+      "sets": 3,
+      "reps": "20 s",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "SA": [
+     {
+      "exercise": "ex_ohp",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_lateral_raise",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_cable_reverse_flye",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_single_arm_rope_extension",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_cable_curl",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ]
+   }
+  },
+  {
+   "week": 2,
+   "pages": "68",
+   "days": {
+    "CT": [
+     {
+      "exercise": "ex_bb_bench_press",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_db_incline_press",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_cable_flye",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_assisted_dip",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 7,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_db_skull_crusher",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA1": [
+     {
+      "exercise": "ex_bb_squat",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_bb_rdl",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 7,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_hip_thrust",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_leg_extension",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_lying_leg_curl",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 2,
+      "reps": "8",
+      "rpe": 7,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_crunch",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 7,
+      "rest_sec": 90
+     }
+    ],
+    "BB": [
+     {
+      "exercise": "ex_reverse_grip_pulldown",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_cable_row",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_tbar_row",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_face_pull",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_db_curl",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA2": [
+     {
+      "exercise": "ex_bb_deadlift",
+      "sets": 3,
+      "reps": "5",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_walking_lunge_db",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_single_leg_extension",
+      "sets": 2,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_single_leg_lying_curl",
+      "sets": 2,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hip_abduction",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 7,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_plank",
+      "sets": 3,
+      "reps": "20 s",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "SA": [
+     {
+      "exercise": "ex_ohp",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_lateral_raise",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_cable_reverse_flye",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_single_arm_rope_extension",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_cable_curl",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ]
+   }
+  },
+  {
+   "week": 3,
+   "pages": "70",
+   "days": {
+    "CT": [
+     {
+      "exercise": "ex_bb_bench_press",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_db_incline_press",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_cable_flye",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_assisted_dip",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 7,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_db_skull_crusher",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA1": [
+     {
+      "exercise": "ex_bb_squat",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_bb_rdl",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 7,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_hip_thrust",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_leg_extension",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_lying_leg_curl",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 2,
+      "reps": "8",
+      "rpe": 7,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_crunch",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 7,
+      "rest_sec": 90
+     }
+    ],
+    "BB": [
+     {
+      "exercise": "ex_reverse_grip_pulldown",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_cable_row",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_tbar_row",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_face_pull",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_db_curl",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA2": [
+     {
+      "exercise": "ex_bb_deadlift",
+      "sets": 3,
+      "reps": "5",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_walking_lunge_db",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_single_leg_extension",
+      "sets": 2,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_single_leg_lying_curl",
+      "sets": 2,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hip_abduction",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 7,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_plank",
+      "sets": 3,
+      "reps": "20 s",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "SA": [
+     {
+      "exercise": "ex_ohp",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_lateral_raise",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_cable_reverse_flye",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_single_arm_rope_extension",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_cable_curl",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ]
+   }
+  },
+  {
+   "week": 4,
+   "pages": "72",
+   "days": {
+    "CT": [
+     {
+      "exercise": "ex_bb_bench_press",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_db_incline_press",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_cable_flye",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_assisted_dip",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 7,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_db_skull_crusher",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA1": [
+     {
+      "exercise": "ex_bb_squat",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_bb_rdl",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 7,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_hip_thrust",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_leg_extension",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_lying_leg_curl",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 2,
+      "reps": "8",
+      "rpe": 7,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_crunch",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 7,
+      "rest_sec": 90
+     }
+    ],
+    "BB": [
+     {
+      "exercise": "ex_reverse_grip_pulldown",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_cable_row",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_tbar_row",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_face_pull",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_db_curl",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA2": [
+     {
+      "exercise": "ex_bb_deadlift",
+      "sets": 3,
+      "reps": "5",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_walking_lunge_db",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_single_leg_extension",
+      "sets": 2,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_single_leg_lying_curl",
+      "sets": 2,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hip_abduction",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 7,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_plank",
+      "sets": 3,
+      "reps": "20 s",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "SA": [
+     {
+      "exercise": "ex_ohp",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 7,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_lateral_raise",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_cable_reverse_flye",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_single_arm_rope_extension",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_cable_curl",
+      "sets": 2,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ]
+   }
+  },
+  {
+   "week": 5,
+   "pages": "74",
+   "days": {
+    "CT": [
+     {
+      "exercise": "ex_bb_bench_press",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_machine_incline_press",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_pec_deck",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_assisted_dip",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_cable_kickback",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA1": [
+     {
+      "exercise": "ex_bb_deadlift",
+      "sets": 3,
+      "reps": "5",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_goblet_squat",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_single_leg_hip_thrust",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 9,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_leg_press",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_lying_leg_curl",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 9,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_bicycle_crunch",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "BB": [
+     {
+      "exercise": "ex_wide_pulldown",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_one_arm_db_row",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_bb_row",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_reverse_pec_deck",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_ez_curl",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA2": [
+     {
+      "exercise": "ex_bb_squat",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_hip_thrust",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_bb_rdl",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_seated_leg_curl",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 9,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 9,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hanging_leg_raise",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hip_abduction",
+      "sets": 3,
+      "reps": "20",
+      "rpe": 9,
+      "rest_sec": 90
+     }
+    ],
+    "SA": [
+     {
+      "exercise": "ex_db_shoulder_press",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_cable_lateral_raise",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_rear_delt_raise",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_db_floor_press",
+      "sets": 2,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hammer_curl",
+      "sets": 2,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ]
+   }
+  },
+  {
+   "week": 6,
+   "pages": "76",
+   "days": {
+    "CT": [
+     {
+      "exercise": "ex_bb_bench_press",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_machine_incline_press",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_pec_deck",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_assisted_dip",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_cable_kickback",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA1": [
+     {
+      "exercise": "ex_bb_deadlift",
+      "sets": 3,
+      "reps": "5",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_goblet_squat",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_single_leg_hip_thrust",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 9,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_leg_press",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_lying_leg_curl",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 9,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_bicycle_crunch",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "BB": [
+     {
+      "exercise": "ex_wide_pulldown",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_one_arm_db_row",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_bb_row",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_reverse_pec_deck",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_ez_curl",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA2": [
+     {
+      "exercise": "ex_bb_squat",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_hip_thrust",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_bb_rdl",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_seated_leg_curl",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 9,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 9,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hanging_leg_raise",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hip_abduction",
+      "sets": 3,
+      "reps": "20",
+      "rpe": 9,
+      "rest_sec": 90
+     }
+    ],
+    "SA": [
+     {
+      "exercise": "ex_db_shoulder_press",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_cable_lateral_raise",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_rear_delt_raise",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_db_floor_press",
+      "sets": 2,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hammer_curl",
+      "sets": 2,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ]
+   }
+  },
+  {
+   "week": 7,
+   "pages": "78",
+   "days": {
+    "CT": [
+     {
+      "exercise": "ex_bb_bench_press",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_machine_incline_press",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_pec_deck",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_assisted_dip",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_cable_kickback",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA1": [
+     {
+      "exercise": "ex_bb_deadlift",
+      "sets": 3,
+      "reps": "5",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_goblet_squat",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_single_leg_hip_thrust",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 9,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_leg_press",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_lying_leg_curl",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 9,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_bicycle_crunch",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "BB": [
+     {
+      "exercise": "ex_wide_pulldown",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_one_arm_db_row",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_bb_row",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_reverse_pec_deck",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_ez_curl",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA2": [
+     {
+      "exercise": "ex_bb_squat",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_hip_thrust",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_bb_rdl",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_seated_leg_curl",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 9,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 9,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hanging_leg_raise",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hip_abduction",
+      "sets": 3,
+      "reps": "20",
+      "rpe": 9,
+      "rest_sec": 90
+     }
+    ],
+    "SA": [
+     {
+      "exercise": "ex_db_shoulder_press",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_cable_lateral_raise",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_rear_delt_raise",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_db_floor_press",
+      "sets": 2,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hammer_curl",
+      "sets": 2,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ]
+   }
+  },
+  {
+   "week": 8,
+   "pages": "80",
+   "days": {
+    "CT": [
+     {
+      "exercise": "ex_bb_bench_press",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_machine_incline_press",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_pec_deck",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_assisted_dip",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_cable_kickback",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA1": [
+     {
+      "exercise": "ex_bb_deadlift",
+      "sets": 3,
+      "reps": "5",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_goblet_squat",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_single_leg_hip_thrust",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 9,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_leg_press",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_lying_leg_curl",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 9,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_bicycle_crunch",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "BB": [
+     {
+      "exercise": "ex_wide_pulldown",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_one_arm_db_row",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_bb_row",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_reverse_pec_deck",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_ez_curl",
+      "sets": 3,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ],
+    "LA2": [
+     {
+      "exercise": "ex_bb_squat",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_hip_thrust",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_bb_rdl",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 150
+     },
+     {
+      "exercise": "ex_seated_leg_curl",
+      "sets": 3,
+      "reps": "8",
+      "rpe": 9,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_calf_raise",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 9,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hanging_leg_raise",
+      "sets": 3,
+      "reps": "6",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hip_abduction",
+      "sets": 3,
+      "reps": "20",
+      "rpe": 9,
+      "rest_sec": 90
+     }
+    ],
+    "SA": [
+     {
+      "exercise": "ex_db_shoulder_press",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 210
+     },
+     {
+      "exercise": "ex_cable_lateral_raise",
+      "sets": 3,
+      "reps": "10",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_rear_delt_raise",
+      "sets": 3,
+      "reps": "12",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_db_floor_press",
+      "sets": 2,
+      "reps": "15",
+      "rpe": 8,
+      "rest_sec": 90
+     },
+     {
+      "exercise": "ex_hammer_curl",
+      "sets": 2,
+      "reps": "8",
+      "rpe": 8,
+      "rest_sec": 90
+     }
+    ]
+   }
+  }
+ ],
+ "techniques": {}
+}

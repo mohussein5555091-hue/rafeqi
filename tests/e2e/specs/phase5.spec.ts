@@ -138,7 +138,7 @@ test.describe('designed states', () => {
     await page.goto('/workouts');
     await expect(page.locator('[aria-busy="true"]').first()).toBeVisible();
     await waitForContent(page);
-    await expect(page.getByText('0 of 6 done')).toBeVisible(); // 4 lifting days + 2 cardio days
+    await expect(page.getByText('0 of 5 done')).toBeVisible(); // 4 lifting days + 1 cardio day (the others are after lifting)
   });
 
   test('error: "Something didn\'t load", and Try again recovers', async ({ page }) => {

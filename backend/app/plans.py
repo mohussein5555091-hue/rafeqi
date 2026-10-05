@@ -57,6 +57,12 @@ def person_for(db: Session, user_id: str, weight_kg: float | None = None) -> Per
     )
 
 
+def weeks_done(db: Session, user_id: str, start: dt.date) -> int:
+    """Whole weeks since the person's first program started (0 for the first plan): picks the program's week."""
+    first = db.scalar(select(func.min(TrainingProgram.start_date)).where(TrainingProgram.user_id == user_id))
+    return max(0, (start - first).days // 7) if first else 0
+
+
 def calories_since(db: Session, user_id: str, plan: Plan) -> dt.date:
     """The day the current calorie target started: the oldest of the newest plan versions that all have these calories
     (the weekly review changes calories at most every 2 weeks, nutrition.yaml review)."""
@@ -102,7 +108,7 @@ def generate_plan(db: Session, user_id: str, trigger: str = "onboarding", *, tod
     # The person's own "from now on" swaps are kept by every version (and what they took out never comes back).
     swaps = active_swaps(db, user_id)
     adjust = replace(adjust, replace=tuple((s.from_exercise_id, s.to_exercise_id, s.reason) for s in swaps))
-    program = build_program(person, exercises_from_db(db), adjust=adjust)
+    program = build_program(person, exercises_from_db(db), adjust=adjust, weeks_done=weeks_done(db, user_id, start))
     if program.cardio and program.cardio.sessions:
         add_cardio_reason(targets, person, len(program.cardio.sessions), program.cardio.sessions[0].minutes)
     before = current_plan(db, user_id) if keep_meals else None
@@ -133,7 +139,7 @@ def generate_plan(db: Session, user_id: str, trigger: str = "onboarding", *, tod
                  "cardio": _r(program.cardio.reasons if program.cardio else []),
                  "review": _r(extra_reasons or [])},
         inputs={"person": {k: v for k, v in asdict(person).items() if k != "injuries"},
-                "injuries": [asdict(i) for i in person.injuries], "week_start": start.isoformat(),
+                "injuries": [asdict(i) for i in person.injuries], "week_start": start.isoformat(), "program_week": program.week,
                 "adjustments": {"avoid": sorted(adjust.avoid), "injury_factors": dict(adjust.injury_factors), "deload": adjust.deload,
                                 "weight_offsets": dict(adjust.weight_offsets), "calories": calories, "banned_recipes": sorted(banned)}},
     )
@@ -189,6 +195,7 @@ def _new_version_keeping_meals(db: Session, user_id: str, trigger: str, person, 
     inputs = dict(before.inputs or {})
     inputs["person"] = {k: v for k, v in asdict(person).items() if k != "injuries"}
     inputs["injuries"] = [asdict(i) for i in person.injuries]
+    inputs["program_week"] = program.week
     inputs["adjustments"] = {"avoid": sorted(adjust.avoid), "injury_factors": dict(adjust.injury_factors), "deload": adjust.deload,
                              "weight_offsets": dict(adjust.weight_offsets), "calories": calories, "banned_recipes": sorted(banned)}
     plan = Plan(user_id=user_id, version=version, status="active", trigger=trigger, calories=before.calories,

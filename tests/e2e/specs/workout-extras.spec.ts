@@ -114,9 +114,9 @@ test('cardio: the week shows cardio days, and cardio is marked done with the min
   await waitForContent(page);
   await expect(page.getByText(/cardio sessions a week/)).toBeVisible();
   await expect(page.getByText(/Every day: about [\d,]+ steps/)).toBeVisible();
-  // Saturday (past): cardio after lifting. Mark it done with 20 minutes.
-  const sat = week.sessions.find((s: Session) => s.day === 'sat');
-  await page.goto(`/workouts/${sat.id}`);
+  // Monday (today, an upper-body day): cardio after lifting. Mark it done with 20 minutes.
+  const mon = week.sessions.find((s: Session) => s.day === 'mon');
+  await page.goto(`/workouts/${mon.id}`);
   await waitForContent(page);
   const card = page.getByTestId('cardio');
   await expect(card).toContainText('After lifting');
@@ -176,9 +176,10 @@ test('swap from now on, then undo it from the exercise page', async ({ page }) =
   await sheet.getByRole('radio', { name: 'From now on' }).check({ force: true });
   await sheet.getByRole('button', { name: `Swap to ${name}` }).click();
   await expect(page.getByTestId('exercise-row').first()).toContainText(name);
-  const plan = await api(page, '/plan');
-  const ids = plan.program.days.flatMap((d: { exercises: { exerciseId: string }[] }) => d.exercises.map((e) => e.exerciseId));
-  expect(ids).not.toContain(original);
+  // (The first exercise stands in for the bench press because of the shoulder: the swap is for the bench press, so the
+  // stand-in may still be used elsewhere in the week.)
+  const monday = async () => (await api(page, '/plan')).program.days.find((d: { weekday: string }) => d.weekday === 'mon').exercises[0].exerciseId;
+  expect(await monday()).not.toBe(original);
 
   await page.getByTestId('exercise-row').first().getByRole('link', { name: /^How to do / }).click();
   await waitForContent(page);
@@ -186,20 +187,20 @@ test('swap from now on, then undo it from the exercise page', async ({ page }) =
   await expect(mine).toContainText('from now on');
   await mine.getByRole('button', { name: /^Undo swap/ }).click();
   await expect(page.getByText(/Swap undone/)).toBeVisible();
-  const after = (await api(page, '/plan')).program.days.flatMap((d: { exercises: { exerciseId: string }[] }) => d.exercises.map((e) => e.exerciseId));
-  expect(after).toContain(original);
+  expect(await monday()).toBe(original);
 });
 
 test('"Equipment not available" leaves that equipment out of the alternatives', async ({ page }) => {
   await freshUser(page);
-  const s = await todaySession(page); // Monday: lower body at the gym
-  const index = s.exercises.findIndex((e) => e.exerciseId === 'ex_leg_press');
+  const s = await todaySession(page); // Monday: upper body at the gym, with the chest-supported T-bar row (a machine)
+  const index = s.exercises.findIndex((e) => e.exerciseId === 'ex_tbar_row');
   expect(index).toBeGreaterThanOrEqual(0);
   const sheet = await openSwap(page, s.id, index);
   await sheet.getByRole('radio', { name: /Equipment not available/ }).click();
   await expect(sheet.getByRole('radiogroup', { name: 'Pick the new exercise' })).toBeVisible();
-  const alts = await api(page, `/workouts/${s.id}/exercises/ex_leg_press/alternatives?reason=equipment`);
-  expect(alts.map((a: { exerciseId: string }) => a.exerciseId)).not.toContain('ex_seated_leg_curl'); // machines are out
+  const alts = (await api(page, `/workouts/${s.id}/exercises/ex_tbar_row/alternatives?reason=equipment`)).map((a: { exerciseId: string }) => a.exerciseId);
+  expect(alts.length).toBeGreaterThan(0);
+  for (const machine of ['ex_reverse_pec_deck', 'ex_pec_deck', 'ex_machine_incline_press']) expect(alts).not.toContain(machine); // machines are out
 });
 
 test('"It causes pain": after the swap it offers to add or update an injury', async ({ page }) => {

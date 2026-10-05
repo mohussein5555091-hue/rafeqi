@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 
 from app import clock
 from app.engine.catalogue import exercises_from_db
-from app.engine.rules import load_rules
+from app.engine.rules import deload_in_tables, deload_weeks, load_rules, template_by_id
 from app.engine.training import deload_volume, start_weight, weight_step
 from app.engine.warmup import ramp_up
 from app.models import (
@@ -140,24 +140,36 @@ def swap_why(db: Session, reason: str, from_id: str, missing: list[str]) -> dict
     return {"en": t["en"].format(equipment=label["en"].lower()), "ar": t["ar"].format(equipment=label["ar"])}
 
 
+def program_lighter_week(db: Session, user_id: str, tp: TrainingProgram | None, d: dt.date) -> tuple[bool, bool]:
+    """(is the week of `d` one of the program's lighter weeks, are its lighter numbers already in the program's tables).
+    A real program writes its lighter weeks into its tables; a sample program's one deload week is made lighter here
+    (training.yaml `deload`)."""
+    if tp is None:
+        return False, False
+    t = template_by_id(tp.template_id)
+    weeks = deload_weeks(t) if t else ([tp.deload_week] if tp.deload_week else [])
+    return program_week_number(db, user_id, week_start(d), tp.total_weeks) in weeks, deload_in_tables(t)
+
+
 def scheduled_deload(db: Session, user_id: str, day: ProgramDay, d: dt.date) -> bool:
     """True in the program's planned lighter week (training.yaml `deload`), unless a check-in already made this plan
     version lighter (that deload is built into the plan's sets and effort, so it isn't applied twice)."""
     tp = db.get(TrainingProgram, day.program_id)
-    if tp is None or not tp.deload_week:
+    lighter, _ = program_lighter_week(db, user_id, tp, d)
+    if not lighter:
         return False
     plan = db.get(Plan, tp.plan_id)
-    if ((plan.inputs or {}).get("adjustments") or {}).get("deload") if plan else False:
-        return False
-    return program_week_number(db, user_id, week_start(d), tp.total_weeks) == tp.deload_week
+    return not (((plan.inputs or {}).get("adjustments") or {}).get("deload") if plan else False)
 
 
 def session_exercises(db: Session, user_id: str, day: ProgramDay, d: dt.date, injuries: dict[str, Injury]) -> list[SessionExercise]:
     out = _session_exercises(db, user_id, day, d, injuries)
     if scheduled_deload(db, user_id, day, d):
+        in_tables = program_lighter_week(db, user_id, db.get(TrainingProgram, day.program_id), d)[1]
         for se in out:
-            se.sets, se.target_rpe = deload_volume(se.sets, se.target_rpe)
-            se.deload = True
+            if not in_tables:  # the program's tables already have the lighter sets and effort: don't lower them twice
+                se.sets, se.target_rpe = deload_volume(se.sets, se.target_rpe)
+            se.deload = True  # either way: last time's weights, no step up
     return out
 
 
@@ -332,7 +344,7 @@ def deload_out(db: Session, user_id: str, week: Week) -> dict:
     lighter instead. `setsMinus` / `rpeMinus` come from training.yaml `deload`."""
     dl = load_rules()["training"]["deload"]
     by_checkin = bool(((week.plan.inputs or {}).get("adjustments") or {}).get("deload"))
-    planned = bool(week.program.deload_week) and week.number == week.program.deload_week
+    planned = program_lighter_week(db, user_id, week.program, week.start)[0]
     return {"week": week.program.deload_week, "thisWeek": planned or by_checkin, "byCheckIn": by_checkin,
             "setsMinus": dl["sets_minus"], "rpeMinus": dl["rpe_minus"]}
 

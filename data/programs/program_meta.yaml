@@ -1,0 +1,121 @@
+# Everything about the three Jeff Nippard programs that isn't in their weekly tables: name, who each is for, the days
+# and their order, deload weeks and the book pages. scripts/books/programs.py (npm run books:programs) combines this
+# with the tables (data/private/books/, never committed) into data/programs/<id>.json.
+#
+# Who each program is for (data/rules/training.yaml template_choice): Fundamentals for beginners (and anyone training
+# 2-4 days a week: the Upper/Lower book sends 4-day lifters to it, p. 28); LPP and Upper/Lower for intermediate and
+# advanced lifters who train 5-6 days (2-5 years of serious training: LPP p. 6, Upper/Lower p. 10).
+programs:
+  fundamentals_full_body:
+    name: {en: "Fundamentals: Full body", ar: "الأساسيات: الجسم كله"}
+    source: "Fundamentals Hypertrophy Program (Jeff Nippard), Full body program, pp. 33–48; the week's layout, p. 31"
+    book: Fundamentals Hypertrophy Program (Jeff Nippard)
+    experience: [beginner, intermediate, advanced]
+    days_per_week: [2, 3]
+    goals: [loseFat, buildMuscle, recomp, strength]
+    locations: [gym, homeDumbbells, bodyweight]
+    total_weeks: 8
+    deload_weeks: []
+    # The book's 3 days; on 2 days a week the first two are used (the book has no 2-day version: data/REVIEW.md).
+    rotation: {"2": ["1", "2"], "3": ["1", "2", "3"]}
+    days:
+      - {key: "1", kind: full, name: {en: "Full body 1", ar: "الجسم كله ١"}}
+      - {key: "2", kind: full, name: {en: "Full body 2", ar: "الجسم كله ٢"}}
+      - {key: "3", kind: full, name: {en: "Full body 3", ar: "الجسم كله ٣"}}
+  fundamentals_upper_lower:
+    name: {en: "Fundamentals: Upper / Lower", ar: "الأساسيات: علوي / سفلي"}
+    source: "Fundamentals Hypertrophy Program (Jeff Nippard), Upper/Lower program, pp. 49–64; the week's layout, p. 31"
+    book: Fundamentals Hypertrophy Program (Jeff Nippard)
+    experience: [beginner, intermediate, advanced]
+    days_per_week: [4]
+    goals: [loseFat, buildMuscle, recomp, strength]
+    locations: [gym, homeDumbbells, bodyweight]
+    total_weeks: 8
+    deload_weeks: []
+    rotation: {"4": ["L1", "U1", "L2", "U2"]}
+    days:
+      - {key: "L1", kind: lower, name: {en: "Lower body 1", ar: "الجزء السفلي ١"}}
+      - {key: "U1", kind: upper, name: {en: "Upper body 1", ar: "الجزء العلوي ١"}}
+      - {key: "L2", kind: lower, name: {en: "Lower body 2", ar: "الجزء السفلي ٢"}}
+      - {key: "U2", kind: upper, name: {en: "Upper body 2", ar: "الجزء العلوي ٢"}}
+  fundamentals_body_part:
+    name: {en: "Fundamentals: Body-part split", ar: "الأساسيات: تقسيم العضلات"}
+    source: "Fundamentals Hypertrophy Program (Jeff Nippard), Body part split program, pp. 65–80; the week's layout, p. 31"
+    book: Fundamentals Hypertrophy Program (Jeff Nippard)
+    experience: [beginner]
+    days_per_week: [5]
+    goals: [loseFat, buildMuscle, recomp, strength]
+    locations: [gym, homeDumbbells, bodyweight]
+    total_weeks: 8
+    deload_weeks: []
+    rotation: {"5": ["CT", "LA1", "BB", "LA2", "SA"]}
+    days:
+      - {key: "CT", kind: upper, name: {en: "Chest and triceps", ar: "صدر وترايسبس"}}
+      - {key: "LA1", kind: lower, name: {en: "Legs and abs 1", ar: "رجل وبطن ١"}}
+      - {key: "BB", kind: upper, name: {en: "Back and biceps", ar: "ضهر وبايسبس"}}
+      - {key: "LA2", kind: lower, name: {en: "Legs and abs 2", ar: "رجل وبطن ٢"}}
+      - {key: "SA", kind: upper, name: {en: "Shoulders and arms", ar: "أكتاف ودراعات"}}
+  lpp_legs_push_pull:
+    name: {en: "Legs / Push / Pull (intermediate–advanced)", ar: "رجل / دفع / سحب (متوسط ومتقدم)"}
+    source: "Intermediate Advanced LPP Program (Jeff Nippard), Block 1 pp. 31–54, Block 2 pp. 55–78; the order, p. 27"
+    book: Intermediate Advanced LPP Program (Jeff Nippard)
+    experience: [intermediate, advanced]
+    days_per_week: [6]
+    goals: [loseFat, buildMuscle, recomp]
+    locations: [gym, homeDumbbells, bodyweight]
+    total_weeks: 16
+    deload_weeks: [9]   # Block 2 starts with a deload week (p. 85)
+    rotation: {"6": ["LE1", "PU1", "PL1", "LE2", "PU2", "PL2"]}
+    days:
+      - {key: "LE1", kind: lower, name: {en: "Legs 1", ar: "رجل ١"}}
+      - {key: "PU1", kind: upper, name: {en: "Push 1", ar: "دفع ١"}}
+      - {key: "PL1", kind: upper, name: {en: "Pull 1", ar: "سحب ١"}}
+      - {key: "LE2", kind: lower, name: {en: "Legs 2", ar: "رجل ٢"}}
+      - {key: "PU2", kind: upper, name: {en: "Push 2", ar: "دفع ٢"}}
+      - {key: "PL2", kind: upper, name: {en: "Pull 2", ar: "سحب ٢"}}
+  upper_lower_size_strength:
+    name: {en: "Upper / Lower size and strength (intermediate–advanced)", ar: "علوي / سفلي للحجم والقوة (متوسط ومتقدم)"}
+    source: "Upper Lower Strength and Size Program (Jeff Nippard), pp. 32–58; 5 days a week, p. 28"
+    book: Upper Lower Strength and Size Program (Jeff Nippard)
+    experience: [intermediate, advanced]
+    days_per_week: [5, 6]
+    goals: [strength, buildMuscle]
+    locations: [gym, homeDumbbells, bodyweight]
+    total_weeks: 9
+    deload_weeks: [1, 4, 7]   # the first week of each 3-week wave is a lighter "mini-deload" (pp. 11, 60)
+    # 5 days: the book's Day 2, Day 1, Day 4, Day 3, Day 6 (p. 28).
+    rotation: {"5": ["U1", "L1", "U2", "L2", "U3"], "6": ["L1", "U1", "L2", "U2", "L3", "U3"]}
+    days:
+      - {key: "L1", kind: lower, name: {en: "Lower 1", ar: "سفلي ١"}}
+      - {key: "U1", kind: upper, name: {en: "Upper 1", ar: "علوي ١"}}
+      - {key: "L2", kind: lower, name: {en: "Lower 2", ar: "سفلي ٢"}}
+      - {key: "U2", kind: upper, name: {en: "Upper 2", ar: "علوي ٢"}}
+      - {key: "L3", kind: lower, name: {en: "Lower 3", ar: "سفلي ٣"}}
+      - {key: "U3", kind: upper, name: {en: "Upper 3", ar: "علوي ٣"}}
+
+# Ways of doing an exercise that the programs ask for (data/programs/exercise_names.yaml `technique`), in plain words.
+techniques:
+  tempo: {en: "Tempo: lower the weight slowly (about 3 seconds)", ar: "ببطء: نزّل الوزن على حوالي ٣ ثواني"}
+  slowEccentric: {en: "Slow lowering: take 3–4 seconds on the way down", ar: "نزول بطيء: خد ٣–٤ ثواني وأنت نازل"}
+  enhancedEccentric: {en: "Heavier lowering: lift with both limbs (or help), lower slowly with one", ar: "نزول أتقل: ارفع بالاتنين (أو بمساعدة) ونزّل ببطء بواحدة"}
+  pause: {en: "Pause: hold still for a second at the hardest point", ar: "وقفة: اثبت ثانية عند أصعب نقطة"}
+  constantTension: {en: "Constant tension: no rest at the top or bottom of each rep", ar: "شد مستمر: من غير راحة فوق أو تحت في كل عدّة"}
+  deficit: {en: "Deficit: stand on a low plate so the bar starts lower", ar: "من مستوى أوطى: اقف على طارة واطية عشان البار يبدأ من تحت"}
+  roundBack: {en: "Rounded back on purpose, light weight, to train the glutes and back muscles", ar: "ضهر مقوّس عن قصد وبوزن خفيف عشان يشغّل المؤخرة وعضلات الضهر"}
+  kneeBand: {en: "With a light band around the knees: push your knees out against it", ar: "بأستك خفيف حوالين الركبة: ادفع ركبك لبرّه ضده"}
+  twentyOnes: {en: "21s: 7 reps in the bottom half, 7 in the top half, then 7 full reps", ar: "٢١: ٧ عدات في النص التحتاني، و٧ في الفوقاني، وبعدين ٧ كاملين"}
+  lowToHigh: {en: "From low to high: set the cables low and move up and across", ar: "من تحت لفوق: الكابلات تحت والحركة لفوق وللنص"}
+  pushPressComplex: {en: "Strict presses first, then push presses (using your legs) with the same bar", ar: "ضغطات عادية الأول، وبعدين ضغط بمساعدة الرجل بنفس البار"}
+  egyptian: {en: "Lean away from a post while you raise the dumbbell", ar: "ميّل بعيد عن عمود وأنت بترفع الدمبل"}
+  frontAndSide: {en: "Front raises, then side raises straight after", ar: "رفع أمامي، وبعده على طول رفع جانبي"}
+  weighted: {en: "With extra weight (a belt, a plate or a dumbbell)", ar: "بوزن زيادة (حزام أو طارة أو دمبل)"}
+  oneArmAtATime: {en: "One arm at a time", ar: "دراع واحدة في المرة"}
+  myoReps: {en: "Myo-reps: one hard set, then short sets of a few reps with 5 breaths between", ar: "مايو ريبس: مجموعة صعبة، وبعدها مجموعات قصيرة كام عدّة وبينهم ٥ أنفاس"}
+  wideGrip: {en: "Wide grip", ar: "قبضة واسعة"}
+  amrapNegatives: {en: "As many reps as you can, then slow lowering-only reps", ar: "أكبر عدد عدات تقدر عليه، وبعدين عدات نزول بطيء بس"}
+  elbowsOut: {en: "Elbows out to the sides, for the upper back", ar: "الكوع لبرّه على الجناب، لأعلى الضهر"}
+  band: {en: "With a band added for more resistance at the top", ar: "بأستك زيادة عشان المقاومة تزيد فوق"}
+  pendlay: {en: "Pendlay row: each rep starts from the floor", ar: "تجديف بندلاي: كل عدّة تبدأ من الأرض"}
+  pendlayThenBentOver: {en: "Pendlay rows, then bent-over rows straight after", ar: "تجديف بندلاي، وبعده على طول تجديف منحني"}
+  underhand: {en: "Underhand grip (palms up)", ar: "قبضة من تحت (الكف لفوق)"}
+  dumbbells: {en: "With dumbbells", ar: "بالدمبلز"}

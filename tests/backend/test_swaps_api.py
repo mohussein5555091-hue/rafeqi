@@ -113,7 +113,8 @@ def test_alternatives_fit_the_movement_and_the_injury(planned):  # noqa: F811
                 info = ExerciseInfo(x["id"], x["name"], x["movement_pattern"], tuple(x["joints_loaded"]), x["range_of_motion"],
                                     tuple(x["equipment"]), x["difficulty"])
                 assert allowed(info, (inj,), vocab), (e["exerciseId"], a["exerciseId"])
-                assert a["exerciseId"] not in in_session and a["imageUrl"] and a["target"]["sets"] > 0
+                assert a["exerciseId"] not in in_session and a["target"]["sets"] > 0
+                assert a.get("imageUrl") or not x.get("image_url")  # a photo whenever the catalogue has one
 
 
 def test_swap_just_today_changes_only_this_session(planned, clock):  # noqa: F811
@@ -156,6 +157,18 @@ def test_swap_from_now_on_changes_every_future_week(planned, clock):  # noqa: F8
     assert original not in program_ids(c) and to in program_ids(c)
     clock.advance(days=4)
     assert today_session(c)["exercises"][0]["exerciseId"] == to
+
+
+def test_swap_from_now_on_of_an_injury_stand_in(planned):  # noqa: F811
+    """Bug found with the real programs: swapping an exercise that already stands in for the program's one (here for the
+    shoulder) "from now on" was saved for the stand-in, so the plan never used it and dropped the stand-in instead."""
+    c = planned.client
+    s, i, e = next((s, i, e) for s in lifting(c) if s["status"] in ("today", "planned") for i, e in enumerate(s["exercises"]) if (e.get("swap") or {}).get("kind") == "swapped")
+    to = alt(c, s, e["exerciseId"], "cantDo")[0]["exerciseId"]
+    out = swap(c, s, e["exerciseId"], to, "cantDo", "always")
+    now = c.get(f"/api/workouts/{out['workoutId']}").json()["exercises"]
+    assert now[i]["exerciseId"] == to and now[i]["swap"]["scope"] == "always"
+    assert e["exerciseId"] not in {x["exerciseId"] for x in now} - {to}
 
 
 def test_undo_a_from_now_on_swap(planned):  # noqa: F811

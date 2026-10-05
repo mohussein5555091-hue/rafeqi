@@ -17,11 +17,12 @@ Every change keeps its reason.
 """
 
 import math
+import re
 from dataclasses import dataclass, field
 
 from app.engine.cardio import CardioPlan, build_cardio
 from app.engine.injuries import allowed, load_cuts, paused_by, ruled_out_by
-from app.engine.rules import explain, load_rules, load_templates
+from app.engine.rules import deload_in_tables, deload_weeks, explain, load_rules, load_templates
 from app.engine.types import ExerciseInfo, Person, Reason
 from app.engine.warmup import build_cooldown, build_warmup
 from app.vocab import get_vocab
@@ -88,6 +89,7 @@ class ProgramPlan:
     days: list[PlannedDay]
     reasons: list[Reason]  # template choice, removed exercises, paused areas
     cardio: CardioPlan | None = None
+    week: int = 1  # the program week these sessions are for
 
 
 def _bi(t: dict, **v) -> Reason | dict:
@@ -112,7 +114,8 @@ def choose_template(p: Person, templates: tuple[dict, ...] | None = None) -> tup
     templates = templates or load_templates()
     # Only templates made for where they train (any template if none is).
     candidates = [t for t in templates if p.location in t["locations"]] or list(templates)
-    best = max(candidates, key=score)  # max() keeps the first of equal scores
+    # Highest score, then the program whose days are closest to theirs (max() keeps the first of what's still equal).
+    best = max(candidates, key=lambda t: (score(t), -min(abs(d - p.days_per_week) for d in t["days_per_week"])))
     days = p.days_per_week if p.days_per_week in best["days_per_week"] else min(best["days_per_week"], key=lambda d: (abs(d - p.days_per_week), d))
     reasons = [_reason("training.template_choice", rules["source"], rules["explain"], name=best["name"],
                        experience=EXPERIENCE[p.experience], days=days)]
@@ -208,16 +211,56 @@ def _leg_exercise(p: Person, catalogue: dict[str, ExerciseInfo], taken: set[str]
     return None
 
 
+def program_week(template: dict, weeks_done: int) -> int:
+    """The program's week for someone who has done `weeks_done` weeks of it: 1…total_weeks, then from week 1 again
+    (the books suggest running a program again once it's finished)."""
+    return weeks_done % template["total_weeks"] + 1
+
+
+def template_days(template: dict, week: int) -> dict[str, dict]:
+    """Day key → the day with its exercises for that week. A real program has every week's exercises (`weeks`); a
+    sample program has one week that repeats (`days[].exercises`)."""
+    if "weeks" not in template:
+        return {d["key"]: d for d in template["days"]}
+    w = template["weeks"][(week - 1) % len(template["weeks"])]
+    return {d["key"]: {**d, "exercises": w["days"][d["key"]]} for d in template["days"]}
+
+
+# The standard RPE chart (Tuchscherer, The Reactive Training Manual, 2008): % of a one-rep max you can lift for
+# N reps to failure, N = 1…15. A set of `reps` with r reps left in reserve (RPE 10 − r) is CHART[reps + r].
+RPE_CHART = (100, 95.5, 92.2, 89.2, 86.3, 83.7, 81.1, 78.6, 76.2, 73.9, 70.7, 68.0, 65.3, 62.6, 59.9)
+
+
+def rpe_from_pct(reps: str, pct: float) -> float:
+    """The effort (RPE, to the nearest 0.5, between 5 and 10) of a set of `reps` at `pct`% of one-rep max."""
+    m = re.search(r"\d+", reps)
+    low = int(m.group()) if m else 1  # the first rep count ("8–10" → 8; "max" → 1)
+    to_failure = len(RPE_CHART)
+    for i in range(len(RPE_CHART) - 1):  # where pct falls in the chart, in reps to failure (interpolated)
+        hi, lo = RPE_CHART[i], RPE_CHART[i + 1]
+        if lo <= pct <= hi:
+            to_failure = i + 1 + (hi - pct) / (hi - lo)
+            break
+    else:
+        to_failure = 1 if pct >= RPE_CHART[0] else len(RPE_CHART)
+    rpe = 10 - max(0.0, to_failure - low)
+    return min(10.0, max(5.0, round(rpe * 2) / 2))
+
+
 def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tuple[dict, ...] | None = None,
-                  adjust: Adjustments = Adjustments()) -> ProgramPlan:
+                  adjust: Adjustments = Adjustments(), weeks_done: int = 0) -> ProgramPlan:
+    """The program for one week: `weeks_done` is how many weeks of the program the person has done (0 for a new
+    plan), which picks the program's week."""
     rules = load_rules()
     tr, safety = rules["training"], rules["safety"]
     inj_rules = tr["injuries"]
     vocab = get_vocab()
     regions = safety["region_names"]
     template, days, plan_reasons = choose_template(p, templates)
+    week = program_week(template, weeks_done)
     weekdays = tr["schedules"][days]
-    by_key = {d["key"]: d for d in template["days"]}
+    by_key = template_days(template, week)
+    techniques = template.get("techniques") or {}
     replace = {f: (t, why) for f, t, why in adjust.replace}
     removed_by_person = frozenset(replace) | adjust.avoid  # never put back
     planned_days: list[PlannedDay] = []
@@ -309,7 +352,19 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
                     injury_id = injury_id or iid
                     reasons.append(_reason("training.review.pain_up", tr["review"]["source"], tr["injury_load"]["explain"], name=ex.name,
                                            pct=round(extra * 100), area=regions[inj.region], status=STATUS["active"]))
-            rpe, rest, sets = t["rpe"], t["rest_sec"], t["sets"]
+            rest, sets = t["rest_sec"], t["sets"]
+            if "rpe" in t:
+                rpe = t["rpe"]
+            else:  # %1RM in the program: the effort it means, from the standard RPE chart
+                rpe = rpe_from_pct(t["reps"], t["pct_1rm"])
+                f = tr["pct_1rm"]
+                reasons.append(_reason("training.pct_1rm", f["source"], f["explain"], name=ex.name, sets=sets, reps=t["reps"],
+                                       pct=f"{t['pct_1rm']:g}", rpe=f"{rpe:g}"))
+            if t.get("technique") in techniques:
+                tq = techniques[t["technique"]]
+                v = tr["volume"]["explain_technique"]
+                reasons.append(Reason("training.volume", v["en"].format(name=ex.name["en"], technique=tq["en"]),
+                                      v["ar"].format(name=ex.name["ar"], technique=tq["ar"]), tr["volume"]["source"]))
             if adjust.deload:
                 sets, rpe = deload_volume(sets, rpe)
             if p.conservative:
@@ -336,7 +391,7 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
             plan_one(t)
         rng = exercise_range(p.session_minutes)
         # Too few left after injuries and equipment: top up from the program's other days of the same kind.
-        for other in template["days"]:
+        for other in by_key.values():
             if len(exercises) >= rng["min"]:
                 break
             if other["key"] != key and other.get("kind", "full") == kind:
@@ -397,8 +452,10 @@ def build_program(p: Person, catalogue: dict[str, ExerciseInfo], templates: tupl
     cardio = build_cardio(p, [(d.weekday, d.kind) for d in planned_days], catalogue)
     plan_reasons.insert(1, schedule_reason(p, weekdays))
     plan_reasons += [progression_reason(planned_days, catalogue), deload_reason(template)]
+    lighter = deload_weeks(template)
     return ProgramPlan(template_id=template["id"], name=template["name"], days_per_week=days, total_weeks=template["total_weeks"],
-                       deload_week=template.get("deload_week"), days=planned_days, reasons=plan_reasons, cardio=cardio)
+                       deload_week=next((w for w in lighter if w >= week), lighter[0] if lighter else None), days=planned_days,
+                       reasons=plan_reasons, cardio=cardio, week=week)
 
 
 SEP = {"en": ", ", "ar": "، "}
@@ -445,8 +502,12 @@ def progression_reason(days: list[PlannedDay], catalogue: dict[str, ExerciseInfo
 def deload_reason(template: dict) -> Reason:
     dl, when = load_rules()["training"]["deload"], load_rules()["training"]["review"]["deload_when"]
     v = {"difficulty": when["difficulty_at_least"], "soreness": when["soreness_at_least"], "effort": when["avg_effort_at_least"]}
-    if template.get("deload_week"):
-        return _reason("training.deload", dl["source"], dl["explain"], week=template["deload_week"], total=template["total_weeks"], **v)
+    weeks = deload_weeks(template)
+    if weeks and deload_in_tables(template):  # the program's own lighter weeks, already in its tables
+        listed = {lang: SEP[lang].join(str(w) for w in weeks) for lang in ("en", "ar")}
+        return _reason("training.deload", dl["source"], dl["explain_program"], weeks=listed, total=template["total_weeks"], **v)
+    if weeks:
+        return _reason("training.deload", dl["source"], dl["explain"], week=weeks[0], total=template["total_weeks"], **v)
     return _reason("training.deload", dl["source"], dl["explain_none"], **v)
 
 

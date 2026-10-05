@@ -141,7 +141,57 @@ swaps and equipment substitutions. Their values come from the three program PDFs
 
 ## Part B2: programs and exercises
 
-*(to come)*
+The programs are read from the tables Phase A extracted (`npm run books:programs`, `scripts/books/programs.py`) into
+`data/programs/<id>.json`. Only numbers are taken (sets, reps, effort, %1RM, rest); the books' coaching notes are not
+copied. Each book name is mapped to a catalogue exercise in `data/programs/exercise_names.yaml`, and everything that
+isn't in the tables (who each program is for, day order, lighter weeks) is in `data/programs/program_meta.yaml`.
+The two sample programs moved to `tests/backend/fixtures/programs/` (the tests still use them).
+
+### Fundamentals (4): three programs, 8 weeks each
+
+- [ ] **P1. Full body on 2 days a week.** The book's full-body program has 3 days and no 2-day version. On 2 days the
+  app uses its first two days (Full body 1 and 2), so Full body 3's exercises are never done. Alternative: rotate
+  the three days over the weeks (1-2, 3-1, 2-3, …).
+- [ ] **P2. Who gets Fundamentals.** Beginners always (whatever days they pick, the closest program days: 6 days →
+  the 5-day body-part split). Intermediate and advanced lifters training 2–4 days too, as (1) p. 28 advises for 4 days.
+  Until the LPP and Upper/Lower programs are in (the next two commits), an advanced lifter who picked 5 days gets the
+  4-day Fundamentals Upper/Lower (persona 3 below).
+- [ ] **P3. Rest times.** The book gives ranges ("2-3 min"); the app uses the middle (150 s), so the session time
+  estimate has one number. Alternative: the low end (shorter sessions).
+- [ ] **P4. Lighter weeks.** Fundamentals has no planned deload week in its 8 weeks; the app's check-in deload (N7) still
+  applies. After week 8 the program starts again at week 1 (the books suggest re-running a program).
+- [ ] **P5. Supersets and techniques** (two exercises back to back, "A1/A2"; tempo, pauses, single-leg…): Fundamentals
+  has none, LPP and Upper/Lower use them (next commits). Techniques will show as a reason line on the exercise, in my
+  words (`program_meta.yaml`). Supersets are recorded (`superset`) but the workout screen will still show them one
+  after the other with the normal rest; showing them as a pair is a screen change for later. Say if you want it now.
+- [ ] **P6. New movement tag `hipAbduction`** (machine hip abduction had no fitting tag). It counts as a hip
+  exercise for swaps (`training.yaml` `directions.hipDominant`).
+- [ ] **P7. Starting weights for the 29 new loaded exercises** are body-weight ratios like the old ones (`training.yaml`
+  `start_load.ratio`), still app settings and still marked "Not yet from a book": the books pick weights by effort
+  (RPE) in the first session, which the app can't know beforehand.
+
+- [ ] **P8. Sessions now run longer than the length you chose.** The book's rests are longer than the sample's (2–3 and
+  3–4 min on the main lifts), so with the fewest exercises the app allows (`training.yaml` `exercises_by_minutes`:
+  45 min → 4, 60 → 5) the estimates are 54–60 min for a 45-minute choice and 60–70 min for 60 minutes (persona file).
+  Options: (a) keep it, the book's rests matter more than the clock; (b) allow one exercise fewer when the time is over;
+  (c) use the low end of each rest range. The app does (a) now.
+- [ ] **P9. Training at home loses exercises.** The beginner at home with dumbbells has 7 exercises removed (pulldowns,
+  assisted dip, standing calf raise, leg extension, lying leg curl, face pull): the catalogue has no home version yet.
+  The exercise catalogue commit adds them (the book's own substitutions: dumbbell calf raise, dumbbell leg curl; and
+  dumbbell or band versions of the others).
+
+### Exercise catalogue (so far: the Fundamentals exercises)
+
+- 35 new exercises, each with its movement tags, muscles, how-to, cues and common mistakes written in my own words
+  (EN + AR), the book's substitutions ((4) pp. 27–29) as alternatives, and a Free Exercise DB photo where one exists.
+- **Video links:** the Fundamentals book prints its 27 demo-video links as plain text ((4) pp. 88–91, no clickable
+  link in the PDF). All 27 were extracted and put on their exercises (8 of them on exercises the catalogue already had:
+  back squat, deadlift, leg extension, standing calf raise, bench press, military press, lateral raise, face pull).
+  Exercises the book has no video for keep a YouTube search link.
+- **Without a photo** (the Free Exercise DB has none): cable triceps kickback (`ex_cable_kickback`), single-leg lying
+  leg curl (`ex_single_leg_lying_curl`). The app shows its placeholder for them.
+- [ ] **Close photos, not exact:** assisted dip uses the dip-machine photo, bicycle crunch the "air bike", single-leg hip
+  thrust the single-leg glute bridge, chest-supported T-bar row the lying T-bar row. Say if you'd rather have no photo.
 
 ## Part B3: recipes and foods
 

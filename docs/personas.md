@@ -11,7 +11,7 @@ Rules: `nutrition:v1+training:v1+safety:v1+progression:v1`
 **Answers:** female, 27 years, 163 cm, 74 kg · goal loseFat (steady) · beginner, 3 days × 45 min at homeDumbbells · 3 meals/day, 30 min cooking · dislikes: okra, liver · allergies: none · fasting: none · health flags: none · injuries: none · day outside training: sitting · waist: not given
 **Plan week:** 2026-10-03 (Saturday)
 
-**Why this plan:** 11 of 20 rules from your books · 14 of 53 decisions · 1 standard formula · 0 Rafeqi safety rules
+**Why this plan:** 13 of 20 rules from your books · 18 of 62 decisions · 1 standard formula · 0 Rafeqi safety rules
 
 ### Targets
 
@@ -24,54 +24,56 @@ Rules: `nutrition:v1+training:v1+safety:v1+progression:v1`
 
 ### Training
 
-- Program: Full body (sample), chosen for beginner lifters training 3 days a week.
-- 3 training days a week (Sat, Mon, Wed), about 45 min each, as you chose.
+- Program: Fundamentals: Full body, chosen for beginner lifters training 3 days a week.
+- 3 training days a week (Sat, Mon, Wed), about 45 min each.
+- Wide-grip lat pulldown removed: nothing in the catalogue does this movement with your equipment yet.
+- Assisted dip removed: nothing in the catalogue does this movement with your equipment yet.
 - Standing calf raise removed: nothing in the catalogue does this movement with your equipment yet.
-- Neutral-grip lat pulldown removed: nothing in the catalogue does this movement with your equipment yet.
-- Cable triceps pushdown removed: nothing in the catalogue does this movement with your equipment yet.
+- Leg extension removed: nothing in the catalogue does this movement with your equipment yet.
+- Reverse-grip pulldown removed: nothing in the catalogue does this movement with your equipment yet.
 - Cable face pull removed: nothing in the catalogue does this movement with your equipment yet.
-- Standing calf raise removed: nothing in the catalogue does this movement with your equipment yet.
+- Lying leg curl removed: nothing in the catalogue does this movement with your equipment yet.
 - Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2 kg dumbbells); otherwise add 1 rep a session. A hard session repeats or drops a step.
-- Week 5 of 8 is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
+- A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter.
 
-**Sat · Full body A** (full, 47 min)
+**Sat · Full body 1** (full, 59 min)
 
 - Warm-up (7 min): 5 min marching in place; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Goblet squat: none (bodyweight)
-- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Doorway chest stretch 30 s each side; 1 min slow breathing
-- About 47 min: warm-up 7 min, 4 exercises with their sets and rests (32 min), cool-down 8 min.
+- Cool-down (7 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Overhead triceps stretch 30 s each side, Seated biceps stretch 30 s, Kneeling hip flexor stretch 45 s each side; 1 min slow breathing
+- About 59 min: warm-up 7 min, 4 exercises with their sets and rests (45 min), cool-down 7 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Goblet squat | 3 × 8–10 | 4 kg | 120 s | 7 |  |
-| Dumbbell bench press | 3 × 8–10 | 4 kg | 120 s | 7 |  |
-| Chest-supported dumbbell row | 3 × 10–12 | 4 kg | 90 s | 7 |  |
-| Dumbbell Romanian deadlift | 2 × 10–12 | 4 kg | 120 s | 7 |  |
+| Goblet squat | 3 × 6 | 4 kg | 210 s | 7 | Barbell back squat → Goblet squat: Goblet squat works the same movement with the equipment you have. |
+| Dumbbell bench press | 3 × 8 | 4 kg | 210 s | 7 | Barbell bench press → Dumbbell bench press: Dumbbell bench press works the same movement with the equipment you have. |
+| Dumbbell Romanian deadlift | 3 × 10 | 4 kg | 150 s | 7 | Barbell Romanian deadlift → Dumbbell Romanian deadlift: Dumbbell Romanian deadlift works the same movement with the equipment you have. |
+| Dumbbell curl | 3 × 10 | 2 kg | 90 s | 8 |  |
 
-**Mon · Full body B** (full, 44 min)
+**Mon · Full body 2** (full, 60 min)
 
-- Warm-up (7 min): 5 min marching in place; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Goblet squat: none (bodyweight)
-- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Doorway chest stretch 30 s each side; 1 min slow breathing
-- About 44 min: warm-up 7 min, 4 exercises with their sets and rests (29 min), cool-down 8 min.
-
-| Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
-|---|---|---|---|---|---|
-| Goblet squat | 3 × 10–12 | 4 kg | 120 s | 7 | Leg press → Goblet squat: Goblet squat works the same movement with the equipment you have. |
-| Seated dumbbell shoulder press | 3 × 8–10 | 2 kg | 120 s | 7 |  |
-| Glute bridge | 2 × 12–15 | bodyweight | 90 s | 7 |  |
-| Dumbbell split squat | 2 × 8–10 each | 2 kg | 90 s | 7 |  |
-
-**Wed · Full body A** (full, 47 min)
-
-- Warm-up (7 min): 5 min marching in place; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Goblet squat: none (bodyweight)
-- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Doorway chest stretch 30 s each side; 1 min slow breathing
-- About 47 min: warm-up 7 min, 4 exercises with their sets and rests (32 min), cool-down 8 min.
+- Warm-up (7 min): 5 min marching in place; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Dumbbell Romanian deadlift: none (bodyweight)
+- Cool-down (8 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side; 1 min slow breathing
+- About 60 min: warm-up 7 min, 4 exercises with their sets and rests (45 min), cool-down 8 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Goblet squat | 3 × 8–10 | 4 kg | 120 s | 7 |  |
-| Dumbbell bench press | 3 × 8–10 | 4 kg | 120 s | 7 |  |
-| Chest-supported dumbbell row | 3 × 10–12 | 4 kg | 90 s | 7 |  |
-| Dumbbell Romanian deadlift | 2 × 10–12 | 4 kg | 120 s | 7 |  |
+| Dumbbell Romanian deadlift | 3 × 5 | 4 kg | 210 s | 7 | Barbell deadlift → Dumbbell Romanian deadlift: Dumbbell Romanian deadlift works the same movement with the equipment you have. |
+| Seated dumbbell shoulder press | 3 × 8 | 2 kg | 210 s | 8 | Standing barbell overhead press → Seated dumbbell shoulder press: Seated dumbbell shoulder press works the same movement with the equipment you have. |
+| Chest-supported dumbbell row | 3 × 12 | 4 kg | 150 s | 8 | Chest-supported T-bar row → Chest-supported dumbbell row: Chest-supported dumbbell row works the same movement with the equipment you have. |
+| Dumbbell bench press | 3 × 12 | 4 kg | 90 s | 8 | Cable fly → Dumbbell bench press: Dumbbell bench press works the same movement with the equipment you have. |
+
+**Wed · Full body 3** (full, 54 min)
+
+- Warm-up (7 min): 5 min marching in place; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Dumbbell walking lunge: none (bodyweight)
+- Cool-down (8 min): Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Standing quad stretch 45 s each side; 1 min slow breathing
+- About 54 min: warm-up 7 min, 4 exercises with their sets and rests (39 min), cool-down 8 min.
+
+| Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
+|---|---|---|---|---|---|
+| Dumbbell walking lunge | 3 × 10 | 2 kg | 150 s | 8 |  |
+| Incline dumbbell press | 3 × 8 | 2 kg | 150 s | 7 |  |
+| Single-leg hip thrust | 3 × 12 | bodyweight | 150 s | 8 | Barbell hip thrust → Single-leg hip thrust: Single-leg hip thrust works the same movement with the equipment you have. |
+| Dumbbell lateral raise | 3 × 10 | 2 kg | 90 s | 8 |  |
 
 ### Cardio
 
@@ -177,7 +179,7 @@ Spices & sauces
 **Answers:** male, 29 years, 180 cm, 88 kg · goal loseFat (steady) · intermediate, 4 days × 60 min at gym · 4 meals/day, 30 min cooking · dislikes: liver, eggplant · allergies: none · fasting: ramadan · health flags: none · injuries: shoulderL (active, painful: overheadPress, benchPress, dips, restrictions: noOverhead) · day outside training: onFeet · waist: 96 cm
 **Plan week:** 2026-10-03 (Saturday)
 
-**Why this plan:** 12 of 20 rules from your books · 22 of 69 decisions · 1 standard formula · 0 Rafeqi safety rules
+**Why this plan:** 14 of 20 rules from your books · 27 of 69 decisions · 1 standard formula · 0 Rafeqi safety rules
 
 ### Targets
 
@@ -190,66 +192,68 @@ Spices & sauces
 
 ### Training
 
-- Program: Upper / Lower (sample), chosen for intermediate lifters training 4 days a week.
-- 4 training days a week (Sat, Mon, Wed, Thu), about 60 min each, as you chose.
-- Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2 kg dumbbells, 2.5 kg landmine, 2.5 kg cable machine, 2.5 kg barbell, 5 kg machine); otherwise add 1 rep a session. A hard session repeats or drops a step.
-- Week 5 of 8 is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
+- Program: Fundamentals: Upper / Lower, chosen for intermediate lifters training 4 days a week.
+- 4 training days a week (Sat, Mon, Wed, Thu), about 60 min each.
+- Cable fly removed: nothing in the catalogue avoids bench pressing, which hurts your left shoulder, yet.
+- Assisted dip removed: nothing in the catalogue avoids dips, which hurts your left shoulder, yet.
+- Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2.5 kg barbell, 5 kg machine, 2 kg dumbbells, 2.5 kg cable machine, 2.5 kg landmine); otherwise add 1 rep a session. A hard session repeats or drops a step.
+- A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter.
 
-**Sat · Upper body A** (upper, 56 min)
+**Sat · Lower body 1** (lower, 66 min)
+
+- Warm-up (10 min): 5 min stationary bike; Leg swings (2 × 12 each leg), Hip circles (10 each way), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Barbell back squat: 40% × 5 @ 20 kg, 65% × 4 @ 35 kg, 80% × 3 @ 42.5 kg
+- Cool-down (7 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side; 1 min slow breathing
+- About 66 min: warm-up 10 min, 5 exercises with their sets and rests (50 min), cool-down 7 min.
+
+| Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
+|---|---|---|---|---|---|
+| Barbell back squat | 3 × 6 | 55 kg | 210 s | 7 |  |
+| Barbell Romanian deadlift | 3 × 10 | 35 kg | 150 s | 7 |  |
+| Barbell hip thrust | 3 × 12 | 35 kg | 150 s | 8 |  |
+| Leg extension | 3 × 12 | 20 kg | 90 s | 9 |  |
+| Lying leg curl | 3 × 12 | 15 kg | 90 s | 9 |  |
+
+**Mon · Upper body 1** (upper, 70 min)
 
 - Warm-up (10 min): 5 min stationary bike; Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps), Inchworm (5 reps); ramp-up of Neutral-grip dumbbell floor press: 40% × 5 @ 4 kg, 65% × 4 @ 8 kg, 80% × 3 @ 10 kg<br>  Not in your warm-up: Arm circles. It goes against the "No overhead lifting" restriction for your left shoulder.
 - Cool-down (4 min): Doorway chest stretch 30 s each side, Upper back stretch 30 s, Cross-body shoulder stretch 30 s each side, Seated biceps stretch 30 s; 1 min slow breathing
-- About 56 min: warm-up 10 min, 5 exercises with their sets and rests (42 min), cool-down 4 min.
+- About 70 min: warm-up 10 min, 5 exercises with their sets and rests (56 min), cool-down 4 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Neutral-grip dumbbell floor press | 3 × 6–8 | 14 kg | 180 s | 8 | Barbell bench press → Neutral-grip dumbbell floor press: Neutral-grip dumbbell floor press avoids bench pressing, which hurts your left shoulder. |
-| Chest-supported dumbbell row | 3 × 8–10 | 14 kg | 120 s | 8 |  |
-| Half-kneeling landmine press | 3 × 8–10 | 10 kg | 120 s | 8 | Seated dumbbell shoulder press → Half-kneeling landmine press: Half-kneeling landmine press avoids pressing overhead, which hurts your left shoulder. |
-| Neutral-grip lat pulldown | 3 × 10–12 | 32.5 kg | 90 s | 8 |  |
-| Incline dumbbell curl | 2 × 10–12 | 6 kg | 60 s | 8 |  |
+| Neutral-grip dumbbell floor press | 3 × 5 | 14 kg | 210 s | 7 | Barbell bench press → Neutral-grip dumbbell floor press: Neutral-grip dumbbell floor press avoids bench pressing, which hurts your left shoulder. |
+| Wide-grip lat pulldown | 3 × 10 | 32.5 kg | 150 s | 8 |  |
+| Half-kneeling landmine press | 3 × 10 | 10 kg | 210 s | 7 | Standing barbell overhead press → Half-kneeling landmine press: Half-kneeling landmine press avoids pressing overhead, which hurts your left shoulder. |
+| Chest-supported T-bar row | 3 × 12 | 20 kg | 150 s | 8 |  |
+| Dumbbell curl | 3 × 10 | 6 kg | 90 s | 8 |  |
 
-**Mon · Lower body A** (lower, 62 min)
-
-- Warm-up (10 min): 5 min stationary bike; Leg swings (2 × 12 each leg), Hip circles (10 each way), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Barbell back squat: 40% × 5 @ 20 kg, 65% × 4 @ 35 kg, 80% × 3 @ 42.5 kg
-- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Wall calf stretch 30 s each side; 1 min slow breathing
-- About 62 min: warm-up 10 min, 5 exercises with their sets and rests (44 min), cool-down 8 min.
-
-| Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
-|---|---|---|---|---|---|
-| Barbell back squat | 3 × 6–8 | 55 kg | 180 s | 8 |  |
-| Dumbbell Romanian deadlift | 3 × 8–10 | 14 kg | 120 s | 8 |  |
-| Leg press | 3 × 10–12 | 70 kg | 120 s | 8 |  |
-| Seated leg curl | 3 × 10–12 | 25 kg | 90 s | 8 |  |
-| Standing calf raise | 3 × 12–15 | 35 kg | 60 s | 8 |  |
-
-**Wed · Upper body B** (upper, 58 min)
-
-- Warm-up (10 min): 5 min stationary bike; Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps), Inchworm (5 reps); ramp-up of Half-kneeling landmine press: 40% × 5 @ 2.5 kg, 65% × 4 @ 5 kg, 80% × 3 @ 7.5 kg<br>  Not in your warm-up: Arm circles. It goes against the "No overhead lifting" restriction for your left shoulder.
-- Cool-down (4 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Upper back stretch 30 s, Child's pose 30 s; 1 min slow breathing
-- About 58 min: warm-up 10 min, 5 exercises with their sets and rests (44 min), cool-down 4 min.
-
-| Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
-|---|---|---|---|---|---|
-| Half-kneeling landmine press | 3 × 6–8 | 10 kg | 180 s | 8 | Standing barbell overhead press → Half-kneeling landmine press: Half-kneeling landmine press avoids pressing overhead, which hurts your left shoulder. |
-| Neutral-grip lat pulldown | 3 × 6–8 | 32.5 kg | 120 s | 8 | Pull-up → Neutral-grip lat pulldown: Neutral-grip lat pulldown keeps to the "No overhead lifting" restriction for your left shoulder. |
-| Neutral-grip dumbbell floor press | 3 × 8–10 | 14 kg | 120 s | 8 | Dumbbell bench press → Neutral-grip dumbbell floor press: Neutral-grip dumbbell floor press avoids bench pressing, which hurts your left shoulder. |
-| One-arm dumbbell row | 3 × 10–12 | 16 kg | 90 s | 8 |  |
-| Dumbbell lateral raise | 3 × 12–15 | 4 kg | 60 s | 8 |  |
-
-**Thu · Lower body B** (lower, 56 min)
+**Wed · Lower body 2** (lower, 66 min)
 
 - Warm-up (11 min): 5 min stationary bike; Leg swings (2 × 12 each leg), Hip circles (10 each way), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Barbell deadlift: 40% × 5 @ 25 kg, 65% × 4 @ 42.5 kg, 80% × 3 @ 52.5 kg, 90% × 2 @ 60 kg
-- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Wall calf stretch 30 s each side; 1 min slow breathing
-- About 56 min: warm-up 11 min, 5 exercises with their sets and rests (38 min), cool-down 8 min.
+- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Child's pose 30 s; 1 min slow breathing
+- About 66 min: warm-up 11 min, 5 exercises with their sets and rests (46 min), cool-down 8 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Barbell deadlift | 3 × 5 | 67.5 kg | 180 s | 8 |  |
-| Dumbbell split squat | 3 × 8–10 each | 6 kg | 90 s | 8 |  |
-| Leg extension | 3 × 12–15 | 20 kg | 60 s | 8 |  |
-| Seated leg curl | 3 × 12–15 | 25 kg | 60 s | 8 |  |
-| Standing calf raise | 3 × 15 | 35 kg | 60 s | 8 |  |
+| Barbell deadlift | 3 × 8 | 67.5 kg | 210 s | 7 |  |
+| Dumbbell walking lunge | 3 × 10 | 6 kg | 150 s | 8 |  |
+| Single-leg leg extension | 3 × 15 | 10 kg | 90 s | 8 |  |
+| Single-leg lying leg curl | 3 × 15 | 5 kg | 90 s | 8 |  |
+| Machine hip abduction | 3 × 15 | 20 kg | 90 s | 9 |  |
+
+**Thu · Upper body 2** (upper, 60 min)
+
+- Warm-up (10 min): 5 min stationary bike; Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps), Inchworm (5 reps); ramp-up of Neutral-grip dumbbell floor press: 40% × 5 @ 4 kg, 65% × 4 @ 8 kg, 80% × 3 @ 10 kg<br>  Not in your warm-up: Arm circles. It goes against the "No overhead lifting" restriction for your left shoulder.
+- Cool-down (4 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Upper back stretch 30 s, Child's pose 30 s; 1 min slow breathing
+- About 60 min: warm-up 10 min, 5 exercises with their sets and rests (46 min), cool-down 4 min.
+
+| Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
+|---|---|---|---|---|---|
+| Neutral-grip dumbbell floor press | 3 × 8 | 14 kg | 150 s | 8 | Incline dumbbell press → Neutral-grip dumbbell floor press: Neutral-grip dumbbell floor press avoids bench pressing, which hurts your left shoulder. |
+| Reverse-grip pulldown | 3 × 8 | 30 kg | 150 s | 8 |  |
+| Barbell bent-over row | 3 × 12 | 30 kg | 150 s | 7 |  |
+| Dumbbell lateral raise | 3 × 15 | 4 kg | 90 s | 8 |  |
+| Cable face pull | 3 × 15 | 10 kg | 90 s | 8 |  |
 
 ### Cardio
 
@@ -258,9 +262,9 @@ Spices & sauces
 
 | Day | Type | Minutes | Intensity | When |
 |---|---|---|---|---|
-| Sat | Incline treadmill walk | 30 | easy | afterLifting |
-| Tue | Incline treadmill walk | 30 | easy | restDay |
-| Fri | Incline treadmill walk | 30 | easy | restDay |
+| Sun | Incline treadmill walk | 30 | easy | restDay |
+| Mon | Incline treadmill walk | 30 | easy | afterLifting |
+| Thu | Incline treadmill walk | 30 | easy | afterLifting |
 | Every day | Steps | about 8,000 | | |
 
 ### Meals
@@ -362,7 +366,7 @@ Spices & sauces
 **Answers:** male, 34 years, 178 cm, 85 kg · goal strength (steady) · advanced, 5 days × 90 min at gym · 5 meals/day, 60 min cooking · dislikes: none · allergies: none · fasting: none · health flags: none · injuries: kneeR (recovering) · day outside training: onFeet · waist: not given
 **Plan week:** 2026-10-03 (Saturday)
 
-**Why this plan:** 11 of 20 rules from your books · 17 of 92 decisions · 1 standard formula · 1 Rafeqi safety rule
+**Why this plan:** 13 of 20 rules from your books · 22 of 75 decisions · 1 standard formula · 1 Rafeqi safety rule
 
 ### Targets
 
@@ -375,93 +379,75 @@ Spices & sauces
 
 ### Training
 
-- Program: Upper / Lower (sample), chosen for advanced lifters training 5 days a week.
-- 5 training days a week (Sat, Sun, Mon, Wed, Thu), about 90 min each, as you chose.
-- Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2.5 kg barbell, 2 kg dumbbells, 2.5 kg cable machine, 5 kg machine); otherwise add 1 rep a session. A hard session repeats or drops a step.
-- Week 5 of 8 is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
+- Program: Fundamentals: Upper / Lower, chosen for advanced lifters training 4 days a week.
+- 4 training days a week (Sat, Mon, Wed, Thu), about 90 min each.
+- This program runs 4 days a week; you chose 5, the closest the books offer for your level.
+- Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2.5 kg barbell, 5 kg machine, 2.5 kg cable machine, 2 kg dumbbells); otherwise add 1 rep a session. A hard session repeats or drops a step.
+- A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter.
 
-**Sat · Upper body A** (upper, 71 min)
-
-- Warm-up (10 min): 5 min stationary bike; Arm circles (10 each way), Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps); ramp-up of Barbell bench press: 40% × 5 @ 20 kg, 65% × 4 @ 32.5 kg, 80% × 3 @ 40 kg
-- Cool-down (6 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Overhead lat stretch 30 s each side, Upper back stretch 30 s, Overhead triceps stretch 30 s each side; 1 min slow breathing
-- About 71 min: warm-up 10 min, 8 exercises with their sets and rests (55 min), cool-down 6 min.
-
-| Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
-|---|---|---|---|---|---|
-| Barbell bench press | 3 × 6–8 | 52.5 kg | 180 s | 8 |  |
-| Chest-supported dumbbell row | 3 × 8–10 | 18 kg | 120 s | 8 |  |
-| Seated dumbbell shoulder press | 3 × 8–10 | 12 kg | 120 s | 8 |  |
-| Neutral-grip lat pulldown | 3 × 10–12 | 40 kg | 90 s | 8 |  |
-| Incline dumbbell curl | 2 × 10–12 | 8 kg | 60 s | 8 |  |
-| Cable triceps pushdown | 2 × 10–12 | 17.5 kg | 60 s | 8 |  |
-| Dumbbell lateral raise | 2 × 12–15 | 4 kg | 60 s | 8 |  |
-| Cable face pull | 2 × 12–15 | 12.5 kg | 60 s | 8 |  |
-
-**Sun · Lower body A** (lower, 71 min)
+**Sat · Lower body 1** (lower, 82 min)
 
 - Warm-up (10 min): 5 min stationary bike; Leg swings (2 × 12 each leg), Hip circles (10 each way), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Barbell back squat: 40% × 5 @ 20 kg, 65% × 4 @ 35 kg, 80% × 3 @ 42.5 kg
-- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Wall calf stretch 30 s each side; 1 min slow breathing
-- About 71 min: warm-up 10 min, 7 exercises with their sets and rests (53 min), cool-down 8 min.
+- Cool-down (7 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side; 1 min slow breathing
+- About 82 min: warm-up 10 min, 7 exercises with their sets and rests (64 min), cool-down 7 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Barbell back squat | 3 × 6–8 | 55 kg | 180 s | 8 | Barbell back squat at 80% load while your right knee is recovering. |
-| Dumbbell Romanian deadlift | 3 × 8–10 | 18 kg | 120 s | 8 |  |
-| Leg press | 3 × 10–12 | 70 kg | 120 s | 8 | Leg press at 80% load while your right knee is recovering. |
-| Seated leg curl | 3 × 10–12 | 25 kg | 90 s | 8 | Seated leg curl at 80% load while your right knee is recovering. |
-| Standing calf raise | 3 × 12–15 | 45 kg | 60 s | 8 |  |
-| Dumbbell split squat | 2 × 8–10 each | 6 kg | 90 s | 8 | Dumbbell split squat at 80% load while your right knee is recovering. |
-| Leg extension | 2 × 12–15 | 20 kg | 60 s | 8 | Leg extension at 80% load while your right knee is recovering. |
+| Barbell back squat | 3 × 6 | 55 kg | 210 s | 7 | Barbell back squat at 80% load while your right knee is recovering. |
+| Barbell Romanian deadlift | 3 × 10 | 45 kg | 150 s | 7 |  |
+| Barbell hip thrust | 3 × 12 | 45 kg | 150 s | 8 |  |
+| Leg extension | 3 × 12 | 20 kg | 90 s | 9 | Leg extension at 80% load while your right knee is recovering. |
+| Lying leg curl | 3 × 12 | 15 kg | 90 s | 9 | Lying leg curl at 80% load while your right knee is recovering. |
+| Machine hip abduction | 3 × 6 | 30 kg | 90 s | 7 |  |
+| Crunch | 3 × 12 | bodyweight | 90 s | 7 |  |
 
-**Mon · Upper body B** (upper, 72 min)
+**Mon · Upper body 1** (upper, 86 min)
 
-- Warm-up (10 min): 5 min stationary bike; Arm circles (10 each way), Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps); ramp-up of Standing barbell overhead press: 40% × 5 @ 12.5 kg, 65% × 4 @ 20 kg, 80% × 3 @ 25 kg
-- Cool-down (6 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Overhead lat stretch 30 s each side, Upper back stretch 30 s, Overhead triceps stretch 30 s each side; 1 min slow breathing
-- About 72 min: warm-up 10 min, 8 exercises with their sets and rests (56 min), cool-down 6 min.
+- Warm-up (10 min): 5 min stationary bike; Arm circles (10 each way), Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps); ramp-up of Barbell bench press: 40% × 5 @ 20 kg, 65% × 4 @ 32.5 kg, 80% × 3 @ 40 kg
+- Cool-down (5 min): Doorway chest stretch 30 s each side, Overhead triceps stretch 30 s each side, Seated biceps stretch 30 s, Overhead lat stretch 30 s each side, Upper back stretch 30 s; 1 min slow breathing
+- About 86 min: warm-up 10 min, 7 exercises with their sets and rests (70 min), cool-down 5 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Standing barbell overhead press | 3 × 6–8 | 32.5 kg | 180 s | 8 |  |
-| Pull-up | 3 × 6–8 | bodyweight | 120 s | 8 |  |
-| Dumbbell bench press | 3 × 8–10 | 18 kg | 120 s | 8 |  |
-| One-arm dumbbell row | 3 × 10–12 | 20 kg | 90 s | 8 |  |
-| Dumbbell lateral raise | 3 × 12–15 | 4 kg | 60 s | 8 |  |
-| Cable face pull | 2 × 15 | 12.5 kg | 60 s | 7 |  |
-| Incline dumbbell curl | 2 × 10–12 | 8 kg | 60 s | 8 |  |
-| Cable triceps pushdown | 2 × 10–12 | 17.5 kg | 60 s | 8 |  |
+| Barbell bench press | 3 × 5 | 52.5 kg | 210 s | 7 |  |
+| Wide-grip lat pulldown | 3 × 10 | 40 kg | 150 s | 8 |  |
+| Standing barbell overhead press | 3 × 10 | 32.5 kg | 210 s | 7 |  |
+| Chest-supported T-bar row | 3 × 12 | 30 kg | 150 s | 8 |  |
+| Cable fly | 3 × 12 | 7.5 kg | 90 s | 8 |  |
+| Dumbbell curl | 3 × 10 | 8 kg | 90 s | 8 |  |
+| Single-arm cable triceps extension | 3 × 12 | 5 kg | 90 s | 8 |  |
 
-**Wed · Lower body B** (lower, 68 min)
+**Wed · Lower body 2** (lower, 80 min)
 
 - Warm-up (11 min): 5 min stationary bike; Leg swings (2 × 12 each leg), Hip circles (10 each way), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Barbell deadlift: 40% × 5 @ 25 kg, 65% × 4 @ 40 kg, 80% × 3 @ 50 kg, 90% × 2 @ 57.5 kg
 - Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Wall calf stretch 30 s each side; 1 min slow breathing
-- About 68 min: warm-up 11 min, 7 exercises with their sets and rests (49 min), cool-down 8 min.
+- About 80 min: warm-up 11 min, 7 exercises with their sets and rests (62 min), cool-down 8 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Barbell deadlift | 3 × 5 | 65 kg | 180 s | 8 | Barbell deadlift at 80% load while your right knee is recovering. |
-| Dumbbell split squat | 3 × 8–10 each | 6 kg | 90 s | 8 | Dumbbell split squat at 80% load while your right knee is recovering. |
-| Leg extension | 3 × 12–15 | 20 kg | 60 s | 8 | Leg extension at 80% load while your right knee is recovering. |
-| Seated leg curl | 3 × 12–15 | 25 kg | 60 s | 8 | Seated leg curl at 80% load while your right knee is recovering. |
-| Standing calf raise | 3 × 15 | 45 kg | 60 s | 8 |  |
-| Glute bridge | 2 × 12–15 | bodyweight | 90 s | 8 |  |
-| Leg press | 2 × 10–12 | 70 kg | 120 s | 8 | Leg press at 80% load while your right knee is recovering. |
+| Barbell deadlift | 3 × 8 | 65 kg | 210 s | 7 | Barbell deadlift at 80% load while your right knee is recovering. |
+| Dumbbell walking lunge | 3 × 10 | 6 kg | 150 s | 8 | Dumbbell walking lunge at 80% load while your right knee is recovering. |
+| Single-leg leg extension | 3 × 15 | 10 kg | 90 s | 8 | Single-leg leg extension at 80% load while your right knee is recovering. |
+| Single-leg lying leg curl | 3 × 15 | 5 kg | 90 s | 8 | Single-leg lying leg curl at 80% load while your right knee is recovering. |
+| Machine hip abduction | 3 × 15 | 30 kg | 90 s | 9 |  |
+| Standing calf raise | 3 × 12 | 45 kg | 90 s | 8 |  |
+| Plank | 3 × 20 s | bodyweight | 90 s | 8 |  |
 
-**Thu · Upper body A** (upper, 71 min)
+**Thu · Upper body 2** (upper, 80 min)
 
-- Warm-up (10 min): 5 min stationary bike; Arm circles (10 each way), Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps); ramp-up of Barbell bench press: 40% × 5 @ 20 kg, 65% × 4 @ 32.5 kg, 80% × 3 @ 40 kg
-- Cool-down (6 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Overhead lat stretch 30 s each side, Upper back stretch 30 s, Overhead triceps stretch 30 s each side; 1 min slow breathing
-- About 71 min: warm-up 10 min, 8 exercises with their sets and rests (55 min), cool-down 6 min.
+- Warm-up (10 min): 5 min stationary bike; Arm circles (10 each way), Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps); ramp-up of Incline dumbbell press: 40% × 5 @ 6 kg, 65% × 4 @ 10 kg, 80% × 3 @ 12 kg
+- Cool-down (6 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Overhead triceps stretch 30 s each side, Seated biceps stretch 30 s, Overhead lat stretch 30 s each side; 1 min slow breathing
+- About 80 min: warm-up 10 min, 7 exercises with their sets and rests (64 min), cool-down 6 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Barbell bench press | 3 × 6–8 | 52.5 kg | 180 s | 8 |  |
-| Chest-supported dumbbell row | 3 × 8–10 | 18 kg | 120 s | 8 |  |
-| Seated dumbbell shoulder press | 3 × 8–10 | 12 kg | 120 s | 8 |  |
-| Neutral-grip lat pulldown | 3 × 10–12 | 40 kg | 90 s | 8 |  |
-| Incline dumbbell curl | 2 × 10–12 | 8 kg | 60 s | 8 |  |
-| Cable triceps pushdown | 2 × 10–12 | 17.5 kg | 60 s | 8 |  |
-| Dumbbell lateral raise | 2 × 12–15 | 4 kg | 60 s | 8 |  |
-| Cable face pull | 2 × 12–15 | 12.5 kg | 60 s | 8 |  |
+| Incline dumbbell press | 3 × 8 | 16 kg | 150 s | 8 |  |
+| Reverse-grip pulldown | 3 × 8 | 37.5 kg | 150 s | 8 |  |
+| Assisted dip | 3 × 10 | bodyweight | 150 s | 7 |  |
+| Barbell bent-over row | 3 × 12 | 37.5 kg | 150 s | 7 |  |
+| Dumbbell lateral raise | 3 × 15 | 4 kg | 90 s | 8 |  |
+| Cable face pull | 3 × 15 | 12.5 kg | 90 s | 8 |  |
+| Hammer curl | 3 × 8 | 8 kg | 90 s | 9 |  |
 
 ### Cardio
 
@@ -471,7 +457,7 @@ Spices & sauces
 
 | Day | Type | Minutes | Intensity | When |
 |---|---|---|---|---|
-| Fri | Stationary bike | 15 | moderate | restDay |
+| Sun | Stationary bike | 15 | moderate | restDay |
 | Every day | Steps | about 8,000 | | |
 
 ### Meals
@@ -572,7 +558,7 @@ Spices & sauces
 **Answers:** male, 52 years, 172 cm, 101 kg · goal loseFat (faster) · beginner, 3 days × 45 min at gym · 3 meals/day, 30 min cooking · dislikes: none · allergies: lactose · fasting: none · health flags: diabetes, exercise_medication · injuries: none · day outside training: sitting · waist: not given
 **Plan week:** 2026-10-03 (Saturday)
 
-**Why this plan:** 11 of 20 rules from your books · 16 of 62 decisions · 1 standard formula · 1 Rafeqi safety rule
+**Why this plan:** 13 of 20 rules from your books · 20 of 63 decisions · 1 standard formula · 1 Rafeqi safety rule
 
 ### Targets
 
@@ -585,49 +571,49 @@ Spices & sauces
 
 ### Training
 
-- Program: Full body (sample), chosen for beginner lifters training 3 days a week.
-- 3 training days a week (Sat, Mon, Wed), about 45 min each, as you chose.
-- Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2 kg dumbbells, 5 kg machine, 2.5 kg cable machine); otherwise add 1 rep a session. A hard session repeats or drops a step.
-- Week 5 of 8 is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
+- Program: Fundamentals: Full body, chosen for beginner lifters training 3 days a week.
+- 3 training days a week (Sat, Mon, Wed), about 45 min each.
+- Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2.5 kg barbell, 2.5 kg cable machine, 5 kg machine, 2 kg dumbbells); otherwise add 1 rep a session. A hard session repeats or drops a step.
+- A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter.
 
-**Sat · Full body A** (full, 52 min)
+**Sat · Full body 1** (full, 72 min)
 
-- Warm-up (7 min): 5 min stationary bike; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Goblet squat: none (bodyweight)
+- Warm-up (10 min): 5 min stationary bike; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Barbell back squat: 40% × 5 @ 10 kg, 65% × 4 @ 17.5 kg, 80% × 3 @ 22.5 kg
 - Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Doorway chest stretch 30 s each side; 1 min slow breathing
-- About 52 min: warm-up 7 min, 4 exercises with their sets and rests (37 min), cool-down 8 min.
+- About 72 min: warm-up 10 min, 4 exercises with their sets and rests (54 min), cool-down 8 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Goblet squat | 3 × 8–10 | 8 kg | 150 s | 6 | Lighter (85% load), effort RPE 6 and 150 s rest because of your health answers. |
-| Dumbbell bench press | 3 × 8–10 | 8 kg | 150 s | 6 | Lighter (85% load), effort RPE 6 and 150 s rest because of your health answers. |
-| Chest-supported dumbbell row | 3 × 10–12 | 8 kg | 120 s | 6 | Lighter (85% load), effort RPE 6 and 120 s rest because of your health answers. |
-| Dumbbell Romanian deadlift | 2 × 10–12 | 8 kg | 150 s | 6 | Lighter (85% load), effort RPE 6 and 150 s rest because of your health answers. |
+| Barbell back squat | 3 × 6 | 30 kg | 240 s | 6 | Lighter (85% load), effort RPE 6 and 240 s rest because of your health answers. |
+| Barbell bench press | 3 × 8 | 22.5 kg | 240 s | 6 | Lighter (85% load), effort RPE 6 and 240 s rest because of your health answers. |
+| Wide-grip lat pulldown | 3 × 10 | 17.5 kg | 180 s | 7 | Lighter (85% load), effort RPE 7 and 180 s rest because of your health answers. |
+| Barbell Romanian deadlift | 3 × 10 | 20 kg | 180 s | 6 | Lighter (85% load), effort RPE 6 and 180 s rest because of your health answers. |
 
-**Mon · Full body B** (full, 54 min)
+**Mon · Full body 2** (full, 69 min)
 
-- Warm-up (10 min): 5 min stationary bike; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Leg press: 40% × 5 @ 15 kg, 65% × 4 @ 25 kg, 80% × 3 @ 30 kg
-- Cool-down (8 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side; 1 min slow breathing
-- About 54 min: warm-up 10 min, 4 exercises with their sets and rests (36 min), cool-down 8 min.
-
-| Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
-|---|---|---|---|---|---|
-| Leg press | 3 × 10–12 | 40 kg | 150 s | 6 | Lighter (85% load), effort RPE 6 and 150 s rest because of your health answers. |
-| Seated dumbbell shoulder press | 3 × 8–10 | 4 kg | 150 s | 6 | Lighter (85% load), effort RPE 6 and 150 s rest because of your health answers. |
-| Neutral-grip lat pulldown | 3 × 10–12 | 17.5 kg | 120 s | 6 | Lighter (85% load), effort RPE 6 and 120 s rest because of your health answers. |
-| Glute bridge | 2 × 12–15 | bodyweight | 120 s | 6 | Lighter (85% load), effort RPE 6 and 120 s rest because of your health answers. |
-
-**Wed · Full body A** (full, 52 min)
-
-- Warm-up (7 min): 5 min stationary bike; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Goblet squat: none (bodyweight)
-- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Doorway chest stretch 30 s each side; 1 min slow breathing
-- About 52 min: warm-up 7 min, 4 exercises with their sets and rests (37 min), cool-down 8 min.
+- Warm-up (10 min): 5 min stationary bike; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Barbell deadlift: 40% × 5 @ 15 kg, 65% × 4 @ 22.5 kg, 80% × 3 @ 30 kg
+- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Kneeling hip flexor stretch 45 s each side; 1 min slow breathing
+- About 69 min: warm-up 10 min, 4 exercises with their sets and rests (51 min), cool-down 8 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Goblet squat | 3 × 8–10 | 8 kg | 150 s | 6 | Lighter (85% load), effort RPE 6 and 150 s rest because of your health answers. |
-| Dumbbell bench press | 3 × 8–10 | 8 kg | 150 s | 6 | Lighter (85% load), effort RPE 6 and 150 s rest because of your health answers. |
-| Chest-supported dumbbell row | 3 × 10–12 | 8 kg | 120 s | 6 | Lighter (85% load), effort RPE 6 and 120 s rest because of your health answers. |
-| Dumbbell Romanian deadlift | 2 × 10–12 | 8 kg | 150 s | 6 | Lighter (85% load), effort RPE 6 and 150 s rest because of your health answers. |
+| Barbell deadlift | 3 × 5 | 37.5 kg | 240 s | 6 | Lighter (85% load), effort RPE 6 and 240 s rest because of your health answers. |
+| Standing barbell overhead press | 3 × 8 | 15 kg | 240 s | 7 | Lighter (85% load), effort RPE 7 and 240 s rest because of your health answers. |
+| Chest-supported T-bar row | 3 × 12 | 10 kg | 180 s | 7 | Lighter (85% load), effort RPE 7 and 180 s rest because of your health answers. |
+| Leg extension | 3 × 12 | 10 kg | 120 s | 7 | Lighter (85% load), effort RPE 7 and 120 s rest because of your health answers. |
+
+**Wed · Full body 3** (full, 63 min)
+
+- Warm-up (7 min): 5 min stationary bike; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Dumbbell walking lunge: none (bodyweight)
+- Cool-down (8 min): Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Doorway chest stretch 30 s each side; 1 min slow breathing
+- About 63 min: warm-up 7 min, 4 exercises with their sets and rests (48 min), cool-down 8 min.
+
+| Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
+|---|---|---|---|---|---|
+| Dumbbell walking lunge | 3 × 10 | 2 kg | 180 s | 7 | Lighter (85% load), effort RPE 7 and 180 s rest because of your health answers. |
+| Incline dumbbell press | 3 × 8 | 6 kg | 180 s | 6 | Lighter (85% load), effort RPE 6 and 180 s rest because of your health answers. |
+| Reverse-grip pulldown | 3 × 10 | 15 kg | 180 s | 7 | Lighter (85% load), effort RPE 7 and 180 s rest because of your health answers. |
+| Barbell hip thrust | 3 × 12 | 20 kg | 180 s | 7 | Lighter (85% load), effort RPE 7 and 180 s rest because of your health answers. |
 
 ### Cardio
 
@@ -720,7 +706,7 @@ Spices & sauces
 - ✅ Every exercise is safe for the injuries
 - ✅ Every exercise fits the equipment
 - ✅ Every full-body day trains the legs
-- ✅ Session time within the chosen length (+15 min at most)
+- ❌ Session time within the chosen length (+15 min at most)
 - ✅ Starting weights within the beginner caps
 - ✅ No cardio the day before a leg day
 - ✅ Every warm-up move and stretch is safe for the injuries
@@ -733,7 +719,7 @@ Spices & sauces
 **Answers:** female, 36 years, 160 cm, 68 kg · goal recomp (steady) · intermediate, 4 days × 60 min at gym · 2 meals/day, 60 min cooking · dislikes: none · allergies: none · fasting: ramadan · health flags: none · injuries: none · day outside training: onFeet · waist: not given
 **Plan week:** 2027-02-13 (Saturday)
 
-**Why this plan:** 11 of 20 rules from your books · 15 of 60 decisions · 1 standard formula · 0 Rafeqi safety rules
+**Why this plan:** 13 of 20 rules from your books · 20 of 60 decisions · 1 standard formula · 0 Rafeqi safety rules
 
 ### Targets
 
@@ -746,66 +732,66 @@ Spices & sauces
 
 ### Training
 
-- Program: Upper / Lower (sample), chosen for intermediate lifters training 4 days a week.
-- 4 training days a week (Sat, Mon, Wed, Thu), about 60 min each, as you chose.
-- Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2.5 kg barbell, 2 kg dumbbells, 2.5 kg cable machine, 5 kg machine); otherwise add 1 rep a session. A hard session repeats or drops a step.
-- Week 5 of 8 is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter too.
+- Program: Fundamentals: Upper / Lower, chosen for intermediate lifters training 4 days a week.
+- 4 training days a week (Sat, Mon, Wed, Thu), about 60 min each.
+- Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2.5 kg barbell, 5 kg machine, 2.5 kg cable machine, 2 kg dumbbells); otherwise add 1 rep a session. A hard session repeats or drops a step.
+- A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter.
 
-**Sat · Upper body A** (upper, 58 min)
-
-- Warm-up (10 min): 5 min stationary bike; Arm circles (10 each way), Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps); ramp-up of Barbell bench press: 40% × 5 @ 5 kg, 65% × 4 @ 10 kg, 80% × 3 @ 12.5 kg
-- Cool-down (6 min): Doorway chest stretch 30 s each side, Overhead lat stretch 30 s each side, Upper back stretch 30 s, Cross-body shoulder stretch 30 s each side, Overhead triceps stretch 30 s each side; 1 min slow breathing
-- About 58 min: warm-up 10 min, 5 exercises with their sets and rests (42 min), cool-down 6 min.
-
-| Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
-|---|---|---|---|---|---|
-| Barbell bench press | 3 × 6–8 | 17.5 kg | 180 s | 8 |  |
-| Chest-supported dumbbell row | 3 × 8–10 | 6 kg | 120 s | 8 |  |
-| Seated dumbbell shoulder press | 3 × 8–10 | 4 kg | 120 s | 8 |  |
-| Neutral-grip lat pulldown | 3 × 10–12 | 15 kg | 90 s | 8 |  |
-| Incline dumbbell curl | 2 × 10–12 | 2 kg | 60 s | 8 |  |
-
-**Mon · Lower body A** (lower, 62 min)
+**Sat · Lower body 1** (lower, 66 min)
 
 - Warm-up (10 min): 5 min stationary bike; Leg swings (2 × 12 each leg), Hip circles (10 each way), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Barbell back squat: 40% × 5 @ 10 kg, 65% × 4 @ 15 kg, 80% × 3 @ 20 kg
-- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Wall calf stretch 30 s each side; 1 min slow breathing
-- About 62 min: warm-up 10 min, 5 exercises with their sets and rests (44 min), cool-down 8 min.
+- Cool-down (7 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side; 1 min slow breathing
+- About 66 min: warm-up 10 min, 5 exercises with their sets and rests (50 min), cool-down 7 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Barbell back squat | 3 × 6–8 | 25 kg | 180 s | 8 |  |
-| Dumbbell Romanian deadlift | 3 × 8–10 | 6 kg | 120 s | 8 |  |
-| Leg press | 3 × 10–12 | 30 kg | 120 s | 8 |  |
-| Seated leg curl | 3 × 10–12 | 10 kg | 90 s | 8 |  |
-| Standing calf raise | 3 × 12–15 | 15 kg | 60 s | 8 |  |
+| Barbell back squat | 3 × 6 | 25 kg | 210 s | 7 |  |
+| Barbell Romanian deadlift | 3 × 10 | 15 kg | 150 s | 7 |  |
+| Barbell hip thrust | 3 × 12 | 15 kg | 150 s | 8 |  |
+| Leg extension | 3 × 12 | 10 kg | 90 s | 9 |  |
+| Lying leg curl | 3 × 12 | 5 kg | 90 s | 9 |  |
 
-**Wed · Upper body B** (upper, 58 min)
+**Mon · Upper body 1** (upper, 70 min)
 
-- Warm-up (10 min): 5 min stationary bike; Arm circles (10 each way), Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps); ramp-up of Standing barbell overhead press: 40% × 5 @ 5 kg, 65% × 4 @ 7.5 kg, 80% × 3 @ 10 kg
-- Cool-down (4 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Overhead lat stretch 30 s each side, Upper back stretch 30 s; 1 min slow breathing
-- About 58 min: warm-up 10 min, 5 exercises with their sets and rests (44 min), cool-down 4 min.
+- Warm-up (10 min): 5 min stationary bike; Arm circles (10 each way), Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps); ramp-up of Barbell bench press: 40% × 5 @ 5 kg, 65% × 4 @ 10 kg, 80% × 3 @ 12.5 kg
+- Cool-down (4 min): Doorway chest stretch 30 s each side, Overhead lat stretch 30 s each side, Upper back stretch 30 s, Cross-body shoulder stretch 30 s each side; 1 min slow breathing
+- About 70 min: warm-up 10 min, 5 exercises with their sets and rests (56 min), cool-down 4 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Standing barbell overhead press | 3 × 6–8 | 12.5 kg | 180 s | 8 |  |
-| Pull-up | 3 × 6–8 | bodyweight | 120 s | 8 |  |
-| Dumbbell bench press | 3 × 8–10 | 6 kg | 120 s | 8 |  |
-| One-arm dumbbell row | 3 × 10–12 | 6 kg | 90 s | 8 |  |
-| Dumbbell lateral raise | 3 × 12–15 | 2 kg | 60 s | 8 |  |
+| Barbell bench press | 3 × 5 | 17.5 kg | 210 s | 7 |  |
+| Wide-grip lat pulldown | 3 × 10 | 15 kg | 150 s | 8 |  |
+| Standing barbell overhead press | 3 × 10 | 12.5 kg | 210 s | 7 |  |
+| Chest-supported T-bar row | 3 × 12 | 10 kg | 150 s | 8 |  |
+| Cable fly | 3 × 12 | 2.5 kg | 90 s | 8 |  |
 
-**Thu · Lower body B** (lower, 56 min)
+**Wed · Lower body 2** (lower, 64 min)
 
 - Warm-up (10 min): 5 min stationary bike; Leg swings (2 × 12 each leg), Hip circles (10 each way), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Barbell deadlift: 40% × 5 @ 10 kg, 65% × 4 @ 17.5 kg, 80% × 3 @ 22.5 kg
-- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Wall calf stretch 30 s each side; 1 min slow breathing
-- About 56 min: warm-up 10 min, 5 exercises with their sets and rests (38 min), cool-down 8 min.
+- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Child's pose 30 s; 1 min slow breathing
+- About 64 min: warm-up 10 min, 5 exercises with their sets and rests (46 min), cool-down 8 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
-| Barbell deadlift | 3 × 5 | 30 kg | 180 s | 8 |  |
-| Dumbbell split squat | 3 × 8–10 each | 2 kg | 90 s | 8 |  |
-| Leg extension | 3 × 12–15 | 10 kg | 60 s | 8 |  |
-| Seated leg curl | 3 × 12–15 | 10 kg | 60 s | 8 |  |
-| Standing calf raise | 3 × 15 | 15 kg | 60 s | 8 |  |
+| Barbell deadlift | 3 × 8 | 30 kg | 210 s | 7 |  |
+| Dumbbell walking lunge | 3 × 10 | 2 kg | 150 s | 8 |  |
+| Single-leg leg extension | 3 × 15 | 5 kg | 90 s | 8 |  |
+| Single-leg lying leg curl | 3 × 15 | 5 kg | 90 s | 8 |  |
+| Machine hip abduction | 3 × 15 | 10 kg | 90 s | 9 |  |
+
+**Thu · Upper body 2** (upper, 62 min)
+
+- Warm-up (7 min): 5 min stationary bike; Arm circles (10 each way), Band pull-apart (15 reps), Dynamic chest opener (10 reps), Cat–cow (8 slow reps); ramp-up of Incline dumbbell press: none (bodyweight)
+- Cool-down (6 min): Doorway chest stretch 30 s each side, Overhead lat stretch 30 s each side, Upper back stretch 30 s, Cross-body shoulder stretch 30 s each side, Overhead triceps stretch 30 s each side; 1 min slow breathing
+- About 62 min: warm-up 7 min, 5 exercises with their sets and rests (50 min), cool-down 6 min.
+
+| Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
+|---|---|---|---|---|---|
+| Incline dumbbell press | 3 × 8 | 6 kg | 150 s | 8 |  |
+| Reverse-grip pulldown | 3 × 8 | 12.5 kg | 150 s | 8 |  |
+| Assisted dip | 3 × 10 | bodyweight | 150 s | 7 |  |
+| Barbell bent-over row | 3 × 12 | 12.5 kg | 150 s | 7 |  |
+| Dumbbell lateral raise | 3 × 15 | 2 kg | 90 s | 8 |  |
 
 ### Cardio
 
@@ -814,8 +800,8 @@ Spices & sauces
 
 | Day | Type | Minutes | Intensity | When |
 |---|---|---|---|---|
-| Tue | Incline treadmill walk | 30 | easy | restDay |
-| Fri | Incline treadmill walk | 30 | easy | restDay |
+| Sun | Incline treadmill walk | 30 | easy | restDay |
+| Mon | Incline treadmill walk | 30 | easy | afterLifting |
 | Every day | Steps | about 8,000 | | |
 
 ### Meals

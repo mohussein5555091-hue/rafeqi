@@ -280,8 +280,10 @@ def swap_exercise(day_id: str, exercise_id: str, body: SwapExerciseIn, auth: Cur
         db.add(swap)
         db.commit()
         return {"workoutId": day.id, "swapId": swap.id}
-    # From now on: replace what the template had (an earlier swap of the same exercise is replaced, not stacked).
-    original = se.pe.replaced_exercise_id if se.pe.swap_kind == "user" and se.pe.replaced_exercise_id else program_from
+    # From now on: replace what the template had (an earlier swap of the same exercise is replaced, not stacked). The
+    # exercise on screen may itself stand in for the program's one (an injury, equipment or check-in swap): the swap is
+    # for the program's exercise, or the plan, which never contains the stand-in, would never use it.
+    original = se.pe.replaced_exercise_id or program_from
     for old in active_swaps(db, uid):
         if old.from_exercise_id == original:
             old.ended_at = now

@@ -104,6 +104,20 @@ def load_rules() -> dict[str, dict]:
     return rules
 
 
+def template_by_id(template_id: str) -> dict | None:
+    return next((t for t in load_templates() if t["id"] == template_id), None)
+
+
+def deload_weeks(t: dict) -> list[int]:
+    """The program's lighter weeks: a real program lists them (their lighter sets and effort are in its tables); a
+    sample program has one `deload_week` that the screens make lighter (training.yaml `deload`)."""
+    return list(t.get("deload_weeks") or ([t["deload_week"]] if t.get("deload_week") else []))
+
+
+def deload_in_tables(t: dict | None) -> bool:
+    return bool(t) and "weeks" in t
+
+
 def rules_version() -> str:
     r = load_rules()
     return "+".join(f"{n}:v{r[n].get('version', 0)}" for n in FILES)
@@ -122,6 +136,16 @@ def load_templates() -> tuple[dict, ...]:
     for path in sorted(folder.glob("*.json")):
         t = json.loads(path.read_text(encoding="utf-8"))
         keys = {d["key"] for d in t["days"]}
+        if "weeks" in t:  # a real program: every week of its tables (scripts/books/programs.py)
+            if [w["week"] for w in t["weeks"]] != list(range(1, t["total_weeks"] + 1)):
+                raise RulesError(f"{path.name}: weeks must be 1…total_weeks")
+            for w in t["weeks"]:
+                if set(w["days"]) != keys:
+                    raise RulesError(f"{path.name}: week {w['week']} has days {sorted(w['days'])}, expected {sorted(keys)}")
+                for day in w["days"].values():
+                    for e in day:
+                        if not ({"exercise", "sets", "reps", "rest_sec"} <= set(e) and ("rpe" in e or "pct_1rm" in e)):
+                            raise RulesError(f"{path.name}: week {w['week']}: {e} needs exercise, sets, reps, rest_sec and rpe or pct_1rm")
         for n, rotation in t["rotation"].items():
             if int(n) not in t["days_per_week"] or not set(rotation) <= keys or len(rotation) != int(n):
                 raise RulesError(f"{path.name}: rotation for {n} days doesn't match its days")

@@ -4,21 +4,31 @@
 version: 1
 
 template_choice:
-  # Only templates made for where the person trains are considered (all of them, if none is).
-  # Each one scores points for every match; the highest score wins (ties: file order).
-  placeholder: true
-  source: "PLACEHOLDER: program choice by experience, days, goal and equipment (Jeff Nippard programs)"
+  # Each program scores points for every match with the person (experience counts most: beginners always get the
+  # Fundamentals program, as the books advise); the highest score wins, then the program whose days are closest.
+  # Fundamentals: beginners, and anyone training 2-4 days (Upper/Lower p. 28 sends 4-day lifters to it); LPP and
+  # Upper/Lower: intermediate and advanced lifters training 5-6 days (LPP p. 8, Upper/Lower p. 11). LPP is the
+  # hypertrophy program; Upper/Lower adds strength, so it's chosen for the strength goal (data/programs/program_meta.yaml).
+  placeholder: false
+  source: "Intermediate Advanced LPP Program, What this program isn't, p. 8; Upper Lower Strength and Size Program, pp. 10–12 and FAQ 15, p. 28"
   uses: [experience, days_per_week, goal, location]
   summary:
-    en: The program that best matches your experience, training days, goal and training place is chosen.
-    ar: بيتختار البرنامج الأنسب لخبرتك وأيام تمرينك وهدفك ومكان تمرينك.
-  points: {experience: 4, days: 4, goal: 1, location: 1}  # ties: the first file wins (sample_full_body, the gentler one)
+    en: Beginners follow the Fundamentals program; intermediate and advanced lifters who train 5–6 days follow the Legs/Push/Pull or Upper/Lower program (Upper/Lower for strength), and anyone training 2–4 days the Fundamentals program for that many days.
+    ar: المبتدئين بيمشوا على برنامج الأساسيات؛ والمتوسطين والمتقدمين اللي بيتمرنوا ٥–٦ أيام بيمشوا على برنامج رجل/دفع/سحب أو علوي/سفلي (علوي/سفلي للقوة)، واللي بيتمرن ٢–٤ أيام على برنامج الأساسيات بنفس عدد الأيام.
+  points: {experience: 5, days: 4, goal: 1, location: 1}
+  ref:
+    book: Upper Lower Strength and Size Program (Jeff Nippard)
+    chapter: "What this program isn't; FAQ"
+    page: "11–12, 28"
+    quote:
+      en: If you have trained for less than about two years, run the Fundamentals program first, and if you only have four days a week, run its Upper/Lower program instead.
+      ar: لو بتتمرن من أقل من حوالي سنتين، ابدأ ببرنامج الأساسيات الأول، ولو عندك ٤ أيام بس في الأسبوع، امشي على برنامج علوي/سفلي اللي فيه.
   explain:
     en: "Program: {name}, chosen for {experience} lifters training {days} days a week."
     ar: "البرنامج: {name}، اتختار لمستوى {experience} وبتتمرن {days} أيام في الأسبوع."
   explain_days:
-    en: "This program runs {program_days} days a week; you chose {days}. More programs come with the real templates."
-    ar: "البرنامج ده {program_days} أيام في الأسبوع؛ أنت اخترت {days}. برامج أكتر هتيجي مع البرامج الحقيقية."
+    en: "This program runs {program_days} days a week; you chose {days}, the closest the books offer for your level."
+    ar: "البرنامج ده {program_days} أيام في الأسبوع؛ أنت اخترت {days}، وده أقرب حاجة الكتب بتقدمها لمستواك."
 
 # Training days for each number of days a week (the Egyptian week starts on Saturday; Friday stays free).
 schedules:
@@ -82,6 +92,36 @@ start_load:
     ex_calf_raise: 0.6
     ex_glute_bridge: 0
     ex_walking_lunge_bw: 0
+    # The Fundamentals program's exercises (Phase B2): same idea, light on purpose.
+    ex_bb_rdl: 0.6
+    ex_bb_row: 0.5
+    ex_cable_curl: 0.12
+    ex_cable_flye: 0.1
+    ex_cable_kickback: 0.05
+    ex_cable_lateral_raise: 0.04
+    ex_cable_reverse_flye: 0.05
+    ex_cable_row: 0.5
+    ex_close_grip_bench: 0.55
+    ex_db_curl: 0.12
+    ex_db_incline_press: 0.22
+    ex_db_skull_crusher: 0.08
+    ex_ez_curl: 0.25
+    ex_hammer_curl: 0.12
+    ex_hip_abduction: 0.4
+    ex_hip_thrust: 0.6
+    ex_lying_leg_curl: 0.3
+    ex_machine_incline_press: 0.4
+    ex_pec_deck: 0.3
+    ex_rear_delt_raise: 0.04
+    ex_reverse_grip_pulldown: 0.5
+    ex_reverse_pec_deck: 0.2
+    ex_single_arm_pulldown: 0.2
+    ex_single_arm_rope_extension: 0.08
+    ex_single_leg_extension: 0.2
+    ex_single_leg_lying_curl: 0.15
+    ex_tbar_row: 0.4
+    ex_walking_lunge_db: 0.1
+    ex_wide_pulldown: 0.55
   explain:
     en: "Starting weight {kg} kg: {ratio} × your weight, adjusted for experience. Adjust it after the first session if it feels off."
     ar: "وزن البداية {kg} كجم: {ratio} × وزنك، متظبط على مستواك. عدّله بعد أول تمرينة لو حاسس إنه مش مظبوط."
@@ -391,7 +431,7 @@ swaps:
     push: [horizontalPush, verticalPush, dip, elbowExtension, shoulderAbduction]
     pull: [horizontalPull, verticalPull, elbowFlexion, shoulderExternalRotation]
     kneeDominant: [squat, lunge, kneeExtension]
-    hipDominant: [hinge, kneeFlexion]
+    hipDominant: [hinge, kneeFlexion, hipAbduction]
     calves: [plantarFlexion]
     core: [core]
     carry: [carry]
@@ -414,8 +454,8 @@ schedule:
     en: "You train on the days a week you chose, spread over the week with Friday free, for about the session length you chose."
     ar: "بتتمرن عدد الأيام اللي اخترته، متوزعين على الأسبوع والجمعة إجازة، لمدة التمرينة اللي اخترتها تقريبًا."
   explain:
-    en: "{days} training days a week ({names}), about {minutes} min each, as you chose."
-    ar: "{days} أيام تمرين في الأسبوع ({names})، حوالي {minutes} دقيقة كل مرة، زي ما اخترت."
+    en: "{days} training days a week ({names}), about {minutes} min each."
+    ar: "{days} أيام تمرين في الأسبوع ({names})، حوالي {minutes} دقيقة كل مرة."
   day_names:
     sat: {en: Sat, ar: السبت}
     sun: {en: Sun, ar: الأحد}
@@ -427,15 +467,49 @@ schedule:
 
 # Sets, reps and effort (RPE: 10 = nothing left, 8 = two more reps possible) come from the program template's day.
 volume:
-  placeholder: true
-  source: "PLACEHOLDER: sets, reps, rest and RPE per exercise; to be replaced with the Jeff Nippard programs' prescriptions"
+  # Each week's sets, reps, effort (RPE or %1RM), rest and technique come from that week of the program's tables
+  # (data/programs/*.json, made by scripts/books/programs.py); rest is the middle of the book's range ("2-3 min" → 150 s).
+  placeholder: false
+  source: "The program's weekly tables (data/programs/*.json); how to read them: Intermediate Advanced LPP Program, Training variables, pp. 89–95"
   uses: [experience, goal, health]
   summary:
-    en: "Each exercise's sets, rep range, rest and effort (RPE) come from the program; effort is lower and rests longer with a health flag."
-    ar: "عدد المجموعات والعدات والراحة والمجهود (RPE) لكل تمرين جايين من البرنامج؛ والمجهود أقل والراحة أطول لو فيه علامة صحية."
+    en: "Each exercise's sets, reps, rest and effort (RPE) come from this week of your program, as the book writes them; effort is lower and rests longer with a health flag."
+    ar: "عدد المجموعات والعدات والراحة والمجهود (RPE) لكل تمرين جايين من الأسبوع ده في برنامجك، زي ما الكتاب كاتبهم؛ والمجهود أقل والراحة أطول لو فيه علامة صحية."
+  ref:
+    book: Intermediate Advanced LPP Program (Jeff Nippard)
+    chapter: "Training variables"
+    page: 89–95
+    quote:
+      en: Main lifts are loaded as a percentage of your one-rep max and the other exercises by effort (RPE), with the sets, reps and rest written for each week.
+      ar: التمارين الأساسية وزنها نسبة من أقصى وزن لعدّة واحدة، وباقي التمارين بالمجهود (RPE)، والمجموعات والعدات والراحة مكتوبة لكل أسبوع.
   explain:
     en: "{name}: {exercises} exercises, {sets} sets in all, {reps} reps, effort RPE {rpe}, rests {rest} s."
     ar: "{name}: {exercises} تمارين، {sets} مجموعة في المجموع، {reps} عدة، مجهود {rpe}، راحة {rest} ثانية."
+  explain_technique:
+    en: "{name}: {technique}."
+    ar: "{name}: {technique}."
+
+# %1RM in a program (the main lifts of LPP and Upper/Lower): the app doesn't know anyone's one-rep max, so the effort
+# target is read from the standard RPE chart (backend/app/engine/training.py RPE_CHART): the % you can lift for a number
+# of reps to failure. A standard published table, not from your books.
+pct_1rm:
+  kind: formula
+  placeholder: false
+  source: "Tuchscherer M (2008) The Reactive Training Manual: the RPE chart (% of one-rep max by reps and RPE). Used because the programs load their main lifts as a % of a one-rep max, which the app doesn't know."
+  uses: [experience]
+  summary:
+    en: Where the program gives a percentage of your one-rep max, the effort it means (RPE) is read from a standard chart, so you can pick the weight by feel.
+    ar: لما البرنامج يدّي نسبة من أقصى وزن لعدّة واحدة، المجهود اللي بتعنيه (RPE) بيتقرا من جدول معروف، عشان تختار الوزن بإحساسك.
+  ref:
+    book: The Reactive Training Manual (Mike Tuchscherer, 2008)
+    chapter: "The RPE chart"
+    page: "RPE chart"
+    quote:
+      en: Each RPE and rep count matches a percentage of one-rep max, for example 5 reps at RPE 8 is about 81%.
+      ar: كل مجهود (RPE) وعدد عدات بيقابله نسبة من أقصى وزن لعدّة واحدة، مثلًا ٥ عدات بمجهود ٨ حوالي ٨١٪.
+  explain:
+    en: "{name}: {sets} × {reps} at about {pct}% of your one-rep max, which is about effort RPE {rpe}."
+    ar: "{name}: {sets} × {reps} بحوالي {pct}% من أقصى وزن لعدّة واحدة، يعني مجهود حوالي {rpe}."
 
 # The "lighter week": planned by the program, and triggered early by a hard week in the check-in (`review.deload_when`).
 deload:
@@ -461,6 +535,9 @@ deload:
   explain:
     en: "Week {week} of {total} is a lighter week: one set fewer and effort one lower, at the same weights. A check-in that says sessions felt very hard (difficulty {difficulty}/5, soreness {soreness}/5 or effort RPE {effort}+) makes the next week lighter too."
     ar: "الأسبوع {week} من {total} أسبوع أخف: مجموعة أقل ومجهود أقل بدرجة، بنفس الأوزان. ولو المتابعة قالت إن التمرين كان صعب جدًا (صعوبة {difficulty}/5 أو تكسير {soreness}/5 أو مجهود {effort} أو أكتر) الأسبوع اللي بعده هيبقى أخف كمان."
+  explain_program:
+    en: "Weeks {weeks} of {total} are lighter weeks in your program, with fewer sets or lower effort as the book writes them. A check-in that says sessions felt very hard (difficulty {difficulty}/5, soreness {soreness}/5 or effort RPE {effort}+) makes the next week lighter too."
+    ar: "الأسابيع {weeks} من {total} أسابيع أخف في برنامجك، بمجموعات أقل أو مجهود أقل زي ما الكتاب كاتبها. ولو المتابعة قالت إن التمرين كان صعب جدًا (صعوبة {difficulty}/5 أو تكسير {soreness}/5 أو مجهود {effort} أو أكتر) الأسبوع اللي بعده هيبقى أخف كمان."
   explain_none:
     en: "A check-in that says sessions felt very hard (difficulty {difficulty}/5, soreness {soreness}/5 or effort RPE {effort}+) makes the next week lighter."
     ar: "لو المتابعة قالت إن التمرين كان صعب جدًا (صعوبة {difficulty}/5 أو تكسير {soreness}/5 أو مجهود {effort} أو أكتر) الأسبوع اللي بعده هيبقى أخف."
