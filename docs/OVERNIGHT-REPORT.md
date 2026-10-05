@@ -217,3 +217,19 @@ missing, now done:
 **Priority 4 full run:** backend suite and typecheck pass; 301 of 303 browser tests passed on the first run. The 2
 failures (desktop + phone, same test) were a real regression from using the file's wording: the measurement error read
 "Waist (cm) must be between…". The tiles now drop the "(cm)" from the file's label; the test passes again.
+
+## Priority 5: ready for friends on Render (prepared, not deployed)
+
+### 14. PostgreSQL
+
+- `RAFEQI_DATABASE_URL` in `.env` (or the host's environment) chooses the database; empty = the local SQLite file, as
+  before. Hosted URLs as Neon/Supabase/Render give them (`postgres://…` or `postgresql://…`) are accepted as they are
+  (the app adds the driver name). New dependency: `psycopg[binary]` (PostgreSQL driver). Connections are checked before
+  use (hosted databases drop idle ones).
+- **Tested on a real PostgreSQL 16 server in this machine:** all migrations up, all the way down and up again, and
+  the **whole backend test suite** (opt-in: `RAFEQI_TEST_POSTGRES_URL=postgresql://postgres:…@localhost:5432/postgres
+  npm run test:backend`; each test gets its own database copied from a migrated template). SQLite stays the default
+  for tests.
+- **Bugs this found** (SQLite never checks text lengths; PostgreSQL does): `plans.rules_version` was 40 characters
+  for a 50-character value, and `program_exercises.swap_kind` was 8 for "equipment". Both widened (migration
+  `ca0a41b6cb56`), with a test that the values fit.

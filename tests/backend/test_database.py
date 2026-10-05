@@ -18,8 +18,11 @@ def test_migrations_match_the_models(db):
     assert diff == [], f"Models changed without a migration. Run: uv run alembic revision --autogenerate -m '…'\n{diff}"
 
 
-def test_migrations_go_down_and_up_again(tmp_path):
-    url = f"sqlite:///{(tmp_path / 'roundtrip.db').as_posix()}"
+def test_migrations_go_down_and_up_again(tmp_path, db_url):
+    # SQLite: a new file. PostgreSQL (RAFEQI_TEST_POSTGRES_URL): this test's own database, taken down to empty first.
+    url = db_url if db_url.startswith("postgresql") else f"sqlite:///{(tmp_path / 'roundtrip.db').as_posix()}"
+    if url.startswith("postgresql"):
+        run_migrations(url, "base", down=True)
     run_migrations(url)
     run_migrations(url, "base", down=True)
     assert set(inspect(create_engine(url)).get_table_names()) == {"alembic_version"}
@@ -83,3 +86,16 @@ def test_llm_call_keeps_its_row_when_user_is_deleted(make_user, db):
     db.expire_all()
     calls = db.query(LlmCall).all()
     assert len(calls) == 1 and calls[0].user_id is None
+
+
+def test_text_columns_are_long_enough_for_their_values():
+    """SQLite never checks VARCHAR lengths; PostgreSQL does. Values the code writes must fit (found by running the
+    suite on PostgreSQL: RAFEQI_TEST_POSTGRES_URL)."""
+    from app.engine.rules import rules_version
+    from app.models import ProgramExercise
+
+    assert len(rules_version()) <= Plan.__table__.c.rules_version.type.length
+    kinds = ("swapped", "added", "equipment", "review", "user")
+    assert max(map(len, kinds)) <= ProgramExercise.__table__.c.swap_kind.type.length
+    triggers = ("onboarding", "checkin", "regenerate", "injury", "swap", "pain", "equipment")
+    assert max(map(len, triggers)) <= Plan.__table__.c.trigger.type.length
