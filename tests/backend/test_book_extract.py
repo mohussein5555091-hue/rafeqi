@@ -37,6 +37,11 @@ def test_book_text_books_and_ocr_models_are_git_ignored(path):
     assert _git("check-ignore", "-q", path).returncode == 0, f"{path} is not git-ignored"
 
 
+def test_the_extractor_itself_is_not_ignored():
+    # "books/" in .gitignore once matched scripts/books/ too; the book folders are ignored at the top level only.
+    assert _git("check-ignore", "-q", "scripts/books/extract.py").returncode == 1
+
+
 def test_nothing_private_is_tracked():
     tracked = _git("ls-files").stdout.splitlines()
     assert not [f for f in tracked if f.startswith(("data/private/", "Books/", "books/")) or f.lower().endswith(".pdf")]

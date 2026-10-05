@@ -1,6 +1,6 @@
 # Book PDFs are copyrighted and large — never commit them.
-books/
-Books/
+/books/
+/Books/
 *.pdf
 
 # Secrets
