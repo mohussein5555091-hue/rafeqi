@@ -35,6 +35,7 @@ const DEFAULT = [
   'Barbell_Incline_Bench_Press_-_Medium_Grip', 'Cable_Crunch', 'Floor_Press', 'Good_Morning', 'JM_Press', 'Leverage_Chest_Press',
   'Leverage_Iso_Row', 'Leverage_Shoulder_Press', 'Push_Press', 'Reverse_Hyperextension', 'Seated_Calf_Raise', 'Split_Squats',
   'Stiff-Legged_Barbell_Deadlift',
+  'Bent-Arm_Dumbbell_Pullover', 'Bench_Dips', 'Standing_Dumbbell_Calf_Raise', 'Weighted_Sissy_Squat',
 ];
 
 const ids = process.argv.slice(2).length ? process.argv.slice(2) : DEFAULT;

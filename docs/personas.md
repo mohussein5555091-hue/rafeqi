@@ -11,7 +11,7 @@ Rules: `nutrition:v1+training:v1+safety:v1+progression:v1`
 **Answers:** female, 27 years, 163 cm, 74 kg · goal loseFat (steady) · beginner, 3 days × 45 min at homeDumbbells · 3 meals/day, 30 min cooking · dislikes: okra, liver · allergies: none · fasting: none · health flags: none · injuries: none · day outside training: sitting · waist: not given
 **Plan week:** 2026-10-03 (Saturday)
 
-**Why this plan:** 13 of 20 rules from your books · 18 of 61 decisions · 1 standard formula · 0 Rafeqi safety rules
+**Why this plan:** 13 of 20 rules from your books · 18 of 56 decisions · 1 standard formula · 0 Rafeqi safety rules
 
 ### Targets
 
@@ -26,32 +26,26 @@ Rules: `nutrition:v1+training:v1+safety:v1+progression:v1`
 
 - Program: Fundamentals: Full body, chosen for beginner lifters training 3 days a week.
 - 3 training days a week (Sat, Mon, Wed), about 45 min each.
-- Wide-grip lat pulldown removed: nothing in the catalogue does this movement with your equipment yet.
-- Assisted dip removed: nothing in the catalogue does this movement with your equipment yet.
-- Standing calf raise removed: nothing in the catalogue does this movement with your equipment yet.
-- Leg extension removed: nothing in the catalogue does this movement with your equipment yet.
-- Reverse-grip pulldown removed: nothing in the catalogue does this movement with your equipment yet.
-- Cable face pull removed: nothing in the catalogue does this movement with your equipment yet.
 - Every exercise starts at the bottom of its rep range. When all sets reach the top and the last one wasn't a struggle, the weight goes up one step (2 kg dumbbells); otherwise add 1 rep a session. A hard session repeats or drops a step.
 - A check-in that says sessions felt very hard (difficulty 5/5, soreness 4/5 or effort RPE 9+) makes the next week lighter.
 
-**Sat · Full body 1** (full, 59 min)
+**Sat · Full body 1** (full, 63 min)
 
 - Warm-up (7 min): 5 min marching in place; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Goblet squat: none (bodyweight)
-- Cool-down (7 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Overhead triceps stretch 30 s each side, Seated biceps stretch 30 s, Kneeling hip flexor stretch 45 s each side; 1 min slow breathing
-- About 59 min: warm-up 7 min, 4 exercises with their sets and rests (45 min), cool-down 7 min.
+- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Doorway chest stretch 30 s each side, Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side; 1 min slow breathing
+- About 63 min: warm-up 7 min, 4 exercises with their sets and rests (48 min), cool-down 8 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
 | Goblet squat | 3 × 6 | 4 kg | 210 s | 7 | Barbell back squat → Goblet squat: Goblet squat works the same movement with the equipment you have. |
 | Dumbbell bench press | 3 × 8 | 4 kg | 210 s | 7 | Barbell bench press → Dumbbell bench press: Dumbbell bench press works the same movement with the equipment you have. |
+| Dumbbell pullover | 3 × 10 | 2 kg | 150 s | 8 | Wide-grip lat pulldown → Dumbbell pullover: Dumbbell pullover works the same movement with the equipment you have. |
 | Dumbbell Romanian deadlift | 3 × 10 | 4 kg | 150 s | 7 | Barbell Romanian deadlift → Dumbbell Romanian deadlift: Dumbbell Romanian deadlift works the same movement with the equipment you have. |
-| Dumbbell curl | 3 × 10 | 2 kg | 90 s | 8 |  |
 
 **Mon · Full body 2** (full, 60 min)
 
 - Warm-up (7 min): 5 min marching in place; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Dumbbell Romanian deadlift: none (bodyweight)
-- Cool-down (8 min): Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Kneeling hip flexor stretch 45 s each side; 1 min slow breathing
+- Cool-down (8 min): Standing quad stretch 45 s each side, Hamstring stretch 45 s each side, Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Kneeling hip flexor stretch 45 s each side; 1 min slow breathing
 - About 60 min: warm-up 7 min, 4 exercises with their sets and rests (45 min), cool-down 8 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
@@ -59,20 +53,20 @@ Rules: `nutrition:v1+training:v1+safety:v1+progression:v1`
 | Dumbbell Romanian deadlift | 3 × 5 | 4 kg | 210 s | 7 | Barbell deadlift → Dumbbell Romanian deadlift: Dumbbell Romanian deadlift works the same movement with the equipment you have. |
 | Seated dumbbell shoulder press | 3 × 8 | 2 kg | 210 s | 8 | Standing barbell overhead press → Seated dumbbell shoulder press: Seated dumbbell shoulder press works the same movement with the equipment you have. |
 | Chest-supported dumbbell row | 3 × 12 | 4 kg | 150 s | 8 | Chest-supported T-bar row → Chest-supported dumbbell row: Chest-supported dumbbell row works the same movement with the equipment you have. |
-| Dumbbell bench press | 3 × 12 | 4 kg | 90 s | 8 | Cable fly → Dumbbell bench press: Dumbbell bench press works the same movement with the equipment you have. |
+| Sissy squat | 3 × 12 | bodyweight | 90 s | 8 | Leg extension → Sissy squat: Sissy squat works the same movement with the equipment you have. |
 
-**Wed · Full body 3** (full, 54 min)
+**Wed · Full body 3** (full, 57 min)
 
 - Warm-up (7 min): 5 min marching in place; Arm circles (10 each way), Leg swings (2 × 12 each leg), Bodyweight squat (10 reps), Glute bridge (12 reps); ramp-up of Dumbbell walking lunge: none (bodyweight)
-- Cool-down (8 min): Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Doorway chest stretch 30 s each side, Cross-body shoulder stretch 30 s each side, Standing quad stretch 45 s each side; 1 min slow breathing
-- About 54 min: warm-up 7 min, 4 exercises with their sets and rests (39 min), cool-down 8 min.
+- Cool-down (8 min): Kneeling hip flexor stretch 45 s each side, Seated glute stretch 45 s each side, Doorway chest stretch 30 s each side, Standing quad stretch 45 s each side, Hamstring stretch 45 s each side; 1 min slow breathing
+- About 57 min: warm-up 7 min, 4 exercises with their sets and rests (42 min), cool-down 8 min.
 
 | Exercise | Sets × reps | Start weight | Rest | RPE | Notes |
 |---|---|---|---|---|---|
 | Dumbbell walking lunge | 3 × 10 | 2 kg | 150 s | 8 |  |
 | Incline dumbbell press | 3 × 8 | 2 kg | 150 s | 7 |  |
+| Dumbbell pullover | 3 × 10 | 2 kg | 150 s | 8 | Reverse-grip pulldown → Dumbbell pullover: Dumbbell pullover works the same movement with the equipment you have. |
 | Single-leg hip thrust | 3 × 12 | bodyweight | 150 s | 8 | Barbell hip thrust → Single-leg hip thrust: Single-leg hip thrust works the same movement with the equipment you have. |
-| Dumbbell lateral raise | 3 × 10 | 2 kg | 90 s | 8 |  |
 
 ### Cardio
 
@@ -165,7 +159,7 @@ Spices & sauces
 - ✅ Every exercise is safe for the injuries
 - ✅ Every exercise fits the equipment
 - ✅ Every full-body day trains the legs
-- ✅ Session time within the chosen length (+15 min at most)
+- ❌ Session time within the chosen length (+15 min at most)
 - ✅ Starting weights within the beginner caps
 - ✅ No cardio the day before a leg day
 - ✅ Every warm-up move and stretch is safe for the injuries

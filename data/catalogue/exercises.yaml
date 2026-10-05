@@ -67,7 +67,7 @@ exercises:
       en: Machine chest press, neutral grip
       ar: ضغط صدر على الجهاز بقبضة محايدة
     kind: injuryFriendly
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program (in the program). How-to written for Rafeqi.'
 - id: ex_cs_row
   type: strength
   name:
@@ -131,7 +131,7 @@ exercises:
       en: Seated cable row
       ar: تجديف بالكابل قاعد
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Rafeqi: an alternative for when equipment or an injury rules out a program exercise. How-to written for Rafeqi.'
 - id: ex_landmine_press
   type: strength
   name:
@@ -209,7 +209,7 @@ exercises:
       en: Seated landmine press
       ar: ضغط لاندماين وأنت قاعد
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Rafeqi: an alternative for when equipment or an injury rules out a program exercise. How-to written for Rafeqi.'
 - id: ex_lat_pulldown
   type: strength
   name:
@@ -272,7 +272,7 @@ exercises:
       en: Half-kneeling single-arm cable pulldown
       ar: سحب كابل بإيد واحدة على ركبة
     kind: injuryFriendly
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Intermediate Advanced LPP Program (in the program). How-to written for Rafeqi.'
 - id: ex_face_pull
   type: strength
   name:
@@ -335,7 +335,7 @@ exercises:
       en: Band pull-apart
       ar: فتح استك
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Intermediate Advanced LPP Program (in the program); demo video from the Fundamentals book''s video list, pp. 88–91. How-to written for Rafeqi.'
 - id: ex_pushdown
   type: strength
   name:
@@ -396,7 +396,7 @@ exercises:
       en: Band pushdown
       ar: ترايسبس بالاستك
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Jeff Nippard programs: Intermediate Advanced LPP Program (in the program). How-to written for Rafeqi.'
 - id: ex_incline_curl
   type: strength
   name:
@@ -458,7 +458,7 @@ exercises:
       en: Cable curl
       ar: بايسبس بالكابل
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Rafeqi: an alternative for when equipment or an injury rules out a program exercise. How-to written for Rafeqi.'
 - id: ex_goblet_squat
   type: strength
   name:
@@ -521,7 +521,7 @@ exercises:
       en: Bodyweight box squat
       ar: سكوات على كرسي بوزن الجسم
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Intermediate Advanced LPP Program (in the program). How-to written for Rafeqi.'
 - id: ex_db_rdl
   type: strength
   name:
@@ -585,7 +585,7 @@ exercises:
       en: Glute bridge
       ar: رفع الحوض من الأرض
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Rafeqi: an alternative for when equipment or an injury rules out a program exercise. How-to written for Rafeqi.'
 - id: ex_leg_press
   type: strength
   name:
@@ -646,7 +646,7 @@ exercises:
       en: Goblet squat
       ar: سكوات جوبلت
     kind: equipment
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Upper Lower Strength and Size Program (in the program); demo video from the Upper Lower book''s video list, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_seated_leg_curl
   type: strength
   name:
@@ -706,7 +706,7 @@ exercises:
       ar: ثني رجل وأنت نايم
     kind: equipment
     equipment: [machine]
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Intermediate Advanced LPP Program, Upper Lower Strength and Size Program (in the program); demo video from the Upper Lower book''s video list, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_calf_raise
   type: strength
   name:
@@ -763,7 +763,7 @@ exercises:
       en: Calf raise on a step, bodyweight
       ar: سمانة على سلمة بوزن الجسم
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Intermediate Advanced LPP Program, Upper Lower Strength and Size Program (in the program); demo video from the Fundamentals book''s video list, pp. 88–91. How-to written for Rafeqi.'
 - id: ex_split_squat
   type: strength
   name:
@@ -823,7 +823,7 @@ exercises:
       en: Split squat holding a support, bodyweight
       ar: سبليت سكوات بوزن الجسم وأنت ماسك حاجة
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Rafeqi: an alternative for when equipment or an injury rules out a program exercise. How-to written for Rafeqi.'
 - id: ex_step_up
   type: strength
   name:
@@ -885,7 +885,7 @@ exercises:
       en: Dumbbell split squat
       ar: سبليت سكوات بالدمبل
     kind: injuryFriendly
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Jeff Nippard programs: Upper Lower Strength and Size Program (in the program); demo video from the Upper Lower book''s video list, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_leg_extension
   type: strength
   name:
@@ -942,7 +942,7 @@ exercises:
       en: Wall sit
       ar: قعدة الحيطة
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Intermediate Advanced LPP Program, Upper Lower Strength and Size Program (in the program); demo video from the Fundamentals book''s video list, pp. 88–91. How-to written for Rafeqi.'
 - id: ex_db_bench_press
   type: strength
   name:
@@ -1010,7 +1010,7 @@ exercises:
       en: Neutral-grip dumbbell floor press
       ar: ضغط دمبل من الأرض بقبضة محايدة
     kind: injuryFriendly
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Rafeqi: an alternative for when equipment or an injury rules out a program exercise. How-to written for Rafeqi.'
 - id: ex_db_shoulder_press
   type: strength
   name:
@@ -1070,7 +1070,7 @@ exercises:
       en: Half-kneeling landmine press
       ar: ضغط لاندماين على ركبة واحدة
     kind: injuryFriendly
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Intermediate Advanced LPP Program (in the program). How-to written for Rafeqi.'
 - id: ex_lateral_raise
   type: strength
   name:
@@ -1126,7 +1126,7 @@ exercises:
       ar: رفرفة جانبي بالكابل
     kind: equipment
     equipment: [cable]
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Intermediate Advanced LPP Program, Upper Lower Strength and Size Program (in the program); demo video from the Fundamentals book''s video list, pp. 88–91. How-to written for Rafeqi.'
 - id: ex_push_up
   type: strength
   name:
@@ -1186,7 +1186,7 @@ exercises:
       en: Incline push-up on a bench
       ar: ضغط مائل على بنش
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Jeff Nippard programs: Upper Lower Strength and Size Program (in the program); demo video from the Upper Lower book''s video list, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_bb_squat
   type: strength
   name:
@@ -1257,7 +1257,7 @@ exercises:
       en: Leg press
       ar: ليج برس
     kind: injuryFriendly
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Intermediate Advanced LPP Program, Upper Lower Strength and Size Program (in the program); demo video from the Fundamentals book''s video list, pp. 88–91. How-to written for Rafeqi.'
 - id: ex_bb_bench_press
   type: strength
   name:
@@ -1318,7 +1318,7 @@ exercises:
       en: Dumbbell bench press
       ar: بنش بريس بالدمبل
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Intermediate Advanced LPP Program, Upper Lower Strength and Size Program (in the program); demo video from the Fundamentals book''s video list, pp. 88–91. How-to written for Rafeqi.'
 - id: ex_bb_deadlift
   type: strength
   name:
@@ -1384,7 +1384,7 @@ exercises:
       en: Dumbbell Romanian deadlift
       ar: رفعة رومانية بالدمبل
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Intermediate Advanced LPP Program, Upper Lower Strength and Size Program (in the program); demo video from the Fundamentals book''s video list, pp. 88–91. How-to written for Rafeqi.'
 - id: ex_bw_squat
   type: strength
   name:
@@ -1442,7 +1442,7 @@ exercises:
       en: Box squat to a chair
       ar: سكوات لحد الكرسي
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Rafeqi: an alternative for when equipment or an injury rules out a program exercise. How-to written for Rafeqi.'
 - id: ex_inverted_row
   type: strength
   name:
@@ -1502,7 +1502,7 @@ exercises:
       en: Chest-supported dumbbell row
       ar: تجديف دمبل بسند للصدر
     kind: equipment
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Rafeqi: an alternative for when equipment or an injury rules out a program exercise. How-to written for Rafeqi.'
 - id: ex_one_arm_db_row
   type: strength
   name:
@@ -1562,7 +1562,7 @@ exercises:
       en: Inverted row
       ar: تجديف معكوس
     kind: noEquipment
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Intermediate Advanced LPP Program, Upper Lower Strength and Size Program (in the program); demo video from the Upper Lower book''s video list, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_pull_up
   type: strength
   name:
@@ -1622,7 +1622,7 @@ exercises:
       en: Neutral-grip lat pulldown
       ar: سحب علوي بقبضة محايدة
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Jeff Nippard programs: Intermediate Advanced LPP Program, Upper Lower Strength and Size Program (in the program); demo video from the Upper Lower book''s video list, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_ohp
   type: strength
   name:
@@ -1685,7 +1685,7 @@ exercises:
       en: Seated dumbbell shoulder press
       ar: ضغط كتف بالدمبل وأنت قاعد
     kind: easier
-  source: 'PLACEHOLDER: sample exercise; real entries come from the Jeff Nippard programs next session'
+  source: 'Jeff Nippard programs: Fundamentals Hypertrophy Program, Intermediate Advanced LPP Program, Upper Lower Strength and Size Program (in the program); demo video from the Fundamentals book''s video list, pp. 88–91. How-to written for Rafeqi.'
 - id: ex_brisk_walk
   type: cardio
   name:
@@ -1748,7 +1748,7 @@ exercises:
       en: Marching in place
       ar: مشي في المكان
     kind: noEquipment
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: The Ultimate Guide to Body Recomposition, ch. 12 (Cardio), asks for easy steady cardio; this machine or activity is Rafeqi's pick. How-to written for Rafeqi.
 - id: ex_incline_walk
   type: cardio
   name:
@@ -1810,7 +1810,7 @@ exercises:
       en: Brisk walk outdoors
       ar: مشي سريع برّه
     kind: noEquipment
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: The Ultimate Guide to Body Recomposition, ch. 12 (Cardio), asks for easy steady cardio; this machine or activity is Rafeqi's pick. How-to written for Rafeqi.
 - id: ex_bike
   type: cardio
   name:
@@ -1869,7 +1869,7 @@ exercises:
       en: Brisk walk
       ar: مشي سريع
     kind: noEquipment
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: The Ultimate Guide to Body Recomposition, ch. 12 (Cardio), asks for easy steady cardio; this machine or activity is Rafeqi's pick. How-to written for Rafeqi.
 - id: ex_jump_rope
   type: cardio
   name:
@@ -1931,7 +1931,7 @@ exercises:
       en: Marching in place
       ar: مشي في المكان
     kind: easier
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: The Ultimate Guide to Body Recomposition, ch. 12 (Cardio), asks for easy steady cardio; this machine or activity is Rafeqi's pick. How-to written for Rafeqi.
 - id: ex_march_in_place
   type: cardio
   name:
@@ -1987,7 +1987,7 @@ exercises:
     note:
       en: 'Closest match: walking'
       ar: 'أقرب صورة: المشي'
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: The Ultimate Guide to Body Recomposition, ch. 12 (Cardio), asks for easy steady cardio; this machine or activity is Rafeqi's pick. How-to written for Rafeqi.
 - id: ex_elliptical
   type: cardio
   name:
@@ -2048,7 +2048,7 @@ exercises:
       en: Stationary bike
       ar: عجلة ثابتة
     kind: equipment
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: The Ultimate Guide to Body Recomposition, ch. 12 (Cardio), asks for easy steady cardio; this machine or activity is Rafeqi's pick. How-to written for Rafeqi.
 - id: ex_arm_circles
   type: mobility
   name:
@@ -2099,7 +2099,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Arm_Circles
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: The programs' warm-up (Fundamentals Hypertrophy Program pp. 25–26; Upper Lower Strength and Size Program pp. 29–31) asks for dynamic drills; this drill is Rafeqi's pick. How-to written for Rafeqi.
 - id: ex_band_pull_apart
   type: mobility
   name:
@@ -2156,7 +2156,7 @@ exercises:
       en: Arm circles
       ar: دوائر بالدراع
     kind: noEquipment
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: 'Jeff Nippard programs: Upper Lower Strength and Size Program (in the program). How-to written for Rafeqi.'
 - id: ex_cat_cow
   type: mobility
   name:
@@ -2207,7 +2207,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Cat_Stretch
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: The programs' warm-up (Fundamentals Hypertrophy Program pp. 25–26; Upper Lower Strength and Size Program pp. 29–31) asks for dynamic drills; this drill is Rafeqi's pick. How-to written for Rafeqi.
 - id: ex_leg_swings
   type: mobility
   name:
@@ -2262,7 +2262,7 @@ exercises:
     note:
       en: 'Closest match: front leg raises'
       ar: 'أقرب صورة: رفع الرجل لقدام'
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: The programs' warm-up (Fundamentals Hypertrophy Program pp. 25–26; Upper Lower Strength and Size Program pp. 29–31) asks for dynamic drills; this drill is Rafeqi's pick. How-to written for Rafeqi.
 - id: ex_hip_circles
   type: mobility
   name:
@@ -2314,7 +2314,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Standing_Hip_Circles
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: The programs' warm-up (Fundamentals Hypertrophy Program pp. 25–26; Upper Lower Strength and Size Program pp. 29–31) asks for dynamic drills; this drill is Rafeqi's pick. How-to written for Rafeqi.
 - id: ex_inchworm
   type: mobility
   name:
@@ -2369,7 +2369,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Inchworm
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: The programs' warm-up (Fundamentals Hypertrophy Program pp. 25–26; Upper Lower Strength and Size Program pp. 29–31) asks for dynamic drills; this drill is Rafeqi's pick. How-to written for Rafeqi.
 - id: ex_walking_lunge_bw
   type: strength
   name:
@@ -2422,7 +2422,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Bodyweight_Walking_Lunge
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: 'Rafeqi: a warm-up move and the no-equipment version of a program exercise. How-to written for Rafeqi.'
 - id: ex_dynamic_chest
   type: mobility
   name:
@@ -2473,7 +2473,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dynamic_Chest_Stretch
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: The programs' warm-up (Fundamentals Hypertrophy Program pp. 25–26; Upper Lower Strength and Size Program pp. 29–31) asks for dynamic drills; this drill is Rafeqi's pick. How-to written for Rafeqi.
 - id: ex_glute_bridge
   type: strength
   name:
@@ -2532,7 +2532,7 @@ exercises:
       en: Dumbbell Romanian deadlift
       ar: رفعة رومانية بالدمبل
     kind: equipment
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: 'Rafeqi: a warm-up move and the no-equipment version of a program exercise. How-to written for Rafeqi.'
 - id: ex_chest_stretch
   type: stretch
   name:
@@ -2583,7 +2583,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Chest_And_Front_Of_Shoulder_Stretch
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: Rafeqi's cool-down (training.yaml `cooldown`, not from a book yet). How-to written for Rafeqi.
 - id: ex_lat_stretch
   type: stretch
   name:
@@ -2633,7 +2633,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Overhead_Lat
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: Rafeqi's cool-down (training.yaml `cooldown`, not from a book yet). How-to written for Rafeqi.
 - id: ex_triceps_stretch
   type: stretch
   name:
@@ -2684,7 +2684,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Overhead_Triceps
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: Rafeqi's cool-down (training.yaml `cooldown`, not from a book yet). How-to written for Rafeqi.
 - id: ex_cross_shoulder_stretch
   type: stretch
   name:
@@ -2734,7 +2734,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Shoulder_Stretch
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: Rafeqi's cool-down (training.yaml `cooldown`, not from a book yet). How-to written for Rafeqi.
 - id: ex_biceps_stretch
   type: stretch
   name:
@@ -2785,7 +2785,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Seated_Biceps
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: Rafeqi's cool-down (training.yaml `cooldown`, not from a book yet). How-to written for Rafeqi.
 - id: ex_upper_back_stretch
   type: stretch
   name:
@@ -2835,7 +2835,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Middle_Back_Stretch
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: Rafeqi's cool-down (training.yaml `cooldown`, not from a book yet). How-to written for Rafeqi.
 - id: ex_quad_stretch
   type: stretch
   name:
@@ -2885,7 +2885,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Quad_Stretch
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: Rafeqi's cool-down (training.yaml `cooldown`, not from a book yet). How-to written for Rafeqi.
 - id: ex_hamstring_stretch
   type: stretch
   name:
@@ -2935,7 +2935,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Hamstring_Stretch
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: Rafeqi's cool-down (training.yaml `cooldown`, not from a book yet). How-to written for Rafeqi.
 - id: ex_hip_flexor_stretch
   type: stretch
   name:
@@ -2986,7 +2986,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Kneeling_Hip_Flexor
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: Rafeqi's cool-down (training.yaml `cooldown`, not from a book yet). How-to written for Rafeqi.
 - id: ex_glute_stretch
   type: stretch
   name:
@@ -3036,7 +3036,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Seated_Glute
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: Rafeqi's cool-down (training.yaml `cooldown`, not from a book yet). How-to written for Rafeqi.
 - id: ex_calf_stretch
   type: stretch
   name:
@@ -3086,7 +3086,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Calf_Stretch_Hands_Against_Wall
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: Rafeqi's cool-down (training.yaml `cooldown`, not from a book yet). How-to written for Rafeqi.
 - id: ex_childs_pose
   type: stretch
   name:
@@ -3136,7 +3136,7 @@ exercises:
     name: Free Exercise DB
     url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Childs_Pose
     license: Unlicense (public domain)
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: Rafeqi's cool-down (training.yaml `cooldown`, not from a book yet). How-to written for Rafeqi.
 - id: ex_slow_breathing
   type: stretch
   name:
@@ -3188,7 +3188,7 @@ exercises:
     note:
       en: Shown in child's pose; lying on your back works too
       ar: في الصورة وضعية الطفل؛ النوم على الضهر برضه ينفع
-  source: 'PLACEHOLDER: warm-up, cool-down and cardio entries; real protocols come from the Jeff Nippard programs and the recomposition guide next session'
+  source: Rafeqi's cool-down (training.yaml `cooldown`, not from a book yet). How-to written for Rafeqi.
 - id: ex_assisted_dip
   type: strength
   name:
@@ -3634,7 +3634,7 @@ exercises:
       en: Triceps pushdown
       ar: ترايسبس بوش داون
     kind: easier
-  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_cable_lateral_raise
   type: strength
   name:
@@ -3877,7 +3877,7 @@ exercises:
       en: Dumbbell floor press
       ar: ضغط دمبلز على الأرض
     kind: injuryFriendly
-  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_crunch
   type: strength
   name:
@@ -4180,7 +4180,7 @@ exercises:
       en: Dumbbell curl
       ar: بايسبس دمبلز
     kind: equipment
-  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_hammer_curl
   type: strength
   name:
@@ -4238,7 +4238,7 @@ exercises:
       en: Cable curl
       ar: بايسبس كابل
     kind: equipment
-  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_hanging_leg_raise
   type: strength
   name:
@@ -4299,7 +4299,7 @@ exercises:
       en: Crunch
       ar: كرانش
     kind: easier
-  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_hip_abduction
   type: strength
   name:
@@ -4598,7 +4598,7 @@ exercises:
       en: Cable fly
       ar: فلاي كابل
     kind: equipment
-  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_plank
   type: strength
   name:
@@ -5307,7 +5307,7 @@ exercises:
       en: Pull-up
       ar: عقلة
     kind: equipment
-  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Fundamentals Hypertrophy Program (Jeff Nippard): in the program; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_ab_wheel
   type: strength
   name:
@@ -5431,7 +5431,7 @@ exercises:
       en: Half-kneeling landmine press
       ar: ضغط لاندماين على ركبة
     kind: injuryFriendly
-  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_back_extension
   type: strength
   name:
@@ -5496,7 +5496,7 @@ exercises:
       en: Barbell hip thrust
       ar: هيب ثراست بالبار
     kind: equipment
-  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_cable_pull_through
   type: strength
   name:
@@ -5624,7 +5624,7 @@ exercises:
       en: Dumbbell floor press
       ar: ضغط دمبلز على الأرض
     kind: injuryFriendly
-  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_floor_skull_crusher
   type: strength
   name:
@@ -5686,7 +5686,7 @@ exercises:
       en: Triceps pushdown
       ar: ترايسبس بوش داون
     kind: injuryFriendly
-  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_front_squat
   type: strength
   name:
@@ -5759,7 +5759,7 @@ exercises:
       en: Bodyweight squat
       ar: سكوات بوزن الجسم
     kind: noEquipment
-  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_lat_pull_in
   type: strength
   name:
@@ -5922,7 +5922,7 @@ exercises:
       en: One-arm dumbbell row
       ar: تجديف دمبل بإيد واحدة
     kind: equipment
-  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_machine_lateral_raise
   type: strength
   name:
@@ -5976,7 +5976,7 @@ exercises:
       en: Cable lateral raise
       ar: رفرفة جانبي كابل
     kind: equipment
-  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_overhead_triceps_extension
   type: strength
   name:
@@ -6039,7 +6039,7 @@ exercises:
     kind: equipment
     equipment:
     - dumbbells
-  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100. How-to written for Rafeqi; demo video from the Upper Lower Strength and Size Program, pp. 79–82.'
+  source: 'Intermediate Advanced LPP Program (Jeff Nippard): in the program; the book''s substitutions, pp. 96–100; demo video from the Upper Lower Strength and Size Program, pp. 79–82. How-to written for Rafeqi.'
 - id: ex_preacher_curl
   type: strength
   name:
@@ -7647,3 +7647,395 @@ exercises:
       ar: رفعة رومانية بالدمبلز
     kind: equipment
   source: 'Upper Lower Strength and Size Program (Jeff Nippard): in the program; demo video from the book''s exercise video list, pp. 79–82; the book''s substitutions, pp. 75–78. How-to written for Rafeqi.'
+- id: ex_band_pulldown
+  type: strength
+  name:
+    en: Band lat pulldown
+    ar: سحب علوي بالأستك
+  description:
+    en: Pull a band anchored above a door down to your chest. A home version of the lat pulldown.
+    ar: اسحب أستك متثبّت فوق الباب لحد صدرك. نسخة البيت من السحب العلوي.
+  movement_pattern: verticalPull
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: full
+  equipment:
+  - bands
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  secondary_muscles:
+  - armL
+  - armR
+  muscle_names:
+    en: Lats · biceps
+    ar: العضلات الجانبية · البايسبس
+  instructions:
+  - en: Anchor a band high (over a closed door or a bar) and kneel facing it, arms up holding the ends.
+    ar: ثبّت الأستك فوق (فوق باب مقفول أو بار) واركع في وشّه ودراعك لفوق ماسك الطرفين.
+  - en: Pull your elbows down to your sides, chest up.
+    ar: اسحب كوعك لتحت لحد جنبك وصدرك لفوق.
+  - en: Let your arms rise slowly.
+    ar: سيب دراعك يطلع ببطء.
+  cues:
+  - en: Elbows down to your pockets
+    ar: الكوع ناحية جيوبك
+  - en: Chest up
+    ar: صدرك لفوق
+  - en: Control the way up
+    ar: اتحكّم في الطلعة
+  mistakes:
+  - en: Leaning far back
+    ar: ترجع لورا كتير
+  - en: Shrugging up
+    ar: ترفع كتفك
+  video_url: https://www.youtube.com/results?search_query=Band+lat+pulldown+proper+form
+  alternatives:
+  - exercise_id: ex_lat_pulldown
+    name:
+      en: Neutral-grip lat pulldown
+      ar: سحب علوي بقبضة محايدة
+    kind: equipment
+  source: 'Rafeqi: a home version of the lat pulldown (bands). How-to written for Rafeqi.'
+- id: ex_db_pullover
+  type: strength
+  name:
+    en: Dumbbell pullover
+    ar: بول أوفر بالدمبل
+  description:
+    en: Lying on a bench, lower one dumbbell behind your head with nearly straight arms and bring it back over your chest. Trains the lats and chest.
+    ar: وأنت نايم على البنش، نزّل دمبل ورا راسك ودراعك شبه مفرود ورجّعه فوق صدرك. بيشتغل على العضلات الجانبية والصدر.
+  movement_pattern: verticalPull
+  joints_loaded:
+  - shoulder
+  range_of_motion: overhead
+  equipment:
+  - dumbbells
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - upperBack
+  - chest
+  secondary_muscles: []
+  muscle_names:
+    en: Lats, chest
+    ar: العضلات الجانبية، الصدر
+  instructions:
+  - en: Lie on a bench holding one dumbbell with both hands over your chest, elbows slightly bent.
+    ar: نام على البنش وامسك دمبل بإيديك الاتنين فوق صدرك والكوع مثني سنّة.
+  - en: Lower it behind your head in an arc until you feel a stretch.
+    ar: نزّله ورا راسك في قوس لحد ما تحس بشدّ.
+  - en: Pull it back over your chest.
+    ar: رجّعه فوق صدرك.
+  cues:
+  - en: Elbow bend stays the same
+    ar: ثنية الكوع ثابتة
+  - en: Ribs down
+    ar: الضلوع لتحت
+  - en: Slow stretch
+    ar: شدّ بطيء
+  mistakes:
+  - en: Arching the back
+    ar: تقوّس ضهرك
+  - en: Going too heavy
+    ar: وزن تقيل أوي
+  image_url: /exercises/Bent-Arm_Dumbbell_Pullover/0.jpg
+  image_frames:
+  - /exercises/Bent-Arm_Dumbbell_Pullover/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Dumbbell+pullover+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Bent-Arm_Dumbbell_Pullover
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_straight_arm_pulldown
+    name:
+      en: Straight-arm cable pullover
+      ar: بول أوفر بالكابل والدراع مفرود
+    kind: equipment
+  source: 'A home version: the Intermediate Advanced LPP Program''s substitute for the straight-arm cable pull-over (p. 100). How-to written for Rafeqi.'
+- id: ex_bench_dip
+  type: strength
+  name:
+    en: Bench dip
+    ar: ديبس على البنش
+  description:
+    en: With your hands on a bench behind you, lower and push your body up. Trains the triceps.
+    ar: وإيديك على بنش وراك، انزل واطلع بجسمك. بيشتغل على الترايسبس.
+  movement_pattern: dip
+  joints_loaded:
+  - shoulder
+  - elbow
+  range_of_motion: partial
+  equipment:
+  - bench
+  difficulty: beginner
+  primary_muscles:
+  - armL
+  - armR
+  secondary_muscles:
+  - chest
+  - shoulderL
+  - shoulderR
+  muscle_names:
+    en: Triceps · chest, front shoulders
+    ar: الترايسبس · الصدر، مقدمة الكتف
+  instructions:
+  - en: Sit on the edge of a bench, hands beside your hips, and slide forward off it.
+    ar: اقعد على طرف البنش وإيديك جنب وسطك، واتزحلق لقدام منه.
+  - en: Bend your elbows to lower until your upper arms are about level with the floor.
+    ar: اثني كوعك وانزل لحد ما دراعك العلوي يبقى موازي للأرض تقريبًا.
+  - en: Push back up to straight arms. Bend your knees to make it easier.
+    ar: ادفع لفوق لحد ما دراعك يفرد. اثني ركبك لو عايزها أسهل.
+  cues:
+  - en: Back close to the bench
+    ar: ضهرك قريب من البنش
+  - en: Shoulders down
+    ar: الكتف لتحت
+  - en: Stop at about 90 degrees
+    ar: وقّف عند حوالي ٩٠ درجة
+  mistakes:
+  - en: Dropping too deep
+    ar: تنزل عميق أوي
+  - en: Shrugging
+    ar: ترفع كتفك
+  image_url: /exercises/Bench_Dips/0.jpg
+  image_frames:
+  - /exercises/Bench_Dips/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Bench+dip+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Bench_Dips
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_push_up
+    name:
+      en: Push-up
+      ar: ضغط
+    kind: noEquipment
+  source: 'A home version: the Intermediate Advanced LPP Program''s substitute for the dip (p. 98). How-to written for Rafeqi.'
+- id: ex_db_calf_raise
+  type: strength
+  name:
+    en: Dumbbell standing calf raise
+    ar: سمانة بالدمبل وأنت واقف
+  description:
+    en: Holding a dumbbell, rise onto your toes on a step. A home version of the standing calf raise.
+    ar: وأنت ماسك دمبل، اطلع على صوابعك على سلمة. نسخة البيت من السمانة وأنت واقف.
+  movement_pattern: plantarFlexion
+  joints_loaded:
+  - ankle
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  difficulty: beginner
+  primary_muscles:
+  - shinL
+  - shinR
+  secondary_muscles: []
+  muscle_names:
+    en: Calves
+    ar: السمانة
+  instructions:
+  - en: Stand with the ball of one foot on a step, a dumbbell in the same hand, the other hand on a wall.
+    ar: اقف ومقدمة رجل واحدة على سلمة، والدمبل في نفس الإيد، والإيد التانية على الحيطة.
+  - en: Lower your heel as far as you can.
+    ar: نزّل كعبك على قد ما تقدر.
+  - en: Rise as high as you can, pause, then lower slowly; switch legs.
+    ar: اطلع لأعلى حاجة، اثبت، ونزّل ببطء؛ وبدّل الرجل.
+  cues:
+  - en: Full stretch at the bottom
+    ar: تمدّد كامل تحت
+  - en: Pause at the top
+    ar: وقفة فوق
+  - en: Knee straight
+    ar: الركبة مفرودة
+  mistakes:
+  - en: Bouncing
+    ar: تنطّ
+  - en: Half reps
+    ar: نص عدّات
+  image_url: /exercises/Standing_Dumbbell_Calf_Raise/0.jpg
+  image_frames:
+  - /exercises/Standing_Dumbbell_Calf_Raise/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Dumbbell+standing+calf+raise+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Standing_Dumbbell_Calf_Raise
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_calf_raise
+    name:
+      en: Standing calf raise
+      ar: سمانة وأنت واقف
+    kind: equipment
+  source: 'A home version: the Fundamentals Hypertrophy Program''s substitute for the machine standing calf raise (p. 28). How-to written for Rafeqi.'
+- id: ex_sissy_squat
+  type: strength
+  name:
+    en: Sissy squat
+    ar: سيسي سكوات
+  description:
+    en: Lean back and bend your knees forward while holding on for balance. Trains the front of the thighs without equipment.
+    ar: ميّل لورا واثني ركبك لقدام وأنت ماسك حاجة للتوازن. بيشتغل على قدام الفخد من غير أدوات.
+  movement_pattern: kneeExtension
+  joints_loaded:
+  - knee
+  range_of_motion: full
+  equipment:
+  - bodyweight
+  difficulty: intermediate
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles: []
+  muscle_names:
+    en: Front of the thighs
+    ar: قدام الفخد
+  instructions:
+  - en: Stand holding a door frame or post with one hand, feet hip-width.
+    ar: اقف وامسك حلق باب أو عمود بإيد، ورجلك بعرض وسطك.
+  - en: Rise onto your toes and bend your knees forward while leaning your body back in a straight line.
+    ar: اطلع على صوابعك واثني ركبك لقدام وجسمك مايل لورا على خط مستقيم.
+  - en: Go only as low as is comfortable, then push back up.
+    ar: انزل على قد ما ترتاح بس، وبعدين اطلع.
+  cues:
+  - en: Hips stay forward
+    ar: الوسط لقدام
+  - en: Hold on for balance
+    ar: امسك عشان التوازن
+  - en: Small range first
+    ar: مدى صغير في الأول
+  mistakes:
+  - en: Sitting the hips back like a squat
+    ar: ترجّع وسطك كأنه سكوات
+  - en: Going deeper than your knees like
+    ar: تنزل أعمق من اللي ركبتك مرتاحة له
+  image_url: /exercises/Weighted_Sissy_Squat/0.jpg
+  image_frames:
+  - /exercises/Weighted_Sissy_Squat/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Sissy+squat+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Weighted_Sissy_Squat
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_bw_squat
+    name:
+      en: Bodyweight squat
+      ar: سكوات بوزن الجسم
+    kind: easier
+  - exercise_id: ex_leg_extension
+    name:
+      en: Leg extension
+      ar: ليج إكستنشن
+    kind: equipment
+  source: 'A home version: the Upper Lower Strength and Size Program''s substitute for the leg extension (p. 75). How-to written for Rafeqi.'
+- id: ex_db_leg_curl
+  type: strength
+  name:
+    en: Dumbbell leg curl
+    ar: ليج كيرل بالدمبل
+  description:
+    en: Lying face down on a bench with a dumbbell between your feet, curl it up. A home version of the lying leg curl.
+    ar: وأنت نايم على بطنك على البنش ودمبل بين رجليك، اثني رجلك وارفعه. نسخة البيت من الليج كيرل.
+  movement_pattern: kneeFlexion
+  joints_loaded:
+  - knee
+  range_of_motion: full
+  equipment:
+  - dumbbells
+  - bench
+  difficulty: intermediate
+  primary_muscles:
+  - thighL
+  - thighR
+  secondary_muscles: []
+  muscle_names:
+    en: Hamstrings
+    ar: خلفية الفخد
+  instructions:
+  - en: Lie face down on a bench, knees at the end, and have someone place a light dumbbell between your feet.
+    ar: نام على بطنك على البنش وركبك على الطرف، وخلّي حد يحطلك دمبل خفيف بين رجليك.
+  - en: Squeeze your feet together and curl the dumbbell up.
+    ar: اضغط رجليك على الدمبل واثنيها لفوق.
+  - en: Lower slowly, keeping hold of it with your feet.
+    ar: نزّل ببطء وأنت ماسكه برجليك.
+  cues:
+  - en: Squeeze the dumbbell
+    ar: اضغط على الدمبل
+  - en: Hips down
+    ar: الوسط لتحت
+  - en: Slow lowering
+    ar: نزول بطيء
+  mistakes:
+  - en: Letting the dumbbell slip
+    ar: تسيب الدمبل يتزحلق
+  - en: Going too heavy
+    ar: وزن تقيل أوي
+  video_url: https://www.youtube.com/results?search_query=Dumbbell+leg+curl+proper+form
+  alternatives:
+  - exercise_id: ex_lying_leg_curl
+    name:
+      en: Lying leg curl
+      ar: ليج كيرل وأنت نايم
+    kind: equipment
+  source: 'A home version: the Fundamentals Hypertrophy Program''s substitute for the lying leg curl (p. 28). How-to written for Rafeqi.'
+- id: ex_band_face_pull
+  type: strength
+  name:
+    en: Band face pull
+    ar: فيس بول بالأستك
+  description:
+    en: Pull a band anchored at face height toward your face, hands apart. A home version of the cable face pull.
+    ar: اسحب أستك متثبّت على مستوى وشّك ناحية وشّك وإيديك بعيد عن بعض. نسخة البيت من الفيس بول.
+  movement_pattern: shoulderExternalRotation
+  joints_loaded:
+  - shoulder
+  range_of_motion: full
+  equipment:
+  - bands
+  difficulty: beginner
+  primary_muscles:
+  - shoulderL
+  - shoulderR
+  secondary_muscles:
+  - upperBack
+  muscle_names:
+    en: Rear shoulders · upper back
+    ar: خلفية الكتف · أعلى الضهر
+  instructions:
+  - en: Anchor a band at face height and hold both ends, palms down, arms straight.
+    ar: ثبّت الأستك على مستوى وشّك وامسك الطرفين والكف لتحت ودراعك مفرود.
+  - en: Pull toward your face, elbows high, turning your hands back at the end.
+    ar: اسحب ناحية وشّك والكوع عالي، ولفّ إيدك لورا في الآخر.
+  - en: Return slowly.
+    ar: رجّع ببطء.
+  cues:
+  - en: Elbows high
+    ar: الكوع عالي
+  - en: Hands end beside your ears
+    ar: إيديك تنتهي جنب ودانك
+  - en: Squeeze the rear shoulders
+    ar: اعصر خلفية الكتف
+  mistakes:
+  - en: Pulling with the lower back
+    ar: تسحب بأسفل ضهرك
+  - en: Elbows dropping
+    ar: الكوع ينزل
+  image_url: /exercises/Face_Pull/0.jpg
+  image_frames:
+  - /exercises/Face_Pull/1.jpg
+  video_url: https://www.youtube.com/results?search_query=Band+face+pull+proper+form
+  media_source:
+    name: Free Exercise DB
+    url: https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Face_Pull
+    license: Unlicense (public domain)
+  alternatives:
+  - exercise_id: ex_face_pull
+    name:
+      en: Cable face pull
+      ar: فيس بول بالكابل
+    kind: equipment
+  source: 'Rafeqi: a home version of the cable face pull (bands). How-to written for Rafeqi.'

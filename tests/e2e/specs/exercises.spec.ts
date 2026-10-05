@@ -3,7 +3,8 @@ import { api, expect, test, waitForContent } from './helpers';
 
 const loaded = (img: Locator) => expect.poll(() => img.evaluate((i: HTMLImageElement) => i.complete && i.naturalWidth > 0)).toBe(true);
 /** The Free Exercise DB has no photo for these: the app shows its placeholder (data/REVIEW.md, Part B2). */
-const NO_PHOTO = new Set(['ex_cable_kickback', 'ex_single_leg_lying_curl']);
+const NO_PHOTO = new Set(['ex_cable_kickback', 'ex_single_leg_lying_curl', 'ex_lat_pull_in', 'ex_machine_lateral_raise', 'ex_single_leg_press',
+  'ex_smith_reverse_lunge', 'ex_cable_hip_abduction', 'ex_sliding_leg_curl', 'ex_band_pulldown', 'ex_db_leg_curl']);
 const card = (page: Page, heading: string) => page.locator('div', { has: page.getByRole('heading', { name: heading, exact: true }) }).last();
 
 /** This week's lifting sessions (from the API) and their exercises (the week also has cardio days). */

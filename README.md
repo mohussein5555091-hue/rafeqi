@@ -202,7 +202,8 @@ only writes the explanations and the weekly-review text. Each number keeps a one
   Each exercise has two photos (start and end position), which the app plays in a loop like a GIF. They're stored in
   `frontend/public/exercises/<Source_Id>/0.jpg, 1.jpg`. To add more: `node scripts/fetch-exercise-images.mjs Barbell_Squat Face_Pull`
   (IDs are the folder names in that repo's `exercises/` directory).
-- **Videos:** for now, "Watch video" opens a YouTube search for "<exercise name> proper form". The real links will come from the Jeff Nippard program PDFs.
+- **Videos:** "Watch video" opens the demo video the program books link to (Fundamentals pp. 88–91, LPP pp. 101–103,
+  Upper/Lower pp. 79–82); exercises no book has a video for open a YouTube search for "<exercise name> proper form".
 
 ## Reading the books (`npm run books:extract`)
 
@@ -213,7 +214,7 @@ One-time setup for the scanned books (OCR):
 
 ```powershell
 scoop install tesseract        # the OCR program (no admin needed)
-npm run books:extract          # downloads the Arabic + English OCR models into tools	essdata the first time
+npm run books:extract          # downloads the Arabic + English OCR models into tools/tessdata the first time
 ```
 
 - `npm run books:extract` reads every book not done yet (about 5 minutes for all eight); `-- --force` redoes them,
@@ -224,6 +225,28 @@ npm run books:extract          # downloads the Arabic + English OCR models into 
 - Page numbers are **PDF page numbers** (what a PDF viewer shows), so later citations can be checked in the PDF.
 - The script is `scripts/books/extract.py` (its own dependencies, so the backend doesn't get PyMuPDF);
   its helpers are tested in `tests/backend/test_book_extract.py`, which also checks the private folders stay git-ignored.
+
+## The programs (`npm run books:programs`)
+
+Phase B2 of `docs/PLAN-AI.md`: turns the program tables (from `data/private/books/`, so run `npm run books:extract`
+first) into `data/programs/<id>.json`, which the plan engine reads. These files **are** committed: they hold only
+numbers (sets, reps, effort or %1RM, rest) and tags, never the books' coaching notes.
+
+- Five programs: Fundamentals full body (2–3 days), upper/lower (4) and body-part split (5), all 8 weeks; LPP
+  Legs/Push/Pull (6 days, 16 weeks); Upper/Lower size and strength (5–6 days, 9 weeks). Beginners get Fundamentals;
+  intermediate and advanced lifters on 5–6 days get LPP (muscle) or Upper/Lower (strength).
+- The plan follows the program week by week: the first screen that asks for "this week" in a new week builds that
+  week's sessions as a new plan version. After the last week it starts again at week 1.
+- `data/programs/exercise_names.yaml` maps each name in the books to a catalogue exercise (plus a technique like
+  "tempo"); `data/programs/program_meta.yaml` has everything that isn't in the tables (who each program is for, the
+  day order, lighter weeks, the weak-point table). `npm run books:programs -- --check` lists names not mapped yet;
+  `-- --only lpp_legs_push_pull` rewrites one program.
+- The exercise catalogue (`data/catalogue/exercises.yaml`) has every exercise the programs use, with how-to text in
+  our own words, Free Exercise DB photos (`node scripts/fetch-exercise-images.mjs` downloads them) and the books'
+  substitutions as alternatives. Exercises without a photo are listed in `tests/backend/test_book_programs.py`.
+- Tests: `tests/backend/test_book_programs.py` (the script's helpers, every program file, week-by-week plans). The
+  backend tests still use the two small sample programs in `tests/backend/fixtures/programs/` unless a test asks for
+  `real_programs`.
 
 ## No prices, anywhere
 
@@ -248,4 +271,6 @@ Rafeqi never shows prices, costs or budgets, because people shop at different st
 - [x] Books plan (`docs/PLAN-AI.md`) Phase A: the eight books read into `data/private/books/` (text, OCR, tables, links)
 - [x] Books plan Phase B1: rule values from the books (calories, macros, warm-up, cardio, progression, deload, injuries,
       safety), with book and page; open questions in `data/REVIEW.md`
-- [ ] Next: Phase B2 (the three Nippard programs and the exercise catalogue), then B3 (recipes and the foods table)
+- [x] Books plan Phase B2: the three Nippard programs (five programs, every week) and the full exercise catalogue
+      (photos, the books' video links and substitutions, home versions); open questions in `data/REVIEW.md` Part B2
+- [ ] Next: Phase B3 (Diet & Cheat recipes and the foods table)

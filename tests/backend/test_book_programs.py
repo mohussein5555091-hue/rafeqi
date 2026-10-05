@@ -111,10 +111,8 @@ def test_every_week_is_complete_and_uses_the_catalogue(path):
 def test_every_book_name_maps_to_a_catalogue_exercise():
     names = yaml.safe_load((PROGRAMS / "exercise_names.yaml").read_text(encoding="utf-8"))["names"]
     techniques = yaml.safe_load((PROGRAMS / "program_meta.yaml").read_text(encoding="utf-8"))["techniques"]
-    used = {e["exercise"] for f in FILES for w in json.loads(f.read_text(encoding="utf-8"))["weeks"]
-            for day in w["days"].values() for e in day}
     for name, entry in names.items():
-        assert entry["id"] in CAT or entry["id"] not in used, name  # (all of them once every program is in)
+        assert entry["id"] in CAT, name
         assert entry.get("technique") is None or entry["technique"] in techniques, name
 
 
@@ -128,16 +126,22 @@ def test_program_exercises_have_the_book_video_or_a_search_link():
             for day in w["days"].values() for e in day}
     for ex_id in used:
         assert by_id[ex_id]["video_url"].startswith(("https://www.youtube.com/", "https://youtu.be/")), ex_id
-        assert "PLACEHOLDER" not in by_id[ex_id]["source"] or ex_id in SAMPLE_ENTRIES, ex_id
+    for e in doc:  # every entry says where it comes from (a book, or Rafeqi's own pick)
+        assert "PLACEHOLDER" not in e["source"] and e["source"].endswith("How-to written for Rafeqi."), e["id"]
 
 
-# Catalogue entries written before the books phase; their sources are rewritten with the exercise catalogue commit.
-SAMPLE_ENTRIES = {"ex_bb_squat", "ex_bb_deadlift", "ex_leg_extension", "ex_calf_raise", "ex_bb_bench_press", "ex_ohp",
-                  "ex_lateral_raise", "ex_face_pull", "ex_lat_pulldown", "ex_leg_press", "ex_seated_leg_curl", "ex_pushdown",
-                  "ex_db_rdl", "ex_one_arm_db_row", "ex_db_bench_press", "ex_db_shoulder_press", "ex_pull_up", "ex_push_up",
-                  "ex_goblet_squat", "ex_split_squat", "ex_incline_curl", "ex_cs_row", "ex_glute_bridge", "ex_step_up",
-                  "ex_db_floor_press", "ex_landmine_press", "ex_inverted_row", "ex_bw_squat", "ex_walking_lunge_bw",
-                  "ex_band_pull_apart"}
+# The Free Exercise DB has no photo for these (data/REVIEW.md, Part B2); the app shows its placeholder.
+NO_PHOTO = {"ex_cable_kickback", "ex_single_leg_lying_curl", "ex_lat_pull_in", "ex_machine_lateral_raise", "ex_single_leg_press",
+            "ex_smith_reverse_lunge", "ex_cable_hip_abduction", "ex_sliding_leg_curl", "ex_band_pulldown", "ex_db_leg_curl"}
+
+
+def test_exercises_without_a_photo_are_the_listed_ones():
+    doc = yaml.safe_load((ROOT / "data" / "catalogue" / "exercises.yaml").read_text(encoding="utf-8"))["exercises"]
+    assert {e["id"] for e in doc if not e.get("image_url")} == NO_PHOTO
+    for e in doc:
+        for url in [e.get("image_url"), *(e.get("image_frames") or [])]:
+            if url:  # every photo is in frontend/public (downloaded by scripts/fetch-exercise-images.mjs)
+                assert (ROOT / "frontend" / "public" / url.lstrip("/")).is_file(), url
 
 
 # ── Following the program week by week ───────────────────────────────────────────────────────────────────────────────

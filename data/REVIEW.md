@@ -115,10 +115,14 @@ Books: (1) Upper Lower Strength and Size, (2) The Ultimate Guide to Body Recompo
   and the 4.3 weeks a month for staples: app settings.
 - [ ] **N7. Check-in trigger for a lighter week** (difficulty 5/5, soreness 4/5 or effort RPE 9+): the app's thresholds.
 
-### Waiting for B2 (they depend on the real programs)
+### After B2: what came from the programs, and what stays an app setting
 
-Program choice, training days and session length, sets/reps/RPE/rest, a leg exercise on every full-body day, exercise
-swaps and equipment substitutions. Their values come from the three program PDFs in B2.
+From the books now: program choice (`template_choice`), sets/reps/effort/rest every week (`volume`, `pct_1rm`), the
+programs' lighter weeks (`deload`), and each exercise's substitutions (the catalogue's alternatives). Still marked "Not
+yet from a book", because the programs don't cover them: starting weights (`start_load`, P7), session length and the
+time estimate (`session`, P8), the weekly days (`schedule`), a leg exercise on every full-body day (`full_body_legs`),
+how the app picks the closest substitute (`equipment`, `swaps`, L6), the check-in rules (`review`, N7) and the
+cool-down (`cooldown`).
 
 ### OCR doubts in the rules
 
@@ -175,10 +179,9 @@ The two sample programs moved to `tests/backend/fixtures/programs/` (the tests s
   45 min → 4, 60 → 5) the estimates are 54–60 min for a 45-minute choice and 60–70 min for 60 minutes (persona file).
   Options: (a) keep it, the book's rests matter more than the clock; (b) allow one exercise fewer when the time is over;
   (c) use the low end of each rest range. The app does (a) now.
-- [ ] **P9. Training at home loses exercises.** The beginner at home with dumbbells has 7 exercises removed (pulldowns,
-  assisted dip, standing calf raise, leg extension, lying leg curl, face pull): the catalogue has no home version yet.
-  The exercise catalogue commit adds them (the book's own substitutions: dumbbell calf raise, dumbbell leg curl; and
-  dumbbell or band versions of the others).
+- [x] **P9. Training at home lost exercises.** Fixed in the exercise catalogue commit: 7 home versions (band lat
+  pulldown, dumbbell pullover, bench dip, dumbbell calf raise, sissy squat, dumbbell leg curl, band face pull), most of
+  them the books' own substitutions. The beginner at home now has nothing removed (persona 1).
 
 ### LPP (3): Legs/Push/Pull, 16 weeks (two 8-week blocks), 6 days
 
@@ -225,7 +228,17 @@ The two sample programs moved to `tests/backend/fixtures/programs/` (the tests s
 - **Swap change seen here:** for a sore shoulder, the bench press now becomes the new barbell floor press (same bar,
   shorter range) instead of the dumbbell floor press.
 
-### Exercise catalogue (so far: the Fundamentals exercises)
+### Exercise catalogue (135 exercises)
+
+- Every exercise the programs use is in the catalogue, each with where it comes from (`source`): the program books it's
+  in, or "Rafeqi" for the alternatives, warm-up moves, stretches and cardio the app picked itself.
+- [ ] **E1. Swap rule:** a substitute you can't add weight to (bands, bodyweight) costs 1 point
+  (`substitute_penalty.unloaded`), so a gym keeps the cable pulldown for a pull-up and home gets the band. App setting.
+- **Without a photo (10):** cable triceps kickback, single-leg lying leg curl, single-arm lat pull-in, machine lateral
+  raise, single-leg leg press, Smith machine reverse lunge, standing cable hip abduction, sliding leg curl, band lat
+  pulldown, dumbbell leg curl. The list is fixed in `tests/backend/test_book_programs.py`, so a new one is noticed.
+
+#### Fundamentals exercises
 
 - 35 new exercises, each with its movement tags, muscles, how-to, cues and common mistakes written in my own words
   (EN + AR), the book's substitutions ((4) pp. 27–29) as alternatives, and a Free Exercise DB photo where one exists.

@@ -170,7 +170,8 @@ def closest_substitute(ex: ExerciseInfo, p: Person, catalogue: dict[str, Exercis
              + pen["harder_than_you"] * (LEVELS[c.difficulty] > LEVELS[p.experience])
              + pen["different_pattern"] * (c.pattern != ex.pattern)
              + pen["lose_load"] * (loaded and weight_step(c) == 0)
-             + pen.get("different_joints", 0) * (set(c.joints) != set(ex.joints)))
+             + pen.get("different_joints", 0) * (set(c.joints) != set(ex.joints))
+             + pen.get("unloaded", 0) * (weight_step(c) == 0))
         if s < best_score:
             best, best_score = c, s
     return best

@@ -158,6 +158,10 @@ start_load:
     ex_reverse_hyper: 0.2
     ex_seated_calf_raise: 0.4
     ex_stiff_leg_deadlift: 0.7
+    # Home versions.
+    ex_db_pullover: 0.12
+    ex_db_calf_raise: 0.15
+    ex_db_leg_curl: 0.05
   explain:
     en: "Starting weight {kg} kg: {ratio} × your weight, adjusted for experience. Adjust it after the first session if it feels off."
     ar: "وزن البداية {kg} كجم: {ratio} × وزنك، متظبط على مستواك. عدّله بعد أول تمرينة لو حاسس إنه مش مظبوط."
@@ -180,8 +184,9 @@ injuries:
   # related leg patterns below (a barbell squat that hurts a lower back → leg press, split squat or step-up).
   # lose_load: a loaded exercise replaced by a bodyweight-only one (only when nothing loaded fits).
   # different_joints: a lift that bends two joints (a pull-up) is swapped for another that does (a pulldown), not for a
-  # one-joint isolation move (a straight-arm pull-in).
-  substitute_penalty: {different_range: 1, different_equipment: 1, harder_than_you: 3, per_difficulty_step: 1, different_pattern: 2, lose_load: 3, different_joints: 2}
+  # one-joint isolation move (a straight-arm pull-in). unloaded: one you can't add weight to (a band pulldown) only
+  # when nothing loadable fits, so a gym keeps the cable pulldown and home gets the band.
+  substitute_penalty: {different_range: 1, different_equipment: 1, harder_than_you: 3, per_difficulty_step: 1, different_pattern: 2, lose_load: 3, different_joints: 2, unloaded: 1}
   related_patterns:
     squat: [lunge]
     lunge: [squat]

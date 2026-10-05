@@ -19,7 +19,9 @@ database notes, the engine's rule table).
 - The books and AI plan is **`docs/PLAN-AI.md`** (phases A–E; re-read it at the start of each of its phases).
   Done: Phase A (`npm run books:extract` → `data/private/books/`, git-ignored; README "Reading the books") and Phase B1
   (rule values from the books with `ref`; the rest stay `placeholder: true`; every conflict, mapping and gap in
-  `data/REVIEW.md`). **Next: B2** (the three Nippard programs + exercise catalogue), then **B3** (recipes + foods table).
+  `data/REVIEW.md`) and Phase B2 (`npm run books:programs` → `data/programs/*.json`, five programs week by week; the
+  full exercise catalogue; tests use the sample programs in `tests/backend/fixtures/programs/` unless `real_programs`).
+  **Next: B3** (recipes + foods table).
   The recipe book's Arabic digits OCR badly (٥ reads as "0", ٠ as "."): check every amount against
   `data/private/books/07-diet-cheat-recipes/images/`. The AI module exists (fake client, off by default).
 

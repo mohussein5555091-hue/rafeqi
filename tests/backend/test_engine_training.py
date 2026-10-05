@@ -124,9 +124,10 @@ def test_equipment_swaps_at_home():
     for e in all_exercises(plan):
         assert fits_equipment(CAT[e.exercise_id], "homeDumbbells"), e.exercise_id
     assert any(e.swap_kind == "equipment" and e.replaced_exercise_id == "ex_leg_press" for e in all_exercises(plan))
-    # The cable pushdown becomes a dumbbell triceps exercise (data/catalogue has one since the Fundamentals program).
-    pushdown = next(e for e in all_exercises(plan) if e.replaced_exercise_id == "ex_pushdown")
-    assert pushdown.swap_kind == "equipment" and CAT[pushdown.exercise_id].pattern == "elbowExtension"
+    # The cable lat pulldown becomes a home pull from above (the catalogue has home versions since Phase B2).
+    pull = next(e for e in all_exercises(plan) if e.replaced_exercise_id == "ex_lat_pulldown")
+    assert pull.swap_kind == "equipment" and CAT[pull.exercise_id].pattern == "verticalPull"
+    assert not any("removed" in r.en for r in plan.reasons)
 
 
 def test_paused_area_removes_its_exercises():
